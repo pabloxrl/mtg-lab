@@ -132,11 +132,26 @@ class ComparisonTests(unittest.TestCase):
         inv=s.load(ROOT/'fixtures/scenarios/priority-pass.json')['invalid_actions'][0]
         self.f['invalid_actions']=[inv];sign(self.f)
         self.a['fixture_revision']=self.f['provenance']['fixture_revision']
-        before=dict(state={'life':20},rng={'cursor':0},decision={'id':1},private_information={'hand':[]})
+        before=dict(state=copy.deepcopy(self.f['setup']['state']),
+                    rng={'algorithm':'test-rng-v1','state_hex':'0123'},
+                    decision={'id':'d1','actor':0,'kind':'priority','candidates':['pass','concede']},
+                    private_information={'views':[{'seat':0,'observation':{'own_hand':[],'opponent_hand_count':0,'library_counts':[0,0]}},
+                                                  {'seat':1,'observation':{'own_hand':[],'opponent_hand_count':0,'library_counts':[0,0]}}]})
         probe=dict(action=copy.deepcopy(inv['action']),at='initial',error=inv['error'],before=before,after=copy.deepcopy(before))
         self.a['invalid_results']=[probe]
         self.assertEqual(c.compare(self.f,self.a)['status'],'pass')
         for field in before:
             with self.subTest(field=field):
-                probe['after']=copy.deepcopy(before);probe['after'][field]={'wrong':1}
+                probe['after']=copy.deepcopy(before)
+                if field=='state':probe['after'][field]['players'][0]['life']=19
+                elif field=='rng':probe['after'][field]['state_hex']='4567'
+                elif field=='decision':probe['after'][field]['id']='d2'
+                else:probe['after'][field]['views'][0]['observation']['own_hand']=['forest']
                 self.assertEqual(c.compare(self.f,self.a)['status'],'mismatch')
+        for field in before:
+            for unavailable in (None, {}, [], 'unavailable'):
+                with self.subTest(field=field, unavailable=unavailable):
+                    probe['before']=copy.deepcopy(before)
+                    probe['before'][field]=unavailable
+                    probe['after']=copy.deepcopy(probe['before'])
+                    with self.assertRaises(ValueError):c.compare(self.f,self.a)

@@ -60,7 +60,15 @@ Actual JSON has exactly these fields:
   fixture's checkpoint metadata. A checkpoint after `initial` must equal `initial`.
 - `invalid_results`: ordered `{action, at, error, before, after}` records for every
   invalid probe. Both snapshots have exactly `state`, `rng`, `decision`, and
-  `private_information`; all four must remain identical. Probes are isolated
+  `private_information`; all four must remain identical. `state` is a complete validated neutral v1
+  state. `rng` is `{algorithm, state_hex}` with nonempty serialized bytes.
+  `decision` is `{id, actor, kind, candidates}` with a concrete nonempty candidate
+  list. `private_information` is `{views}` with both ordered
+  `{seat, observation}` records; each observation includes typed `own_hand`,
+  `opponent_hand_count` and two `library_counts`, plus any other observed fields.
+  Null/empty/unavailable snapshots are rejected. Adapters must capture these
+  fields from execution; the comparator cannot authenticate fabricated evidence.
+  Probes are isolated
   insertions at the named point, not part of the valid action transcript.
 
 Pointers resolve against `state`. Standard setup fields use neutral scenario v1.
@@ -135,3 +143,8 @@ all 15 declared field kinds, first-divergence precedence, and CLI artifact conte
 Additional red/green checks cover initial observation projections and London's
 bottom-before-next-declaration order. Invalid-probe checks exercise every unchanged
 snapshot category. These are verifier/validator tests, not mutant game-engine runs.
+
+Independent review round 1 found that null invalid-action snapshots could agree.
+Four rejection regressions failed before concrete snapshot validation was added;
+state shape, RNG bytes, decision identity/candidates and both private views are now
+required. The finding and final review remain preserved in the PR.

@@ -1,6 +1,7 @@
 """Compare neutral scenario assertions with supplied canonical checkpoints (no engine)."""
 import argparse
 import json
+import re
 from pathlib import Path
 
 try:
@@ -37,6 +38,48 @@ def difference(expected, actual, path=''):
                 expected=expected, actual=actual)
 
 
+def validate_snapshot(snapshot):
+    """Require captured evidence, never null/unavailable placeholders."""
+    s.fields(snapshot, 'state rng decision private_information')
+    # A complete neutral state, including zones, objects and hidden identities.
+    schema = s.load(s.ROOT / 'schemas/neutral-scenario-v1.json')
+    state_schema = schema['properties']['setup']['anyOf'][0]['properties']['state']
+    s.shape(snapshot['state'], state_schema)
+    s.validate_state(snapshot['state'], s.source_contract()[0])
+    rng = snapshot['rng']
+    s.fields(rng, 'algorithm state_hex')
+    s.text(rng['algorithm'])
+    s.require(type(rng['state_hex']) is str and
+              re.fullmatch(r'(?:[0-9a-f]{2})+', rng['state_hex']), 'missing serialized RNG state')
+    decision = snapshot['decision']
+    s.fields(decision, 'id actor kind candidates')
+    s.text(decision['id'])
+    s.text(decision['kind'])
+    s.require(type(decision['actor']) is int and decision['actor'] in (0, 1), 'missing decision actor')
+    s.require(type(decision['candidates']) is list and decision['candidates'], 'missing decision candidates')
+    for candidate in decision['candidates']:
+        s.require((type(candidate) is str and candidate.strip()) or
+                  (type(candidate) is dict and candidate), 'unavailable decision candidate')
+    private = snapshot['private_information']
+    s.fields(private, 'views')
+    s.require(type(private['views']) is list and len(private['views']) == 2, 'both private views required')
+    for seat, view in enumerate(private['views']):
+        s.fields(view, 'seat observation')
+        s.require(type(view['seat']) is int and view['seat'] == seat, 'private view seat mismatch')
+        observation = view['observation']
+        s.require(type(observation) is dict and
+                  {'own_hand', 'opponent_hand_count', 'library_counts'} <= observation.keys(),
+                  'missing private observation fields')
+        s.require(type(observation['own_hand']) is list, 'missing own hand')
+        for card in observation['own_hand']:
+            s.text(card)
+        s.require(type(observation['opponent_hand_count']) is int and observation['opponent_hand_count'] >= 0,
+                  'missing opponent hand count')
+        counts = observation['library_counts']
+        s.require(type(counts) is list and len(counts) == 2 and
+                  all(type(n) is int and n >= 0 for n in counts), 'missing library counts')
+
+
 def compare(fixture, actual):
     """A pass certifies only supplied observations, never engine execution."""
     s.validate(fixture)
@@ -65,7 +108,7 @@ def compare(fixture, actual):
         s.fields(probe, 'action at error before after')
         s.require(probe['at'] == expected['at'], 'misaligned invalid probe')
         for side in ('before', 'after'):
-            s.fields(probe[side], 'state rng decision private_information')
+            validate_snapshot(probe[side])
     base = dict(fixture_id=fixture['fixture_id'], fixture_revision=actual['fixture_revision'])
 
     def mismatch(checkpoint, diff):
