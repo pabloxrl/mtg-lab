@@ -1,151 +1,48 @@
-# RFC 0001: A small, correct, high-throughput Magic research engine
+# RFC 0002: First MVP — unattended Magic simulation and RL integration
 
-Status: **Proposed** — implementation scope and acceptance criteria, not implemented functionality or measured performance.
+Status: **Proposed delivery RFC** — scope, design choices, and acceptance criteria; not implemented functionality or measured performance.
 
-Date: 2026-09-26. Related: [open-source engine survey](../open-source-mtg-engines.md).
+Parent: [RFC 0001: Project charter](0001-project-charter.md). Background: [open-source engine survey](../open-source-mtg-engines.md).
 
-Revision: automation-first simulation and agent training; CLI interaction with optional human play; no human required for development or tests; test-driven implementation; mandatory mature-engine differential verification; evidence-based RL compatibility requirements. Framework documentation reviewed 2026-09-26. These are design requirements, not integrations already tested in this repository.
+## Purpose and relationship to the charter
 
-## Problem definition
+Deliver the first usable research loop: run supported games unattended, capture and replay their trajectories, collect batched experience from Python, and perform a real training/evaluation cycle through documented RL integrations.
 
-Researchers need a **correct, high-throughput Magic simulation environment that produces trustworthy experience for training and evaluating agents**. The engine must run many independent games unattended, expose each player's legal choices and permitted information, and capture reproducible trajectories with useful instrumentation. The challenge is to maximize useful simulations per CPU-second without sacrificing rules correctness, hidden-information boundaries, or data integrity.
+This RFC carries forward the prototype-specific decisions previously recorded in RFC 0001. The charter now defines the enduring purpose and principles; this document defines the first delivery boundary. The fixed card pool, Rust/Python implementation split, adapters, artifact formats, milestone sequence, and provisional performance targets below apply to this MVP only. They do not limit the project's future coverage or make its architecture permanently dependent on a particular trainer.
 
-The initial boundary is two fixed 40-card decks using 20 distinct Foundations cards—not all of Magic. CLI access and modern RL integration are required; human play is optional, and no development or acceptance workflow may depend on a human playing. Rust, adapters, and storage formats are proposed solutions to this problem, not the problem itself.
+The MVP is complete only when its automated acceptance evidence is available. A CLI demonstration, a fast microbenchmark, or passing a small subset of tests is not sufficient. Human play is an optional interaction mode; no acceptance criterion requires a human to play.
+
+## MVP at a glance
+
+| Area | First-delivery commitment |
+| --- | --- |
+| Game scope | Two fixed 40-card decks using 20 distinct Foundations card names; supported red/green and mirror matchups |
+| Rules | Exact semantics for the declared pool; explicit rejection of unsupported content |
+| Engine | From-scratch Rust rules core, scalar execution and native batching, Python binding |
+| Interfaces | Unattended simulation/verification/benchmark CLI; structured decision protocol; optional terminal play |
+| Correctness | Test-first implementation, independent fixtures, mandatory XMage/Forge reference execution, regression and mutation checks |
+| Research data | Versioned trajectories, replay/snapshot support, inspectable and sharded exports, Python readers, privacy and completeness checks |
+| RL | PettingZoo AEC and fixed-opponent Gymnasium interfaces; executable RLlib, TorchRL, and SB3-Contrib integration checks |
+| Performance | Reproducible workload, profiles, memory and recording measurements; provisional budgets validated or explicitly revised |
+| Exclusions | Full Standard/Foundations coverage, deck construction, browser UI, remote hosting, GPU rules execution, and a new training framework |
+
+The minimum is a bounded *research system*, not merely the smallest rules demo. Milestones expose useful slices before all delivery requirements are met. Changes to the release boundary must be recorded here rather than silently reclassified as completed or deferred.
 
 ## Contents
 
-- [Problem definition](#problem-definition)
-- [Personas](#personas)
-- [Use cases](#use-cases)
 - [Decision summary](#1-decision-summary)
 - [Objectives and metrics](#2-what-smallest-and-fastest-mean)
 - [Frozen decks and rules scope](#3-concrete-game-scope)
-- [Architecture](#4-architecture-and-ownership-boundaries)
+- [Architecture and language choice](#4-architecture-and-ownership-boundaries)
 - [Performance budget](#5-throughput-plan-and-performance-budget)
 - [Instrumentation](#6-instrumentation-without-making-the-hot-path-expensive)
-- [Test sources and torture suite](#7-the-torture-suite-strategy)
+- [Conformance and mature-engine verification](#7-the-torture-suite-strategy)
 - [RL integration](#8-rl-integration-contract)
 - [Trajectory capture](#trajectory-capture-is-a-first-class-output)
 - [Automation-first CLI](#9-automation-first-cli-and-optional-human-play)
-- [Milestones](#10-milestones-and-release-gates)
+- [Milestones and release gates](#10-milestones-and-release-gates)
 - [Alternatives and risks](#11-alternatives-and-risks)
 - [First implementation work package](#12-first-implementation-work-package)
-
-## Personas
-
-These are roles, not necessarily separate people. The primary users generate, learn from, and evaluate simulated experience. Contributors and automated development agents maintain the environment that makes those results credible. Interactive players are a secondary audience.
-
-### P1. RL researcher — primary
-
-**Goal:** investigate learning, exploration, memory, and self-play in a partially observed, turn-based game.
-
-Works mainly in Python with an existing trainer. Needs batched observations, legal-action masks, stable seat identities, reliable rewards and episode boundaries, and optional trajectory persistence. Wants to change policies and experiment configuration without editing rules code or implementing a custom environment integration for every framework.
-
-Success means a documented example can collect experience, update a policy, evaluate it, and reload a checkpoint unattended. The researcher can distinguish an algorithmic failure from invalid actions, hidden-information leakage, or broken environment semantics. A high collection rate is useful only if the resulting samples are valid.
-
-### P2. Experiment owner / evaluation researcher — primary
-
-**Goal:** compare policies or experimental settings under controlled, repeatable conditions.
-
-Runs many games from the CLI or scheduled jobs, with explicit decks, seeds, seat assignments, opponents, limits, and resource budgets. Needs structured outcome summaries, complete episode accounting, versioned configurations, and selected trajectories to investigate surprising results.
-
-Success means another run can reproduce the setup and explain differences. Wins, draws, truncations, and failures remain separate; a policy is not rewarded for causing engine errors. Conclusions are scoped to the frozen pool and evaluation protocol, not presented as general Magic playing strength.
-
-### P3. Trajectory consumer / data researcher — primary
-
-**Goal:** use recorded experience for offline analysis, dataset construction, imitation learning, or compatible offline-RL experiments without rerunning every simulation.
-
-Needs schema-versioned datasets, policy provenance, exact action-time observations/masks, per-seat sequences, terminal outcomes, and completeness checks. May use a different training stack from the one that generated the data. Needs to know which fields are absent, privileged, or unsuitable for a particular algorithm.
-
-Success means loading a dataset into numeric batches preserves temporal order, player perspective, and reward semantics. Corrupt/incomplete episodes are detected, and opponent-private data cannot accidentally become policy features. Recorded data is not assumed suitable for every offline algorithm merely because it contains transitions.
-
-### P4. Rules implementer / automated development agent — enabling
-
-**Goal:** implement or repair a supported behavior with independent evidence that it is correct.
-
-Uses rules references, focused fixtures, mature-engine bridges, and the regression suite. Needs deterministic failing cases, strict scripted choices, concise diagnostics, and replay/state-diff artifacts. A coding agent must be able to run the entire workflow without a human supplying game decisions or dismissing GUI prompts.
-
-Success means demonstrating a failing behavior test, making a general implementation change, and passing the relevant independent checks without weakening expectations. Reference-engine disagreements are visible and adjudicated against the rules, not resolved by blindly choosing whichever result makes tests pass.
-
-### P5. Performance / integration engineer — enabling
-
-**Goal:** increase useful simulation and collection throughput without changing game semantics or making integrations fragile.
-
-Profiles rules execution, state memory, batching, encoding, language-boundary overhead, policy inference, and recording. Needs frozen workloads, reproducible benchmarks, native/adapter equivalence checks, and independently configurable telemetry and capture.
-
-Success means a measured improvement on an equivalent workload with unchanged conformance and trajectory results. Memory, recording cost, and end-to-end collector throughput are reported alongside core speed; moving work outside the timer is not an improvement.
-
-### P6. CLI investigator / optional human player — secondary
-
-**Goal:** inspect a particular game or decision and, when useful, manually try a legal alternative.
-
-Needs readable state, stack and priority information, legal choices, seat-filtered views, and replay inspection. Does not need a browser, artwork, matchmaking, or a polished game client.
-
-Success means the same actions available to agents can be understood and exercised through the CLI. This mode is a debugging and exploration aid, not a prerequisite for simulation, tests, or release qualification; scripted clients exercise it automatically.
-
-## Use cases
-
-The following workflows define what users must be able to accomplish. They are requirements for the proposed engine, not claims that these commands or integrations exist today. Detailed schemas and gates appear later in this RFC.
-
-### UC1. Run a reproducible batch of games
-
-- **Actors:** P2, P5; a noninteractive CLI job.
-- **Workflow:** select the supported decks, policies, episode budget, seeds, worker count, and limits; run both seats automatically; optionally record a deterministic subset of episodes.
-- **Outputs:** resolved run manifest, outcomes, throughput/memory metrics, failure counts, and references to any captured trajectories/replays.
-- **Acceptance:** no terminal input or display required; each started episode is accounted for; changing worker scheduling does not change a given episode under the same seeded policies. Missing policies or unresolved choices fail explicitly rather than falling back to human input.
-
-### UC2. Train an agent using an existing RL framework
-
-- **Actors:** P1; a Python collector/trainer.
-- **Workflow:** install one optional integration, configure a fixed opponent or external self-play policy mapping, collect batched decisions, apply masks, update the policy, evaluate, and save/reload its checkpoint.
-- **Outputs:** valid learning batches, model checkpoints, run metrics, and optional durable trajectories with policy versions.
-- **Acceptance:** the required framework smoke test performs actual learning updates unattended. Repeated decisions by one seat, opponent interleavings, terminal rewards, and truncations are handled correctly. The training path does not parse CLI output or require an interactive-session process.
-
-### UC3. Compare two policy versions fairly
-
-- **Actors:** P1, P2.
-- **Workflow:** freeze the pool, rules, opponent, limits, and evaluation seed list; evaluate both candidates across starting seats and the supported matchups; keep evaluation results separate from training data used to select the policy.
-- **Outputs:** per-matchup/per-seat outcome counts, episode-level results, uncertainty estimates where reported, and trajectories for selected failures or surprising decisions.
-- **Acceptance:** the comparison identifies policy and environment versions and uses the same declared protocol. Truncated/failed games are not silently treated as wins, draws, or completed simulations. Paired seeds control initial conditions but are not claimed to make diverging policy trajectories identical.
-
-### UC4. Capture and reuse a trajectory dataset
-
-- **Actors:** P1, P3.
-- **Workflow:** enable capture for all episodes or a declared episode-level subset; persist sharded data; validate it; load per-seat sequences or training batches in a separate analysis/training process.
-- **Outputs:** versioned dataset manifest, decision records, episode outcomes, checksums, policy provenance, and optional restricted replay links.
-- **Acceptance:** a record/reload round trip preserves observations, masks, actions, rewards, and boundaries. The next learning observation belongs to the same seat, not automatically the next actor. Missing behavior probabilities remain absent; readers reject incomplete episodes by default. Backpressure and storage failures cannot silently drop samples.
-
-### UC5. Add or fix a rule behavior test-first
-
-- **Actors:** P4, including an autonomous coding agent.
-- **Workflow:** choose a supported capability; write a rule-referenced fixture that fails for the intended reason; establish expected checkpoints using independent reasoning and applicable reference executions; implement; refactor; run regressions and relevant differential checks.
-- **Outputs:** behavior tests, provenance/rules references, red/green evidence, implementation change, and comparison artifacts.
-- **Acceptance:** all consequential choices are scripted; no human game decisions are needed. A passing test cannot be obtained by deleting assertions, hardcoding fixture identities, or silently changing scope. Tests outside the advertised pool remain explicitly outside its coverage claims.
-
-### UC6. Reproduce and diagnose a disagreement
-
-- **Actors:** P4, P6; automated minimization tooling.
-- **Workflow:** take a failing fixture, fuzz trace, or recorded episode; replay it under matching versions; identify the first divergent checkpoint; reduce the case; compare with pinned XMage and Forge where applicable.
-- **Outputs:** minimal reproduction, semantic state diff, implicated rule/capability, reference-engine results, and a permanent regression fixture after adjudication.
-- **Acceptance:** diagnosis does not depend on reproducing wall-clock timing or manually playing the game. Incompatible snapshots/replays are rejected clearly. Upstream bugs or rules-version differences remain documented exceptions rather than disappearing from the result counts.
-
-### UC7. Optimize throughput without corrupting results
-
-- **Actors:** P5.
-- **Workflow:** run a frozen benchmark with recording off and on; profile; change representation, allocation, batching, or encoding; repeat on the same hardware/configuration; run conformance and scalar/batch/trajectory equivalence checks.
-- **Outputs:** before/after results, profiles, memory curves, recording overhead, and correctness evidence.
-- **Acceptance:** measured work includes declared reset/encoding/recording costs. Priority windows, legal choices, and termination semantics are unchanged; speed is not obtained by dropping trajectories, shortening games, or hiding failures. Core speed and inference-inclusive collection are separate results.
-
-### UC8. Inspect or interact with a game through the CLI
-
-- **Actors:** P6 or scripted clients used by P4.
-- **Workflow:** inspect a saved replay or attach to a seat in an optional local interactive session; view permitted information; submit a legal choice; inspect subsequent priority/stack changes; detach or concede.
-- **Outputs:** readable or structured seat-filtered views, validated action responses, and optional replay/trajectory artifacts.
-- **Acceptance:** CLI actions use the same rules and legality checks as agents. Stale/wrong-seat commands do not mutate state; private information stays scoped to the authorized view. Automated transcript tests cover the workflow without requiring a person to play.
-
-### Priority and boundaries
-
-UC1–UC7 form the core research/development workflow; UC8 is a secondary access mode. All eight must be automatable. Broad card coverage, public multiplayer hosting, a graphical client, and a built-in distributed training platform are not implied by these personas or use cases. Detailed acceptance criteria below govern the initial implementation; new use cases that require additional mechanics or services need an explicit scope change.
 
 ## 1. Decision summary
 

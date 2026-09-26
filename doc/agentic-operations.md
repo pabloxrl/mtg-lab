@@ -23,7 +23,7 @@ Symphony has documented operational use at OpenAI, but its public implementation
 | GitHub | Code history, PR audit trail, required checks, and automatic integration |
 | Engine verifier | Executable evidence that behavior meets the task and engine contracts |
 
-[RFC 0001](rfcs/0001-research-engine-poc.md) remains the product and acceptance contract. A task may refine its implementation but cannot silently discard requirements. A change in product scope is recorded explicitly, with affected requirements and tasks identified.
+[RFC 0001](rfcs/0001-project-charter.md) defines the enduring product principles and requirements. [RFC 0002](rfcs/0002-first-mvp.md) defines the first MVP's implementation boundary and acceptance criteria; scoped tasks derive from that delivery plan. A task may refine its implementation but cannot silently discard the charter's requirements. A change in product scope is recorded explicitly, with affected requirements and tasks identified.
 
 The root workflow file, agent instructions, CI jobs, and runtime deployment described here still need to be created. This document does not activate automation.
 
@@ -91,15 +91,15 @@ Keep required acceptance behavior frozen during an implementation attempt. If th
 
 Post-merge recovery is a workflow to configure and demonstrate, not an assumed Symphony feature. The worker needs scoped credentials and a reproducible environment; ordinary code execution must not expose unrelated personal credentials. Use host/service controls and provider limits for resource enforcement where available rather than relying exclusively on prompts.
 
-`Done` means merged, required post-merge checks passed, the requested outcome covered, and a completion report recorded. Release publication is a separate task and must satisfy the RFC's release gates against the exact candidate. A merged feature does not imply a qualified release.
+`Done` means merged, required post-merge checks passed, the requested outcome covered, and a completion report recorded. Release publication is a separate task and must satisfy its delivery plan's release gates against the exact candidate, consistent with RFC 0001. A merged feature does not imply a qualified release.
 
 ## Rollout and readiness
 
 1. **Bootstrap:** create the Rust workspace, reproducible setup, initial verifier, and required CI. Establish the Linear project and worker access.
 2. **Install:** deploy the pinned Symphony implementation and configure this repository's workflow, review process, required checks, and automatic integration.
-3. **Prove one complete delivery:** use the Bite Down / responding Giant Growth / cleanup scenario from RFC 0001. Demonstrate correct behavior with independent evidence and an automatically merged change.
+3. **Prove one complete delivery:** select a bounded, rule-referenced interaction scenario in a scoped implementation task. Demonstrate correct behavior with independent evidence and an automatically merged change.
 4. **Exercise failure paths:** show that a seeded defect blocks integration, an interrupted run recovers without duplicate delivery, and a controlled post-merge regression results in a verified recovery. Confirm essential blockers are surfaced clearly.
-5. **Expand:** proceed through M0 and M1, then increase task concurrency and scope based on observed results.
+5. **Expand:** proceed through the separately agreed delivery plan, then increase task concurrency and scope based on observed results.
 
 Keep the adoption work finite. Success is delivering engine changes autonomously, not expanding the automation platform. Track delivered requirements, escaped defects, unresolved work, recovery time, execution cost, and required driver interventions. Do not use PR count as the primary success metric.
 
@@ -107,7 +107,7 @@ Keep the adoption work finite. Success is delivering engine changes autonomously
 
 ### One-time setup
 
-Provide access to the GitHub repository, a Linear project, the worker host, and Codex authentication. Set an operating budget and confirm the desired scope in RFC 0001. Agents can perform the installation and repository setup using that access. Where a service requires you to authenticate or change an account setting, you receive the specific action needed.
+Provide access to the GitHub repository, a Linear project, the worker host, and Codex authentication. Set an operating budget and define the desired delivery scope under RFC 0001's charter. Agents can perform the installation and repository setup using that access. Where a service requires you to authenticate or change an account setting, you receive the specific action needed.
 
 ### Start a problem
 
@@ -117,7 +117,8 @@ Create a Linear issue and move it to `Todo`. Describe the result you want; you d
 Problem: Implement the first unattended game simulation slice.
 
 Desired outcome: Two scripted players can complete a game using the
-M1 capabilities, and the run produces structured results and a replay.
+capabilities explicitly listed in this task, and the run produces
+structured results and a replay.
 
 Constraints: Follow RFC 0001. No browser, manual game choices, or scope
 expansion into additional cards.
