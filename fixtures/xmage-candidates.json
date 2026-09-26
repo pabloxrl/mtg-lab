@@ -1,0 +1,126 @@
+{
+  "candidate_version": 1,
+  "status": "selected-for-future-adaptation-not-executed",
+  "rules_version": "cr-2026-09-25",
+  "rules_sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+  "sources": [
+    {
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/mulligan/LondonMulliganTest.java",
+      "commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "path": "Mage.Tests/src/test/java/org/mage/test/mulligan/LondonMulliganTest.java",
+      "sha256": "056a016f58a8b3e1ab5ae2c36527ba2ff1d407f55c37e30e265c993183147001",
+      "bytes": 17043,
+      "retrieved_at": "2026-09-26",
+      "file_notices": [
+        "No additional file-level copyright, license or author header"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/mulligan/MulliganTestBase.java",
+      "commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "path": "Mage.Tests/src/test/java/org/mage/test/mulligan/MulliganTestBase.java",
+      "sha256": "811d7a27aadfe4bc882f7c266f213b7de26659e2859980396ae7c430173c8994",
+      "bytes": 7739,
+      "retrieved_at": "2026-09-26",
+      "file_notices": [
+        "No additional file-level copyright, license or author header"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/cards/damage/AssignDamageTest.java",
+      "commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "path": "Mage.Tests/src/test/java/org/mage/test/cards/damage/AssignDamageTest.java",
+      "sha256": "8082ab9d19c340acbd41d7f9561811ff60f6772f48e4cd022269b373486a3579",
+      "bytes": 2414,
+      "retrieved_at": "2026-09-26",
+      "file_notices": [
+        "@author JayDi85"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/cards/targets/TargetsSelectionOnResolveTest.java",
+      "commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "path": "Mage.Tests/src/test/java/org/mage/test/cards/targets/TargetsSelectionOnResolveTest.java",
+      "sha256": "fe89ce2b2931c0b8f13c0214f1438924148e3550ebf86ddfd0f47673afb8d6d9",
+      "bytes": 1804,
+      "retrieved_at": "2026-09-26",
+      "file_notices": [
+        "@author JayDi85"
+      ]
+    },
+    {
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/LICENSE.txt",
+      "commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "path": "LICENSE.txt",
+      "sha256": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+      "bytes": 1078,
+      "retrieved_at": "2026-09-26",
+      "file_notices": [
+        "Copyright (c) 2010 betasteward@gmail.com"
+      ]
+    }
+  ],
+  "retained_license": "references/xmage/UPSTREAM-LICENSE.txt",
+  "license_sha256": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+  "full_notice_text": "MIT License\n\nCopyright (c) 2010 betasteward@gmail.com\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+  "selected": [
+    {
+      "path": "Mage.Tests/src/test/java/org/mage/test/mulligan/LondonMulliganTest.java",
+      "method": "testLondonMulligan_NoMulligan",
+      "capability": "setup/mulligan-bottom",
+      "modifications": "Replace generated Forest/Squire decks and hidden P1 defaults with both pinned 40-card green decks, explicit library order and both keep declarations. Preserve seven/33 cardinalities. Add named initial and post-keep checkpoints.",
+      "independent_basis": "CR 103.4, 103.5; 20 life, seven initial cards, no free mulligan in two-player non-Brawl play. Redraw seven and bottom for each mulligan before the next declaration round.",
+      "combat_audit": "Not a combat case. No damage assignment ordering, trample or deathtouch semantics present.",
+      "upstream_vintage": "No rules revision declared by source; reconciled against pinned CR 103.5.",
+      "status": "selected-not-adapted",
+      "same_engine_independent_corroboration": false
+    },
+    {
+      "path": "Mage.Tests/src/test/java/org/mage/test/mulligan/LondonMulliganTest.java",
+      "method": "testLondonMulligan_OneMulligan",
+      "capability": "setup/mulligan-bottom",
+      "modifications": "Replace generated cards/UUIDs and stream-first selection with explicit card identities and bottom choice. Inject the entire 40-card replacement shuffle. Script both seats in declaration order. Preserve seven/33 redraw and six/34 after bottoming. No free mulligan.",
+      "independent_basis": "CR 103.4, 103.5; 20 life, seven initial cards, no free mulligan in two-player non-Brawl play. Redraw seven and bottom for each mulligan before the next declaration round.",
+      "combat_audit": "Not a combat case. No damage assignment ordering, trample or deathtouch semantics present.",
+      "upstream_vintage": "No rules revision declared by source; reconciled against pinned CR 103.5.",
+      "status": "selected-not-adapted",
+      "same_engine_independent_corroboration": false
+    }
+  ],
+  "not_selected": [
+    {
+      "path": "Mage.Tests/src/test/java/org/mage/test/cards/damage/AssignDamageTest.java",
+      "methods": [
+        "test_ThornElemental_Manual_DamageToBlock",
+        "test_ThornElemental_Manual_DamageToPlayer",
+        "test_ThornElemental_AI"
+      ],
+      "reason": "Thorn Elemental and as-though-unblocked ability outside pool; AI case also violates explicit choices. Harness example only, never v0 coverage.",
+      "combat_audit": "CR 510.1c/d now permit dividing damage among blockers without an assignment order. These single-blocker tests cannot establish current multiple-blocker semantics. Do not replace Thorn Elemental ability with trample: CR 702.19 has lethal-assignment requirements, and CR 702.2 modifies lethal for deathtouch. Any future combat adaptation must script assignments directly, never order blockers then respond.",
+      "file_notices": [
+        "@author JayDi85"
+      ]
+    },
+    {
+      "path": "Mage.Tests/src/test/java/org/mage/test/cards/targets/TargetsSelectionOnResolveTest.java",
+      "methods": [
+        "test_OnActivate_0_of_1",
+        "test_OnActivate_1_of_2",
+        "test_OnActivate_2_of_3"
+      ],
+      "reason": "Choice-cardinality harness examples only; arbitrary resolution-time target selection is not an advertised pool capability. Bite Down targets are selected while casting (601.2c), revalidated at resolution (608.2b).",
+      "combat_audit": "No combat declarations or damage; no inherited assignment order.",
+      "file_notices": [
+        "@author JayDi85"
+      ]
+    }
+  ],
+  "distribution_review": "Only original selection/audit metadata and retained MIT notice; no upstream Java tests or card/rules text copied. Future adaptations retain these sources, full MIT notice and all file notices. Original GH-15 fixtures were authored from rules, not translations of these candidates.",
+  "reference_caveat": "An adaptation executed by XMage is not independent corroboration by XMage. Selection and schema validation count neither as adaptation nor execution.",
+  "review_evidence": "https://github.com/pabloxrl/mtg-lab/issues/15",
+  "release_blockers": [
+    "REL-01",
+    "REL-02",
+    "REL-03"
+  ]
+}

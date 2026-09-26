@@ -1,0 +1,418 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "privacy/hidden-permutation-b",
+  "description": "P0 view and legal options remain identical when unknown P1 hand/library identities are permuted.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "privacy/side-channels",
+    "setup/library-privacy",
+    "foundations_micro_v1/bear-cub",
+    "foundations_micro_v1/forest",
+    "foundations_micro_v1/giant-growth"
+  ],
+  "rule_references": [
+    "400.2",
+    "401.2",
+    "402.3",
+    "117.3d"
+  ],
+  "setup": {
+    "kind": "synthetic",
+    "state": {
+      "turn": 1,
+      "active_player": 0,
+      "phase": "precombat_main",
+      "step": "main",
+      "priority": 0,
+      "players": [
+        {
+          "seat": 0,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 1
+        },
+        {
+          "seat": 1,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [
+              "hidden-top",
+              "hidden-bottom"
+            ],
+            "hand": [
+              "hidden-hand"
+            ],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        }
+      ],
+      "objects": [
+        {
+          "id": "hidden-hand",
+          "card_id": "bear-cub",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "hidden-top",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "hidden-bottom",
+          "card_id": "giant-growth",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        }
+      ],
+      "stack": [],
+      "effects": []
+    },
+    "assumptions": [
+      {
+        "description": "Focused synthetic state, not evidence of reachability; explicit libraries, no unlisted effects/triggers.",
+        "checks": [
+          {
+            "field": "stack",
+            "path": "/stack",
+            "expected": [],
+            "basis": "rules"
+          }
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "private-view",
+      "after": "initial",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "player_visible_information",
+          "path": "/views/0",
+          "expected": {
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "active_player": 0,
+            "priority": 0,
+            "phase": "precombat_main",
+            "step": "main",
+            "own_hand": [],
+            "opponent_hand_count": 1,
+            "library_counts": [
+              0,
+              2
+            ],
+            "battlefield": [],
+            "graveyards": [
+              [],
+              []
+            ],
+            "exile": [
+              [],
+              []
+            ],
+            "stack": [],
+            "mana": [
+              {
+                "W": 0,
+                "U": 0,
+                "B": 0,
+                "R": 0,
+                "G": 0,
+                "C": 0
+              },
+              {
+                "W": 0,
+                "U": 0,
+                "B": 0,
+                "R": 0,
+                "G": 0,
+                "C": 0
+              }
+            ],
+            "land_plays_used": [
+              1,
+              0
+            ],
+            "candidates": [
+              "pass",
+              "concede"
+            ],
+            "mask": [
+              true,
+              true
+            ]
+          },
+          "basis": "boundary-spec"
+        },
+        {
+          "field": "legal_choices",
+          "path": "/legal_choices/0",
+          "expected": [
+            "pass",
+            "concede"
+          ],
+          "basis": "boundary-spec"
+        }
+      ]
+    },
+    {
+      "name": "handoff",
+      "after": "pass-0",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 1,
+          "basis": "rules"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [
+    {
+      "action": {
+        "id": "wrong-seat",
+        "actor": 1,
+        "kind": "pass",
+        "source": null,
+        "choices": [
+          {
+            "id": "wrong-seat-pass",
+            "actor": 1,
+            "kind": "pass",
+            "values": []
+          }
+        ]
+      },
+      "at": "initial",
+      "error": "wrong_actor",
+      "invariants": [
+        "decision_unchanged",
+        "private_information_unchanged",
+        "rng_unchanged",
+        "state_unchanged"
+      ],
+      "basis": "boundary-spec"
+    }
+  ],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "privacy/hidden-permutation-b",
+    "source_kind": "original",
+    "author": "mtg-lab GH-15",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "400.2, 401.2, 402.3, 117.3d"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original schema example; no upstream code adapted.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Original authored scenario derived from numbered rules and RFC requirements; no upstream code adapted.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "400.2",
+        "401.2",
+        "402.3",
+        "117.3d"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [
+        {
+          "card_id": "bear-cub",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "card_id": "forest",
+          "sha256": "6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b"
+        },
+        {
+          "card_id": "giant-growth",
+          "sha256": "94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925"
+        }
+      ],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "rules",
+        "derivation": "CR 400.2 classifies hand/library as hidden; 401.2 prohibits inspecting library order; 402.3 permits own-hand inspection and opponent-hand count only. P0 has no cards or mana and has used the land play: semantic priority choices are pass or concede. Opponent private permutations cannot alter P0 view, ordered candidates, mask or wrong-actor error (RFC 0002 section 8). Future draws need not agree. One pass gives P1 priority (117.3d).",
+        "citations": [
+          "CR 400.2",
+          "CR 401.2",
+          "CR 402.3",
+          "CR 117.3d"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 UC8 and RFC 0002 sections 4 and 8 require atomic invalid-command rejection and no private identities in observations, candidates, masks or errors.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 sections 4 and 8"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "Original, no upstream rules vintage",
+      "target": "cr-2026-09-25",
+      "differences": "Checked pinned 2026 rules; no combat damage assignment ordering is introduced.",
+      "adjudication": "CR 400.2 classifies hand/library as hidden; 401.2 prohibits inspecting library order; 402.3 permits own-hand inspection and opponent-hand count only. P0 has no cards or mana and has used the land play: semantic priority choices are pass or concede. Opponent private permutations cannot alter P0 view, ordered candidates, mask or wrong-actor error (RFC 0002 section 8). Future draws need not agree. One pass gives P1 priority (117.3d).",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "status": "accepted"
+    },
+    "reproduction": {
+      "setup_kind": "synthetic",
+      "trace_sha256": "7494cf13ddb401ff74d42ca8ce5b098c8e907617abacd743a66e45ac7d7beb7c",
+      "ordered_randomness": "Every library and any replacement shuffle is explicitly ordered; no random seed or automatic shuffle.",
+      "complete_choices": "All commands and choices explicit through the final named checkpoint; no AI/default passes.",
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/m0/privacy-b.json",
+      "tool_versions": [
+        "neutral-scenario-v1"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "accepted-for-m0",
+      "reviewer": "Separate Codex candidate review recorded in GH-15 PR",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/15"
+      ],
+      "admission_scope": "M0 authored corpus only, conditional on required separate candidate review before merge. No execution or production support claimed.",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "14bce2db2c6f9efbdc1009d993cb451830c826dc9d67715abf4d89dc69059be5"
+  }
+}

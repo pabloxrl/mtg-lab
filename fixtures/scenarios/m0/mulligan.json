@@ -1,0 +1,689 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "setup/london-one-mulligan",
+  "description": "Normal green mirror reset: P0 mulligans once, P1 keeps; explicit replacement order and bottom card; first player skips first draw.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "setup/mulligan-bottom",
+    "setup/two-player-opening",
+    "setup/first-draw",
+    "setup/ordered-draw",
+    "foundations_micro_v1/bear-cub",
+    "foundations_micro_v1/bite-down",
+    "foundations_micro_v1/druid-of-the-cowl",
+    "foundations_micro_v1/forest",
+    "foundations_micro_v1/giant-growth",
+    "foundations_micro_v1/llanowar-elves",
+    "foundations_micro_v1/magnigoth-sentry",
+    "foundations_micro_v1/tajuru-pathwarden",
+    "foundations_micro_v1/thornweald-archer",
+    "foundations_micro_v1/wildheart-invoker"
+  ],
+  "rule_references": [
+    "103.4",
+    "103.5",
+    "103.8a",
+    "117.3a",
+    "117.4"
+  ],
+  "setup": {
+    "kind": "normal_reset",
+    "starting_seat": 0,
+    "decks": [
+      "green",
+      "green"
+    ],
+    "ordered_libraries": [
+      [
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "bear-cub",
+        "bear-cub",
+        "bear-cub",
+        "bear-cub",
+        "llanowar-elves",
+        "llanowar-elves",
+        "llanowar-elves",
+        "druid-of-the-cowl",
+        "druid-of-the-cowl",
+        "magnigoth-sentry",
+        "magnigoth-sentry",
+        "tajuru-pathwarden",
+        "tajuru-pathwarden",
+        "thornweald-archer",
+        "thornweald-archer",
+        "thornweald-archer",
+        "giant-growth",
+        "giant-growth",
+        "giant-growth",
+        "bite-down",
+        "bite-down",
+        "bite-down",
+        "wildheart-invoker",
+        "wildheart-invoker"
+      ],
+      [
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "forest",
+        "bear-cub",
+        "bear-cub",
+        "bear-cub",
+        "bear-cub",
+        "llanowar-elves",
+        "llanowar-elves",
+        "llanowar-elves",
+        "druid-of-the-cowl",
+        "druid-of-the-cowl",
+        "magnigoth-sentry",
+        "magnigoth-sentry",
+        "tajuru-pathwarden",
+        "tajuru-pathwarden",
+        "thornweald-archer",
+        "thornweald-archer",
+        "thornweald-archer",
+        "giant-growth",
+        "giant-growth",
+        "giant-growth",
+        "bite-down",
+        "bite-down",
+        "bite-down",
+        "wildheart-invoker",
+        "wildheart-invoker"
+      ]
+    ],
+    "shuffle_results": [
+      {
+        "id": "p0-mulligan-1",
+        "seat": 0,
+        "order": [
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "bear-cub",
+          "bear-cub",
+          "bear-cub",
+          "bear-cub",
+          "llanowar-elves",
+          "llanowar-elves",
+          "llanowar-elves",
+          "druid-of-the-cowl",
+          "druid-of-the-cowl",
+          "magnigoth-sentry",
+          "magnigoth-sentry",
+          "tajuru-pathwarden",
+          "tajuru-pathwarden",
+          "thornweald-archer",
+          "thornweald-archer",
+          "thornweald-archer",
+          "giant-growth",
+          "giant-growth",
+          "giant-growth",
+          "bite-down",
+          "bite-down",
+          "bite-down",
+          "wildheart-invoker",
+          "wildheart-invoker"
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "mulligan-0",
+      "actor": 0,
+      "kind": "mulligan",
+      "source": null,
+      "choices": [
+        {
+          "id": "mulligan-0-mulligan",
+          "actor": 0,
+          "kind": "mulligan",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "keep-1",
+      "actor": 1,
+      "kind": "keep",
+      "source": null,
+      "choices": [
+        {
+          "id": "keep-1-keep",
+          "actor": 1,
+          "kind": "keep",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "bottom-0",
+      "actor": 0,
+      "kind": "bottom",
+      "source": null,
+      "choices": [
+        {
+          "id": "bottom-0-bottom",
+          "actor": 0,
+          "kind": "bottom",
+          "values": [
+            "p0-m1-6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "keep-0",
+      "actor": 0,
+      "kind": "keep",
+      "source": null,
+      "choices": [
+        {
+          "id": "keep-0-keep",
+          "actor": 0,
+          "kind": "keep",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "upkeep-pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "upkeep-pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "upkeep-pass-1",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "upkeep-pass-1-pass",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "opening",
+      "after": "initial",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "life",
+          "path": "/players/0/life",
+          "expected": 20,
+          "basis": "rules"
+        },
+        {
+          "field": "life",
+          "path": "/players/1/life",
+          "expected": 20,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/hands/0",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/hands/1",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "redraw",
+      "after": "keep-1",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "invariant",
+          "path": "/hands/0",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/hand_ids/0",
+          "expected": [
+            "p0-m1-0",
+            "p0-m1-1",
+            "p0-m1-2",
+            "p0-m1-3",
+            "p0-m1-4",
+            "p0-m1-5",
+            "p0-m1-6"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/hands/1",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "kept-six",
+      "after": "keep-0",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "invariant",
+          "path": "/hands/0",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/libraries/0",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "llanowar-elves",
+            "llanowar-elves",
+            "llanowar-elves",
+            "druid-of-the-cowl",
+            "druid-of-the-cowl",
+            "magnigoth-sentry",
+            "magnigoth-sentry",
+            "tajuru-pathwarden",
+            "tajuru-pathwarden",
+            "thornweald-archer",
+            "thornweald-archer",
+            "thornweald-archer",
+            "giant-growth",
+            "giant-growth",
+            "giant-growth",
+            "bite-down",
+            "bite-down",
+            "bite-down",
+            "wildheart-invoker",
+            "wildheart-invoker",
+            "forest"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/hands/1",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/step",
+          "expected": "upkeep",
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "skipped-first-draw",
+      "after": "upkeep-pass-1",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/phase",
+          "expected": "precombat_main",
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/hands/0",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest"
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/libraries/0",
+          "expected": [
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "llanowar-elves",
+            "llanowar-elves",
+            "llanowar-elves",
+            "druid-of-the-cowl",
+            "druid-of-the-cowl",
+            "magnigoth-sentry",
+            "magnigoth-sentry",
+            "tajuru-pathwarden",
+            "tajuru-pathwarden",
+            "thornweald-archer",
+            "thornweald-archer",
+            "thornweald-archer",
+            "giant-growth",
+            "giant-growth",
+            "giant-growth",
+            "bite-down",
+            "bite-down",
+            "bite-down",
+            "wildheart-invoker",
+            "wildheart-invoker",
+            "forest"
+          ],
+          "basis": "rules"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "setup/london-one-mulligan",
+    "source_kind": "original",
+    "author": "mtg-lab GH-15",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "103.4, 103.5, 103.8a, 117.3a, 117.4"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original schema example; no upstream code adapted.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Original authored scenario derived from numbered rules and RFC requirements; no upstream code adapted.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "103.4",
+        "103.5",
+        "103.8a",
+        "117.3a",
+        "117.4"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [
+        {
+          "card_id": "bear-cub",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "card_id": "bite-down",
+          "sha256": "89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc"
+        },
+        {
+          "card_id": "druid-of-the-cowl",
+          "sha256": "9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3"
+        },
+        {
+          "card_id": "forest",
+          "sha256": "6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b"
+        },
+        {
+          "card_id": "giant-growth",
+          "sha256": "94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925"
+        },
+        {
+          "card_id": "llanowar-elves",
+          "sha256": "9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3"
+        },
+        {
+          "card_id": "magnigoth-sentry",
+          "sha256": "0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16"
+        },
+        {
+          "card_id": "tajuru-pathwarden",
+          "sha256": "e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db"
+        },
+        {
+          "card_id": "thornweald-archer",
+          "sha256": "37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4"
+        },
+        {
+          "card_id": "wildheart-invoker",
+          "sha256": "35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2"
+        }
+      ],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "rules",
+        "derivation": "103.4 starts both players at 20. 103.5 gives seven-card initial hands, simultaneous mulligan rounds with starting-player declarations first, then one card bottomed after one mulligan. P1 keeps the original seven. Explicit shuffle yields P0 seven Forests; choose the seventh Forest to bottom, leaving six and 34 in library. Opening choices offer no priority. Under 103.8a starting P0 skips the first draw step entirely: after both pass upkeep, the next decision is precombat main, with identical six-card hand and library order.",
+        "citations": [
+          "CR 103.4",
+          "CR 103.5",
+          "CR 103.8a",
+          "CR 117.3a",
+          "CR 117.4"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 UC8 and RFC 0002 sections 4 and 8 require atomic invalid-command rejection and no private identities in observations, candidates, masks or errors.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 sections 4 and 8"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "Original, no upstream rules vintage",
+      "target": "cr-2026-09-25",
+      "differences": "Checked pinned 2026 rules; no combat damage assignment ordering is introduced.",
+      "adjudication": "103.4 starts both players at 20. 103.5 gives seven-card initial hands, simultaneous mulligan rounds with starting-player declarations first, then one card bottomed after one mulligan. P1 keeps the original seven. Explicit shuffle yields P0 seven Forests; choose the seventh Forest to bottom, leaving six and 34 in library. Opening choices offer no priority. Under 103.8a starting P0 skips the first draw step entirely: after both pass upkeep, the next decision is precombat main, with identical six-card hand and library order.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "status": "accepted"
+    },
+    "reproduction": {
+      "setup_kind": "normal_reset",
+      "trace_sha256": "2e68d159246d18c93b49430f06d4d7c1d5b2a42b91ac235c6014215d4f2c3af7",
+      "ordered_randomness": "Every library and any replacement shuffle is explicitly ordered; no random seed or automatic shuffle.",
+      "complete_choices": "All commands and choices explicit through the final named checkpoint; no AI/default passes.",
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/m0/mulligan.json",
+      "tool_versions": [
+        "neutral-scenario-v1"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "accepted-for-m0",
+      "reviewer": "Separate Codex candidate review recorded in GH-15 PR",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/15"
+      ],
+      "admission_scope": "M0 authored corpus only, conditional on required separate candidate review before merge. No execution or production support claimed.",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "07f29e99a49ea4fc604ac60444c508392482859551d96d7293b77e280a234992"
+  }
+}

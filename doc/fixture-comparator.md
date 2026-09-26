@@ -121,3 +121,8 @@ The separately versioned [neutral scenario schema and capability registry](neutr
 now provide offline design/validation under GH-12. They do not change comparator v1
 or provide engine-produced checkpoints. Pinned headless XMage/Forge bridges and
 production-engine integration remain with their assigned RFC program tasks.
+
+The [neutral checkpoint comparator](initial-corpus.md#canonical-observations)
+now compares all declared scenario assertion fields, strict consumed scripts and
+invalid-probe invariants. It is independently versioned and does not alter this
+Rust comparator v1 contract or imply game execution.

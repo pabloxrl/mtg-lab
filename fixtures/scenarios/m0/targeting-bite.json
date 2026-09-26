@@ -1,0 +1,471 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "targeting/bite-controller-restrictions",
+  "description": "Reject reversed or missing Bite Down targets without consuming mana or changing private/decision/RNG state; accept own then opponent creature.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "targets/controller-restrictions",
+    "targets/required-targets",
+    "costs/atomic-rejection",
+    "foundations_micro_v1/bear-cub",
+    "foundations_micro_v1/bite-down"
+  ],
+  "rule_references": [
+    "601.2c",
+    "601.2e",
+    "733.1",
+    "117.3c"
+  ],
+  "setup": {
+    "kind": "synthetic",
+    "state": {
+      "turn": 1,
+      "active_player": 0,
+      "phase": "precombat_main",
+      "step": "main",
+      "priority": 0,
+      "players": [
+        {
+          "seat": 0,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 2,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [
+              "bite"
+            ],
+            "battlefield": [
+              "bear-0"
+            ],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        },
+        {
+          "seat": 1,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [],
+            "battlefield": [
+              "bear-1"
+            ],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        }
+      ],
+      "objects": [
+        {
+          "id": "bear-0",
+          "card_id": "bear-cub",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": 2,
+            "toughness": 2,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "bear-1",
+          "card_id": "bear-cub",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": 2,
+            "toughness": 2,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "bite",
+          "card_id": "bite-down",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        }
+      ],
+      "stack": [],
+      "effects": []
+    },
+    "assumptions": [
+      {
+        "description": "Focused synthetic state, not evidence of reachability; explicit libraries, no unlisted effects/triggers.",
+        "checks": [
+          {
+            "field": "stack",
+            "path": "/stack",
+            "expected": [],
+            "basis": "rules"
+          }
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "cast-bite",
+      "actor": 0,
+      "kind": "cast",
+      "source": "bite",
+      "choices": [
+        {
+          "id": "cast-bite-mode",
+          "actor": 0,
+          "kind": "mode",
+          "values": []
+        },
+        {
+          "id": "cast-bite-targets",
+          "actor": 0,
+          "kind": "targets",
+          "values": [
+            "bear-0",
+            "bear-1"
+          ]
+        },
+        {
+          "id": "cast-bite-payment",
+          "actor": 0,
+          "kind": "payment",
+          "values": [
+            {
+              "resource": "G",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "id": "cast-bite-discard",
+          "actor": 0,
+          "kind": "discard",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "valid-cast",
+      "after": "cast-bite",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [
+            {
+              "id": "cast-bite",
+              "source": "bite.g1",
+              "controller": 0,
+              "kind": "spell",
+              "targets": [
+                "bear-0",
+                "bear-1"
+              ],
+              "modes": [],
+              "last_known_source": null
+            }
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "mana",
+          "path": "/players/0/mana",
+          "expected": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "basis": "rules"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [
+    {
+      "action": {
+        "id": "reversed",
+        "actor": 0,
+        "kind": "cast",
+        "source": "bite",
+        "choices": [
+          {
+            "id": "reversed-mode",
+            "actor": 0,
+            "kind": "mode",
+            "values": []
+          },
+          {
+            "id": "reversed-targets",
+            "actor": 0,
+            "kind": "targets",
+            "values": [
+              "bear-1",
+              "bear-0"
+            ]
+          },
+          {
+            "id": "reversed-payment",
+            "actor": 0,
+            "kind": "payment",
+            "values": [
+              {
+                "resource": "G",
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "id": "reversed-discard",
+            "actor": 0,
+            "kind": "discard",
+            "values": []
+          }
+        ]
+      },
+      "at": "initial",
+      "error": "illegal_targets",
+      "invariants": [
+        "decision_unchanged",
+        "private_information_unchanged",
+        "rng_unchanged",
+        "state_unchanged"
+      ],
+      "basis": "rules"
+    },
+    {
+      "action": {
+        "id": "missing",
+        "actor": 0,
+        "kind": "cast",
+        "source": "bite",
+        "choices": [
+          {
+            "id": "missing-mode",
+            "actor": 0,
+            "kind": "mode",
+            "values": []
+          },
+          {
+            "id": "missing-targets",
+            "actor": 0,
+            "kind": "targets",
+            "values": [
+              "bear-0"
+            ]
+          },
+          {
+            "id": "missing-payment",
+            "actor": 0,
+            "kind": "payment",
+            "values": [
+              {
+                "resource": "G",
+                "amount": 2
+              }
+            ]
+          },
+          {
+            "id": "missing-discard",
+            "actor": 0,
+            "kind": "discard",
+            "values": []
+          }
+        ]
+      },
+      "at": "initial",
+      "error": "illegal_targets",
+      "invariants": [
+        "decision_unchanged",
+        "private_information_unchanged",
+        "rng_unchanged",
+        "state_unchanged"
+      ],
+      "basis": "rules"
+    }
+  ],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "targeting/bite-controller-restrictions",
+    "source_kind": "original",
+    "author": "mtg-lab GH-15",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "601.2c, 601.2e, 733.1, 117.3c"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original schema example; no upstream code adapted.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Original authored scenario derived from numbered rules and RFC requirements; no upstream code adapted.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "601.2c",
+        "601.2e",
+        "733.1",
+        "117.3c"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [
+        {
+          "card_id": "bear-cub",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "card_id": "bite-down",
+          "sha256": "89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc"
+        }
+      ],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "rules",
+        "derivation": "Bite Down requires a creature the caster controls and one they do not; the target slots are ordered under 601.2c. Reversing them or omitting one is illegal. 601.2e checks legality and 733.1 reverses an illegal action. Valid casting pays 1G and retains P0 priority (117.3c); no resolution is asserted.",
+        "citations": [
+          "CR 601.2c",
+          "CR 601.2e",
+          "CR 733.1",
+          "CR 117.3c"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 UC8 and RFC 0002 sections 4 and 8 require atomic invalid-command rejection and no private identities in observations, candidates, masks or errors.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 sections 4 and 8"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "Original, no upstream rules vintage",
+      "target": "cr-2026-09-25",
+      "differences": "Checked pinned 2026 rules; no combat damage assignment ordering is introduced.",
+      "adjudication": "Bite Down requires a creature the caster controls and one they do not; the target slots are ordered under 601.2c. Reversing them or omitting one is illegal. 601.2e checks legality and 733.1 reverses an illegal action. Valid casting pays 1G and retains P0 priority (117.3c); no resolution is asserted.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "status": "accepted"
+    },
+    "reproduction": {
+      "setup_kind": "synthetic",
+      "trace_sha256": "5744e64643ccc30d308f60976951bf2b3707ecef9fa4b6b33132bd4fb8376b05",
+      "ordered_randomness": "Every library and any replacement shuffle is explicitly ordered; no random seed or automatic shuffle.",
+      "complete_choices": "All commands and choices explicit through the final named checkpoint; no AI/default passes.",
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/m0/targeting-bite.json",
+      "tool_versions": [
+        "neutral-scenario-v1"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "accepted-for-m0",
+      "reviewer": "Separate Codex candidate review recorded in GH-15 PR",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/15"
+      ],
+      "admission_scope": "M0 authored corpus only, conditional on required separate candidate review before merge. No execution or production support claimed.",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "01de0814bc51559cf50b98788159c3669ed10a9147ee2338df9a3f197bf2beac"
+  }
+}

@@ -71,6 +71,8 @@ Exactly one constructor is selected by `setup.kind`:
   cards, London mulligans). Both seats' opening choices are explicit. Every
   mulligan has an explicit replacement shuffle result with the full deck multiset.
   The runner must consume these in order without its own random shuffle or AI.
+  CR 103.5 requires each round's declarations in turn order, then redraw and
+  bottom for each mulligan taker before their next keep/mulligan declaration.
   Constructor selection alone is not evidence of a completed end-to-end game.
 
 Seats are integers 0 and 1. Libraries are top-to-bottom; stack entries are
@@ -204,3 +206,6 @@ those later RFC gates still require ≥100 reviewed cases, XMage coverage of eve
 capability/card, ≥20 independently authored dual-reference critical scenarios,
 scripted matchups, explicit observable-field gaps and adjudicated disagreements.
 No counter is a substitute for those obligations.
+
+GH-15 adds the [initial authored corpus and full assertion comparator](initial-corpus.md).
+The schema example above remains separate from that admitted corpus.
