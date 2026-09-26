@@ -21,8 +21,8 @@ agent:
   max_turns: 12
   max_retry_backoff_ms: 300000
 codex:
-  command: codex -p mtg-lab-symphony app-server
-  approval_policy: never
+  command: '"$SYMPHONY_PYTHON" "$SYMPHONY_CONTROL_ROOT/scripts/symphony/codex_server.py"'
+  approval_policy: on-request
   thread_sandbox: workspace-write
   turn_sandbox_policy:
     type: workspaceWrite
@@ -47,6 +47,10 @@ repeat completed work or create duplicate branches, comments, or PRs.
 This is unattended delivery. Read AGENTS.md and the two RFCs before changing code.
 Work only in this checkout. No human plan or PR approval is required. Do not use
 company/personal connectors. Do not change repository settings or bypass checks.
+Codex auto-review handles sandbox escalation requests without a human. Request
+narrow approval for necessary Git writes or other blocked operations. Respect
+denials: use a materially safer alternative or report the exact rejection and
+block the issue. Never disable the sandbox or change the reviewer policy.
 
 ## GitHub and authorization
 
