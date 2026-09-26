@@ -5,6 +5,11 @@ import re
 import subprocess
 import time
 
+# Fresh clones do not inherit the control checkout's repository-local identity.
+# Reapply on every dispatch, including workspaces created before this policy.
+subprocess.run(["git", "config", "--local", "user.name", "pablo ribalta"], check=True)
+subprocess.run(["git", "config", "--local", "user.email", "pabloxrl@gmail.com"], check=True)
+
 state_path = Path(".symphony-attempts.json")
 state = json.loads(state_path.read_text()) if state_path.exists() else {"started": time.time(), "attempts": 0}
 state["attempts"] += 1

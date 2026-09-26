@@ -14,6 +14,8 @@ workspace:
 hooks:
   after_create: |
     git clone https://github.com/pabloxrl/mtg-lab.git .
+    git config --local user.name "pablo ribalta"
+    git config --local user.email "pabloxrl@gmail.com"
   before_run: |
     python3 scripts/symphony/before_run.py
 agent:
