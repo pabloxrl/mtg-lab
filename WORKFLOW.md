@@ -190,9 +190,10 @@ Standalone issues keep the ordinary delivery process.
    coordinator must reconcile evidence and resume the queue; no background DAG
    scheduler or guaranteed recovery after arbitrary termination is implied.
 
-On a blocked task, record the obstacle in both workpads and perform the same
-bounded handoff for independent eligible tasks before removing its ready label.
-Never let its dependents run. If handoff itself fails, record the failure; remove
+On a newly blocked task, record the obstacle in both workpads and perform the
+same bounded handoff for independent eligible tasks BEFORE adding `agent-blocked`
+or removing its ready label. Mark the current outcome unsuccessful for this
+handoff; never let its dependents run. If handoff itself fails, record the failure; remove
 ready to prevent a failing task from looping, and leave queue recovery visible
 for the coordinator. A program-wide pause/cancel always wins over handoff.
 
@@ -203,8 +204,10 @@ an unresolved result. The host before_run hook also limits re-dispatch attempts;
 max_turns is a session limit, not a total spend cap. Never claim a hard dollar cap.
 
 For missing access, essential product ambiguity, exhausted limits, or unresolved
-failures: first update the workpad with the exact obstacle and attempted remedies,
-add `agent-blocked`, remove `agent-running`, then remove `agent-ready` LAST.
+failures: first update the workpad with the exact obstacle and attempted remedies.
+For a program task, attempt the failed-task handoff above while it is still
+dispatched. Then add `agent-blocked`, remove `agent-running`, and remove
+`agent-ready` LAST.
 The issue stays open and is not repeatedly dispatched. Stop after that operation.
 On a resumed issue, clear agent-blocked and continue from evidence in the workpad.
 
