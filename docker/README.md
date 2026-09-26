@@ -15,7 +15,8 @@ calls cannot grant host privileges. No Docker socket or host home is mounted.
 Ubuntu 24+ can deny user-namespace capabilities even to unconfined applications.
 The named `mtg-lab-codex.apparmor` profile permits `userns` for this deployment.
 It otherwise uses AppArmor's unconfined mode; it does not claim a second
-AppArmor filesystem boundary. Bootstrap loads it only on AppArmor hosts and
+AppArmor filesystem boundary. Bootstrap installs it under `/etc/apparmor.d`, enables the boot-time AppArmor
+loader (ordered before Docker by systemd), loads it on AppArmor hosts and
 selects it through ignored `.env`. It never disables the host's global userns
 restriction. A remote Docker host requires operator provisioning of that profile.
 On Docker hosts without AppArmor the Compose default is `unconfined`.

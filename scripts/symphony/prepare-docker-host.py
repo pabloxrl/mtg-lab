@@ -11,10 +11,17 @@ if "apparmor" in security:
     context = subprocess.check_output(["docker", "context", "show"], text=True).strip()
     profile = root / "docker/mtg-lab-codex.apparmor"
     if platform.system() == "Darwin" and context == "colima":
-        subprocess.run(["colima", "ssh", "--", "sudo", "apparmor_parser", "-r"],
-                       input=profile.read_text(), text=True, check=True)
+        # apparmor.service loads /etc/apparmor.d before sysinit.target; Docker
+        # starts after sysinit.target. Persist the policy as well as loading it.
+        subprocess.run(["colima", "ssh", "--", "sudo", "tee", "/etc/apparmor.d/mtg-lab-codex"],
+                       input=profile.read_text(), text=True, stdout=subprocess.DEVNULL, check=True)
+        subprocess.run(["colima", "ssh", "--", "sudo", "chmod", "644", "/etc/apparmor.d/mtg-lab-codex"], check=True)
+        subprocess.run(["colima", "ssh", "--", "sudo", "systemctl", "enable", "apparmor"], check=True)
+        subprocess.run(["colima", "ssh", "--", "sudo", "apparmor_parser", "-r", "/etc/apparmor.d/mtg-lab-codex"], check=True)
     elif platform.system() == "Linux":
-        subprocess.run(["sudo", "apparmor_parser", "-r", str(profile)], check=True)
+        subprocess.run(["sudo", "install", "-m", "644", str(profile), "/etc/apparmor.d/mtg-lab-codex"], check=True)
+        subprocess.run(["sudo", "systemctl", "enable", "apparmor"], check=True)
+        subprocess.run(["sudo", "apparmor_parser", "-r", "/etc/apparmor.d/mtg-lab-codex"], check=True)
     else:
         raise SystemExit("Load docker/mtg-lab-codex.apparmor on the remote Docker host first; "
                          "then provision credentials from that host.")

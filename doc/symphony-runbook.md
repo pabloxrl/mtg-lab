@@ -25,8 +25,8 @@ python3 scripts/symphony/docker-bootstrap.py
 ```
 
 On AppArmor-enabled Ubuntu hosts, bootstrap loads the named
-`docker/mtg-lab-codex.apparmor` profile (via sudo, or inside the existing Colima
-VM) and records its name in ignored `.env`. It permits Codex nested user
+`docker/mtg-lab-codex.apparmor` profile persistently under `/etc/apparmor.d` (via sudo, or inside the existing Colima
+VM), enables its boot-time AppArmor loader and records its name in ignored `.env`. It permits Codex nested user
 namespaces without changing global kernel restrictions. Other Docker hosts use
 `apparmor=unconfined`. This profile does not add AppArmor filesystem restrictions;
 Docker's mounts, non-root UID, read-only root and Codex bubblewrap enforce those.
