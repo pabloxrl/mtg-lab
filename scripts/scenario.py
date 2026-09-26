@@ -228,7 +228,14 @@ def pointer(value, path):
     for part in path.split('/')[1:]:
         part = part.replace('~1', '/').replace('~0', '~')
         try:
-            value = value[int(part)] if type(value) is list else value[part]
+            if type(value) is list:
+                require(re.fullmatch(r'0|[1-9][0-9]*', part), 'invalid JSON Pointer array index')
+                index = int(part)
+                require(index < len(value), 'JSON Pointer array index out of bounds')
+                value = value[index]
+            else:
+                require(type(value) is dict, 'JSON Pointer traverses a scalar')
+                value = value[part]
         except (KeyError, IndexError, ValueError, TypeError) as error:
             raise ValueError('unresolved assertion path: ' + path) from error
     return value

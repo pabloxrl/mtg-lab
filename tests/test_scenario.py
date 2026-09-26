@@ -254,4 +254,20 @@ class TriggerTargetTests(unittest.TestCase):
         bad=copy.deepcopy(trigger);bad['source']=None
         with self.assertRaises(ValueError):s.validate_action(bad)
 
+class PointerTests(unittest.TestCase):
+    setUp = ScenarioTests.setUp
+    reject = ScenarioTests.reject
+
+    def test_array_indices_follow_rfc6901(self):
+        # RFC 6901 §4: no leading zeros, signs, whitespace or '-' array lookup.
+        for token in ['-1','01','+1',' 1','-','2','999999999999999999999999']:
+            with self.subTest(token=token):
+                def edit(f):
+                    f['setup']['assumptions'][0]['checks'][0].update(
+                        field='life',path='/players/'+token+'/life',expected=20)
+                self.reject(edit)
+        self.assertEqual(s.pointer({'players':[{'life':20},{'life':19}]},'/players/1/life'),19)
+        self.assertEqual(s.pointer({'01':{'a/b':7}},'/01/a~1b'),7)
+        self.assertEqual(s.pointer({'a~b':8},'/a~0b'),8)
+
 if __name__ == '__main__': unittest.main()
