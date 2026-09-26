@@ -227,4 +227,31 @@ class SyntheticIdentityTests(unittest.TestCase):
         bad=copy.deepcopy(state);bad['stack'][0]['last_known_source']['status']['keywords']=['First strike']
         with self.assertRaises(ValueError):s.validate_state(bad,cards)
 
+class TriggerTargetTests(unittest.TestCase):
+    def test_etb_target_after_resolution_is_explicit(self):
+        # RFC §7 Triggers / CR 603.3d: Pyromancer's ETB trigger chooses
+        # its target on stack placement, after the creature has resolved.
+        trigger={'id':'choose-etb-target','actor':0,'kind':'target_trigger','source':'pyromancer-etb-1',
+                 'choices':[{'id':'etb-target','actor':0,'kind':'targets','values':['seat:1']}]}
+        try:
+            s.validate_action(trigger)
+        except (ValueError, KeyError) as error:
+            self.fail('required triggered-ability targeting rejected: '+str(error))
+        schema=s.load(ROOT/'schemas/neutral-scenario-v1.json')
+        s.shape(trigger,schema['properties']['script']['items'])
+        passes=[{'id':f'pass-{p}','actor':p,'kind':'pass','source':None,
+                 'choices':[{'id':f'pass-choice-{p}','actor':p,'kind':'pass','values':[]}]} for p in (0,1)]
+        cursor=s.ChoiceScript(passes+[trigger])
+        with self.assertRaises(ValueError):cursor.consume(0,'targets')
+        self.assertEqual(cursor.consume(0,'pass'),[])
+        self.assertEqual(cursor.consume(1,'pass'),[])
+        with self.assertRaises(ValueError):cursor.finish()
+        self.assertEqual(cursor.consume(0,'targets'),['seat:1'])
+        cursor.finish()
+        with self.assertRaises(ValueError):cursor.consume(0,'targets')
+        bad=copy.deepcopy(trigger);bad['choices']=[]
+        with self.assertRaises(ValueError):s.validate_action(bad)
+        bad=copy.deepcopy(trigger);bad['source']=None
+        with self.assertRaises(ValueError):s.validate_action(bad)
+
 if __name__ == '__main__': unittest.main()

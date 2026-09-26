@@ -101,13 +101,18 @@ explicit empty arrays when a slot does not apply; absence is not a default.
 | --- | --- |
 | `cast` | `mode`, `targets`, `payment`, `discard` |
 | `activate` | `targets`, `payment` |
+| `target_trigger` | `targets`; `source` identifies the pending trigger |
 | `play_land` | `land` |
 | `attack`, `block`, `assign_damage` | `attackers`, `blockers`, `damage` respectively |
 | `order_triggers` | `trigger_order` |
 | `pass`, `keep`, `mulligan`, `bottom`, `discard`, `concede` | same named choice |
 
 Pass/keep/mulligan/concede values must be empty. A cast must identify its source;
-all choices retain the actor. This format describes complete logical commands;
+all choices retain the actor. `target_trigger` supplies targets when a pending
+trigger is put on the stack; for Pyromancer this occurs after creature resolution,
+not during casting. Its source is the stable pending-trigger ID. Non-targeted
+triggers need no such action; controller ordering remains `order_triggers`.
+This format describes complete logical commands;
 a bridge may map them to different internal microsteps without adding priority
 windows. Target/payment legality remains the rules engine's responsibility.
 For example, an explicit empty target choice can be an intentionally illegal

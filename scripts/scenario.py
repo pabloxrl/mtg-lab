@@ -13,7 +13,7 @@ EVIDENCE = {'positive', 'negative', 'interaction', 'regression'}
 INVARIANTS = {'state_unchanged', 'rng_unchanged', 'decision_unchanged', 'private_information_unchanged'}
 CHOICES = {
     'pass': ['pass'], 'cast': ['mode', 'targets', 'payment', 'discard'],
-    'activate': ['targets', 'payment'], 'play_land': ['land'],
+    'activate': ['targets', 'payment'], 'target_trigger': ['targets'], 'play_land': ['land'],
     'attack': ['attackers'], 'block': ['blockers'], 'assign_damage': ['damage'],
     'mulligan': ['mulligan'], 'keep': ['keep'], 'bottom': ['bottom'],
     'discard': ['discard'], 'order_triggers': ['trigger_order'], 'concede': ['concede'],
@@ -273,10 +273,11 @@ def validate_state(state, cards):
 
 
 def validate_action(action):
+    require(action['kind'] in CHOICES, 'unsupported action kind')
     choices = action['choices']
     require([c['kind'] for c in choices] == CHOICES[action['kind']], 'incomplete or reordered choice script')
     require(all(c['actor'] == action['actor'] for c in choices), 'choice actor mismatch')
-    require((action['source'] is not None) == (action['kind'] in ('cast','activate','play_land')), 'action source mismatch')
+    require((action['source'] is not None) == (action['kind'] in ('cast','activate','play_land','target_trigger')), 'action source mismatch')
     for choice in choices:
         if choice['kind'] in ('pass', 'keep', 'mulligan', 'concede'):
             require(choice['values'] == [], 'unexpected choice values')
