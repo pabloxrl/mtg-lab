@@ -1,0 +1,728 @@
+{
+  "schema_version": 1,
+  "issue": 16,
+  "audited_main": "4760ba1d9dc2f7edbc3af4095715298df5c7510e",
+  "verdict": "fail",
+  "corrective_issue": 52,
+  "input_sha256": {
+    "data/capabilities-v1.json": "af2986c036031c7ec8768349459f67d35b03c909931f7e0e0a864a6a4c203e0e",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
+    "data/cards/foundations_micro_v1.sha256": "e19d7b839af7f3633dffafed4ff55116fbd8392974a8142ddf05562a88cee68d",
+    "data/cards/foundations_micro_v1.verification.json": "ca87c1db73a93d560cd63670968afeac6eeb4e8f1566ec3fe0362228e1e11c90",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "data/rules/cr-2026-09-25.verification.json": "1f0ab890c2652be8b0e43b23f96f7daab4752d9a8751cfdbbc4b10245ce275bb",
+    "doc/programs/rfc-0002-requirements.json": "431c35742da8f55bb73e55d26b9d40bf17cc79b00c853aa99668d1ba907ae0ed",
+    "doc/programs/rfc-0002.json": "4b33af358ce61990cdd14efcf2b788d679f3a58b1c63bd6dc7ba3e39dafb4f97",
+    "doc/provenance-policy.md": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+    "doc/provenance-sources.json": "c31ae7d9876de09e4b409416f556e16d602afc5cb174b6ae6c4c53cd163930ee",
+    "doc/rfcs/0002-first-mvp.md": "f96a63f427a913d15da6522bab3842ceeb3d35f750a67e2af770464847b5b86c",
+    "fixtures/scenarios/m0/growth-bite-cleanup.json": "d7376bd775a7171648c0b7a949cd2557d6e30691c8b7c281d3bc543b4739a7a1",
+    "fixtures/scenarios/m0/mulligan.json": "d44f4658d4b6274923f35c052c2c51d547b386213ad44f51351b55021c42f0f9",
+    "fixtures/scenarios/m0/priority-empty.json": "1d8e3a1204b28e79607a7baaf39af763b96caa30ed698c71b35903ecfe262162",
+    "fixtures/scenarios/m0/privacy-a.json": "473617c2e72205f3c6d954337397395f7cd4f2c4afd4541b544d146d9da91f6b",
+    "fixtures/scenarios/m0/privacy-b.json": "d3a3e858b955c96042bcadcef43aa23dce36c9685140d623e2c112436f2ccbdc",
+    "fixtures/scenarios/m0/targeting-bite.json": "0696d449a9a1e682fe1d9bf0236b50b34665d07f972d0ff0e20313eeffecec9b",
+    "fixtures/scenarios/priority-pass.json": "7401f542608cb8acdfc610cb31bd2076e3288d7cb47cf1a6325fa25f9ee358a0",
+    "fixtures/scenarios/xmage-priority-pass.json": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+    "fixtures/xmage-candidates.json": "cb99c857ac54ec15e474797481e44ae677e23a47344d7b0b89ec969f2e7f9b59",
+    "references/forge/NeutralSmokeTest.java": "f887af84b73b88d60e4ce237f452dc2876aa9d3b73f5df6c5a3bd4bcf5a1ad7a",
+    "references/forge/checkpoints.json": "77d9ab7da1533005d28ebe36e9335fc695db2d3ce072f299b61fe3fdb647ed32",
+    "references/forge/dependencies.json": "8b99dc9fe2352bc8d42b5008bc90e0874a768b404491351eb77c0f23e8c38299",
+    "references/forge/evidence.json": "abe367b763a1ffa517eb91e98999b20ab004998d0196e39c0c6505543295d869",
+    "references/forge/pins.json": "66be220170efc5dd79d6c91373f966ba51626b7772883211f0c8843e1bde2132",
+    "references/xmage/NeutralSmokeTest.java": "3fd4d3c3a27dbaa367d5cb41109f72783820bb39850dc02a57a36cce891e9acf",
+    "references/xmage/UPSTREAM-LICENSE.txt": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+    "references/xmage/checkpoints.json": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+    "references/xmage/evidence.json": "6c30c7acdf5b25286fc0f6857847a69ef8aa08f705aa463f74cb542a19ac8c5e",
+    "references/xmage/pins.json": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+    "scripts/checkpoints.py": "3a1aa8e1657548c12c40d7d982c9633f87e4a1c4bd79ce955c3f02ff002aefca",
+    "scripts/forge.py": "dcd3288c27d5680ce907d4bb9be3200043f80acae4a1432e523c04be0d7c62f7",
+    "scripts/scenario.py": "71a7b826746f4bc94b048d01ab3ccdb82712f03524f3019932cc5353564d4b60",
+    "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8"
+  },
+  "capabilities": {
+    "total": 80,
+    "implementation_counts": {
+      "planned": 80
+    },
+    "required_slots": 320,
+    "record_count": 0,
+    "fixture_mentions": {
+      "fixtures/scenarios/m0/growth-bite-cleanup.json": [
+        "priority/response-chain",
+        "priority/post-cast-resolution",
+        "priority/response-window",
+        "continuous/cleanup",
+        "continuous/resolution-power",
+        "foundations_micro_v1/bear-cub",
+        "foundations_micro_v1/bite-down",
+        "foundations_micro_v1/forest",
+        "foundations_micro_v1/giant-growth"
+      ],
+      "fixtures/scenarios/m0/mulligan.json": [
+        "setup/mulligan-bottom",
+        "setup/two-player-opening",
+        "setup/first-draw",
+        "setup/ordered-draw",
+        "foundations_micro_v1/bear-cub",
+        "foundations_micro_v1/bite-down",
+        "foundations_micro_v1/druid-of-the-cowl",
+        "foundations_micro_v1/forest",
+        "foundations_micro_v1/giant-growth",
+        "foundations_micro_v1/llanowar-elves",
+        "foundations_micro_v1/magnigoth-sentry",
+        "foundations_micro_v1/tajuru-pathwarden",
+        "foundations_micro_v1/thornweald-archer",
+        "foundations_micro_v1/wildheart-invoker"
+      ],
+      "fixtures/scenarios/m0/priority-empty.json": [
+        "priority/passing",
+        "priority/turn-structure"
+      ],
+      "fixtures/scenarios/m0/privacy-a.json": [
+        "privacy/side-channels",
+        "setup/library-privacy",
+        "foundations_micro_v1/bear-cub",
+        "foundations_micro_v1/forest",
+        "foundations_micro_v1/giant-growth"
+      ],
+      "fixtures/scenarios/m0/privacy-b.json": [
+        "privacy/side-channels",
+        "setup/library-privacy",
+        "foundations_micro_v1/bear-cub",
+        "foundations_micro_v1/forest",
+        "foundations_micro_v1/giant-growth"
+      ],
+      "fixtures/scenarios/m0/targeting-bite.json": [
+        "targets/controller-restrictions",
+        "targets/required-targets",
+        "costs/atomic-rejection",
+        "foundations_micro_v1/bear-cub",
+        "foundations_micro_v1/bite-down"
+      ],
+      "fixtures/scenarios/priority-pass.json": [
+        "priority/passing"
+      ],
+      "fixtures/scenarios/xmage-priority-pass.json": [
+        "priority/passing",
+        "foundations_micro_v1/forest",
+        "foundations_micro_v1/mountain"
+      ]
+    },
+    "mentioned_count": 27,
+    "without_fixture_mention": [
+      "setup/deterministic-reset",
+      "costs/mana-rejection",
+      "costs/generic-payment",
+      "costs/creature-mana",
+      "costs/summoning-sickness",
+      "costs/discard-cost",
+      "targets/zone-change",
+      "targets/partial-invalidation",
+      "targets/resolution-revalidation",
+      "triggers/cast-resolution",
+      "triggers/failed-cast",
+      "triggers/etb-target",
+      "triggers/ordering",
+      "combat/attack-block",
+      "combat/flying-reach",
+      "combat/haste-vigilance",
+      "combat/multiple-blockers",
+      "combat/simultaneous-damage",
+      "combat/deathtouch-trample",
+      "combat/blocked-status",
+      "continuous/stacked-boosts",
+      "objects/token-removal",
+      "objects/zone-identity",
+      "objects/dead-source",
+      "objects/bookkeeping",
+      "terminal/lethal",
+      "terminal/simultaneous-loss",
+      "terminal/empty-draw",
+      "terminal/concede",
+      "terminal/rewards-once",
+      "decisions/all-combinations",
+      "decisions/masked-rejection",
+      "decisions/stale-candidates",
+      "decisions/capacity",
+      "replay/scalar-batch",
+      "replay/pending-snapshot",
+      "replay/worker-independence",
+      "replay/selective-reset",
+      "costs/land-colored-modal",
+      "combat/creature-abilities",
+      "triggers/apnap",
+      "objects/token-create",
+      "continuous/hand-size-cleanup",
+      "foundations_micro_v1/axgard-cavalry",
+      "foundations_micro_v1/crackling-cyclops",
+      "foundations_micro_v1/dragon-fodder",
+      "foundations_micro_v1/firebrand-archer",
+      "foundations_micro_v1/goblin-surprise",
+      "foundations_micro_v1/goblin-token",
+      "foundations_micro_v1/shivan-dragon",
+      "foundations_micro_v1/swab-goblin",
+      "foundations_micro_v1/thrill-of-possibility",
+      "foundations_micro_v1/viashino-pyromancer"
+    ]
+  },
+  "verification": {
+    "command": "./scripts/verify.sh",
+    "exit_code": 0,
+    "python_tests": 108,
+    "rust_tests": 8,
+    "log_sha256": "7275cec01d785f1c1f53e334664f7e6a0d9e39acbad31c1024f7ad616a52df19"
+  },
+  "rules_fetch": {
+    "byte_count": 977752,
+    "effective_date": "2026-09-25",
+    "retrieval_date": "2026-09-26",
+    "rules_version": "cr-2026-09-25",
+    "schema_version": 1,
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+    "source_url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+    "verification": "official-source-fetch-sha256-and-header",
+    "verified_at": "2026-09-26T23:42:29.766371+00:00"
+  },
+  "cards_fetch": {
+    "schema_version": 1,
+    "pool_id": "foundations_micro_v1",
+    "revision": "2026-09-26.1",
+    "verified_at": "2026-09-26T23:43:31.867448+00:00",
+    "cards": [
+      {
+        "card_id": "axgard-cavalry",
+        "source_url": "https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed",
+        "raw_response_sha256": "961df7d3cbf32895c12c6af7dba22f21bccc4a0ac0fa3c963da9ff6f094111e1",
+        "byte_count": 4903,
+        "source_projection_sha256": "9e4ee8b826d37239356fb67e51191bcbab91e471dbdf1c65f4600b95727b308c"
+      },
+      {
+        "card_id": "bear-cub",
+        "source_url": "https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa",
+        "raw_response_sha256": "5b70ddfe8531a0649eede740151237630cd07be8b9630308d8025ee7c10de66e",
+        "byte_count": 5284,
+        "source_projection_sha256": "c46909fa414e06c35788bdfcf4a89e9279848ae3a9214f2fb60952aea88b25f0"
+      },
+      {
+        "card_id": "bite-down",
+        "source_url": "https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5",
+        "raw_response_sha256": "5a8c718a5b68cd5dc5a60f412e87e08bc1e4790bfc83a84e256633e5474d852d",
+        "byte_count": 4970,
+        "source_projection_sha256": "7bd7f110e98c7ae1c32ba73e15c2b9dc08c60ea80e9b6e099b841a4e8fca995d"
+      },
+      {
+        "card_id": "crackling-cyclops",
+        "source_url": "https://api.scryfall.com/cards/6e5b899a-52f7-471b-ad50-4fa6566758fd",
+        "raw_response_sha256": "ee54c30e3ab0e6ea9f5617ffc0a5c8ef79ef1063ad0eb7d85db63fd555771eb8",
+        "byte_count": 4962,
+        "source_projection_sha256": "9dfae688643be917dc6b079177b32f2fcdb71b120b5dd5c49a90b6588661442b"
+      },
+      {
+        "card_id": "dragon-fodder",
+        "source_url": "https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146",
+        "raw_response_sha256": "00ae40cec0ba4d4849163734a6dafd179db5ccbcabd637bd300c73b2e3a9895f",
+        "byte_count": 5411,
+        "source_projection_sha256": "595fa5e838dd68734385c34a60d3ed6e890fc8bcc210576f251ecf21727fcc3f"
+      },
+      {
+        "card_id": "druid-of-the-cowl",
+        "source_url": "https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4",
+        "raw_response_sha256": "694903f580e408d03808ae91a1a2c9809d5f4f8e408bea0cda4ffeebf5cb3b49",
+        "byte_count": 4931,
+        "source_projection_sha256": "089df4cc354a87bcab76deca76fc040852488ab5adc565cbefa4fb15650a55f9"
+      },
+      {
+        "card_id": "firebrand-archer",
+        "source_url": "https://api.scryfall.com/cards/fe0312f1-4c98-4b7f-8a34-0059ea80edef",
+        "raw_response_sha256": "14a91c6c45834d33e351c2cca8fbda606a2e03c8a4242f165d695d9469991944",
+        "byte_count": 4903,
+        "source_projection_sha256": "9322c753bf5d375d25f4055c4c8cb28666233044bcdf9272183cb0f804a43e11"
+      },
+      {
+        "card_id": "forest",
+        "source_url": "https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378",
+        "raw_response_sha256": "ee50b2464f0d1a948168c57a93d53d0b0d176d02dfef77615a436aff665add54",
+        "byte_count": 5169,
+        "source_projection_sha256": "d6c770658c87d99a67fd294199d9018396f426a9d7843301ce8cb20e677663c6"
+      },
+      {
+        "card_id": "giant-growth",
+        "source_url": "https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0",
+        "raw_response_sha256": "e91e392ac925f2b3332429b4209895d989827cfa6a4c0083bb579c1f2eb6cf2d",
+        "byte_count": 4764,
+        "source_projection_sha256": "0512c008cf6612678feb4dbfc8809fe088aa73f4413bc8cedcc826e19a2d7f6f"
+      },
+      {
+        "card_id": "goblin-surprise",
+        "source_url": "https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e",
+        "raw_response_sha256": "d4a9ac63df46d0757285f93838a541db76c724c403208e7443f2aa16b415789b",
+        "byte_count": 5320,
+        "source_projection_sha256": "e69891419a5a08607e5eca5c67d416bdc3b60ff90da2a5ca46f52167f393b61c"
+      },
+      {
+        "card_id": "goblin-token",
+        "source_url": "https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e",
+        "raw_response_sha256": "cc98ef1cb37df92f949f32f65ef6180533992e5472efe3cd575f34094d0bf566",
+        "byte_count": 20070,
+        "source_projection_sha256": "edf01e8f6cd8f99162854620ea3a45b0d1f6ccad5dd59de616b619623d1928d6"
+      },
+      {
+        "card_id": "llanowar-elves",
+        "source_url": "https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd",
+        "raw_response_sha256": "44447c9ef9e2ae9f6f694e61519a7294b293bd1874528f5b9833e4ddb090e2c7",
+        "byte_count": 5593,
+        "source_projection_sha256": "ee546b91d8f126cb0a72b689f4e169a34a21737e8a9f605d4942e827d5d48093"
+      },
+      {
+        "card_id": "magnigoth-sentry",
+        "source_url": "https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a",
+        "raw_response_sha256": "b24f7969ed8ad41c77bb6e169f7c53fd9acafc07b4acfdd7ce545231e87c9dd4",
+        "byte_count": 4971,
+        "source_projection_sha256": "b0a3cd678db5e3458dfec81d172f797e2a63064a33ea4ca90f9de3e971ac1a84"
+      },
+      {
+        "card_id": "mountain",
+        "source_url": "https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c",
+        "raw_response_sha256": "630b36eda10e1be8827010634f79ab577a31b81f77a5fffc24cd3ae8fd7ba822",
+        "byte_count": 4703,
+        "source_projection_sha256": "ebdac766ea1e95edf8b25d8fab4668266d2324d4b5cfc4f0549dff93da4172aa"
+      },
+      {
+        "card_id": "shivan-dragon",
+        "source_url": "https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0",
+        "raw_response_sha256": "b3d610bf777006add7649aee36d283fa02851d38ef2265a55713fc24e8a78592",
+        "byte_count": 5270,
+        "source_projection_sha256": "b9eaa5fca977423847d28b7aed88062eb7ef299073c244b9361dcb6f50a38d0f"
+      },
+      {
+        "card_id": "swab-goblin",
+        "source_url": "https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa",
+        "raw_response_sha256": "00be8d5242e8702ec507cd39b40c3538286b3a48c04c543d2a54432f434279f6",
+        "byte_count": 4837,
+        "source_projection_sha256": "68d3cd5790e0d783ef1f72f722d1eaf64028de41f18bf21e016b88513de41f5b"
+      },
+      {
+        "card_id": "tajuru-pathwarden",
+        "source_url": "https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8",
+        "raw_response_sha256": "700c08bec66527ccee1fdaa231118338cee93bfda13f6d33b3b9beeb66e7148d",
+        "byte_count": 5107,
+        "source_projection_sha256": "5494d3f40a15a6f4131789f91523d7262a2e11fac91fda8961858f5094a8383d"
+      },
+      {
+        "card_id": "thornweald-archer",
+        "source_url": "https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b",
+        "raw_response_sha256": "78c6f5e36e3174d9227ced81c1ea7b1dded20a00ec373f7839bc0d805a8a5cd9",
+        "byte_count": 5044,
+        "source_projection_sha256": "e69c28630b1d61a495e3214cc98840e5bc5ff5968a4ffaeacd286a633c003aa3"
+      },
+      {
+        "card_id": "thrill-of-possibility",
+        "source_url": "https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669",
+        "raw_response_sha256": "a1a7ae0b661ef91029412c4e935daeeb2f04bcdc56cfc050e159bc21458f5b12",
+        "byte_count": 4971,
+        "source_projection_sha256": "a55cea034bfc9385461ff6652b184af3421b7e101b9ba237c9169ab547efacb6"
+      },
+      {
+        "card_id": "viashino-pyromancer",
+        "source_url": "https://api.scryfall.com/cards/9f52ada2-cabc-46a3-99df-271833a86909",
+        "raw_response_sha256": "40402c3f87dee7a3e9d1536bcf086590db56db62c84d696f40255ab0bbf3d8ea",
+        "byte_count": 4949,
+        "source_projection_sha256": "78b1b5a505dfd666e7077b162045a399a5cc8b9ebf888fdae12e9540ecd42fab"
+      },
+      {
+        "card_id": "wildheart-invoker",
+        "source_url": "https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d",
+        "raw_response_sha256": "1062f6820cd1cb3045fcdd20dcfd22a6a1fee5ee265556d37e52e967a7592489",
+        "byte_count": 5075,
+        "source_projection_sha256": "137ab22b1c983cb6ba2a40cae329aaeca4df6a516ed6c616e4cd74591b543363"
+      }
+    ]
+  },
+  "reference_acceptance": {
+    "xmage": {
+      "status": "agreed",
+      "smoke_seconds": 20.253977604999818,
+      "checkpoint_sha256": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+      "fixture_sha256": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+      "bridge_sha256": "3fd4d3c3a27dbaa367d5cb41109f72783820bb39850dc02a57a36cce891e9acf",
+      "runner_sha256": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+      "pins_sha256": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+      "dependencies_sha256": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+      "platform": "Linux/aarch64",
+      "stdin": "closed",
+      "display": "unset",
+      "offline": true,
+      "smoke_timeout_seconds": 180,
+      "logs": {
+        "smoke-1": "2b6e2bd1e1313cc6849a6adff45d4ccb75dff2a086508b77edb677aed521a7fd",
+        "smoke-2": "eaa2d16d8bd5f3cbd6ab6c25d408095b00d48a17ec0448c6b42a529225a1d9b3"
+      },
+      "mutations": {
+        "life": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /players/0/life",
+          "log_sha256": "24043e2de7387836f8c47ea43638adb2c8b21336c9f588b00b7710addf2317b9"
+        },
+        "choice": {
+          "status": "detected",
+          "reason": "script actor mismatch",
+          "log_sha256": "13862c0ee26c6cc4e06186d55135a9a18841d12e499d9c82f0db787d3d89fe8c"
+        },
+        "checkpoint": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /priority",
+          "log_sha256": "45430deec485c99b7a5836405b4f7db99c8798834b5e3c7674c8e284de25c631"
+        }
+      }
+    },
+    "forge": {
+      "status": "agreed",
+      "smoke_seconds": 22.583305272999496,
+      "checkpoint_sha256": "77d9ab7da1533005d28ebe36e9335fc695db2d3ce072f299b61fe3fdb647ed32",
+      "fixture_sha256": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+      "bridge_sha256": "f887af84b73b88d60e4ce237f452dc2876aa9d3b73f5df6c5a3bd4bcf5a1ad7a",
+      "runner_sha256": "dcd3288c27d5680ce907d4bb9be3200043f80acae4a1432e523c04be0d7c62f7",
+      "shared_runner_sha256": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+      "pins_sha256": "66be220170efc5dd79d6c91373f966ba51626b7772883211f0c8843e1bde2132",
+      "dependencies_sha256": "8b99dc9fe2352bc8d42b5008bc90e0874a768b404491351eb77c0f23e8c38299",
+      "xmage_checkpoint_sha256": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+      "platform": "Linux/aarch64",
+      "stdin": "closed",
+      "display": "unset",
+      "offline": true,
+      "smoke_timeout_seconds": 180,
+      "command": [
+        "mvn",
+        "-B",
+        "-ntp",
+        "-s",
+        "/tmp/mtg-forge/settings.xml",
+        "-gs",
+        "/tmp/mtg-forge/settings.xml",
+        "-Dmaven.repo.local=/tmp/mtg-forge/m2",
+        "-o",
+        "-pl",
+        "forge-gui-desktop",
+        "-am",
+        "test",
+        "-Dtest=forge.gamesimulationtests.mtglab.NeutralSmokeTest",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dmtglab.fixture=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-16/fixtures/scenarios/xmage-priority-pass.json",
+        "-Dmtglab.output=/tmp/mtg-forge/smoke-1.json",
+        "-Dmtglab.assets=/tmp/mtg-forge/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/"
+      ],
+      "logs": {
+        "smoke-1": "4eebd36bb349aca978142fd1b69283a5471bc96d32e79804998f31e1aa9e3eba",
+        "smoke-2": "51abe01e9532a948ff9a6f30a421f48612d477c248c3ecbb5fdbd66dd77a082c"
+      },
+      "mutations": {
+        "life": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /players/0/life",
+          "fixture_sha256": "53880629809a914b08009922b21363f3351b1321e50f3517f690145e78bbd1e6",
+          "log_sha256": "a45ccb635a6e377dfcb88ead01f1e52090e847f8d2e256f029c5c5238fe855df"
+        },
+        "choice": {
+          "status": "detected",
+          "reason": "script actor mismatch",
+          "fixture_sha256": "44354dd7efabef73b328c4a86a0b7f8d05415904bb55896fb75bf72b171d67c2",
+          "log_sha256": "ed19bf502b451a817c92b9cc6b2710b673d357d5dbfb5ca267e3ce66ab6d52f1"
+        },
+        "checkpoint": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /priority",
+          "fixture_sha256": "11b56772abffe24805fe8f60c6f53c0970e023d63ae014c482a49ccab44ba576",
+          "log_sha256": "928f097b6459896ae35f2eace5355f03ff689b66bd6f0feb612434bf66dbeedd"
+        }
+      }
+    }
+  },
+  "failed_attempts": [
+    {
+      "status": "failed",
+      "error": "[Errno 30] Read-only file system: '/home/agent/.cache/xmage/acceptance.json'"
+    }
+  ],
+  "reference_raw_checks": {
+    "xmage": {
+      "positive_runs": 2,
+      "tests_per_positive_run": 1,
+      "skipped": 0,
+      "actual": {
+        "bridge_version": 1,
+        "checkpoints": [
+          {
+            "name": "initial",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 0,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          },
+          {
+            "name": "priority-p1",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 1,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          }
+        ],
+        "unsupported": {
+          "object_characteristics_status_damage": "Library-only cards; permanent state unsupported in smoke v1",
+          "legal_choices": "Enumeration not exported by smoke v1; only explicit pass executed",
+          "outcome": "Stopped at intermediate decision, not game end",
+          "effects_and_private_views": "Not exported by smoke v1",
+          "land_plays_used": "Not exported by smoke v1"
+        }
+      },
+      "mutation_fixture_sha256": {
+        "life": "53880629809a914b08009922b21363f3351b1321e50f3517f690145e78bbd1e6",
+        "choice": "44354dd7efabef73b328c4a86a0b7f8d05415904bb55896fb75bf72b171d67c2",
+        "checkpoint": "11b56772abffe24805fe8f60c6f53c0970e023d63ae014c482a49ccab44ba576"
+      }
+    },
+    "forge": {
+      "positive_runs": 2,
+      "tests_per_positive_run": 1,
+      "skipped": 0,
+      "actual": {
+        "bridge_version": 1,
+        "checkpoints": [
+          {
+            "name": "initial",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 0,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          },
+          {
+            "name": "priority-p1",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 1,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          }
+        ],
+        "observed_cards": {
+          "p0-library-0": "forest",
+          "p0-library-1": "mountain",
+          "p1-library-0": "mountain",
+          "p1-library-1": "forest"
+        },
+        "unsupported": {
+          "object_characteristics_status_damage": "Library-only smoke; permanent attributes not exported",
+          "legal_choices": "Only explicit pass; enumeration not exported",
+          "outcome": "Stopped at intermediate priority, not game end",
+          "effects_and_private_views": "Not exported by smoke v1",
+          "land_plays_used": "Not exported by smoke v1"
+        }
+      },
+      "mutation_fixture_sha256": {
+        "life": "53880629809a914b08009922b21363f3351b1321e50f3517f690145e78bbd1e6",
+        "choice": "44354dd7efabef73b328c4a86a0b7f8d05415904bb55896fb75bf72b171d67c2",
+        "checkpoint": "11b56772abffe24805fe8f60c6f53c0970e023d63ae014c482a49ccab44ba576"
+      }
+    }
+  }
+}
