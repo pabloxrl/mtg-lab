@@ -63,6 +63,27 @@ class ScenarioTests(unittest.TestCase):
         self.reject(lambda f: f['script'].append(copy.deepcopy(f['script'][0])))
         self.reject(lambda f: f['script'][0]['choices'][0].__setitem__('values',['auto']))
 
+    def test_synthetic_assumptions_distinguish_nested_booleans(self):
+        # RFC §7 requires validated assumptions; JSON booleans are not numbers.
+        # Check both nesting forms through the public fixture validator.
+        for container in ('object', 'array'):
+            for actual, expected in ((0, False), (1, True)):
+                def edit(f):
+                    state = f['setup']['state']
+                    state['players'][0]['mana']['G'] = actual
+                    if container == 'object':
+                        value = copy.deepcopy(state['players'][0]['mana'])
+                        value['G'] = expected
+                        field, path = 'mana', '/players/0/mana'
+                    else:
+                        value = copy.deepcopy(state['players'])
+                        value[0]['mana']['G'] = expected
+                        field, path = 'invariant', '/players'
+                    f['setup']['assumptions'][0]['checks'][0].update(
+                        field=field, path=path, expected=value)
+                with self.subTest(container=container, actual=actual):
+                    self.reject(edit)
+
     def test_runtime_choice_completeness(self):
         choices = s.ChoiceScript(self.fixture['script'])
         with self.assertRaises(ValueError): choices.finish()
@@ -148,6 +169,27 @@ class ExtendedScenarioTests(unittest.TestCase):
                      lambda f:f['setup'].__setitem__('state',{})]:
             bad=copy.deepcopy(f);edit(bad)
             with self.assertRaises(ValueError): s.validate(self.signed(bad),self.registry)
+
+    def test_assumption_json_numeric_and_container_semantics(self):
+        # JSON Schema's instance equality: numeric value, unordered object keys,
+        # ordered arrays, and separate boolean/null/string types.
+        cases = [
+            ({'G': 0.0, 'R': 1.0}, {'R': 1, 'G': 0}, True),
+            ([False, {'x': [True, None]}], [False, {'x': [True, None]}], True),
+            ([False], [0], False), ([1], [True], False),
+            ([0, 1], [1, 0], False), ([0], [0, 1], False),
+            ({'G': 0}, {'R': 0}, False), (None, False, False),
+            ('1', 1, False), ({'G': [1]}, {'G': [1.5]}, False),
+        ]
+        for left, right, expected in cases:
+            with self.subTest(left=left, right=right):
+                self.assertIs(s.json_equal(left, right), expected)
+                self.assertIs(s.json_equal(right, left), expected)
+        f = copy.deepcopy(self.fixture)
+        value = {key: float(n) for key, n in f['setup']['state']['players'][0]['mana'].items()}
+        f['setup']['assumptions'][0]['checks'][0].update(
+            field='mana', path='/players/0/mana', expected=value)
+        s.validate(self.signed(f), self.registry)
 
     def test_assertion_types_and_pointer_syntax(self):
         self.reject(lambda f:f['checkpoints'][0]['assertions'][0].__setitem__('expected','next-player'))

@@ -33,6 +33,25 @@ def digest(value):
                                     ensure_ascii=False, allow_nan=False).encode()).hexdigest()
 
 
+def json_equal(left, right):
+    """Compare JSON values recursively; booleans are distinct from numbers.
+
+    JSON has one numeric type, so equal int/float values compare equally.
+    Callers validate JSON input before comparison.
+    """
+    if type(left) in (int, float) and type(right) in (int, float):
+        return left == right
+    if type(left) is not type(right):
+        return False
+    if type(left) is dict:
+        return left.keys() == right.keys() and all(
+            json_equal(value, right[key]) for key, value in left.items())
+    if type(left) is list:
+        return len(left) == len(right) and all(
+            json_equal(a, b) for a, b in zip(left, right))
+    return left == right
+
+
 def _pairs(pairs):
     result = {}
     for key, value in pairs:
@@ -364,7 +383,7 @@ def validate(fixture, registry=None, check_registry=True):
         used_cards.update(x['last_known_source']['card_id'] for x in setup['state']['stack'] + setup['state']['effects'] if x['last_known_source'] is not None)
         for assumption in setup['assumptions']:
             for assertion in assumption['checks']:
-                require(pointer(setup['state'],assertion['path']) == assertion['expected'], 'synthetic assumption failed')
+                require(json_equal(pointer(setup['state'],assertion['path']), assertion['expected']), 'synthetic assumption failed')
             assertions.extend(assumption['checks'])
     else:
         require(len(setup['decks']) == 2 and len(setup['ordered_libraries']) == 2, 'normal reset requires two decks')

@@ -138,6 +138,10 @@ must expose that field or report it unobservable, never silently ignore it.
 Only synthetic assumption pointers are evaluated here; expected checkpoints are
 never calculated by this validator.
 
+Synthetic assumption equality compares JSON values recursively: object key order
+does not matter, array order and length do, and booleans never equal numbers.
+Numbers compare by value (`0` equals `0.0`); strings and null remain distinct types.
+
 Invalid-action probes are separate from the valid script. Each names its insertion
 checkpoint, exact expected error, independently justified basis and **all four**
 invariants: unchanged game state, RNG state, decision state and private information.
