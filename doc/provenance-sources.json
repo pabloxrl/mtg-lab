@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "purpose": "Source inspection receipts, not redistribution permission or reference-build pins",
+  "sources": [
+    {
+      "id": "xmage-license",
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/LICENSE.txt",
+      "resolved_url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/LICENSE.txt",
+      "sha256": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+      "bytes": 1078,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "xmage-damage",
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/cards/damage/AssignDamageTest.java",
+      "resolved_url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/cards/damage/AssignDamageTest.java",
+      "sha256": "8082ab9d19c340acbd41d7f9561811ff60f6772f48e4cd022269b373486a3579",
+      "bytes": 2414,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "forge-license",
+      "url": "https://raw.githubusercontent.com/Card-Forge/forge/95dc682bf92460f49cebd7a9578f06ccf60d5569/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/Card-Forge/forge/95dc682bf92460f49cebd7a9578f06ccf60d5569/LICENSE",
+      "sha256": "8b1ba204bb69a0ade2bfcf65ef294a920f6bb361b317dba43c7ef29d96332b9b",
+      "bytes": 35148,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "forge-readme",
+      "url": "https://raw.githubusercontent.com/Card-Forge/forge/95dc682bf92460f49cebd7a9578f06ccf60d5569/README.md",
+      "resolved_url": "https://raw.githubusercontent.com/Card-Forge/forge/95dc682bf92460f49cebd7a9578f06ccf60d5569/README.md",
+      "sha256": "74be12fe0e32ec7ff1feecb21625d1c932316f3e4efea94dd5a1ca9f747200ff",
+      "bytes": 4869,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "scryfall-terms",
+      "url": "https://scryfall.com/docs/terms",
+      "resolved_url": "https://scryfall.com/docs/terms",
+      "sha256": "82ee8e31218cc2cd2e921c296c4c7b439f1a40f4b8d97f8ffcbb83f9e65f0ea9",
+      "bytes": 73285,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "wizards-fan",
+      "url": "https://company.wizards.com/en/legal/fancontentpolicy",
+      "resolved_url": "https://company.wizards.com/en/legal/fancontentpolicy",
+      "sha256": "e0b4e4e62d963aec313fa471a90e8b421a0e1f35bb17002a6538f4b01543d8d4",
+      "bytes": 88450,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "wizards-terms",
+      "url": "https://company.wizards.com/en/legal/terms",
+      "resolved_url": "https://company.wizards.com/en/legal/terms",
+      "sha256": "b1d4b9869e52dc6416665fc950772f850abfef34df0060280190f1437193277d",
+      "bytes": 306039,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "foundations",
+      "url": "https://magic.wizards.com/en/news/feature/foundations-release-notes",
+      "resolved_url": "https://magic.wizards.com/en/news/feature/foundations-release-notes",
+      "sha256": "0a491ed979ec5a28103da94ab2fdb1feb0f95fce5b1aee3a2d3ad85fd153d32a",
+      "bytes": 883913,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "forge-base",
+      "url": "https://raw.githubusercontent.com/Card-Forge/forge/95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui-desktop/src/test/java/forge/gamesimulationtests/BaseGameSimulationTest.java",
+      "sha256": "4a53dee51a9b021172b4b471677bf410e6a0bb551cc9dc2f008a74837d6d5875",
+      "bytes": 2683,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "xmage-base",
+      "url": "https://raw.githubusercontent.com/magefree/mage/000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/test/java/org/mage/test/serverside/base/CardTestPlayerBase.java",
+      "sha256": "7aa7a03ab7123e53d1662e05c24b0a637a4a3871c96ede79b7749c1c63034d4d",
+      "bytes": 1027,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "cr",
+      "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+      "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+      "bytes": 977752,
+      "retrieved": "2026-09-26"
+    },
+    {
+      "id": "scryfall-api",
+      "url": "https://scryfall.com/docs/api",
+      "sha256": "c0a82abc27cca6393c9891b685262217474b157c0b9982f0bed6844e53d80b89",
+      "bytes": 68249,
+      "retrieved": "2026-09-26",
+      "access_note": "Initial urllib request returned 403; curl with accurate application User-Agent and Accept: text/html returned HTTP 200."
+    }
+  ]
+}
