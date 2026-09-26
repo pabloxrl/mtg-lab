@@ -1,0 +1,929 @@
+{
+  "schema_version": 1,
+  "pool_id": "foundations_micro_v1",
+  "revision": "2026-09-26.1",
+  "oracle_revision": "sha256-per-card-utf8-text",
+  "rules_version": "cr-2026-09-25",
+  "cards": [
+    {
+      "id": "axgard-cavalry",
+      "name": "Axgard Cavalry",
+      "kind": "card",
+      "oracle_id": "6a92b011-fd01-4b6a-a17c-73ac1967ff98",
+      "printing": {
+        "id": "fe3cc41a-adae-4c9b-b4d3-03f3ca862fed",
+        "set": "fdn",
+        "collector_number": "189",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{R}",
+        "cmc": 2.0,
+        "type_line": "Creature — Dwarf Berserker",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": "2",
+        "toughness": "2"
+      },
+      "behavior_id": "foundations_micro_v1/axgard-cavalry",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed",
+      "raw_response_sha256": "961df7d3cbf32895c12c6af7dba22f21bccc4a0ac0fa3c963da9ff6f094111e1",
+      "oracle_text_sha256": "4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0",
+      "source_projection_sha256": "9e4ee8b826d37239356fb67e51191bcbab91e471dbdf1c65f4600b95727b308c",
+      "content_sha256": "4c9a5018be66b1f4a15e25a9522688855667a6794fe0d626e86bea3f8fcca11d"
+    },
+    {
+      "id": "bear-cub",
+      "name": "Bear Cub",
+      "kind": "card",
+      "oracle_id": "ed206651-3d9b-4546-8d45-0682817192fd",
+      "printing": {
+        "id": "d8662ebb-068b-41d2-b504-4b5854e4d4aa",
+        "set": "fdn",
+        "collector_number": "552",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{G}",
+        "cmc": 2.0,
+        "type_line": "Creature — Bear",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": "2",
+        "toughness": "2"
+      },
+      "behavior_id": "foundations_micro_v1/bear-cub",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa",
+      "raw_response_sha256": "5b70ddfe8531a0649eede740151237630cd07be8b9630308d8025ee7c10de66e",
+      "oracle_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_projection_sha256": "c46909fa414e06c35788bdfcf4a89e9279848ae3a9214f2fb60952aea88b25f0",
+      "content_sha256": "7406cd42db9af41fe5c7a86f3ad5313d06ac49e14d7abd4a81f77c69772a9756"
+    },
+    {
+      "id": "bite-down",
+      "name": "Bite Down",
+      "kind": "card",
+      "oracle_id": "623903de-3c04-4745-9af3-d7ec9fb2574d",
+      "printing": {
+        "id": "f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5",
+        "set": "fdn",
+        "collector_number": "212",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{G}",
+        "cmc": 2.0,
+        "type_line": "Instant",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/bite-down",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5",
+      "raw_response_sha256": "5a8c718a5b68cd5dc5a60f412e87e08bc1e4790bfc83a84e256633e5474d852d",
+      "oracle_text_sha256": "89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc",
+      "source_projection_sha256": "7bd7f110e98c7ae1c32ba73e15c2b9dc08c60ea80e9b6e099b841a4e8fca995d",
+      "content_sha256": "eeccee4b979a40f056b4ea5a84050e9156fd779657d0d0169ada944425dbc3ce"
+    },
+    {
+      "id": "crackling-cyclops",
+      "name": "Crackling Cyclops",
+      "kind": "card",
+      "oracle_id": "16ab9451-f3da-4f61-8e2b-d9c84e0e5428",
+      "printing": {
+        "id": "6e5b899a-52f7-471b-ad50-4fa6566758fd",
+        "set": "fdn",
+        "collector_number": "83",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{2}{R}",
+        "cmc": 3.0,
+        "type_line": "Creature — Cyclops Wizard",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": "0",
+        "toughness": "4"
+      },
+      "behavior_id": "foundations_micro_v1/crackling-cyclops",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/6e5b899a-52f7-471b-ad50-4fa6566758fd",
+      "raw_response_sha256": "ee54c30e3ab0e6ea9f5617ffc0a5c8ef79ef1063ad0eb7d85db63fd555771eb8",
+      "oracle_text_sha256": "7e42c7dd89e1eb9c8d77a3e420de8d35e3355ef3058531db0ab360a5fb10377e",
+      "source_projection_sha256": "9dfae688643be917dc6b079177b32f2fcdb71b120b5dd5c49a90b6588661442b",
+      "content_sha256": "9f95ddce8f42ade3ddf4bbd44fddfbe8bb8ad416c13a69ca2bbed1e2ac52a22f"
+    },
+    {
+      "id": "dragon-fodder",
+      "name": "Dragon Fodder",
+      "kind": "card",
+      "oracle_id": "d0d2c45b-b6e3-4999-bdab-976e8f0d6617",
+      "printing": {
+        "id": "f9abe517-f601-4784-8d62-2350bd755146",
+        "set": "fdn",
+        "collector_number": "535",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{R}",
+        "cmc": 2.0,
+        "type_line": "Sorcery",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/dragon-fodder",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146",
+      "raw_response_sha256": "00ae40cec0ba4d4849163734a6dafd179db5ccbcabd637bd300c73b2e3a9895f",
+      "oracle_text_sha256": "b75c20b710694947f47a2c5f8f6907dd9d8cd721fc2d41dd2a5a476435fda7fd",
+      "source_projection_sha256": "595fa5e838dd68734385c34a60d3ed6e890fc8bcc210576f251ecf21727fcc3f",
+      "content_sha256": "508c17acb651c68aba204ac159ee803e3ee40f167dc90ff01fb0035cfe1fba20"
+    },
+    {
+      "id": "druid-of-the-cowl",
+      "name": "Druid of the Cowl",
+      "kind": "card",
+      "oracle_id": "b1793c3b-25d6-4fae-a99d-cfdd2210ca67",
+      "printing": {
+        "id": "db2d0ee9-865c-4fc9-8cb6-540c597e1bf4",
+        "set": "fdn",
+        "collector_number": "554",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{G}",
+        "cmc": 2.0,
+        "type_line": "Creature — Elf Druid",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": "1",
+        "toughness": "3"
+      },
+      "behavior_id": "foundations_micro_v1/druid-of-the-cowl",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4",
+      "raw_response_sha256": "694903f580e408d03808ae91a1a2c9809d5f4f8e408bea0cda4ffeebf5cb3b49",
+      "oracle_text_sha256": "9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3",
+      "source_projection_sha256": "089df4cc354a87bcab76deca76fc040852488ab5adc565cbefa4fb15650a55f9",
+      "content_sha256": "695e903f06f6b03258b0190fa4ee3cc630c1fa055e8dd2919225c49fcbf02c4d"
+    },
+    {
+      "id": "firebrand-archer",
+      "name": "Firebrand Archer",
+      "kind": "card",
+      "oracle_id": "2e9289d6-dbc6-456d-88cf-d1f534e731d6",
+      "printing": {
+        "id": "fe0312f1-4c98-4b7f-8a34-0059ea80edef",
+        "set": "fdn",
+        "collector_number": "196",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{R}",
+        "cmc": 2.0,
+        "type_line": "Creature — Human Archer",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": "2",
+        "toughness": "1"
+      },
+      "behavior_id": "foundations_micro_v1/firebrand-archer",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/fe0312f1-4c98-4b7f-8a34-0059ea80edef",
+      "raw_response_sha256": "14a91c6c45834d33e351c2cca8fbda606a2e03c8a4242f165d695d9469991944",
+      "oracle_text_sha256": "66cc1ff3419c25bf9ae97c4e80110611c1b518302bfbe85c2d4dcb1e90981885",
+      "source_projection_sha256": "9322c753bf5d375d25f4055c4c8cb28666233044bcdf9272183cb0f804a43e11",
+      "content_sha256": "374a35957b74f2d1bf0e9402f6cdb9e742ee28c69f60ab5cb74eb5e5b58c4804"
+    },
+    {
+      "id": "forest",
+      "name": "Forest",
+      "kind": "card",
+      "oracle_id": "b34bb2dc-c1af-4d77-b0b3-a0fb342a5fc6",
+      "printing": {
+        "id": "d232fcc2-12f6-401a-b1aa-ddff11cb9378",
+        "set": "fdn",
+        "collector_number": "280",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "",
+        "cmc": 0.0,
+        "type_line": "Basic Land — Forest",
+        "colors": [],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/forest",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378",
+      "raw_response_sha256": "ee50b2464f0d1a948168c57a93d53d0b0d176d02dfef77615a436aff665add54",
+      "oracle_text_sha256": "6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b",
+      "source_projection_sha256": "d6c770658c87d99a67fd294199d9018396f426a9d7843301ce8cb20e677663c6",
+      "content_sha256": "fd52bc5c0a843b0ce75e7c905fe05345bc60c1f20f7551d8c145a1cc847647c8"
+    },
+    {
+      "id": "giant-growth",
+      "name": "Giant Growth",
+      "kind": "card",
+      "oracle_id": "5748ebf1-24e3-499d-ab7c-c2cebd462a24",
+      "printing": {
+        "id": "bd0bf74e-14c1-4428-88d8-2181a080b5d0",
+        "set": "fdn",
+        "collector_number": "223",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{G}",
+        "cmc": 1.0,
+        "type_line": "Instant",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/giant-growth",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0",
+      "raw_response_sha256": "e91e392ac925f2b3332429b4209895d989827cfa6a4c0083bb579c1f2eb6cf2d",
+      "oracle_text_sha256": "94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925",
+      "source_projection_sha256": "0512c008cf6612678feb4dbfc8809fe088aa73f4413bc8cedcc826e19a2d7f6f",
+      "content_sha256": "d754e3c9c6a4149b5188a2ef4678d62246dd10b95436fe7549d6f8f2b83c7375"
+    },
+    {
+      "id": "goblin-surprise",
+      "name": "Goblin Surprise",
+      "kind": "card",
+      "oracle_id": "79cd09e8-d738-47c0-9473-b6281bec6935",
+      "printing": {
+        "id": "527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e",
+        "set": "fdn",
+        "collector_number": "200",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{2}{R}",
+        "cmc": 3.0,
+        "type_line": "Instant",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/goblin-surprise",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e",
+      "raw_response_sha256": "d4a9ac63df46d0757285f93838a541db76c724c403208e7443f2aa16b415789b",
+      "oracle_text_sha256": "01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1",
+      "source_projection_sha256": "e69891419a5a08607e5eca5c67d416bdc3b60ff90da2a5ca46f52167f393b61c",
+      "content_sha256": "2694008e8ce51386c866631c53c10056655c2d20c4869d3ae9e2787a3d704b10"
+    },
+    {
+      "id": "goblin-token",
+      "name": "Goblin",
+      "kind": "token",
+      "oracle_id": "4465eff4-5851-4721-a248-866c686c2ab8",
+      "printing": {
+        "id": "70f8a1de-cd4c-4afa-bf03-0245d375d42e",
+        "set": "tfdn",
+        "collector_number": "18",
+        "lang": "en",
+        "layout": "token",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "",
+        "cmc": 0.0,
+        "type_line": "Token Creature — Goblin",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": "1",
+        "toughness": "1"
+      },
+      "behavior_id": "foundations_micro_v1/goblin-token",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e",
+      "raw_response_sha256": "cc98ef1cb37df92f949f32f65ef6180533992e5472efe3cd575f34094d0bf566",
+      "oracle_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_projection_sha256": "edf01e8f6cd8f99162854620ea3a45b0d1f6ccad5dd59de616b619623d1928d6",
+      "content_sha256": "0daf6c4fb921129e58c304e10fa4330dff138db2b37983efbf05a250f2c66559"
+    },
+    {
+      "id": "llanowar-elves",
+      "name": "Llanowar Elves",
+      "kind": "card",
+      "oracle_id": "68954295-54e3-4303-a6bc-fc4547a4e3a3",
+      "printing": {
+        "id": "6a0b230b-d391-4998-a3f7-7b158a0ec2cd",
+        "set": "fdn",
+        "collector_number": "227",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{G}",
+        "cmc": 1.0,
+        "type_line": "Creature — Elf Druid",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": "1",
+        "toughness": "1"
+      },
+      "behavior_id": "foundations_micro_v1/llanowar-elves",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd",
+      "raw_response_sha256": "44447c9ef9e2ae9f6f694e61519a7294b293bd1874528f5b9833e4ddb090e2c7",
+      "oracle_text_sha256": "9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3",
+      "source_projection_sha256": "ee546b91d8f126cb0a72b689f4e169a34a21737e8a9f605d4942e827d5d48093",
+      "content_sha256": "64ee63bc8b7251feeda56ff7305aaed17848f7c25a7efe5af356871ef4f3b852"
+    },
+    {
+      "id": "magnigoth-sentry",
+      "name": "Magnigoth Sentry",
+      "kind": "card",
+      "oracle_id": "b52824f9-7897-46b7-a4e5-a0261861cb5b",
+      "printing": {
+        "id": "5624e610-c4c0-4103-a32b-0f1264030a7a",
+        "set": "fdn",
+        "collector_number": "556",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{3}{G}",
+        "cmc": 4.0,
+        "type_line": "Creature — Treefolk",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [
+          "Reach"
+        ],
+        "power": "4",
+        "toughness": "4"
+      },
+      "behavior_id": "foundations_micro_v1/magnigoth-sentry",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a",
+      "raw_response_sha256": "b24f7969ed8ad41c77bb6e169f7c53fd9acafc07b4acfdd7ce545231e87c9dd4",
+      "oracle_text_sha256": "0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16",
+      "source_projection_sha256": "b0a3cd678db5e3458dfec81d172f797e2a63064a33ea4ca90f9de3e971ac1a84",
+      "content_sha256": "87762a7f68e7a20a8f9d1b9d474a4d16a982a38abb28f733e042f89e48d1ff9a"
+    },
+    {
+      "id": "mountain",
+      "name": "Mountain",
+      "kind": "card",
+      "oracle_id": "a3fb7228-e76b-4e96-a40e-20b5fed75685",
+      "printing": {
+        "id": "279df7e2-2a3b-464a-a7df-e91da28e3a8c",
+        "set": "fdn",
+        "collector_number": "278",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "",
+        "cmc": 0.0,
+        "type_line": "Basic Land — Mountain",
+        "colors": [],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/mountain",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c",
+      "raw_response_sha256": "630b36eda10e1be8827010634f79ab577a31b81f77a5fffc24cd3ae8fd7ba822",
+      "oracle_text_sha256": "91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c",
+      "source_projection_sha256": "ebdac766ea1e95edf8b25d8fab4668266d2324d4b5cfc4f0549dff93da4172aa",
+      "content_sha256": "b558c00a7722b58d067026f0b0f483789c25399545450e4b47b10f5a56124b2b"
+    },
+    {
+      "id": "shivan-dragon",
+      "name": "Shivan Dragon",
+      "kind": "card",
+      "oracle_id": "711eea87-0fa3-46e0-a42b-fa5a86455f04",
+      "printing": {
+        "id": "702c4781-670b-49ae-b511-90ed119841b0",
+        "set": "fdn",
+        "collector_number": "763",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2026-04-24"
+      },
+      "characteristics": {
+        "mana_cost": "{4}{R}{R}",
+        "cmc": 6.0,
+        "type_line": "Creature — Dragon",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [
+          "Flying"
+        ],
+        "power": "5",
+        "toughness": "5"
+      },
+      "behavior_id": "foundations_micro_v1/shivan-dragon",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0",
+      "raw_response_sha256": "b3d610bf777006add7649aee36d283fa02851d38ef2265a55713fc24e8a78592",
+      "oracle_text_sha256": "e74575fc5da3990b1a3ad046658d95976f710451bdeb79ad7470464394f5ce04",
+      "source_projection_sha256": "b9eaa5fca977423847d28b7aed88062eb7ef299073c244b9361dcb6f50a38d0f",
+      "content_sha256": "26383fb53aea3a1fe80f2852ce21e1e8c065f5e39f8b9344eb03610c5c957608"
+    },
+    {
+      "id": "swab-goblin",
+      "name": "Swab Goblin",
+      "kind": "card",
+      "oracle_id": "343ecf2f-0bbc-4840-8fb3-f5f61b26e76f",
+      "printing": {
+        "id": "8db11970-74c2-463d-88bb-9f88aa079eaa",
+        "set": "fdn",
+        "collector_number": "548",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{R}",
+        "cmc": 2.0,
+        "type_line": "Creature — Goblin Pirate",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": "2",
+        "toughness": "2"
+      },
+      "behavior_id": "foundations_micro_v1/swab-goblin",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa",
+      "raw_response_sha256": "00be8d5242e8702ec507cd39b40c3538286b3a48c04c543d2a54432f434279f6",
+      "oracle_text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_projection_sha256": "68d3cd5790e0d783ef1f72f722d1eaf64028de41f18bf21e016b88513de41f5b",
+      "content_sha256": "5a14bf60ba88f7d125943e32f9dc37076fb689757ad35e42e03868e75aefa912"
+    },
+    {
+      "id": "tajuru-pathwarden",
+      "name": "Tajuru Pathwarden",
+      "kind": "card",
+      "oracle_id": "d8c7cd66-d8bf-4a99-add5-1d5651d4e025",
+      "printing": {
+        "id": "da20a0d3-2022-4dea-84c8-85adc5a974f8",
+        "set": "fdn",
+        "collector_number": "558",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{4}{G}",
+        "cmc": 5.0,
+        "type_line": "Creature — Elf Warrior Ally",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [
+          "Vigilance",
+          "Trample"
+        ],
+        "power": "5",
+        "toughness": "4"
+      },
+      "behavior_id": "foundations_micro_v1/tajuru-pathwarden",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8",
+      "raw_response_sha256": "700c08bec66527ccee1fdaa231118338cee93bfda13f6d33b3b9beeb66e7148d",
+      "oracle_text_sha256": "e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db",
+      "source_projection_sha256": "5494d3f40a15a6f4131789f91523d7262a2e11fac91fda8961858f5094a8383d",
+      "content_sha256": "c0763ac465569fdc180ede4e67c6e2a06157345d5bc223d2825483100f685d15"
+    },
+    {
+      "id": "thornweald-archer",
+      "name": "Thornweald Archer",
+      "kind": "card",
+      "oracle_id": "b5ba87f5-3589-4a8b-ad65-2ae2523e98e8",
+      "printing": {
+        "id": "189f6199-f2fe-49a5-89ca-3c4cb39fbf2b",
+        "set": "fdn",
+        "collector_number": "559",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{G}",
+        "cmc": 2.0,
+        "type_line": "Creature — Elf Archer",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [
+          "Reach",
+          "Deathtouch"
+        ],
+        "power": "2",
+        "toughness": "1"
+      },
+      "behavior_id": "foundations_micro_v1/thornweald-archer",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b",
+      "raw_response_sha256": "78c6f5e36e3174d9227ced81c1ea7b1dded20a00ec373f7839bc0d805a8a5cd9",
+      "oracle_text_sha256": "37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4",
+      "source_projection_sha256": "e69c28630b1d61a495e3214cc98840e5bc5ff5968a4ffaeacd286a633c003aa3",
+      "content_sha256": "cbd0250668f457468208b5ba6d0cefbd09903f651d486e6a8bb8d0342bf4eba8"
+    },
+    {
+      "id": "thrill-of-possibility",
+      "name": "Thrill of Possibility",
+      "kind": "card",
+      "oracle_id": "1cb0610b-a731-42c2-b93f-0a29f63cebf4",
+      "printing": {
+        "id": "882b348c-076b-41d8-b505-063480636669",
+        "set": "fdn",
+        "collector_number": "210",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{R}",
+        "cmc": 2.0,
+        "type_line": "Instant",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": null,
+        "toughness": null
+      },
+      "behavior_id": "foundations_micro_v1/thrill-of-possibility",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669",
+      "raw_response_sha256": "a1a7ae0b661ef91029412c4e935daeeb2f04bcdc56cfc050e159bc21458f5b12",
+      "oracle_text_sha256": "be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28",
+      "source_projection_sha256": "a55cea034bfc9385461ff6652b184af3421b7e101b9ba237c9169ab547efacb6",
+      "content_sha256": "f1f2136d52ddb4dae5467fcc3739567aafa1b0d38040269dbd328851142af7ae"
+    },
+    {
+      "id": "viashino-pyromancer",
+      "name": "Viashino Pyromancer",
+      "kind": "card",
+      "oracle_id": "5e78e6e0-60f0-4c3c-b8dd-bd673f5152b8",
+      "printing": {
+        "id": "9f52ada2-cabc-46a3-99df-271833a86909",
+        "set": "fdn",
+        "collector_number": "634",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{1}{R}",
+        "cmc": 2.0,
+        "type_line": "Creature — Lizard Wizard",
+        "colors": [
+          "R"
+        ],
+        "color_identity": [
+          "R"
+        ],
+        "keywords": [],
+        "power": "2",
+        "toughness": "1"
+      },
+      "behavior_id": "foundations_micro_v1/viashino-pyromancer",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/9f52ada2-cabc-46a3-99df-271833a86909",
+      "raw_response_sha256": "40402c3f87dee7a3e9d1536bcf086590db56db62c84d696f40255ab0bbf3d8ea",
+      "oracle_text_sha256": "97473f873274bbf5bdd98ba2a5a0c827924c6b63f4abaa36a681bf78488d4590",
+      "source_projection_sha256": "78b1b5a505dfd666e7077b162045a399a5cc8b9ebf888fdae12e9540ecd42fab",
+      "content_sha256": "36c97e900d26afc977dafebd4c6c40d31827af3b9612da45f76228af7b95780d"
+    },
+    {
+      "id": "wildheart-invoker",
+      "name": "Wildheart Invoker",
+      "kind": "card",
+      "oracle_id": "ff8fb796-af5d-4d64-ab3c-7f2469dfa6bf",
+      "printing": {
+        "id": "60f42969-bb5c-4183-8bd3-ba87f008391d",
+        "set": "fdn",
+        "collector_number": "561",
+        "lang": "en",
+        "layout": "normal",
+        "released_at": "2024-11-15"
+      },
+      "characteristics": {
+        "mana_cost": "{2}{G}{G}",
+        "cmc": 4.0,
+        "type_line": "Creature — Elf Shaman",
+        "colors": [
+          "G"
+        ],
+        "color_identity": [
+          "G"
+        ],
+        "keywords": [],
+        "power": "4",
+        "toughness": "3"
+      },
+      "behavior_id": "foundations_micro_v1/wildheart-invoker",
+      "behavior_status": "reserved-not-implemented",
+      "retrieval_date": "2026-09-26",
+      "source_url": "https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d",
+      "raw_response_sha256": "1062f6820cd1cb3045fcdd20dcfd22a6a1fee5ee265556d37e52e967a7592489",
+      "oracle_text_sha256": "35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2",
+      "source_projection_sha256": "137ab22b1c983cb6ba2a40cae329aaeca4df6a516ed6c616e4cd74591b543363",
+      "content_sha256": "3fbf95cf047bf136134a5883a491f07ddfe5c32ccb38fcccf96c4e36dca9a588"
+    }
+  ],
+  "decks": [
+    {
+      "id": "red",
+      "total_cards": 40,
+      "lands": 16,
+      "spells": 24,
+      "cards": [
+        {
+          "card_id": "mountain",
+          "copies": 16
+        },
+        {
+          "card_id": "swab-goblin",
+          "copies": 4
+        },
+        {
+          "card_id": "axgard-cavalry",
+          "copies": 2
+        },
+        {
+          "card_id": "crackling-cyclops",
+          "copies": 3
+        },
+        {
+          "card_id": "firebrand-archer",
+          "copies": 3
+        },
+        {
+          "card_id": "dragon-fodder",
+          "copies": 4
+        },
+        {
+          "card_id": "goblin-surprise",
+          "copies": 2
+        },
+        {
+          "card_id": "viashino-pyromancer",
+          "copies": 2
+        },
+        {
+          "card_id": "thrill-of-possibility",
+          "copies": 2
+        },
+        {
+          "card_id": "shivan-dragon",
+          "copies": 2
+        }
+      ],
+      "content_sha256": "046c073c6047e37669b400f2390f00e3401d077e1d019cc4cb2d800368e8e079"
+    },
+    {
+      "id": "green",
+      "total_cards": 40,
+      "lands": 16,
+      "spells": 24,
+      "cards": [
+        {
+          "card_id": "forest",
+          "copies": 16
+        },
+        {
+          "card_id": "bear-cub",
+          "copies": 4
+        },
+        {
+          "card_id": "llanowar-elves",
+          "copies": 3
+        },
+        {
+          "card_id": "druid-of-the-cowl",
+          "copies": 2
+        },
+        {
+          "card_id": "magnigoth-sentry",
+          "copies": 2
+        },
+        {
+          "card_id": "tajuru-pathwarden",
+          "copies": 2
+        },
+        {
+          "card_id": "thornweald-archer",
+          "copies": 3
+        },
+        {
+          "card_id": "giant-growth",
+          "copies": 3
+        },
+        {
+          "card_id": "bite-down",
+          "copies": 3
+        },
+        {
+          "card_id": "wildheart-invoker",
+          "copies": 2
+        }
+      ],
+      "content_sha256": "c0253c8f5a429573425ca14b8c5942a78287ec1725a2e95d71a55d73e0742c2f"
+    }
+  ],
+  "matchups": [
+    {
+      "seats": [
+        "red",
+        "green"
+      ],
+      "starting_seat": 0
+    },
+    {
+      "seats": [
+        "red",
+        "green"
+      ],
+      "starting_seat": 1
+    },
+    {
+      "seats": [
+        "green",
+        "red"
+      ],
+      "starting_seat": 0
+    },
+    {
+      "seats": [
+        "green",
+        "red"
+      ],
+      "starting_seat": 1
+    },
+    {
+      "seats": [
+        "red",
+        "red"
+      ],
+      "starting_seat": 0
+    },
+    {
+      "seats": [
+        "red",
+        "red"
+      ],
+      "starting_seat": 1
+    },
+    {
+      "seats": [
+        "green",
+        "green"
+      ],
+      "starting_seat": 0
+    },
+    {
+      "seats": [
+        "green",
+        "green"
+      ],
+      "starting_seat": 1
+    }
+  ]
+}
