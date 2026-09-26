@@ -1,6 +1,7 @@
 # Research documentation
 
 - [RFC 0002 implementation program](programs/rfc-0002.md) — live parent, dependency-linked tasks, lossless requirement inventory, milestone gates and M0 execution controls.
+- [Pinned rules source](rules-source.md) — offline metadata validation, explicit bounded fetch/verify, source evidence and deliberate upgrade policy.
 - [Synthetic checkpoint comparator](fixture-comparator.md) — implemented schema, CLI, exit codes, examples, and test provenance; no game simulation.
 
 - [Symphony operator runbook](symphony-runbook.md) — GitHub Issues intake, pinned local service, start/stop commands, credentials, limits, and rollout evidence.
