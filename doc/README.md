@@ -1,5 +1,7 @@
 # Research documentation
 
+- [Synthetic checkpoint comparator](fixture-comparator.md) — implemented schema, CLI, exit codes, examples, and test provenance; no game simulation.
+
 - [Symphony operator runbook](symphony-runbook.md) — GitHub Issues intake, pinned local service, start/stop commands, credentials, limits, and rollout evidence.
 - [Agentic development operations](agentic-operations.md) — Symphony adoption plan for autonomous implementation, verification, and integration, ending with a practical guide for the person driving work. Planned workflow; not yet deployed.
 - [RFC 0001: A trustworthy, high-throughput Magic research engine](rfcs/0001-project-charter.md) — project charter: problem, personas, use cases, principles, rules fidelity, independent verification, performance, RL interoperability, trajectories, and automation. Defines enduring requirements, not a prototype scope or release plan; proposed, not an implementation claim.
