@@ -3,6 +3,7 @@
 - [RFC 0002 implementation program](programs/rfc-0002.md) — live parent, dependency-linked tasks, lossless requirement inventory, milestone gates and M0 execution controls.
 - [M0 provenance and distribution policy](provenance-policy.md) — primary-source findings, inspection receipts, fixture origin/vintage checklist and explicit release blockers.
 - [Pinned rules source](rules-source.md) — offline metadata validation, explicit bounded fetch/verify, source evidence and deliberate upgrade policy.
+- [Frozen Foundations manifests](card-manifests.md) — exact card/token and deck pins, offline validation, separate source acquisition and selected-field distribution review; no implemented card semantics.
 - [Synthetic checkpoint comparator](fixture-comparator.md) — implemented schema, CLI, exit codes, examples, and test provenance; no game simulation.
 
 - [Symphony operator runbook](symphony-runbook.md) — GitHub Issues intake, pinned local service, start/stop commands, credentials, limits, and rollout evidence.
