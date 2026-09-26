@@ -1,0 +1,495 @@
+{
+  "schema_version": 1,
+  "rfc": "doc/rfcs/0002-first-mvp.md",
+  "source_commit": "c5dc32af5630b6096f21ffc48b470b51a8788c92",
+  "source_sha256": "f96a63f427a913d15da6522bab3842ceeb3d35f750a67e2af770464847b5b86c",
+  "parent_issue": 7,
+  "authorized_milestones": [
+    "M0"
+  ],
+  "tasks": [
+    {
+      "key": "rules",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 9,
+      "depends_on": [],
+      "requirements": [
+        "R0002-B011"
+      ]
+    },
+    {
+      "key": "cards",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 10,
+      "depends_on": [
+        9,
+        11
+      ],
+      "requirements": [
+        "R0002-B007",
+        "R0002-B010",
+        "R0002-B012"
+      ]
+    },
+    {
+      "key": "provenance",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 11,
+      "depends_on": [],
+      "requirements": [
+        "R0002-B024"
+      ]
+    },
+    {
+      "key": "schema",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 12,
+      "depends_on": [
+        9,
+        10,
+        11
+      ],
+      "requirements": [
+        "R0002-B025",
+        "R0002-B026"
+      ]
+    },
+    {
+      "key": "xmage",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 13,
+      "depends_on": [
+        12
+      ],
+      "requirements": [
+        "R0002-B028",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "forge",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 14,
+      "depends_on": [
+        13
+      ],
+      "requirements": [
+        "R0002-B028",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "corpus",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 15,
+      "depends_on": [
+        12
+      ],
+      "requirements": [
+        "R0002-B024",
+        "R0002-B025",
+        "R0002-B027",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m0gate",
+      "milestone": "M0",
+      "kind": "gate",
+      "issue": 16,
+      "depends_on": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "requirements": [
+        "R0002-B042",
+        "R0002-B044"
+      ]
+    },
+    {
+      "key": "core",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 17,
+      "depends_on": [
+        16
+      ],
+      "requirements": [
+        "R0002-B013",
+        "R0002-B014",
+        "R0002-B015",
+        "R0002-B016"
+      ]
+    },
+    {
+      "key": "slice",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 18,
+      "depends_on": [
+        17
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "replay",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 19,
+      "depends_on": [
+        17
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "recorder",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 20,
+      "depends_on": [
+        18,
+        19
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "cli",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 21,
+      "depends_on": [
+        20
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "m1gate",
+      "milestone": "M1",
+      "kind": "gate",
+      "issue": 22,
+      "depends_on": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "requirements": [
+        "R0002-B042",
+        "R0002-B044"
+      ]
+    },
+    {
+      "key": "pool",
+      "milestone": "M2",
+      "kind": "implementation",
+      "issue": 23,
+      "depends_on": [
+        22
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "coverage",
+      "milestone": "M2",
+      "kind": "implementation",
+      "issue": 24,
+      "depends_on": [
+        23
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "metrics",
+      "milestone": "M2",
+      "kind": "implementation",
+      "issue": 25,
+      "depends_on": [
+        22
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B014",
+        "R0002-B019",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m2gate",
+      "milestone": "M2",
+      "kind": "gate",
+      "issue": 26,
+      "depends_on": [
+        23,
+        24,
+        25
+      ],
+      "requirements": [
+        "R0002-B042"
+      ]
+    },
+    {
+      "key": "batch",
+      "milestone": "M3",
+      "kind": "implementation",
+      "issue": 27,
+      "depends_on": [
+        26
+      ],
+      "requirements": [
+        "R0002-B013",
+        "R0002-B014",
+        "R0002-B015",
+        "R0002-B016",
+        "R0002-B017",
+        "R0002-B032",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "datasets",
+      "milestone": "M3",
+      "kind": "implementation",
+      "issue": 28,
+      "depends_on": [
+        27
+      ],
+      "requirements": [
+        "R0002-B021",
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "adapters",
+      "milestone": "M3",
+      "kind": "implementation",
+      "issue": 29,
+      "depends_on": [
+        27
+      ],
+      "requirements": [
+        "R0002-B033",
+        "R0002-B034",
+        "R0002-B036"
+      ]
+    },
+    {
+      "key": "rllib",
+      "milestone": "M3",
+      "kind": "implementation",
+      "issue": 30,
+      "depends_on": [
+        29,
+        28
+      ],
+      "requirements": [
+        "R0002-B034",
+        "R0002-B035",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "torchrl",
+      "milestone": "M3",
+      "kind": "implementation",
+      "issue": 31,
+      "depends_on": [
+        29,
+        28
+      ],
+      "requirements": [
+        "R0002-B034",
+        "R0002-B035",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "sb3",
+      "milestone": "M3",
+      "kind": "implementation",
+      "issue": 32,
+      "depends_on": [
+        29,
+        28
+      ],
+      "requirements": [
+        "R0002-B034",
+        "R0002-B035",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "m3gate",
+      "milestone": "M3",
+      "kind": "gate",
+      "issue": 33,
+      "depends_on": [
+        27,
+        28,
+        29,
+        30,
+        31,
+        32
+      ],
+      "requirements": [
+        "R0002-B034",
+        "R0002-B035",
+        "R0002-B042"
+      ]
+    },
+    {
+      "key": "protocol",
+      "milestone": "M4",
+      "kind": "implementation",
+      "issue": 34,
+      "depends_on": [
+        33
+      ],
+      "requirements": [
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "interaction",
+      "milestone": "M4",
+      "kind": "implementation",
+      "issue": 35,
+      "depends_on": [
+        34
+      ],
+      "requirements": [
+        "R0002-B040"
+      ]
+    },
+    {
+      "key": "m4gate",
+      "milestone": "M4",
+      "kind": "gate",
+      "issue": 36,
+      "depends_on": [
+        34,
+        35
+      ],
+      "requirements": [
+        "R0002-B040",
+        "R0002-B042"
+      ]
+    },
+    {
+      "key": "torture",
+      "milestone": "M5",
+      "kind": "implementation",
+      "issue": 37,
+      "depends_on": [
+        36
+      ],
+      "requirements": [
+        "R0002-B027",
+        "R0002-B029",
+        "R0002-B030",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "dual",
+      "milestone": "M5",
+      "kind": "implementation",
+      "issue": 38,
+      "depends_on": [
+        36
+      ],
+      "requirements": [
+        "R0002-B024",
+        "R0002-B026",
+        "R0002-B027",
+        "R0002-B028"
+      ]
+    },
+    {
+      "key": "performance",
+      "milestone": "M5",
+      "kind": "implementation",
+      "issue": 39,
+      "depends_on": [
+        36
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B019",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m5gate",
+      "milestone": "M5",
+      "kind": "gate",
+      "issue": 40,
+      "depends_on": [
+        37,
+        38,
+        39
+      ],
+      "requirements": [
+        "R0002-B001",
+        "R0002-B002",
+        "R0002-B003",
+        "R0002-B004",
+        "R0002-B005",
+        "R0002-B006",
+        "R0002-B007",
+        "R0002-B009",
+        "R0002-B012",
+        "R0002-B013",
+        "R0002-B018",
+        "R0002-B022",
+        "R0002-B023",
+        "R0002-B030",
+        "R0002-B031",
+        "R0002-B038",
+        "R0002-B042",
+        "R0002-B043"
+      ]
+    }
+  ]
+}
