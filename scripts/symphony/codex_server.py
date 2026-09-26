@@ -9,7 +9,7 @@ import tomllib
 config_path = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "config.toml"
 config = tomllib.loads(config_path.read_text()) if config_path.exists() else {}
 args = [os.environ.get("SYMPHONY_CODEX", "codex"), "-c", 'model="gpt-6-astra"', "-c", 'model_reasoning_effort="medium"',
-        "-c", 'web_search="disabled"']
+        "-c", 'web_search="disabled"', "-c", 'approvals_reviewer="auto_review"']
 for name in config.get("mcp_servers", {}):
     if not re.fullmatch(r"[A-Za-z0-9_-]+", name):
         raise SystemExit("Unsupported MCP name in host config; cannot safely disable it")

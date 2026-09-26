@@ -29,6 +29,14 @@ personal/company MCP servers in the host config at startup. Git credentials stil
 host's GitHub CLI integration. This is a trusted personal-machine pilot, not a
 container security boundary or a repository-scoped service identity.
 
+Workers use Codex's workspace-write sandbox with network access. Git metadata
+is protected by that sandbox, so necessary Git commands request escalation via
+Codex's built-in [auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review).
+`approval_policy: on-request` and `approvals_reviewer="auto_review"` route those
+requests to the built-in reviewer without human approval. Its existing policy
+is not replaced. A denial blocks the task unless a materially safer alternative
+exists; requests that reach Symphony instead of the reviewer fail closed.
+
 ## Start, stop, and inspect
 
 From the repository:
