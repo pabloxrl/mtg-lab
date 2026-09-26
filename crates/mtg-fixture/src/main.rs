@@ -75,6 +75,29 @@ fn compare(fixture: &Fixture) -> (u8, Value) {
 }
 
 fn verify(bytes: &[u8]) -> (u8, Value) {
+    // Serde's derived structs/enums also accept positional arrays/tagged objects.
+    // Check JSON shapes first, then deserialize the original bytes so duplicate
+    // keys are still rejected rather than lost in Value's map representation.
+    let shape: Value = match serde_json::from_slice(bytes) {
+        Ok(value) => value,
+        Err(cause) => return error("invalid_fixture", &cause.to_string()),
+    };
+    for pointer in ["", "/expected", "/actual", "/expected/life", "/actual/life"] {
+        if !shape.pointer(pointer).is_some_and(Value::is_object) {
+            return error(
+                "invalid_fixture",
+                &format!(
+                    "{} must be an object",
+                    if pointer.is_empty() { "/" } else { pointer }
+                ),
+            );
+        }
+    }
+    for pointer in ["/expected/active_player", "/actual/active_player"] {
+        if !shape.pointer(pointer).is_some_and(Value::is_string) {
+            return error("invalid_fixture", &format!("{pointer} must be a string"));
+        }
+    }
     let fixture: Fixture = match serde_json::from_slice(bytes) {
         Ok(fixture) => fixture,
         Err(cause) => return error("invalid_fixture", &cause.to_string()),

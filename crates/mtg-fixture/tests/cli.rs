@@ -235,3 +235,29 @@ fn usage_and_io_errors_are_json() {
         "message":"could not read fixture file"}),
     );
 }
+
+#[test]
+fn schema_rejects_serde_positional_and_enum_representations() {
+    let base = fixture();
+    let checkpoint = &base["expected"];
+    let mut cases = vec![json!([1, "array-root", checkpoint, checkpoint])];
+    for side in ["expected", "actual"] {
+        for (field, replacement) in [
+            ("", json!([checkpoint["life"], "p1", checkpoint["stack"]])),
+            ("/life", json!([20, 17])),
+            ("/active_player", json!({"p1":null})),
+        ] {
+            let mut value = fixture();
+            *value.pointer_mut(&format!("/{side}{field}")).unwrap() = replacement;
+            cases.push(value);
+        }
+    }
+    for value in cases {
+        let out = input(&value.to_string());
+        assert_eq!(out.status.code(), Some(2), "{value}: {out:?}");
+        assert!(out.stderr.is_empty());
+        let diagnostic: Value = serde_json::from_slice(&out.stdout).unwrap();
+        assert_eq!(diagnostic["status"], "error");
+        assert_eq!(diagnostic["code"], "invalid_fixture");
+    }
+}
