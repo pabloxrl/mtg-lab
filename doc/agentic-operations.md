@@ -1,10 +1,12 @@
 # Agentic development operations
 
-Status: **Adoption plan, not a deployed system.** Updated 2026-09-26.
+Status: **GitHub Issues rollout in progress.** Updated 2026-09-26.
+
+See [the operator runbook](symphony-runbook.md) for installed versions, service commands, and validation status.
 
 ## Decision
 
-Adopt the existing OpenAI Symphony Elixir implementation, use Codex for coding work, Linear for task intake and progress, and GitHub checks and auto-merge for integration. The project driver describes problems and sets priorities. Agents own planning, implementation, verification, review, and delivery. Routine plan approval and human PR review are not part of the intended workflow.
+Adopt the existing OpenAI Symphony Elixir implementation, use Codex for coding work, GitHub Issues for task intake and progress, and GitHub checks and auto-merge for integration. The project driver describes problems and sets priorities. Agents own planning, implementation, verification, review, and delivery. Routine plan approval and human PR review are not part of the intended workflow.
 
 This replaces the custom autocoder platform proposal. We will configure and operate existing software rather than build a scheduler, agent framework, task database, or dashboard. Project-specific engineering belongs in the Magic engine and its verifier.
 
@@ -15,7 +17,7 @@ Symphony has documented operational use at OpenAI, but its public implementation
 | Component | Responsibility |
 | --- | --- |
 | Project driver | Describe desired outcomes, prioritize work, resolve essential product ambiguity, and supply required access |
-| Linear | Requests, dependencies, execution status, decisions, and completion reports |
+| GitHub Issues | Requests, dependencies, execution status, decisions, and completion reports |
 | Symphony | Dispatch and supervise coding runs using the existing implementation |
 | Codex workers | Investigate, plan, implement, run checks, address review findings, and maintain task records |
 | Repository `WORKFLOW.md` | Versioned execution instructions and runtime configuration |
@@ -25,13 +27,13 @@ Symphony has documented operational use at OpenAI, but its public implementation
 
 [RFC 0001](rfcs/0001-project-charter.md) defines the enduring product principles and requirements. [RFC 0002](rfcs/0002-first-mvp.md) defines the first MVP's implementation boundary and acceptance criteria; scoped tasks derive from that delivery plan. A task may refine its implementation but cannot silently discard the charter's requirements. A change in product scope is recorded explicitly, with affected requirements and tasks identified.
 
-The root workflow file, agent instructions, CI jobs, and runtime deployment described here still need to be created. This document does not activate automation.
+The repository now contains the root workflow, agent instructions, CI, and service scripts. The runbook distinguishes configured behavior from end-to-end validation.
 
 ## Adoption boundary
 
-Use a pinned upstream Symphony revision on a dedicated off-machine worker, with the supported runtime and toolchain for that revision. Start with one concurrent implementation task. Increase concurrency only after dependency handling and integration have been exercised successfully. Kubernetes and a custom orchestration service are not prerequisites.
+Use a pinned upstream Symphony release. The initial installation uses this Mac; moving to a dedicated off-machine host remains an operational follow-up. Start with one concurrent implementation task. Increase concurrency only after dependency handling and integration have been exercised successfully. Kubernetes and a custom orchestration service are not prerequisites.
 
-Use upstream workspace handling, retries, logs, and supported status facilities. Configure the Linear project, eligible states, workspace setup, execution limits, and Codex access. Pin the deployed revision and document upgrades rather than tracking upstream changes automatically.
+Use upstream workspace handling, retries, logs, and supported status facilities. Configure the GitHub repository, eligible labels and states, workspace setup, execution limits, and Codex access. Pin the deployed revision and document upgrades rather than tracking upstream changes automatically.
 
 Adapt the existing workflow for this repository:
 
@@ -45,7 +47,7 @@ These are repository policies to configure and test, not claims that Symphony su
 
 ## Delivery workflow
 
-1. **Accept the problem.** The driver places a request in `Todo`. The agent reads the request, RFC, repository, and related decisions. It records acceptance criteria and reasonable assumptions, then starts without a plan-approval pause.
+1. **Accept the problem.** The driver adds `agent-ready` to an open issue. The agent reads the request, RFC, repository, and related decisions. It records acceptance criteria and reasonable assumptions, then starts without a plan-approval pause.
 2. **Plan the work.** The agent creates small implementation tasks and explicit dependencies when the problem is too large for one change. The parent issue retains ownership of the complete outcome. Child completion alone does not prove the parent is done.
 3. **Establish verification.** Before implementing behavior, author or select focused acceptance cases grounded in requirements and rules. For a bug, reproduce the failure. For a refactor, establish behavior-preservation checks. For performance work, establish a comparable baseline.
 4. **Implement and repair.** Work in an isolated workspace. Run focused checks during development and the required integration suite before delivery. Diagnose failures and repair the implementation without weakening acceptance criteria.
@@ -95,7 +97,7 @@ Post-merge recovery is a workflow to configure and demonstrate, not an assumed S
 
 ## Rollout and readiness
 
-1. **Bootstrap:** create the Rust workspace, reproducible setup, initial verifier, and required CI. Establish the Linear project and worker access.
+1. **Bootstrap:** create the Rust workspace, reproducible setup, initial verifier, and required CI. Establish the GitHub issue labels and worker access.
 2. **Install:** deploy the pinned Symphony implementation and configure this repository's workflow, review process, required checks, and automatic integration.
 3. **Prove one complete delivery:** select a bounded, rule-referenced interaction scenario in a scoped implementation task. Demonstrate correct behavior with independent evidence and an automatically merged change.
 4. **Exercise failure paths:** show that a seeded defect blocks integration, an interrupted run recovers without duplicate delivery, and a controlled post-merge regression results in a verified recovery. Confirm essential blockers are surfaced clearly.
@@ -107,11 +109,11 @@ Keep the adoption work finite. Success is delivering engine changes autonomously
 
 ### One-time setup
 
-Provide access to the GitHub repository, a Linear project, the worker host, and Codex authentication. Set an operating budget and define the desired delivery scope under RFC 0001's charter. Agents can perform the installation and repository setup using that access. Where a service requires you to authenticate or change an account setting, you receive the specific action needed.
+Provide access to the GitHub repository, the worker host, and Codex authentication. Set an operating budget and define the desired delivery scope under RFC 0001's charter. Agents can perform the installation and repository setup using that access. Where a service requires you to authenticate or change an account setting, you receive the specific action needed.
 
 ### Start a problem
 
-Create a Linear issue and move it to `Todo`. Describe the result you want; you do not need to prepare implementation tasks or write a detailed RFC for every change.
+Create a GitHub issue and add `agent-ready` when you want execution to begin. Describe the result you want; you do not need to prepare implementation tasks or write a detailed RFC for every change.
 
 ```text
 Problem: Implement the first unattended game simulation slice.
@@ -127,29 +129,28 @@ Success: The CLI runs without stdin, the required semantic cases pass,
 and replay reproduces the final state.
 ```
 
-Agents derive the plan, break down work, implement, review, verify, and integrate. Putting an objective in `Todo` authorizes those routine steps within its scope. Unrelated new ideas remain in `Backlog` until you choose them.
+Agents derive the plan, break down work, implement, review, verify, and integrate. Adding `agent-ready` to an objective authorizes those routine steps within its scope. Unrelated new ideas remain open without `agent-ready` until you choose them.
 
 ### Check progress when useful
 
-Read the parent issue in Linear. The proposed board states are:
+Read the parent issue on GitHub. Labels provide progress; GitHub itself uses open/closed states:
 
 | State | What it means for you |
 | --- | --- |
-| `Backlog` | Idea recorded; execution has not been requested |
-| `Todo` | Authorized and queued |
-| `In Progress` | Agents are planning, implementing, or repairing |
-| `Blocked` | A dependency, resource limit, unresolved failure, or required decision prevents progress; the issue explains which |
-| `Merging` | Validation and automatic integration are being completed |
-| `Done` | Integrated and verified, with a completion report |
-| `Canceled` | Stop requested; no further delivery is authorized |
+| Open, no `agent-ready` | Idea recorded; execution has not been requested |
+| `agent-ready` | Authorized and queued |
+| `agent-running` | Agents are planning, implementing, or repairing |
+| `agent-blocked` (without `agent-ready`) | A dependency, resource limit, unresolved failure, or required decision prevents progress; the issue explains which |
+| Closed as completed | Integrated and verified, with a completion report |
+| Closed as not planned | Stop requested; no further delivery is authorized |
 
-These states must be mapped to the deployed Symphony configuration. A blocked issue states explicitly whether you need to act. You do not need to watch agent sessions, respond to routine status messages, or inspect PR diffs.
+Only open issues with `agent-ready` are dispatched. Remove that label to pause; close as not planned to cancel. A blocked issue states explicitly whether you need to act. You do not need to watch agent sessions, respond to routine status messages, or inspect PR diffs.
 
 ### Steer or stop
 
 Comment on the parent issue to clarify the desired outcome or change priority. Agents incorporate the update at the next workflow checkpoint and record any affected acceptance criteria. Material scope changes trigger replanning.
 
-Move an issue to `Canceled` to stop further work. Cancellation is observed through polling, so it is not an instantaneous emergency stop. For an immediate stop, stop the worker service; this procedure must be documented during setup. Canceling does not undo already merged changes—request a revert as a separate outcome.
+Close an issue as not planned to stop further work. Cancellation is observed through polling, so it is not an instantaneous emergency stop. For an immediate stop, stop the worker service; this procedure must be documented during setup. Canceling does not undo already merged changes—request a revert as a separate outcome.
 
 ### Handle an exception
 
