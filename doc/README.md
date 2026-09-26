@@ -15,3 +15,4 @@
 The report is a source-based assessment, not a benchmark. It distinguishes verified source observations, upstream claims, and engineering recommendations.
 
 - [Neutral scenario schema and capability registry](neutral-scenarios.md) — strict offline validation, planned coverage and execution boundaries.
+- [Pinned Forge smoke](../references/forge/README.md) — real headless harness execution of the same neutral XMage fixture, intermediate checkpoints, strict choices and detected negative controls.
