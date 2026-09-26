@@ -103,7 +103,7 @@ The integration tests execute the actual binary with stdin closed and display
 variables removed, enforce a five-second timeout, and independently assert exit
 codes and JSON values. They cover first-difference precedence, both life totals,
 stack length, invalid versions/types/identities, missing/unknown/duplicate fields,
-trailing data, usage, I/O failure, and repeated-run determinism. Unit tests check
+positional arrays and object-form player values, trailing data, usage, I/O failure, and repeated-run determinism. Unit tests check
 typed comparison and duplicate nested fields.
 
 Red evidence before implementation: all five integration tests compiled and
@@ -112,7 +112,12 @@ inputs returned 0 instead of 2, and the equal case lacked JSON. After implementa
 `./scripts/verify.sh` runs these same tests plus unit tests, formatting, linting,
 and documentation checks. The issue workpad records delivery and review evidence.
 
-Future integration remains backlog: a separately versioned scenario schema with
+Independent review found that derived Serde structs/enums accepted positional
+arrays and object-form player values. A regression first reproduced an incorrect
+pass for an array fixture; explicit shape validation now rejects these forms
+while the original-byte typed parse retains duplicate-field detection.
+
+Future integration remains [backlog #4](https://github.com/pabloxrl/mtg-lab/issues/4): a separately versioned scenario schema with
 rules/card pins, provenance, choices, named checkpoints and capability coverage;
 engine-produced checkpoints; and pinned, headless XMage/Forge bridges. None is
 advertised by this comparator or counted as a skipped supported test.
