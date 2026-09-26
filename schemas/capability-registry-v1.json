@@ -1,0 +1,464 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pabloxrl.github.io/mtg-lab/schemas/capability-registry-v1.json",
+  "type": "object",
+  "properties": {
+    "registry_version": {
+      "enum": [
+        1
+      ]
+    },
+    "scope": {
+      "enum": [
+        "foundations_micro_v1"
+      ]
+    },
+    "families": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "requirements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "capabilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "text",
+                "capabilities"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "requirements"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 12
+    },
+    "supported_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1
+          },
+          "capabilities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "text",
+          "capabilities"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 9
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+          },
+          "family": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "rule_references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "implementation": {
+            "enum": [
+              "planned",
+              "implemented"
+            ]
+          },
+          "required_evidence": {
+            "type": "object",
+            "properties": {
+              "positive": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixture_id": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+                    },
+                    "fixture_revision": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "status": {
+                      "enum": [
+                        "planned",
+                        "executed",
+                        "passed",
+                        "failed",
+                        "unsupported",
+                        "unavailable"
+                      ]
+                    },
+                    "engine": {
+                      "enum": [
+                        "native",
+                        "xmage",
+                        "forge"
+                      ]
+                    },
+                    "engine_revision": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{40}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_sha256": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_url": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "fixture_id",
+                    "fixture_revision",
+                    "status",
+                    "engine",
+                    "engine_revision",
+                    "artifact_sha256",
+                    "artifact_url"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "negative": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixture_id": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+                    },
+                    "fixture_revision": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "status": {
+                      "enum": [
+                        "planned",
+                        "executed",
+                        "passed",
+                        "failed",
+                        "unsupported",
+                        "unavailable"
+                      ]
+                    },
+                    "engine": {
+                      "enum": [
+                        "native",
+                        "xmage",
+                        "forge"
+                      ]
+                    },
+                    "engine_revision": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{40}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_sha256": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_url": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "fixture_id",
+                    "fixture_revision",
+                    "status",
+                    "engine",
+                    "engine_revision",
+                    "artifact_sha256",
+                    "artifact_url"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "interaction": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixture_id": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+                    },
+                    "fixture_revision": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "status": {
+                      "enum": [
+                        "planned",
+                        "executed",
+                        "passed",
+                        "failed",
+                        "unsupported",
+                        "unavailable"
+                      ]
+                    },
+                    "engine": {
+                      "enum": [
+                        "native",
+                        "xmage",
+                        "forge"
+                      ]
+                    },
+                    "engine_revision": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{40}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_sha256": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_url": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "fixture_id",
+                    "fixture_revision",
+                    "status",
+                    "engine",
+                    "engine_revision",
+                    "artifact_sha256",
+                    "artifact_url"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "regression": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixture_id": {
+                      "type": "string",
+                      "pattern": "^[a-z0-9][a-z0-9/_.-]*$"
+                    },
+                    "fixture_revision": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "status": {
+                      "enum": [
+                        "planned",
+                        "executed",
+                        "passed",
+                        "failed",
+                        "unsupported",
+                        "unavailable"
+                      ]
+                    },
+                    "engine": {
+                      "enum": [
+                        "native",
+                        "xmage",
+                        "forge"
+                      ]
+                    },
+                    "engine_revision": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{40}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_sha256": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "artifact_url": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "fixture_id",
+                    "fixture_revision",
+                    "status",
+                    "engine",
+                    "engine_revision",
+                    "artifact_sha256",
+                    "artifact_url"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "positive",
+              "negative",
+              "interaction",
+              "regression"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "family",
+          "description",
+          "rule_references",
+          "implementation",
+          "required_evidence"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "registry_version",
+    "scope",
+    "families",
+    "supported_requirements",
+    "capabilities"
+  ],
+  "additionalProperties": false
+}

@@ -117,7 +117,7 @@ arrays and object-form player values. A regression first reproduced an incorrect
 pass for an array fixture; explicit shape validation now rejects these forms
 while the original-byte typed parse retains duplicate-field detection.
 
-Future integration remains [backlog #4](https://github.com/pabloxrl/mtg-lab/issues/4): a separately versioned scenario schema with
-rules/card pins, provenance, choices, named checkpoints and capability coverage;
-engine-produced checkpoints; and pinned, headless XMage/Forge bridges. None is
-advertised by this comparator or counted as a skipped supported test.
+The separately versioned [neutral scenario schema and capability registry](neutral-scenarios.md)
+now provide offline design/validation under GH-12. They do not change comparator v1
+or provide engine-produced checkpoints. Pinned headless XMage/Forge bridges and
+production-engine integration remain with their assigned RFC program tasks.
