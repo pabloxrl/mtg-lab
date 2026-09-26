@@ -154,7 +154,8 @@ def rfc_requirements():
     return families, [line[2:] for line in supported.strip().splitlines()]
 
 
-def validate_registry(registry, fixtures=(), require_passed=False):
+def validate_registry_structure(registry):
+    """Validate registry shape and scope without certifying evidence records."""
     shape(registry, load(ROOT / 'schemas/capability-registry-v1.json'))
     fields(registry, 'registry_version scope families supported_requirements capabilities')
     require(type(registry['registry_version']) is int and registry['registry_version'] == 1,
@@ -202,6 +203,12 @@ def validate_registry(registry, fixtures=(), require_passed=False):
     require(card_ids <= caps.keys(), 'missing scoped card/token behavior')
     require(used | card_ids == caps.keys(), 'capability outside RFC/card scope')
     require(all(cap['family'] in family_ids for cap in caps.values()), 'unresolved family')
+    return caps
+
+
+def validate_registry(registry, fixtures=(), require_passed=False):
+    """Validate the full registry, including every referenced evidence fixture."""
+    caps = validate_registry_structure(registry)
     fixture_map = {}
     for fixture in fixtures:
         validate(fixture, registry, check_registry=False)
@@ -335,7 +342,7 @@ def validate(fixture, registry=None, check_registry=True):
     shape(fixture, load(ROOT / 'schemas/neutral-scenario-v1.json'))
     registry = registry if registry is not None else load(ROOT / 'data/capabilities-v1.json')
     if check_registry:
-        validate_registry(registry, [fixture])
+        validate_registry_structure(registry)
     cards, rules_pin, cards_pin = source_contract()
     require(fixture['rules'] == rules_pin and fixture['cards'] == cards_pin, 'unresolved rules/card pin')
     unique(fixture['required_capabilities'], 'required capability')
@@ -502,7 +509,13 @@ def main():
         registry = load(args.registry)
         fixtures = [load(path) for path in args.fixtures]
         require(args.command != 'validate' or fixtures, 'validate needs at least one fixture')
-        report = validate_registry(registry, fixtures, args.require_passed)
+        if args.command == 'coverage' or args.require_passed:
+            report = validate_registry(registry, fixtures, args.require_passed)
+        else:
+            validate_registry_structure(registry)
+            for fixture in fixtures:
+                validate(fixture, registry, check_registry=False)
+            unique([f['fixture_id'] for f in fixtures], 'fixture ID')
         result = {'status':'valid', 'scenario_version':1, 'fixtures':len(fixtures)}
         if args.command == 'coverage':
             result['coverage'] = report

@@ -192,6 +192,12 @@ by the runner/reviewer that admits them. Multiple evidence categories may refer
 to the same case only where independent review establishes each claimed behavior.
 
 Supply all referenced fixtures to `coverage` when adding evidence. `--require-passed`
+also requires the complete referenced fixture collection. Individual `validate`
+checks each supplied fixture plus registry shape and scope; it does not certify
+the registry's evidence records or require unrelated fixtures. The Python API
+uses the same distinction: `validate(fixture, registry)` for one fixture and
+`validate_registry(registry, fixtures)` for complete evidence validation.
+`--require-passed`
 rejects every missing mandatory slot. It does not certify reference-release floors,
 mutation sensitivity, independent corroboration of adapted tests, or game reachability:
 those later RFC gates still require ≥100 reviewed cases, XMage coverage of every

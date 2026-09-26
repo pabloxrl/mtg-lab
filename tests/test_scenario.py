@@ -227,6 +227,39 @@ class ExtendedScenarioTests(unittest.TestCase):
             self.assertEqual(result.stderr,'')
             self.assertIn(json.loads(result.stdout)['status'],('valid','error'))
 
+    def test_individual_fixture_does_not_require_unrelated_coverage_fixtures(self):
+        # RFC §7 separates portable fixtures from aggregate capability evidence.
+        other = copy.deepcopy(self.fixture)
+        other['fixture_id'] = 'other-priority-pass'
+        other['provenance']['fixture_id'] = other['fixture_id']
+        other['provenance']['review']['status'] = 'accepted-for-m0'
+        other['provenance']['vintage_audit']['status'] = 'accepted'
+        self.signed(other)
+        registry = copy.deepcopy(self.registry)
+        cap = next(c for c in registry['capabilities'] if c['id'] == 'priority/passing')
+        cap['required_evidence']['positive'] = [{
+            'fixture_id': other['fixture_id'],
+            'fixture_revision': other['provenance']['fixture_revision'],
+            'status': 'planned', 'engine': 'native', 'engine_revision': None,
+            'artifact_sha256': None, 'artifact_url': None,
+        }]
+        self.assertEqual(s.validate_registry(registry, [self.fixture, other])['planned'], 1)
+        with self.assertRaisesRegex(ValueError, 'unresolved evidence fixture'):
+            s.validate_registry(registry, [self.fixture])
+        s.validate(self.fixture, registry)
+        import subprocess
+        import sys
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'registry.json'
+            path.write_text(json.dumps(registry))
+            for command, expected in [('validate', 0), ('coverage', 2)]:
+                result = subprocess.run(
+                    [sys.executable, 'scripts/scenario.py', command,
+                     'fixtures/scenarios/priority-pass.json', '--registry', str(path)],
+                    cwd=ROOT, stdin=subprocess.DEVNULL, capture_output=True,
+                    text=True, timeout=5)
+                self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
+
 class SemanticChoiceTests(unittest.TestCase):
     def test_explicit_block_and_damage_pairs(self):
         for action,kind,values in [
