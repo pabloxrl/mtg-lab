@@ -8,7 +8,7 @@ import tomllib
 # overrides and disable every host MCP connector rather than copying credentials.
 config_path = Path.home() / ".codex/config.toml"
 config = tomllib.loads(config_path.read_text()) if config_path.exists() else {}
-args = ["codex", "-c", 'model="gpt-6-astra"', "-c", 'model_reasoning_effort="medium"',
+args = [os.environ.get("SYMPHONY_CODEX", "codex"), "-c", 'model="gpt-6-astra"', "-c", 'model_reasoning_effort="medium"',
         "-c", 'web_search="disabled"']
 for name in config.get("mcp_servers", {}):
     if not re.fullmatch(r"[A-Za-z0-9_-]+", name):

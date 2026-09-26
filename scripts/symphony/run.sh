@@ -4,6 +4,10 @@ cd "$(dirname "$0")/../.."
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 runtime="$HOME/.local/share/mtg-lab-symphony"
 export SYMPHONY_CONTROL_ROOT="$PWD"
+export SYMPHONY_PYTHON
+SYMPHONY_PYTHON="$(command -v python3)"
+export SYMPHONY_CODEX
+SYMPHONY_CODEX="$(command -v codex)"
 mkdir -p "$runtime/logs"
 # Retrieve the host credential without storing it in the repository or plist.
 export GITHUB_TOKEN
