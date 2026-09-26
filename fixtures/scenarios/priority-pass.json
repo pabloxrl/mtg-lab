@@ -1,0 +1,260 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "schema/priority-pass",
+  "description": "Original schema example: a single explicit priority pass, not executed conformance evidence. Empty libraries are a synthetic assumption, not normal reset.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "priority/passing"
+  ],
+  "rule_references": [
+    "117.3d"
+  ],
+  "setup": {
+    "kind": "synthetic",
+    "state": {
+      "turn": 1,
+      "active_player": 0,
+      "phase": "precombat_main",
+      "step": "main",
+      "priority": 0,
+      "players": [
+        {
+          "seat": 0,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        },
+        {
+          "seat": 1,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        }
+      ],
+      "objects": [],
+      "stack": [],
+      "effects": []
+    },
+    "assumptions": [
+      {
+        "description": "Main phase with empty stack, no draw attempted; deliberately synthetic.",
+        "checks": [
+          {
+            "field": "stack",
+            "path": "/stack",
+            "expected": [],
+            "basis": "pass-rule"
+          }
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "pass-choice",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "priority-p1",
+      "after": "pass-0",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 1,
+          "basis": "pass-rule"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [
+    {
+      "action": {
+        "id": "wrong-seat",
+        "actor": 1,
+        "kind": "pass",
+        "source": null,
+        "choices": [
+          {
+            "id": "wrong-pass",
+            "actor": 1,
+            "kind": "pass",
+            "values": []
+          }
+        ]
+      },
+      "at": "initial",
+      "error": "wrong_actor",
+      "invariants": [
+        "state_unchanged",
+        "rng_unchanged",
+        "decision_unchanged",
+        "private_information_unchanged"
+      ],
+      "basis": "boundary-spec"
+    }
+  ],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "schema/priority-pass",
+    "source_kind": "original",
+    "author": "mtg-lab GH-12",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "117.3d"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original schema example; no upstream code adapted.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-12 schema author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Authored from rule number and boundary contract; no translation.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "117.3d"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "pass-rule",
+        "derivation": "CR 117.3d gives priority to the next player when the priority holder passes. One pass does not advance the step.",
+        "citations": [
+          "CR 117.3d"
+        ],
+        "reviewer": "GH-12 schema author",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 requires wrong-player input to leave state unchanged; RFC 0002 apply validates before mutation.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 \u00a74"
+        ],
+        "reviewer": "GH-12 schema author",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "No upstream code",
+      "target": "cr-2026-09-25",
+      "differences": "No imported combat assignment ordering",
+      "adjudication": "Priority pass only; no engine observation used",
+      "reviewer": "GH-12 schema author",
+      "date": "2026-09-26",
+      "status": "pending"
+    },
+    "reproduction": {
+      "setup_kind": "synthetic",
+      "trace_sha256": "183dbab4d3e3e9dc52031571f552329080d461e5133c50a17c60230161de0874",
+      "ordered_randomness": "Explicit empty libraries; no random operations",
+      "complete_choices": "One explicit pass; stop at named priority handoff",
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/priority-pass.json",
+      "tool_versions": [
+        "neutral-scenario-v1"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "pending",
+      "reviewer": "GH-12 schema author",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/12"
+      ],
+      "admission_scope": "Schema example only; no engine or reference executed; corpus admission belongs to GH-15",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "31f74be8d72c6f16e32a93bfe14c9f078480840205b906170f5c912d1103b121"
+  }
+}

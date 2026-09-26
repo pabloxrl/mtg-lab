@@ -1,0 +1,1693 @@
+{
+  "registry_version": 1,
+  "scope": "foundations_micro_v1",
+  "families": [
+    {
+      "id": "setup",
+      "name": "Setup and randomness",
+      "requirements": [
+        {
+          "text": "Mulligan decisions/bottoming",
+          "capabilities": [
+            "setup/mulligan-bottom"
+          ]
+        },
+        {
+          "text": "first-player draw rule",
+          "capabilities": [
+            "setup/first-draw"
+          ]
+        },
+        {
+          "text": "deterministic reset",
+          "capabilities": [
+            "setup/deterministic-reset"
+          ]
+        },
+        {
+          "text": "ordered-library draw",
+          "capabilities": [
+            "setup/ordered-draw"
+          ]
+        },
+        {
+          "text": "no hidden library leakage",
+          "capabilities": [
+            "setup/library-privacy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "priority",
+      "name": "Priority and stack",
+      "requirements": [
+        {
+          "text": "Pass with empty/nonempty stack",
+          "capabilities": [
+            "priority/passing"
+          ]
+        },
+        {
+          "text": "priority after casting and resolution",
+          "capabilities": [
+            "priority/post-cast-resolution"
+          ]
+        },
+        {
+          "text": "response chains",
+          "capabilities": [
+            "priority/response-chain"
+          ]
+        },
+        {
+          "text": "no skipped response window",
+          "capabilities": [
+            "priority/response-window"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "costs",
+      "name": "Costs and mana",
+      "requirements": [
+        {
+          "text": "Insufficient/wrong mana",
+          "capabilities": [
+            "costs/mana-rejection"
+          ]
+        },
+        {
+          "text": "generic choices",
+          "capabilities": [
+            "costs/generic-payment"
+          ]
+        },
+        {
+          "text": "creature mana ability timing",
+          "capabilities": [
+            "costs/creature-mana"
+          ]
+        },
+        {
+          "text": "summoning sickness",
+          "capabilities": [
+            "costs/summoning-sickness"
+          ]
+        },
+        {
+          "text": "Thrill discard as cost",
+          "capabilities": [
+            "costs/discard-cost"
+          ]
+        },
+        {
+          "text": "no partial mutation on rejection",
+          "capabilities": [
+            "costs/atomic-rejection"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "targets",
+      "name": "Target legality",
+      "requirements": [
+        {
+          "text": "Own/opponent restrictions",
+          "capabilities": [
+            "targets/controller-restrictions"
+          ]
+        },
+        {
+          "text": "missing required targets",
+          "capabilities": [
+            "targets/required-targets"
+          ]
+        },
+        {
+          "text": "target leaving battlefield",
+          "capabilities": [
+            "targets/zone-change"
+          ]
+        },
+        {
+          "text": "partial target invalidation",
+          "capabilities": [
+            "targets/partial-invalidation"
+          ]
+        },
+        {
+          "text": "legality checked again at resolution",
+          "capabilities": [
+            "targets/resolution-revalidation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "triggers",
+      "name": "Triggers",
+      "requirements": [
+        {
+          "text": "Cast versus resolution timing",
+          "capabilities": [
+            "triggers/cast-resolution"
+          ]
+        },
+        {
+          "text": "Archer/Cyclops interaction with counterfactual failed casts",
+          "capabilities": [
+            "triggers/failed-cast"
+          ]
+        },
+        {
+          "text": "Pyromancer ETB targeting",
+          "capabilities": [
+            "triggers/etb-target"
+          ]
+        },
+        {
+          "text": "multiple-trigger ordering",
+          "capabilities": [
+            "triggers/ordering"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "combat",
+      "name": "Combat",
+      "requirements": [
+        {
+          "text": "Legal attackers/blockers",
+          "capabilities": [
+            "combat/attack-block"
+          ]
+        },
+        {
+          "text": "flying/reach",
+          "capabilities": [
+            "combat/flying-reach"
+          ]
+        },
+        {
+          "text": "haste/vigilance",
+          "capabilities": [
+            "combat/haste-vigilance"
+          ]
+        },
+        {
+          "text": "multiple blockers",
+          "capabilities": [
+            "combat/multiple-blockers"
+          ]
+        },
+        {
+          "text": "simultaneous damage",
+          "capabilities": [
+            "combat/simultaneous-damage"
+          ]
+        },
+        {
+          "text": "deathtouch/trample allocation",
+          "capabilities": [
+            "combat/deathtouch-trample"
+          ]
+        },
+        {
+          "text": "unblocked/blocked status",
+          "capabilities": [
+            "combat/blocked-status"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "continuous",
+      "name": "Continuous changes",
+      "requirements": [
+        {
+          "text": "Stacked Growth/Surprise/activated boosts",
+          "capabilities": [
+            "continuous/stacked-boosts"
+          ]
+        },
+        {
+          "text": "power read at resolution",
+          "capabilities": [
+            "continuous/resolution-power"
+          ]
+        },
+        {
+          "text": "correct expiration and cleanup",
+          "capabilities": [
+            "continuous/cleanup"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "objects",
+      "name": "Objects and zones",
+      "requirements": [
+        {
+          "text": "Token death/removal",
+          "capabilities": [
+            "objects/token-removal"
+          ]
+        },
+        {
+          "text": "new zone identity",
+          "capabilities": [
+            "objects/zone-identity"
+          ]
+        },
+        {
+          "text": "dead source with ability on stack",
+          "capabilities": [
+            "objects/dead-source"
+          ]
+        },
+        {
+          "text": "damage and attachment-free state bookkeeping",
+          "capabilities": [
+            "objects/bookkeeping"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "terminal",
+      "name": "Terminal states",
+      "requirements": [
+        {
+          "text": "Lethal damage",
+          "capabilities": [
+            "terminal/lethal"
+          ]
+        },
+        {
+          "text": "simultaneous lethal outcomes",
+          "capabilities": [
+            "terminal/simultaneous-loss"
+          ]
+        },
+        {
+          "text": "attempted empty-library draw",
+          "capabilities": [
+            "terminal/empty-draw"
+          ]
+        },
+        {
+          "text": "concession",
+          "capabilities": [
+            "terminal/concede"
+          ]
+        },
+        {
+          "text": "terminal rewards exactly once",
+          "capabilities": [
+            "terminal/rewards-once"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decisions",
+      "name": "Decisions and encoding",
+      "requirements": [
+        {
+          "text": "Every legal combination expressible",
+          "capabilities": [
+            "decisions/all-combinations"
+          ]
+        },
+        {
+          "text": "masked action rejected",
+          "capabilities": [
+            "decisions/masked-rejection"
+          ]
+        },
+        {
+          "text": "candidate IDs stale after advance",
+          "capabilities": [
+            "decisions/stale-candidates"
+          ]
+        },
+        {
+          "text": "no action-capacity truncation",
+          "capabilities": [
+            "decisions/capacity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "name": "Privacy and PvP",
+      "requirements": [
+        {
+          "text": "Opponent hand/library changes do not reveal identities through observations, masks, candidate order, or error responses",
+          "capabilities": [
+            "privacy/side-channels"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "replay",
+      "name": "Replay and batching",
+      "requirements": [
+        {
+          "text": "Scalar/batch equality",
+          "capabilities": [
+            "replay/scalar-batch"
+          ]
+        },
+        {
+          "text": "snapshot in a pending choice",
+          "capabilities": [
+            "replay/pending-snapshot"
+          ]
+        },
+        {
+          "text": "worker-count independence",
+          "capabilities": [
+            "replay/worker-independence"
+          ]
+        },
+        {
+          "text": "reset only requested rows",
+          "capabilities": [
+            "replay/selective-reset"
+          ]
+        }
+      ]
+    }
+  ],
+  "supported_requirements": [
+    {
+      "text": "Two players, 20 starting life, seven-card opening hands, London mulligans, and the starting player's skipped first draw. Best-of-one games; no sideboards.",
+      "capabilities": [
+        "setup/two-player-opening",
+        "setup/first-draw",
+        "setup/mulligan-bottom"
+      ]
+    },
+    {
+      "text": "The complete turn/phase/step structure needed by the pool, priority and consecutive passing, the stack, spell resolution, state-based actions, and triggered abilities.",
+      "capabilities": [
+        "priority/turn-structure",
+        "priority/passing",
+        "priority/post-cast-resolution",
+        "triggers/ordering"
+      ]
+    },
+    {
+      "text": "Land plays, colored and generic mana, explicit payment choices, creature mana abilities, additional discard costs, modal spells, and target selection/revalidation.",
+      "capabilities": [
+        "costs/land-colored-modal",
+        "costs/creature-mana",
+        "costs/discard-cost",
+        "targets/resolution-revalidation"
+      ]
+    },
+    {
+      "text": "Creature casting, summoning sickness, tapping, activated abilities, attacking, blocking, combat damage, marked damage, and end-of-turn effects/cleanup.",
+      "capabilities": [
+        "combat/creature-abilities",
+        "combat/attack-block",
+        "continuous/cleanup",
+        "objects/bookkeeping"
+      ]
+    },
+    {
+      "text": "Flying, reach, haste, vigilance, trample, and deathtouch. Correct behavior for multiple blockers and simultaneous combat damage.",
+      "capabilities": [
+        "combat/flying-reach",
+        "combat/haste-vigilance",
+        "combat/multiple-blockers",
+        "combat/simultaneous-damage",
+        "combat/deathtouch-trample"
+      ]
+    },
+    {
+      "text": "Cast triggers, enters-the-battlefield triggers, controller ordering of simultaneous triggers, and active-player/nonactive-player ordering where applicable.",
+      "capabilities": [
+        "triggers/cast-resolution",
+        "triggers/etb-target",
+        "triggers/ordering",
+        "triggers/apnap"
+      ]
+    },
+    {
+      "text": "Token creation and disappearance after leaving the battlefield, zone changes with new object identity, and temporary power/toughness modifications required by the pool.",
+      "capabilities": [
+        "objects/token-create",
+        "objects/token-removal",
+        "objects/zone-identity",
+        "continuous/stacked-boosts"
+      ]
+    },
+    {
+      "text": "Loss from life total and attempted draw from an empty library, concession, and applicable simultaneous-loss/draw behavior. An empty library alone is not a loss.",
+      "capabilities": [
+        "terminal/lethal",
+        "terminal/empty-draw",
+        "terminal/concede",
+        "terminal/simultaneous-loss"
+      ]
+    },
+    {
+      "text": "Maximum hand size and cleanup discards, including additional cleanup processing when the rules require it.",
+      "capabilities": [
+        "continuous/hand-size-cleanup"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "setup/mulligan-bottom",
+      "family": "setup",
+      "description": "Mulligan decisions/bottoming",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "setup/first-draw",
+      "family": "setup",
+      "description": "first-player draw rule",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "setup/deterministic-reset",
+      "family": "setup",
+      "description": "deterministic reset",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "setup/ordered-draw",
+      "family": "setup",
+      "description": "ordered-library draw",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "setup/library-privacy",
+      "family": "setup",
+      "description": "no hidden library leakage",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "priority/passing",
+      "family": "priority",
+      "description": "Pass with empty/nonempty stack",
+      "rule_references": [
+        "117"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "priority/post-cast-resolution",
+      "family": "priority",
+      "description": "priority after casting and resolution",
+      "rule_references": [
+        "117"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "priority/response-chain",
+      "family": "priority",
+      "description": "response chains",
+      "rule_references": [
+        "117"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "priority/response-window",
+      "family": "priority",
+      "description": "no skipped response window",
+      "rule_references": [
+        "117"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/mana-rejection",
+      "family": "costs",
+      "description": "Insufficient/wrong mana",
+      "rule_references": [
+        "118"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/generic-payment",
+      "family": "costs",
+      "description": "generic choices",
+      "rule_references": [
+        "118"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/creature-mana",
+      "family": "costs",
+      "description": "creature mana ability timing",
+      "rule_references": [
+        "118"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/summoning-sickness",
+      "family": "costs",
+      "description": "summoning sickness",
+      "rule_references": [
+        "118"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/discard-cost",
+      "family": "costs",
+      "description": "Thrill discard as cost",
+      "rule_references": [
+        "118"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/atomic-rejection",
+      "family": "costs",
+      "description": "no partial mutation on rejection",
+      "rule_references": [
+        "118"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "targets/controller-restrictions",
+      "family": "targets",
+      "description": "Own/opponent restrictions",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "targets/required-targets",
+      "family": "targets",
+      "description": "missing required targets",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "targets/zone-change",
+      "family": "targets",
+      "description": "target leaving battlefield",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "targets/partial-invalidation",
+      "family": "targets",
+      "description": "partial target invalidation",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "targets/resolution-revalidation",
+      "family": "targets",
+      "description": "legality checked again at resolution",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "triggers/cast-resolution",
+      "family": "triggers",
+      "description": "Cast versus resolution timing",
+      "rule_references": [
+        "603"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "triggers/failed-cast",
+      "family": "triggers",
+      "description": "Archer/Cyclops interaction with counterfactual failed casts",
+      "rule_references": [
+        "603"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "triggers/etb-target",
+      "family": "triggers",
+      "description": "Pyromancer ETB targeting",
+      "rule_references": [
+        "603"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "triggers/ordering",
+      "family": "triggers",
+      "description": "multiple-trigger ordering",
+      "rule_references": [
+        "603"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/attack-block",
+      "family": "combat",
+      "description": "Legal attackers/blockers",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/flying-reach",
+      "family": "combat",
+      "description": "flying/reach",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/haste-vigilance",
+      "family": "combat",
+      "description": "haste/vigilance",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/multiple-blockers",
+      "family": "combat",
+      "description": "multiple blockers",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/simultaneous-damage",
+      "family": "combat",
+      "description": "simultaneous damage",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/deathtouch-trample",
+      "family": "combat",
+      "description": "deathtouch/trample allocation",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/blocked-status",
+      "family": "combat",
+      "description": "unblocked/blocked status",
+      "rule_references": [
+        "510"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "continuous/stacked-boosts",
+      "family": "continuous",
+      "description": "Stacked Growth/Surprise/activated boosts",
+      "rule_references": [
+        "613"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "continuous/resolution-power",
+      "family": "continuous",
+      "description": "power read at resolution",
+      "rule_references": [
+        "613"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "continuous/cleanup",
+      "family": "continuous",
+      "description": "correct expiration and cleanup",
+      "rule_references": [
+        "613"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "objects/token-removal",
+      "family": "objects",
+      "description": "Token death/removal",
+      "rule_references": [
+        "400.7"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "objects/zone-identity",
+      "family": "objects",
+      "description": "new zone identity",
+      "rule_references": [
+        "400.7"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "objects/dead-source",
+      "family": "objects",
+      "description": "dead source with ability on stack",
+      "rule_references": [
+        "400.7"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "objects/bookkeeping",
+      "family": "objects",
+      "description": "damage and attachment-free state bookkeeping",
+      "rule_references": [
+        "400.7"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "terminal/lethal",
+      "family": "terminal",
+      "description": "Lethal damage",
+      "rule_references": [
+        "704.5"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "terminal/simultaneous-loss",
+      "family": "terminal",
+      "description": "simultaneous lethal outcomes",
+      "rule_references": [
+        "704.5"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "terminal/empty-draw",
+      "family": "terminal",
+      "description": "attempted empty-library draw",
+      "rule_references": [
+        "704.5"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "terminal/concede",
+      "family": "terminal",
+      "description": "concession",
+      "rule_references": [
+        "704.5"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "terminal/rewards-once",
+      "family": "terminal",
+      "description": "terminal rewards exactly once",
+      "rule_references": [
+        "704.5"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "decisions/all-combinations",
+      "family": "decisions",
+      "description": "Every legal combination expressible",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "decisions/masked-rejection",
+      "family": "decisions",
+      "description": "masked action rejected",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "decisions/stale-candidates",
+      "family": "decisions",
+      "description": "candidate IDs stale after advance",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "decisions/capacity",
+      "family": "decisions",
+      "description": "no action-capacity truncation",
+      "rule_references": [
+        "601.2"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "privacy/side-channels",
+      "family": "privacy",
+      "description": "Opponent hand/library changes do not reveal identities through observations, masks, candidate order, or error responses",
+      "rule_references": [
+        "402"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "replay/scalar-batch",
+      "family": "replay",
+      "description": "Scalar/batch equality",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "replay/pending-snapshot",
+      "family": "replay",
+      "description": "snapshot in a pending choice",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "replay/worker-independence",
+      "family": "replay",
+      "description": "worker-count independence",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "replay/selective-reset",
+      "family": "replay",
+      "description": "reset only requested rows",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "setup/two-player-opening",
+      "family": "setup",
+      "description": "Two players, 20 life, seven-card hands, London mulligans and best-of-one",
+      "rule_references": [
+        "103"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "priority/turn-structure",
+      "family": "priority",
+      "description": "Complete scoped phase/step structure, stack resolution and state-based actions",
+      "rule_references": [
+        "500"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "costs/land-colored-modal",
+      "family": "costs",
+      "description": "Land plays, colored/generic mana, explicit payments, modal spells and target choices",
+      "rule_references": [
+        "305"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "combat/creature-abilities",
+      "family": "combat",
+      "description": "Creature casting, tapping, summoning sickness and activated abilities",
+      "rule_references": [
+        "302"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "triggers/apnap",
+      "family": "triggers",
+      "description": "Controller and active-player/nonactive-player simultaneous trigger ordering",
+      "rule_references": [
+        "603.3b"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "objects/token-create",
+      "family": "objects",
+      "description": "Create red 1/1 Goblin tokens",
+      "rule_references": [
+        "111"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "continuous/hand-size-cleanup",
+      "family": "continuous",
+      "description": "Maximum hand size, cleanup discards and repeated cleanup",
+      "rule_references": [
+        "514"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/axgard-cavalry",
+      "family": "combat",
+      "description": "Axgard Cavalry \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/bear-cub",
+      "family": "combat",
+      "description": "Bear Cub \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/bite-down",
+      "family": "targets",
+      "description": "Bite Down \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/crackling-cyclops",
+      "family": "triggers",
+      "description": "Crackling Cyclops \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/6e5b899a-52f7-471b-ad50-4fa6566758fd"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/dragon-fodder",
+      "family": "objects",
+      "description": "Dragon Fodder \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/druid-of-the-cowl",
+      "family": "costs",
+      "description": "Druid of the Cowl \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/firebrand-archer",
+      "family": "triggers",
+      "description": "Firebrand Archer \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/fe0312f1-4c98-4b7f-8a34-0059ea80edef"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/forest",
+      "family": "costs",
+      "description": "Forest \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/giant-growth",
+      "family": "continuous",
+      "description": "Giant Growth \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/goblin-surprise",
+      "family": "continuous",
+      "description": "Goblin Surprise \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/goblin-token",
+      "family": "objects",
+      "description": "Goblin \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/llanowar-elves",
+      "family": "costs",
+      "description": "Llanowar Elves \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/magnigoth-sentry",
+      "family": "combat",
+      "description": "Magnigoth Sentry \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/mountain",
+      "family": "costs",
+      "description": "Mountain \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/shivan-dragon",
+      "family": "combat",
+      "description": "Shivan Dragon \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/swab-goblin",
+      "family": "combat",
+      "description": "Swab Goblin \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/tajuru-pathwarden",
+      "family": "combat",
+      "description": "Tajuru Pathwarden \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/thornweald-archer",
+      "family": "combat",
+      "description": "Thornweald Archer \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/thrill-of-possibility",
+      "family": "costs",
+      "description": "Thrill of Possibility \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/viashino-pyromancer",
+      "family": "triggers",
+      "description": "Viashino Pyromancer \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/9f52ada2-cabc-46a3-99df-271833a86909"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    },
+    {
+      "id": "foundations_micro_v1/wildheart-invoker",
+      "family": "continuous",
+      "description": "Wildheart Invoker \u2014 pinned card/token behavior",
+      "rule_references": [
+        "RFC 0002 \u00a73",
+        "https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d"
+      ],
+      "implementation": "planned",
+      "required_evidence": {
+        "positive": [],
+        "negative": [],
+        "interaction": [],
+        "regression": []
+      }
+    }
+  ]
+}
