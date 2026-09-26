@@ -104,14 +104,80 @@ workspace, remove `agent-blocked`, add `agent-ready`, then start the service.
 Do not delete the branch or workpad: workers use them to avoid duplicate delivery.
 Do not add `agent-ready` while editing the counter with the service running.
 
-Dependencies are recorded in issue text and checked by agents. This GitHub adapter
-does not implement a full dependency DAG scheduler. A parent paused for child work
-must be explicitly reactivated after children finish; the workpad must identify it.
+## RFC 0002 program: operator workflow
+
+The RFC delivery program uses upstream Symphony's normal GitHub dispatch and
+one worker. The worker hands off to the next dependency-ready issue; there is no
+additional scheduler or Symphony fork. The committed
+[program manifest](programs/rfc-0002.json) fixes the parent issue, ordered task
+allowlist, dependencies, assigned requirements, and authorized milestones. The
+[requirements inventory](programs/rfc-0002-requirements.json) preserves the RFC
+blocks; implementation summaries cannot silently narrow their acceptance scope.
+The parent is tracking-only and never receives `agent-ready`.
+
+Your role is to read the parent's `Program workpad` for completed requirements,
+evidence, current work, and blockers. Agents implement bounded tasks, run an
+independent review, merge through required CI, verify main CI, update the parent,
+and enqueue at most one eligible successor before closing the current task.
+The current task's verified completion evidence permits this handoff before
+closure, so Symphony cannot terminate the worker halfway through scheduling its
+successor. Retries reuse the recorded successor and existing labels. A gate task
+checks the whole milestone and commits an acceptance report; passing individual
+PRs alone does not complete a milestone.
+
+The **initial rollout authorizes M0 for automatic queue progression**. M1–M5
+remain tracked backlog until activated. After M0's gate passes, the worker records
+the result and stops at that boundary. The coordinator may activate subsequent
+stages through reviewed operations changes under your existing instruction to
+deliver the program, without routine approval from you. Feature workers cannot
+expand their own scope or reinterpret issue comments as authorization. You do
+not review implementation PRs. Essential product decisions or access
+failures are recorded as blockers; independent eligible work may continue.
+
+Controls:
+
+- **Pause the program:** put `program-paused` on the parent. Workers check it
+  before work, push, merge, and handoff. On observing the pause, the worker
+  records it, adds `agent-held`, clears `agent-running`, and removes `agent-ready`
+  last, preventing repeated dispatch. Stop the service for immediate shutdown;
+  a label cannot undo an operation already in flight. After clearing the parent
+  pause, the coordinator explicitly removes the intended task's hold and
+  reactivates it, following the counter-reset procedure if needed. Clearing the
+  parent label alone never restores dispatch authorization.
+- **Hold a task:** add `agent-held` and remove `agent-ready`. The handoff never
+  removes a hold. Even without `agent-held`, a previous removal of `agent-ready`
+  prevents automatic re-enqueue; workers inspect issue label history. Remove
+  the hold and add `agent-ready` explicitly when resuming.
+- **Cancel:** close a task as not planned, or close the parent/add
+  `program-cancelled` for the whole program. A worker observing program
+  cancellation records the stop and holds/de-queues its current task just as
+  for a program pause, without reporting it completed. Canceled dependencies remain
+  unsatisfied; agents cannot count them as delivered or silently skip them.
+- **Resolve a blocker:** supply the decision/access information in the issue,
+  then follow the bounded-counter reset procedure above and reactivate it.
+  Do not mark a task complete to unblock its dependents.
+
+Completed dependencies require a completed issue plus its workpad's acceptance,
+independent review, merged commit, and successful exact-commit main CI evidence.
+Malformed/cyclic manifests, missing evidence, and unavailable APIs fail closed.
+Only allowlisted tasks in authorized milestones can be enqueued. Workers do not
+create an unbounded backlog or expand their own scope; an oversized task is
+reported for coordinator replanning. A blocked task does not freeze independent
+work, but its dependents and the milestone gate remain ineligible.
+
+Handoff normally resumes from the still-open delivering issue after a crash.
+After an operator force-closes a task, a hard process failure bypasses the handoff,
+or the before-run retry limit is exhausted, the queue can become idle. Ask the
+coordinator to reconcile the manifest against GitHub evidence and activate the
+next eligible issue. This is agent-managed progression with bounded recovery,
+not a continuously running dependency scheduler. Initial setup also reconciles
+existing delivered evidence instead of redispatching completed tasks.
 
 ## Verification and upgrade procedure
 
-`./scripts/verify.sh` runs local Markdown link checks, formatting, strict clippy,
-and workspace tests. The empty core crate is scaffolding, not evidence of game
+`./scripts/verify.sh` runs local Markdown link checks, the pinned RFC coverage and
+dependency validator with its negative tests, formatting, strict clippy, and
+workspace tests. The empty core crate is scaffolding, not evidence of game
 correctness. The delivered fixture comparator adds two unit tests and six
 integration tests against synthetic checkpoints; see its
 [usage and schema](fixture-comparator.md).
