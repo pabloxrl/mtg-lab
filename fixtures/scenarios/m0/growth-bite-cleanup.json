@@ -1,0 +1,970 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "bite-down/responding-growth/cleanup",
+  "description": "P1 responds to Bite Down with Giant Growth; 5/5 Bear takes 2, then survives cleanup as 2/2 with zero marked damage.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "priority/response-chain",
+    "priority/post-cast-resolution",
+    "priority/response-window",
+    "continuous/cleanup",
+    "continuous/resolution-power",
+    "foundations_micro_v1/bear-cub",
+    "foundations_micro_v1/bite-down",
+    "foundations_micro_v1/forest",
+    "foundations_micro_v1/giant-growth"
+  ],
+  "rule_references": [
+    "117.3b",
+    "117.3c",
+    "117.3d",
+    "117.4",
+    "601.2c",
+    "601.2h",
+    "605.3b",
+    "608.2b",
+    "608.2h",
+    "514.2",
+    "514.3",
+    "704.5g"
+  ],
+  "setup": {
+    "kind": "synthetic",
+    "state": {
+      "turn": 3,
+      "active_player": 0,
+      "phase": "postcombat_main",
+      "step": "main",
+      "priority": 0,
+      "players": [
+        {
+          "seat": 0,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [
+              "library-0"
+            ],
+            "hand": [
+              "bite"
+            ],
+            "battlefield": [
+              "bear-0",
+              "forest-a",
+              "forest-b"
+            ],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        },
+        {
+          "seat": 1,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [
+              "library-1"
+            ],
+            "hand": [
+              "growth"
+            ],
+            "battlefield": [
+              "bear-1",
+              "forest-c"
+            ],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        }
+      ],
+      "objects": [
+        {
+          "id": "bear-0",
+          "card_id": "bear-cub",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": 2,
+            "toughness": 2,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "library-0",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "bear-1",
+          "card_id": "bear-cub",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": 2,
+            "toughness": 2,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "library-1",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "forest-a",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "forest-b",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "forest-c",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "bite",
+          "card_id": "bite-down",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "growth",
+          "card_id": "giant-growth",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        }
+      ],
+      "stack": [],
+      "effects": []
+    },
+    "assumptions": [
+      {
+        "description": "Focused synthetic state, not evidence of reachability; explicit libraries, no unlisted effects/triggers.",
+        "checks": [
+          {
+            "field": "stack",
+            "path": "/stack",
+            "expected": [],
+            "basis": "rules"
+          }
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "mana-a",
+      "actor": 0,
+      "kind": "activate",
+      "source": "forest-a",
+      "choices": [
+        {
+          "id": "mana-a-targets",
+          "actor": 0,
+          "kind": "targets",
+          "values": []
+        },
+        {
+          "id": "mana-a-payment",
+          "actor": 0,
+          "kind": "payment",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "mana-b",
+      "actor": 0,
+      "kind": "activate",
+      "source": "forest-b",
+      "choices": [
+        {
+          "id": "mana-b-targets",
+          "actor": 0,
+          "kind": "targets",
+          "values": []
+        },
+        {
+          "id": "mana-b-payment",
+          "actor": 0,
+          "kind": "payment",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "cast-bite",
+      "actor": 0,
+      "kind": "cast",
+      "source": "bite",
+      "choices": [
+        {
+          "id": "cast-bite-mode",
+          "actor": 0,
+          "kind": "mode",
+          "values": []
+        },
+        {
+          "id": "cast-bite-targets",
+          "actor": 0,
+          "kind": "targets",
+          "values": [
+            "bear-0",
+            "bear-1"
+          ]
+        },
+        {
+          "id": "cast-bite-payment",
+          "actor": 0,
+          "kind": "payment",
+          "values": [
+            {
+              "resource": "G",
+              "amount": 2
+            }
+          ]
+        },
+        {
+          "id": "cast-bite-discard",
+          "actor": 0,
+          "kind": "discard",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "offer-response",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "offer-response-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "mana-c",
+      "actor": 1,
+      "kind": "activate",
+      "source": "forest-c",
+      "choices": [
+        {
+          "id": "mana-c-targets",
+          "actor": 1,
+          "kind": "targets",
+          "values": []
+        },
+        {
+          "id": "mana-c-payment",
+          "actor": 1,
+          "kind": "payment",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "cast-growth",
+      "actor": 1,
+      "kind": "cast",
+      "source": "growth",
+      "choices": [
+        {
+          "id": "cast-growth-mode",
+          "actor": 1,
+          "kind": "mode",
+          "values": []
+        },
+        {
+          "id": "cast-growth-targets",
+          "actor": 1,
+          "kind": "targets",
+          "values": [
+            "bear-1"
+          ]
+        },
+        {
+          "id": "cast-growth-payment",
+          "actor": 1,
+          "kind": "payment",
+          "values": [
+            {
+              "resource": "G",
+              "amount": 1
+            }
+          ]
+        },
+        {
+          "id": "cast-growth-discard",
+          "actor": 1,
+          "kind": "discard",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "growth-pass-1",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "growth-pass-1-pass",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "growth-pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "growth-pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "bite-pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "bite-pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "bite-pass-1",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "bite-pass-1-pass",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "main-pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "main-pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "main-pass-1",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "main-pass-1-pass",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "end-pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "end-pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "end-pass-1",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "end-pass-1-pass",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "bite-cast",
+      "after": "cast-bite",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [
+            {
+              "id": "cast-bite",
+              "source": "bite.g1",
+              "controller": 0,
+              "kind": "spell",
+              "targets": [
+                "bear-0",
+                "bear-1"
+              ],
+              "modes": [],
+              "last_known_source": null
+            }
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "mana",
+          "path": "/players/0/mana",
+          "expected": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "response-window",
+      "after": "offer-response",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 1,
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [
+            {
+              "id": "cast-bite",
+              "source": "bite.g1",
+              "controller": 0,
+              "kind": "spell",
+              "targets": [
+                "bear-0",
+                "bear-1"
+              ],
+              "modes": [],
+              "last_known_source": null
+            }
+          ],
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "growth-cast",
+      "after": "cast-growth",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 1,
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [
+            {
+              "id": "cast-bite",
+              "source": "bite.g1",
+              "controller": 0,
+              "kind": "spell",
+              "targets": [
+                "bear-0",
+                "bear-1"
+              ],
+              "modes": [],
+              "last_known_source": null
+            },
+            {
+              "id": "cast-growth",
+              "source": "growth.g1",
+              "controller": 1,
+              "kind": "spell",
+              "targets": [
+                "bear-1"
+              ],
+              "modes": [],
+              "last_known_source": null
+            }
+          ],
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "growth-resolved",
+      "after": "growth-pass-0",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [
+            {
+              "id": "cast-bite",
+              "source": "bite.g1",
+              "controller": 0,
+              "kind": "spell",
+              "targets": [
+                "bear-0",
+                "bear-1"
+              ],
+              "modes": [],
+              "last_known_source": null
+            }
+          ],
+          "basis": "rules"
+        },
+        {
+          "field": "power_toughness",
+          "path": "/characteristics/bear-1",
+          "expected": {
+            "power": 5,
+            "toughness": 5
+          },
+          "basis": "rules"
+        },
+        {
+          "field": "marked_damage",
+          "path": "/damage/bear-1",
+          "expected": 0,
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "bite-resolved",
+      "after": "bite-pass-1",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [],
+          "basis": "rules"
+        },
+        {
+          "field": "power_toughness",
+          "path": "/characteristics/bear-1",
+          "expected": {
+            "power": 5,
+            "toughness": 5
+          },
+          "basis": "rules"
+        },
+        {
+          "field": "marked_damage",
+          "path": "/damage/bear-1",
+          "expected": 2,
+          "basis": "rules"
+        },
+        {
+          "field": "object_identity",
+          "path": "/identity/bear-1",
+          "expected": {
+            "id": "bear-1",
+            "generation": 0,
+            "zone": "battlefield"
+          },
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "end-step",
+      "after": "main-pass-1",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/step",
+          "expected": "end",
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "cleanup-settled",
+      "after": "end-pass-1",
+      "kind": "settled",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": null,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/step",
+          "expected": "cleanup",
+          "basis": "rules"
+        },
+        {
+          "field": "power_toughness",
+          "path": "/characteristics/bear-1",
+          "expected": {
+            "power": 2,
+            "toughness": 2
+          },
+          "basis": "rules"
+        },
+        {
+          "field": "marked_damage",
+          "path": "/damage/bear-1",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "object_identity",
+          "path": "/identity/bear-1",
+          "expected": {
+            "id": "bear-1",
+            "generation": 0,
+            "zone": "battlefield"
+          },
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/effects",
+          "expected": [],
+          "basis": "rules"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "bite-down/responding-growth/cleanup",
+    "source_kind": "original",
+    "author": "mtg-lab GH-15",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "117.3b, 117.3c, 117.3d, 117.4, 601.2c, 601.2h, 605.3b, 608.2b, 608.2h, 514.2, 514.3, 704.5g"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original schema example; no upstream code adapted.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Original authored scenario derived from numbered rules and RFC requirements; no upstream code adapted.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "117.3b",
+        "117.3c",
+        "117.3d",
+        "117.4",
+        "601.2c",
+        "601.2h",
+        "605.3b",
+        "608.2b",
+        "608.2h",
+        "514.2",
+        "514.3",
+        "704.5g"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [
+        {
+          "card_id": "bear-cub",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "card_id": "bite-down",
+          "sha256": "89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc"
+        },
+        {
+          "card_id": "forest",
+          "sha256": "6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b"
+        },
+        {
+          "card_id": "giant-growth",
+          "sha256": "94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925"
+        }
+      ],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "rules",
+        "derivation": "Bite Down has ordered targets: own Bear then opponent Bear (601.2c). Tapping Forests adds G without stack use (605.3b). Casting retains caster priority (117.3c), passes transfer it and two consecutive passes resolve only the top spell (117.4). Growth gives P1 Bear +3/+3, leaving Bite on stack; active P0 receives priority (117.3b). Bite reads P0 Bear power 2 on resolution (608.2h), so P1 5/5 survives 2 damage (704.5g). In cleanup damage removal and expiration happen simultaneously (514.2): P1 Bear remains the same battlefield object, now 2/2 with damage 0. With no SBA or trigger, cleanup offers no priority (514.3).",
+        "citations": [
+          "CR 117.3b",
+          "CR 117.3c",
+          "CR 117.3d",
+          "CR 117.4",
+          "CR 601.2c",
+          "CR 601.2h",
+          "CR 605.3b",
+          "CR 608.2b",
+          "CR 608.2h",
+          "CR 514.2",
+          "CR 514.3",
+          "CR 704.5g"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 UC8 and RFC 0002 sections 4 and 8 require atomic invalid-command rejection and no private identities in observations, candidates, masks or errors.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 sections 4 and 8"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "Original, no upstream rules vintage",
+      "target": "cr-2026-09-25",
+      "differences": "Checked pinned 2026 rules; no combat damage assignment ordering is introduced.",
+      "adjudication": "Bite Down has ordered targets: own Bear then opponent Bear (601.2c). Tapping Forests adds G without stack use (605.3b). Casting retains caster priority (117.3c), passes transfer it and two consecutive passes resolve only the top spell (117.4). Growth gives P1 Bear +3/+3, leaving Bite on stack; active P0 receives priority (117.3b). Bite reads P0 Bear power 2 on resolution (608.2h), so P1 5/5 survives 2 damage (704.5g). In cleanup damage removal and expiration happen simultaneously (514.2): P1 Bear remains the same battlefield object, now 2/2 with damage 0. With no SBA or trigger, cleanup offers no priority (514.3).",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "status": "accepted"
+    },
+    "reproduction": {
+      "setup_kind": "synthetic",
+      "trace_sha256": "b5da78219e58c245956391dfc134c602320af8f1494543a9c84e18a3301c9bfa",
+      "ordered_randomness": "Every library and any replacement shuffle is explicitly ordered; no random seed or automatic shuffle.",
+      "complete_choices": "All commands and choices explicit through the final named checkpoint; no AI/default passes.",
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/m0/growth-bite-cleanup.json",
+      "tool_versions": [
+        "neutral-scenario-v1"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "accepted-for-m0",
+      "reviewer": "Separate Codex candidate review recorded in GH-15 PR",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/15"
+      ],
+      "admission_scope": "M0 authored corpus only, conditional on required separate candidate review before merge. No execution or production support claimed.",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "9c2da884a4869d1e6beb978d367e0fcd5c36faff372ad7f6adf627f0b5b0c2d3"
+  }
+}

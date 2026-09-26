@@ -1,0 +1,301 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "priority/empty-stack",
+  "description": "Two consecutive empty-stack passes advance postcombat main to end step; the first pass only hands off priority.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "priority/passing",
+    "priority/turn-structure"
+  ],
+  "rule_references": [
+    "117.3a",
+    "117.3d",
+    "117.4",
+    "513.1"
+  ],
+  "setup": {
+    "kind": "synthetic",
+    "state": {
+      "turn": 1,
+      "active_player": 0,
+      "phase": "postcombat_main",
+      "step": "main",
+      "priority": 0,
+      "players": [
+        {
+          "seat": 0,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        },
+        {
+          "seat": 1,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        }
+      ],
+      "objects": [],
+      "stack": [],
+      "effects": []
+    },
+    "assumptions": [
+      {
+        "description": "Focused synthetic state, not evidence of reachability; explicit libraries, no unlisted effects/triggers.",
+        "checks": [
+          {
+            "field": "stack",
+            "path": "/stack",
+            "expected": [],
+            "basis": "rules"
+          }
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "pass-0",
+      "actor": 0,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "pass-0-pass",
+          "actor": 0,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    },
+    {
+      "id": "pass-1",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "pass-1-pass",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "handoff",
+      "after": "pass-0",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 1,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/phase",
+          "expected": "postcombat_main",
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [],
+          "basis": "rules"
+        }
+      ]
+    },
+    {
+      "name": "end-step",
+      "after": "pass-1",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 0,
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/phase",
+          "expected": "ending",
+          "basis": "rules"
+        },
+        {
+          "field": "invariant",
+          "path": "/step",
+          "expected": "end",
+          "basis": "rules"
+        },
+        {
+          "field": "stack",
+          "path": "/stack",
+          "expected": [],
+          "basis": "rules"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "priority/empty-stack",
+    "source_kind": "original",
+    "author": "mtg-lab GH-15",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "117.3a, 117.3d, 117.4, 513.1"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original schema example; no upstream code adapted.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Original authored scenario derived from numbered rules and RFC requirements; no upstream code adapted.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "117.3a",
+        "117.3d",
+        "117.4",
+        "513.1"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "rules",
+        "derivation": "117.3d transfers priority on the first pass. Under 117.4 the second consecutive pass with empty stack ends postcombat main; end step starts and active P0 receives priority (117.3a). No triggers or pending effects exist. Life and zones do not change.",
+        "citations": [
+          "CR 117.3a",
+          "CR 117.3d",
+          "CR 117.4",
+          "CR 513.1"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 UC8 and RFC 0002 sections 4 and 8 require atomic invalid-command rejection and no private identities in observations, candidates, masks or errors.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 sections 4 and 8"
+        ],
+        "reviewer": "GH-15 author; separate candidate review required",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "Original, no upstream rules vintage",
+      "target": "cr-2026-09-25",
+      "differences": "Checked pinned 2026 rules; no combat damage assignment ordering is introduced.",
+      "adjudication": "117.3d transfers priority on the first pass. Under 117.4 the second consecutive pass with empty stack ends postcombat main; end step starts and active P0 receives priority (117.3a). No triggers or pending effects exist. Life and zones do not change.",
+      "reviewer": "GH-15 author",
+      "date": "2026-09-26",
+      "status": "accepted"
+    },
+    "reproduction": {
+      "setup_kind": "synthetic",
+      "trace_sha256": "3f7e4cc1582880cf3859dc054e38ed4dd151b329ac1fe4ce0ddefe74066283b9",
+      "ordered_randomness": "Every library and any replacement shuffle is explicitly ordered; no random seed or automatic shuffle.",
+      "complete_choices": "All commands and choices explicit through the final named checkpoint; no AI/default passes.",
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/m0/priority-empty.json",
+      "tool_versions": [
+        "neutral-scenario-v1"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "accepted-for-m0",
+      "reviewer": "Separate Codex candidate review recorded in GH-15 PR",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/15"
+      ],
+      "admission_scope": "M0 authored corpus only, conditional on required separate candidate review before merge. No execution or production support claimed.",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "8a3684b36c457ebe41d2ea0646c35ecd1fa9ef43977e4f45b182c88f393e5590"
+  }
+}

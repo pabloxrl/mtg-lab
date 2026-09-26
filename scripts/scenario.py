@@ -405,25 +405,32 @@ def validate(fixture, registry=None, check_registry=True):
         require({a['actor'] for a in actions if a['kind'] in ('keep','mulligan')} == {0,1}, 'incomplete normal-reset mulligan script')
         mulligans = Counter(a['actor'] for a in actions if a['kind'] == 'mulligan')
         require(Counter(x['seat'] for x in setup['shuffle_results']) == mulligans, 'missing/extra ordered mulligan shuffles')
-        kept, bottomed, taken = set(), set(), Counter()
-        for action in actions:
-            if len(bottomed) == 2:
-                break
-            actor, kind = action['actor'], action['kind']
-            require(kind in ('keep', 'mulligan', 'bottom'), 'incomplete opening choices before play')
-            if kind == 'bottom':
-                require(actor in kept and actor not in bottomed and
-                        len(action['choices'][0]['values']) == min(taken[actor], 7), 'wrong London bottom count')
-                bottomed.add(actor)
-            else:
-                require(actor not in kept, 'opening decision after keep')
-                if kind == 'mulligan':
+        # CR 103.5: declare in turn order, redraw/bottom all mulligan takers,
+        # then begin another declaration round. No priority during this process.
+        remaining = [setup['starting_seat'], 1 - setup['starting_seat']]
+        taken, index = Counter(), 0
+        while remaining:
+            mullers = []
+            for actor in remaining:
+                require(index < len(actions), 'incomplete opening declarations')
+                action = actions[index]
+                require(action['actor'] == actor and action['kind'] in ('keep', 'mulligan'),
+                        'wrong opening declaration order')
+                index += 1
+                if action['kind'] == 'mulligan':
+                    require(taken[actor] < 7, 'cannot mulligan below zero cards')
                     taken[actor] += 1
-                else:
-                    kept.add(actor)
-                    if taken[actor] == 0:
-                        bottomed.add(actor)
-        require(len(bottomed) == 2, 'incomplete London mulligan/bottom script')
+                    mullers.append(actor)
+            for actor in mullers:
+                require(index < len(actions), 'missing London bottom choice')
+                action = actions[index]
+                require(action['actor'] == actor and action['kind'] == 'bottom' and
+                        len(action['choices'][0]['values']) == taken[actor],
+                        'wrong London bottom count/order')
+                index += 1
+            remaining = mullers
+        require(not any(a['kind'] in ('keep', 'mulligan', 'bottom') for a in actions[index:]),
+                'opening choice after all players kept')
     for assertion in assertions:
         require(assertion['basis'] in basis, 'unresolved expectation basis')
         require(not re.search(r'~(?![01])', assertion['path']), 'invalid JSON pointer escape')
