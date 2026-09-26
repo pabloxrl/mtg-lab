@@ -6,7 +6,7 @@ import tomllib
 
 # app-server does not accept --profile in CLI 0.157.1. Use ordinary config
 # overrides and disable every host MCP connector rather than copying credentials.
-config_path = Path.home() / ".codex/config.toml"
+config_path = Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "config.toml"
 config = tomllib.loads(config_path.read_text()) if config_path.exists() else {}
 args = [os.environ.get("SYMPHONY_CODEX", "codex"), "-c", 'model="gpt-6-astra"', "-c", 'model_reasoning_effort="medium"',
         "-c", 'web_search="disabled"']
