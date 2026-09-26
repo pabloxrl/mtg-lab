@@ -13,6 +13,7 @@ Setup date: 2026-09-26. This runbook describes the GitHub Issues installation fo
 | Codex | CLI 0.157.1, existing ChatGPT authentication |
 | Worker model | `gpt-6-astra`, medium reasoning, explicit app-server config overrides |
 | Rust | 1.98.1, including rustfmt and clippy |
+| Launcher Python | Homebrew Python 3.14.3; `tomllib` requires Python 3.11+ |
 | Workflow | Root `WORKFLOW.md` |
 | Host | Current Mac; service runs while the user session and machine are available |
 | Dashboard | `http://127.0.0.1:4318` (local only) |
@@ -108,8 +109,10 @@ must be explicitly reactivated after children finish; the workpad must identify 
 ## Verification and upgrade procedure
 
 `./scripts/verify.sh` runs local Markdown link checks, formatting, strict clippy,
-and workspace tests. The initial empty crate is scaffolding, not evidence of game
-correctness. The first agent task adds a fixture comparator and real behavior tests.
+and workspace tests. The empty core crate is scaffolding, not evidence of game
+correctness. The delivered fixture comparator adds two unit tests and six
+integration tests against synthetic checkpoints; see its
+[usage and schema](fixture-comparator.md).
 
 Changes to CI, review scripts, or workflow policy are separate operations tasks.
 Feature workers must not weaken them. Upgrade Symphony by choosing an upstream
@@ -121,6 +124,33 @@ resuming ordinary work.
 
 - Native executable checksum: passed during installation.
 - Rust workspace formatting, clippy, and compilation: passed during bootstrap.
-- GitHub required checks, live dispatch, automatic integration, restart recovery,
-  and post-merge recovery: record actual outcomes below as rollout proceeds.
+- Main is protected by required `verify` checks, with admin enforcement and no
+  required human reviews. Auto-merge is enabled.
+- [Seeded CI failure PR #2](https://github.com/pabloxrl/mtg-lab/pull/2): the
+  intentionally uncompilable candidate failed `verify`; GitHub kept the PR
+  BLOCKED with auto-merge requested. Auto-merge was disabled and the PR closed
+  without merging. Its temporary branch and local worktree were removed.
+- [Runtime compatibility PR #3](https://github.com/pabloxrl/mtg-lab/pull/3): separate
+  Codex review passed, protected integration succeeded, and merge commit
+  `ce480e1a9264b213c706dc29227d441eaa527321` passed
+  [main CI](https://github.com/pabloxrl/mtg-lab/actions/runs/36265004212).
+- Live dispatch: Symphony picked up issue #1 through `agent-ready`. Initial
+  app-server argument and Git sandbox mismatches were exposed and fixed; the
+  latter was resolved using built-in auto-review. No CI or protection bypass.
+- Independent code review: the first comparator candidate was rejected for
+  accepting JSON shapes outside its documented schema. The worker added failing
+  regression cases, fixed the parser, passed all eight tests, and obtained a
+  fresh passing review before publishing.
+- Restart recovery: stopped the service with eight in-progress task files,
+  retained the checkout, and started it again. The worker reused `agent/issue-1`,
+  the existing scaffold and fixtures, and the existing workpad.
+- [First delivery PR #5](https://github.com/pabloxrl/mtg-lab/pull/5), for
+  [issue #1](https://github.com/pabloxrl/mtg-lab/issues/1): the worker implemented,
+  reviewed, repaired, pushed, and merged the comparator without human PR approval.
+  [PR CI](https://github.com/pabloxrl/mtg-lab/actions/runs/36265525763) and
+  [main CI](https://github.com/pabloxrl/mtg-lab/actions/runs/36265584943) passed;
+  merge commit `a50fcde0586d3f2f0a2c21b83da55eefb6d93496`.
+- Post-merge regression recovery has not been fault-injected. The recovery
+  instructions are configured, but a verified revert/repair drill remains a
+  readiness item before increasing concurrency or claiming unattended recovery.
 - Game correctness, reference bridges, and MVP delivery remain separate work.
