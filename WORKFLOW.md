@@ -93,9 +93,14 @@ Add `agent-running` while executing; keep `agent-ready` until done or blocked.
 8. After GitHub confirms merge, obtain the merge commit SHA and wait for its
    main-branch CI run to succeed. Do not close the issue before this completes.
 9. Update the workpad with delivered behavior, exact merge SHA, test/CI/review
-   evidence, how to use the result, and limitations. Remove `agent-running` and
-   `agent-ready`, then close as completed. Perform this only at the end: closing
-   an issue causes Symphony to stop the worker and clean up its workspace.
+   evidence, how to use the result, and limitations. Then make ONE GitHub REST
+   `PATCH /repos/pabloxrl/mtg-lab/issues/N` with `state: "closed"`,
+   `state_reason: "completed"`, and the current labels excluding `agent-running`,
+   `agent-ready`, and `agent-blocked`. Preserve unrelated labels. Never remove
+   `agent-ready` in a separate request before closing: reconciliation can stop
+   the worker between requests and leave a delivered issue open. This atomic
+   update is the final operation; closing causes Symphony to stop the worker
+   and clean up its workspace.
 
 No supported capability may have skipped mandatory tests. No broad engine
 implementation beyond the assigned scope. Split larger work into linked issues;
