@@ -1,6 +1,10 @@
 # Agentic development operations
 
-Status: **GitHub Issues rollout in progress.** Updated 2026-09-26.
+Status: **Operational GitHub Issues pilot on the current Mac.** Updated 2026-09-26.
+
+The first worker-delivered comparator passed independent review, protected
+integration, and post-merge CI. This validates a bounded delivery path; remote
+hosting and a controlled post-merge regression drill remain follow-up work.
 
 See [the operator runbook](symphony-runbook.md) for installed versions, service commands, and validation status.
 
@@ -59,7 +63,7 @@ GitHub's [auto-merge mechanism](https://docs.github.com/en/pull-requests/how-tos
 
 ## Verification for this repository
 
-Adopt the engine RFC's verifier-first strategy. The initial repository contains documentation, so bootstrapping the workspace, test runner, and CI is the first work package.
+Adopt the engine RFC's verifier-first strategy. The Rust workspace, test runner, and CI are installed. The first delivered capability is a synthetic checkpoint comparator with eight tests; game-engine conformance remains future work.
 
 Required evidence grows with implemented capabilities:
 
