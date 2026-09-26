@@ -1,0 +1,32 @@
+name: mtg-lab
+services:
+  symphony:
+    image: mtg-lab-symphony:local
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: runtime
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=./docker/seccomp.json
+      - apparmor=${MTG_APPARMOR_PROFILE:-unconfined}
+    pids_limit: 1024
+    mem_limit: 7g
+    cpus: 4
+    stop_grace_period: 30s
+    ports: ["127.0.0.1:4318:4318"]
+    volumes:
+      - agent-home:/home/agent
+    tmpfs:
+      - /tmp:rw,exec,nosuid,nodev,size=2g,mode=1777
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:4318/api/v1/state', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+volumes:
+  agent-home:

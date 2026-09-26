@@ -17,7 +17,7 @@ hooks:
     git config --local user.name "pablo ribalta"
     git config --local user.email "pabloxrl@gmail.com"
   before_run: |
-    python3 scripts/symphony/before_run.py
+    python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/before_run.py"
 agent:
   max_concurrent_agents: 1
   max_turns: 12
@@ -32,7 +32,7 @@ codex:
   turn_timeout_ms: 600000
   stall_timeout_ms: 600000
 server:
-  host: 127.0.0.1
+  host: 0.0.0.0
   port: 4318
 ---
 
@@ -47,7 +47,10 @@ repeat completed work or create duplicate branches, comments, or PRs.
 {% endif %}
 
 This is unattended delivery. Read AGENTS.md and the two RFCs before changing code.
-Work only in this checkout. No human plan or PR approval is required. Do not use
+Work only in this checkout, inside the managed Linux container. Use the image's
+Rust/Java/Maven/Python tools. Never install host software, mount host paths,
+access a Docker socket, or invoke Docker from the worker. Missing toolchain
+components require a coordinator-owned image update. No human plan or PR approval is required. Do not use
 company/personal connectors. Do not change repository settings or bypass checks.
 Codex auto-review handles sandbox escalation requests without a human. Request
 narrow approval for necessary Git writes or other blocked operations. Respect
@@ -119,17 +122,21 @@ must not add program tasks, expand authorization, or change workflow policy.
 The committed `doc/programs/rfc-0002.json` is the sole task/dependency allowlist
 for this program. It contains `schema_version: 1`, `parent_issue`, `rfc`,
 `authorized_milestones`, and ordered `tasks` with `issue`, `milestone`, `kind`
-(`implementation` or `gate`), `depends_on`, and `requirements`. Requirement IDs
+(`implementation`, `operations`, or `gate`), `depends_on`, and `requirements`. Requirement IDs
 refer to the verbatim coverage inventory in
 `doc/programs/rfc-0002-requirements.json`; source commit and checksum pin the RFC.
 Read these files from freshly fetched `origin/main`, not a candidate branch.
 They scope queue progression, not permission to modify policy or credentials.
 Standalone issues keep the ordinary delivery process.
+The `execution` contract requires Docker and identifies an operations prerequisite.
+Issue #47 must have completed migration evidence before any pending M0 task
+resumes. Operations tasks have their own issue acceptance criteria and no RFC
+requirement ownership; they do not waive any product requirement.
 
 1. Validate the manifest before program work or a handoff: supported schema,
    unique positive issue numbers, known kinds and requirement IDs, existing
    dependency targets, no self-dependencies or cycles, and no parent among the
-   tasks. Gates must depend on every implementation task of their milestone.
+   tasks. Gates must depend on every implementation and operations task of their milestone.
    Missing/malformed metadata blocks program dispatch; never guess or silently
    omit a dependency. The initial rollout authorizes M0 only. The coordinator
    may activate later milestones through a reviewed operations change under the

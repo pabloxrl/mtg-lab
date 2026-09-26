@@ -1,0 +1,7 @@
+# Scoped to this Docker runtime; enables Codex nested user namespaces on Ubuntu 24+.
+# Filesystem isolation is enforced by Docker mounts/read-only root and Codex bwrap.
+abi <abi/4.0>,
+include <tunables/global>
+profile mtg-lab-codex flags=(unconfined) {
+  userns,
+}
