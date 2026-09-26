@@ -165,3 +165,12 @@ Answer only when the system names a decision or action it cannot resolve: for ex
 The completion report tells you what now works, how to run it, which checks establish that result, and any limitations. PRs, test artifacts, and decisions are linked for optional inspection. No final “please approve this PR” step is expected.
 
 Your recurring work is to choose the next problem, describe the outcome, and adjust direction when needed. Agents carry the engineering work through to verified integration.
+
+## Execution environment
+
+Symphony and build tools run inside the repository's Docker Compose deployment.
+See the [runbook](symphony-runbook.md) for bootstrap, persistent state, credentials
+and lifecycle commands. Agents use the pinned toolchain; host installations and
+Docker socket access are outside their authority. Environment changes go through
+an operations issue and independent review. Issue #47 is the initial migration
+prerequisite for the RFC 0002 program; no MVP acceptance requirement is removed.

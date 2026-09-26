@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
-label="com.mtg-lab.symphony"
-domain="gui/$(id -u)"
-plist="$HOME/Library/LaunchAgents/$label.plist"
+cd "$(dirname "$0")/../.."
 case "${1:-status}" in
-  start) launchctl bootstrap "$domain" "$plist" ;;
-  stop) launchctl bootout "$domain/$label" ;;
-  restart) launchctl kickstart -k "$domain/$label" ;;
-  status) launchctl print "$domain/$label" ;;
-  *) echo "Usage: $0 {start|stop|restart|status}" >&2; exit 2 ;;
+  start) docker compose up -d --no-build --wait ;;
+  stop) docker compose stop ;;
+  restart) docker compose restart ;;
+  status) docker compose ps ;;
+  logs) docker compose logs --tail 100 symphony ;;
+  *) echo "Usage: $0 {start|stop|restart|status|logs}" >&2; exit 2 ;;
 esac

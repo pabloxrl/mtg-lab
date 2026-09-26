@@ -3,40 +3,65 @@
 Setup date: 2026-09-26. This runbook describes the GitHub Issues installation for
 `pabloxrl/mtg-lab`. [Agentic operations](agentic-operations.md) explains the policy.
 
-## Installed components
+## Docker runtime
 
-| Component | Pin / location |
-| --- | --- |
-| Symphony | Upstream v0.0.3, commit `1c0fb6c8e8ef9031a2c861e62af5f9e66cee39cb` |
-| Mac executable | `~/.local/share/mtg-lab-symphony/bin/symphony-v0.0.3-macos_arm64` |
-| SHA-256 | `b85d78b25cd5cacff92424416f6a3af7cafee5d675f56b5cd26d22d601c2026d` |
-| Codex | CLI 0.157.1, existing ChatGPT authentication |
-| Worker model | `gpt-6-astra`, medium reasoning, explicit app-server config overrides |
-| Rust | 1.98.1, including rustfmt and clippy |
-| Launcher Python | Homebrew Python 3.14.3; `tomllib` requires Python 3.11+ |
-| Workflow | Root `WORKFLOW.md` |
-| Host | Current Mac; service runs while the user session and machine are available |
-| Dashboard | `http://127.0.0.1:4318` (local only) |
-| Workspaces and logs | `~/.local/share/mtg-lab-symphony/` |
+Operations issue #47 replaces the native macOS pilot with Docker Compose. The
+controller, Codex app-server and builds all run in one non-root Linux container.
+The image supports linux/arm64 and linux/amd64. Core pins live in
+`docker/Dockerfile` and `docker/install-tools.sh`: Rust 1.98.1, Maven 3.9.11,
+Temurin Java 21 (exact distribution pinned by image digest), Symphony v0.0.3 and
+Codex 0.157.1. Ubuntu Python/Git/gh and system packages are resolved at image build;
+rebuilding can update those packages. Preserve the built image digest when moving
+an exact tested deployment. This is not a claim of byte-reproducible apt builds.
 
-The binary checksum is verified against the upstream release. No Symphony source
-fork or custom scheduler is used. The checkout at `~/repos/symphony` is available
-for inspection; the service runs the pinned binary, not that checkout's main.
+Prerequisite: Docker Engine plus Compose v2. On this Mac the existing Colima VM
+provides Docker (`colima start --cpu 4 --memory 8`); Linux can use Docker Engine
+directly. Do not install Java or Rust on the host for this project.
 
-The service retrieves the existing GitHub CLI credential from the host keychain.
-No token is committed or placed in the launchd plist. Symphony strips its tracker
-token from the Codex child environment. The app-server launcher disables all
-personal/company MCP servers in the host config at startup. Git credentials still use the
-host's GitHub CLI integration. This is a trusted personal-machine pilot, not a
-container security boundary or a repository-scoped service identity.
+```bash
+docker compose build
+python3 scripts/symphony/docker-bootstrap.py
+./scripts/symphony/service.sh start
+```
 
-Workers use Codex's workspace-write sandbox with network access. Git metadata
-is protected by that sandbox, so necessary Git commands request escalation via
-Codex's built-in [auto-review](https://learn.chatgpt.com/docs/sandboxing/auto-review).
-`approval_policy: on-request` and `approvals_reviewer="auto_review"` route those
-requests to the built-in reviewer without human approval. Its existing policy
-is not replaced. A denial blocks the task unless a materially safer alternative
-exists; requests that reach Symphony instead of the reviewer fail closed.
+On AppArmor-enabled Ubuntu hosts, bootstrap loads the named
+`docker/mtg-lab-codex.apparmor` profile (via sudo, or inside the existing Colima
+VM) and records its name in ignored `.env`. It permits Codex nested user
+namespaces without changing global kernel restrictions. Other Docker hosts use
+`apparmor=unconfined`. This profile does not add AppArmor filesystem restrictions;
+Docker's mounts, non-root UID, read-only root and Codex bubblewrap enforce those.
+`docker/seccomp.json` retains Docker syscall filtering with namespace setup calls
+allowed for bubblewrap. No host capabilities or privileged mode are granted.
+`/tmp` is executable because Symphony's packaged runtime and build/test binaries
+need it. The runtime has no path to the host filesystem or Docker daemon.
+
+Bootstrap transfers the existing GitHub CLI credential and only Codex's auth cache
+over stdin into the private `mtg-lab_agent-home` volume. It does not copy host
+Codex settings, MCP connectors or other home files. Credentials never enter build
+arguments, images, committed files or Compose environment values. A missing local
+Codex cache requires `codex login` first; alternatively authenticate inside the
+container using `codex login --device-auth`. See [official authentication guidance](https://developers.openai.com/codex/auth/).
+Repeated bootstrap preserves refreshed container Codex credentials. Reauthenticate
+inside the volume if they expire; do not repeatedly overwrite refreshed tokens
+with stale copies from the Mac.
+
+The image has a read-only root filesystem, drops Linux capabilities, runs as UID
+1001 and has no Docker socket or host filesystem mounts. `/tmp` is disposable;
+workspaces, logs, authentication and build caches under `/home/agent` survive
+container recreation. Runtime limits are four CPUs, 7 GiB RAM and 1024 processes.
+Only localhost port 4318 is published. The container binds 0.0.0.0 internally for
+Docker port forwarding. The current single-worker configuration is retained.
+
+Agents still have repository credentials and share a trusted user/volume; this
+is not isolation between tasks or a credential vault. Codex's workspace-write
+sandbox and built-in auto-review remain enabled. Do not mount the Docker socket,
+use privileged containers, or add host directories to repair a build. Missing
+system packages require a reviewed image update by the coordinator.
+
+CI and local validation use `./scripts/verify-docker.sh`, which builds the same
+`toolchain` stage, mounts source read-only and puts outputs in the container.
+The runtime stage adds the committed controller/workflow; rebuild it after
+operations changes. Ordinary feature work uses fresh clones of current main.
 
 ## Start, stop, and inspect
 
@@ -49,16 +74,20 @@ From the repository:
 ./scripts/symphony/service.sh restart
 ```
 
-The launchd job is `com.mtg-lab.symphony`. Its plist is at
-`~/Library/LaunchAgents/com.mtg-lab.symphony.plist`. It starts at login and restarts
-after a crash. `stop` unloads it for the current login session; for a persistent
-disable use `launchctl disable gui/$(id -u)/com.mtg-lab.symphony`, and use `enable`
-with the same target before starting again. Sleep/logout interrupts availability.
-Do not run a second copy against the same repository and workspace directory.
+`start` uses Compose, `stop` preserves the volume, and `restart` reconnects the
+controller. Docker's restart policy resumes the container when the daemon starts.
+The Mac still must remain awake; Compose does not start Colima after a reboot.
+For continuous operation move the image and private volume to an always-on Linux
+host. Never start the former launchd service alongside Compose. Native `run.sh`
+now refuses delivery; the old launchd job is disabled during migration.
+
+Never use `docker compose down -v` unless deliberately deleting all workspaces,
+caches and authentication. Back up the volume before host migration. Stop the
+controller before backup/restore; do not run two controllers for this repository.
 
 ```bash
 curl --fail http://127.0.0.1:4318/api/v1/state
-tail -n 80 ~/.local/share/mtg-lab-symphony/logs/service.stderr.log
+docker compose logs --tail 80 symphony
 ```
 
 Symphony logs and the dashboard expose operational details; the dashboard binds
@@ -87,6 +116,20 @@ integration. The review step is a workflow requirement with recorded evidence;
 it is not an independent GitHub required status attestation. The worker currently
 uses the owner's identity, so administrative policy changes remain possible for
 that identity and are forbidden by instructions rather than credential scoping.
+
+## Importing the stopped pilot
+
+Pause the program and stop/disable the old launchd service before importing.
+The importer refuses an existing destination and preserves the native clone:
+
+```bash
+python3 scripts/symphony/import-workspace.py ~/.local/share/mtg-lab-symphony/workspaces/GH-13
+```
+
+Build outputs are excluded because macOS artifacts cannot be reused as Linux
+executables. Keep original review reports as history; rerun verification/review
+for the Linux candidate. The coordinator explicitly replans the paused task and
+resets its time window once at cutover, retaining the previous evidence.
 
 ## Limits and resuming a blocked issue
 

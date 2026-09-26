@@ -80,21 +80,31 @@ def validate(program, requirements, source):
         require(isinstance(key, str) and key.strip(), "task key must be nonempty")
         require(key not in keys, f"duplicate task key {key}")
         require(task.get("milestone") in MILESTONES, f"unknown milestone for issue {issue}")
-        require(task.get("kind") in ("implementation", "gate"), f"unknown task kind for issue {issue}")
+        require(task.get("kind") in ("implementation", "operations", "gate"), f"unknown task kind for issue {issue}")
         dependencies = task.get("depends_on")
         require(isinstance(dependencies, list) and all(positive_int(dep) for dep in dependencies),
                 f"invalid dependencies for issue {issue}")
         require(len(set(dependencies)) == len(dependencies), f"duplicate dependencies for issue {issue}")
         require(issue not in dependencies, f"self dependency for issue {issue}")
         refs = task.get("requirements")
-        require(isinstance(refs, list) and refs and all(isinstance(ref, str) for ref in refs),
+        require(isinstance(refs, list) and (refs or task.get("kind") == "operations") and all(isinstance(ref, str) for ref in refs),
                 f"missing requirements for issue {issue}")
         require(len(set(refs)) == len(refs), f"duplicate requirements for issue {issue}")
+        require(task["kind"] != "operations" or refs == [], "operations tasks cannot own RFC requirements")
         by_issue[issue] = task
         keys.add(key)
     for issue, task in by_issue.items():
         require(all(dep in by_issue for dep in task["depends_on"]),
                 f"unknown dependency for issue {issue}")
+
+    execution = program.get("execution")
+    if execution is not None:
+        require(isinstance(execution, dict) and execution.get("kind") == "docker",
+                "invalid execution contract")
+        prerequisite = execution.get("prerequisite_issue")
+        require(positive_int(prerequisite) and prerequisite in by_issue
+                and by_issue[prerequisite]["kind"] == "operations",
+                "execution prerequisite must be a registered operations task")
 
     ancestors, visiting = {}, set()
 
@@ -112,13 +122,19 @@ def validate(program, requirements, source):
 
     for issue in by_issue:
         dependencies_of(issue)
+    if execution is not None:
+        gated = execution.get("gated_tasks")
+        require(isinstance(gated, list) and gated and all(positive_int(i) and i in by_issue for i in gated)
+                and len(gated) == len(set(gated)), "invalid execution gated_tasks")
+        require(all(prerequisite in ancestors[i] for i in gated),
+                "task can bypass execution prerequisite")
     previous_gate = None
     for milestone in MILESTONES:
         members = [task for task in tasks if task["milestone"] == milestone]
         gates = [task for task in members if task["kind"] == "gate"]
         require(len(gates) == 1, f"{milestone} must have exactly one gate")
         gate = gates[0]["issue"]
-        implementation = {task["issue"] for task in members if task["kind"] == "implementation"}
+        implementation = {task["issue"] for task in members if task["kind"] in ("implementation", "operations")}
         require(implementation, f"{milestone} has no implementation tasks")
         require(implementation <= ancestors[gate], f"{milestone} gate omits implementation dependencies")
         if previous_gate is not None:

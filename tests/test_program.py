@@ -128,5 +128,27 @@ class ProgramTests(unittest.TestCase):
         self.assertEqual([(block[0], block[1]) for block in blocks], [(1, 4), (5, 6)])
 
 
+class ExecutionGateTests(unittest.TestCase):
+    def setUp(self):
+        self.program, self.requirements, self.source = fixture()
+        self.program["tasks"].insert(0, dict(key="docker", issue=100, kind="operations",
+            milestone="M0", depends_on=[], requirements=[]))
+        self.program["tasks"][1]["depends_on"].append(100)
+        self.program["execution"] = dict(kind="docker", prerequisite_issue=100, gated_tasks=[2, 3])
+
+    def test_operations_prerequisite_preserves_coverage(self):
+        validate(self.program, self.requirements, self.source)
+
+    def test_execution_gate_cannot_be_bypassed(self):
+        self.program["tasks"][1]["depends_on"] = []
+        with self.assertRaisesRegex(ValueError, "bypass execution"):
+            validate(self.program, self.requirements, self.source)
+
+    def test_execution_prerequisite_must_be_operations(self):
+        self.program["execution"]["prerequisite_issue"] = 2
+        with self.assertRaisesRegex(ValueError, "registered operations"):
+            validate(self.program, self.requirements, self.source)
+
+
 if __name__ == "__main__":
     unittest.main()

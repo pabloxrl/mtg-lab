@@ -9,6 +9,14 @@
   ],
   "tasks": [
     {
+      "key": "docker-runtime",
+      "milestone": "M0",
+      "kind": "operations",
+      "issue": 47,
+      "depends_on": [],
+      "requirements": []
+    },
+    {
       "key": "rules",
       "milestone": "M0",
       "kind": "implementation",
@@ -64,7 +72,8 @@
       "kind": "implementation",
       "issue": 13,
       "depends_on": [
-        12
+        12,
+        47
       ],
       "requirements": [
         "R0002-B028",
@@ -90,7 +99,8 @@
       "kind": "implementation",
       "issue": 15,
       "depends_on": [
-        12
+        12,
+        47
       ],
       "requirements": [
         "R0002-B024",
@@ -111,7 +121,8 @@
         12,
         13,
         14,
-        15
+        15,
+        47
       ],
       "requirements": [
         "R0002-B042",
@@ -491,5 +502,15 @@
         "R0002-B043"
       ]
     }
-  ]
+  ],
+  "execution": {
+    "kind": "docker",
+    "prerequisite_issue": 47,
+    "gated_tasks": [
+      13,
+      14,
+      15,
+      16
+    ]
+  }
 }
