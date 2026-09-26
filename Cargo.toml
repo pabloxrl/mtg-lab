@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/mtg-core"]
+members = ["crates/mtg-core", "crates/mtg-fixture"]
 resolver = "3"
 
 [workspace.package]

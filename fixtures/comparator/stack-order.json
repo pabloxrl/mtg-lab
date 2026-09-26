@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "fixture_id": "synthetic/stack-order",
+  "expected": {
+    "life": {
+      "p1": 20,
+      "p2": 17
+    },
+    "active_player": "p1",
+    "stack": [
+      "spell-a",
+      "ability-b"
+    ]
+  },
+  "actual": {
+    "life": {
+      "p1": 20,
+      "p2": 17
+    },
+    "active_player": "p1",
+    "stack": [
+      "ability-b",
+      "spell-a"
+    ]
+  }
+}
