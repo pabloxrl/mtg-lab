@@ -60,7 +60,8 @@ system packages require a reviewed image update by the coordinator.
 
 CI and local validation use `./scripts/verify-docker.sh`, which builds the same
 `toolchain` stage, mounts source read-only and puts outputs in the container.
-The runtime stage adds the committed controller/workflow; rebuild it after
+CI also runs a credential-free controller and sandbox smoke check in an isolated
+Compose project with disposable volumes. The runtime stage adds the committed controller/workflow; rebuild it after
 operations changes. Ordinary feature work uses fresh clones of current main.
 
 ## Start, stop, and inspect
@@ -138,7 +139,7 @@ Codex process. Policy allows three repair/review cycles and a 90-minute issue wo
 window. The before-run hook pauses re-dispatch after five attempts or expiry of
 that window. It does not interrupt an already running turn. Silence timeouts are
 10 minutes, the reviewer subprocess timeout is 15 minutes, and CI times out after
-15 minutes. `max_turns: 12` is not a total run or spending limit. No hard dollar
+30 minutes (including image construction). `max_turns: 12` is not a total run or spending limit. No hard dollar
 budget is configured; usage is subject to the account's limits.
 
 To resume after resolving a blocker, stop the service first, preserve any desired

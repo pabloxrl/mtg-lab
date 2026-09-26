@@ -5,7 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends python3 git gh curl ca-certificates build-essential pkg-config libssl-dev ripgrep bubblewrap tini && rm -rf /var/lib/apt/lists/*
 COPY --from=rust /usr/local/rustup /opt/rustup
 COPY --from=rust /usr/local/cargo /opt/cargo
-ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/home/agent/.cargo PATH=/opt/cargo/bin:/opt/codex/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ENV RUSTUP_HOME=/opt/rustup CARGO_HOME=/home/agent/.cargo PATH=/opt/cargo/bin:/opt/codex/bin:${PATH}
 ARG TARGETARCH
 COPY docker/install-tools.sh /tmp/install-tools.sh
 RUN bash /tmp/install-tools.sh && rm /tmp/install-tools.sh
