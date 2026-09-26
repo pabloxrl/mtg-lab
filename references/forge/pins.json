@@ -1,0 +1,38 @@
+{
+  "bridge_version": 1,
+  "upstream_commit": "95dc682bf92460f49cebd7a9578f06ccf60d5569",
+  "card_data_revision": "forge-gui/res at the upstream commit; no external card database",
+  "platform": "linux-arm64",
+  "jdk": "Eclipse Temurin 21.0.9+10-LTS",
+  "jdk_runtime": "21.0.9+10",
+  "maven": "3.9.11",
+  "patches": [],
+  "archive": {
+    "url": "https://codeload.github.com/Card-Forge/forge/tar.gz/95dc682bf92460f49cebd7a9578f06ccf60d5569",
+    "sha256": "54ecef193bf0f1ff85afa827e2e1d0fab78594dd0234d5fc461223ce5db5cd20"
+  },
+  "consulted_sources": {
+    "LICENSE": "8b1ba204bb69a0ade2bfcf65ef294a920f6bb361b317dba43c7ef29d96332b9b",
+    "pom.xml": "4f4c33b46b8e0508c0b43a188a342de199c323a5d066f554036d0ac284326468",
+    "forge-gui-desktop/pom.xml": "7897ca952c0da9bcc33a3d305d3ca9bc42d4bcf573387528b15e1c24a43d4df2",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/BaseGameSimulationTest.java": "4a53dee51a9b021172b4b471677bf410e6a0bb551cc9dc2f008a74837d6d5875",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/GameWrapper.java": "9e562cd0740508fdbd8ceccbe223281b5548f72be51657a3ed84ac202dc15c59",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/PlayerControllerForTests.java": "6dbe7694be78e695fd27d557d574d499bae547ba79622d157338ddbb0ecb0a2e",
+    "forge-gui-desktop/src/test/java/forge/card/CardMockTestCase.java": "ea9b5e3275fa47f3037ac6f3f89ced39dd38675df9d794320ab74052238059c5",
+    "forge-game/src/main/java/forge/game/phase/PhaseHandler.java": "f0f0e4b7333d191c6bf9581d7f1012586f5f930883e6003ea4546bcc38f303e8",
+    "forge-gui/res/cardsfolder/f/forest.txt": "9a574ea2a8136e588ab77ff8bf260075a94572d8099a7d0d98c62590479aa5a6",
+    "forge-gui/res/cardsfolder/m/mountain.txt": "d421d9639d7b7f2a8c4ed04fa2fa8526cbc768733a92b0a1a453535ee99a3799",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/CardDatabaseHelper.java": "ec820ef296ef58dc6522935f661de7a94d2d666dae3d5e69290ac807ea8d0492",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/LobbyPlayerForTests.java": "9c6fbbb6380e6959dca6ed5b608277ac86b23042a384f73de819c0fb5c4603ea",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/gamestate/GameStateSpecificationBuilder.java": "2fb67adeb894a7bd0075dd1c15405e7a431774449800edb1332414d901f4dc99",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/card/CardSpecificationBuilder.java": "014fec43764c4d238e782d6362352f0d34f40e9cd728172f3e8d57937e550d4b",
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/util/player/PlayerSpecificationBuilder.java": "0f4208f4d7281a8343fa6c8de52a4134417f48fd6208a4aea656a0e00b5adfa6",
+    "forge-game/src/main/java/forge/game/mana/ManaPool.java": "e79ec59be283b7c0a4f45a13ed56657dab1c40d5f2bd3bfa738ff34f46894e9b",
+    "forge-game/src/main/java/forge/game/player/PlayerController.java": "3fa36600e368ae5285cf5b4a55f38ff566563101d76cc191b3a17e54b2eb6261",
+    "forge-core/src/main/java/forge/card/MagicColor.java": "87d8b49c9d0796a65c355661e2fcfe2414df100e4dc12e0d134287b0e06b557c",
+    "forge-gui/src/main/java/forge/localinstance/properties/ForgeConstants.java": "350dba8d83849fbc43c1ad8844a66353278b8f7535bfcd4f3288078643e0abae",
+    "forge-gui/src/main/java/forge/localinstance/properties/ForgeProfileProperties.java": "1bb8fb79906d76be73e50f6583a19e9d399a89935dd93f357b423a8589808df5",
+    "forge-gui-desktop/src/main/java/forge/GuiDesktop.java": "fcff4b6268bae3ba5d1c48c10ba3d7287594b9388668056da9a60e6a260c9ccc"
+  },
+  "toolchain_base_image": "maven:3.9.11-eclipse-temurin-21-noble@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237"
+}
