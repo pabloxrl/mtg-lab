@@ -11,7 +11,7 @@ Setup date: 2026-09-26. This runbook describes the GitHub Issues installation fo
 | Mac executable | `~/.local/share/mtg-lab-symphony/bin/symphony-v0.0.3-macos_arm64` |
 | SHA-256 | `b85d78b25cd5cacff92424416f6a3af7cafee5d675f56b5cd26d22d601c2026d` |
 | Codex | CLI 0.157.1, existing ChatGPT authentication |
-| Worker model | `gpt-6-astra`, medium reasoning, dedicated `mtg-lab-symphony` profile |
+| Worker model | `gpt-6-astra`, medium reasoning, explicit app-server config overrides |
 | Rust | 1.98.1, including rustfmt and clippy |
 | Workflow | Root `WORKFLOW.md` |
 | Host | Current Mac; service runs while the user session and machine are available |
@@ -24,8 +24,8 @@ for inspection; the service runs the pinned binary, not that checkout's main.
 
 The service retrieves the existing GitHub CLI credential from the host keychain.
 No token is committed or placed in the launchd plist. Symphony strips its tracker
-token from the Codex child environment. The dedicated Codex profile disables the
-personal/company MCP servers present during setup. Git credentials still use the
+token from the Codex child environment. The app-server launcher disables all
+personal/company MCP servers in the host config at startup. Git credentials still use the
 host's GitHub CLI integration. This is a trusted personal-machine pilot, not a
 container security boundary or a repository-scoped service identity.
 

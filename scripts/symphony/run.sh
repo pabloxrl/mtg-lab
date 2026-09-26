@@ -3,6 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 runtime="$HOME/.local/share/mtg-lab-symphony"
+export SYMPHONY_CONTROL_ROOT="$PWD"
 mkdir -p "$runtime/logs"
 # Retrieve the host credential without storing it in the repository or plist.
 export GITHUB_TOKEN

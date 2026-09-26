@@ -21,7 +21,7 @@ agent:
   max_turns: 12
   max_retry_backoff_ms: 300000
 codex:
-  command: codex -p mtg-lab-symphony app-server
+  command: python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/codex_server.py"
   approval_policy: never
   thread_sandbox: workspace-write
   turn_sandbox_policy:
