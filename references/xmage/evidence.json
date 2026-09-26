@@ -1,0 +1,42 @@
+{
+  "status": "agreed",
+  "smoke_seconds": 10.906052898999974,
+  "checkpoint_sha256": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+  "fixture_sha256": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+  "bridge_sha256": "3fd4d3c3a27dbaa367d5cb41109f72783820bb39850dc02a57a36cce891e9acf",
+  "runner_sha256": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+  "pins_sha256": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+  "dependencies_sha256": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+  "platform": "Linux/aarch64",
+  "stdin": "closed",
+  "display": "unset",
+  "offline": true,
+  "smoke_timeout_seconds": 180,
+  "logs": {
+    "smoke-1": "ced35d0ded3342868ee4d643a1fc8435df5fbaa82c21e0e978c7706440b1e926",
+    "smoke-2": "7ff2b32d56dce34f764107e2bda33f40b49505f01b17da574725ca1dd6ab357e"
+  },
+  "mutations": {
+    "life": {
+      "status": "detected",
+      "reason": "priority-p1 mismatch: /players/0/life",
+      "log_sha256": "c9fce48c82a7c7cfb5c6b42bb37e6f92ff2823b71ff67c42c1b4bdec2e982296"
+    },
+    "choice": {
+      "status": "detected",
+      "reason": "script actor mismatch",
+      "log_sha256": "35b4ea88d7ead6b127c6f9f294c99f0123e27df3b3ee5d5cc4cb7c10c519d28d"
+    },
+    "checkpoint": {
+      "status": "detected",
+      "reason": "priority-p1 mismatch: /priority",
+      "log_sha256": "f1cc987d89df7af9d4ad7280395cf33a77b730b0bed39ff2f729bca3de144df8"
+    }
+  },
+  "observed_at": "2026-09-26",
+  "build": {
+    "status": "passed",
+    "log_sha256": "37e97c24e5aa8ce3a67da53c28629ccd5d4d2feef6d632d067e605f633f02827",
+    "dependency_files": 812
+  }
+}

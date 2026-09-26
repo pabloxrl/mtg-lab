@@ -1,0 +1,27 @@
+{
+  "bridge_version": 1,
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "card_data_revision": "Mage.Sets at the upstream commit; no external card database",
+  "platform": "linux-arm64",
+  "jdk": "Eclipse Temurin 21.0.9+10-LTS",
+  "maven": "3.9.11",
+  "patches": [],
+  "archives": {
+    "xmage.tar.gz": {
+      "url": "https://codeload.github.com/magefree/mage/tar.gz/000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "sha256": "8a4a67c2937f476988c16357fcdbfc2dc8d0b508482e5450722f6515b9d033f6"
+    }
+  },
+  "consulted_sources": {
+    "LICENSE.txt": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+    "Mage.Tests/src/test/java/org/mage/test/serverside/base/CardTestPlayerBase.java": "7aa7a03ab7123e53d1662e05c24b0a637a4a3871c96ede79b7749c1c63034d4d",
+    "Mage.Tests/src/test/java/org/mage/test/serverside/base/MageTestPlayerBase.java": "1fd303806aceb84267cfb2b0bd20309da1d4d22dadaca2f6f04e9e397e3dc809",
+    "Mage.Tests/src/test/java/org/mage/test/serverside/base/impl/CardTestPlayerAPIImpl.java": "56ddc5e323bf6945536b1ef752488382c486e0a556f63a6e28fddd09eb4e020f",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestComputerPlayer.java": "9386e731ad7dfbf29a85962b8030f1812adf8615af17171dd926bec502e4a10a",
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/players/Library.java": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c"
+  },
+  "toolchain_base_image": "maven:3.9.11-eclipse-temurin-21-noble@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237",
+  "jdk_runtime": "21.0.9+10"
+}
