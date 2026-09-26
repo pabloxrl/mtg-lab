@@ -75,6 +75,8 @@ has not been provisioned by this Mac setup.
    execution; `agent-blocked` means the issue needs a decision or intervention.
 4. Agents create a branch and PR, run checks and a separate review, and enable
    squash auto-merge. They close the issue only after the merge commit's CI passes.
+   Completion closes the issue and clears execution labels in one REST update;
+   clearing `agent-ready` first can stop the worker before it closes the issue.
 
 Remove `agent-ready` to pause. Close as not planned to cancel. Both take effect
 on reconciliation rather than instantly; stop the service for immediate shutdown.
