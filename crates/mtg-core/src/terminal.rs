@@ -1,12 +1,12 @@
 //! Rules results, indexed by persistent seat. No recorder or external budgets.
 use super::*;
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum LossReason {
     Life,
     EmptyDraw,
     Concession,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Outcome {
     pub winner: Option<Seat>,
     pub losses: [Option<LossReason>; 2],
@@ -17,7 +17,7 @@ pub enum ConcedeError {
     AlreadyEnded,
     StaleEpisode,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct EpisodeId(pub(super) DecisionId);
 impl Game {
     pub fn outcome(&self) -> Option<Outcome> {

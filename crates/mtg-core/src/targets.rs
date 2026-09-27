@@ -3,14 +3,14 @@ use super::casting::{CastError, PendingCast};
 use super::mana::{Payment, PaymentDecision};
 use super::turns::{TurnDecision, TurnError, TurnKind};
 use super::*;
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TargetKind {
     Growth,
     BiteSource,
     BiteDestination,
     Complete,
 }
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq, Eq)]
 pub struct TargetDecision {
     pub id: DecisionId,
     pub actor: Seat,
@@ -26,7 +26,7 @@ pub enum TargetError {
     IllegalTarget,
     CapacityExceeded { needed: usize, capacity: usize },
 }
-#[derive(Clone, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
 pub(super) struct Targeting {
     pub(super) card: Handle,
     pub(super) decision: TargetDecision,
@@ -39,18 +39,18 @@ pub struct CreatureState {
     pub toughness: u32,
     pub damage: u32,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Resolution {
     pub spell: CardId,
     pub legal_targets: usize,
     pub resolved: bool,
 }
-#[derive(Clone, Copy, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug)]
 pub(super) enum Effect {
     Growth(Handle),
     Bite(Handle, Handle),
 }
-#[derive(Clone, Copy, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug)]
 pub(super) struct Modification {
     pub(super) handle: Handle,
     pub(super) boost: u32,

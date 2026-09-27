@@ -1,13 +1,13 @@
 //! Vanilla combat declarations and simultaneous damage. Inspection is privileged.
 use super::turns::{TurnDecision, TurnError};
 use super::*;
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum CombatKind {
     Attackers,
     Blockers,
     Damage,
 }
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq, Eq)]
 pub struct Attack {
     pub creature: Handle,
     pub blocked: bool,
@@ -41,7 +41,7 @@ pub enum CombatError {
     CapacityExceeded { needed: usize, capacity: usize },
     Turn(TurnError),
 }
-#[derive(Clone, Debug, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, Default)]
 pub(super) struct CombatState {
     pub(super) attacks: Vec<Attack>,
     selected: Vec<Handle>,

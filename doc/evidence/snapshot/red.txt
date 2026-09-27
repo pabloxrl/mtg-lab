@@ -1,0 +1,104 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling syn v3.0.6
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-74/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.01s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-1149e24de6207ff1)
+
+running 1 test
+test opening::views::tests::views_literal_empty_schema_and_owned_snapshot ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 69 filtered out; finished in 0.00s
+
+     Running tests/casting.rs (target/debug/deps/casting-9249969f20609b92)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/debug/deps/combat-22521c533a98cf40)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-b9f3107eed5f0fe4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-2289b08111ac810b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-7930c74e3ea78eb8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-cca585f459f57c5b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-3aa0b1c5383341cd)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-d92255e5f9356880)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/snapshot.rs (target/debug/deps/snapshot-e085e275159c4eee)
+
+running 3 tests
+test snapshot_literal_corruption_is_atomic ... FAILED
+test snapshot_reset_yield_resumes_to_independent_ordered_ledger ... FAILED
+test snapshot_pending_mulligan_restores_expected_choices_and_cards ... FAILED
+
+failures:
+
+---- snapshot_literal_corruption_is_atomic stdout ----
+
+thread 'snapshot_literal_corruption_is_atomic' (1508) panicked at crates/mtg-core/tests/snapshot.rs:31:9:
+assertion `left == right` failed
+  left: Ok(())
+ right: Err(Corrupt)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- snapshot_reset_yield_resumes_to_independent_ordered_ledger stdout ----
+
+thread 'snapshot_reset_yield_resumes_to_independent_ordered_ledger' (1510) panicked at crates/mtg-core/tests/snapshot.rs:59:46:
+expected opening decision: NotStarted
+
+---- snapshot_pending_mulligan_restores_expected_choices_and_cards stdout ----
+
+thread 'snapshot_pending_mulligan_restores_expected_choices_and_cards' (1509) panicked at crates/mtg-core/tests/snapshot.rs:41:31:
+restored pending P1 decision
+
+
+failures:
+    snapshot_literal_corruption_is_atomic
+    snapshot_pending_mulligan_restores_expected_choices_and_cards
+    snapshot_reset_yield_resumes_to_independent_ordered_ledger
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test snapshot`

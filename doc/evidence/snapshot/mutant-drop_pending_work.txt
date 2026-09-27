@@ -1,0 +1,22 @@
+
+running 1 test
+test snapshot_reset_yield_resumes_to_independent_ordered_ledger ... FAILED
+
+failures:
+
+---- snapshot_reset_yield_resumes_to_independent_ordered_ledger stdout ----
+
+thread 'snapshot_reset_yield_resumes_to_independent_ordered_ledger' (287) panicked at crates/mtg-core/tests/snapshot.rs:103:9:
+expected opening decision: OpeningComplete
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    snapshot_reset_yield_resumes_to_independent_ordered_ledger
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.03s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-74/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.02s
+     Running tests/snapshot.rs (target/debug/deps/snapshot-97bc1a0550947af5)
+error: test failed, to rerun pass `-p mtg-core --test snapshot`

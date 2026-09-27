@@ -9,7 +9,7 @@ pub enum CastError {
     NoCast,
     Storage(StorageError),
 }
-#[derive(Clone, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
 pub(super) struct PendingCast {
     pub(super) card: Handle,
     pub(super) sources: Vec<Handle>,

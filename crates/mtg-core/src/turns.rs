@@ -1,7 +1,7 @@
 //! Turn progression and priority, including supported creature-stack resolution. Inspection is privileged, as in opening.
 use super::*;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Step {
     Upkeep,
     Draw,
@@ -15,13 +15,13 @@ pub enum Step {
     End,
     Cleanup,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TurnKind {
     Priority,
     Combat(super::combat::CombatKind),
     Discard { count: usize },
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct TurnDecision {
     pub id: DecisionId,
     pub actor: Seat,
@@ -62,7 +62,7 @@ pub enum TurnError {
     TurnExhausted,
     Storage(StorageError),
 }
-#[derive(Clone, Debug, Default)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, Default)]
 pub(super) struct TurnState {
     pub(super) decision: Option<TurnDecision>,
     pub(super) position: Option<(u64, Seat, Step)>,
