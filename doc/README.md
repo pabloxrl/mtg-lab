@@ -1,5 +1,7 @@
 # Research documentation
 
+- [MVP test strategy](testing/README.md) — concrete capability designs, AI-played game replay across three engines, component tests and delivery gates.
+
 - [RFC 0002 implementation program](programs/rfc-0002.md) — live parent, dependency-linked tasks, lossless requirement inventory, milestone gates and M0 execution controls.
 - [M0 provenance and distribution policy](provenance-policy.md) — primary-source findings, inspection receipts, fixture origin/vintage checklist and explicit release blockers.
 - [Pinned rules source](rules-source.md) — offline metadata validation, explicit bounded fetch/verify, source evidence and deliberate upgrade policy.

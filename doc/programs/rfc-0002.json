@@ -122,7 +122,8 @@
         13,
         14,
         15,
-        47
+        47,
+        52
       ],
       "requirements": [
         "R0002-B042",
@@ -500,6 +501,32 @@
         "R0002-B038",
         "R0002-B042",
         "R0002-B043"
+      ]
+    },
+    {
+      "key": "test-design-operations",
+      "milestone": "M0",
+      "kind": "operations",
+      "issue": 54,
+      "depends_on": [
+        47
+      ],
+      "requirements": []
+    },
+    {
+      "key": "complete-test-design",
+      "milestone": "M0",
+      "kind": "implementation",
+      "issue": 52,
+      "depends_on": [
+        12,
+        15,
+        54
+      ],
+      "requirements": [
+        "R0002-B026",
+        "R0002-B042",
+        "R0002-B044"
       ]
     }
   ],
