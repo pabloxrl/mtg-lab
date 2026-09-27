@@ -1,0 +1,75 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-70/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.63s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 12 tests
+test opening::targets_tests::targets_growth_below_bite_zone_identity_no_retarget ... ok
+test opening::targets_tests::targets_generic_payment_preserves_future_growth_choices ... ok
+test opening::targets_tests::targets_empty_roles_payment_cancel_revalidation_and_exhaustion ... ok
+test opening::targets_tests::targets_hold_priority_bite_above_growth_and_five_no_redirection ... ok
+test opening::targets_tests::targets_payable_instants_offered_with_legal_targets ... ok
+test opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous ... ok
+test opening::targets_tests::targets_partial_invalidation_no_lki_or_redirection ... ok
+test opening::targets_tests::targets_required_restricted_stale_and_atomic ... ok
+test opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow ... ok
+test opening::targets_tests::targets_stacked_growth_and_grown_source_invalid_destination ... ok
+test opening::targets_tests::targets_response_chain_priority_current_power_and_lethal ... ok
+test opening::targets_tests::targets_independent_all_pairs_and_capacity_boundaries ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 26 filtered out; finished in 0.02s
+
+     Running tests/casting.rs (target/debug/deps/casting-f48f7921abf11ac4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-bb41156621f23027)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-ce642592432787ec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-78536aa399b797f2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-c515b8ba59ced1ad)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-7abc55d7215edbe4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/debug/deps/targets-79734cbd52ee70cb)
+
+running 1 test
+test targets_normal_reset_real_response_chain ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/turns.rs (target/debug/deps/turns-bcc5af6b89f3f305)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+

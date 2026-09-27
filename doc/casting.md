@@ -2,11 +2,13 @@
 
 `mtg_core::opening::Game` casts Bear Cub (1G) and Swab Goblin (1R) after opening
 and `start_turns`. Both are vanilla creatures with ordinary sorcery timing.
-Other spells, creature abilities, combat and terminal outcomes remain separate
-work. This is a core API, not a playable CLI or complete game engine.
+[Growth and Bite Down](targets.md) use a target continuation before these same
+payment/commit operations. Other spells, creature abilities, combat and terminal
+outcomes remain separate work. This is a core API, not a playable CLI or complete game engine.
 
 1. At a current priority decision, `cast_candidates(actor)` lists payable supported
-   hand objects. The actor must be active in a main phase with an empty stack.
+   hand objects. For creatures the actor must be active in a main phase with an empty stack;
+   targeted instants use their own timing and target checks.
    Available resources include the pool and controlled untapped basic lands.
 2. `begin_cast(actor, decision_id, card_handle)` revalidates the gate and opens a
    payer-only `PaymentDecision`. It fixes the card's cost; callers cannot supply it.
@@ -41,7 +43,8 @@ pending cast, stack and sickness state and invalidates prior decisions/handles.
 Stack order is explicit and resolves LIFO. These creatures cannot legally respond
 to one another. Tests use declared synthetic multi-spell stacks for LIFO, plus
 real mana-ability responses (which reset consecutive passes without using the
-stack). Instant response chains belong to GH-70/GH-18. Arbitrary raw `ObjectStore`
+stack). [Targeted instants](targets.md) now provide real response chains; full cross-feature
+acceptance remains GH-18. Arbitrary raw `ObjectStore`
 stack placements remain unsupported unless registered by the rules layer.
 
 All object inspection and `Game` Debug remain privileged. Seat arguments rely on

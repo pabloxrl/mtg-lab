@@ -11,19 +11,24 @@ pub enum CastError {
 }
 #[derive(Clone, Debug)]
 pub(super) struct PendingCast {
-    card: Handle,
-    sources: Vec<Handle>,
+    pub(super) card: Handle,
+    pub(super) sources: Vec<Handle>,
+    pub(super) effect: Option<super::targets::Effect>,
 }
-fn cost(card: CardId) -> Option<ManaCost> {
+pub(super) fn cost(card: CardId) -> Option<ManaCost> {
     let mut colored = [0; 6];
     match card.identity().key {
-        "bear-cub" => colored[4] = 1,
+        "bear-cub" | "giant-growth" | "bite-down" => colored[4] = 1,
         "swab-goblin" => colored[3] = 1,
         _ => return None,
     }
     Some(ManaCost {
         colored,
-        generic: 1,
+        generic: if card.identity().key == "giant-growth" {
+            0
+        } else {
+            1
+        },
     })
 }
 impl Game {
@@ -33,10 +38,6 @@ impl Game {
         if !self
             .turn_decision()
             .is_some_and(|d| d.actor == actor && d.kind == TurnKind::Priority)
-            || !self.turns.position.is_some_and(|(_, active, step)| {
-                active == actor && matches!(step, Step::PrecombatMain | Step::PostcombatMain)
-            })
-            || self.objects.in_zone(Zone::Stack).next().is_some()
         {
             return vec![];
         }
@@ -51,8 +52,20 @@ impl Game {
             .in_zone(Zone::Hand(actor))
             .filter(|h| {
                 cost(self.objects.get(*h).expect("hand").card).is_some_and(|c| {
-                    (0..6).all(|i| available[i] >= u64::from(c.colored[i]))
-                        && available.iter().sum::<u64>() >= 2
+                    let card = self.objects.get(*h).unwrap().card;
+                    let timing = if super::targets::instant(card) {
+                        self.has_targets(actor, card)
+                    } else {
+                        self.turns.position.is_some_and(|(_, active, step)| {
+                            active == actor
+                                && matches!(step, Step::PrecombatMain | Step::PostcombatMain)
+                        }) && self.objects.in_zone(Zone::Stack).next().is_none()
+                    };
+                    timing
+                        && (0..6).all(|i| available[i] >= u64::from(c.colored[i]))
+                        && available.iter().sum::<u64>()
+                            >= u64::from(c.generic)
+                                + c.colored.iter().map(|n| u64::from(*n)).sum::<u64>()
                 })
             })
             .collect()
@@ -64,7 +77,12 @@ impl Game {
         card: Handle,
     ) -> Result<PaymentDecision, CastError> {
         self.mana_priority(actor, id).map_err(CastError::Mana)?;
-        if !self.cast_candidates(actor).contains(&card) {
+        if !self.cast_candidates(actor).contains(&card)
+            || self
+                .objects
+                .get(card)
+                .is_ok_and(|o| super::targets::instant(o.card))
+        {
             return Err(CastError::IllegalSpell);
         }
         let generation = self.next_mana_generation().map_err(CastError::Mana)?;
@@ -82,6 +100,7 @@ impl Game {
         self.turns.casting = Some(PendingCast {
             card,
             sources: vec![],
+            effect: None,
         });
         self.generation = generation;
         Ok(d)
@@ -144,6 +163,33 @@ impl Game {
         }
         self.next_mana_generation().map_err(CastError::Mana)?;
         let card = cast.card;
+        if !self
+            .objects
+            .get(card)
+            .is_ok_and(|o| o.zone == Zone::Hand(actor))
+            || cast.effect.is_some_and(|e| {
+                self.legal_effect_targets(actor, e)
+                    != match e {
+                        super::targets::Effect::Growth(_) => 1,
+                        super::targets::Effect::Bite(_, _) => 2,
+                    }
+            })
+        {
+            return Err(CastError::IllegalSpell);
+        }
+        for &source in &cast.sources {
+            if !self
+                .objects
+                .get(source)
+                .is_ok_and(|o| o.zone == Zone::Battlefield && o.controller == actor && !o.tapped)
+            {
+                return Err(CastError::Mana(ManaError::IllegalSource));
+            }
+        }
+        self.turns
+            .effects
+            .try_reserve(1)
+            .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
         // Storage preflight occurs before any spend, tap, generation or move.
         self.objects
             .prepare_moves(&[card], Zone::Stack)
@@ -162,6 +208,9 @@ impl Game {
             .move_to(card, Zone::Stack)
             .expect("preflighted spell");
         self.turns.stack.push(h);
+        if let Some(effect) = cast.effect {
+            self.turns.effects.push((h, effect));
+        }
         Ok(d)
     }
     pub fn summoning_sick(&self, h: Handle) -> bool {
@@ -198,24 +247,37 @@ impl Game {
             };
             return Ok(self.set_turn_decision(next, TurnKind::Priority));
         }
-        self.objects
-            .prepare_moves(&[h], Zone::Battlefield)
-            .map_err(TurnError::Storage)?;
-        self.turns
-            .sick
-            .try_reserve(1)
-            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
-        let controller = self.objects.get(h).expect("spell").controller;
-        let permanent = self
-            .objects
-            .move_to(h, Zone::Battlefield)
-            .expect("preflighted resolution");
-        self.objects
-            .get_mut(permanent)
-            .expect("permanent")
-            .controller = controller;
+        if let Some((_, effect)) = self
+            .turns
+            .effects
+            .iter()
+            .find(|(spell, _)| *spell == h)
+            .copied()
+        {
+            self.resolve_effect(h, effect)?;
+        } else {
+            if super::targets::instant(self.objects.get(h).unwrap().card) {
+                return Err(TurnError::UnsupportedStack);
+            }
+            self.objects
+                .prepare_moves(&[h], Zone::Battlefield)
+                .map_err(TurnError::Storage)?;
+            self.turns
+                .sick
+                .try_reserve(1)
+                .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+            let controller = self.objects.get(h).expect("spell").controller;
+            let permanent = self
+                .objects
+                .move_to(h, Zone::Battlefield)
+                .expect("preflighted resolution");
+            self.objects
+                .get_mut(permanent)
+                .expect("permanent")
+                .controller = controller;
+            self.turns.sick.push(permanent);
+        }
         self.turns.stack.pop();
-        self.turns.sick.push(permanent);
         self.turns.passed = false;
         self.generation = generation;
         let active = self.turns.position.expect("turn").1;

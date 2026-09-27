@@ -1,0 +1,398 @@
+//! Private factored target selection and the M1 Growth/Bite effects.
+use super::casting::{CastError, PendingCast};
+use super::mana::{Payment, PaymentDecision};
+use super::turns::{TurnDecision, TurnError, TurnKind};
+use super::*;
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TargetKind {
+    Growth,
+    BiteSource,
+    BiteDestination,
+    Complete,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct TargetDecision {
+    pub id: DecisionId,
+    pub actor: Seat,
+    pub kind: TargetKind,
+    pub choices: Vec<Handle>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TargetError {
+    Cast(CastError),
+    Invalid(ApplyError),
+    NoTargets,
+    MissingTargets,
+    IllegalTarget,
+    CapacityExceeded { needed: usize, capacity: usize },
+}
+#[derive(Clone, Debug)]
+pub(super) struct Targeting {
+    pub(super) card: Handle,
+    pub(super) decision: TargetDecision,
+    pub(super) selected: Vec<Handle>,
+    pub(super) destinations: Vec<Handle>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct CreatureState {
+    pub power: u32,
+    pub toughness: u32,
+    pub damage: u32,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Resolution {
+    pub spell: CardId,
+    pub legal_targets: usize,
+    pub resolved: bool,
+}
+#[derive(Clone, Copy, Debug)]
+pub(super) enum Effect {
+    Growth(Handle),
+    Bite(Handle, Handle),
+}
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Modification {
+    pub(super) handle: Handle,
+    pub(super) boost: u32,
+    pub(super) damage: u32,
+}
+pub(super) fn instant(card: CardId) -> bool {
+    matches!(card.identity().key, "giant-growth" | "bite-down")
+}
+fn base(card: CardId) -> Option<(u32, u32)> {
+    // Frozen characteristics only; this does not enable sibling card mechanics.
+    match card.identity().key {
+        "bear-cub" | "swab-goblin" => Some((2, 2)),
+        "magnigoth-sentry" => Some((4, 4)),
+        _ => None,
+    }
+}
+impl Game {
+    pub fn creature_state(&self, h: Handle) -> Option<CreatureState> {
+        let o = self.objects.get(h).ok()?;
+        let (power, toughness) = base(o.card)?;
+        let m = self
+            .turns
+            .modifications
+            .iter()
+            .find(|m| m.handle == h && o.zone == Zone::Battlefield);
+        let (boost, damage) = m.map_or((0, 0), |m| (m.boost, m.damage));
+        Some(CreatureState {
+            power: power + boost,
+            toughness: toughness + boost,
+            damage,
+        })
+    }
+    fn creature(&self, h: Handle) -> bool {
+        self.objects
+            .get(h)
+            .is_ok_and(|o| o.zone == Zone::Battlefield && base(o.card).is_some())
+    }
+    pub(super) fn target_lists(&self, actor: Seat, card: CardId) -> (Vec<Handle>, Vec<Handle>) {
+        let creatures = self
+            .objects
+            .in_zone(Zone::Battlefield)
+            .filter(|h| self.creature(*h));
+        if card.identity().key == "giant-growth" {
+            (creatures.collect(), vec![])
+        } else {
+            creatures.partition(|h| self.objects.get(*h).unwrap().controller == actor)
+        }
+    }
+    pub(super) fn has_targets(&self, actor: Seat, card: CardId) -> bool {
+        let (a, b) = self.target_lists(actor, card);
+        !a.is_empty() && (card.identity().key == "giant-growth" || !b.is_empty())
+    }
+    pub fn begin_targeted_cast(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        card: Handle,
+        capacity: usize,
+    ) -> Result<TargetDecision, TargetError> {
+        self.mana_priority(actor, id)
+            .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
+        if !self.cast_candidates(actor).contains(&card)
+            || !instant(
+                self.objects
+                    .get(card)
+                    .map_err(|_| TargetError::IllegalTarget)?
+                    .card,
+            )
+        {
+            return Err(TargetError::Cast(CastError::IllegalSpell));
+        }
+        let c = self.objects.get(card).unwrap().card;
+        let (choices, destinations) = self.target_lists(actor, c);
+        let needed = choices.len().max(destinations.len());
+        if needed > capacity {
+            return Err(TargetError::CapacityExceeded { needed, capacity });
+        }
+        let generation = self
+            .next_mana_generation()
+            .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
+        let d = TargetDecision {
+            id: DecisionId {
+                scope: self.objects.scope(),
+                generation,
+            },
+            actor,
+            kind: if c.identity().key == "giant-growth" {
+                TargetKind::Growth
+            } else {
+                TargetKind::BiteSource
+            },
+            choices,
+        };
+        self.turns.targeting = Some(Targeting {
+            card,
+            decision: d.clone(),
+            selected: vec![],
+            destinations,
+        });
+        self.generation = generation;
+        Ok(d)
+    }
+    pub fn target_decision(&self, actor: Seat) -> Option<TargetDecision> {
+        self.turns
+            .targeting
+            .as_ref()
+            .filter(|t| t.decision.actor == actor)
+            .map(|t| t.decision.clone())
+    }
+    fn validate_targets(&self, actor: Seat, id: DecisionId) -> Result<&Targeting, TargetError> {
+        let t = self
+            .turns
+            .targeting
+            .as_ref()
+            .ok_or(TargetError::NoTargets)?;
+        if actor != t.decision.actor {
+            return Err(TargetError::Invalid(ApplyError::WrongActor));
+        }
+        if id != t.decision.id {
+            return Err(TargetError::Invalid(ApplyError::StaleDecision));
+        }
+        Ok(t)
+    }
+    fn legal_target(&self, actor: Seat, kind: TargetKind, h: Handle) -> bool {
+        self.creature(h)
+            && match kind {
+                TargetKind::Growth => true,
+                TargetKind::BiteSource => self.objects.get(h).unwrap().controller == actor,
+                TargetKind::BiteDestination => self.objects.get(h).unwrap().controller != actor,
+                TargetKind::Complete => false,
+            }
+    }
+    pub fn choose_target(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        h: Handle,
+    ) -> Result<TargetDecision, TargetError> {
+        let t = self.validate_targets(actor, id)?;
+        if !t.decision.choices.contains(&h) || !self.legal_target(actor, t.decision.kind, h) {
+            return Err(TargetError::IllegalTarget);
+        }
+        let generation = self
+            .next_mana_generation()
+            .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
+        let t = self.turns.targeting.as_mut().unwrap();
+        t.selected.push(h);
+        if t.decision.kind == TargetKind::BiteSource {
+            t.decision.kind = TargetKind::BiteDestination;
+            t.decision.choices = t.destinations.clone();
+        } else {
+            t.decision.kind = TargetKind::Complete;
+            t.decision.choices.clear();
+        }
+        t.decision.id.generation = generation;
+        self.generation = generation;
+        Ok(t.decision.clone())
+    }
+    pub fn cancel_targets(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+    ) -> Result<TurnDecision, TargetError> {
+        self.validate_targets(actor, id)?;
+        let generation = self
+            .next_mana_generation()
+            .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
+        self.turns.targeting = None;
+        self.generation = generation;
+        Ok(self.set_turn_decision(actor, TurnKind::Priority))
+    }
+    pub fn finish_targets(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+    ) -> Result<PaymentDecision, TargetError> {
+        let t = self.validate_targets(actor, id)?;
+        if t.decision.kind != TargetKind::Complete {
+            return Err(TargetError::MissingTargets);
+        }
+        let card = t.card;
+        let c = self
+            .objects
+            .get(card)
+            .map_err(|_| TargetError::IllegalTarget)?;
+        if c.zone != Zone::Hand(actor) {
+            return Err(TargetError::IllegalTarget);
+        }
+        let effect = match t.selected.as_slice() {
+            [a] => Effect::Growth(*a),
+            [a, b] => Effect::Bite(*a, *b),
+            _ => return Err(TargetError::MissingTargets),
+        };
+        if self.legal_effect_targets(actor, effect) != t.selected.len() {
+            return Err(TargetError::IllegalTarget);
+        }
+        let remaining =
+            super::casting::cost(c.card).ok_or(TargetError::Cast(CastError::IllegalSpell))?;
+        let generation = self
+            .next_mana_generation()
+            .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
+        let p = Payment {
+            actor,
+            id: DecisionId {
+                scope: self.objects.scope(),
+                generation,
+            },
+            remaining,
+            pool: self.turns.mana[seat_index(actor)],
+        };
+        let d = p.decision();
+        self.turns.payment = Some(p);
+        self.turns.casting = Some(PendingCast {
+            card,
+            sources: vec![],
+            effect: Some(effect),
+        });
+        self.turns.targeting = None;
+        self.generation = generation;
+        Ok(d)
+    }
+    pub fn stack_targets(&self, h: Handle) -> Option<Vec<Handle>> {
+        self.turns
+            .effects
+            .iter()
+            .find(|(spell, _)| *spell == h)
+            .map(|(_, e)| match e {
+                Effect::Growth(a) => vec![*a],
+                Effect::Bite(a, b) => vec![*a, *b],
+            })
+    }
+    pub fn last_resolution(&self) -> Option<Resolution> {
+        self.turns.last_resolution
+    }
+    pub(super) fn legal_effect_targets(&self, actor: Seat, e: Effect) -> usize {
+        match e {
+            Effect::Growth(a) => usize::from(self.legal_target(actor, TargetKind::Growth, a)),
+            Effect::Bite(a, b) => {
+                usize::from(self.legal_target(actor, TargetKind::BiteSource, a))
+                    + usize::from(self.legal_target(actor, TargetKind::BiteDestination, b))
+            }
+        }
+    }
+    pub(super) fn resolve_effect(&mut self, h: Handle, e: Effect) -> Result<(), TurnError> {
+        let o = *self.objects.get(h).map_err(TurnError::Storage)?;
+        let legal = self.legal_effect_targets(o.controller, e);
+        let mut change = None;
+        match e {
+            Effect::Growth(a) if legal == 1 => {
+                let old = self
+                    .turns
+                    .modifications
+                    .iter()
+                    .find(|m| m.handle == a)
+                    .copied()
+                    .unwrap_or(Modification {
+                        handle: a,
+                        boost: 0,
+                        damage: 0,
+                    });
+                let boost = old
+                    .boost
+                    .checked_add(3)
+                    .filter(|b| *b <= u32::MAX - 4)
+                    .ok_or(TurnError::EffectOverflow)?;
+                change = Some(Modification { boost, ..old });
+            }
+            Effect::Bite(a, b) if legal == 2 => {
+                let old = self
+                    .turns
+                    .modifications
+                    .iter()
+                    .find(|m| m.handle == b)
+                    .copied()
+                    .unwrap_or(Modification {
+                        handle: b,
+                        boost: 0,
+                        damage: 0,
+                    });
+                let damage = old
+                    .damage
+                    .checked_add(self.creature_state(a).unwrap().power)
+                    .ok_or(TurnError::EffectOverflow)?;
+                change = Some(Modification { damage, ..old });
+            }
+            _ => {}
+        }
+        // Preflight all zone moves and numeric/resource bounds before effects,
+        // death, or spell-zone changes become observable (CR 608 / 704.5g).
+        let dead = change
+            .filter(|m| {
+                let (_, t) = base(self.objects.get(m.handle).unwrap().card).unwrap();
+                m.damage >= t + m.boost
+            })
+            .map(|m| m.handle);
+        let mut moves = [vec![], vec![]];
+        moves[seat_index(o.owner)].push(h);
+        if let Some(dead) = dead {
+            moves[seat_index(self.objects.get(dead).unwrap().owner)].push(dead);
+        }
+        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+            self.objects
+                .prepare_moves(&moves[i], Zone::Graveyard(seat))
+                .map_err(TurnError::Storage)?;
+        }
+        self.turns
+            .modifications
+            .try_reserve(1)
+            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+        if let Some(m) = change {
+            if let Some(old) = self
+                .turns
+                .modifications
+                .iter_mut()
+                .find(|x| x.handle == m.handle)
+            {
+                *old = m;
+            } else {
+                self.turns.modifications.push(m);
+            }
+        }
+        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+            for &object in &moves[i] {
+                self.objects
+                    .move_to(object, Zone::Graveyard(seat))
+                    .expect("preflighted resolution");
+            }
+        }
+        self.turns.modifications.retain(|m| {
+            self.objects
+                .get(m.handle)
+                .is_ok_and(|o| o.zone == Zone::Battlefield)
+        });
+        self.turns.effects.retain(|(spell, _)| *spell != h);
+        self.turns.last_resolution = Some(Resolution {
+            spell: o.card,
+            legal_targets: legal,
+            resolved: legal > 0,
+        });
+        Ok(())
+    }
+    pub(super) fn cleanup_effects(&mut self) {
+        self.turns.modifications.clear();
+    }
+}
