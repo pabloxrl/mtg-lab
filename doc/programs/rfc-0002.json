@@ -5,7 +5,12 @@
   "source_sha256": "f96a63f427a913d15da6522bab3842ceeb3d35f750a67e2af770464847b5b86c",
   "parent_issue": 7,
   "authorized_milestones": [
-    "M0"
+    "M0",
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5"
   ],
   "tasks": [
     {
@@ -131,12 +136,23 @@
       ]
     },
     {
+      "key": "gated-program-progression",
+      "milestone": "M1",
+      "kind": "operations",
+      "issue": 59,
+      "depends_on": [
+        16
+      ],
+      "requirements": []
+    },
+    {
       "key": "core",
       "milestone": "M1",
       "kind": "implementation",
       "issue": 17,
       "depends_on": [
-        16
+        16,
+        59
       ],
       "requirements": [
         "R0002-B013",

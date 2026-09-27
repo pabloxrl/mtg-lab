@@ -63,7 +63,7 @@ Full-state replay data are privileged. Separately compare authorized views, mask
 
 ## Phases, stable test IDs and ownership
 
-Existing issue owners below come from `doc/programs/rfc-0002.json`. The manifest authorizes M0 only; these are planned assignments, not authorization to implement later issues. Execute only once the relevant issue is open and agent-ready under WORKFLOW.md.
+Existing issue owners below come from `doc/programs/rfc-0002.json`. These are planned assignments, not execution evidence. Operations #59 now authorizes the registered stages; dependency gates and dispatch labels still control when each issue can run. Execute only once the relevant issue is open and agent-ready under WORKFLOW.md.
 
 | Phase / stable IDs | Acceptance and outstanding work | Owning issues |
 | --- | --- | --- |
