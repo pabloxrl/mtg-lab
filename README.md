@@ -23,7 +23,7 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Test design | 320 concrete designs across 80 capabilities, with issue owners and implementation stages | These are designs, not 320 passing game tests. |
 | Scenario tooling | Versioned neutral fixtures, six admitted original cases and checkpoint comparison | The six cases are authored; their engine execution is future work. |
 | Reference engines | Pinned headless XMage and Forge bridges execute the same priority-pass smoke and detect deliberate errors | One synthetic pass per engine; no full-game or complete-state verification yet. Current reference receipts are Linux ARM64. |
-| Development | Docker toolchain, required CI, separate agent review and protected automated merging | The stage coordinator still activates subsequent milestones through reviewed operations. |
+| Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
 M0 verifies that the requirements, test designs and basic reference infrastructure
 are ready. It does not certify a playable Magic engine. The original failed M0
@@ -138,7 +138,7 @@ the design validator cannot certify engine behavior.
 | Stage | Outcome | Current evidence |
 | --- | --- | --- |
 | M0 | Freeze scope, design tests, prove verifier/reference foundations | Complete; [passing audit](doc/evidence/m0-reaudit/README.md). |
-| M1 | First scalar engine slice, private views, replay, initial recordings and unattended games | Next implementation stage; not delivered. |
+| M1 | First scalar engine slice, private views, replay, initial recordings and unattended games | Authorized for implementation; not delivered. |
 | M2 | Complete frozen card pool, expanded XMage coverage and scalar baseline | Planned. |
 | M3 | Native batching, Python, durable datasets and real training integrations | Planned. |
 | M4 | Complete machine protocol and scripted terminal interaction | Planned. |
@@ -146,8 +146,9 @@ the design validator cannot certify engine behavior.
 
 The [tracked program](doc/programs/rfc-0002.md) preserves every RFC acceptance
 requirement. A milestone completes only after its independently reviewed audit
-and checks on the merged commit pass. Stage activation is a coordinator action;
-workers cannot expand their own authorization.
+and checks on the merged commit pass. [Operations #59](https://github.com/pabloxrl/mtg-lab/issues/59)
+authorizes the existing MVP stages in advance; successful gates hand off to the
+next eligible task. Workers cannot expand scope or bypass dependencies.
 
 ## Working with the agents
 
@@ -160,8 +161,9 @@ The coordinator plans dependencies and activates authorized work. Symphony worke
 implement it, test it, obtain a separate agent review, merge through protected
 checks, and record evidence in each issue's workpad. Routine PR review and merging
 do not require you. Essential product decisions and unavailable access may still
-need your input. Workers can stop at a milestone boundary pending coordinator
-activation; a healthy idle service does not mean the whole program is finished.
+need your input. Normal milestone transitions use automatic bounded handoff.
+A failed gate, held task or exhausted retry budget can still need coordinator
+recovery; a healthy idle service does not mean the whole program is finished.
 
 If you operate the agent service, use the [Symphony runbook](doc/symphony-runbook.md)
 for authenticated setup, start/stop, persistent storage and recovery. From an

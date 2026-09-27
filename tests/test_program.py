@@ -112,6 +112,18 @@ class ProgramTests(unittest.TestCase):
                     self.program["tasks"][1][field] *= 2
                 self.reject("duplicate")
 
+    def test_full_program_authorization_preserves_each_stage_gate(self):
+        self.program["authorized_milestones"] = [f"M{i}" for i in range(6)]
+        validate(self.program, self.requirements, self.source)
+        for milestone in range(1, 6):
+            with self.subTest(milestone=milestone):
+                candidate = copy.deepcopy(self.program)
+                task = next(t for t in candidate["tasks"]
+                            if t["milestone"] == f"M{milestone}" and t["kind"] == "implementation")
+                task["depends_on"] = []
+                with self.assertRaisesRegex(ValueError, "bypass previous"):
+                    validate(candidate, self.requirements, self.source)
+
     def test_unknown_milestone_is_not_authorized(self):
         self.program["authorized_milestones"] = ["M6"]
         self.reject("unknown authorized milestone")

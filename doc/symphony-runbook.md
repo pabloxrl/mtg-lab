@@ -169,14 +169,16 @@ successor. Retries reuse the recorded successor and existing labels. A gate task
 checks the whole milestone and commits an acceptance report; passing individual
 PRs alone does not complete a milestone.
 
-The **initial rollout authorizes M0 for automatic queue progression**. M1–M5
-remain tracked backlog until activated. After M0's gate passes, the worker records
-the result and stops at that boundary. The coordinator may activate subsequent
-stages through reviewed operations changes under your existing instruction to
-deliver the program, without routine approval from you. Feature workers cannot
-expand their own scope or reinterpret issue comments as authorization. You do
-not review implementation PRs. Essential product decisions or access
-failures are recorded as blockers; independent eligible work may continue.
+Operations [#59](https://github.com/pabloxrl/mtg-lab/issues/59) authorizes the
+existing M0–M5 program. Each stage still waits for its preceding gate's reviewed
+acceptance report, protected merge and exact-main CI. A successful gate queues
+one eligible successor through the normal bounded handoff; routine milestone
+transitions no longer wait for a separate coordinator activation. Authorization
+is not completion, and workers cannot add tasks or expand scope. New corrective
+work/registration still needs reviewed coordinator operations. Pause/hold controls,
+removed ready labels, failed dependencies and bounded retry limits remain binding.
+Essential product decisions or missing access remain blockers; independent eligible
+work may continue. No human PR review is required.
 
 Controls:
 

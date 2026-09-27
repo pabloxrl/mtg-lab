@@ -138,10 +138,14 @@ requirement ownership; they do not waive any product requirement.
    dependency targets, no self-dependencies or cycles, and no parent among the
    tasks. Gates must depend on every implementation and operations task of their milestone.
    Missing/malformed metadata blocks program dispatch; never guess or silently
-   omit a dependency. The initial rollout authorizes M0 only. The coordinator
-   may activate later milestones through a reviewed operations change under the
-   operator's existing full-program instruction; routine user approval is not
-   required. Feature workers must never expand their own authorization.
+   omit a dependency. Read authorized_milestones from current main. Operations #59
+   authorizes the
+   existing M0–M5 program under the operator's full-program mandate. This does
+   not satisfy dependencies: each next stage still requires its preceding gate
+   and exact-main completion evidence. Successful gates use the same bounded
+   handoff to the next eligible registered task, without a new activation request.
+   New tasks or scope changes require reviewed coordinator operations; feature
+   workers must never expand their own authorization.
 2. Fetch the parent, current task, all task states, and relevant workpads/events.
    A closed parent or `program-paused`/`program-cancelled` label stops delivery
    work and handoffs. Record this stop in the current workpad, add `agent-held`,
@@ -190,10 +194,11 @@ requirement ownership; they do not waive any product requirement.
    close the current issue as specified above. Never perform work after closure:
    Symphony can immediately stop the process and delete the workspace.
 8. If no successor is eligible, record why (dependencies, holds, authorization,
-   or completion) and close the delivered current task normally. At the M0 gate,
-   record M0 completion and the initial M1 authorization boundary; queue no M1
-   task. The coordinator can then activate the next stage through a reviewed
-   operations change under the existing program mandate.
+   or completion) and close the delivered current task normally. A milestone
+   boundary alone is not a stop condition when its successor is
+   already authorized and eligible; use steps 5–7. An unauthorized stage remains
+   stopped pending reviewed coordinator activation. Never treat a failed gate
+   as completion or restore a removed ready label automatically.
    If an API outage or abrupt process termination prevents handoff, retain the
    current task for retry. If a task is force-stopped or closed externally, a
    coordinator must reconcile evidence and resume the queue; no background DAG
