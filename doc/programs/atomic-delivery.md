@@ -5,6 +5,10 @@ is delivered, the coordinator clears its obsolete block and records an explicit
 `agent-resume-authorized` grant; handoff consumes it only when its new children
 are complete. It is not dispatched ahead of them.
 
+## Integration prerequisite correction
+
+The original table below records the first component deliveries. The [M1 integration prerequisite plan](m1-integration-prerequisites.md) adds the missing played-game contracts found by #18–#21. Its issue-level scopes and the current manifest supersede the earlier assumption that those integration gaps were small. Original acceptance and catalog ownership remain intact; #18–#21 audit the completed prerequisites.
+
 ## M1 work packages
 
 | Issue | Deliverable | Direct prerequisites | Integration owner |

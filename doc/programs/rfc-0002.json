@@ -417,13 +417,244 @@
       ]
     },
     {
+      "key": "m1-integration-plan",
+      "issue": 106,
+      "milestone": "M1",
+      "kind": "operations",
+      "depends_on": [
+        61
+      ],
+      "requirements": []
+    },
+    {
+      "key": "effect-quantum",
+      "issue": 107,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        106,
+        66,
+        70,
+        72
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "combat-quantum",
+      "issue": 108,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        107,
+        71
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "turn-quantum",
+      "issue": 109,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        108,
+        67
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "policy-turn",
+      "issue": 110,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        106,
+        73,
+        68
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "policy-cast",
+      "issue": 111,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        110,
+        70
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "policy-combat",
+      "issue": 112,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        110,
+        71
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "played-actions",
+      "issue": 113,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        111,
+        112,
+        75
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "played-replay",
+      "issue": 114,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        113,
+        109
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "instant-reference",
+      "issue": 115,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        106,
+        70,
+        71
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "run-manifest",
+      "issue": 116,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        106,
+        77
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "scalar-collector",
+      "issue": 117,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        114,
+        116,
+        76
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "random-policy",
+      "issue": 118,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        111,
+        112,
+        78
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "heuristic-policy",
+      "issue": 119,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        111,
+        112,
+        78
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "cli-capture",
+      "issue": 120,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        117,
+        118,
+        119,
+        79
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
       "key": "slice",
       "milestone": "M1",
       "kind": "implementation",
       "issue": 18,
       "depends_on": [
-        72,
-        66
+        109,
+        115
       ],
       "requirements": [
         "R0002-B017",
@@ -437,9 +668,7 @@
       "kind": "implementation",
       "issue": 19,
       "depends_on": [
-        73,
-        75,
-        70
+        114
       ],
       "requirements": [
         "R0002-B016",
@@ -453,8 +682,7 @@
       "kind": "implementation",
       "issue": 20,
       "depends_on": [
-        77,
-        75
+        117
       ],
       "requirements": [
         "R0002-B036",
@@ -467,7 +695,7 @@
       "kind": "implementation",
       "issue": 21,
       "depends_on": [
-        79
+        120
       ],
       "requirements": [
         "R0002-B020",
