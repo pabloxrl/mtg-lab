@@ -390,8 +390,11 @@ fn targets_partial_invalidation_no_lki_or_redirection() {
 }
 #[test]
 fn targets_cleanup_damage_and_expiration_simultaneous() {
-    for damage in [2, 4] {
+    for (damage, discard) in [(2, false), (4, false), (2, true), (4, true)] {
         let mut g = ready();
+        if discard {
+            g.draw_top(Seat::P0).unwrap();
+        }
         let a = add(&mut g, "bear-cub", Seat::P0, Zone::Battlefield);
         let b = add(&mut g, "bear-cub", Seat::P1, Zone::Battlefield);
         cast(&mut g, Seat::P0, "bite-down", &[a, b]);
@@ -415,15 +418,16 @@ fn targets_cleanup_damage_and_expiration_simultaneous() {
         stats(&g, b, 5, damage);
         pass(&mut g);
         pass(&mut g);
-        if let Some(d) = g.turn_decision()
-            && let TurnKind::Discard { count } = d.kind
-        {
+        if discard {
+            let d = g.turn_decision().unwrap();
+            assert_eq!(d.kind, TurnKind::Discard { count: 1 });
+            assert_eq!(g.turn_position(), Some((1, Seat::P0, Step::Cleanup)));
             stats(&g, b, 5, damage);
             g.apply_turn(
                 d.actor,
                 &TurnAction {
                     decision: d.id,
-                    selection: TurnSelection::Discard((0..count).map(|i| d.candidate(i)).collect()),
+                    selection: TurnSelection::Discard(vec![d.candidate(0)]),
                 },
             )
             .unwrap();

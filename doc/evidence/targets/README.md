@@ -88,6 +88,10 @@ wrong/foreign/stale IDs, absent target roles, missing targets, stale zone handle
 final-commit revalidation, no payment bypass, provisional land cancellation,
 reset isolation, controller revalidation and finite numeric/generation overflow.
 Full-state Debug comparisons include objects, RNG, decisions and pending work.
+Cleanup explicitly exercises both seven-card/no-discard and eight-card/required-
+discard hands with two and four damage, preserving the bonus/damage during the
+discard decision and clearing both afterward. This strengthens an initially
+optional discard branch; no expectation was removed or weakened.
 
 Capacity tests independently form all ordered own/opponent pairs for 1×1, 2×2,
 4×4, 16×16, 40×40 and 80×80, comparing every selectable pair and cardinality.

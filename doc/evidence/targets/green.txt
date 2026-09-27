@@ -1,22 +1,22 @@
    Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-70/crates/mtg-core)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.71s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.63s
      Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
 
 running 12 tests
-test opening::targets_tests::targets_generic_payment_preserves_future_growth_choices ... ok
 test opening::targets_tests::targets_growth_below_bite_zone_identity_no_retarget ... ok
+test opening::targets_tests::targets_generic_payment_preserves_future_growth_choices ... ok
 test opening::targets_tests::targets_empty_roles_payment_cancel_revalidation_and_exhaustion ... ok
-test opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous ... ok
 test opening::targets_tests::targets_hold_priority_bite_above_growth_and_five_no_redirection ... ok
 test opening::targets_tests::targets_payable_instants_offered_with_legal_targets ... ok
-test opening::targets_tests::targets_required_restricted_stale_and_atomic ... ok
+test opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous ... ok
 test opening::targets_tests::targets_partial_invalidation_no_lki_or_redirection ... ok
+test opening::targets_tests::targets_required_restricted_stale_and_atomic ... ok
 test opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow ... ok
-test opening::targets_tests::targets_response_chain_priority_current_power_and_lethal ... ok
 test opening::targets_tests::targets_stacked_growth_and_grown_source_invalid_destination ... ok
+test opening::targets_tests::targets_response_chain_priority_current_power_and_lethal ... ok
 test opening::targets_tests::targets_independent_all_pairs_and_capacity_boundaries ... ok
 
-test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 26 filtered out; finished in 0.05s
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 26 filtered out; finished in 0.02s
 
      Running tests/casting.rs (target/debug/deps/casting-f48f7921abf11ac4)
 
