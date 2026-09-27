@@ -1,0 +1,88 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-72/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.04s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 11 tests
+test opening::terminal::tests::terminal_concede_nonacting_seat_and_finality ... ok
+test opening::terminal::tests::terminal_concession_cancels_payment_without_commit ... ok
+test opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip ... ok
+test opening::terminal::tests::terminal_concession_preserves_stack_and_invalidates_target_and_cast_choices ... ok
+test opening::terminal::tests::terminal_hand_cub_cannot_block ... ok
+test opening::terminal::tests::terminal_grown_dead_cub_then_real_cast_has_fresh_bookkeeping ... ok
+test opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss ... ok
+test opening::turns::tests::turns_empty_library_terminal_and_unsupported_combat_preserve_boundary ... ok
+test opening::terminal::tests::terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal ... ok
+test opening::terminal::tests::terminal_simultaneous_losses_and_external_work_limits ... ok
+test opening::terminal::tests::terminal_same_neutral_boundaries_as_xmage ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 48 filtered out; finished in 0.00s
+
+     Running tests/casting.rs (target/debug/deps/casting-f48f7921abf11ac4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/debug/deps/combat-fbfaa5d86c8f7377)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-bb41156621f23027)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-ce642592432787ec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-78536aa399b797f2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-c515b8ba59ced1ad)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-7abc55d7215edbe4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/debug/deps/targets-79734cbd52ee70cb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/terminal.rs (target/debug/deps/terminal-a57b6eeb15f66ef9)
+
+running 3 tests
+test terminal_reset_after_real_mana_growth_and_bite_damage ... ok
+test terminal_full_opening_empty_draw_and_external_stop_remain_distinct ... ok
+test terminal_full_opening_turns_combat_best_of_one_and_explicit_reset ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/turns.rs (target/debug/deps/turns-bcc5af6b89f3f305)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+

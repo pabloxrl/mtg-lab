@@ -1,0 +1,20 @@
+{
+  "origin": "Original project fixture and bridge; no upstream scenario copied.",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "consulted_sources": [
+    {
+      "path": "Mage/src/main/java/mage/players/Player.java",
+      "sha256": "ce6e27813f10480113d16c8900f8492474cfd68529b8dd1bdac9b24552a8420a"
+    },
+    {
+      "path": "Mage/src/main/java/mage/game/Game.java",
+      "sha256": "f9751549bbda39c4579f8081c1e2985d182d0166210cc932286aa02588019e93"
+    },
+    {
+      "path": "Mage.Tests/src/test/java/org/mage/test/serverside/base/CardTestPlayerBase.java",
+      "sha256": "7aa7a03ab7123e53d1662e05c24b0a637a4a3871c96ede79b7749c1c63034d4d"
+    }
+  ],
+  "notice": "UPSTREAM-LICENSE.txt",
+  "scope": "CR 104.3a/104.4a/704.5a/b; original synthetic boundary injection; no winner or full-game reference claim."
+}

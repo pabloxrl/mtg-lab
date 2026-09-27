@@ -11,6 +11,8 @@ pub mod combat;
 pub mod mana;
 #[path = "targets.rs"]
 pub mod targets;
+#[path = "terminal.rs"]
+pub mod terminal;
 #[path = "turns.rs"]
 pub mod turns;
 
@@ -117,6 +119,7 @@ pub enum ApplyError {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DrawError {
+    AlreadyEnded,
     NotStarted,
     OpeningPending,
     EmptyLibrary,
@@ -138,6 +141,8 @@ pub enum ResetError {
 }
 #[derive(Debug)]
 pub struct Game {
+    outcome: Option<terminal::Outcome>,
+    episode: Option<terminal::EpisodeId>,
     turns: turns::TurnState,
     work: VecDeque<Work>,
     objects: ObjectStore,
@@ -155,6 +160,8 @@ pub struct Game {
 impl Game {
     pub fn new() -> Result<Self, StorageError> {
         Ok(Self {
+            outcome: None,
+            episode: None,
             turns: turns::TurnState::default(),
             work: VecDeque::new(),
             objects: ObjectStore::new()?,
@@ -378,19 +385,23 @@ impl Game {
         self.decision = None;
     }
     /// Rules primitive for a caller that has already established a draw event.
-    /// There is no card-selection parameter. Turn timing/SBAs are separate work.
+    /// There is no card-selection parameter. A failed draw settles loss SBAs;
+    /// callers must not use this primitive in the middle of a multi-draw effect.
     pub fn draw_top(&mut self, seat: Seat) -> Result<Handle, DrawError> {
+        if self.outcome.is_some() {
+            return Err(DrawError::AlreadyEnded);
+        }
         if self.rng.is_none() {
             return Err(DrawError::NotStarted);
         }
         if self.decision.is_some() || !self.work.is_empty() {
             return Err(DrawError::OpeningPending);
         }
-        let top = self
-            .objects
-            .in_zone(Zone::Library(seat))
-            .next()
-            .ok_or(DrawError::EmptyLibrary)?;
+        let top = self.objects.in_zone(Zone::Library(seat)).next();
+        let Some(top) = top else {
+            self.settle_terminal(Some(seat));
+            return Err(DrawError::EmptyLibrary);
+        };
         self.objects
             .move_to(top, Zone::Hand(seat))
             .map_err(DrawError::Storage)
@@ -457,6 +468,11 @@ impl Game {
             .reserve_reset(80, [40, 40, 40, 40, 0, 0, 0, 0, 0])
             .map_err(ResetError::Storage)?;
         self.objects.reset().map_err(ResetError::Storage)?;
+        self.outcome = None;
+        self.episode = Some(terminal::EpisodeId(DecisionId {
+            scope: self.objects.scope(),
+            generation,
+        }));
         self.turns = turns::TurnState::default();
         self.starting = actor;
         self.kept = [false; 2];
@@ -707,6 +723,7 @@ mod mulligan_invariants {
 /// Internal work is never a player choice, terminal result, or reward event.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Progress {
+    Terminal(terminal::Outcome),
     InternalYield,
     Decision(OpeningDecision),
     OpeningComplete,
@@ -758,6 +775,9 @@ impl Game {
     /// At a settled boundary repeated resumes are read-only. Inspection during
     /// a yield is privileged and may see partially completed internal work.
     pub fn resume(&mut self, quantum: NonZeroUsize) -> Progress {
+        if let Some(result) = self.outcome {
+            return Progress::Terminal(result);
+        }
         for _ in 0..quantum.get() {
             let Some(mut work) = self.work.pop_front() else {
                 break;

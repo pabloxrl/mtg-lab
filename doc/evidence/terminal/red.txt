@@ -1,0 +1,62 @@
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-72/crates/mtg-core)
+warning: unused import: `TurnKind`
+ --> crates/mtg-core/src/terminal_tests.rs:4:47
+  |
+4 | use crate::opening::turns::{Step, TurnAction, TurnKind, TurnSelection};
+  |                                               ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib test) generated 1 warning (run `cargo fix --lib -p mtg-core --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.13s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 5 tests
+test opening::terminal::tests::terminal_concede_nonacting_seat_and_finality ... FAILED
+test opening::terminal::tests::terminal_concession_cancels_payment_without_commit ... FAILED
+test opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip ... FAILED
+test opening::terminal::tests::terminal_hand_cub_cannot_block ... ok
+test opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss ... FAILED
+
+failures:
+
+---- opening::terminal::tests::terminal_concede_nonacting_seat_and_finality stdout ----
+
+thread 'opening::terminal::tests::terminal_concede_nonacting_seat_and_finality' (1065) panicked at crates/mtg-core/src/terminal_tests.rs:62:5:
+assertion `left == right` failed
+  left: Err(NotStarted)
+ right: Ok(Outcome { winner: Some(P0), losses: [None, Some(Concession)] })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- opening::terminal::tests::terminal_concession_cancels_payment_without_commit stdout ----
+
+thread 'opening::terminal::tests::terminal_concession_cancels_payment_without_commit' (1066) panicked at crates/mtg-core/src/terminal_tests.rs:74:49:
+called `Result::unwrap()` on an `Err` value: NotStarted
+
+---- opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip stdout ----
+
+thread 'opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip' (1067) panicked at crates/mtg-core/src/terminal_tests.rs:15:105:
+called `Result::unwrap()` on an `Err` value: Draw(EmptyLibrary)
+
+---- opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss stdout ----
+
+thread 'opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss' (1069) panicked at crates/mtg-core/src/terminal_tests.rs:41:9:
+assertion `left == right` failed: CR 704.5a: lethal ends before priority
+  left: false
+ right: true
+
+
+failures:
+    opening::terminal::tests::terminal_concede_nonacting_seat_and_finality
+    opening::terminal::tests::terminal_concession_cancels_payment_without_commit
+    opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip
+    opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 49 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

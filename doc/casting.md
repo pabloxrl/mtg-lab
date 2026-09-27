@@ -3,8 +3,8 @@
 `mtg_core::opening::Game` casts Bear Cub (1G) and Swab Goblin (1R) after opening
 and `start_turns`. Both are vanilla creatures with ordinary sorcery timing.
 [Growth and Bite Down](targets.md) use a target continuation before these same
-payment/commit operations. [Vanilla combat](combat.md) consumes these creatures. Other spells, creature abilities and terminal
-outcomes remain separate work. This is a core API, not a playable CLI or complete game engine.
+payment/commit operations. [Vanilla combat](combat.md) consumes these creatures. Other spells and creature abilities remain separate work;
+[rules outcomes](terminal.md) now freeze unresolved spells when a player concedes. This is a core API, not a playable CLI or complete game engine.
 
 1. At a current priority decision, `cast_candidates(actor)` lists payable supported
    hand objects. For creatures the actor must be active in a main phase with an empty stack;

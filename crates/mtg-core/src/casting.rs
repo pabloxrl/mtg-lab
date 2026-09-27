@@ -223,7 +223,7 @@ impl Game {
         &mut self,
         actor: Seat,
         generation: u64,
-    ) -> Result<TurnDecision, TurnError> {
+    ) -> Result<super::turns::TurnProgress, TurnError> {
         // Raw storage placement is not an executable spell. Preserve the explicit
         // unsupported-state rejection used by storage-only synthetic callers.
         if !self
@@ -245,7 +245,9 @@ impl Game {
             } else {
                 Seat::P0
             };
-            return Ok(self.set_turn_decision(next, TurnKind::Priority));
+            return Ok(super::turns::TurnProgress::Decision(
+                self.set_turn_decision(next, TurnKind::Priority),
+            ));
         }
         if let Some((_, effect)) = self
             .turns
@@ -281,7 +283,12 @@ impl Game {
         self.turns.passed = false;
         self.generation = generation;
         let active = self.turns.position.expect("turn").1;
-        Ok(self.set_turn_decision(active, TurnKind::Priority))
+        if let Some(result) = self.settle_terminal(None) {
+            return Ok(super::turns::TurnProgress::Terminal(result));
+        }
+        Ok(super::turns::TurnProgress::Decision(
+            self.set_turn_decision(active, TurnKind::Priority),
+        ))
     }
 }
 #[cfg(test)]

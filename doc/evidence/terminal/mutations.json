@@ -1,0 +1,20 @@
+[
+  {
+    "mutant": "zero-life-not-lethal",
+    "test": "terminal_lethal_zero_negative_and_creature_death_is_not_player_loss",
+    "result": "killed by compiled behavioral assertion",
+    "exit_code": 101
+  },
+  {
+    "mutant": "payment-survives-ending",
+    "test": "terminal_concession_cancels_payment_without_commit",
+    "result": "killed by compiled behavioral assertion",
+    "exit_code": 101
+  },
+  {
+    "mutant": "stale-episode-accepted",
+    "test": "terminal_simultaneous_losses_and_external_work_limits",
+    "result": "killed by compiled behavioral assertion",
+    "exit_code": 101
+  }
+]

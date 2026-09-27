@@ -27,6 +27,11 @@ pub struct TurnDecision {
     pub actor: Seat,
     pub kind: TurnKind,
 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TurnProgress {
+    Decision(TurnDecision),
+    Terminal(super::terminal::Outcome),
+}
 impl TurnDecision {
     pub fn candidate(self, index: usize) -> CandidateId {
         CandidateId {
@@ -96,6 +101,9 @@ impl Game {
     /// Enter the first upkeep after untap. The opening API retains its explicit
     /// OpeningComplete boundary; starting turns is not a player action.
     pub fn start_turns(&mut self) -> Result<TurnDecision, TurnError> {
+        if self.outcome.is_some() {
+            return Err(TurnError::NotReady);
+        }
         if self.turns.position.is_some() {
             return Err(TurnError::AlreadyStarted);
         }
@@ -125,7 +133,7 @@ impl Game {
         &mut self,
         actor: Seat,
         action: &TurnAction,
-    ) -> Result<TurnDecision, TurnError> {
+    ) -> Result<TurnProgress, TurnError> {
         let d = self.turn_decision().ok_or(TurnError::NotReady)?;
         let invalid = TurnError::Invalid;
         if actor != d.actor {
@@ -165,7 +173,9 @@ impl Game {
         if d.kind == TurnKind::Priority && !self.turns.passed {
             self.generation = generation;
             self.turns.passed = true;
-            return Ok(self.set_turn_decision(opponent(actor), TurnKind::Priority));
+            return Ok(TurnProgress::Decision(
+                self.set_turn_decision(opponent(actor), TurnKind::Priority),
+            ));
         }
         let mut next_turn = turn;
         let mut next_active = active;
@@ -193,10 +203,22 @@ impl Game {
                 Step::Upkeep
             }
         };
-        // Preflight all fallible work. A draw error does not advance the pass,
-        // decision or mana. Empty-library terminal outcomes belong to #72.
+        // Storage failures remain errors without advancement. An attempted empty
+        // draw is a rules result, at the draw step after boundary mana empties.
         if next_step == Step::Draw {
-            self.draw_top(active).map_err(TurnError::Draw)?;
+            match self.draw_top(active) {
+                Ok(_) => {}
+                Err(DrawError::EmptyLibrary) => {
+                    self.turns.position = Some((next_turn, next_active, next_step));
+                    self.turns.mana = [[0; 6]; 2];
+                    self.turns.passed = false;
+                    self.generation = generation;
+                    return Ok(TurnProgress::Terminal(
+                        self.outcome.expect("failed draw result"),
+                    ));
+                }
+                Err(e) => return Err(TurnError::Draw(e)),
+            }
         }
         if !discard.is_empty() {
             self.objects
@@ -240,7 +262,7 @@ impl Game {
         } else {
             next_active
         };
-        Ok(self.set_turn_decision(actor, kind))
+        Ok(TurnProgress::Decision(self.set_turn_decision(actor, kind)))
     }
     pub(super) fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
         let d = TurnDecision {
@@ -387,11 +409,11 @@ mod tests {
         assert_eq!(format!("{g:?}"), before);
     }
     #[test]
-    fn turns_empty_library_and_unsupported_combat_preserve_boundary() {
+    fn turns_empty_library_terminal_and_unsupported_combat_preserve_boundary() {
         let mut g = ready();
         g.start_turns().unwrap();
-        // Synthetic second-turn upkeep with an empty library. Terminal semantics
-        // are deliberately unavailable: return an explicit draw error unchanged.
+        // CR 704.5b supersedes the pre-GH-72 unsupported-draw placeholder.
+        // Synthetic second-turn upkeep: lose only upon the draw attempt.
         g.turns.position = Some((2, Seat::P0, Step::Upkeep));
         let cards: Vec<_> = g.objects.in_zone(Zone::Library(Seat::P0)).collect();
         for h in cards {
@@ -399,7 +421,6 @@ mod tests {
         }
         pass(&mut g);
         let d = g.turn_decision().unwrap();
-        let before = format!("{g:?}");
         assert_eq!(
             g.apply_turn(
                 d.actor,
@@ -408,9 +429,14 @@ mod tests {
                     selection: TurnSelection::Pass(d.candidate(0))
                 }
             ),
-            Err(TurnError::Draw(DrawError::EmptyLibrary))
+            Ok(TurnProgress::Terminal(super::terminal::Outcome {
+                winner: Some(Seat::P1),
+                losses: [Some(super::terminal::LossReason::EmptyDraw), None]
+            }))
         );
-        assert_eq!(format!("{g:?}"), before);
+        assert!(g.turn_decision().is_none());
+        assert_eq!(g.turn_position(), Some((2, Seat::P0, Step::Draw)));
+        assert_eq!(g.mana(), [[0; 6]; 2]);
         let mut g = ready();
         g.start_turns().unwrap();
         for _ in 0..4 {

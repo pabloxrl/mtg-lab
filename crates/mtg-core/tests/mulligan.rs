@@ -302,9 +302,24 @@ fn mulligan_rules_setup_ordered_draw_regression() {
         drawn.push(g.objects().get(h).unwrap().card.identity().key);
     }
     assert_eq!(&drawn[33..], &["mountain", "swab-goblin"]);
-    let before = format!("{g:?}");
+    // CR 704.5b: GH-72 adds the loss, without disturbing the ordered draw history.
+    assert_eq!(g.outcome(), None);
+    let objects = format!("{:?}", g.objects());
+    let life = g.life();
     assert_eq!(g.draw_top(Seat::P0), Err(DrawError::EmptyLibrary));
-    assert_eq!(format!("{g:?}"), before);
+    use mtg_core::opening::terminal::{LossReason, Outcome};
+    assert_eq!(
+        g.outcome(),
+        Some(Outcome {
+            winner: Some(Seat::P1),
+            losses: [Some(LossReason::EmptyDraw), None]
+        })
+    );
+    assert_eq!(format!("{:?}", g.objects()), objects);
+    assert_eq!(g.life(), life);
+    let ended = format!("{g:?}");
+    assert_eq!(g.draw_top(Seat::P0), Err(DrawError::AlreadyEnded));
+    assert_eq!(format!("{g:?}"), ended);
 }
 #[test]
 fn mulligan_rules_decisions_stale_candidates_regression() {

@@ -123,9 +123,10 @@ moves within reserved storage and object generation bounds.
 `draw_top(seat)` is a rules primitive for a caller that has established a legal
 draw event. It moves only the top card, creates its new zone identity, preserves
 remaining order, and consumes no randomness. It accepts no selected card. It
-rejects uninitialized games, pending opening choices and empty libraries.
-Empty-library failure here does not implement a rules loss/SBA; that integration
-belongs to #72. This primitive is not a policy action or a turn scheduler.
+rejects uninitialized games and pending opening choices. An attempted empty draw
+now records a [rules loss](terminal.md) and returns `EmptyLibrary`; later draws
+return `AlreadyEnded`. It is a standalone draw boundary, not a multi-draw effect.
+This primitive is not a policy action or a turn scheduler.
 
 Run `cargo test -p mtg-core mulligan` for the normally discovered catalog and
 SYS-CORE-003 opening regressions. [Mulligan evidence](evidence/mulligan/README.md)
