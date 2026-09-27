@@ -1,6 +1,7 @@
 //! Reset to the initial opening decision. All inspection here is privileged.
 use crate::objects::{CardId, Handle, ObjectStore, Seat, StorageError, Zone};
 use crate::rng::{EpisodeRng, Stream, VERSION};
+use std::{collections::VecDeque, num::NonZeroUsize};
 
 pub const FORMAT: &str = "foundations_micro_v1";
 pub const SHUFFLE_VERSION: &str = "fisher-yates-rejection-v1";
@@ -91,6 +92,7 @@ pub struct OpeningAction {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ApplyError {
     NoDecision,
+    WorkPending,
     WrongActor,
     StaleDecision,
     StaleCandidate,
@@ -111,6 +113,7 @@ pub enum DrawError {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ResetError {
+    WorkPending,
     UnsupportedFormat,
     UnsupportedSeats,
     UnsupportedMatch,
@@ -124,6 +127,7 @@ pub enum ResetError {
 }
 #[derive(Debug)]
 pub struct Game {
+    work: VecDeque<Work>,
     objects: ObjectStore,
     life: [u32; 2],
     decision: Option<OpeningDecision>,
@@ -139,6 +143,7 @@ pub struct Game {
 impl Game {
     pub fn new() -> Result<Self, StorageError> {
         Ok(Self {
+            work: VecDeque::new(),
             objects: ObjectStore::new()?,
             life: [0; 2],
             decision: None,
@@ -181,7 +186,9 @@ impl Game {
         actor: Seat,
         action: &OpeningAction,
     ) -> Result<Option<OpeningDecision>, ApplyError> {
-        self.apply_inner(actor, action, None)
+        self.apply_quantum(actor, action, None, NonZeroUsize::MAX)?;
+        self.finish_work();
+        Ok(self.decision)
     }
     /// Privileged test/reference chance injection. `order` is the exact full
     /// post-shuffle permutation of this seat's current hand plus library.
@@ -192,14 +199,21 @@ impl Game {
         action: &OpeningAction,
         order: &[Handle],
     ) -> Result<Option<OpeningDecision>, ApplyError> {
-        self.apply_inner(actor, action, Some(order))
+        self.apply_quantum(actor, action, Some(order), NonZeroUsize::MAX)?;
+        self.finish_work();
+        Ok(self.decision)
     }
-    fn apply_inner(
+    /// Validate a semantic selection, then perform at most `quantum` work units.
+    pub fn apply_quantum(
         &mut self,
         actor: Seat,
         action: &OpeningAction,
         order: Option<&[Handle]>,
-    ) -> Result<Option<OpeningDecision>, ApplyError> {
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, ApplyError> {
+        if !self.work.is_empty() {
+            return Err(ApplyError::WorkPending);
+        }
         let d = self.decision.ok_or(ApplyError::NoDecision)?;
         if actor != d.actor {
             return Err(ApplyError::WrongActor);
@@ -264,21 +278,18 @@ impl Game {
             }
             (Selection::Bottom(candidates), OpeningKind::Bottom { .. }) => {
                 let cards = self.bottom_cards().expect("validated bottom boundary");
-                for candidate in candidates {
-                    self.objects
-                        .move_to(cards[candidate.index], Zone::Library(actor))
-                        .expect("bounded reserved opening move");
-                }
-                self.needs_bottom[index] = false;
-                if self.mulligans[index] == 7 {
-                    self.kept[index] = true;
-                }
+                self.work.push_back(Work::Bottom {
+                    seat: actor,
+                    cards: candidates.iter().map(|c| cards[c.index]).collect(),
+                    position: 0,
+                });
             }
             _ => unreachable!("validated selection"),
         }
         self.generation = generation;
-        self.advance_opening();
-        Ok(self.decision)
+        self.decision = None;
+        self.work.push_back(Work::Advance);
+        Ok(self.resume(quantum))
     }
     fn seat_order(&self) -> [Seat; 2] {
         match self.starting {
@@ -335,47 +346,23 @@ impl Game {
                     .chain(self.objects.in_zone(Zone::Library(seat)))
                     .collect();
                 let explicit = self.orders[i].take();
-                let random = explicit.is_none();
-                let mut shuffled = explicit.unwrap_or_else(|| old.clone());
-                if random {
-                    shuffle(&mut shuffled, self.rng.as_mut().expect("reset RNG"));
-                }
-                self.redraw(seat, &old, &mut shuffled);
-                self.mulligans[i] += 1;
-                self.needs_bottom[i] = true;
+                let size = if explicit.is_none() { 40 } else { 1 };
+                let shuffled = explicit.unwrap_or_else(|| old.clone());
+                self.work.push_back(Work::Redraw {
+                    seat,
+                    old,
+                    shuffled,
+                    current: Vec::with_capacity(40),
+                    size,
+                    position: 0,
+                    phase: 0,
+                });
             }
             self.declarations = [None; 2];
-            self.advance_opening();
+            self.work.push_back(Work::Advance);
             return;
         }
         self.decision = None;
-    }
-    fn redraw(&mut self, seat: Seat, old: &[Handle], shuffled: &mut [Handle]) {
-        let mut current = Vec::with_capacity(40);
-        for &h in old {
-            current.push(
-                self.objects
-                    .move_to(h, Zone::Library(seat))
-                    .expect("bounded reserved opening move"),
-            );
-        }
-        // Zone moves change handles. Map the selected permutation to the new
-        // identities before installing the top-first order.
-        let updated: Vec<_> = shuffled
-            .iter()
-            .map(|h| current[old.iter().position(|old| old == h).expect("permutation")])
-            .collect();
-        self.objects.reorder(Zone::Library(seat), &updated);
-        for _ in 0..7 {
-            let top = self
-                .objects
-                .in_zone(Zone::Library(seat))
-                .next()
-                .expect("full deck");
-            self.objects
-                .move_to(top, Zone::Hand(seat))
-                .expect("bounded reserved opening move");
-        }
     }
     /// Rules primitive for a caller that has already established a draw event.
     /// There is no card-selection parameter. Turn timing/SBAs are separate work.
@@ -383,7 +370,7 @@ impl Game {
         if self.rng.is_none() {
             return Err(DrawError::NotStarted);
         }
-        if self.decision.is_some() {
+        if self.decision.is_some() || !self.work.is_empty() {
             return Err(DrawError::OpeningPending);
         }
         let top = self
@@ -408,6 +395,22 @@ impl Game {
         master: u64,
         episode: u64,
     ) -> Result<OpeningDecision, ResetError> {
+        self.reset_quantum(config, master, episode, NonZeroUsize::MAX)?;
+        self.finish_work();
+        Ok(self.decision.expect("reset opening boundary"))
+    }
+    /// Start reset and perform bounded work. Validation and storage reservation
+    /// precede mutation; another reset is rejected while work is pending.
+    pub fn reset_quantum(
+        &mut self,
+        config: &Config,
+        master: u64,
+        episode: u64,
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, ResetError> {
+        if !self.work.is_empty() {
+            return Err(ResetError::WorkPending);
+        }
         if config.format != FORMAT {
             return Err(ResetError::UnsupportedFormat);
         }
@@ -425,9 +428,9 @@ impl Game {
         if config.shuffle_version != SHUFFLE_VERSION {
             return Err(ResetError::UnsupportedShuffle);
         }
-        let mut rng = EpisodeRng::new(&config.rng_version, master, episode, Stream::Environment)
+        let rng = EpisodeRng::new(&config.rng_version, master, episode, Stream::Environment)
             .map_err(|_| ResetError::UnsupportedRng)?;
-        let mut decks = [
+        let decks = [
             validate_deck(&config.seats[0])?,
             validate_deck(&config.seats[1])?,
         ];
@@ -435,34 +438,12 @@ impl Game {
             .generation
             .checked_add(1)
             .ok_or(ResetError::DecisionExhausted)?;
-        for (deck, input) in decks.iter_mut().zip(&config.seats) {
-            if input.order.is_none() {
-                shuffle(deck, &mut rng);
-            }
-        }
         // Reserve before clearing. Subsequent allocations/moves fit these exact
         // fixed-deck bounds; generations start fresh at zero after reset.
         self.objects
             .reserve_reset(80, [40, 40, 40, 40, 0, 0, 0, 0, 0])
             .map_err(ResetError::Storage)?;
         self.objects.reset().map_err(ResetError::Storage)?;
-        for (deck, seat) in decks.into_iter().zip([Seat::P0, Seat::P1]) {
-            for card in deck {
-                self.objects
-                    .allocate(card, seat, Zone::Library(seat))
-                    .expect("reserved opening storage");
-            }
-            for _ in 0..7 {
-                let top = self
-                    .objects
-                    .in_zone(Zone::Library(seat))
-                    .next()
-                    .expect("40-card deck");
-                self.objects
-                    .move_to(top, Zone::Hand(seat))
-                    .expect("reserved hand and fresh generation");
-            }
-        }
         self.starting = actor;
         self.kept = [false; 2];
         self.declarations = [None; 2];
@@ -472,18 +453,19 @@ impl Game {
         self.life = [20; 2];
         self.rng = Some(rng);
         self.generation = generation;
-        let decision = OpeningDecision {
-            generation,
-            actor,
-            candidates: &[OpeningChoice::Keep, OpeningChoice::Mulligan],
-            kind: OpeningKind::KeepOrMulligan,
-            id: DecisionId {
-                scope: self.objects.scope(),
-                generation,
-            },
-        };
-        self.decision = Some(decision);
-        Ok(decision)
+        self.decision = None;
+        self.work.push_back(Work::Reset {
+            decks: Box::new(decks),
+            random: [
+                config.seats[0].order.is_none(),
+                config.seats[1].order.is_none(),
+            ],
+            seat: 0,
+            size: 40,
+            position: 0,
+            phase: 0,
+        });
+        Ok(self.resume(quantum))
     }
 }
 
@@ -521,6 +503,7 @@ fn validate_deck(input: &DeckConfig) -> Result<[CardId; 40], ResetError> {
 }
 
 // Rejection avoids modulo bias. u128 represents the exclusive 2^64 bound.
+#[cfg(test)]
 fn bounded(mut next: impl FnMut() -> u64, size: u64) -> usize {
     let limit = (1_u128 << 64) / u128::from(size) * u128::from(size);
     loop {
@@ -528,12 +511,6 @@ fn bounded(mut next: impl FnMut() -> u64, size: u64) -> usize {
         if u128::from(word) < limit {
             return (word % size) as usize;
         }
-    }
-}
-fn shuffle<T>(cards: &mut [T], rng: &mut EpisodeRng) {
-    for size in (2..=cards.len()).rev() {
-        let index = bounded(|| rng.next_u64(), size as u64);
-        cards.swap(size - 1, index);
     }
 }
 
@@ -710,5 +687,412 @@ mod mulligan_invariants {
             );
             assert_eq!(format!("{g:?}"), before);
         }
+    }
+}
+
+/// Internal work is never a player choice, terminal result, or reward event.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Progress {
+    InternalYield,
+    Decision(OpeningDecision),
+    OpeningComplete,
+    NotStarted,
+}
+#[derive(Debug)]
+enum Work {
+    Reset {
+        decks: Box<[[CardId; 40]; 2]>,
+        random: [bool; 2],
+        seat: usize,
+        size: usize,
+        position: usize,
+        phase: u8,
+    },
+    Redraw {
+        seat: Seat,
+        old: Vec<Handle>,
+        shuffled: Vec<Handle>,
+        current: Vec<Handle>,
+        size: usize,
+        position: usize,
+        phase: u8,
+    },
+    Bottom {
+        seat: Seat,
+        cards: Vec<Handle>,
+        position: usize,
+    },
+    Advance,
+}
+// Exactly one RNG word per unit, including rejection. A rejected word retains
+// the same shuffle position so even the rejection loop can yield.
+fn shuffle_step<T>(cards: &mut [T], size: &mut usize, rng: &mut EpisodeRng) {
+    shuffle_word(cards, size, rng.next_u64());
+}
+fn shuffle_word<T>(cards: &mut [T], size: &mut usize, word: u64) {
+    let limit = (1_u128 << 64) / *size as u128 * *size as u128;
+    if u128::from(word) < limit {
+        cards.swap(*size - 1, (word % *size as u64) as usize);
+        *size -= 1;
+    }
+}
+impl Game {
+    fn finish_work(&mut self) {
+        while self.resume(NonZeroUsize::MAX) == Progress::InternalYield {}
+    }
+    /// Resume owned work exactly once, stopping at the first player boundary.
+    /// At a settled boundary repeated resumes are read-only. Inspection during
+    /// a yield is privileged and may see partially completed internal work.
+    pub fn resume(&mut self, quantum: NonZeroUsize) -> Progress {
+        for _ in 0..quantum.get() {
+            let Some(mut work) = self.work.pop_front() else {
+                break;
+            };
+            let done = match &mut work {
+                Work::Advance => {
+                    self.advance_opening();
+                    true
+                }
+                Work::Bottom {
+                    seat,
+                    cards,
+                    position,
+                } => {
+                    self.objects
+                        .move_to(cards[*position], Zone::Library(*seat))
+                        .expect("reserved bottom move");
+                    *position += 1;
+                    if *position == cards.len() {
+                        let i = seat_index(*seat);
+                        self.needs_bottom[i] = false;
+                        if self.mulligans[i] == 7 {
+                            self.kept[i] = true;
+                        }
+                        true
+                    } else {
+                        false
+                    }
+                }
+                Work::Reset {
+                    decks,
+                    random,
+                    seat,
+                    size,
+                    position,
+                    phase,
+                } => {
+                    let actor = [Seat::P0, Seat::P1][*seat];
+                    match *phase {
+                        0 => {
+                            if random[*seat] && *size > 1 {
+                                shuffle_step(&mut decks[*seat], size, self.rng.as_mut().unwrap());
+                            } else if *seat == 0 {
+                                *seat = 1;
+                                *size = 40;
+                            } else {
+                                *seat = 0;
+                                *phase = 1;
+                            }
+                            false
+                        }
+                        1 => {
+                            self.objects
+                                .allocate(decks[*seat][*position], actor, Zone::Library(actor))
+                                .expect("reserved reset allocation");
+                            *position += 1;
+                            if *position == 40 {
+                                *position = 0;
+                                *phase = 2;
+                            }
+                            false
+                        }
+                        _ => {
+                            self.draw_internal(actor);
+                            *position += 1;
+                            if *position == 7 {
+                                if *seat == 0 {
+                                    *seat = 1;
+                                    *position = 0;
+                                    *phase = 1;
+                                    false
+                                } else {
+                                    self.set_decision(self.starting, OpeningKind::KeepOrMulligan);
+                                    true
+                                }
+                            } else {
+                                false
+                            }
+                        }
+                    }
+                }
+                Work::Redraw {
+                    seat,
+                    old,
+                    shuffled,
+                    current,
+                    size,
+                    position,
+                    phase,
+                } => {
+                    match *phase {
+                        0 => {
+                            if *size > 1 {
+                                shuffle_step(shuffled, size, self.rng.as_mut().unwrap());
+                            } else {
+                                *phase = 1;
+                            }
+                            false
+                        }
+                        1 => {
+                            current.push(
+                                self.objects
+                                    .move_to(old[*position], Zone::Library(*seat))
+                                    .expect("reserved redraw move"),
+                            );
+                            *position += 1;
+                            if *position == 40 {
+                                *phase = 2;
+                                *position = 0;
+                            }
+                            false
+                        }
+                        2 => {
+                            // Fixed 40-card permutation; no unbounded rules work.
+                            let updated: Vec<_> = shuffled
+                                .iter()
+                                .map(|h| current[old.iter().position(|o| o == h).unwrap()])
+                                .collect();
+                            self.objects.reorder(Zone::Library(*seat), &updated);
+                            *phase = 3;
+                            false
+                        }
+                        _ => {
+                            self.draw_internal(*seat);
+                            *position += 1;
+                            if *position == 7 {
+                                self.mulligans[seat_index(*seat)] += 1;
+                                self.needs_bottom[seat_index(*seat)] = true;
+                                true
+                            } else {
+                                false
+                            }
+                        }
+                    }
+                }
+            };
+            if !done {
+                self.work.push_front(work);
+            }
+        }
+        if !self.work.is_empty() {
+            Progress::InternalYield
+        } else if let Some(d) = self.decision {
+            Progress::Decision(d)
+        } else if self.rng.is_some() {
+            Progress::OpeningComplete
+        } else {
+            Progress::NotStarted
+        }
+    }
+    fn draw_internal(&mut self, seat: Seat) {
+        let top = self
+            .objects
+            .in_zone(Zone::Library(seat))
+            .next()
+            .expect("full opening library");
+        self.objects
+            .move_to(top, Zone::Hand(seat))
+            .expect("reserved opening draw");
+    }
+}
+
+#[cfg(test)]
+mod quantum {
+    use super::*;
+    fn q(n: usize) -> NonZeroUsize {
+        NonZeroUsize::new(n).unwrap()
+    }
+    fn settle(g: &mut Game, mut p: Progress, n: usize) -> Progress {
+        let generation = g.generation;
+        let mut calls = 0;
+        while p == Progress::InternalYield {
+            assert_eq!(g.decision(), None);
+            assert_eq!(g.generation, generation); // yields never add semantic actions
+            assert_eq!(g.life(), [20, 20]); // opening has no rewards/outcomes
+            let before = format!("{g:?}");
+            assert_eq!(
+                g.reset_quantum(&Config::default(), 0, 0, q(n)),
+                Err(ResetError::WorkPending)
+            );
+            assert_eq!(g.draw_top(Seat::P0), Err(DrawError::OpeningPending));
+            assert_eq!(format!("{g:?}"), before);
+            p = g.resume(q(n));
+            calls += 1;
+            assert!(calls < 1000);
+        }
+        let before = format!("{g:?}");
+        assert_eq!(g.resume(q(n)), p);
+        assert_eq!(format!("{g:?}"), before);
+        p
+    }
+    fn equivalent(a: &Game, b: &Game) {
+        assert_eq!(a.rng, b.rng);
+        assert_eq!(a.life, b.life);
+        assert_eq!(a.generation, b.generation);
+        assert_eq!(a.kept, b.kept);
+        assert_eq!(a.declarations, b.declarations);
+        assert_eq!(a.mulligans, b.mulligans);
+        assert_eq!(a.needs_bottom, b.needs_bottom);
+        assert!(a.work.is_empty() && b.work.is_empty());
+        assert_eq!(
+            a.decision
+                .map(|d| (d.actor, d.kind, d.generation, d.candidates)),
+            b.decision
+                .map(|d| (d.actor, d.kind, d.generation, d.candidates))
+        );
+        for seat in [Seat::P0, Seat::P1] {
+            for zone in [Zone::Hand(seat), Zone::Library(seat)] {
+                // Scope IDs intentionally differ across independent games.
+                let objects = |g: &Game| {
+                    g.objects
+                        .in_zone(zone)
+                        .map(|h| *g.objects.get(h).unwrap())
+                        .collect::<Vec<_>>()
+                };
+                assert_eq!(objects(a), objects(b));
+            }
+        }
+    }
+    #[test]
+    fn quantum_all_opening_boundaries_match_scalar_rng_and_decisions() {
+        for n in [
+            1, 2, 7, 38, 39, 40, 41, 78, 79, 80, 94, 173, 174, 175, 10000,
+        ] {
+            for starter in 0..2 {
+                for explicit in [false, true] {
+                    let mut c = Config {
+                        starting_seat: starter,
+                        ..Config::default()
+                    };
+                    if explicit {
+                        for input in &mut c.seats {
+                            input.order = Some(
+                                validate_deck(input)
+                                    .unwrap()
+                                    .iter()
+                                    .map(|c| c.identity().key.into())
+                                    .collect(),
+                            );
+                        }
+                    }
+                    let mut a = Game::new().unwrap();
+                    let mut b = Game::new().unwrap();
+                    a.reset(&c, 42, 9).unwrap();
+                    let p = b.reset_quantum(&c, 42, 9, q(n)).unwrap();
+                    settle(&mut b, p, n);
+                    equivalent(&a, &b);
+                    // CR 103.5: both seats take all seven mulligans, bottom the
+                    // cumulative count each round, then are forced to keep zero.
+                    for _ in 0..28 {
+                        let da = a.decision.unwrap();
+                        let db = b.decision.unwrap();
+                        let select = |d: OpeningDecision| match d.kind {
+                            OpeningKind::KeepOrMulligan => Selection::Choose(d.candidate(1)),
+                            OpeningKind::Bottom { count } => Selection::Bottom(
+                                (0..count).rev().map(|i| d.candidate(i)).collect(),
+                            ),
+                        };
+                        let order = |g: &Game, d: OpeningDecision| {
+                            if explicit && d.kind == OpeningKind::KeepOrMulligan {
+                                Some(
+                                    g.objects
+                                        .in_zone(Zone::Hand(d.actor))
+                                        .chain(g.objects.in_zone(Zone::Library(d.actor)))
+                                        .collect::<Vec<_>>()
+                                        .into_iter()
+                                        .rev()
+                                        .collect::<Vec<_>>(),
+                                )
+                            } else {
+                                None
+                            }
+                        };
+                        let oa = order(&a, da);
+                        let ob = order(&b, db);
+                        let aa = OpeningAction {
+                            decision: da.id,
+                            selection: select(da),
+                        };
+                        let ab = OpeningAction {
+                            decision: db.id,
+                            selection: select(db),
+                        };
+                        if let Some(o) = oa {
+                            a.apply_with_order(da.actor, &aa, &o).unwrap();
+                        } else {
+                            a.apply(da.actor, &aa).unwrap();
+                        }
+                        let p = b.apply_quantum(db.actor, &ab, ob.as_deref(), q(n)).unwrap();
+                        settle(&mut b, p, n);
+                        equivalent(&a, &b);
+                    }
+                    assert_eq!(b.resume(q(n)), Progress::OpeningComplete);
+                    assert_eq!(b.generation, 29); // reset + 14 declarations + 14 bottoms
+                    for seat in [Seat::P0, Seat::P1] {
+                        assert_eq!(b.objects.in_zone(Zone::Hand(seat)).count(), 0);
+                        assert_eq!(b.objects.in_zone(Zone::Library(seat)).count(), 40);
+                    }
+                }
+            }
+        }
+    }
+    #[test]
+    fn quantum_rejected_shuffle_trial_retains_cursor_and_cards() {
+        // 2^64 = 40*q + 16: highest sixteen words reject, next word maps to 39.
+        let mut cards: Vec<_> = (0..40).collect();
+        let original = cards.clone();
+        let mut size = 40;
+        for word in [u64::MAX, u64::MAX - 15] {
+            shuffle_word(&mut cards, &mut size, word);
+            assert_eq!(size, 40);
+            assert_eq!(cards, original);
+        }
+        shuffle_word(&mut cards, &mut size, u64::MAX - 16);
+        assert_eq!(size, 39);
+        assert_eq!(cards, original);
+        shuffle_word(&mut cards, &mut size, 0);
+        assert_eq!(size, 38);
+        assert_eq!(cards[0], 38);
+        assert_eq!(cards[38], 0);
+    }
+    #[test]
+    fn quantum_one_unit_consumes_at_most_one_word_or_object_operation() {
+        let mut g = Game::new().unwrap();
+        let mut expected = EpisodeRng::new(VERSION, 42, 9, Stream::Environment).unwrap();
+        assert_eq!(
+            g.reset_quantum(&Config::default(), 42, 9, q(1)).unwrap(),
+            Progress::InternalYield
+        );
+        expected.next_u64();
+        assert_eq!(g.rng.as_ref(), Some(&expected));
+        // For this pinned seed the first 39 words are accepted (also covered by
+        // independent complete permutation vectors in tests/opening.rs).
+        for _ in 1..39 {
+            g.resume(q(1));
+            expected.next_u64();
+            assert_eq!(g.rng.as_ref(), Some(&expected));
+            assert_eq!(g.objects.slot_count(), 0);
+        }
+        let mut previous = 0;
+        while g.resume(q(1)) == Progress::InternalYield {
+            let count = g.objects.slot_count();
+            assert!(count <= previous + 1);
+            previous = count;
+        }
+        assert_eq!(g.objects.slot_count(), 80);
+        for _ in 39..78 {
+            expected.next_u64();
+        }
+        assert_eq!(g.rng, Some(expected));
     }
 }
