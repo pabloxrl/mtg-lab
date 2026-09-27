@@ -1,0 +1,40 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.94s
+     Running unittests src/main.rs (target/debug/deps/mtg-3461bf5306ebefe1)
+
+running 4 tests
+test simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run ... ok
+test simulate::tests::simulate_active_interruption_and_deadline_have_distinct_accounting ... ok
+test simulate::tests::simulate_seed_extremes_preserve_rules_derived_passive_outcome ... ok
+test simulate::tests::simulate_writer_failure_propagates_instead_of_success ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/headless_commands.rs (target/debug/deps/headless_commands-fe8c03919afa88fd)
+
+running 9 tests
+test benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct ... ok
+test conformance_missing_dependencies_and_malformed_input_fail_without_prompt ... ok
+test files_usage_and_output_failures_are_structured ... ok
+test input_limits_and_benchmark_configuration_fail_explicitly ... ok
+test replay_errors_are_explicit_and_inspection_diagnostics_are_redacted ... ok
+test replay_verify_and_seat_filtered_inspect ... ok
+test trajectories_validate_seal_and_reject_corruption ... ok
+test conformance_compares_actual_checkpoints_and_preserves_failure_artifacts ... ok
+test conformance_deadline_kills_unresponsive_dependency ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.01s
+
+     Running tests/simulate.rs (target/debug/deps/simulate-51ccf50244f19065)
+
+running 7 tests
+test simulate_decision_limit_is_not_a_draw_or_win ... ok
+test simulate_missing_malformed_config_and_broken_stdout_are_explicit ... ok
+test simulate_sigterm_accounts_every_requested_episode_with_deadline ... ok
+test simulate_output_path_and_write_failures ... ok
+test simulate_wall_deadline_finishes_with_complete_accounting ... ok
+test simulate_invalid_configs_fail_explicitly_without_prompt ... ok
+test simulate_headless_reproducible_rules_completion_both_starters_and_mirrors ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+

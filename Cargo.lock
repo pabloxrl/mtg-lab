@@ -89,6 +89,7 @@ name = "mtg-cli"
 version = "0.1.0"
 dependencies = [
  "mtg-core",
+ "mtg-recorder",
  "serde",
  "serde_json",
  "sha2",

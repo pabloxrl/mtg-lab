@@ -1,0 +1,10 @@
+**Approve correcting `decisions=3` to `decisions=1`.** Independent fixture evidence agrees:
+
+- `episode.jsonl` contains one decision; its footer and seal both declare `decisions: 1`.
+- `episode.json` matches the JSONL episode exactly.
+- The [evidence document](/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/doc/evidence/trajectory-jsonl/README.md:8) explicitly describes one recorded action and independently authored canonical bytes.
+- Independently recomputing SHA-256 confirms the fixture’s seal.
+
+**Approve the proposed additional coverage:** tampering only with the seal’s decision count should cause rejection, preserving the payload and checksum to isolate count validation. A valid empty sealed file should succeed with `episodes=0` and `decisions=0`. Retain the existing missing-seal and malformed-input rejection assertions.
+
+These checks strengthen coverage while correcting an unsupported expectation. The additions are not present in this checkout, so this approves their proposed design, not their implementation. No edits, network access, or test execution performed.

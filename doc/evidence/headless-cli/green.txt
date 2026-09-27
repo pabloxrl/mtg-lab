@@ -1,0 +1,15 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.13s
+     Running tests/headless_commands.rs (target/debug/deps/headless_commands-fe8c03919afa88fd)
+
+running 7 tests
+test benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct ... ok
+test files_usage_and_output_failures_are_structured ... ok
+test conformance_missing_dependencies_and_malformed_input_fail_without_prompt ... ok
+test replay_errors_are_explicit_and_inspection_diagnostics_are_redacted ... ok
+test trajectories_validate_seal_and_reject_corruption ... ok
+test replay_verify_and_seat_filtered_inspect ... ok
+test conformance_compares_actual_checkpoints_and_preserves_failure_artifacts ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.28s
+

@@ -1,0 +1,33 @@
+   Compiling serde_json v1.0.151
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-recorder)
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.85s
+     Running tests/headless_commands.rs (target/debug/deps/headless_commands-fe8c03919afa88fd)
+
+running 7 tests
+test benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct ... ok
+test conformance_missing_dependencies_and_malformed_input_fail_without_prompt ... ok
+test files_usage_and_output_failures_are_structured ... ok
+test trajectories_validate_seal_and_reject_corruption ... FAILED
+test replay_errors_are_explicit_and_inspection_diagnostics_are_redacted ... ok
+test replay_verify_and_seat_filtered_inspect ... ok
+test conformance_compares_actual_checkpoints_and_preserves_failure_artifacts ... ok
+
+failures:
+
+---- trajectories_validate_seal_and_reject_corruption stdout ----
+
+thread 'trajectories_validate_seal_and_reject_corruption' (602) panicked at crates/mtg-cli/tests/headless_commands.rs:74:130:
+assertion `left == right` failed
+  left: Number(1)
+ right: 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    trajectories_validate_seal_and_reject_corruption
+
+test result: FAILED. 6 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+
+error: test failed, to rerun pass `-p mtg-cli --test headless_commands`

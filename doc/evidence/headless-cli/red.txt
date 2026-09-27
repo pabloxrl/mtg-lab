@@ -1,0 +1,104 @@
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling libc v0.2.189
+   Compiling proc-macro2 v1.0.107
+   Compiling generic-array v0.14.7
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling serde_core v1.0.229
+   Compiling cfg-if v1.0.5
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling digest v0.10.7
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling cpufeatures v0.2.17
+   Compiling sha2 v0.10.9
+   Compiling errno v0.3.14
+   Compiling signal-hook v0.3.18
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling signal-hook-registry v1.4.8
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-cli)
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-79/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.48s
+     Running tests/headless_commands.rs (target/debug/deps/headless_commands-1b245a93d54e611f)
+
+running 7 tests
+test files_usage_and_output_failures_are_structured ... FAILED
+test benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct ... FAILED
+test conformance_missing_dependencies_and_malformed_input_fail_without_prompt ... FAILED
+test conformance_compares_actual_checkpoints_and_preserves_failure_artifacts ... FAILED
+test trajectories_validate_seal_and_reject_corruption ... FAILED
+test replay_verify_and_seat_filtered_inspect ... FAILED
+test replay_errors_are_explicit_and_inspection_diagnostics_are_redacted ... FAILED
+
+failures:
+
+---- files_usage_and_output_failures_are_structured stdout ----
+
+thread 'files_usage_and_output_failures_are_structured' (898) panicked at crates/mtg-cli/tests/headless_commands.rs:43:144:
+{"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct stdout ----
+
+thread 'benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct' (895) panicked at crates/mtg-cli/tests/headless_commands.rs:40:72:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- conformance_missing_dependencies_and_malformed_input_fail_without_prompt stdout ----
+
+thread 'conformance_missing_dependencies_and_malformed_input_fail_without_prompt' (897) panicked at crates/mtg-cli/tests/headless_commands.rs:42:39:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 3
+
+---- conformance_compares_actual_checkpoints_and_preserves_failure_artifacts stdout ----
+
+thread 'conformance_compares_actual_checkpoints_and_preserves_failure_artifacts' (896) panicked at crates/mtg-cli/tests/headless_commands.rs:40:72:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- trajectories_validate_seal_and_reject_corruption stdout ----
+
+thread 'trajectories_validate_seal_and_reject_corruption' (913) panicked at crates/mtg-cli/tests/headless_commands.rs:40:72:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- replay_verify_and_seat_filtered_inspect stdout ----
+
+thread 'replay_verify_and_seat_filtered_inspect' (912) panicked at crates/mtg-cli/tests/headless_commands.rs:40:72:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- replay_errors_are_explicit_and_inspection_diagnostics_are_redacted stdout ----
+
+thread 'replay_errors_are_explicit_and_inspection_diagnostics_are_redacted' (909) panicked at crates/mtg-cli/tests/headless_commands.rs:43:144:
+{"exit_code":2,"message":"usage: mtg simulate --config CONFIG.json [--output NEW.jsonl]","schema_version":1,"type":"error"}
+
+
+failures:
+    benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct
+    conformance_compares_actual_checkpoints_and_preserves_failure_artifacts
+    conformance_missing_dependencies_and_malformed_input_fail_without_prompt
+    files_usage_and_output_failures_are_structured
+    replay_errors_are_explicit_and_inspection_diagnostics_are_redacted
+    replay_verify_and_seat_filtered_inspect
+    trajectories_validate_seal_and_reject_corruption
+
+test result: FAILED. 0 passed; 7 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-cli --test headless_commands`

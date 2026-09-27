@@ -1,3 +1,4 @@
+mod commands;
 mod simulate;
 use serde_json::json;
 use std::{
@@ -17,6 +18,9 @@ fn execute() -> Result<i32, (i32, String)> {
             .map_err(|e| (3, e.to_string()))?;
     }
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.first().is_none_or(|a| a != "simulate") {
+        return commands::execute(&args, &signal);
+    }
     if !(args.len() == 3 || args.len() == 5)
         || args[0] != "simulate"
         || args[1] != "--config"
