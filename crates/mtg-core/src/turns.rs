@@ -84,7 +84,7 @@ impl Game {
         self.turns.position
     }
     pub fn turn_decision(&self) -> Option<TurnDecision> {
-        if self.turns.payment.is_some() || self.turns.targeting.is_some() {
+        if !self.work.is_empty() || self.turns.payment.is_some() || self.turns.targeting.is_some() {
             None
         } else {
             self.turns.decision
@@ -126,14 +126,35 @@ impl Game {
         self.generation = generation;
         Ok(self.set_turn_decision(self.starting, TurnKind::Priority))
     }
-    /// Validate generation, actor and complete selection before any rules work.
-    /// This entry point accepts priority passes and cleanup discards.
-    /// Land/mana methods share the same priority decision identity.
+    /// Scalar execution drains the same owned continuation as bounded execution.
     pub fn apply_turn(
         &mut self,
         actor: Seat,
         action: &TurnAction,
     ) -> Result<TurnProgress, TurnError> {
+        let mut progress = self.apply_turn_quantum(actor, action, NonZeroUsize::MAX)?;
+        while progress == Progress::InternalYield {
+            progress = self.resume(NonZeroUsize::MAX);
+        }
+        match progress {
+            Progress::TurnDecision(d) => Ok(TurnProgress::Decision(d)),
+            Progress::Terminal(o) => Ok(TurnProgress::Terminal(o)),
+            _ => unreachable!("accepted turn command settles at a turn boundary"),
+        }
+    }
+    /// Validate the complete command before mutation. Stack settlement and first
+    /// priority passes consume bounded work; empty-stack turn/cleanup progression
+    /// remains scalar pending its separately owned continuation.
+    pub fn apply_turn_quantum(
+        &mut self,
+        actor: Seat,
+        action: &TurnAction,
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, TurnError> {
+        self.apply_turn_work(actor, action)?;
+        Ok(self.resume(quantum))
+    }
+    fn apply_turn_work(&mut self, actor: Seat, action: &TurnAction) -> Result<(), TurnError> {
         let d = self.turn_decision().ok_or(TurnError::NotReady)?;
         let invalid = TurnError::Invalid;
         if actor != d.actor {
@@ -167,15 +188,21 @@ impl Game {
             .checked_add(1)
             .ok_or(invalid(ApplyError::DecisionExhausted))?;
         if self.objects.in_zone(Zone::Stack).next().is_some() {
-            return self.pass_stack(actor, generation);
+            return self.queue_stack_pass(actor, generation);
         }
         let (turn, active, step) = self.turns.position.expect("turn decision position");
         if d.kind == TurnKind::Priority && !self.turns.passed {
+            self.work
+                .try_reserve(1)
+                .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
             self.generation = generation;
-            self.turns.passed = true;
-            return Ok(TurnProgress::Decision(
-                self.set_turn_decision(opponent(actor), TurnKind::Priority),
-            ));
+            self.turns.decision = None;
+            self.work.push_back(Work::Priority {
+                actor: opponent(actor),
+                passed: true,
+                terminal: false,
+            });
+            return Ok(());
         }
         let mut next_turn = turn;
         let mut next_active = active;
@@ -213,9 +240,7 @@ impl Game {
                     self.turns.mana = [[0; 6]; 2];
                     self.turns.passed = false;
                     self.generation = generation;
-                    return Ok(TurnProgress::Terminal(
-                        self.outcome.expect("failed draw result"),
-                    ));
+                    return Ok(());
                 }
                 Err(e) => return Err(TurnError::Draw(e)),
             }
@@ -262,7 +287,8 @@ impl Game {
         } else {
             next_active
         };
-        Ok(TurnProgress::Decision(self.set_turn_decision(actor, kind)))
+        self.set_turn_decision(actor, kind);
+        Ok(())
     }
     pub(super) fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
         let d = TurnDecision {

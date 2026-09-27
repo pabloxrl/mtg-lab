@@ -134,6 +134,23 @@ impl Game {
             return false;
         }
         self.work.iter().all(|w| match w {
+            Work::Modify(m) => self
+                .objects
+                .get(m.handle)
+                .is_ok_and(|o| o.zone == Zone::Battlefield),
+            Work::SpellMove {
+                handle,
+                zone,
+                controller,
+            } => {
+                self.objects.get(*handle).is_ok()
+                    && matches!(
+                        (zone, controller),
+                        (Zone::Battlefield, Some(_)) | (Zone::Graveyard(_), None)
+                    )
+            }
+            Work::FinishSpell { spell, .. } => self.turns.stack.last() == Some(spell),
+            Work::Priority { .. } => self.turns.position.is_some() && self.turns.decision.is_none(),
             Work::Reset {
                 seat,
                 size,

@@ -219,13 +219,12 @@ impl Game {
             .is_ok_and(|o| o.zone == Zone::Battlefield)
             && self.turns.sick.contains(&h)
     }
-    pub(super) fn pass_stack(
+    pub(super) fn queue_stack_pass(
         &mut self,
         actor: Seat,
         generation: u64,
-    ) -> Result<super::turns::TurnProgress, TurnError> {
-        // Raw storage placement is not an executable spell. Preserve the explicit
-        // unsupported-state rejection used by storage-only synthetic callers.
+    ) -> Result<(), TurnError> {
+        // Raw storage placement is not an executable spell.
         if !self
             .objects
             .in_zone(Zone::Stack)
@@ -237,58 +236,70 @@ impl Game {
         if cost(self.objects.get(h).map_err(TurnError::Storage)?.card).is_none() {
             return Err(TurnError::UnsupportedStack);
         }
+        // Reserve the maximum five M1 work items before accepting the pass.
+        self.work
+            .try_reserve(5)
+            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
         if !self.turns.passed {
-            self.turns.passed = true;
-            self.generation = generation;
-            let next = if actor == Seat::P0 {
-                Seat::P1
-            } else {
-                Seat::P0
-            };
-            return Ok(super::turns::TurnProgress::Decision(
-                self.set_turn_decision(next, TurnKind::Priority),
-            ));
-        }
-        if let Some((_, effect)) = self
-            .turns
-            .effects
-            .iter()
-            .find(|(spell, _)| *spell == h)
-            .copied()
-        {
-            self.resolve_effect(h, effect)?;
+            self.work.push_back(Work::Priority {
+                actor: super::turns::opponent(actor),
+                passed: true,
+                terminal: false,
+            });
         } else {
-            if super::targets::instant(self.objects.get(h).unwrap().card) {
-                return Err(TurnError::UnsupportedStack);
-            }
-            self.objects
-                .prepare_moves(&[h], Zone::Battlefield)
-                .map_err(TurnError::Storage)?;
-            self.turns
-                .sick
-                .try_reserve(1)
-                .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
-            let controller = self.objects.get(h).expect("spell").controller;
-            let permanent = self
-                .objects
-                .move_to(h, Zone::Battlefield)
-                .expect("preflighted resolution");
-            self.objects
-                .get_mut(permanent)
-                .expect("permanent")
-                .controller = controller;
-            self.turns.sick.push(permanent);
+            let effect = self
+                .turns
+                .effects
+                .iter()
+                .find(|(spell, _)| *spell == h)
+                .map(|(_, e)| *e);
+            let resolution = if let Some(effect) = effect {
+                let plan = self.prepare_effect(h, effect)?;
+                if let Some(change) = plan.change {
+                    self.work.push_back(Work::Modify(change));
+                }
+                for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+                    for &handle in &plan.moves[i] {
+                        self.work.push_back(Work::SpellMove {
+                            handle,
+                            zone: Zone::Graveyard(seat),
+                            controller: None,
+                        });
+                    }
+                }
+                Some(plan.resolution)
+            } else {
+                if super::targets::instant(self.objects.get(h).unwrap().card) {
+                    return Err(TurnError::UnsupportedStack);
+                }
+                self.objects
+                    .prepare_moves(&[h], Zone::Battlefield)
+                    .map_err(TurnError::Storage)?;
+                self.turns
+                    .sick
+                    .try_reserve(1)
+                    .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                let controller = self.objects.get(h).expect("spell").controller;
+                self.work.push_back(Work::SpellMove {
+                    handle: h,
+                    zone: Zone::Battlefield,
+                    controller: Some(controller),
+                });
+                None
+            };
+            self.work.push_back(Work::FinishSpell {
+                spell: h,
+                resolution,
+            });
+            self.work.push_back(Work::Priority {
+                actor: self.turns.position.expect("turn").1,
+                passed: false,
+                terminal: true,
+            });
         }
-        self.turns.stack.pop();
-        self.turns.passed = false;
+        self.turns.decision = None;
         self.generation = generation;
-        let active = self.turns.position.expect("turn").1;
-        if let Some(result) = self.settle_terminal(None) {
-            return Ok(super::turns::TurnProgress::Terminal(result));
-        }
-        Ok(super::turns::TurnProgress::Decision(
-            self.set_turn_decision(active, TurnKind::Priority),
-        ))
+        Ok(())
     }
 }
 #[cfg(test)]

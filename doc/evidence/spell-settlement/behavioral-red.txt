@@ -1,0 +1,29 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-107/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.66s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+
+thread 'opening::targets_tests::settlement_quantum_bite_uses_grown_source_and_terminal_boundary' (232) panicked at crates/mtg-core/src/targets_tests.rs:637:35:
+assertion `left == right` failed: resolution must leave owned work at quantum 1
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 0, generation: 18 }, actor: P0, kind: Priority })
+ right: InternalYield
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test opening::targets_tests::settlement_quantum_bite_uses_grown_source_and_terminal_boundary ... FAILED
+
+thread 'opening::targets_tests::settlement_quantum_growth_responds_to_bite_literal_checkpoints' (233) panicked at crates/mtg-core/src/targets_tests.rs:637:35:
+assertion `left == right` failed: resolution must leave owned work at quantum 1
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 4, generation: 19 }, actor: P0, kind: Priority })
+ right: InternalYield
+test opening::targets_tests::settlement_quantum_growth_responds_to_bite_literal_checkpoints ... FAILED
+test opening::targets_tests::settlement_quantum_rejections_preserve_exact_state ... ok
+
+failures:
+
+failures:
+    opening::targets_tests::settlement_quantum_bite_uses_grown_source_and_terminal_boundary
+    opening::targets_tests::settlement_quantum_growth_responds_to_bite_literal_checkpoints
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 83 filtered out; finished in 0.07s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -157,9 +157,12 @@ Pending work owns all remaining cards, permutations and cursors. During a yield,
 partial work. Apply/reset return `WorkPending` without mutation, and `draw_top`
 returns `OpeningPending`. Resume at a decision or completed opening is read-only.
 Accepted actions advance the decision generation once; resumes never advance it,
-create a policy action, or emit a reward/terminal result. No scheduler, batch
-fairness, effect continuation or trajectory reward ledger is implemented here.
+create a policy action, or emit a reward. Internal yields are not terminal
+results. [Priority and M1 spell settlement](spell-settlement.md) extends this
+continuation with turn/terminal boundaries. No scheduler, batch fairness or
+trajectory reward ledger is implemented here.
 
 Run `cargo test -p mtg-core quantum` and the full torture suite. The
 [quantum evidence](evidence/quantum/README.md) covers SYS-CORE-006's core prefix;
-#18 owns actual effects, #19 snapshots and #27 batch fairness.
+#107 adds bounded M1 spell settlement; #18 retains complete scalar integration,
+#19 complete snapshot/replay integration and #27 batch fairness.

@@ -33,7 +33,7 @@ identities are resolved through the fingerprinted card table. Vector allocation
 capacity and process-global identity counters are not game state.
 
 Restore verifies the envelope, versions, checksum, typed payload, storage
-membership and opening-work bounds in temporary owned state. Only the final
+membership and opening/spell-work bounds in temporary owned state. Only the final
 assignment replaces the destination; any returned error leaves all destination
 state, RNG and pending work unchanged. Loading does not advance rules or consume
 RNG. To resume an internal yield, call `resume` with a positive work quantum.
@@ -60,5 +60,7 @@ Run `cargo test -p mtg-core snapshot` in the managed toolchain, then
 `./scripts/torture.sh`. [Acceptance evidence](evidence/snapshot/README.md) covers
 opening decisions/yields, corruption, RNG, identity isolation, new-process load,
 turn priority, historical knowledge and terminal/reset boundaries. #19 retains
-cross-feature pending spell/response-chain snapshot acceptance. No rule behavior
-or reference-engine agreement is newly claimed by this storage change.
+complete cross-feature pending-choice/response-chain snapshot acceptance.
+[Spell settlement acceptance](evidence/spell-settlement/README.md) additionally
+checks restore at every internal spell-work phase using the actual Growth/Bite
+and creature APIs. No reference-engine agreement is implied by snapshot equality.
