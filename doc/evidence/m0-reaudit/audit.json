@@ -1,0 +1,1672 @@
+{
+  "schema_version": 1,
+  "issue": 16,
+  "date": "2026-09-27",
+  "audited_main": "2bd67ca5bbad37589630c3b25e5f5bbef0a8d7e2",
+  "verdict": "PASS-M0-only",
+  "historical_failed_audit": "../m0/audit.json",
+  "input_sha256": {
+    "data/capabilities-v1.json": "af2986c036031c7ec8768349459f67d35b03c909931f7e0e0a864a6a4c203e0e",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
+    "data/cards/foundations_micro_v1.sha256": "e19d7b839af7f3633dffafed4ff55116fbd8392974a8142ddf05562a88cee68d",
+    "data/cards/foundations_micro_v1.verification.json": "ca87c1db73a93d560cd63670968afeac6eeb4e8f1566ec3fe0362228e1e11c90",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "data/rules/cr-2026-09-25.verification.json": "1f0ab890c2652be8b0e43b23f96f7daab4752d9a8751cfdbbc4b10245ce275bb",
+    "doc/card-manifests.md": "da5ce6584c0bf37b2e611bd0051afb75ccd3f7dfa31c06cb446abe17ee876348",
+    "doc/initial-corpus.md": "701338bb8db497391243d98ef7fb8b442e699c5715290ceb42b4850cfd75b0c3",
+    "doc/programs/rfc-0002-requirements.json": "77a2426019846b3e1dadb2762f0b12fa9e176e2e154bae648c33d4043c03fa99",
+    "doc/programs/rfc-0002.json": "28e2598e5eb87bdd34b97aa002e1dcd45708bc9538356fcf0bfbac47e26fbbab",
+    "doc/provenance-policy.md": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+    "doc/provenance-sources.json": "c31ae7d9876de09e4b409416f556e16d602afc5cb174b6ae6c4c53cd163930ee",
+    "doc/rfcs/0001-project-charter.md": "8ba06d3d4dbc293c3f80cd7849b803894fcce4cc00e5de845acab202c4dbf791",
+    "doc/rfcs/0002-first-mvp.md": "f96a63f427a913d15da6522bab3842ceeb3d35f750a67e2af770464847b5b86c",
+    "doc/testing/README.md": "34d89bb7eda669321570fef07e02126f8e1b56d25a48cfa8473eeebedb29ed67",
+    "doc/testing/capability-test-plan.json": "753bce6cca68d2c05371d5757155c18067d23c18572b4fe6e61878ee7808c8d1",
+    "doc/testing/contract-decisions.md": "71eb9f1610acad5f627af527623bae8349773ac4a011de086203537b83587e44",
+    "doc/testing/data-rl.md": "c7d36f7a84bc53127a458eaaf46e695be9fd57b5dd1810fe333eb1ad04b5ae88",
+    "doc/testing/game-replay.md": "f0a7a6a91b246d3c1f3b6b5c5d0b8080fee35c2cca51f0c274f0e68ec0597bfc",
+    "doc/testing/rules.md": "9c68e12df41829b7923afc283b6e4c22bb284733e38a54c0b2d2b98900383a39",
+    "doc/testing/systems.md": "15536866a064ffe7dc9480e796d5795ca39b198accf67eb42dcfb36f1b0db99b",
+    "fixtures/scenarios/m0/growth-bite-cleanup.json": "d7376bd775a7171648c0b7a949cd2557d6e30691c8b7c281d3bc543b4739a7a1",
+    "fixtures/scenarios/m0/mulligan.json": "d44f4658d4b6274923f35c052c2c51d547b386213ad44f51351b55021c42f0f9",
+    "fixtures/scenarios/m0/priority-empty.json": "1d8e3a1204b28e79607a7baaf39af763b96caa30ed698c71b35903ecfe262162",
+    "fixtures/scenarios/m0/privacy-a.json": "473617c2e72205f3c6d954337397395f7cd4f2c4afd4541b544d146d9da91f6b",
+    "fixtures/scenarios/m0/privacy-b.json": "d3a3e858b955c96042bcadcef43aa23dce36c9685140d623e2c112436f2ccbdc",
+    "fixtures/scenarios/m0/targeting-bite.json": "0696d449a9a1e682fe1d9bf0236b50b34665d07f972d0ff0e20313eeffecec9b",
+    "fixtures/scenarios/priority-pass.json": "7401f542608cb8acdfc610cb31bd2076e3288d7cb47cf1a6325fa25f9ee358a0",
+    "fixtures/scenarios/xmage-priority-pass.json": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+    "fixtures/xmage-candidates.json": "cb99c857ac54ec15e474797481e44ae677e23a47344d7b0b89ec969f2e7f9b59",
+    "references/forge/NeutralSmokeTest.java": "f887af84b73b88d60e4ce237f452dc2876aa9d3b73f5df6c5a3bd4bcf5a1ad7a",
+    "references/forge/README.md": "b9a90fd07b148eed673f68db647eb9787d74b2db7aadcb96454d54d47b4358a7",
+    "references/forge/checkpoints.json": "77d9ab7da1533005d28ebe36e9335fc695db2d3ce072f299b61fe3fdb647ed32",
+    "references/forge/dependencies.json": "8b99dc9fe2352bc8d42b5008bc90e0874a768b404491351eb77c0f23e8c38299",
+    "references/forge/evidence.json": "abe367b763a1ffa517eb91e98999b20ab004998d0196e39c0c6505543295d869",
+    "references/forge/pins.json": "66be220170efc5dd79d6c91373f966ba51626b7772883211f0c8843e1bde2132",
+    "references/xmage/NeutralSmokeTest.java": "3fd4d3c3a27dbaa367d5cb41109f72783820bb39850dc02a57a36cce891e9acf",
+    "references/xmage/README.md": "cd0ae3bec77966a05d37f349a55dd2d4078b24252e4c3729ede662aa573cfdb3",
+    "references/xmage/UPSTREAM-LICENSE.txt": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+    "references/xmage/checkpoints.json": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+    "references/xmage/evidence.json": "6c30c7acdf5b25286fc0f6857847a69ef8aa08f705aa463f74cb542a19ac8c5e",
+    "references/xmage/pins.json": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+    "scripts/checkpoints.py": "3a1aa8e1657548c12c40d7d982c9633f87e4a1c4bd79ce955c3f02ff002aefca",
+    "scripts/forge.py": "dcd3288c27d5680ce907d4bb9be3200043f80acae4a1432e523c04be0d7c62f7",
+    "scripts/scenario.py": "71a7b826746f4bc94b048d01ab3ccdb82712f03524f3019932cc5353564d4b60",
+    "scripts/test_plan.py": "afa3961d1a218fdd5147b1bcad863c8864dda9359c002b112a3dbade2e0675e4",
+    "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+    "tests/test_test_plan.py": "8df06d5bc05de0e3a1ac3c98866e18ddc7c792fdc219afde0e519068bf4dbac7"
+  },
+  "commands": [
+    {
+      "command": "./scripts/verify.sh",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/check_program.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/test_plan.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/rules_source.py validate",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/rules_source.py fetch-verify",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/acquire_cards.py --cache /tmp/gh16-reaudit-cards",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/card_manifest.py --cache /tmp/gh16-reaudit-cards",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/scenario.py validate fixtures/scenarios/m0/*.json",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/scenario.py coverage",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/scenario.py coverage --require-passed",
+      "exit_code": 2
+    },
+    {
+      "command": "python3 scripts/xmage.py acceptance --cache /tmp/mtg-xmage",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 scripts/forge.py acceptance --cache /tmp/mtg-forge",
+      "exit_code": 0
+    }
+  ],
+  "design": {
+    "capabilities": 80,
+    "designed_slots": 320,
+    "related_authored_fixtures": 6,
+    "execution_evidence_added": 0,
+    "categories": {
+      "positive": 80,
+      "negative": 80,
+      "interaction": 80,
+      "regression": 80
+    },
+    "stages": {
+      "M1": 133,
+      "M2": 175,
+      "M3": 12
+    },
+    "case_ids": [
+      "rules-setup-mulligan-bottom-positive",
+      "rules-setup-mulligan-bottom-negative",
+      "rules-setup-mulligan-bottom-interaction",
+      "rules-setup-mulligan-bottom-regression",
+      "rules-setup-first-draw-positive",
+      "rules-setup-first-draw-negative",
+      "rules-setup-first-draw-interaction",
+      "rules-setup-first-draw-regression",
+      "rules-setup-deterministic-reset-positive",
+      "rules-setup-deterministic-reset-negative",
+      "rules-setup-deterministic-reset-interaction",
+      "rules-setup-deterministic-reset-regression",
+      "rules-setup-ordered-draw-positive",
+      "rules-setup-ordered-draw-negative",
+      "rules-setup-ordered-draw-interaction",
+      "rules-setup-ordered-draw-regression",
+      "rules-setup-library-privacy-positive",
+      "rules-setup-library-privacy-negative",
+      "rules-setup-library-privacy-interaction",
+      "rules-setup-library-privacy-regression",
+      "rules-priority-passing-positive",
+      "rules-priority-passing-negative",
+      "rules-priority-passing-interaction",
+      "rules-priority-passing-regression",
+      "rules-priority-post-cast-resolution-positive",
+      "rules-priority-post-cast-resolution-negative",
+      "rules-priority-post-cast-resolution-interaction",
+      "rules-priority-post-cast-resolution-regression",
+      "rules-priority-response-chain-positive",
+      "rules-priority-response-chain-negative",
+      "rules-priority-response-chain-interaction",
+      "rules-priority-response-chain-regression",
+      "rules-priority-response-window-positive",
+      "rules-priority-response-window-negative",
+      "rules-priority-response-window-interaction",
+      "rules-priority-response-window-regression",
+      "rules-costs-mana-rejection-positive",
+      "rules-costs-mana-rejection-negative",
+      "rules-costs-mana-rejection-interaction",
+      "rules-costs-mana-rejection-regression",
+      "rules-costs-generic-payment-positive",
+      "rules-costs-generic-payment-negative",
+      "rules-costs-generic-payment-interaction",
+      "rules-costs-generic-payment-regression",
+      "rules-costs-creature-mana-positive",
+      "rules-costs-creature-mana-negative",
+      "rules-costs-creature-mana-interaction",
+      "rules-costs-creature-mana-regression",
+      "rules-costs-summoning-sickness-positive",
+      "rules-costs-summoning-sickness-negative",
+      "rules-costs-summoning-sickness-interaction",
+      "rules-costs-summoning-sickness-regression",
+      "rules-costs-discard-cost-positive",
+      "rules-costs-discard-cost-negative",
+      "rules-costs-discard-cost-interaction",
+      "rules-costs-discard-cost-regression",
+      "rules-costs-atomic-rejection-positive",
+      "rules-costs-atomic-rejection-negative",
+      "rules-costs-atomic-rejection-interaction",
+      "rules-costs-atomic-rejection-regression",
+      "rules-targets-controller-restrictions-positive",
+      "rules-targets-controller-restrictions-negative",
+      "rules-targets-controller-restrictions-interaction",
+      "rules-targets-controller-restrictions-regression",
+      "rules-targets-required-targets-positive",
+      "rules-targets-required-targets-negative",
+      "rules-targets-required-targets-interaction",
+      "rules-targets-required-targets-regression",
+      "rules-targets-zone-change-positive",
+      "rules-targets-zone-change-negative",
+      "rules-targets-zone-change-interaction",
+      "rules-targets-zone-change-regression",
+      "rules-targets-partial-invalidation-positive",
+      "rules-targets-partial-invalidation-negative",
+      "rules-targets-partial-invalidation-interaction",
+      "rules-targets-partial-invalidation-regression",
+      "rules-targets-resolution-revalidation-positive",
+      "rules-targets-resolution-revalidation-negative",
+      "rules-targets-resolution-revalidation-interaction",
+      "rules-targets-resolution-revalidation-regression",
+      "rules-triggers-cast-resolution-positive",
+      "rules-triggers-cast-resolution-negative",
+      "rules-triggers-cast-resolution-interaction",
+      "rules-triggers-cast-resolution-regression",
+      "rules-triggers-failed-cast-positive",
+      "rules-triggers-failed-cast-negative",
+      "rules-triggers-failed-cast-interaction",
+      "rules-triggers-failed-cast-regression",
+      "rules-triggers-etb-target-positive",
+      "rules-triggers-etb-target-negative",
+      "rules-triggers-etb-target-interaction",
+      "rules-triggers-etb-target-regression",
+      "rules-triggers-ordering-positive",
+      "rules-triggers-ordering-negative",
+      "rules-triggers-ordering-interaction",
+      "rules-triggers-ordering-regression",
+      "rules-combat-attack-block-positive",
+      "rules-combat-attack-block-negative",
+      "rules-combat-attack-block-interaction",
+      "rules-combat-attack-block-regression",
+      "rules-combat-flying-reach-positive",
+      "rules-combat-flying-reach-negative",
+      "rules-combat-flying-reach-interaction",
+      "rules-combat-flying-reach-regression",
+      "rules-combat-haste-vigilance-positive",
+      "rules-combat-haste-vigilance-negative",
+      "rules-combat-haste-vigilance-interaction",
+      "rules-combat-haste-vigilance-regression",
+      "rules-combat-multiple-blockers-positive",
+      "rules-combat-multiple-blockers-negative",
+      "rules-combat-multiple-blockers-interaction",
+      "rules-combat-multiple-blockers-regression",
+      "rules-combat-simultaneous-damage-positive",
+      "rules-combat-simultaneous-damage-negative",
+      "rules-combat-simultaneous-damage-interaction",
+      "rules-combat-simultaneous-damage-regression",
+      "rules-combat-deathtouch-trample-positive",
+      "rules-combat-deathtouch-trample-negative",
+      "rules-combat-deathtouch-trample-interaction",
+      "rules-combat-deathtouch-trample-regression",
+      "rules-combat-blocked-status-positive",
+      "rules-combat-blocked-status-negative",
+      "rules-combat-blocked-status-interaction",
+      "rules-combat-blocked-status-regression",
+      "rules-continuous-stacked-boosts-positive",
+      "rules-continuous-stacked-boosts-negative",
+      "rules-continuous-stacked-boosts-interaction",
+      "rules-continuous-stacked-boosts-regression",
+      "rules-continuous-resolution-power-positive",
+      "rules-continuous-resolution-power-negative",
+      "rules-continuous-resolution-power-interaction",
+      "rules-continuous-resolution-power-regression",
+      "rules-continuous-cleanup-positive",
+      "rules-continuous-cleanup-negative",
+      "rules-continuous-cleanup-interaction",
+      "rules-continuous-cleanup-regression",
+      "rules-objects-token-removal-positive",
+      "rules-objects-token-removal-negative",
+      "rules-objects-token-removal-interaction",
+      "rules-objects-token-removal-regression",
+      "rules-objects-zone-identity-positive",
+      "rules-objects-zone-identity-negative",
+      "rules-objects-zone-identity-interaction",
+      "rules-objects-zone-identity-regression",
+      "rules-objects-dead-source-positive",
+      "rules-objects-dead-source-negative",
+      "rules-objects-dead-source-interaction",
+      "rules-objects-dead-source-regression",
+      "rules-objects-bookkeeping-positive",
+      "rules-objects-bookkeeping-negative",
+      "rules-objects-bookkeeping-interaction",
+      "rules-objects-bookkeeping-regression",
+      "rules-terminal-lethal-positive",
+      "rules-terminal-lethal-negative",
+      "rules-terminal-lethal-interaction",
+      "rules-terminal-lethal-regression",
+      "rules-terminal-simultaneous-loss-positive",
+      "rules-terminal-simultaneous-loss-negative",
+      "rules-terminal-simultaneous-loss-interaction",
+      "rules-terminal-simultaneous-loss-regression",
+      "rules-terminal-empty-draw-positive",
+      "rules-terminal-empty-draw-negative",
+      "rules-terminal-empty-draw-interaction",
+      "rules-terminal-empty-draw-regression",
+      "rules-terminal-concede-positive",
+      "rules-terminal-concede-negative",
+      "rules-terminal-concede-interaction",
+      "rules-terminal-concede-regression",
+      "rules-terminal-rewards-once-positive",
+      "rules-terminal-rewards-once-negative",
+      "rules-terminal-rewards-once-interaction",
+      "rules-terminal-rewards-once-regression",
+      "rules-decisions-all-combinations-positive",
+      "rules-decisions-all-combinations-negative",
+      "rules-decisions-all-combinations-interaction",
+      "rules-decisions-all-combinations-regression",
+      "rules-decisions-masked-rejection-positive",
+      "rules-decisions-masked-rejection-negative",
+      "rules-decisions-masked-rejection-interaction",
+      "rules-decisions-masked-rejection-regression",
+      "rules-decisions-stale-candidates-positive",
+      "rules-decisions-stale-candidates-negative",
+      "rules-decisions-stale-candidates-interaction",
+      "rules-decisions-stale-candidates-regression",
+      "rules-decisions-capacity-positive",
+      "rules-decisions-capacity-negative",
+      "rules-decisions-capacity-interaction",
+      "rules-decisions-capacity-regression",
+      "rules-privacy-side-channels-positive",
+      "rules-privacy-side-channels-negative",
+      "rules-privacy-side-channels-interaction",
+      "rules-privacy-side-channels-regression",
+      "rules-replay-scalar-batch-positive",
+      "rules-replay-scalar-batch-negative",
+      "rules-replay-scalar-batch-interaction",
+      "rules-replay-scalar-batch-regression",
+      "rules-replay-pending-snapshot-positive",
+      "rules-replay-pending-snapshot-negative",
+      "rules-replay-pending-snapshot-interaction",
+      "rules-replay-pending-snapshot-regression",
+      "rules-replay-worker-independence-positive",
+      "rules-replay-worker-independence-negative",
+      "rules-replay-worker-independence-interaction",
+      "rules-replay-worker-independence-regression",
+      "rules-replay-selective-reset-positive",
+      "rules-replay-selective-reset-negative",
+      "rules-replay-selective-reset-interaction",
+      "rules-replay-selective-reset-regression",
+      "rules-setup-two-player-opening-positive",
+      "rules-setup-two-player-opening-negative",
+      "rules-setup-two-player-opening-interaction",
+      "rules-setup-two-player-opening-regression",
+      "rules-priority-turn-structure-positive",
+      "rules-priority-turn-structure-negative",
+      "rules-priority-turn-structure-interaction",
+      "rules-priority-turn-structure-regression",
+      "rules-costs-land-colored-modal-positive",
+      "rules-costs-land-colored-modal-negative",
+      "rules-costs-land-colored-modal-interaction",
+      "rules-costs-land-colored-modal-regression",
+      "rules-combat-creature-abilities-positive",
+      "rules-combat-creature-abilities-negative",
+      "rules-combat-creature-abilities-interaction",
+      "rules-combat-creature-abilities-regression",
+      "rules-triggers-apnap-positive",
+      "rules-triggers-apnap-negative",
+      "rules-triggers-apnap-interaction",
+      "rules-triggers-apnap-regression",
+      "rules-objects-token-create-positive",
+      "rules-objects-token-create-negative",
+      "rules-objects-token-create-interaction",
+      "rules-objects-token-create-regression",
+      "rules-continuous-hand-size-cleanup-positive",
+      "rules-continuous-hand-size-cleanup-negative",
+      "rules-continuous-hand-size-cleanup-interaction",
+      "rules-continuous-hand-size-cleanup-regression",
+      "rules-foundations_micro_v1-axgard-cavalry-positive",
+      "rules-foundations_micro_v1-axgard-cavalry-negative",
+      "rules-foundations_micro_v1-axgard-cavalry-interaction",
+      "rules-foundations_micro_v1-axgard-cavalry-regression",
+      "rules-foundations_micro_v1-bear-cub-positive",
+      "rules-foundations_micro_v1-bear-cub-negative",
+      "rules-foundations_micro_v1-bear-cub-interaction",
+      "rules-foundations_micro_v1-bear-cub-regression",
+      "rules-foundations_micro_v1-bite-down-positive",
+      "rules-foundations_micro_v1-bite-down-negative",
+      "rules-foundations_micro_v1-bite-down-interaction",
+      "rules-foundations_micro_v1-bite-down-regression",
+      "rules-foundations_micro_v1-crackling-cyclops-positive",
+      "rules-foundations_micro_v1-crackling-cyclops-negative",
+      "rules-foundations_micro_v1-crackling-cyclops-interaction",
+      "rules-foundations_micro_v1-crackling-cyclops-regression",
+      "rules-foundations_micro_v1-dragon-fodder-positive",
+      "rules-foundations_micro_v1-dragon-fodder-negative",
+      "rules-foundations_micro_v1-dragon-fodder-interaction",
+      "rules-foundations_micro_v1-dragon-fodder-regression",
+      "rules-foundations_micro_v1-druid-of-the-cowl-positive",
+      "rules-foundations_micro_v1-druid-of-the-cowl-negative",
+      "rules-foundations_micro_v1-druid-of-the-cowl-interaction",
+      "rules-foundations_micro_v1-druid-of-the-cowl-regression",
+      "rules-foundations_micro_v1-firebrand-archer-positive",
+      "rules-foundations_micro_v1-firebrand-archer-negative",
+      "rules-foundations_micro_v1-firebrand-archer-interaction",
+      "rules-foundations_micro_v1-firebrand-archer-regression",
+      "rules-foundations_micro_v1-forest-positive",
+      "rules-foundations_micro_v1-forest-negative",
+      "rules-foundations_micro_v1-forest-interaction",
+      "rules-foundations_micro_v1-forest-regression",
+      "rules-foundations_micro_v1-giant-growth-positive",
+      "rules-foundations_micro_v1-giant-growth-negative",
+      "rules-foundations_micro_v1-giant-growth-interaction",
+      "rules-foundations_micro_v1-giant-growth-regression",
+      "rules-foundations_micro_v1-goblin-surprise-positive",
+      "rules-foundations_micro_v1-goblin-surprise-negative",
+      "rules-foundations_micro_v1-goblin-surprise-interaction",
+      "rules-foundations_micro_v1-goblin-surprise-regression",
+      "rules-foundations_micro_v1-goblin-token-positive",
+      "rules-foundations_micro_v1-goblin-token-negative",
+      "rules-foundations_micro_v1-goblin-token-interaction",
+      "rules-foundations_micro_v1-goblin-token-regression",
+      "rules-foundations_micro_v1-llanowar-elves-positive",
+      "rules-foundations_micro_v1-llanowar-elves-negative",
+      "rules-foundations_micro_v1-llanowar-elves-interaction",
+      "rules-foundations_micro_v1-llanowar-elves-regression",
+      "rules-foundations_micro_v1-magnigoth-sentry-positive",
+      "rules-foundations_micro_v1-magnigoth-sentry-negative",
+      "rules-foundations_micro_v1-magnigoth-sentry-interaction",
+      "rules-foundations_micro_v1-magnigoth-sentry-regression",
+      "rules-foundations_micro_v1-mountain-positive",
+      "rules-foundations_micro_v1-mountain-negative",
+      "rules-foundations_micro_v1-mountain-interaction",
+      "rules-foundations_micro_v1-mountain-regression",
+      "rules-foundations_micro_v1-shivan-dragon-positive",
+      "rules-foundations_micro_v1-shivan-dragon-negative",
+      "rules-foundations_micro_v1-shivan-dragon-interaction",
+      "rules-foundations_micro_v1-shivan-dragon-regression",
+      "rules-foundations_micro_v1-swab-goblin-positive",
+      "rules-foundations_micro_v1-swab-goblin-negative",
+      "rules-foundations_micro_v1-swab-goblin-interaction",
+      "rules-foundations_micro_v1-swab-goblin-regression",
+      "rules-foundations_micro_v1-tajuru-pathwarden-positive",
+      "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+      "rules-foundations_micro_v1-tajuru-pathwarden-interaction",
+      "rules-foundations_micro_v1-tajuru-pathwarden-regression",
+      "rules-foundations_micro_v1-thornweald-archer-positive",
+      "rules-foundations_micro_v1-thornweald-archer-negative",
+      "rules-foundations_micro_v1-thornweald-archer-interaction",
+      "rules-foundations_micro_v1-thornweald-archer-regression",
+      "rules-foundations_micro_v1-thrill-of-possibility-positive",
+      "rules-foundations_micro_v1-thrill-of-possibility-negative",
+      "rules-foundations_micro_v1-thrill-of-possibility-interaction",
+      "rules-foundations_micro_v1-thrill-of-possibility-regression",
+      "rules-foundations_micro_v1-viashino-pyromancer-positive",
+      "rules-foundations_micro_v1-viashino-pyromancer-negative",
+      "rules-foundations_micro_v1-viashino-pyromancer-interaction",
+      "rules-foundations_micro_v1-viashino-pyromancer-regression",
+      "rules-foundations_micro_v1-wildheart-invoker-positive",
+      "rules-foundations_micro_v1-wildheart-invoker-negative",
+      "rules-foundations_micro_v1-wildheart-invoker-interaction",
+      "rules-foundations_micro_v1-wildheart-invoker-regression"
+    ],
+    "authored_fixture_checks": [
+      {
+        "path": "fixtures/scenarios/m0/growth-bite-cleanup.json",
+        "fixture_id": "bite-down/responding-growth/cleanup",
+        "fixture_revision": "9c2da884a4869d1e6beb978d367e0fcd5c36faff372ad7f6adf627f0b5b0c2d3",
+        "relation": "related-authored-input-not-execution",
+        "capability_ids": [
+          "priority/response-chain",
+          "priority/post-cast-resolution",
+          "priority/response-window",
+          "continuous/cleanup",
+          "continuous/resolution-power",
+          "foundations_micro_v1/bear-cub",
+          "foundations_micro_v1/bite-down",
+          "foundations_micro_v1/forest",
+          "foundations_micro_v1/giant-growth"
+        ],
+        "file_sha256": "d7376bd775a7171648c0b7a949cd2557d6e30691c8b7c281d3bc543b4739a7a1",
+        "checkpoints": 7,
+        "reference_evidence": []
+      },
+      {
+        "path": "fixtures/scenarios/m0/mulligan.json",
+        "fixture_id": "setup/london-one-mulligan",
+        "fixture_revision": "07f29e99a49ea4fc604ac60444c508392482859551d96d7293b77e280a234992",
+        "relation": "related-authored-input-not-execution",
+        "capability_ids": [
+          "setup/mulligan-bottom",
+          "setup/two-player-opening",
+          "setup/first-draw",
+          "setup/ordered-draw",
+          "foundations_micro_v1/bear-cub",
+          "foundations_micro_v1/bite-down",
+          "foundations_micro_v1/druid-of-the-cowl",
+          "foundations_micro_v1/forest",
+          "foundations_micro_v1/giant-growth",
+          "foundations_micro_v1/llanowar-elves",
+          "foundations_micro_v1/magnigoth-sentry",
+          "foundations_micro_v1/tajuru-pathwarden",
+          "foundations_micro_v1/thornweald-archer",
+          "foundations_micro_v1/wildheart-invoker"
+        ],
+        "file_sha256": "d44f4658d4b6274923f35c052c2c51d547b386213ad44f51351b55021c42f0f9",
+        "checkpoints": 4,
+        "reference_evidence": []
+      },
+      {
+        "path": "fixtures/scenarios/m0/priority-empty.json",
+        "fixture_id": "priority/empty-stack",
+        "fixture_revision": "8a3684b36c457ebe41d2ea0646c35ecd1fa9ef43977e4f45b182c88f393e5590",
+        "relation": "related-authored-input-not-execution",
+        "capability_ids": [
+          "priority/passing",
+          "priority/turn-structure"
+        ],
+        "file_sha256": "1d8e3a1204b28e79607a7baaf39af763b96caa30ed698c71b35903ecfe262162",
+        "checkpoints": 2,
+        "reference_evidence": []
+      },
+      {
+        "path": "fixtures/scenarios/m0/privacy-a.json",
+        "fixture_id": "privacy/hidden-permutation-a",
+        "fixture_revision": "3e5711cb5bccaeb6514851cd73ec236a7aed50910ebdead5a789d6ade1a285f6",
+        "relation": "related-authored-input-not-execution",
+        "capability_ids": [
+          "privacy/side-channels",
+          "setup/library-privacy",
+          "foundations_micro_v1/bear-cub",
+          "foundations_micro_v1/forest",
+          "foundations_micro_v1/giant-growth"
+        ],
+        "file_sha256": "473617c2e72205f3c6d954337397395f7cd4f2c4afd4541b544d146d9da91f6b",
+        "checkpoints": 2,
+        "reference_evidence": []
+      },
+      {
+        "path": "fixtures/scenarios/m0/privacy-b.json",
+        "fixture_id": "privacy/hidden-permutation-b",
+        "fixture_revision": "14bce2db2c6f9efbdc1009d993cb451830c826dc9d67715abf4d89dc69059be5",
+        "relation": "related-authored-input-not-execution",
+        "capability_ids": [
+          "privacy/side-channels",
+          "setup/library-privacy",
+          "foundations_micro_v1/bear-cub",
+          "foundations_micro_v1/forest",
+          "foundations_micro_v1/giant-growth"
+        ],
+        "file_sha256": "d3a3e858b955c96042bcadcef43aa23dce36c9685140d623e2c112436f2ccbdc",
+        "checkpoints": 2,
+        "reference_evidence": []
+      },
+      {
+        "path": "fixtures/scenarios/m0/targeting-bite.json",
+        "fixture_id": "targeting/bite-controller-restrictions",
+        "fixture_revision": "01de0814bc51559cf50b98788159c3669ed10a9147ee2338df9a3f197bf2beac",
+        "relation": "related-authored-input-not-execution",
+        "capability_ids": [
+          "targets/controller-restrictions",
+          "targets/required-targets",
+          "costs/atomic-rejection",
+          "foundations_micro_v1/bear-cub",
+          "foundations_micro_v1/bite-down"
+        ],
+        "file_sha256": "0696d449a9a1e682fe1d9bf0236b50b34665d07f972d0ff0e20313eeffecec9b",
+        "checkpoints": 1,
+        "reference_evidence": []
+      }
+    ]
+  },
+  "decks": {
+    "rfc_section_3_exact_counts": {
+      "red": {
+        "mountain": 16,
+        "swab-goblin": 4,
+        "axgard-cavalry": 2,
+        "crackling-cyclops": 3,
+        "firebrand-archer": 3,
+        "dragon-fodder": 4,
+        "goblin-surprise": 2,
+        "viashino-pyromancer": 2,
+        "thrill-of-possibility": 2,
+        "shivan-dragon": 2
+      },
+      "green": {
+        "forest": 16,
+        "bear-cub": 4,
+        "llanowar-elves": 3,
+        "druid-of-the-cowl": 2,
+        "magnigoth-sentry": 2,
+        "tajuru-pathwarden": 2,
+        "thornweald-archer": 3,
+        "giant-growth": 3,
+        "bite-down": 3,
+        "wildheart-invoker": 2
+      }
+    },
+    "matchups": [
+      {
+        "seats": [
+          "red",
+          "green"
+        ],
+        "starting_seat": 0
+      },
+      {
+        "seats": [
+          "red",
+          "green"
+        ],
+        "starting_seat": 1
+      },
+      {
+        "seats": [
+          "green",
+          "red"
+        ],
+        "starting_seat": 0
+      },
+      {
+        "seats": [
+          "green",
+          "red"
+        ],
+        "starting_seat": 1
+      },
+      {
+        "seats": [
+          "red",
+          "red"
+        ],
+        "starting_seat": 0
+      },
+      {
+        "seats": [
+          "red",
+          "red"
+        ],
+        "starting_seat": 1
+      },
+      {
+        "seats": [
+          "green",
+          "green"
+        ],
+        "starting_seat": 0
+      },
+      {
+        "seats": [
+          "green",
+          "green"
+        ],
+        "starting_seat": 1
+      }
+    ],
+    "validation": {
+      "validation": "offline-source-and-metadata",
+      "pool_id": "foundations_micro_v1",
+      "cards": 20,
+      "tokens": 1,
+      "decks": 2,
+      "matchups": 8
+    }
+  },
+  "capabilities": {
+    "implementation_counts": {
+      "planned": 80
+    },
+    "coverage": {
+      "coverage": {
+        "executed": 0,
+        "failed": 0,
+        "gaps": [
+          "setup/mulligan-bottom:positive",
+          "setup/mulligan-bottom:negative",
+          "setup/mulligan-bottom:interaction",
+          "setup/mulligan-bottom:regression",
+          "setup/first-draw:positive",
+          "setup/first-draw:negative",
+          "setup/first-draw:interaction",
+          "setup/first-draw:regression",
+          "setup/deterministic-reset:positive",
+          "setup/deterministic-reset:negative",
+          "setup/deterministic-reset:interaction",
+          "setup/deterministic-reset:regression",
+          "setup/ordered-draw:positive",
+          "setup/ordered-draw:negative",
+          "setup/ordered-draw:interaction",
+          "setup/ordered-draw:regression",
+          "setup/library-privacy:positive",
+          "setup/library-privacy:negative",
+          "setup/library-privacy:interaction",
+          "setup/library-privacy:regression",
+          "priority/passing:positive",
+          "priority/passing:negative",
+          "priority/passing:interaction",
+          "priority/passing:regression",
+          "priority/post-cast-resolution:positive",
+          "priority/post-cast-resolution:negative",
+          "priority/post-cast-resolution:interaction",
+          "priority/post-cast-resolution:regression",
+          "priority/response-chain:positive",
+          "priority/response-chain:negative",
+          "priority/response-chain:interaction",
+          "priority/response-chain:regression",
+          "priority/response-window:positive",
+          "priority/response-window:negative",
+          "priority/response-window:interaction",
+          "priority/response-window:regression",
+          "costs/mana-rejection:positive",
+          "costs/mana-rejection:negative",
+          "costs/mana-rejection:interaction",
+          "costs/mana-rejection:regression",
+          "costs/generic-payment:positive",
+          "costs/generic-payment:negative",
+          "costs/generic-payment:interaction",
+          "costs/generic-payment:regression",
+          "costs/creature-mana:positive",
+          "costs/creature-mana:negative",
+          "costs/creature-mana:interaction",
+          "costs/creature-mana:regression",
+          "costs/summoning-sickness:positive",
+          "costs/summoning-sickness:negative",
+          "costs/summoning-sickness:interaction",
+          "costs/summoning-sickness:regression",
+          "costs/discard-cost:positive",
+          "costs/discard-cost:negative",
+          "costs/discard-cost:interaction",
+          "costs/discard-cost:regression",
+          "costs/atomic-rejection:positive",
+          "costs/atomic-rejection:negative",
+          "costs/atomic-rejection:interaction",
+          "costs/atomic-rejection:regression",
+          "targets/controller-restrictions:positive",
+          "targets/controller-restrictions:negative",
+          "targets/controller-restrictions:interaction",
+          "targets/controller-restrictions:regression",
+          "targets/required-targets:positive",
+          "targets/required-targets:negative",
+          "targets/required-targets:interaction",
+          "targets/required-targets:regression",
+          "targets/zone-change:positive",
+          "targets/zone-change:negative",
+          "targets/zone-change:interaction",
+          "targets/zone-change:regression",
+          "targets/partial-invalidation:positive",
+          "targets/partial-invalidation:negative",
+          "targets/partial-invalidation:interaction",
+          "targets/partial-invalidation:regression",
+          "targets/resolution-revalidation:positive",
+          "targets/resolution-revalidation:negative",
+          "targets/resolution-revalidation:interaction",
+          "targets/resolution-revalidation:regression",
+          "triggers/cast-resolution:positive",
+          "triggers/cast-resolution:negative",
+          "triggers/cast-resolution:interaction",
+          "triggers/cast-resolution:regression",
+          "triggers/failed-cast:positive",
+          "triggers/failed-cast:negative",
+          "triggers/failed-cast:interaction",
+          "triggers/failed-cast:regression",
+          "triggers/etb-target:positive",
+          "triggers/etb-target:negative",
+          "triggers/etb-target:interaction",
+          "triggers/etb-target:regression",
+          "triggers/ordering:positive",
+          "triggers/ordering:negative",
+          "triggers/ordering:interaction",
+          "triggers/ordering:regression",
+          "combat/attack-block:positive",
+          "combat/attack-block:negative",
+          "combat/attack-block:interaction",
+          "combat/attack-block:regression",
+          "combat/flying-reach:positive",
+          "combat/flying-reach:negative",
+          "combat/flying-reach:interaction",
+          "combat/flying-reach:regression",
+          "combat/haste-vigilance:positive",
+          "combat/haste-vigilance:negative",
+          "combat/haste-vigilance:interaction",
+          "combat/haste-vigilance:regression",
+          "combat/multiple-blockers:positive",
+          "combat/multiple-blockers:negative",
+          "combat/multiple-blockers:interaction",
+          "combat/multiple-blockers:regression",
+          "combat/simultaneous-damage:positive",
+          "combat/simultaneous-damage:negative",
+          "combat/simultaneous-damage:interaction",
+          "combat/simultaneous-damage:regression",
+          "combat/deathtouch-trample:positive",
+          "combat/deathtouch-trample:negative",
+          "combat/deathtouch-trample:interaction",
+          "combat/deathtouch-trample:regression",
+          "combat/blocked-status:positive",
+          "combat/blocked-status:negative",
+          "combat/blocked-status:interaction",
+          "combat/blocked-status:regression",
+          "continuous/stacked-boosts:positive",
+          "continuous/stacked-boosts:negative",
+          "continuous/stacked-boosts:interaction",
+          "continuous/stacked-boosts:regression",
+          "continuous/resolution-power:positive",
+          "continuous/resolution-power:negative",
+          "continuous/resolution-power:interaction",
+          "continuous/resolution-power:regression",
+          "continuous/cleanup:positive",
+          "continuous/cleanup:negative",
+          "continuous/cleanup:interaction",
+          "continuous/cleanup:regression",
+          "objects/token-removal:positive",
+          "objects/token-removal:negative",
+          "objects/token-removal:interaction",
+          "objects/token-removal:regression",
+          "objects/zone-identity:positive",
+          "objects/zone-identity:negative",
+          "objects/zone-identity:interaction",
+          "objects/zone-identity:regression",
+          "objects/dead-source:positive",
+          "objects/dead-source:negative",
+          "objects/dead-source:interaction",
+          "objects/dead-source:regression",
+          "objects/bookkeeping:positive",
+          "objects/bookkeeping:negative",
+          "objects/bookkeeping:interaction",
+          "objects/bookkeeping:regression",
+          "terminal/lethal:positive",
+          "terminal/lethal:negative",
+          "terminal/lethal:interaction",
+          "terminal/lethal:regression",
+          "terminal/simultaneous-loss:positive",
+          "terminal/simultaneous-loss:negative",
+          "terminal/simultaneous-loss:interaction",
+          "terminal/simultaneous-loss:regression",
+          "terminal/empty-draw:positive",
+          "terminal/empty-draw:negative",
+          "terminal/empty-draw:interaction",
+          "terminal/empty-draw:regression",
+          "terminal/concede:positive",
+          "terminal/concede:negative",
+          "terminal/concede:interaction",
+          "terminal/concede:regression",
+          "terminal/rewards-once:positive",
+          "terminal/rewards-once:negative",
+          "terminal/rewards-once:interaction",
+          "terminal/rewards-once:regression",
+          "decisions/all-combinations:positive",
+          "decisions/all-combinations:negative",
+          "decisions/all-combinations:interaction",
+          "decisions/all-combinations:regression",
+          "decisions/masked-rejection:positive",
+          "decisions/masked-rejection:negative",
+          "decisions/masked-rejection:interaction",
+          "decisions/masked-rejection:regression",
+          "decisions/stale-candidates:positive",
+          "decisions/stale-candidates:negative",
+          "decisions/stale-candidates:interaction",
+          "decisions/stale-candidates:regression",
+          "decisions/capacity:positive",
+          "decisions/capacity:negative",
+          "decisions/capacity:interaction",
+          "decisions/capacity:regression",
+          "privacy/side-channels:positive",
+          "privacy/side-channels:negative",
+          "privacy/side-channels:interaction",
+          "privacy/side-channels:regression",
+          "replay/scalar-batch:positive",
+          "replay/scalar-batch:negative",
+          "replay/scalar-batch:interaction",
+          "replay/scalar-batch:regression",
+          "replay/pending-snapshot:positive",
+          "replay/pending-snapshot:negative",
+          "replay/pending-snapshot:interaction",
+          "replay/pending-snapshot:regression",
+          "replay/worker-independence:positive",
+          "replay/worker-independence:negative",
+          "replay/worker-independence:interaction",
+          "replay/worker-independence:regression",
+          "replay/selective-reset:positive",
+          "replay/selective-reset:negative",
+          "replay/selective-reset:interaction",
+          "replay/selective-reset:regression",
+          "setup/two-player-opening:positive",
+          "setup/two-player-opening:negative",
+          "setup/two-player-opening:interaction",
+          "setup/two-player-opening:regression",
+          "priority/turn-structure:positive",
+          "priority/turn-structure:negative",
+          "priority/turn-structure:interaction",
+          "priority/turn-structure:regression",
+          "costs/land-colored-modal:positive",
+          "costs/land-colored-modal:negative",
+          "costs/land-colored-modal:interaction",
+          "costs/land-colored-modal:regression",
+          "combat/creature-abilities:positive",
+          "combat/creature-abilities:negative",
+          "combat/creature-abilities:interaction",
+          "combat/creature-abilities:regression",
+          "triggers/apnap:positive",
+          "triggers/apnap:negative",
+          "triggers/apnap:interaction",
+          "triggers/apnap:regression",
+          "objects/token-create:positive",
+          "objects/token-create:negative",
+          "objects/token-create:interaction",
+          "objects/token-create:regression",
+          "continuous/hand-size-cleanup:positive",
+          "continuous/hand-size-cleanup:negative",
+          "continuous/hand-size-cleanup:interaction",
+          "continuous/hand-size-cleanup:regression",
+          "foundations_micro_v1/axgard-cavalry:positive",
+          "foundations_micro_v1/axgard-cavalry:negative",
+          "foundations_micro_v1/axgard-cavalry:interaction",
+          "foundations_micro_v1/axgard-cavalry:regression",
+          "foundations_micro_v1/bear-cub:positive",
+          "foundations_micro_v1/bear-cub:negative",
+          "foundations_micro_v1/bear-cub:interaction",
+          "foundations_micro_v1/bear-cub:regression",
+          "foundations_micro_v1/bite-down:positive",
+          "foundations_micro_v1/bite-down:negative",
+          "foundations_micro_v1/bite-down:interaction",
+          "foundations_micro_v1/bite-down:regression",
+          "foundations_micro_v1/crackling-cyclops:positive",
+          "foundations_micro_v1/crackling-cyclops:negative",
+          "foundations_micro_v1/crackling-cyclops:interaction",
+          "foundations_micro_v1/crackling-cyclops:regression",
+          "foundations_micro_v1/dragon-fodder:positive",
+          "foundations_micro_v1/dragon-fodder:negative",
+          "foundations_micro_v1/dragon-fodder:interaction",
+          "foundations_micro_v1/dragon-fodder:regression",
+          "foundations_micro_v1/druid-of-the-cowl:positive",
+          "foundations_micro_v1/druid-of-the-cowl:negative",
+          "foundations_micro_v1/druid-of-the-cowl:interaction",
+          "foundations_micro_v1/druid-of-the-cowl:regression",
+          "foundations_micro_v1/firebrand-archer:positive",
+          "foundations_micro_v1/firebrand-archer:negative",
+          "foundations_micro_v1/firebrand-archer:interaction",
+          "foundations_micro_v1/firebrand-archer:regression",
+          "foundations_micro_v1/forest:positive",
+          "foundations_micro_v1/forest:negative",
+          "foundations_micro_v1/forest:interaction",
+          "foundations_micro_v1/forest:regression",
+          "foundations_micro_v1/giant-growth:positive",
+          "foundations_micro_v1/giant-growth:negative",
+          "foundations_micro_v1/giant-growth:interaction",
+          "foundations_micro_v1/giant-growth:regression",
+          "foundations_micro_v1/goblin-surprise:positive",
+          "foundations_micro_v1/goblin-surprise:negative",
+          "foundations_micro_v1/goblin-surprise:interaction",
+          "foundations_micro_v1/goblin-surprise:regression",
+          "foundations_micro_v1/goblin-token:positive",
+          "foundations_micro_v1/goblin-token:negative",
+          "foundations_micro_v1/goblin-token:interaction",
+          "foundations_micro_v1/goblin-token:regression",
+          "foundations_micro_v1/llanowar-elves:positive",
+          "foundations_micro_v1/llanowar-elves:negative",
+          "foundations_micro_v1/llanowar-elves:interaction",
+          "foundations_micro_v1/llanowar-elves:regression",
+          "foundations_micro_v1/magnigoth-sentry:positive",
+          "foundations_micro_v1/magnigoth-sentry:negative",
+          "foundations_micro_v1/magnigoth-sentry:interaction",
+          "foundations_micro_v1/magnigoth-sentry:regression",
+          "foundations_micro_v1/mountain:positive",
+          "foundations_micro_v1/mountain:negative",
+          "foundations_micro_v1/mountain:interaction",
+          "foundations_micro_v1/mountain:regression",
+          "foundations_micro_v1/shivan-dragon:positive",
+          "foundations_micro_v1/shivan-dragon:negative",
+          "foundations_micro_v1/shivan-dragon:interaction",
+          "foundations_micro_v1/shivan-dragon:regression",
+          "foundations_micro_v1/swab-goblin:positive",
+          "foundations_micro_v1/swab-goblin:negative",
+          "foundations_micro_v1/swab-goblin:interaction",
+          "foundations_micro_v1/swab-goblin:regression",
+          "foundations_micro_v1/tajuru-pathwarden:positive",
+          "foundations_micro_v1/tajuru-pathwarden:negative",
+          "foundations_micro_v1/tajuru-pathwarden:interaction",
+          "foundations_micro_v1/tajuru-pathwarden:regression",
+          "foundations_micro_v1/thornweald-archer:positive",
+          "foundations_micro_v1/thornweald-archer:negative",
+          "foundations_micro_v1/thornweald-archer:interaction",
+          "foundations_micro_v1/thornweald-archer:regression",
+          "foundations_micro_v1/thrill-of-possibility:positive",
+          "foundations_micro_v1/thrill-of-possibility:negative",
+          "foundations_micro_v1/thrill-of-possibility:interaction",
+          "foundations_micro_v1/thrill-of-possibility:regression",
+          "foundations_micro_v1/viashino-pyromancer:positive",
+          "foundations_micro_v1/viashino-pyromancer:negative",
+          "foundations_micro_v1/viashino-pyromancer:interaction",
+          "foundations_micro_v1/viashino-pyromancer:regression",
+          "foundations_micro_v1/wildheart-invoker:positive",
+          "foundations_micro_v1/wildheart-invoker:negative",
+          "foundations_micro_v1/wildheart-invoker:interaction",
+          "foundations_micro_v1/wildheart-invoker:regression"
+        ],
+        "missing_passed": 320,
+        "passed": 0,
+        "planned": 0,
+        "required_slots": 320,
+        "unavailable": 0,
+        "unsupported": 0
+      },
+      "fixtures": 0,
+      "scenario_version": 1,
+      "status": "valid"
+    },
+    "required_execution_exit_code": 2,
+    "required_execution_failure": {
+      "status": "error",
+      "code": "invalid_scenario_or_coverage",
+      "message": "missing executed/passed coverage: setup/mulligan-bottom:positive, setup/mulligan-bottom:negative, setup/mulligan-bottom:interaction, setup/mulligan-bottom:regression, setup/first-draw:positive, setup/first-draw:negative, setup/first-draw:interaction, setup/first-draw:regression, setup/deterministic-reset:positive, setup/deterministic-reset:negative, setup/deterministic-reset:interaction, setup/deterministic-reset:regression, setup/ordered-draw:positive, setup/ordered-draw:negative, setup/ordered-draw:interaction, setup/ordered-draw:regression, setup/library-privacy:positive, setup/library-privacy:negative, setup/library-privacy:interaction, setup/library-privacy:regression, priority/passing:positive, priority/passing:negative, priority/passing:interaction, priority/passing:regression, priority/post-cast-resolution:positive, priority/post-cast-resolution:negative, priority/post-cast-resolution:interaction, priority/post-cast-resolution:regression, priority/response-chain:positive, priority/response-chain:negative, priority/response-chain:interaction, priority/response-chain:regression, priority/response-window:positive, priority/response-window:negative, priority/response-window:interaction, priority/response-window:regression, costs/mana-rejection:positive, costs/mana-rejection:negative, costs/mana-rejection:interaction, costs/mana-rejection:regression, costs/generic-payment:positive, costs/generic-payment:negative, costs/generic-payment:interaction, costs/generic-payment:regression, costs/creature-mana:positive, costs/creature-mana:negative, costs/creature-mana:interaction, costs/creature-mana:regression, costs/summoning-sickness:positive, costs/summoning-sickness:negative, costs/summoning-sickness:interaction, costs/summoning-sickness:regression, costs/discard-cost:positive, costs/discard-cost:negative, costs/discard-cost:interaction, costs/discard-cost:regression, costs/atomic-rejection:positive, costs/atomic-rejection:negative, costs/atomic-rejection:interaction, costs/atomic-rejection:regression, targets/controller-restrictions:positive, targets/controller-restrictions:negative, targets/controller-restrictions:interaction, targets/controller-restrictions:regression, targets/required-targets:positive, targets/required-targets:negative, targets/required-targets:interaction, targets/required-targets:regression, targets/zone-change:positive, targets/zone-change:negative, targets/zone-change:interaction, targets/zone-change:regression, targets/partial-invalidation:positive, targets/partial-invalidation:negative, targets/partial-invalidation:interaction, targets/partial-invalidation:regression, targets/resolution-revalidation:positive, targets/resolution-revalidation:negative, targets/resolution-revalidation:interaction, targets/resolution-revalidation:regression, triggers/cast-resolution:positive, triggers/cast-resolution:negative, triggers/cast-resolution:interaction, triggers/cast-resolution:regression, triggers/failed-cast:positive, triggers/failed-cast:negative, triggers/failed-cast:interaction, triggers/failed-cast:regression, triggers/etb-target:positive, triggers/etb-target:negative, triggers/etb-target:interaction, triggers/etb-target:regression, triggers/ordering:positive, triggers/ordering:negative, triggers/ordering:interaction, triggers/ordering:regression, combat/attack-block:positive, combat/attack-block:negative, combat/attack-block:interaction, combat/attack-block:regression, combat/flying-reach:positive, combat/flying-reach:negative, combat/flying-reach:interaction, combat/flying-reach:regression, combat/haste-vigilance:positive, combat/haste-vigilance:negative, combat/haste-vigilance:interaction, combat/haste-vigilance:regression, combat/multiple-blockers:positive, combat/multiple-blockers:negative, combat/multiple-blockers:interaction, combat/multiple-blockers:regression, combat/simultaneous-damage:positive, combat/simultaneous-damage:negative, combat/simultaneous-damage:interaction, combat/simultaneous-damage:regression, combat/deathtouch-trample:positive, combat/deathtouch-trample:negative, combat/deathtouch-trample:interaction, combat/deathtouch-trample:regression, combat/blocked-status:positive, combat/blocked-status:negative, combat/blocked-status:interaction, combat/blocked-status:regression, continuous/stacked-boosts:positive, continuous/stacked-boosts:negative, continuous/stacked-boosts:interaction, continuous/stacked-boosts:regression, continuous/resolution-power:positive, continuous/resolution-power:negative, continuous/resolution-power:interaction, continuous/resolution-power:regression, continuous/cleanup:positive, continuous/cleanup:negative, continuous/cleanup:interaction, continuous/cleanup:regression, objects/token-removal:positive, objects/token-removal:negative, objects/token-removal:interaction, objects/token-removal:regression, objects/zone-identity:positive, objects/zone-identity:negative, objects/zone-identity:interaction, objects/zone-identity:regression, objects/dead-source:positive, objects/dead-source:negative, objects/dead-source:interaction, objects/dead-source:regression, objects/bookkeeping:positive, objects/bookkeeping:negative, objects/bookkeeping:interaction, objects/bookkeeping:regression, terminal/lethal:positive, terminal/lethal:negative, terminal/lethal:interaction, terminal/lethal:regression, terminal/simultaneous-loss:positive, terminal/simultaneous-loss:negative, terminal/simultaneous-loss:interaction, terminal/simultaneous-loss:regression, terminal/empty-draw:positive, terminal/empty-draw:negative, terminal/empty-draw:interaction, terminal/empty-draw:regression, terminal/concede:positive, terminal/concede:negative, terminal/concede:interaction, terminal/concede:regression, terminal/rewards-once:positive, terminal/rewards-once:negative, terminal/rewards-once:interaction, terminal/rewards-once:regression, decisions/all-combinations:positive, decisions/all-combinations:negative, decisions/all-combinations:interaction, decisions/all-combinations:regression, decisions/masked-rejection:positive, decisions/masked-rejection:negative, decisions/masked-rejection:interaction, decisions/masked-rejection:regression, decisions/stale-candidates:positive, decisions/stale-candidates:negative, decisions/stale-candidates:interaction, decisions/stale-candidates:regression, decisions/capacity:positive, decisions/capacity:negative, decisions/capacity:interaction, decisions/capacity:regression, privacy/side-channels:positive, privacy/side-channels:negative, privacy/side-channels:interaction, privacy/side-channels:regression, replay/scalar-batch:positive, replay/scalar-batch:negative, replay/scalar-batch:interaction, replay/scalar-batch:regression, replay/pending-snapshot:positive, replay/pending-snapshot:negative, replay/pending-snapshot:interaction, replay/pending-snapshot:regression, replay/worker-independence:positive, replay/worker-independence:negative, replay/worker-independence:interaction, replay/worker-independence:regression, replay/selective-reset:positive, replay/selective-reset:negative, replay/selective-reset:interaction, replay/selective-reset:regression, setup/two-player-opening:positive, setup/two-player-opening:negative, setup/two-player-opening:interaction, setup/two-player-opening:regression, priority/turn-structure:positive, priority/turn-structure:negative, priority/turn-structure:interaction, priority/turn-structure:regression, costs/land-colored-modal:positive, costs/land-colored-modal:negative, costs/land-colored-modal:interaction, costs/land-colored-modal:regression, combat/creature-abilities:positive, combat/creature-abilities:negative, combat/creature-abilities:interaction, combat/creature-abilities:regression, triggers/apnap:positive, triggers/apnap:negative, triggers/apnap:interaction, triggers/apnap:regression, objects/token-create:positive, objects/token-create:negative, objects/token-create:interaction, objects/token-create:regression, continuous/hand-size-cleanup:positive, continuous/hand-size-cleanup:negative, continuous/hand-size-cleanup:interaction, continuous/hand-size-cleanup:regression, foundations_micro_v1/axgard-cavalry:positive, foundations_micro_v1/axgard-cavalry:negative, foundations_micro_v1/axgard-cavalry:interaction, foundations_micro_v1/axgard-cavalry:regression, foundations_micro_v1/bear-cub:positive, foundations_micro_v1/bear-cub:negative, foundations_micro_v1/bear-cub:interaction, foundations_micro_v1/bear-cub:regression, foundations_micro_v1/bite-down:positive, foundations_micro_v1/bite-down:negative, foundations_micro_v1/bite-down:interaction, foundations_micro_v1/bite-down:regression, foundations_micro_v1/crackling-cyclops:positive, foundations_micro_v1/crackling-cyclops:negative, foundations_micro_v1/crackling-cyclops:interaction, foundations_micro_v1/crackling-cyclops:regression, foundations_micro_v1/dragon-fodder:positive, foundations_micro_v1/dragon-fodder:negative, foundations_micro_v1/dragon-fodder:interaction, foundations_micro_v1/dragon-fodder:regression, foundations_micro_v1/druid-of-the-cowl:positive, foundations_micro_v1/druid-of-the-cowl:negative, foundations_micro_v1/druid-of-the-cowl:interaction, foundations_micro_v1/druid-of-the-cowl:regression, foundations_micro_v1/firebrand-archer:positive, foundations_micro_v1/firebrand-archer:negative, foundations_micro_v1/firebrand-archer:interaction, foundations_micro_v1/firebrand-archer:regression, foundations_micro_v1/forest:positive, foundations_micro_v1/forest:negative, foundations_micro_v1/forest:interaction, foundations_micro_v1/forest:regression, foundations_micro_v1/giant-growth:positive, foundations_micro_v1/giant-growth:negative, foundations_micro_v1/giant-growth:interaction, foundations_micro_v1/giant-growth:regression, foundations_micro_v1/goblin-surprise:positive, foundations_micro_v1/goblin-surprise:negative, foundations_micro_v1/goblin-surprise:interaction, foundations_micro_v1/goblin-surprise:regression, foundations_micro_v1/goblin-token:positive, foundations_micro_v1/goblin-token:negative, foundations_micro_v1/goblin-token:interaction, foundations_micro_v1/goblin-token:regression, foundations_micro_v1/llanowar-elves:positive, foundations_micro_v1/llanowar-elves:negative, foundations_micro_v1/llanowar-elves:interaction, foundations_micro_v1/llanowar-elves:regression, foundations_micro_v1/magnigoth-sentry:positive, foundations_micro_v1/magnigoth-sentry:negative, foundations_micro_v1/magnigoth-sentry:interaction, foundations_micro_v1/magnigoth-sentry:regression, foundations_micro_v1/mountain:positive, foundations_micro_v1/mountain:negative, foundations_micro_v1/mountain:interaction, foundations_micro_v1/mountain:regression, foundations_micro_v1/shivan-dragon:positive, foundations_micro_v1/shivan-dragon:negative, foundations_micro_v1/shivan-dragon:interaction, foundations_micro_v1/shivan-dragon:regression, foundations_micro_v1/swab-goblin:positive, foundations_micro_v1/swab-goblin:negative, foundations_micro_v1/swab-goblin:interaction, foundations_micro_v1/swab-goblin:regression, foundations_micro_v1/tajuru-pathwarden:positive, foundations_micro_v1/tajuru-pathwarden:negative, foundations_micro_v1/tajuru-pathwarden:interaction, foundations_micro_v1/tajuru-pathwarden:regression, foundations_micro_v1/thornweald-archer:positive, foundations_micro_v1/thornweald-archer:negative, foundations_micro_v1/thornweald-archer:interaction, foundations_micro_v1/thornweald-archer:regression, foundations_micro_v1/thrill-of-possibility:positive, foundations_micro_v1/thrill-of-possibility:negative, foundations_micro_v1/thrill-of-possibility:interaction, foundations_micro_v1/thrill-of-possibility:regression, foundations_micro_v1/viashino-pyromancer:positive, foundations_micro_v1/viashino-pyromancer:negative, foundations_micro_v1/viashino-pyromancer:interaction, foundations_micro_v1/viashino-pyromancer:regression, foundations_micro_v1/wildheart-invoker:positive, foundations_micro_v1/wildheart-invoker:negative, foundations_micro_v1/wildheart-invoker:interaction, foundations_micro_v1/wildheart-invoker:regression"
+    },
+    "production_supported": 0,
+    "production_not_implemented": 80,
+    "authored_corpus_reference_supported": 0,
+    "authored_corpus_reference_unsupported": 6,
+    "reference_disputes": 0
+  },
+  "verification": {
+    "status": "passed",
+    "python_tests": 114,
+    "rust_tests": 8,
+    "skipped": 0,
+    "log_sha256": "467cb49870871dcd5f62f755798e38dc7db9b99a47fa7437f5961e81bf4fe945"
+  },
+  "rules_fetch": {
+    "byte_count": 977752,
+    "effective_date": "2026-09-25",
+    "retrieval_date": "2026-09-26",
+    "rules_version": "cr-2026-09-25",
+    "schema_version": 1,
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+    "source_url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+    "verification": "official-source-fetch-sha256-and-header",
+    "verified_at": "2026-09-27T09:25:06.018957+00:00"
+  },
+  "cards_fetch": {
+    "schema_version": 1,
+    "pool_id": "foundations_micro_v1",
+    "revision": "2026-09-26.1",
+    "verified_at": "2026-09-27T09:25:16.450666+00:00",
+    "cards": [
+      {
+        "card_id": "axgard-cavalry",
+        "source_url": "https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed",
+        "raw_response_sha256": "961df7d3cbf32895c12c6af7dba22f21bccc4a0ac0fa3c963da9ff6f094111e1",
+        "byte_count": 4903,
+        "source_projection_sha256": "9e4ee8b826d37239356fb67e51191bcbab91e471dbdf1c65f4600b95727b308c"
+      },
+      {
+        "card_id": "bear-cub",
+        "source_url": "https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa",
+        "raw_response_sha256": "5b70ddfe8531a0649eede740151237630cd07be8b9630308d8025ee7c10de66e",
+        "byte_count": 5284,
+        "source_projection_sha256": "c46909fa414e06c35788bdfcf4a89e9279848ae3a9214f2fb60952aea88b25f0"
+      },
+      {
+        "card_id": "bite-down",
+        "source_url": "https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5",
+        "raw_response_sha256": "5a8c718a5b68cd5dc5a60f412e87e08bc1e4790bfc83a84e256633e5474d852d",
+        "byte_count": 4970,
+        "source_projection_sha256": "7bd7f110e98c7ae1c32ba73e15c2b9dc08c60ea80e9b6e099b841a4e8fca995d"
+      },
+      {
+        "card_id": "crackling-cyclops",
+        "source_url": "https://api.scryfall.com/cards/6e5b899a-52f7-471b-ad50-4fa6566758fd",
+        "raw_response_sha256": "ee54c30e3ab0e6ea9f5617ffc0a5c8ef79ef1063ad0eb7d85db63fd555771eb8",
+        "byte_count": 4962,
+        "source_projection_sha256": "9dfae688643be917dc6b079177b32f2fcdb71b120b5dd5c49a90b6588661442b"
+      },
+      {
+        "card_id": "dragon-fodder",
+        "source_url": "https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146",
+        "raw_response_sha256": "00ae40cec0ba4d4849163734a6dafd179db5ccbcabd637bd300c73b2e3a9895f",
+        "byte_count": 5411,
+        "source_projection_sha256": "595fa5e838dd68734385c34a60d3ed6e890fc8bcc210576f251ecf21727fcc3f"
+      },
+      {
+        "card_id": "druid-of-the-cowl",
+        "source_url": "https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4",
+        "raw_response_sha256": "694903f580e408d03808ae91a1a2c9809d5f4f8e408bea0cda4ffeebf5cb3b49",
+        "byte_count": 4931,
+        "source_projection_sha256": "089df4cc354a87bcab76deca76fc040852488ab5adc565cbefa4fb15650a55f9"
+      },
+      {
+        "card_id": "firebrand-archer",
+        "source_url": "https://api.scryfall.com/cards/fe0312f1-4c98-4b7f-8a34-0059ea80edef",
+        "raw_response_sha256": "14a91c6c45834d33e351c2cca8fbda606a2e03c8a4242f165d695d9469991944",
+        "byte_count": 4903,
+        "source_projection_sha256": "9322c753bf5d375d25f4055c4c8cb28666233044bcdf9272183cb0f804a43e11"
+      },
+      {
+        "card_id": "forest",
+        "source_url": "https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378",
+        "raw_response_sha256": "ee50b2464f0d1a948168c57a93d53d0b0d176d02dfef77615a436aff665add54",
+        "byte_count": 5169,
+        "source_projection_sha256": "d6c770658c87d99a67fd294199d9018396f426a9d7843301ce8cb20e677663c6"
+      },
+      {
+        "card_id": "giant-growth",
+        "source_url": "https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0",
+        "raw_response_sha256": "e91e392ac925f2b3332429b4209895d989827cfa6a4c0083bb579c1f2eb6cf2d",
+        "byte_count": 4764,
+        "source_projection_sha256": "0512c008cf6612678feb4dbfc8809fe088aa73f4413bc8cedcc826e19a2d7f6f"
+      },
+      {
+        "card_id": "goblin-surprise",
+        "source_url": "https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e",
+        "raw_response_sha256": "d4a9ac63df46d0757285f93838a541db76c724c403208e7443f2aa16b415789b",
+        "byte_count": 5320,
+        "source_projection_sha256": "e69891419a5a08607e5eca5c67d416bdc3b60ff90da2a5ca46f52167f393b61c"
+      },
+      {
+        "card_id": "goblin-token",
+        "source_url": "https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e",
+        "raw_response_sha256": "cc98ef1cb37df92f949f32f65ef6180533992e5472efe3cd575f34094d0bf566",
+        "byte_count": 20070,
+        "source_projection_sha256": "edf01e8f6cd8f99162854620ea3a45b0d1f6ccad5dd59de616b619623d1928d6"
+      },
+      {
+        "card_id": "llanowar-elves",
+        "source_url": "https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd",
+        "raw_response_sha256": "44447c9ef9e2ae9f6f694e61519a7294b293bd1874528f5b9833e4ddb090e2c7",
+        "byte_count": 5593,
+        "source_projection_sha256": "ee546b91d8f126cb0a72b689f4e169a34a21737e8a9f605d4942e827d5d48093"
+      },
+      {
+        "card_id": "magnigoth-sentry",
+        "source_url": "https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a",
+        "raw_response_sha256": "b24f7969ed8ad41c77bb6e169f7c53fd9acafc07b4acfdd7ce545231e87c9dd4",
+        "byte_count": 4971,
+        "source_projection_sha256": "b0a3cd678db5e3458dfec81d172f797e2a63064a33ea4ca90f9de3e971ac1a84"
+      },
+      {
+        "card_id": "mountain",
+        "source_url": "https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c",
+        "raw_response_sha256": "630b36eda10e1be8827010634f79ab577a31b81f77a5fffc24cd3ae8fd7ba822",
+        "byte_count": 4703,
+        "source_projection_sha256": "ebdac766ea1e95edf8b25d8fab4668266d2324d4b5cfc4f0549dff93da4172aa"
+      },
+      {
+        "card_id": "shivan-dragon",
+        "source_url": "https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0",
+        "raw_response_sha256": "b3d610bf777006add7649aee36d283fa02851d38ef2265a55713fc24e8a78592",
+        "byte_count": 5270,
+        "source_projection_sha256": "b9eaa5fca977423847d28b7aed88062eb7ef299073c244b9361dcb6f50a38d0f"
+      },
+      {
+        "card_id": "swab-goblin",
+        "source_url": "https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa",
+        "raw_response_sha256": "00be8d5242e8702ec507cd39b40c3538286b3a48c04c543d2a54432f434279f6",
+        "byte_count": 4837,
+        "source_projection_sha256": "68d3cd5790e0d783ef1f72f722d1eaf64028de41f18bf21e016b88513de41f5b"
+      },
+      {
+        "card_id": "tajuru-pathwarden",
+        "source_url": "https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8",
+        "raw_response_sha256": "700c08bec66527ccee1fdaa231118338cee93bfda13f6d33b3b9beeb66e7148d",
+        "byte_count": 5107,
+        "source_projection_sha256": "5494d3f40a15a6f4131789f91523d7262a2e11fac91fda8961858f5094a8383d"
+      },
+      {
+        "card_id": "thornweald-archer",
+        "source_url": "https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b",
+        "raw_response_sha256": "78c6f5e36e3174d9227ced81c1ea7b1dded20a00ec373f7839bc0d805a8a5cd9",
+        "byte_count": 5044,
+        "source_projection_sha256": "e69c28630b1d61a495e3214cc98840e5bc5ff5968a4ffaeacd286a633c003aa3"
+      },
+      {
+        "card_id": "thrill-of-possibility",
+        "source_url": "https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669",
+        "raw_response_sha256": "a1a7ae0b661ef91029412c4e935daeeb2f04bcdc56cfc050e159bc21458f5b12",
+        "byte_count": 4971,
+        "source_projection_sha256": "a55cea034bfc9385461ff6652b184af3421b7e101b9ba237c9169ab547efacb6"
+      },
+      {
+        "card_id": "viashino-pyromancer",
+        "source_url": "https://api.scryfall.com/cards/9f52ada2-cabc-46a3-99df-271833a86909",
+        "raw_response_sha256": "40402c3f87dee7a3e9d1536bcf086590db56db62c84d696f40255ab0bbf3d8ea",
+        "byte_count": 4949,
+        "source_projection_sha256": "78b1b5a505dfd666e7077b162045a399a5cc8b9ebf888fdae12e9540ecd42fab"
+      },
+      {
+        "card_id": "wildheart-invoker",
+        "source_url": "https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d",
+        "raw_response_sha256": "1062f6820cd1cb3045fcdd20dcfd22a6a1fee5ee265556d37e52e967a7592489",
+        "byte_count": 5075,
+        "source_projection_sha256": "137ab22b1c983cb6ba2a40cae329aaeca4df6a516ed6c616e4cd74591b543363"
+      }
+    ]
+  },
+  "reference_acceptance": {
+    "xmage": {
+      "status": "agreed",
+      "smoke_seconds": 18.24115318799886,
+      "checkpoint_sha256": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+      "fixture_sha256": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+      "bridge_sha256": "3fd4d3c3a27dbaa367d5cb41109f72783820bb39850dc02a57a36cce891e9acf",
+      "runner_sha256": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+      "pins_sha256": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+      "dependencies_sha256": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+      "platform": "Linux/aarch64",
+      "stdin": "closed",
+      "display": "unset",
+      "offline": true,
+      "smoke_timeout_seconds": 180,
+      "logs": {
+        "smoke-1": "c5840158e77cf466445e69e02bb0255ad78a46878780d32f6f4818ec12550064",
+        "smoke-2": "4868827e6bcc11663c759241d477acc0bbce7c02b2c4613730f2364a67f39668"
+      },
+      "mutations": {
+        "life": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /players/0/life",
+          "log_sha256": "08a1bafb341a8ef2f5e9f80f600ad04fb3685afe9109ceda4b0aa671731bcf5d"
+        },
+        "choice": {
+          "status": "detected",
+          "reason": "script actor mismatch",
+          "log_sha256": "375cbe4125da306393a25de7a9c7a9f040707df2a382ecb39de84e27d4997825"
+        },
+        "checkpoint": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /priority",
+          "log_sha256": "721444ff764a39fac565caa58f27dff6c4be560261f899e013bd994e32d4fc6c"
+        }
+      }
+    },
+    "forge": {
+      "status": "agreed",
+      "smoke_seconds": 35.95212704699952,
+      "checkpoint_sha256": "77d9ab7da1533005d28ebe36e9335fc695db2d3ce072f299b61fe3fdb647ed32",
+      "fixture_sha256": "d8775975bfe2901ca369d386504ab031282b1b359d299ffe584687db4eb94ed4",
+      "bridge_sha256": "f887af84b73b88d60e4ce237f452dc2876aa9d3b73f5df6c5a3bd4bcf5a1ad7a",
+      "runner_sha256": "dcd3288c27d5680ce907d4bb9be3200043f80acae4a1432e523c04be0d7c62f7",
+      "shared_runner_sha256": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+      "pins_sha256": "66be220170efc5dd79d6c91373f966ba51626b7772883211f0c8843e1bde2132",
+      "dependencies_sha256": "8b99dc9fe2352bc8d42b5008bc90e0874a768b404491351eb77c0f23e8c38299",
+      "xmage_checkpoint_sha256": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+      "platform": "Linux/aarch64",
+      "stdin": "closed",
+      "display": "unset",
+      "offline": true,
+      "smoke_timeout_seconds": 180,
+      "command": [
+        "mvn",
+        "-B",
+        "-ntp",
+        "-s",
+        "/tmp/mtg-forge/settings.xml",
+        "-gs",
+        "/tmp/mtg-forge/settings.xml",
+        "-Dmaven.repo.local=/tmp/mtg-forge/m2",
+        "-o",
+        "-pl",
+        "forge-gui-desktop",
+        "-am",
+        "test",
+        "-Dtest=forge.gamesimulationtests.mtglab.NeutralSmokeTest",
+        "-Dsurefire.failIfNoSpecifiedTests=false",
+        "-Dmtglab.fixture=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-16/fixtures/scenarios/xmage-priority-pass.json",
+        "-Dmtglab.output=/tmp/mtg-forge/smoke-1.json",
+        "-Dmtglab.assets=/tmp/mtg-forge/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/"
+      ],
+      "logs": {
+        "smoke-1": "796ab3baf972f4d167c8ac60b4d14fcc8354edec69af2a8e5b4a392a816a31df",
+        "smoke-2": "d8b1c7944eba7bb4ca7c119dd4a233b7b1060717b2654437b47cc87f0eea9733"
+      },
+      "mutations": {
+        "life": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /players/0/life",
+          "fixture_sha256": "53880629809a914b08009922b21363f3351b1321e50f3517f690145e78bbd1e6",
+          "log_sha256": "f7002f76afa6bbe6a92bae82974e4c3b0103a8dd3a06d2b62c9b834a7dc2cb72"
+        },
+        "choice": {
+          "status": "detected",
+          "reason": "script actor mismatch",
+          "fixture_sha256": "44354dd7efabef73b328c4a86a0b7f8d05415904bb55896fb75bf72b171d67c2",
+          "log_sha256": "29b686935fcbdf93c279f11250486f8f78320c5aa7e7c12b381a19bdbd21f118"
+        },
+        "checkpoint": {
+          "status": "detected",
+          "reason": "priority-p1 mismatch: /priority",
+          "fixture_sha256": "11b56772abffe24805fe8f60c6f53c0970e023d63ae014c482a49ccab44ba576",
+          "log_sha256": "1495faa45b1a69f1a977da9a220ba3b0a0aabd97d4b680227c1b54d02e3121df"
+        }
+      }
+    }
+  },
+  "reference_raw_checks": {
+    "xmage": {
+      "positive_runs": 2,
+      "tests_per_positive_run": 1,
+      "skipped": 0,
+      "surefire_summaries": {
+        "smoke-1": [
+          "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0"
+        ],
+        "smoke-2": [
+          "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0"
+        ]
+      },
+      "actual": {
+        "bridge_version": 1,
+        "checkpoints": [
+          {
+            "name": "initial",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 0,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          },
+          {
+            "name": "priority-p1",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 1,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "graveyard": [],
+                    "battlefield": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          }
+        ],
+        "unsupported": {
+          "object_characteristics_status_damage": "Library-only cards; permanent state unsupported in smoke v1",
+          "legal_choices": "Enumeration not exported by smoke v1; only explicit pass executed",
+          "outcome": "Stopped at intermediate decision, not game end",
+          "effects_and_private_views": "Not exported by smoke v1",
+          "land_plays_used": "Not exported by smoke v1"
+        }
+      },
+      "mutation_fixture_sha256": {
+        "life": "53880629809a914b08009922b21363f3351b1321e50f3517f690145e78bbd1e6",
+        "choice": "44354dd7efabef73b328c4a86a0b7f8d05415904bb55896fb75bf72b171d67c2",
+        "checkpoint": "11b56772abffe24805fe8f60c6f53c0970e023d63ae014c482a49ccab44ba576"
+      }
+    },
+    "forge": {
+      "positive_runs": 2,
+      "tests_per_positive_run": 1,
+      "skipped": 0,
+      "surefire_summaries": {
+        "smoke-1": [
+          "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.529 s -- in forge.gamesimulationtests.mtglab.NeutralSmokeTest",
+          "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0"
+        ],
+        "smoke-2": [
+          "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.145 s -- in forge.gamesimulationtests.mtglab.NeutralSmokeTest",
+          "[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0"
+        ]
+      },
+      "actual": {
+        "bridge_version": 1,
+        "checkpoints": [
+          {
+            "name": "initial",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 0,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          },
+          {
+            "name": "priority-p1",
+            "state": {
+              "turn": 1,
+              "active_player": 0,
+              "priority": 1,
+              "phase": "beginning",
+              "step": "upkeep",
+              "players": [
+                {
+                  "seat": 0,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p0-library-0",
+                      "p0-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                },
+                {
+                  "seat": 1,
+                  "life": 20,
+                  "mana": {
+                    "W": 0,
+                    "U": 0,
+                    "B": 0,
+                    "R": 0,
+                    "G": 0,
+                    "C": 0
+                  },
+                  "zones": {
+                    "library": [
+                      "p1-library-0",
+                      "p1-library-1"
+                    ],
+                    "hand": [],
+                    "battlefield": [],
+                    "graveyard": [],
+                    "exile": []
+                  }
+                }
+              ],
+              "stack": []
+            }
+          }
+        ],
+        "observed_cards": {
+          "p0-library-0": "forest",
+          "p0-library-1": "mountain",
+          "p1-library-0": "mountain",
+          "p1-library-1": "forest"
+        },
+        "unsupported": {
+          "object_characteristics_status_damage": "Library-only smoke; permanent attributes not exported",
+          "legal_choices": "Only explicit pass; enumeration not exported",
+          "outcome": "Stopped at intermediate priority, not game end",
+          "effects_and_private_views": "Not exported by smoke v1",
+          "land_plays_used": "Not exported by smoke v1"
+        }
+      },
+      "mutation_fixture_sha256": {
+        "life": "53880629809a914b08009922b21363f3351b1321e50f3517f690145e78bbd1e6",
+        "choice": "44354dd7efabef73b328c4a86a0b7f8d05415904bb55896fb75bf72b171d67c2",
+        "checkpoint": "11b56772abffe24805fe8f60c6f53c0970e023d63ae014c482a49ccab44ba576"
+      }
+    }
+  },
+  "dependency_main_ci": [
+    {
+      "id": 36270188619,
+      "sha": "245840b2c8c09bfaf716e6e9c2dc5f2fa500a3ff",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36270188619"
+    },
+    {
+      "id": 36270811894,
+      "sha": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36270811894"
+    },
+    {
+      "id": 36271597447,
+      "sha": "a19908ac264d78e82ebe2c8ab815762d2b7fff16",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36271597447"
+    },
+    {
+      "id": 36274197216,
+      "sha": "d642995f9dfd99915c2927f61f6a530e5df91462",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36274197216"
+    },
+    {
+      "id": 36276825597,
+      "sha": "41fd4f4c00d6f39af3b285db19be383d29e06f94",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36276825597"
+    },
+    {
+      "id": 36277619884,
+      "sha": "046210779ec6b76e1d332d4cf504db4b8afba396",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36277619884"
+    },
+    {
+      "id": 36278768262,
+      "sha": "23beaa6b4deca8176a0d6e162ec1bffc0c44e1b5",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36278768262"
+    },
+    {
+      "id": 36279965820,
+      "sha": "4760ba1d9dc2f7edbc3af4095715298df5c7510e",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36279965820"
+    },
+    {
+      "id": 36309017216,
+      "sha": "2bd67ca5bbad37589630c3b25e5f5bbef0a8d7e2",
+      "event": "push",
+      "branch": "main",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36309017216"
+    }
+  ],
+  "release_questions": [
+    "REL-01",
+    "REL-02",
+    "REL-03"
+  ],
+  "authorization": {
+    "M0": "audit pass; delivery review/merge/CI recorded in GH-16 workpad",
+    "M1-M5": "not authorized; no task queued"
+  },
+  "failed_attempts": [
+    {
+      "command": "git fetch origin main",
+      "error": "cannot open .git/FETCH_HEAD: Read-only file system",
+      "resolution": "narrow approved Git fetch succeeded"
+    }
+  ]
+}
