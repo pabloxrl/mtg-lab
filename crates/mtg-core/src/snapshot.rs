@@ -134,6 +134,12 @@ impl Game {
             return false;
         }
         self.work.iter().all(|w| match w {
+            Work::CombatLife(_) | Work::FinishCombat => {
+                self.turns
+                    .position
+                    .is_some_and(|(_, _, step)| step == turns::Step::CombatDamage)
+                    && self.turns.decision.is_none()
+            }
             Work::Modify(m) => self
                 .objects
                 .get(m.handle)

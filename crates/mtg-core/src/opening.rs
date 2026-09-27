@@ -737,6 +737,8 @@ pub enum Progress {
 }
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 enum Work {
+    CombatLife([i64; 2]),
+    FinishCombat,
     Modify(targets::Modification),
     SpellMove {
         handle: Handle,
@@ -805,6 +807,19 @@ impl Game {
                 break;
             };
             let done = match &mut work {
+                Work::CombatLife(life) => {
+                    self.life = *life;
+                    true
+                }
+                Work::FinishCombat => {
+                    self.turns.modifications.retain(|m| {
+                        self.objects
+                            .get(m.handle)
+                            .is_ok_and(|o| o.zone == Zone::Battlefield)
+                    });
+                    self.turns.combat.assignments.clear();
+                    true
+                }
                 Work::Modify(m) => {
                     if let Some(old) = self
                         .turns

@@ -559,8 +559,342 @@ fn combat_shared_xmage_reference_checkpoints() {
                 .collect();
             g.assign_combat_damage(d.actor, d.id, a, &amounts).unwrap();
         }
+        let before_damage = g.snapshot();
+        for budget in [1, 2, 3, 5, 64] {
+            let mut bounded = Game::new().unwrap();
+            bounded.restore(&before_damage).unwrap();
+            combat_quantum_finish(&mut bounded, budget);
+            assert_eq!(
+                checkpoint(&bounded, "damage"),
+                case["expected"][3],
+                "{} at quantum {budget}",
+                case["id"]
+            );
+        }
         damage(&mut g);
         points.push(checkpoint(&g, "damage"));
         assert_eq!(json!(points), case["expected"], "{}", case["id"]);
     }
+}
+
+// GH-108: synthetic old vanilla creatures, followed by actual declaration,
+// allocation and priority APIs. CR 510.1c/510.2: all assigned damage happens
+// simultaneously; a blocked attacker with no blockers deals no player damage.
+// CR 704.5a/g: life loss and lethal creatures settle before priority (117.5).
+fn combat_quantum_state(g: &Game) -> serde_json::Value {
+    fn normalize(v: &mut serde_json::Value) {
+        match v {
+            serde_json::Value::Object(m) => {
+                for (k, v) in m {
+                    if k == "store" || k == "scope" {
+                        *v = 0.into();
+                    } else {
+                        normalize(v);
+                    }
+                }
+            }
+            serde_json::Value::Array(a) => a.iter_mut().for_each(normalize),
+            _ => (),
+        }
+    }
+    let mut value = serde_json::to_value(g).unwrap();
+    normalize(&mut value);
+    value["objects"]["id"] = 0.into();
+    value
+}
+fn combat_quantum_finish(g: &mut Game, budget: usize) -> usize {
+    let d = g.turn_decision().unwrap();
+    let q = NonZeroUsize::new(budget).unwrap();
+    let generation = g.generation;
+    let rng = serde_json::to_value(&g.rng).unwrap();
+    let mut progress = g.finish_combat_quantum(d.actor, d.id, q).unwrap();
+    if budget == 1 {
+        assert_eq!(
+            progress,
+            Progress::InternalYield,
+            "damage must leave owned work at quantum 1"
+        );
+    }
+    assert_eq!(g.generation, generation + 1);
+    let mut yields = 0;
+    while progress == Progress::InternalYield {
+        yields += 1;
+        assert!(yields < 100);
+        assert_eq!(g.turn_decision(), None);
+        assert_eq!(g.decision(), None);
+        assert_eq!(g.outcome(), None);
+        let before = g.snapshot();
+        for seat in [Seat::P0, Seat::P1] {
+            assert_eq!(
+                g.observe(seat),
+                Err(crate::opening::views::ViewError::Unavailable)
+            );
+            assert!(g.combat_decision(seat, 80).is_err());
+            assert!(g.finish_combat_quantum(seat, d.id, q).is_err());
+            assert!(g.finish_combat(seat, d.id).is_err());
+            assert!(g.select_attackers(seat, d.id, &[]).is_err());
+            assert!(g.select_blockers(seat, d.id, &[]).is_err());
+            assert!(
+                g.apply_turn(
+                    seat,
+                    &TurnAction {
+                        decision: d.id,
+                        selection: TurnSelection::Pass(d.candidate(0)),
+                    }
+                )
+                .is_err()
+            );
+            assert!(g.concede(seat, g.episode_id().unwrap()).is_err());
+            assert!(g.draw_top(seat).is_err());
+        }
+        assert!(g.reset(&Config::default(), 999, 1).is_err());
+        assert_eq!(g.snapshot(), before);
+        let mut restored = Game::new().unwrap();
+        restored.restore(&before).unwrap();
+        let restored_progress = restored.resume(q);
+        progress = g.resume(q);
+        assert_eq!(combat_quantum_state(&restored), combat_quantum_state(g));
+        assert_eq!(
+            matches!(restored_progress, Progress::InternalYield),
+            matches!(progress, Progress::InternalYield)
+        );
+    }
+    assert_eq!(serde_json::to_value(&g.rng).unwrap(), rng);
+    assert_eq!(g.generation, generation + 1);
+    assert!(matches!(
+        progress,
+        Progress::TurnDecision(_) | Progress::Terminal(_)
+    ));
+    let before = g.snapshot();
+    assert!(g.finish_combat_quantum(d.actor, d.id, q).is_err());
+    assert!(g.finish_combat(d.actor, d.id).is_err());
+    assert_eq!(g.resume(q), progress);
+    assert_eq!(g.resume(NonZeroUsize::MAX), progress);
+    assert_eq!(g.snapshot(), before);
+    yields
+}
+fn combat_quantum_setup(active: Seat) -> Game {
+    let mut g = ready();
+    g.turns.position = Some((3, active, Step::BeginningCombat));
+    g.set_turn_decision(active, TurnKind::Priority);
+    g
+}
+#[test]
+fn combat_quantum_all_modern_allocations_simultaneous_lethal_both_seats() {
+    for active in [Seat::P0, Seat::P1] {
+        for first in 0..=2 {
+            let defender = super::super::turns::opponent(active);
+            let mut g = combat_quantum_setup(active);
+            let a = add(&mut g, active, "bear-cub");
+            let b = add(&mut g, defender, "swab-goblin");
+            let c = add(&mut g, defender, "bear-cub");
+            pair(&mut g);
+            select_attack(&mut g, &[a]);
+            pair(&mut g);
+            select_block(&mut g, &[(b, a), (c, a)]);
+            pair(&mut g);
+            let d = g.turn_decision().unwrap();
+            // All integer allocations are legal: no ordering or lethal-first rule.
+            g.assign_combat_damage(active, d.id, a, &[(b, first), (c, 2 - first)])
+                .unwrap();
+            let start = g.snapshot();
+            let mut scalar = Game::new().unwrap();
+            scalar.restore(&start).unwrap();
+            damage(&mut scalar);
+            let expected = combat_quantum_state(&scalar);
+            for budget in [1, 2, 3, 4, 5, 6, 8, 64] {
+                let mut actual = Game::new().unwrap();
+                actual.restore(&start).unwrap();
+                combat_quantum_finish(&mut actual, budget);
+                // Independently derived: attacker takes 2+2 and dies. A blocker
+                // dies iff assigned 2, otherwise retains exactly the assigned mark.
+                assert_eq!(actual.life(), [20, 20]);
+                assert_eq!(actual.objects.in_zone(Zone::Graveyard(active)).count(), 1);
+                assert_eq!(
+                    actual.objects.in_zone(Zone::Graveyard(defender)).count(),
+                    usize::from(first != 1)
+                );
+                let survivors: Vec<_> = actual.objects.in_zone(Zone::Battlefield).collect();
+                assert_eq!(survivors.len(), if first == 1 { 2 } else { 1 });
+                for h in survivors {
+                    let o = actual.objects.get(h).unwrap();
+                    assert_eq!(o.controller, defender);
+                    let state = actual.creature_state(h).unwrap();
+                    assert_eq!(
+                        (state.power, state.toughness, state.damage),
+                        (2, 2, u32::from(first == 1))
+                    );
+                    assert!(!o.tapped);
+                }
+                assert_eq!(
+                    actual.turn_position(),
+                    Some((3, active, Step::CombatDamage))
+                );
+                let d = actual.turn_decision().unwrap();
+                assert_eq!((d.actor, d.kind), (active, TurnKind::Priority));
+                assert!(actual.turns.stack.is_empty());
+                assert!(actual.combat().is_empty());
+                assert_eq!(actual.outcome(), None);
+                assert_eq!(combat_quantum_state(&actual), expected);
+            }
+        }
+    }
+}
+#[test]
+fn combat_quantum_removed_blockers_remember_blocked_status() {
+    for active in [Seat::P0, Seat::P1] {
+        for remove_both in [false, true] {
+            let defender = super::super::turns::opponent(active);
+            let mut g = combat_quantum_setup(active);
+            let a = add(&mut g, active, "bear-cub");
+            let b = add(&mut g, defender, "swab-goblin");
+            let c = add(&mut g, defender, "bear-cub");
+            pair(&mut g);
+            select_attack(&mut g, &[a]);
+            pair(&mut g);
+            select_block(&mut g, &[(b, a), (c, a)]);
+            // Explicit synthetic zone departure at the legal response boundary.
+            let departed = g.objects.move_to(b, Zone::Hand(defender)).unwrap();
+            let reentered = g.objects.move_to(departed, Zone::Battlefield).unwrap();
+            assert_ne!(reentered, b);
+            if remove_both {
+                g.objects.move_to(c, Zone::Hand(defender)).unwrap();
+            }
+            pair(&mut g);
+            let start = g.snapshot();
+            let mut scalar = Game::new().unwrap();
+            scalar.restore(&start).unwrap();
+            damage(&mut scalar);
+            for budget in [1, 2, 3, 4, 5, 64] {
+                let mut actual = Game::new().unwrap();
+                actual.restore(&start).unwrap();
+                combat_quantum_finish(&mut actual, budget);
+                assert_eq!(actual.life(), [20, 20]);
+                for seat in [active, defender] {
+                    assert_eq!(
+                        actual.objects.in_zone(Zone::Graveyard(seat)).count(),
+                        usize::from(!remove_both)
+                    );
+                }
+                if remove_both {
+                    let attacks = actual.combat();
+                    assert_eq!(attacks.len(), 1);
+                    assert!(attacks[0].blocked);
+                    assert!(attacks[0].blockers.is_empty());
+                    assert_eq!(
+                        actual.creature_state(attacks[0].creature).unwrap().damage,
+                        0
+                    );
+                }
+                assert_eq!(combat_quantum_state(&actual), combat_quantum_state(&scalar));
+            }
+        }
+    }
+}
+#[test]
+fn combat_quantum_terminal_after_all_damage_and_deaths() {
+    for active in [Seat::P0, Seat::P1] {
+        let defender = super::super::turns::opponent(active);
+        let mut g = combat_quantum_setup(active);
+        let a = add(&mut g, active, "bear-cub");
+        let b = add(&mut g, defender, "swab-goblin");
+        let c = add(&mut g, active, "swab-goblin");
+        let e = add(&mut g, active, "bear-cub");
+        g.life[seat_index(defender)] = 1;
+        pair(&mut g);
+        select_attack(&mut g, &[a, c, e]);
+        pair(&mut g);
+        select_block(&mut g, &[(b, a)]);
+        pair(&mut g);
+        let start = g.snapshot();
+        let mut scalar = Game::new().unwrap();
+        scalar.restore(&start).unwrap();
+        damage(&mut scalar);
+        for budget in [1, 2, 3, 4, 5, 6, 64] {
+            let mut actual = Game::new().unwrap();
+            actual.restore(&start).unwrap();
+            combat_quantum_finish(&mut actual, budget);
+            assert_eq!(actual.life()[seat_index(defender)], -3); // both unblocked 2/2s
+            assert_eq!(actual.life()[seat_index(active)], 20);
+            assert_eq!(actual.objects.in_zone(Zone::Graveyard(active)).count(), 1);
+            assert_eq!(actual.objects.in_zone(Zone::Graveyard(defender)).count(), 1);
+            let mut losses = [None; 2];
+            losses[seat_index(defender)] = Some(super::super::terminal::LossReason::Life);
+            assert_eq!(
+                actual.outcome(),
+                Some(super::super::terminal::Outcome {
+                    winner: Some(active),
+                    losses
+                })
+            );
+            assert_eq!(actual.turn_decision(), None);
+            assert_eq!(combat_quantum_state(&actual), combat_quantum_state(&scalar));
+        }
+    }
+}
+
+#[test]
+fn combat_quantum_preflight_rejections_preserve_exact_snapshot() {
+    let mut g = combat_quantum_setup(Seat::P0);
+    let a = add(&mut g, Seat::P0, "bear-cub");
+    let b = add(&mut g, Seat::P1, "swab-goblin");
+    let c = add(&mut g, Seat::P1, "bear-cub");
+    pair(&mut g);
+    select_attack(&mut g, &[a]);
+    pair(&mut g);
+    select_block(&mut g, &[(b, a), (c, a)]);
+    pair(&mut g);
+    let d = g.turn_decision().unwrap();
+    let before = g.snapshot();
+    assert_eq!(
+        g.finish_combat_quantum(Seat::P1, d.id, NonZeroUsize::MIN),
+        Err(CombatError::Invalid(ApplyError::WrongActor))
+    );
+    assert_eq!(
+        g.finish_combat_quantum(d.actor, d.id, NonZeroUsize::MIN),
+        Err(CombatError::MissingDamage)
+    );
+    assert_eq!(
+        g.combat_decision(d.actor, 1),
+        Err(CombatError::CapacityExceeded {
+            needed: 2,
+            capacity: 1
+        })
+    );
+    assert_eq!(
+        g.assign_combat_damage(d.actor, d.id, a, &[(b, 2), (b, 0)]),
+        Err(CombatError::IllegalDamage)
+    );
+    assert_eq!(g.snapshot(), before);
+    let next = g
+        .assign_combat_damage(d.actor, d.id, a, &[(b, 2), (c, 0)])
+        .unwrap();
+    let before = g.snapshot();
+    assert_eq!(
+        g.finish_combat_quantum(d.actor, d.id, NonZeroUsize::MIN),
+        Err(CombatError::Invalid(ApplyError::StaleDecision))
+    );
+    assert_eq!(g.snapshot(), before);
+    // Explicit arithmetic/generation failure setups must not partially assign damage.
+    g.turns
+        .modifications
+        .push(super::super::targets::Modification {
+            handle: b,
+            boost: 0,
+            damage: u32::MAX,
+        });
+    let before = g.snapshot();
+    assert_eq!(
+        g.finish_combat_quantum(next.actor, next.id, NonZeroUsize::MIN),
+        Err(CombatError::Turn(TurnError::EffectOverflow))
+    );
+    assert_eq!(g.snapshot(), before);
+    g.turns.modifications.clear();
+    g.generation = u64::MAX;
+    let before = g.snapshot();
+    assert_eq!(
+        g.finish_combat_quantum(next.actor, next.id, NonZeroUsize::MIN),
+        Err(CombatError::Invalid(ApplyError::DecisionExhausted))
+    );
+    assert_eq!(g.snapshot(), before);
 }
