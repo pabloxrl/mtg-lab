@@ -22,7 +22,8 @@ let action = TurnAction {
 let next = game.apply_turn(d.actor, &action)?;
 ```
 
-The sole current priority candidate is pass at index zero. One pass gives the
+The pass candidate remains at index zero. [Land and mana actions](mana.md)
+use the same priority decision ID through dedicated validated methods. One pass gives the
 opponent priority without drawing, clearing mana or advancing the step. A second
 consecutive pass advances the empty-stack step and gives the active player
 priority. Both the action and every candidate carry the existing game-scoped,
@@ -57,8 +58,8 @@ ongoing effects or damage in this component.
 
 Storage records now retain controller and tapped status. New identities from
 allocation/zone changes default to owner control and untapped; same-zone moves
-preserve status. Game inspection is immutable; land plays, mana production and
-casting remain separate tasks. Synthetic unit tests seed battlefield status and
+preserve status. Game inspection is immutable; [land plays and mana production](mana.md) now
+use validated transitions. Casting remains a separate task. Synthetic unit tests seed battlefield status and
 mana directly and are explicitly distinguished from normal opening tests.
 
 A nonempty stack returns `UnsupportedStack`; active nonland permanents at the
@@ -68,7 +69,9 @@ required draw from an empty library returns `TurnError::Draw(EmptyLibrary)` and
 preserves the current decision/state; it is not a terminal result. Terminal
 outcomes remain #72. These limitations prevent claiming complete games.
 
-Reset clears turn state/mana and invalidates old decisions. Turn actions operate
+During a mana-payment continuation, `turn_decision()` returns None and turn
+commands reject until payment finishes or is cancelled. Reset clears turn
+state/mana/payment and invalidates old decisions. Turn actions operate
 on the fixed 80-card two-deck state: a pass draws at most one card or untaps at
 most 80 objects; a cleanup choice discards at most 33 cards. This bounded scalar
 turn prefix adds no internal unbounded resolution loop. The existing resumable

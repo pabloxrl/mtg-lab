@@ -59,13 +59,19 @@ pub(super) struct TurnState {
     pub(super) position: Option<(u64, Seat, Step)>,
     pub(super) passed: bool,
     pub(super) mana: [[u32; 6]; 2],
+    pub(super) land_used: bool,
+    pub(super) payment: Option<super::mana::Payment>,
 }
 impl Game {
     pub fn turn_position(&self) -> Option<(u64, Seat, Step)> {
         self.turns.position
     }
     pub fn turn_decision(&self) -> Option<TurnDecision> {
-        self.turns.decision
+        if self.turns.payment.is_some() {
+            None
+        } else {
+            self.turns.decision
+        }
     }
     pub fn mana(&self) -> [[u32; 6]; 2] {
         self.turns.mana
@@ -101,13 +107,14 @@ impl Game {
         Ok(self.set_turn_decision(self.starting, TurnKind::Priority))
     }
     /// Validate generation, actor and complete selection before any rules work.
-    /// Only empty-stack passes and cleanup discards are currently supported.
+    /// This entry point accepts empty-stack passes and cleanup discards.
+    /// Land/mana methods share the same priority decision identity.
     pub fn apply_turn(
         &mut self,
         actor: Seat,
         action: &TurnAction,
     ) -> Result<TurnDecision, TurnError> {
-        let d = self.turns.decision.ok_or(TurnError::NotReady)?;
+        let d = self.turn_decision().ok_or(TurnError::NotReady)?;
         let invalid = TurnError::Invalid;
         if actor != d.actor {
             return Err(invalid(ApplyError::WrongActor));
@@ -193,6 +200,7 @@ impl Game {
             }
         }
         if next_step == Step::Upkeep {
+            self.turns.land_used = false;
             self.untap(next_active);
         }
         self.turns.position = Some((next_turn, next_active, next_step));
@@ -208,7 +216,7 @@ impl Game {
         };
         Ok(self.set_turn_decision(next_active, kind))
     }
-    fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
+    pub(super) fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
         let d = TurnDecision {
             id: DecisionId {
                 scope: self.objects.scope(),

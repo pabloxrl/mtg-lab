@@ -3,6 +3,8 @@ use crate::objects::{CardId, Handle, ObjectStore, Seat, StorageError, Zone};
 use crate::rng::{EpisodeRng, Stream, VERSION};
 use std::{collections::VecDeque, num::NonZeroUsize};
 
+#[path = "mana.rs"]
+pub mod mana;
 #[path = "turns.rs"]
 pub mod turns;
 
