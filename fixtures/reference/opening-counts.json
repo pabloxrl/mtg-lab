@@ -1,0 +1,320 @@
+{
+  "version": 1,
+  "basis": "Original CR 103.5 count ledger: seven-card starting hands, no free mulligans; cumulative bottoms after each redraw; keep opponent; forced keep at zero. Synthetic reference decks contain 40 identical basics per seat. Native frozen decks share these count expectations; identities and PRNGs are not compared.",
+  "cases": [
+    {
+      "id": "starter-0-rounds-0",
+      "starter": 0,
+      "rounds": 0,
+      "expected": {
+        "declarations": [
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            7,
+            33
+          ]
+        ],
+        "hand": [
+          7,
+          7
+        ],
+        "library": [
+          33,
+          33
+        ],
+        "bottom_choices": 0
+      }
+    },
+    {
+      "id": "starter-0-rounds-1",
+      "starter": 0,
+      "rounds": 1,
+      "expected": {
+        "declarations": [
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            6,
+            34
+          ]
+        ],
+        "hand": [
+          6,
+          7
+        ],
+        "library": [
+          34,
+          33
+        ],
+        "bottom_choices": 1
+      }
+    },
+    {
+      "id": "starter-0-rounds-2",
+      "starter": 0,
+      "rounds": 2,
+      "expected": {
+        "declarations": [
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            6,
+            34
+          ],
+          [
+            0,
+            5,
+            35
+          ]
+        ],
+        "hand": [
+          5,
+          7
+        ],
+        "library": [
+          35,
+          33
+        ],
+        "bottom_choices": 3
+      }
+    },
+    {
+      "id": "starter-0-rounds-7",
+      "starter": 0,
+      "rounds": 7,
+      "expected": {
+        "declarations": [
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            6,
+            34
+          ],
+          [
+            0,
+            5,
+            35
+          ],
+          [
+            0,
+            4,
+            36
+          ],
+          [
+            0,
+            3,
+            37
+          ],
+          [
+            0,
+            2,
+            38
+          ],
+          [
+            0,
+            1,
+            39
+          ]
+        ],
+        "hand": [
+          0,
+          7
+        ],
+        "library": [
+          40,
+          33
+        ],
+        "bottom_choices": 28
+      }
+    },
+    {
+      "id": "starter-1-rounds-0",
+      "starter": 1,
+      "rounds": 0,
+      "expected": {
+        "declarations": [
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            7,
+            33
+          ]
+        ],
+        "hand": [
+          7,
+          7
+        ],
+        "library": [
+          33,
+          33
+        ],
+        "bottom_choices": 0
+      }
+    },
+    {
+      "id": "starter-1-rounds-1",
+      "starter": 1,
+      "rounds": 1,
+      "expected": {
+        "declarations": [
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            6,
+            34
+          ]
+        ],
+        "hand": [
+          7,
+          6
+        ],
+        "library": [
+          33,
+          34
+        ],
+        "bottom_choices": 1
+      }
+    },
+    {
+      "id": "starter-1-rounds-2",
+      "starter": 1,
+      "rounds": 2,
+      "expected": {
+        "declarations": [
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            6,
+            34
+          ],
+          [
+            1,
+            5,
+            35
+          ]
+        ],
+        "hand": [
+          7,
+          5
+        ],
+        "library": [
+          33,
+          35
+        ],
+        "bottom_choices": 3
+      }
+    },
+    {
+      "id": "starter-1-rounds-7",
+      "starter": 1,
+      "rounds": 7,
+      "expected": {
+        "declarations": [
+          [
+            1,
+            7,
+            33
+          ],
+          [
+            0,
+            7,
+            33
+          ],
+          [
+            1,
+            6,
+            34
+          ],
+          [
+            1,
+            5,
+            35
+          ],
+          [
+            1,
+            4,
+            36
+          ],
+          [
+            1,
+            3,
+            37
+          ],
+          [
+            1,
+            2,
+            38
+          ],
+          [
+            1,
+            1,
+            39
+          ]
+        ],
+        "hand": [
+          7,
+          0
+        ],
+        "library": [
+          33,
+          40
+        ],
+        "bottom_choices": 28
+      }
+    }
+  ]
+}
