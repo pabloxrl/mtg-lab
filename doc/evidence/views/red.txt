@@ -1,0 +1,69 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling syn v3.0.6
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-73/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 17.06s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-1149e24de6207ff1)
+
+running 5 tests
+test opening::views::tests::views_library_privacy_positive ... FAILED
+test opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw ... FAILED
+test opening::views::tests::views_library_privacy_negative_independent_states ... FAILED
+test opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate ... FAILED
+test opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset ... FAILED
+
+failures:
+
+---- opening::views::tests::views_library_privacy_positive stdout ----
+
+thread 'opening::views::tests::views_library_privacy_positive' (1406) panicked at crates/mtg-core/src/views_tests.rs:32:9:
+assertion `left == right` failed
+  left: [0, 0]
+ right: [20, 20]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw stdout ----
+
+thread 'opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw' (1404) panicked at crates/mtg-core/src/views_tests.rs:63:9:
+assertion `left == right` failed
+  left: 0
+ right: 2
+
+---- opening::views::tests::views_library_privacy_negative_independent_states stdout ----
+
+thread 'opening::views::tests::views_library_privacy_negative_independent_states' (1405) panicked at crates/mtg-core/src/views_tests.rs:50:9:
+assertion `left == right` failed
+  left: 0
+ right: 2
+
+---- opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate stdout ----
+
+thread 'opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate' (1408) panicked at crates/mtg-core/src/views_tests.rs:89:5:
+assertion `left == right` failed
+  left: Ok(PlayerView { schema_version: 1, seat: 0, life: [0, 0], hand_counts: [0, 0], library_counts: [0, 0], hand: [], public_zones: [], remembered: [], starting_seat: 0, turn: None, mana: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], opening: None, terminal: None })
+ right: Err(Unavailable)
+
+---- opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset stdout ----
+
+thread 'opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset' (1407) panicked at crates/mtg-core/src/views_tests.rs:76:30:
+called `Option::unwrap()` on a `None` value
+
+
+failures:
+    opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw
+    opening::views::tests::views_library_privacy_negative_independent_states
+    opening::views::tests::views_library_privacy_positive
+    opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset
+    opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 59 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

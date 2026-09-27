@@ -1,0 +1,28 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running tests/views.rs (target/debug/deps/views-ad47b178d12552e1)
+
+running 2 tests
+test views_public_terminal_result_preserves_private_filter ... FAILED
+test views_opening_candidates_errors_and_bottoming_use_only_visible_rows ... FAILED
+
+failures:
+
+---- views_public_terminal_result_preserves_private_filter stdout ----
+
+thread 'views_public_terminal_result_preserves_private_filter' (12) panicked at crates/mtg-core/tests/views.rs:75:27:
+called `Option::unwrap()` on a `None` value
+
+---- views_opening_candidates_errors_and_bottoming_use_only_visible_rows stdout ----
+
+thread 'views_opening_candidates_errors_and_bottoming_use_only_visible_rows' (11) panicked at crates/mtg-core/tests/views.rs:24:28:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    views_opening_candidates_errors_and_bottoming_use_only_visible_rows
+    views_public_terminal_result_preserves_private_filter
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test views`

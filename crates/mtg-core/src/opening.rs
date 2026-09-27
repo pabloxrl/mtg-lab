@@ -15,6 +15,8 @@ pub mod targets;
 pub mod terminal;
 #[path = "turns.rs"]
 pub mod turns;
+#[path = "views.rs"]
+pub mod views;
 
 pub const FORMAT: &str = "foundations_micro_v1";
 pub const SHUFFLE_VERSION: &str = "fisher-yates-rejection-v1";

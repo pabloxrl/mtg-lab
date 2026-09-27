@@ -36,6 +36,12 @@ pub enum Zone {
     Exile,
 }
 impl Zone {
+    pub(crate) fn is_public(self) -> bool {
+        match self {
+            Self::Library(_) | Self::Hand(_) => false,
+            Self::Graveyard(_) | Self::Battlefield | Self::Stack | Self::Exile => true,
+        }
+    }
     pub const ALL: [Self; 9] = [
         Self::Library(Seat::P0),
         Self::Library(Seat::P1),
@@ -69,6 +75,13 @@ pub enum StorageError {
     IdentityExhausted,
     CapacityExceeded,
 }
+/// A fact witnessed at an event, never a live pointer into a hidden zone.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) struct KnownCard {
+    pub card: CardId,
+    pub owner: Seat,
+    pub zone: Zone,
+}
 #[derive(Debug, PartialEq, Eq)]
 struct Slot {
     generation: u64,
@@ -84,6 +97,7 @@ pub struct ObjectStore {
     slots: Vec<Slot>,
     free: Vec<u32>,
     zones: [Vec<u32>; 9],
+    knowledge: [Vec<KnownCard>; 2],
 }
 
 impl Zone {
@@ -126,6 +140,7 @@ impl ObjectStore {
             slots: Vec::new(),
             free: Vec::new(),
             zones: std::array::from_fn(|_| Vec::new()),
+            knowledge: std::array::from_fn(|_| Vec::new()),
         })
     }
 
@@ -146,6 +161,7 @@ impl ObjectStore {
             (slot, 0)
         };
         reserve(&mut self.zones[zone.index()])?;
+        self.reserve_knowledge(zone, 1)?;
         let entry = Slot {
             generation,
             object: Some(Object {
@@ -162,6 +178,7 @@ impl ObjectStore {
             self.slots.push(entry);
         }
         self.zones[zone.index()].push(slot);
+        self.record_public(KnownCard { card, owner, zone });
         Ok(self.handle(slot))
     }
 
@@ -189,6 +206,7 @@ impl ObjectStore {
             }
             next_identity(handle.generation)?;
         }
+        self.reserve_knowledge(zone, handles.len())?;
         self.zones[zone.index()]
             .try_reserve(handles.len())
             .map_err(|_| StorageError::CapacityExceeded)
@@ -211,6 +229,7 @@ impl ObjectStore {
         }
         let generation = next_identity(handle.generation)?;
         reserve(&mut self.zones[zone.index()])?;
+        self.reserve_knowledge(zone, 1)?;
         self.unlink(handle.slot, old_zone);
         let slot = &mut self.slots[handle.slot as usize];
         slot.generation = generation;
@@ -218,7 +237,13 @@ impl ObjectStore {
         object.zone = zone;
         object.controller = object.owner;
         object.tapped = false;
+        let fact = KnownCard {
+            card: object.card,
+            owner: object.owner,
+            zone,
+        };
         self.zones[zone.index()].push(handle.slot);
+        self.record_public(fact);
         Ok(self.handle(handle.slot))
     }
 
@@ -256,10 +281,45 @@ impl ObjectStore {
         self.epoch = next_identity(self.epoch)?;
         self.slots.clear();
         self.free.clear();
+        for knowledge in &mut self.knowledge {
+            knowledge.clear();
+        }
         for zone in &mut self.zones {
             zone.clear();
         }
         Ok(())
+    }
+
+    fn reserve_knowledge(&mut self, zone: Zone, count: usize) -> Result<(), StorageError> {
+        if zone.is_public() {
+            for knowledge in &mut self.knowledge {
+                knowledge
+                    .try_reserve(count)
+                    .map_err(|_| StorageError::CapacityExceeded)?;
+            }
+        }
+        Ok(())
+    }
+    fn record_public(&mut self, fact: KnownCard) {
+        if fact.zone.is_public() {
+            for knowledge in &mut self.knowledge {
+                knowledge.push(fact);
+            }
+        }
+    }
+    pub(crate) fn reveal_to(&mut self, seat: Seat, handle: Handle) -> Result<(), StorageError> {
+        let object = *self.get(handle)?;
+        let knowledge = &mut self.knowledge[if seat == Seat::P0 { 0 } else { 1 }];
+        reserve(knowledge)?;
+        knowledge.push(KnownCard {
+            card: object.card,
+            owner: object.owner,
+            zone: object.zone,
+        });
+        Ok(())
+    }
+    pub(crate) fn knowledge(&self, seat: Seat) -> &[KnownCard] {
+        &self.knowledge[if seat == Seat::P0 { 0 } else { 1 }]
     }
 
     /// Ordered zone members. Each live slot belongs to exactly one list.

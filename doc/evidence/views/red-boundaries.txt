@@ -1,0 +1,39 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-73/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.66s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-1149e24de6207ff1)
+
+running 8 tests
+test opening::views::tests::views_error_serialization_is_literal_and_context_free ... ok
+test opening::views::tests::views_private_spell_continuations_are_explicitly_unavailable_in_core_schema ... FAILED
+test opening::views::tests::views_library_privacy_positive ... ok
+test opening::views::tests::views_library_privacy_negative_independent_states ... ok
+test opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw ... ok
+test opening::views::tests::views_public_zones_history_and_turn_boundary ... FAILED
+test opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate ... ok
+test opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset ... ok
+
+failures:
+
+---- opening::views::tests::views_private_spell_continuations_are_explicitly_unavailable_in_core_schema stdout ----
+
+thread 'opening::views::tests::views_private_spell_continuations_are_explicitly_unavailable_in_core_schema' (1193) panicked at crates/mtg-core/src/views_tests.rs:244:9:
+assertion `left == right` failed
+  left: Ok(PlayerView { schema_version: 1, seat: 0, life: [20, 20], hand_counts: [2, 1], library_counts: [0, 2], hand: [VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "swab-goblin", owner: 0, controller: 0, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }], public_zones: [PublicZone { zone: "graveyard_0", cards: [] }, PublicZone { zone: "graveyard_1", cards: [] }, PublicZone { zone: "battlefield", cards: [VisibleCard { card: "bear-cub", owner: 1, controller: 1, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }] }, PublicZone { zone: "stack", cards: [] }, PublicZone { zone: "exile", cards: [] }], remembered: [Revelation { card: "bear-cub", owner: 1, zone_at_reveal: "battlefield" }], starting_seat: 0, turn: Some((1, 0, "upkeep")), mana: [[0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0]], acting_seat: None, opening: None, terminal: None })
+ right: Err(Unavailable)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- opening::views::tests::views_public_zones_history_and_turn_boundary stdout ----
+
+thread 'opening::views::tests::views_public_zones_history_and_turn_boundary' (1194) panicked at crates/mtg-core/src/views_tests.rs:208:5:
+assertion `left == right` failed
+  left: None
+ right: Some(0)
+
+
+failures:
+    opening::views::tests::views_private_spell_continuations_are_explicitly_unavailable_in_core_schema
+    opening::views::tests::views_public_zones_history_and_turn_boundary
+
+test result: FAILED. 6 passed; 2 failed; 0 ignored; 0 measured; 59 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

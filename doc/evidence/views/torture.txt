@@ -1,0 +1,465 @@
+Local documentation links passed.
+RFC 0002 program coverage and dependency gates passed.
+{"capabilities": 80, "designed_slots": 320, "execution_evidence_added": 0, "related_authored_fixtures": 6}
+....................................................................................................................................
+----------------------------------------------------------------------
+Ran 132 tests in 2.116s
+
+OK
+    Checking mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-73/crates/mtg-core)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.12s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.06s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-1149e24de6207ff1)
+
+running 70 tests
+test objects::tests::objects_dense_records_and_actual_slot_reuse ... ok
+test objects::tests::objects_identity_exhaustion_is_atomic ... ok
+test opening::casting::tests::casting_generic_choices_and_atomic_rejected_final_command ... ok
+test opening::casting::tests::casting_fresh_forest_mountain_negative_and_unsupported_cards ... ok
+test opening::casting::tests::casting_literal_payment_stack_resolution_and_priority ... ok
+test opening::casting::tests::casting_lifo_synthetic_stack_and_mana_response_resets_passes ... ok
+test opening::casting::tests::casting_land_activation_choices_cancel_and_retry ... ok
+test opening::combat::tests::combat_backtracking_stale_foreign_reset_and_generation_exhaustion ... ok
+test opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker ... ok
+test opening::casting::tests::casting_nested_stale_cancel_reset_and_exhaustion ... ok
+test opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab ... ok
+test opening::casting::tests::casting_missing_colors_masked_timing_foreign_and_wrong_actor ... ok
+test opening::combat::tests::combat_departed_attacker_tapped_blocker_and_overflow ... ok
+test opening::combat::tests::combat_either_blocked_attacker_and_unblocked_swab_damage ... ok
+test opening::combat::tests::combat_linear_capacity_and_all_remaining_blockers ... ok
+test opening::combat::tests::combat_shared_xmage_reference_checkpoints ... ok
+test opening::combat::tests::combat_modern_split_does_not_require_lethal_or_blocker_order ... ok
+test opening::combat::tests::combat_simultaneous_player_damage_crosses_zero_without_early_stop ... ok
+test opening::mana::tests::mana_payment_two_units_are_private_until_commit ... ok
+test opening::mana::tests::mana_synthetic_illegal_sources_stack_and_overflow ... ok
+test opening::combat::tests::combat_sickness_taps_and_rejections_are_atomic ... ok
+test opening::mulligan_invariants::mulligan_decision_exhaustion_is_atomic_in_both_kinds ... ok
+test opening::mulligan_invariants::mulligan_explicit_chance_and_rejections_do_not_consume_rng ... ok
+test opening::combat::tests::combat_each_subset_and_blocker_mapping_is_expressible ... ok
+test opening::quantum::quantum_rejected_shuffle_trial_retains_cursor_and_cards ... ok
+test opening::quantum::quantum_one_unit_consumes_at_most_one_word_or_object_operation ... ok
+test opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous ... ok
+test opening::targets_tests::targets_generic_payment_preserves_future_growth_choices ... ok
+test opening::targets_tests::targets_empty_roles_payment_cancel_revalidation_and_exhaustion ... ok
+test opening::targets_tests::targets_growth_below_bite_zone_identity_no_retarget ... ok
+test opening::targets_tests::targets_hold_priority_bite_above_growth_and_five_no_redirection ... ok
+test opening::targets_tests::targets_partial_invalidation_no_lki_or_redirection ... ok
+test opening::targets_tests::targets_payable_instants_offered_with_legal_targets ... ok
+test opening::targets_tests::targets_required_restricted_stale_and_atomic ... ok
+test opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow ... ok
+test opening::targets_tests::targets_response_chain_priority_current_power_and_lethal ... ok
+test opening::targets_tests::targets_stacked_growth_and_grown_source_invalid_destination ... ok
+test opening::terminal::tests::terminal_concede_nonacting_seat_and_finality ... ok
+test opening::terminal::tests::terminal_concession_cancels_payment_without_commit ... ok
+test opening::terminal::tests::terminal_concession_preserves_stack_and_invalidates_target_and_cast_choices ... ok
+test opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip ... ok
+test opening::terminal::tests::terminal_grown_dead_cub_then_real_cast_has_fresh_bookkeeping ... ok
+test opening::terminal::tests::terminal_hand_cub_cannot_block ... ok
+test opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss ... ok
+test opening::terminal::tests::terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal ... ok
+test opening::terminal::tests::terminal_same_neutral_boundaries_as_xmage ... ok
+test opening::terminal::tests::terminal_simultaneous_losses_and_external_work_limits ... ok
+test opening::tests::opening_bounded_sampling_rejects_incomplete_tail ... ok
+test opening::tests::opening_counter_exhaustion_preserves_game_and_rng ... ok
+test opening::tests::opening_explicit_orders_do_not_consume_rng ... ok
+test opening::turns::tests::turns_cleanup_multiple_cards_foreign_candidates_and_turn_exhaustion ... ok
+test opening::turns::tests::turns_empty_library_terminal_and_unsupported_combat_preserve_boundary ... ok
+test opening::turns::tests::turns_exhaustion_and_unsupported_stack_are_unchanged ... ok
+test opening::turns::tests::turns_same_neutral_priority_fixture_as_reference_bridges ... ok
+test opening::turns::tests::turns_untap_controller_and_mana_every_boundary ... ok
+test opening::views::tests::views_error_serialization_is_literal_and_context_free ... ok
+test opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw ... ok
+test opening::views::tests::views_library_privacy_negative_independent_states ... ok
+test opening::views::tests::views_library_privacy_positive ... ok
+test opening::views::tests::views_literal_empty_schema_and_owned_snapshot ... ok
+test opening::views::tests::views_only_unseen_library_permutation_and_hidden_allocation_order_are_invariant ... ok
+test opening::views::tests::views_private_spell_continuations_are_explicitly_unavailable_in_core_schema ... ok
+test opening::views::tests::views_public_zones_history_and_turn_boundary ... ok
+test opening::views::tests::views_remembered_facts_do_not_track_hidden_handles_or_order ... ok
+test opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset ... ok
+test opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate ... ok
+test rng::tests::rng_primitive_known_answers ... ok
+test opening::targets_tests::targets_independent_all_pairs_and_capacity_boundaries ... ok
+test opening::quantum::quantum_all_opening_boundaries_match_scalar_rng_and_decisions ... ok
+test opening::mana::tests::mana_all_small_payment_combinations_independent_enumerator ... ok
+
+test result: ok. 70 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 14.13s
+
+     Running tests/casting.rs (target/debug/deps/casting-9249969f20609b92)
+
+running 1 test
+test casting_normal_reset_to_two_lands_cast_and_next_untap_both_seats ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/debug/deps/combat-22521c533a98cf40)
+
+running 1 test
+test combat_normal_reset_cast_sickness_attack_cleanup_and_next_untap_both_seats ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-b9f3107eed5f0fe4)
+
+running 6 tests
+test mana_cancel_payment_restores_pool_and_invalidates_decisions ... ok
+test mana_forest_mountain_positive_negative_regression ... ok
+test mana_masked_second_land_and_timing_rejected_transactionally ... ok
+test mana_nonactive_priority_can_tap_but_cannot_play_land_and_action_resets_passes ... ok
+test mana_payment_private_atomic_rejection_and_duplicate_commit ... ok
+test mana_foreign_stale_wrong_actor_and_pending_commands_preserve_state ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-2289b08111ac810b)
+
+running 17 tests
+test mulligan_random_replacements_match_independent_full_order_vectors ... ok
+test mulligan_explicit_order_validation_and_seven_limit ... ok
+test mulligan_rules_setup_deterministic_reset_interaction ... ok
+test mulligan_rules_setup_deterministic_reset_positive ... ok
+test mulligan_rules_setup_deterministic_reset_regression ... ok
+test mulligan_rejects_foreign_stale_and_unexpected_replacement_orders ... ok
+test mulligan_rules_decisions_stale_candidates_regression ... ok
+test mulligan_rules_setup_mulligan_bottom_interaction ... ok
+test mulligan_both_seats_mirrors_and_distinct_bottom_generations ... ok
+test mulligan_rules_setup_mulligan_bottom_negative ... ok
+test mulligan_rules_setup_mulligan_bottom_positive ... ok
+test mulligan_rules_setup_mulligan_bottom_regression ... ok
+test mulligan_rules_setup_ordered_draw_negative ... ok
+test mulligan_rules_setup_ordered_draw_positive ... ok
+test mulligan_rules_setup_ordered_draw_regression ... ok
+test mulligan_rules_setup_two_player_opening_positive ... ok
+test mulligan_sys_core_003_rejections_between_every_real_stage ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/objects.rs (target/debug/deps/objects-7930c74e3ea78eb8)
+
+running 4 tests
+test objects_allocation_and_zone_change_literal_ledgers ... ok
+test objects_zone_ownership_order_and_foreign_store_rejection ... ok
+test objects_frozen_identities_are_shared_and_match_manifest ... ok
+test objects_reuse_and_reset_never_revive_retained_handles ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/opening.rs (target/debug/deps/opening-cca585f459f57c5b)
+
+running 4 tests
+test opening_shuffle_matches_independent_vectors ... ok
+test opening_reset_restarts_rng_reuses_allocations_and_isolates_games ... ok
+test opening_invalid_config_preserves_complete_state_and_rng ... ok
+test opening_ordered_both_starters_and_mirrors ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-3aa0b1c5383341cd)
+
+running 4 tests
+test quantum_reset_really_yields_before_dealing ... ok
+test quantum_resume_before_reset_is_not_opening_complete ... ok
+test quantum_mulligan_really_yields_and_resume_is_not_an_action ... ok
+test quantum_explicit_ledger_and_changing_budgets ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-d92255e5f9356880)
+
+running 3 tests
+test rng_episode_known_answers ... ok
+test rng_unknown_versions_rejected ... ok
+test rng_creation_order_and_policy_draws_do_not_change_environment ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/debug/deps/targets-ada48dded9351482)
+
+running 1 test
+test targets_normal_reset_real_response_chain ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/terminal.rs (target/debug/deps/terminal-fed4074f7ae5e2db)
+
+running 3 tests
+test terminal_reset_after_real_mana_growth_and_bite_damage ... ok
+test terminal_full_opening_empty_draw_and_external_stop_remain_distinct ... ok
+test terminal_full_opening_turns_combat_best_of_one_and_explicit_reset ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/turns.rs (target/debug/deps/turns-0e9f1c24ae725955)
+
+running 5 tests
+test turns_cannot_start_before_opening_or_twice ... ok
+test turns_priority_passing_positive_and_stale_candidates_negative ... ok
+test turns_empty_combat_sequence_cleanup_and_reset_scope ... ok
+test turns_red_mirror_mulligan_opening_interaction ... ok
+test turns_first_draw_positive_negative_interaction_regression ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/views.rs (target/debug/deps/views-ad47b178d12552e1)
+
+running 3 tests
+test views_public_terminal_result_preserves_private_filter ... ok
+test views_library_permutation_alone_preserves_bytes_candidates_and_errors ... ok
+test views_opening_candidates_errors_and_bottoming_use_only_visible_rows ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/main.rs (target/debug/deps/mtg_fixture-3b5a1b954c594477)
+
+running 2 tests
+test tests::typed_comparison_checks_second_player_before_active_player ... ok
+test tests::parser_rejects_duplicate_nested_fields ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-cf0ff47078fec9b3)
+
+running 6 tests
+test equal_is_deterministic_and_preserves_id ... ok
+test examples_detect_independently_specified_differences ... ok
+test first_difference_and_stack_length_are_explicit ... ok
+test usage_and_io_errors_are_json ... ok
+test schema_rejects_serde_positional_and_enum_representations ... ok
+test invalid_inputs_are_structured_and_deterministic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+   Doc-tests mtg_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-73/crates/mtg-core)
+    Finished `release` profile [optimized] target(s) in 17.48s
+     Running unittests src/lib.rs (target/release/deps/mtg_core-c3b381b8e5531aef)
+
+running 70 tests
+test objects::tests::objects_dense_records_and_actual_slot_reuse ... ok
+test objects::tests::objects_identity_exhaustion_is_atomic ... ok
+test opening::casting::tests::casting_generic_choices_and_atomic_rejected_final_command ... ok
+test opening::casting::tests::casting_fresh_forest_mountain_negative_and_unsupported_cards ... ok
+test opening::casting::tests::casting_lifo_synthetic_stack_and_mana_response_resets_passes ... ok
+test opening::casting::tests::casting_literal_payment_stack_resolution_and_priority ... ok
+test opening::casting::tests::casting_land_activation_choices_cancel_and_retry ... ok
+test opening::casting::tests::casting_nested_stale_cancel_reset_and_exhaustion ... ok
+test opening::casting::tests::casting_missing_colors_masked_timing_foreign_and_wrong_actor ... ok
+test opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker ... ok
+test opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab ... ok
+test opening::combat::tests::combat_backtracking_stale_foreign_reset_and_generation_exhaustion ... ok
+test opening::combat::tests::combat_either_blocked_attacker_and_unblocked_swab_damage ... ok
+test opening::combat::tests::combat_departed_attacker_tapped_blocker_and_overflow ... ok
+test opening::combat::tests::combat_each_subset_and_blocker_mapping_is_expressible ... ok
+test opening::combat::tests::combat_linear_capacity_and_all_remaining_blockers ... ok
+test opening::combat::tests::combat_simultaneous_player_damage_crosses_zero_without_early_stop ... ok
+test opening::combat::tests::combat_shared_xmage_reference_checkpoints ... ok
+test opening::combat::tests::combat_modern_split_does_not_require_lethal_or_blocker_order ... ok
+test opening::combat::tests::combat_sickness_taps_and_rejections_are_atomic ... ok
+test opening::mana::tests::mana_payment_two_units_are_private_until_commit ... ok
+test opening::mulligan_invariants::mulligan_decision_exhaustion_is_atomic_in_both_kinds ... ok
+test opening::mulligan_invariants::mulligan_explicit_chance_and_rejections_do_not_consume_rng ... ok
+test opening::quantum::quantum_one_unit_consumes_at_most_one_word_or_object_operation ... ok
+test opening::quantum::quantum_rejected_shuffle_trial_retains_cursor_and_cards ... ok
+test opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous ... ok
+test opening::mana::tests::mana_synthetic_illegal_sources_stack_and_overflow ... ok
+test opening::targets_tests::targets_generic_payment_preserves_future_growth_choices ... ok
+test opening::targets_tests::targets_empty_roles_payment_cancel_revalidation_and_exhaustion ... ok
+test opening::targets_tests::targets_growth_below_bite_zone_identity_no_retarget ... ok
+test opening::targets_tests::targets_hold_priority_bite_above_growth_and_five_no_redirection ... ok
+test opening::targets_tests::targets_partial_invalidation_no_lki_or_redirection ... ok
+test opening::targets_tests::targets_payable_instants_offered_with_legal_targets ... ok
+test opening::targets_tests::targets_required_restricted_stale_and_atomic ... ok
+test opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow ... ok
+test opening::targets_tests::targets_response_chain_priority_current_power_and_lethal ... ok
+test opening::targets_tests::targets_stacked_growth_and_grown_source_invalid_destination ... ok
+test opening::terminal::tests::terminal_concede_nonacting_seat_and_finality ... ok
+test opening::terminal::tests::terminal_concession_cancels_payment_without_commit ... ok
+test opening::terminal::tests::terminal_concession_preserves_stack_and_invalidates_target_and_cast_choices ... ok
+test opening::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip ... ok
+test opening::terminal::tests::terminal_grown_dead_cub_then_real_cast_has_fresh_bookkeeping ... ok
+test opening::terminal::tests::terminal_hand_cub_cannot_block ... ok
+test opening::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss ... ok
+test opening::terminal::tests::terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal ... ok
+test opening::terminal::tests::terminal_same_neutral_boundaries_as_xmage ... ok
+test opening::terminal::tests::terminal_simultaneous_losses_and_external_work_limits ... ok
+test opening::tests::opening_bounded_sampling_rejects_incomplete_tail ... ok
+test opening::tests::opening_counter_exhaustion_preserves_game_and_rng ... ok
+test opening::tests::opening_explicit_orders_do_not_consume_rng ... ok
+test opening::turns::tests::turns_cleanup_multiple_cards_foreign_candidates_and_turn_exhaustion ... ok
+test opening::turns::tests::turns_empty_library_terminal_and_unsupported_combat_preserve_boundary ... ok
+test opening::turns::tests::turns_exhaustion_and_unsupported_stack_are_unchanged ... ok
+test opening::turns::tests::turns_same_neutral_priority_fixture_as_reference_bridges ... ok
+test opening::targets_tests::targets_independent_all_pairs_and_capacity_boundaries ... ok
+test opening::turns::tests::turns_untap_controller_and_mana_every_boundary ... ok
+test opening::views::tests::views_library_privacy_interaction_forest_versus_mountain_draw ... ok
+test opening::views::tests::views_library_privacy_negative_independent_states ... ok
+test opening::views::tests::views_error_serialization_is_literal_and_context_free ... ok
+test opening::views::tests::views_library_privacy_positive ... ok
+test opening::views::tests::views_literal_empty_schema_and_owned_snapshot ... ok
+test opening::views::tests::views_only_unseen_library_permutation_and_hidden_allocation_order_are_invariant ... ok
+test opening::views::tests::views_private_spell_continuations_are_explicitly_unavailable_in_core_schema ... ok
+test opening::views::tests::views_public_zones_history_and_turn_boundary ... ok
+test opening::views::tests::views_remembered_facts_do_not_track_hidden_handles_or_order ... ok
+test opening::views::tests::views_revelations_are_historical_seat_scoped_and_reset ... ok
+test rng::tests::rng_primitive_known_answers ... ok
+test opening::views::tests::views_unavailable_boundaries_and_uniform_errors_do_not_mutate ... ok
+test opening::quantum::quantum_all_opening_boundaries_match_scalar_rng_and_decisions ... ok
+test opening::mana::tests::mana_all_small_payment_combinations_independent_enumerator ... ok
+
+test result: ok. 70 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.42s
+
+     Running tests/casting.rs (target/release/deps/casting-8355bd80d88388ec)
+
+running 1 test
+test casting_normal_reset_to_two_lands_cast_and_next_untap_both_seats ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/release/deps/combat-80ef9e6a40fe5bb7)
+
+running 1 test
+test combat_normal_reset_cast_sickness_attack_cleanup_and_next_untap_both_seats ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/release/deps/mana-f8cf9b54ef60a898)
+
+running 6 tests
+test mana_cancel_payment_restores_pool_and_invalidates_decisions ... ok
+test mana_masked_second_land_and_timing_rejected_transactionally ... ok
+test mana_nonactive_priority_can_tap_but_cannot_play_land_and_action_resets_passes ... ok
+test mana_forest_mountain_positive_negative_regression ... ok
+test mana_foreign_stale_wrong_actor_and_pending_commands_preserve_state ... ok
+test mana_payment_private_atomic_rejection_and_duplicate_commit ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/release/deps/mulligan-5467a6127d8c216f)
+
+running 17 tests
+test mulligan_rejects_foreign_stale_and_unexpected_replacement_orders ... ok
+test mulligan_random_replacements_match_independent_full_order_vectors ... ok
+test mulligan_rules_decisions_stale_candidates_regression ... ok
+test mulligan_rules_setup_deterministic_reset_interaction ... ok
+test mulligan_rules_setup_deterministic_reset_positive ... ok
+test mulligan_rules_setup_deterministic_reset_regression ... ok
+test mulligan_both_seats_mirrors_and_distinct_bottom_generations ... ok
+test mulligan_rules_setup_mulligan_bottom_negative ... ok
+test mulligan_rules_setup_mulligan_bottom_interaction ... ok
+test mulligan_explicit_order_validation_and_seven_limit ... ok
+test mulligan_rules_setup_mulligan_bottom_regression ... ok
+test mulligan_rules_setup_mulligan_bottom_positive ... ok
+test mulligan_rules_setup_ordered_draw_positive ... ok
+test mulligan_rules_setup_ordered_draw_negative ... ok
+test mulligan_rules_setup_ordered_draw_regression ... ok
+test mulligan_rules_setup_two_player_opening_positive ... ok
+test mulligan_sys_core_003_rejections_between_every_real_stage ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/objects.rs (target/release/deps/objects-d76f89296efc35a9)
+
+running 4 tests
+test objects_zone_ownership_order_and_foreign_store_rejection ... ok
+test objects_frozen_identities_are_shared_and_match_manifest ... ok
+test objects_allocation_and_zone_change_literal_ledgers ... ok
+test objects_reuse_and_reset_never_revive_retained_handles ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/release/deps/opening-2487ee74c529fc8c)
+
+running 4 tests
+test opening_shuffle_matches_independent_vectors ... ok
+test opening_reset_restarts_rng_reuses_allocations_and_isolates_games ... ok
+test opening_invalid_config_preserves_complete_state_and_rng ... ok
+test opening_ordered_both_starters_and_mirrors ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/release/deps/quantum-c4cb7fb15751429f)
+
+running 4 tests
+test quantum_reset_really_yields_before_dealing ... ok
+test quantum_resume_before_reset_is_not_opening_complete ... ok
+test quantum_mulligan_really_yields_and_resume_is_not_an_action ... ok
+test quantum_explicit_ledger_and_changing_budgets ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/release/deps/rng-618f6cc624190dd7)
+
+running 3 tests
+test rng_creation_order_and_policy_draws_do_not_change_environment ... ok
+test rng_episode_known_answers ... ok
+test rng_unknown_versions_rejected ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/release/deps/targets-62f9ef20e3fb49bb)
+
+running 1 test
+test targets_normal_reset_real_response_chain ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/terminal.rs (target/release/deps/terminal-218b2b265c0ad823)
+
+running 3 tests
+test terminal_reset_after_real_mana_growth_and_bite_damage ... ok
+test terminal_full_opening_empty_draw_and_external_stop_remain_distinct ... ok
+test terminal_full_opening_turns_combat_best_of_one_and_explicit_reset ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/turns.rs (target/release/deps/turns-2034b913494b6fd4)
+
+running 5 tests
+test turns_cannot_start_before_opening_or_twice ... ok
+test turns_empty_combat_sequence_cleanup_and_reset_scope ... ok
+test turns_first_draw_positive_negative_interaction_regression ... ok
+test turns_priority_passing_positive_and_stale_candidates_negative ... ok
+test turns_red_mirror_mulligan_opening_interaction ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/views.rs (target/release/deps/views-25538a14b2c73154)
+
+running 3 tests
+test views_public_terminal_result_preserves_private_filter ... ok
+test views_library_permutation_alone_preserves_bytes_candidates_and_errors ... ok
+test views_opening_candidates_errors_and_bottoming_use_only_visible_rows ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/release/deps/mtg_fixture-3cf02bed815f3206)
+
+running 2 tests
+test tests::typed_comparison_checks_second_player_before_active_player ... ok
+test tests::parser_rejects_duplicate_nested_fields ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/release/deps/cli-2a43af16fe76ff39)
+
+running 6 tests
+test equal_is_deterministic_and_preserves_id ... ok
+test first_difference_and_stack_length_are_explicit ... ok
+test examples_detect_independently_specified_differences ... ok
+test usage_and_io_errors_are_json ... ok
+test schema_rejects_serde_positional_and_enum_representations ... ok
+test invalid_inputs_are_structured_and_deterministic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.31s
+
+   Doc-tests mtg_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
