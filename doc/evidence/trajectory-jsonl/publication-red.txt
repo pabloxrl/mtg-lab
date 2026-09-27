@@ -1,0 +1,22 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.10s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-ae37f0fe196698ae)
+
+running 1 test
+test jsonl_contract::jsonl_atomic_publication_preserves_failed_fragment_and_existing_file ... FAILED
+
+failures:
+
+---- jsonl_contract::jsonl_atomic_publication_preserves_failed_fragment_and_existing_file stdout ----
+
+thread 'jsonl_contract::jsonl_atomic_publication_preserves_failed_fragment_and_existing_file' (154) panicked at crates/mtg-recorder/src/jsonl_contract.rs:231:5:
+successful publication must create the final file
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    jsonl_contract::jsonl_atomic_publication_preserves_failed_fragment_and_existing_file
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`

@@ -36,7 +36,8 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Core work quantum | [Resumable reset, shuffle and opening work](doc/opening.md#bounded-work), with [quantum equivalence checks](doc/evidence/quantum/README.md) | Internal yields only; no scheduler or batch runner yet; the work quantum currently covers opening work. |
 | Core snapshots | [Versioned full-state save and atomic restore](doc/snapshot.md), with [snapshot acceptance](doc/evidence/snapshot/README.md) | Privileged compatible-engine saves; RNG, opening choices and internal yields preserved. Fresh handle scopes on load; no migration. Pending spell integration remains #19; opening replay is available below. |
 | Opening replays | [Versioned semantic opening scripts and first-divergence verification](doc/replay.md), with [replay acceptance](doc/evidence/replay/README.md) | Privileged rules/cards/engine/config/RNG pins, strict consumed choices and ordered bottom identities. Opening only; spells/full-game integration and CLI remain #19/#79. |
-| In-memory trajectories | [Owned canonical records and per-seat readers](doc/trajectories.md), with [reward/boundary acceptance](doc/evidence/trajectory/README.md) | Versioned collector metadata, action-time candidates/masks, zero-decision seat rewards, final views and failure quarantine. Trusted collector supplies action tables. No persistence, full-game collector or pending spell-view integration yet. |
+| In-memory trajectories | [Owned canonical records and per-seat readers](doc/trajectories.md), with [reward/boundary acceptance](doc/evidence/trajectory/README.md) | Versioned collector metadata, action-time candidates/masks, zero-decision seat rewards, final views and failure quarantine. Trusted collector supplies action tables. No full-game collector or pending spell-view integration yet. |
+| JSONL trajectories | [Bounded scalar writer and strict validator](doc/trajectory-jsonl.md), with [handwritten roundtrip/failure evidence](doc/evidence/trajectory-jsonl/README.md) | Canonical owned records, checksums/counts, atomic file publication and explicit backpressure/errors. One run per file; episode/file byte budgets required. Parquet, CLI and full recorder integration remain planned. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
 M0 verifies that the requirements, test designs and basic reference infrastructure
@@ -211,7 +212,7 @@ See [agentic operations](doc/agentic-operations.md) for the full driver guide.
 
 | Path | Purpose |
 | --- | --- |
-| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting/target/combat/terminal transitions and seat-filtered views and executable fixture comparator. |
+| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting/target/combat/terminal transitions and seat-filtered views, scalar JSONL recorder and executable fixture comparator. |
 | [scripts/](scripts/) | Manifest/scenario validators, verification and reference runners. |
 | [data/](data/) | Frozen rules/card metadata and scoped capability registry. |
 | [fixtures/](fixtures/) | Original scenario and comparator inputs. |

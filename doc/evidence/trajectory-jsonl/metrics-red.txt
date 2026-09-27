@@ -1,0 +1,24 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.95s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-ae37f0fe196698ae)
+
+running 1 test
+test jsonl_contract::jsonl_final_metrics_include_the_final_batch_and_seal ... FAILED
+
+failures:
+
+---- jsonl_contract::jsonl_final_metrics_include_the_final_batch_and_seal stdout ----
+
+thread 'jsonl_contract::jsonl_final_metrics_include_the_final_batch_and_seal' (196) panicked at crates/mtg-recorder/src/jsonl_contract.rs:510:5:
+assertion `left == right` failed
+  left: 0
+ right: 2318
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    jsonl_contract::jsonl_final_metrics_include_the_final_batch_and_seal
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`

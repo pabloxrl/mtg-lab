@@ -1,0 +1,244 @@
+{
+  "reward_convention": "SparseZeroSumTerminal",
+  "discount_convention": "UndiscountedEpisodic",
+  "capture_selection": "AllDecisions",
+  "header": {
+    "id": {
+      "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+      "ordinal": 7
+    },
+    "versions": {
+      "schema": 1,
+      "engine": "engine-v1",
+      "rules": "cr-20260925",
+      "cards": "pool-v1",
+      "action": "script-v1",
+      "observation": 1
+    },
+    "deck_hashes": [
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    ],
+    "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "policies": [
+      "script-a",
+      "script-b"
+    ],
+    "starting_seat": 0,
+    "limits": {
+      "decisions": null,
+      "turns": null,
+      "wall_time_ms": null
+    },
+    "restricted_replay": null
+  },
+  "decisions": [
+    {
+      "episode": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 7
+      },
+      "index": 0,
+      "seat_index": 0,
+      "actor": 0,
+      "observation": {
+        "schema_version": 1,
+        "seat": 0,
+        "life": [
+          20,
+          20
+        ],
+        "hand_counts": [
+          0,
+          0
+        ],
+        "library_counts": [
+          1,
+          1
+        ],
+        "hand": [],
+        "public_zones": [],
+        "remembered": [],
+        "starting_seat": 0,
+        "turn": [
+          1,
+          0,
+          "upkeep"
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "acting_seat": 0,
+        "opening": null,
+        "terminal": null
+      },
+      "choice": {
+        "kind": "priority",
+        "logical_action": 0,
+        "micro_choice": 0,
+        "candidates": [
+          {
+            "semantic": "pass",
+            "features": [
+              0
+            ]
+          }
+        ],
+        "legal_mask": [
+          true
+        ],
+        "selected": 0,
+        "policy": {
+          "checkpoint": null,
+          "log_probability": null,
+          "value": null,
+          "recurrent_state": null,
+          "exploration": null
+        }
+      },
+      "action": "pass",
+      "reward": [
+        0,
+        0
+      ],
+      "next_actor": null,
+      "terminated": true,
+      "truncated": false
+    }
+  ],
+  "footer": {
+    "end": "Completed",
+    "complete": true,
+    "returns": [
+      1,
+      -1
+    ],
+    "boundary_reward": [
+      1,
+      -1
+    ],
+    "decisions": 1,
+    "logical_actions": 1,
+    "final_observations": [
+      {
+        "schema_version": 1,
+        "seat": 0,
+        "life": [
+          20,
+          20
+        ],
+        "hand_counts": [
+          0,
+          0
+        ],
+        "library_counts": [
+          1,
+          1
+        ],
+        "hand": [],
+        "public_zones": [],
+        "remembered": [],
+        "starting_seat": 0,
+        "turn": [
+          1,
+          0,
+          "upkeep"
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "acting_seat": null,
+        "opening": null,
+        "terminal": {
+          "winner": 0,
+          "losses": [
+            null,
+            "concession"
+          ]
+        }
+      },
+      {
+        "schema_version": 1,
+        "seat": 1,
+        "life": [
+          20,
+          20
+        ],
+        "hand_counts": [
+          0,
+          0
+        ],
+        "library_counts": [
+          1,
+          1
+        ],
+        "hand": [],
+        "public_zones": [],
+        "remembered": [],
+        "starting_seat": 0,
+        "turn": [
+          1,
+          0,
+          "upkeep"
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "acting_seat": null,
+        "opening": null,
+        "terminal": {
+          "winner": 0,
+          "losses": [
+            null,
+            "concession"
+          ]
+        }
+      }
+    ]
+  }
+}
