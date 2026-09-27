@@ -31,7 +31,8 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Creature casting | [Bear Cub/Swab Goblin casts, payment-time land activations, stack resolution and summoning sickness](doc/casting.md), with [casting acceptance](doc/evidence/casting/README.md) | Sorcery timing; creature-only LIFO tests use declared synthetic stacks. |
 | Targeted instants | [Giant Growth/Bite Down, factored targets, response chains, revalidation, damage and simultaneous cleanup](doc/targets.md), with [target acceptance](doc/evidence/targets/README.md) | Normal-reset Growth response script, synthetic Bite edges and real Growth/Bite reset integration below; other spell mechanics remain planned. |
 | Vanilla combat | [Attacker/blocker choices, current damage allocation, simultaneous damage and lethal cleanup](doc/combat.md), with [combat acceptance](doc/evidence/combat/README.md) | Bear Cub/Swab Goblin only; signed life totals, no combat keywords. Normal reset-to-combat scripts, synthetic edge cases and five matched XMage combat scenarios. |
-| Rules outcomes | [Lethal life, attempted empty draws, concession and explicit reset](doc/terminal.md), with [terminal acceptance](doc/evidence/terminal/README.md) | Stable seats and best-of-one finality; normal-reset red/green mirror scripts and matched synthetic XMage boundaries. No recorder rewards, policy views or CLI matches. |
+| Rules outcomes | [Lethal life, attempted empty draws, concession and explicit reset](doc/terminal.md), with [terminal acceptance](doc/evidence/terminal/README.md) | Stable seats and best-of-one finality; normal-reset red/green mirror scripts and matched synthetic XMage boundaries. No recorder rewards or CLI matches; terminal state uses the core views below. |
+| Core player views | [Seat-filtered structured observations and opening candidate commands](doc/views.md), with [privacy acceptance](doc/evidence/views/README.md) | Own hand, public zones/counts and historical revelations; no hidden library order, opponent hand or RNG. Private spell continuations explicitly unavailable; complete later policy integration and tensors remain planned. |
 | Core work quantum | [Resumable reset, shuffle and opening work](doc/opening.md#bounded-work), with [quantum equivalence checks](doc/evidence/quantum/README.md) | Internal yields only; no scheduler, batch runner or reward ledger yet; the work quantum currently covers opening work. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
@@ -207,7 +208,7 @@ See [agentic operations](doc/agentic-operations.md) for the full driver guide.
 
 | Path | Purpose |
 | --- | --- |
-| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting/target/combat/terminal transitions and executable fixture comparator. |
+| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting/target/combat/terminal transitions and seat-filtered views and executable fixture comparator. |
 | [scripts/](scripts/) | Manifest/scenario validators, verification and reference runners. |
 | [data/](data/) | Frozen rules/card metadata and scoped capability registry. |
 | [fixtures/](fixtures/) | Original scenario and comparator inputs. |
