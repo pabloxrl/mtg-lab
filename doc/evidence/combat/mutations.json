@@ -1,0 +1,20 @@
+[
+  {
+    "mutant": "no-attacker-tap",
+    "test": "combat_declarations_and_simultaneous_trade",
+    "status": "killed",
+    "exit_code": 101
+  },
+  {
+    "mutant": "forget-blocked-status",
+    "test": "combat_blocked_status_survives",
+    "status": "killed",
+    "exit_code": 101
+  },
+  {
+    "mutant": "omit-blocker-damage",
+    "test": "combat_declarations_and_simultaneous_trade",
+    "status": "killed",
+    "exit_code": 101
+  }
+]

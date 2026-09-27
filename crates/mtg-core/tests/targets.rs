@@ -7,6 +7,7 @@ use mtg_core::opening::{Config, DeckConfig, Game, OpeningAction, Selection};
 fn advance(g: &mut Game) {
     let d = g.turn_decision().unwrap();
     let selection = match d.kind {
+        TurnKind::Combat(_) => panic!("unexpected combat choice in this script"),
         TurnKind::Priority => TurnSelection::Pass(d.candidate(0)),
         TurnKind::Discard { count } => {
             TurnSelection::Discard((0..count).map(|i| d.candidate(i)).collect())

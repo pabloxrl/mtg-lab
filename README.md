@@ -26,10 +26,11 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Episode RNG | [Specified SplitMix64 v1](doc/rng.md), stable episode derivation and separate owned environment/policy streams, with [known-answer tests](crates/mtg-core/tests/rng.rs) | Raw RNG primitive; opening shuffle/reset uses this stream. No game loop yet. |
 | Object storage | [Generation-safe slots and ordered zones](doc/objects.md), shared frozen card identities, slot reuse and reset epochs, with [literal-ledger tests](doc/evidence/objects/README.md) | Storage primitive used by opening reset; no rules decisions or player observations in the storage primitive. |
 | Opening choices | [Validated reset, deterministic shuffle and London mulligans](doc/opening.md), independent seat declarations, cumulative ordered bottoming and top-card draw primitive, with [reset](doc/evidence/opening/README.md) and [mulligan evidence](doc/evidence/mulligan/README.md) | Empty-library loss and full games remain planned; completed opening connects to the turn prefix below. Inspection and explicit shuffle injection are privileged. |
-| Turn progression | [Empty-stack priority, untap, first/subsequent draws, mana boundaries and cleanup discards](doc/turns.md), with [turn acceptance](doc/evidence/turns/README.md) | Empty/lands-only combat progression; combat resolution and terminal outcomes remain planned; targeted-effect cleanup is implemented below. |
+| Turn progression | [Empty-stack priority, untap, first/subsequent draws, mana boundaries and cleanup discards](doc/turns.md), with [turn acceptance](doc/evidence/turns/README.md) | Vanilla combat and targeted-effect cleanup are implemented below; terminal outcomes remain planned. |
 | Lands and mana | [Forest/Mountain plays, tap mana and private payment continuations](doc/mana.md), with [independent payment enumeration and regressions](doc/evidence/mana/README.md) | Standalone payments use floated mana; creature mana abilities and complete policy observations remain planned. |
-| Creature casting | [Bear Cub/Swab Goblin casts, payment-time land activations, stack resolution and summoning sickness](doc/casting.md), with [casting acceptance](doc/evidence/casting/README.md) | Sorcery timing; combat and complete games remain planned. Creature-only LIFO tests use declared synthetic stacks. |
-| Targeted instants | [Giant Growth/Bite Down, factored targets, response chains, revalidation, damage and simultaneous cleanup](doc/targets.md), with [target acceptance](doc/evidence/targets/README.md) | Normal-reset Growth response script and declared synthetic Bite positions; no other spell mechanics, combat or full games. |
+| Creature casting | [Bear Cub/Swab Goblin casts, payment-time land activations, stack resolution and summoning sickness](doc/casting.md), with [casting acceptance](doc/evidence/casting/README.md) | Sorcery timing; complete games remain planned. Creature-only LIFO tests use declared synthetic stacks. |
+| Targeted instants | [Giant Growth/Bite Down, factored targets, response chains, revalidation, damage and simultaneous cleanup](doc/targets.md), with [target acceptance](doc/evidence/targets/README.md) | Normal-reset Growth response script and declared synthetic Bite positions; no other spell mechanics or full games. |
+| Vanilla combat | [Attacker/blocker choices, current damage allocation, simultaneous damage and lethal cleanup](doc/combat.md), with [combat acceptance](doc/evidence/combat/README.md) | Bear Cub/Swab Goblin only; signed life totals, no terminal adjudication or combat keywords. Normal reset-to-combat scripts and synthetic edge cases. |
 | Core work quantum | [Resumable reset, shuffle and opening work](doc/opening.md#bounded-work), with [quantum equivalence checks](doc/evidence/quantum/README.md) | Internal yields only; no scheduler, batch runner or reward ledger yet; the work quantum currently covers opening work. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
@@ -130,7 +131,7 @@ The [executable torture baseline](doc/testing/torture-suite.md) runs through the
 Docker quickstart above and required CI. Agents must retain coded regressions,
 add independently justified tests with each behavior, run the complete suite and
 obtain separate review before merging. Current executable coverage is verification
-tooling, versioned episode RNG, object storage, opening choices, turns, land/mana transitions and vanilla creature casting; most of the 320 game designs and full AI matches remain planned.
+tooling, versioned episode RNG, object storage, opening choices, turns, land/mana transitions, vanilla creature casting, targeted instants and vanilla combat; most of the 320 game designs and full AI matches remain planned.
 
 Work is delivered as [small tested changes](doc/programs/atomic-delivery.md):
 M1 has separate RNG, identity, opening, rules, replay, data and CLI deliveries.
@@ -205,7 +206,7 @@ See [agentic operations](doc/agentic-operations.md) for the full driver guide.
 
 | Path | Purpose |
 | --- | --- |
-| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting transitions and executable fixture comparator. |
+| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting/target/combat transitions and executable fixture comparator. |
 | [scripts/](scripts/) | Manifest/scenario validators, verification and reference runners. |
 | [data/](data/) | Frozen rules/card metadata and scoped capability registry. |
 | [fixtures/](fixtures/) | Original scenario and comparator inputs. |

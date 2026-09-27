@@ -1,0 +1,24 @@
+
+running 1 test
+test opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker ... FAILED
+
+failures:
+
+---- opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker stdout ----
+
+thread 'opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker' (311) panicked at crates/mtg-core/src/combat_tests.rs:267:5:
+assertion `left == right` failed
+  left: [20, 18]
+ right: [20, 20]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-71/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.66s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+error: test failed, to rerun pass `-p mtg-core --lib`

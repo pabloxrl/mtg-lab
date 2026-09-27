@@ -5,6 +5,8 @@ use std::{collections::VecDeque, num::NonZeroUsize};
 
 #[path = "casting.rs"]
 pub mod casting;
+#[path = "combat.rs"]
+pub mod combat;
 #[path = "mana.rs"]
 pub mod mana;
 #[path = "targets.rs"]
@@ -139,7 +141,7 @@ pub struct Game {
     turns: turns::TurnState,
     work: VecDeque<Work>,
     objects: ObjectStore,
-    life: [u32; 2],
+    life: [i64; 2],
     decision: Option<OpeningDecision>,
     rng: Option<EpisodeRng>,
     generation: u64,
@@ -171,7 +173,7 @@ impl Game {
     pub fn objects(&self) -> &ObjectStore {
         &self.objects
     }
-    pub fn life(&self) -> [u32; 2] {
+    pub fn life(&self) -> [i64; 2] {
         self.life
     }
     pub fn decision(&self) -> Option<OpeningDecision> {

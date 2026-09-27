@@ -1,0 +1,22 @@
+
+running 1 test
+test opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab ... FAILED
+
+failures:
+
+---- opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab stdout ----
+
+thread 'opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab' (157) panicked at crates/mtg-core/src/combat_tests.rs:79:9:
+assertion failed: g.objects.get(a).unwrap().tapped
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-71/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.12s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+error: test failed, to rerun pass `-p mtg-core --lib`

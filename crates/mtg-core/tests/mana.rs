@@ -144,6 +144,7 @@ fn mana_masked_second_land_and_timing_rejected_transactionally() {
             break;
         }
         match d.kind {
+            TurnKind::Combat(_) => panic!("unexpected combat choice in this script"),
             TurnKind::Priority => pass(&mut g),
             TurnKind::Discard { count } => {
                 g.apply_turn(
