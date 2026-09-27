@@ -1,0 +1,24 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-62/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.02s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-0e8d9c867d98b99e)
+
+running 1 test
+test rng::tests::rng_primitive_known_answers ... FAILED
+
+failures:
+
+---- rng::tests::rng_primitive_known_answers stdout ----
+
+thread 'rng::tests::rng_primitive_known_answers' (127) panicked at crates/mtg-core/src/rng.rs:46:36:
+assertion `left == right` failed
+  left: 0
+ right: 16294208416658607535
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    rng::tests::rng_primitive_known_answers
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
