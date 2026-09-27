@@ -1,0 +1,295 @@
+{
+  "status": "agreed",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "platform": "Linux/aarch64",
+  "runner_sha256": "217b276850a0fac1277474143805515f0354d8a13a46436aafe5f7430374a955",
+  "shared_runner_sha256": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+  "pins_sha256": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+  "dependencies_sha256": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+  "provenance_sha256": "66be55093b647c8d79de0872ba629dc9f816c24a0aede2ce32ffe03402c3cdfa",
+  "fixture_sha256": "758c75e94510a0f97dd39e451d99ff21889b4cca8921de80fbff0c6ebee4cbc1",
+  "bridge_sha256": "37f6bc26d9db9ddbef0f771a9cfecfef7e523b2163018349f7bfb35b9eecab85",
+  "log_sha256": "bfad10445a9b49d28f2b6b9dc29d442e04f43ae284e9028c7c33a46e93ae7305",
+  "checkpoints": {
+    "starter-0-rounds-0": {
+      "declarations": [
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          7,
+          33
+        ]
+      ],
+      "hand": [
+        7,
+        7
+      ],
+      "library": [
+        33,
+        33
+      ],
+      "bottom_choices": 0
+    },
+    "starter-1-rounds-0": {
+      "declarations": [
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          7,
+          33
+        ]
+      ],
+      "hand": [
+        7,
+        7
+      ],
+      "library": [
+        33,
+        33
+      ],
+      "bottom_choices": 0
+    },
+    "starter-1-rounds-2": {
+      "declarations": [
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          6,
+          34
+        ],
+        [
+          1,
+          5,
+          35
+        ]
+      ],
+      "hand": [
+        7,
+        5
+      ],
+      "library": [
+        33,
+        35
+      ],
+      "bottom_choices": 3
+    },
+    "starter-1-rounds-1": {
+      "declarations": [
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          6,
+          34
+        ]
+      ],
+      "hand": [
+        7,
+        6
+      ],
+      "library": [
+        33,
+        34
+      ],
+      "bottom_choices": 1
+    },
+    "starter-0-rounds-1": {
+      "declarations": [
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          6,
+          34
+        ]
+      ],
+      "hand": [
+        6,
+        7
+      ],
+      "library": [
+        34,
+        33
+      ],
+      "bottom_choices": 1
+    },
+    "starter-1-rounds-7": {
+      "declarations": [
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          6,
+          34
+        ],
+        [
+          1,
+          5,
+          35
+        ],
+        [
+          1,
+          4,
+          36
+        ],
+        [
+          1,
+          3,
+          37
+        ],
+        [
+          1,
+          2,
+          38
+        ],
+        [
+          1,
+          1,
+          39
+        ]
+      ],
+      "hand": [
+        7,
+        0
+      ],
+      "library": [
+        33,
+        40
+      ],
+      "bottom_choices": 28
+    },
+    "starter-0-rounds-2": {
+      "declarations": [
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          6,
+          34
+        ],
+        [
+          0,
+          5,
+          35
+        ]
+      ],
+      "hand": [
+        5,
+        7
+      ],
+      "library": [
+        35,
+        33
+      ],
+      "bottom_choices": 3
+    },
+    "starter-0-rounds-7": {
+      "declarations": [
+        [
+          0,
+          7,
+          33
+        ],
+        [
+          1,
+          7,
+          33
+        ],
+        [
+          0,
+          6,
+          34
+        ],
+        [
+          0,
+          5,
+          35
+        ],
+        [
+          0,
+          4,
+          36
+        ],
+        [
+          0,
+          3,
+          37
+        ],
+        [
+          0,
+          2,
+          38
+        ],
+        [
+          0,
+          1,
+          39
+        ]
+      ],
+      "hand": [
+        0,
+        7
+      ],
+      "library": [
+        40,
+        33
+      ],
+      "bottom_choices": 28
+    }
+  },
+  "scope": "Eight original synthetic opening prefixes; real London declarations, redraws and cumulative bottom counts, both starting seats.",
+  "limitations": "Initial seven-card hands injected; identical basic cards per seat. No initial shuffle, card identity/order, PRNG, full-game or Forge comparison.",
+  "stdin": "closed",
+  "display": "unset",
+  "offline": true,
+  "timeout_seconds": 300
+}

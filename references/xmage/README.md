@@ -152,3 +152,14 @@ terminal boundaries with shared native/reference inputs. [Acceptance and scope](
 records observed life/loss flags/hand/library counts and limitations, including
 no winner-flag or full-game reference claim. [API provenance](terminal-provenance.json)
 supplements the existing pin and MIT notice. No upstream test is copied.
+
+## Opening count extension (GH-17)
+
+[OpeningCountsTest](OpeningCountsTest.java) scripts eight original London
+mulligan count cases, starting from explicitly synthetic seven-card hands.
+[Core audit and reproduction](../../doc/evidence/core-integration/README.md)
+records the shared native/reference ledger, exact scope and execution receipt.
+Both starting seats and 0/1/2/7 mulligans are covered, including per-round
+bottoming and forced keep. Identical basic-card decks make shuffle identity and
+order unobservable; neither is claimed. [Consulted API hashes](opening-provenance.json)
+are verified by the runner. The existing MIT notice and distribution limits apply.

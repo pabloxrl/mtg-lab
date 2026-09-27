@@ -1,0 +1,12 @@
+   Compiling libc v0.2.189
+   Compiling cpufeatures v0.2.17
+   Compiling sha2 v0.10.9
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-17/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 7.89s
+     Running tests/core_integration.rs (target/debug/deps/core_integration-40a799f3d1fbc983)
+
+running 1 test
+test core_integration_reference_count_ledger_and_stale_reset ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
