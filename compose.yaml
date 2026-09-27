@@ -17,13 +17,13 @@ services:
     mem_limit: 7g
     cpus: 4
     stop_grace_period: 30s
-    ports: ["127.0.0.1:4318:4318"]
+    ports: ["127.0.0.1:4318:4317"]
     volumes:
       - agent-home:/home/agent
     tmpfs:
       - /tmp:rw,exec,nosuid,nodev,size=2g,mode=1777
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:4318/api/v1/state', timeout=5)"]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:4317/api/v1/state', timeout=5)"]
       interval: 30s
       timeout: 10s
       retries: 3

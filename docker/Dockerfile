@@ -16,5 +16,8 @@ WORKDIR /home/agent
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["bash"]
 FROM toolchain AS runtime
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends nginx nodejs && rm -rf /var/lib/apt/lists/*
+USER agent
 COPY --chown=root:root . /opt/mtg-lab
 CMD ["python3", "/opt/mtg-lab/scripts/symphony/container_entrypoint.py"]

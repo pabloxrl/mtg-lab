@@ -1,0 +1,12 @@
+#operator-summary { max-width: 1480px; margin: 24px auto 0; padding: 26px 32px; width: calc(100% - 48px); border: 1px solid #d9d9e3; border-left: 4px solid #10a37f; border-radius: 18px; background: #fff; color: #202123; box-shadow: 0 1px 2px #1018280d; }
+#operator-summary p { margin: 10px 0; max-width: 100ch; }
+#operator-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: #0f513f; }
+#operator-summary-title { font-size: 24px; margin: 0 0 8px; letter-spacing: -.02em; }
+#operator-current { font-size: 19px; font-weight: 500; line-height: 1.5; }
+#operator-notice, #operator-times { font-size: 12px; color: #6e6e80; }
+#operator-milestone, #operator-goal { color: #525260; font-size: 14px; }
+#operator-blocker { color: #b42318; font-weight: 500; }
+#operator-footer { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; margin-top: 20px; padding-top: 14px; border-top: 1px solid #ececf1; }
+#operator-footer a { font-size: 13px; text-decoration: underline; }
+#operator-summary[data-freshness=stale], #operator-summary[data-freshness=unavailable] { border-left-color: #b7791f; }
+@media (max-width: 600px) { #operator-summary { width: calc(100% - 24px); padding: 20px; margin-top: 12px; } #operator-current { font-size: 17px; } }

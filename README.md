@@ -234,3 +234,13 @@ on successful delivery; failed audits retain an incomplete stage. Link durable
 reports rather than copying transient worker counts or queue status. Keep setup
 instructions aligned with executable scripts, preserve limitations, and use the
 live program issue for current execution status.
+
+### Following agent progress
+
+The local [Symphony dashboard](http://localhost:4318/) includes a “What’s happening”
+card that refreshes every five minutes. The working agent explains its current
+work, why it matters for the milestone and project, what comes next and any blocker.
+The card shows the note's age and says when an update is missing or old. It reuses
+worker notes without another AI session; existing live metrics stay available.
+See the [operator runbook](doc/symphony-runbook.md#five-minute-activity-summary)
+for the Docker deployment and reporting contract.

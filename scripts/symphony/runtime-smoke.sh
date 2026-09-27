@@ -23,20 +23,23 @@ except OSError as e:
 else:
     raise SystemExit("Read-only sandbox allowed a write")'
 # Invalid test token cannot authorize issue dispatch; dashboard startup needs no secret.
-GITHUB_TOKEN=smoke-no-credential symphony --i-understand-that-this-will-be-running-without-the-usual-guardrails --logs-root /tmp/smoke-logs /opt/mtg-lab/WORKFLOW.md >/tmp/controller.log 2>&1 &
+GITHUB_TOKEN=smoke-no-credential python3 /opt/mtg-lab/scripts/symphony/dashboard_runtime.py --logs-root /tmp/smoke-logs /opt/mtg-lab/WORKFLOW.md >/tmp/controller.log 2>&1 &
 controller_pid=$!
 trap 'kill "$controller_pid" 2>/dev/null || true; wait "$controller_pid" 2>/dev/null || true' EXIT
 python3 - <<'PYCODE'
 import json, time, urllib.request
 for attempt in range(30):
     try:
-        state = json.load(urllib.request.urlopen('http://127.0.0.1:4318/api/v1/state', timeout=1))
+        state = json.load(urllib.request.urlopen('http://127.0.0.1:4317/api/v1/state', timeout=1))
         assert state['counts']['running'] == 0
         print('credential-free-controller-ok')
         break
     except OSError:
         time.sleep(1)
 else:
+    print(open('/tmp/controller.log').read()[-8000:])
     raise SystemExit('Controller did not become healthy')
 PYCODE
+python3 /opt/mtg-lab/scripts/symphony/dashboard_smoke.py
+node --test /opt/mtg-lab/scripts/symphony/dashboard/summary.test.cjs
 CHECK

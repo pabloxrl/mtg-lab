@@ -78,6 +78,34 @@ If it has already merged, verify the merged result and finish the issue instead
 of generating the change again. If the PR was closed unmerged, block the task.
 Add `agent-running` while executing; keep `agent-ready` until done or blocked.
 
+## Five-minute operator updates
+
+At the start of the task, at meaningful changes (implementation, testing, review,
+merge or blocker), and at least every five minutes while actively working, write
+an operator note with `python3 scripts/symphony/report_progress.py --issue N
+--current "..." --why "..." --next "..."` (one shell command; N is this issue).
+Use `--blocker "..."` only for a real obstacle; omit it when resolved. This writes
+an ignored local JSON file atomically; it does not publish a GitHub comment.
+Update before a long command and after it returns. If a tool blocks longer than
+five minutes, the dashboard marks the note old; do not pretend it was refreshed.
+
+Write for the person funding and steering the project. Use first person, plain
+sentences and concrete behavior: what you are doing now, what you have actually
+learned, and what you will check next. In `--why`, explain how this task helps its
+milestone and the goal of trustworthy, reproducible AI-played Magic games and
+training data. Do not paste the issue title or a checklist, repeat ticket IDs,
+recite implementation jargon, or say “leveraging”, “seamless” or “progressing”.
+Example: “I’m checking that a spell does nothing if its target has already died.”
+Why: “AI matches need to handle responses correctly; otherwise we would train on
+results that could never happen in a real game.” Next: “I’ll test both spells
+played in response to each other, then run the existing regression suite.”
+
+Keep each field to one or two short sentences (maximum 700 characters). Say
+explicitly when you are still testing rather than claiming completion. Never
+include secrets, raw command output, private prompts or internal reasoning.
+These notes explain progress; workpads and CI remain the delivery evidence.
+No additional model session is needed for the dashboard.
+
 ## Implement, verify, review
 
 1. Establish a reproduction or baseline and record concrete acceptance criteria.
