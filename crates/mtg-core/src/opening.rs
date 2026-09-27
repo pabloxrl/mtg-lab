@@ -7,6 +7,8 @@ use std::{collections::VecDeque, num::NonZeroUsize};
 pub mod casting;
 #[path = "mana.rs"]
 pub mod mana;
+#[path = "targets.rs"]
+pub mod targets;
 #[path = "turns.rs"]
 pub mod turns;
 
@@ -1106,3 +1108,7 @@ mod quantum {
         assert_eq!(g.rng, Some(expected));
     }
 }
+
+#[cfg(test)]
+#[path = "targets_tests.rs"]
+mod targets_tests;

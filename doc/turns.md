@@ -51,10 +51,9 @@ starter, including P1. Turn/step semantics use pinned CR 103.8a, 106.4, 117 and
   Otherwise cleanup proceeds directly through next turn's untap to upkeep.
 
 The cleanup discard prefix is necessary for pass-only opening-to-second-turn
-acceptance: the nonstarter has eight cards at their first cleanup. It does not
-implement cleanup triggers, temporary effects or damage removal. Those await the
-registered card/combat tasks and integration acceptance. There are no supported
-ongoing effects or damage in this component.
+acceptance: the nonstarter has eight cards at their first cleanup. [Targeted instants](targets.md) now add simultaneous damage removal and Growth
+expiration after discard. Cleanup triggers remain with later abilities and
+integration acceptance.
 
 Storage records now retain controller and tapped status. New identities from
 allocation/zone changes default to owner control and untapped; same-zone moves
@@ -62,7 +61,7 @@ preserve status. Game inspection is immutable; [land plays and mana production](
 use validated transitions. [Creature casting](casting.md) joins payments and stack resolution. Synthetic unit tests seed battlefield status and
 mana directly and are explicitly distinguished from normal opening tests.
 
-A stack registered by [creature casting](casting.md) resolves one top spell on
+A stack registered by [creature casting](casting.md) or [targeted instants](targets.md) resolves one top spell on
 two consecutive passes, then gives the active player priority without advancing
 the step or emptying mana. Unregistered raw storage stack objects still return
 `UnsupportedStack`. Active nonland permanents at the combat-declaration boundary
@@ -71,7 +70,7 @@ required draw from an empty library returns `TurnError::Draw(EmptyLibrary)` and
 preserves the current decision/state; it is not a terminal result. Terminal
 outcomes remain #72. These limitations prevent claiming complete games.
 
-During a mana-payment continuation, `turn_decision()` returns None and turn
+During a target or mana-payment continuation, `turn_decision()` returns None and turn
 commands reject until payment finishes or is cancelled. Reset clears turn
 state/mana/payment and invalidates old decisions. Turn actions operate
 on the fixed 80-card two-deck state: a pass draws at most one card or untaps at
