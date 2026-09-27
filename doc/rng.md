@@ -48,8 +48,9 @@ policy actions can still change which chance events occur in a future game.
 
 `mtg_core::rng::EpisodeRng::new(version, master, episode, Stream)` returns a
 validated stream, `version()` identifies it, and `next_u64()` advances it.
-Bounded sampling, shuffling, game reset, snapshots/serialization, policies and
-worker scheduling are subsequent deliveries. No game behavior is implied.
+The [opening reset](opening.md) now supplies versioned bounded sampling and
+shuffling using the environment stream. Snapshots/serialization, policies and
+worker scheduling remain subsequent deliveries. This primitive alone implies no game behavior.
 
 ## Independent acceptance evidence
 
