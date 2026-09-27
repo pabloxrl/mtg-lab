@@ -1,0 +1,20 @@
+[
+  {
+    "mutant": "reverse-seat-rewards",
+    "test": "trajectory_rules_terminal_rewards_once_positive",
+    "exit": 101,
+    "compiled_behavioral_failure": true
+  },
+  {
+    "mutant": "opponent-next-view",
+    "test": "trajectory_handwritten_links_rewards_and_microchoice_durations",
+    "exit": 101,
+    "compiled_behavioral_failure": true
+  },
+  {
+    "mutant": "drop-zero-decision-credit",
+    "test": "trajectory_zero_decision_seat_final_credit_and_owned_reset",
+    "exit": 101,
+    "compiled_behavioral_failure": true
+  }
+]

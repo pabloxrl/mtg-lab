@@ -1,0 +1,105 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-76/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.91s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 13 tests
+test opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_interaction ... ok
+test opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_negative ... ok
+test trajectory::tests::trajectory_action_time_data_optional_statistics_and_privacy ... ok
+test opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_positive ... ok
+test trajectory::tests::trajectory_header_and_choice_validation_is_transactional ... ok
+test trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations ... ok
+test trajectory::tests::trajectory_reject_invalid_choice_continuity_versions_and_false_terminal ... ok
+test trajectory::tests::trajectory_both_seats_external_concession_and_empty_episode ... ok
+test trajectory::tests::trajectory_truncated_transition_bootstrap_and_failed_completed_recording ... ok
+test trajectory::tests::trajectory_reward_discount_and_capture_conventions_are_explicit ... ok
+test trajectory::tests::trajectory_zero_decision_seat_final_credit_and_owned_reset ... ok
+test trajectory::tests::trajectory_truncation_failure_and_incomplete_quarantine ... ok
+test trajectory::tests::trajectory_normal_opening_capture_on_off_and_reset_rejection ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 70 filtered out; finished in 0.04s
+
+     Running tests/casting.rs (target/debug/deps/casting-39408b63c0a32ecb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/debug/deps/combat-bb63530f24e1b777)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-3ea8494fad3cefd6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-6a627dbc7f87ecd9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-1dd9225411e06106)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-2fc5e170a27194bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-93b5d15e842a4e4c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/replay.rs (target/debug/deps/replay-0f13caf1c5012784)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-8f4f3307455ec009)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/snapshot.rs (target/debug/deps/snapshot-97bc1a0550947af5)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/debug/deps/targets-d456e61f74043ac8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/terminal.rs (target/debug/deps/terminal-c8dd012c804717b9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/turns.rs (target/debug/deps/turns-1eb9a7df1fbd41ba)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/views.rs (target/debug/deps/views-5d6ad7d558b65654)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+

@@ -8,3 +8,5 @@ pub mod rng;
 pub mod objects;
 
 pub mod opening;
+
+pub mod trajectory;

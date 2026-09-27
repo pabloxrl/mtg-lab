@@ -1146,3 +1146,7 @@ pub mod snapshot;
 
 #[path = "replay.rs"]
 pub mod replay;
+
+#[cfg(test)]
+#[path = "trajectory_rules_tests.rs"]
+mod trajectory_rules_tests;
