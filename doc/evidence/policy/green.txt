@@ -1,0 +1,17 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-110/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.30s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 9 tests
+test opening::policy::tests::policy_mulligans_ordered_bottoming_and_old_opening_api_coexist ... ok
+test opening::policy::tests::policy_generation_and_resource_exhaustion_are_transactional ... ok
+test opening::policy::tests::policy_normal_reset_both_seat_opening_land_mana_pass_literal_states ... ok
+test opening::policy::tests::policy_pending_spell_combat_and_internal_work_fail_explicitly ... ok
+test opening::policy::tests::policy_standalone_payment_is_private_and_explicit ... ok
+test opening::policy::tests::policy_visible_references_ignore_hidden_storage_and_track_visible_rows ... ok
+test opening::policy::tests::policy_wire_contract_owned_records_and_terminal_boundary ... ok
+test opening::policy::tests::policy_hidden_twins_and_invalid_inputs_preserve_full_state ... ok
+test opening::policy::tests::policy_library_only_twins_payment_errors_and_masked_rows ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 99 filtered out; finished in 0.01s
+

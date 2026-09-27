@@ -106,7 +106,7 @@ impl Game {
             summoning_sick: o.zone == Zone::Battlefield && self.summoning_sick(h),
         }
     }
-    fn view_hand(&self, seat: Seat) -> Vec<Handle> {
+    pub(super) fn view_hand(&self, seat: Seat) -> Vec<Handle> {
         let mut cards: Vec<_> = self.objects.in_zone(Zone::Hand(seat)).collect();
         // Stable sorting groups indistinguishable duplicates without exposing
         // storage addresses or the initial deck/shuffle position.
@@ -114,9 +114,16 @@ impl Game {
         cards
     }
     pub fn observe(&self, seat: Seat) -> Result<PlayerView, ViewError> {
+        if self.turns.payment.is_some() {
+            return Err(ViewError::Unavailable);
+        }
+        self.observe_visible_state(seat)
+    }
+    // Shared committed-state projection. Only the policy boundary exposes
+    // standalone payment choices; provisional pool and cost never enter this view.
+    pub(super) fn observe_visible_state(&self, seat: Seat) -> Result<PlayerView, ViewError> {
         if self.rng.is_none()
             || !self.work.is_empty()
-            || self.turns.payment.is_some()
             || self.turns.targeting.is_some()
             || self.turns.casting.is_some()
         {
@@ -201,6 +208,7 @@ impl Game {
             acting_seat: self
                 .decision
                 .map(|d| d.actor)
+                .or_else(|| self.turns.payment.as_ref().map(|p| p.actor))
                 .or_else(|| self.turn_decision().map(|d| d.actor))
                 .map(|s| seat_index(s) as u8),
             opening,

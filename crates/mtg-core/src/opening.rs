@@ -9,6 +9,8 @@ pub mod casting;
 pub mod combat;
 #[path = "mana.rs"]
 pub mod mana;
+#[path = "policy.rs"]
+pub mod policy;
 #[path = "targets.rs"]
 pub mod targets;
 #[path = "terminal.rs"]

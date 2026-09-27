@@ -7,6 +7,9 @@ implement `serde::Serialize`; JSON consumers can use `serde_json::to_vec`.
 `Debug` on these view records is also filtered. `Game`, `ObjectStore`, existing
 inspection methods and their `Debug` remain **privileged**, not policy output.
 
+The additive [structured policy interface](policy-decisions.md) supplies safe turn,
+land and standalone payment candidates without changing this schema or opening API.
+
 This is the atomic core observation contract from #73, not the complete #19
 policy integration or M3 numeric tensor encoder. Read it at opening decisions,
 completed opening, settled turn boundaries and terminal results. Before reset,

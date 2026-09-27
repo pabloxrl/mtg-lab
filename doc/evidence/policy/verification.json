@@ -1,0 +1,49 @@
+{
+  "status": "passed",
+  "base_sha": "a2ac8ae2507f86e5a0c7e9643b1c835bc45278ed",
+  "environment": "Managed Linux/aarch64 toolchain container; no worker Docker invocation",
+  "logs": [
+    {
+      "command": "./scripts/torture.sh",
+      "exit_code": 0,
+      "python_tests": 134,
+      "rust_tests_per_profile": 225,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ],
+      "log_sha256": "a32a2485bdc709cf73d4c9b82343a96e5dbf7e612aaddc1f61a2b892754a3052",
+      "final_after_current_main_integration": false
+    },
+    {
+      "command": "./scripts/torture.sh",
+      "exit_code": 0,
+      "python_tests": 134,
+      "rust_tests_per_profile": 225,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ],
+      "log_sha256": "0aeaa523d316d5d05f9c4cd658130a40027338b9076021ab0231af61c17ac6b8",
+      "final_after_current_main_integration": true
+    }
+  ],
+  "checks": [
+    "docs",
+    "program ledger and graph",
+    "320-case catalog",
+    "Python",
+    "rustfmt",
+    "Clippy warnings denied",
+    "all workspace Rust debug and release tests"
+  ],
+  "policy_tests": 9,
+  "compiled_mutants_detected": 3,
+  "reference_receipts": [
+    "xmage-priority.json",
+    "xmage-opening.json"
+  ],
+  "limitations": "No upstream policy-schema/privacy/land/payment or Forge verification; no M1 gate claim."
+}
