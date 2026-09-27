@@ -1,0 +1,18 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-75/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.22s
+     Running tests/replay.rs (target/debug/deps/replay-0f13caf1c5012784)
+
+running 10 tests
+test replay_literal_opening_and_versioned_roundtrip ... ok
+test replay_explicit_order_mirrors_have_literal_cards ... ok
+test replay_cross_process_verification ... ok
+test replay_rejects_malformed_raw_indices_and_wrong_pins ... ok
+test replay_mulligans_match_independent_complete_order_vectors ... ok
+test replay_reports_first_tampered_action_or_checkpoint ... ok
+test replay_config_seed_schema_and_checkpoint_corruption ... ok
+test replay_requires_final_decision_checkpoint_field ... ok
+test replay_requires_exact_choice_consumption ... ok
+test replay_semantic_bottom_and_illegal_choices_are_strict ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+

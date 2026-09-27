@@ -1,0 +1,23 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-75/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.73s
+     Running tests/replay.rs (target/debug/deps/replay-0f13caf1c5012784)
+
+running 1 test
+test replay_reports_first_tampered_action_or_checkpoint ... FAILED
+
+failures:
+
+---- replay_reports_first_tampered_action_or_checkpoint stdout ----
+
+thread 'replay_reports_first_tampered_action_or_checkpoint' (274) panicked at crates/mtg-core/tests/replay.rs:119:5:
+assertion failed: matches!(verify(&bytes(&v)),
+    Err(ReplayError::Divergence { checkpoint: 1, .. }))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    replay_reports_first_tampered_action_or_checkpoint
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.04s
+
+error: test failed, to rerun pass `-p mtg-core --test replay`
