@@ -47,7 +47,7 @@ cd mtg-lab
 ```
 
 This builds the toolchain, checks documentation and the implementation/test plans,
-runs Python and Rust tests, and exercises an isolated credential-free Symphony
+runs every discovered Python test and Rust tests in debug and release, and exercises an isolated credential-free Symphony
 runtime/sandbox smoke. Source is mounted read-only; build output stays in the
 container. On AppArmor-enabled hosts, the runtime smoke's host-preparation helper
 may need sudo to install the project's named profile; see the
@@ -115,6 +115,21 @@ The planned implementation separates:
 - Separately installed Forge/XMage test references, outside the production core.
 
 These are delivery commitments; the table above identifies what currently exists.
+
+## Tests govern delivery
+
+The [executable torture baseline](doc/testing/torture-suite.md) runs through the
+Docker quickstart above and required CI. Agents must retain coded regressions,
+add independently justified tests with each behavior, run the complete suite and
+obtain separate review before merging. Current executable coverage is verification
+tooling; the 320 game designs and full AI matches are still planned.
+
+Work is delivered as [small tested changes](doc/programs/atomic-delivery.md):
+M1 has separate RNG, identity, opening, rules, replay, data and CLI deliveries.
+The original component issues check their integration. Later stages are split
+against delivered interfaces before dispatch, preserving every acceptance gate.
+You describe outcomes and resolve essential product/access questions; agents
+handle planning, testing, review, merging and queue progression.
 
 ## How games will become tests
 
