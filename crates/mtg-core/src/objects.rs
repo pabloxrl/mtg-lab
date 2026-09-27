@@ -57,6 +57,8 @@ pub struct Handle {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Object {
+    pub controller: Seat,
+    pub tapped: bool,
     pub card: CardId,
     pub owner: Seat,
     pub zone: Zone,
@@ -146,7 +148,13 @@ impl ObjectStore {
         reserve(&mut self.zones[zone.index()])?;
         let entry = Slot {
             generation,
-            object: Some(Object { card, owner, zone }),
+            object: Some(Object {
+                card,
+                owner,
+                zone,
+                controller: owner,
+                tapped: false,
+            }),
         };
         if self.free.pop().is_some() {
             self.slots[slot as usize] = entry;
@@ -168,6 +176,32 @@ impl ObjectStore {
             .ok_or(StorageError::InvalidHandle)
     }
 
+    /// Reserve a validated batch of distinct moves before any object changes.
+    pub(crate) fn prepare_moves(
+        &mut self,
+        handles: &[Handle],
+        zone: Zone,
+    ) -> Result<(), StorageError> {
+        for (i, &handle) in handles.iter().enumerate() {
+            self.get(handle)?;
+            if handles[..i].contains(&handle) {
+                return Err(StorageError::InvalidHandle);
+            }
+            next_identity(handle.generation)?;
+        }
+        self.zones[zone.index()]
+            .try_reserve(handles.len())
+            .map_err(|_| StorageError::CapacityExceeded)
+    }
+
+    pub(crate) fn get_mut(&mut self, handle: Handle) -> Result<&mut Object, StorageError> {
+        self.get(handle)?;
+        Ok(self.slots[handle.slot as usize]
+            .object
+            .as_mut()
+            .expect("validated live slot"))
+    }
+
     /// A different zone creates a new identity (CR 400.7). Same-zone requests
     /// are no-ops; this is not a reordering API. Remaining zone order is stable.
     pub fn move_to(&mut self, handle: Handle, zone: Zone) -> Result<Handle, StorageError> {
@@ -180,7 +214,10 @@ impl ObjectStore {
         self.unlink(handle.slot, old_zone);
         let slot = &mut self.slots[handle.slot as usize];
         slot.generation = generation;
-        slot.object.as_mut().expect("validated live slot").zone = zone;
+        let object = slot.object.as_mut().expect("validated live slot");
+        object.zone = zone;
+        object.controller = object.owner;
+        object.tapped = false;
         self.zones[zone.index()].push(handle.slot);
         Ok(self.handle(handle.slot))
     }

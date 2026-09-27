@@ -23,7 +23,10 @@ and content hashes are an exact projection of the frozen
 [manifest](../data/cards/foundations_micro_v1.json); tests check every entry.
 A hash pins the complete card/token metadata. This table does not interpret text
 or implement effects. Unknown keys return `None`. The full card definitions remain
-in the manifest; per-object records carry only the index, original owner and zone.
+in the manifest; per-object records carry the index, original owner, zone, controller and tapped status.
+Allocation and zone changes initialize controller to owner and status to untapped;
+same-zone movement preserves status. The [turn prefix](turns.md) uses controller
+and tapped status for untap. Status mutation is internal to the rules core.
 Numeric indices are internal to this frozen table, not a versioned interchange API.
 
 Each store owns dense slots, a free list and nine ordered zone vectors: each seat's
