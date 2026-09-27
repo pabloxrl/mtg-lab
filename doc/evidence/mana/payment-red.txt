@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-68/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.33s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 1 test
+test opening::mana::tests::mana_payment_two_units_are_private_until_commit ... FAILED
+
+failures:
+
+---- opening::mana::tests::mana_payment_two_units_are_private_until_commit stdout ----
+
+thread 'opening::mana::tests::mana_payment_two_units_are_private_until_commit' (139) panicked at crates/mtg-core/src/mana.rs:34:3:
+1G is payable from RGG under CR 107.4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::mana::tests::mana_payment_two_units_are_private_until_commit
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -1,0 +1,52 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-68/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.75s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 1 test
+test opening::turns::tests::turns_untap_controller_and_mana_every_boundary ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-bb41156621f23027)
+
+running 4 tests
+test mana_cancel_payment_restores_pool_and_invalidates_decisions ... FAILED
+test mana_forest_mountain_positive_negative_regression ... FAILED
+test mana_payment_private_atomic_rejection_and_duplicate_commit ... FAILED
+test mana_masked_second_land_and_timing_rejected_transactionally ... FAILED
+
+failures:
+
+---- mana_cancel_payment_restores_pool_and_invalidates_decisions stdout ----
+
+thread 'mana_cancel_payment_restores_pool_and_invalidates_decisions' (93) panicked at crates/mtg-core/tests/mana.rs:19:107:
+CR 305: legal land play must be offered
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- mana_forest_mountain_positive_negative_regression stdout ----
+
+thread 'mana_forest_mountain_positive_negative_regression' (94) panicked at crates/mtg-core/tests/mana.rs:25:9:
+assertion `left == right` failed: CR 305: main-phase land choices
+  left: 0
+ right: 7
+
+---- mana_payment_private_atomic_rejection_and_duplicate_commit stdout ----
+
+thread 'mana_payment_private_atomic_rejection_and_duplicate_commit' (96) panicked at crates/mtg-core/tests/mana.rs:19:107:
+CR 305: legal land play must be offered
+
+---- mana_masked_second_land_and_timing_rejected_transactionally stdout ----
+
+thread 'mana_masked_second_land_and_timing_rejected_transactionally' (95) panicked at crates/mtg-core/tests/mana.rs:44:18:
+assertion failed: !g.land_candidates(Seat::P0).is_empty()
+
+
+failures:
+    mana_cancel_payment_restores_pool_and_invalidates_decisions
+    mana_forest_mountain_positive_negative_regression
+    mana_masked_second_land_and_timing_rejected_transactionally
+    mana_payment_private_atomic_rejection_and_duplicate_commit
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test mana`

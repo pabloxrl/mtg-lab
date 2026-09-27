@@ -1,0 +1,60 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-68/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.41s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 4 tests
+test opening::turns::tests::turns_untap_controller_and_mana_every_boundary ... ok
+test opening::mana::tests::mana_payment_two_units_are_private_until_commit ... ok
+test opening::mana::tests::mana_synthetic_illegal_sources_stack_and_overflow ... ok
+test opening::mana::tests::mana_all_small_payment_combinations_independent_enumerator ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 13.39s
+
+     Running tests/mana.rs (target/debug/deps/mana-bb41156621f23027)
+
+running 6 tests
+test mana_cancel_payment_restores_pool_and_invalidates_decisions ... ok
+test mana_masked_second_land_and_timing_rejected_transactionally ... ok
+test mana_nonactive_priority_can_tap_but_cannot_play_land_and_action_resets_passes ... ok
+test mana_forest_mountain_positive_negative_regression ... ok
+test mana_foreign_stale_wrong_actor_and_pending_commands_preserve_state ... ok
+test mana_payment_private_atomic_rejection_and_duplicate_commit ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-ce642592432787ec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-78536aa399b797f2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-c515b8ba59ced1ad)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-7abc55d7215edbe4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/turns.rs (target/debug/deps/turns-bcc5af6b89f3f305)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
