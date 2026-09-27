@@ -46,7 +46,7 @@ pub(super) struct CombatState {
     pub(super) attacks: Vec<Attack>,
     selected: Vec<Handle>,
     blocks: Vec<(Handle, Handle)>,
-    assignments: Vec<(Handle, Vec<(Handle, u32)>)>,
+    pub(super) assignments: Vec<(Handle, Vec<(Handle, u32)>)>,
 }
 fn vanilla(card: CardId) -> bool {
     matches!(card.identity().key, "bear-cub" | "swab-goblin")
@@ -287,11 +287,34 @@ impl Game {
             .push((attacker, amounts.to_vec()));
         Ok(self.combat_update(actor, generation, CombatKind::Damage))
     }
+    /// Scalar execution drains the same owned continuation as bounded damage.
     pub fn finish_combat(
         &mut self,
         actor: Seat,
         id: DecisionId,
     ) -> Result<super::turns::TurnProgress, CombatError> {
+        let mut progress = self.finish_combat_quantum(actor, id, NonZeroUsize::MAX)?;
+        while progress == Progress::InternalYield {
+            progress = self.resume(NonZeroUsize::MAX);
+        }
+        match progress {
+            Progress::TurnDecision(d) => Ok(super::turns::TurnProgress::Decision(d)),
+            Progress::Terminal(o) => Ok(super::turns::TurnProgress::Terminal(o)),
+            _ => unreachable!("accepted combat completion settles at a turn boundary"),
+        }
+    }
+    /// Validate before accepting. Damage, deaths and final priority/terminal
+    /// settlement use owned work; declarations keep their existing atomic commit.
+    pub fn finish_combat_quantum(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, CombatError> {
+        self.finish_combat_work(actor, id)?;
+        Ok(self.resume(quantum))
+    }
+    fn finish_combat_work(&mut self, actor: Seat, id: DecisionId) -> Result<(), CombatError> {
         let d = self.turn_decision().ok_or(CombatError::NotReady)?;
         let super::turns::TurnKind::Combat(kind) = d.kind else {
             return Err(CombatError::NotReady);
@@ -329,21 +352,24 @@ impl Game {
                 self.turns.combat.attacks = attacks;
                 self.turns.combat.blocks.clear();
             }
-            CombatKind::Damage => self.deal_combat_damage()?,
+            CombatKind::Damage => {
+                self.queue_combat_damage()?;
+                self.generation = generation;
+                self.turns.decision = None;
+                return Ok(());
+            }
         }
         self.generation = generation;
         self.turns.passed = false;
-        if let Some(result) = self.settle_terminal(None) {
-            return Ok(super::turns::TurnProgress::Terminal(result));
-        }
-        Ok(super::turns::TurnProgress::Decision(
+        if self.settle_terminal(None).is_none() {
             self.set_turn_decision(
                 self.turns.position.unwrap().1,
                 super::turns::TurnKind::Priority,
-            ),
-        ))
+            );
+        }
+        Ok(())
     }
-    fn deal_combat_damage(&mut self) -> Result<(), CombatError> {
+    fn queue_combat_damage(&mut self) -> Result<(), CombatError> {
         use super::targets::Modification;
         let mut changes = self.turns.modifications.clone();
         let mut life = self.life;
@@ -405,21 +431,41 @@ impl Game {
                 .prepare_moves(&dead[i], Zone::Graveyard(seat))
                 .map_err(|e| CombatError::Turn(TurnError::Storage(e)))?;
         }
-        self.life = life;
-        self.turns.modifications = changes;
+        // Numeric bounds and every destination are preflighted before any work
+        // is accepted. No command or policy observation is available until the
+        // final Priority item; thus all marks are simultaneous in rules time.
+        let work_count = changes
+            .len()
+            .checked_add(dead[0].len())
+            .and_then(|n| n.checked_add(dead[1].len()))
+            .and_then(|n| n.checked_add(3))
+            .ok_or(overflow)?;
+        self.work
+            .try_reserve(work_count)
+            .map_err(|_| CombatError::Turn(TurnError::Storage(StorageError::CapacityExceeded)))?;
+        self.turns
+            .modifications
+            .try_reserve(changes.len())
+            .map_err(|_| CombatError::Turn(TurnError::Storage(StorageError::CapacityExceeded)))?;
+        self.work.push_back(Work::CombatLife(life));
+        for change in changes {
+            self.work.push_back(Work::Modify(change));
+        }
         for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
-            for h in &dead[i] {
-                self.objects
-                    .move_to(*h, Zone::Graveyard(seat))
-                    .expect("preflighted combat deaths");
+            for &handle in &dead[i] {
+                self.work.push_back(Work::SpellMove {
+                    handle,
+                    zone: Zone::Graveyard(seat),
+                    controller: None,
+                });
             }
         }
-        self.turns.modifications.retain(|m| {
-            self.objects
-                .get(m.handle)
-                .is_ok_and(|o| o.zone == Zone::Battlefield)
+        self.work.push_back(Work::FinishCombat);
+        self.work.push_back(Work::Priority {
+            actor: active,
+            passed: false,
+            terminal: true,
         });
-        self.turns.combat.assignments.clear();
         Ok(())
     }
 }

@@ -33,7 +33,9 @@ impl Game {
         if self.work.iter().any(|w| {
             matches!(
                 w,
-                Work::Modify(_)
+                Work::CombatLife(_)
+                    | Work::FinishCombat
+                    | Work::Modify(_)
                     | Work::SpellMove { .. }
                     | Work::FinishSpell { .. }
                     | Work::Priority { .. }

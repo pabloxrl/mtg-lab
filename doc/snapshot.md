@@ -64,3 +64,9 @@ complete cross-feature pending-choice/response-chain snapshot acceptance.
 [Spell settlement acceptance](evidence/spell-settlement/README.md) additionally
 checks restore at every internal spell-work phase using the actual Growth/Bite
 and creature APIs. No reference-engine agreement is implied by snapshot equality.
+
+
+[Combat settlement acceptance](evidence/combat-settlement/README.md) checks restored
+life/mark/death/bookkeeping/publication work at every quantum-1 yield, both seats,
+and terminal suffixes. These are trusted compatible-engine snapshots; old engine
+fingerprints still reject without migration.

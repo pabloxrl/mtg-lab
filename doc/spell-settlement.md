@@ -44,8 +44,9 @@ fresh capability scopes. Old engine fingerprints return
 provided. [Snapshot integrity/trust boundaries](snapshot.md) remain applicable.
 
 Second passes on an empty stack and cleanup discards still execute turn work
-synchronously even through `apply_turn_quantum`. Combat and turn settlement belong
-to #108/#109. Complete policy decisions, played-game replay, reference effect
+synchronously even through `apply_turn_quantum`; turn/cleanup settlement remains
+with #109. [Combat damage settlement](combat.md#bounded-damage-settlement) now uses
+the same owned work through `finish_combat_quantum`. Complete policy decisions, played-game replay, reference effect
 bridges and integration acceptance remain with their respective owners. This is
 not M1 completion; gate #22 is still required.
 

@@ -1,0 +1,36 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-108/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.86s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 4 tests
+
+thread 'opening::combat::tests::combat_quantum_terminal_after_all_damage_and_deaths' (235) panicked at crates/mtg-core/src/combat_tests.rs:600:9:
+assertion `left == right` failed: damage must leave owned work at quantum 1
+  left: Terminal(Outcome { winner: Some(P0), losses: [None, Some(Life)] })
+ right: InternalYield
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test opening::combat::tests::combat_quantum_terminal_after_all_damage_and_deaths ... FAILED
+
+thread 'opening::combat::tests::combat_quantum_removed_blockers_remember_blocked_status' (234) panicked at crates/mtg-core/src/combat_tests.rs:600:9:
+assertion `left == right` failed: damage must leave owned work at quantum 1
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 14, generation: 15 }, actor: P0, kind: Priority })
+ right: InternalYield
+test opening::combat::tests::combat_quantum_removed_blockers_remember_blocked_status ... FAILED
+
+thread 'opening::combat::tests::combat_quantum_all_modern_allocations_simultaneous_lethal_both_seats' (232) panicked at crates/mtg-core/src/combat_tests.rs:600:9:
+assertion `left == right` failed: damage must leave owned work at quantum 1
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 15, generation: 16 }, actor: P0, kind: Priority })
+ right: InternalYield
+test opening::combat::tests::combat_quantum_all_modern_allocations_simultaneous_lethal_both_seats ... FAILED
+test opening::combat::tests::combat_quantum_preflight_rejections_preserve_exact_snapshot ... ok
+
+failures:
+
+failures:
+    opening::combat::tests::combat_quantum_all_modern_allocations_simultaneous_lethal_both_seats
+    opening::combat::tests::combat_quantum_removed_blockers_remember_blocked_status
+    opening::combat::tests::combat_quantum_terminal_after_all_damage_and_deaths
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 88 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

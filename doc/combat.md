@@ -2,9 +2,9 @@
 
 `mtg_core::opening::combat` supports Bear Cub and Swab Goblin, using the existing
 opening, turn, casting and cleanup APIs. All inspection remains privileged;
-seat-filtered observations are separate work. Other combat creatures and keywords
-are explicitly unsupported. Game outcomes and complete-game acceptance remain
-with GH-72/GH-18; negative life does not yet terminate a game.
+seat-filtered observations are documented in [player views](views.md). Other
+combat creatures and keywords are explicitly unsupported. [Rules outcomes](terminal.md)
+include life loss after combat; complete-game acceptance remains with GH-18.
 
 `turn_decision()` now also returns `TurnKind::Combat(Attackers | Blockers | Damage)`.
 Pass and spell/mana commands reject during these continuations. Each accepted
@@ -59,3 +59,35 @@ rejects before life, damage, deaths or decision state changes.
 Run `cargo test -p mtg-core combat` and `./scripts/torture.sh` inside the managed
 container. [Acceptance and catalog mapping](evidence/combat/README.md) distinguish
 synthetic positions, real reset-to-combat scripts, and reference coverage limits.
+
+
+## Bounded damage settlement
+
+`finish_combat_quantum(actor, id, NonZeroUsize)` accepts the same completion as
+`finish_combat`, returning `Progress::InternalYield`, `TurnDecision`, or `Terminal`.
+On `InternalYield`, call `resume(quantum)` until a player/terminal boundary.
+`finish_combat` drains that same owned work with an unlimited budget. Attacker and
+blocker declarations retain their atomic scalar commit; this change covers damage
+and its resulting state-based/terminal settlement, not turn or cleanup progression.
+
+All allocations, checked arithmetic and graveyard moves are preflighted before
+acceptance. Each work unit installs the simultaneous life totals, writes one
+creature modification, moves one dead creature, finishes combat bookkeeping, or
+publishes terminal/active-player priority. Every modification precedes every death;
+all deaths precede publication. The total is three units plus one per resulting
+modification and one per death. A modification already present before damage is
+also installed from the preflighted result. Preflight and bookkeeping scan the
+supported M1 population; the quantum is not a wall-clock or allocation-free bound.
+
+Generation advances once on acceptance; resumes neither advance it nor draw RNG.
+Pending work exposes no player decision, observation, terminal result or reward.
+Commands, including concession, reject until it settles; settled repeated resumes
+are read-only. Raw inspection and snapshots remain privileged and can see partial
+internal work. Compatible snapshots preserve all remaining work and rebase object
+handles. Changed engine fingerprints reject older snapshots explicitly.
+
+[Bounded settlement acceptance](evidence/combat-settlement/README.md) covers both
+seats, all 2/2 two-blocker allocations, departed/reentered blockers, simultaneous
+lethal damage and snapshots at every yield. The same five shared XMage combat
+fixtures run through quantum 1 and larger budgets as well as scalar execution.
+No combat keyword, complete-game, scheduler or M1 gate completion claim is made.

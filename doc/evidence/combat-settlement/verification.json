@@ -1,0 +1,43 @@
+{
+  "issue": 108,
+  "base_main": "1632627131872b88a33c6c5e9573fdd675baedb9",
+  "environment": "managed Linux Docker worker",
+  "architecture": "aarch64",
+  "checks": [
+    {
+      "command": "./scripts/torture.sh",
+      "phase": "before main integration",
+      "status": "pass",
+      "log_sha256": "373db612156310570009dcc678d797918eac36970493bf3ec7852765ee8317d6",
+      "python_tests": 134,
+      "rust_tests_per_profile": 209,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ]
+    },
+    {
+      "command": "./scripts/torture.sh",
+      "phase": "after fresh-main integration",
+      "status": "pass",
+      "log_sha256": "3de9415a79ee8ab1a5ecb1ce6f8f43bba74329b496645e6a095c99efcc24f76f",
+      "python_tests": 134,
+      "rust_tests_per_profile": 209,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ]
+    }
+  ],
+  "other_checks": [
+    "documentation links",
+    "RFC program and ledger",
+    "320 design slots unchanged",
+    "cargo fmt",
+    "cargo clippy --workspace --all-targets --locked -- -D warnings",
+    "cargo test -p mtg-core combat"
+  ],
+  "review_and_delivery": "Exact candidate separate review and protected PR/main CI are recorded in GH-108 workpad and PR. These local checks alone do not claim delivery or M1 completion."
+}
