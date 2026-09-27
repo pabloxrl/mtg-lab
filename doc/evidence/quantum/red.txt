@@ -1,0 +1,71 @@
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-66/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.99s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-ce642592432787ec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-78536aa399b797f2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-c515b8ba59ced1ad)
+
+running 3 tests
+test quantum_resume_before_reset_is_not_opening_complete ... FAILED
+test quantum_reset_really_yields_before_dealing ... FAILED
+test quantum_mulligan_really_yields_and_resume_is_not_an_action ... FAILED
+
+failures:
+
+---- quantum_resume_before_reset_is_not_opening_complete stdout ----
+
+thread 'quantum_resume_before_reset_is_not_opening_complete' (554) panicked at crates/mtg-core/tests/quantum.rs:39:2:
+assertion `left == right` failed
+  left: OpeningComplete
+ right: NotStarted
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- quantum_reset_really_yields_before_dealing stdout ----
+
+thread 'quantum_reset_really_yields_before_dealing' (553) panicked at crates/mtg-core/tests/quantum.rs:12:2:
+assertion `left == right` failed
+  left: Decision(OpeningDecision { generation: 1, actor: P0, candidates: [Keep, Mulligan], kind: KeepOrMulligan, id: DecisionId { scope: 0, generation: 1 } })
+ right: InternalYield
+
+---- quantum_mulligan_really_yields_and_resume_is_not_an_action stdout ----
+
+thread 'quantum_mulligan_really_yields_and_resume_is_not_an_action' (552) panicked at crates/mtg-core/tests/quantum.rs:22:2:
+assertion `left == right` failed
+  left: Decision(OpeningDecision { generation: 3, actor: P0, candidates: [], kind: Bottom { count: 1 }, id: DecisionId { scope: 1, generation: 3 } })
+ right: InternalYield
+
+
+failures:
+    quantum_mulligan_really_yields_and_resume_is_not_an_action
+    quantum_reset_really_yields_before_dealing
+    quantum_resume_before_reset_is_not_opening_complete
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test quantum`

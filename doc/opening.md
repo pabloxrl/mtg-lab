@@ -57,7 +57,7 @@ rejected, including before the first successful initialization.
 
 Game state and environment RNG are owned per game. Reset reuses storage vectors,
 invalidates old object handles through the storage epoch, clears all zones,
-restores life, and sets a fresh decision. Scratch decks use stack arrays.
+restores life, and sets a fresh decision. Pending reset owns boxed fixed-size deck arrays.
 Storage capacity is reserved before clearing live state; storage/identity and
 decision exhaustion report errors without discarding the previous game.
 A storage allocation failure may grow reserved capacities before returning an
@@ -132,3 +132,33 @@ SYS-CORE-003 opening regressions. [Mulligan evidence](evidence/mulligan/README.m
 maps every assigned case and states reference coverage limits. All inspection,
 decision/chance plumbing and Debug in this module remain privileged; seat-safe
 policy views are #73's delivery.
+
+## Bounded work
+
+`reset_quantum(&config, master, episode, NonZeroUsize)` and
+`apply_quantum(actor, &action, optional_order, NonZeroUsize)` return `Progress`.
+The optional order has the same privileged meaning as `apply_with_order`.
+On `InternalYield`, call `resume(NonZeroUsize)` until `Decision(d)` or
+`OpeningComplete`. `NotStarted` distinguishes resume before reset.
+`OpeningComplete` is not game termination. Quanta may change between resumes.
+The scalar `reset`, `apply` and `apply_with_order` drain this same continuation.
+
+Each work unit performs one shuffle RNG trial (including a rejected trial),
+one card allocation/move, or bounded phase bookkeeping. Fixed-size operations
+include validating the two frozen 40-card decks, reserving/resetting storage,
+copying a 40-card permutation, installing its order, and scanning two seats.
+These fixed-size setup/validation costs are not individually charged as card
+units. There is no wall-clock deadline or allocation-free claim. The rejection
+sampler itself yields after each trial, with its shuffle index retained.
+
+Pending work owns all remaining cards, permutations and cursors. During a yield,
+`decision()` and `bottom_cards()` return `None`; privileged inspection may see
+partial work. Apply/reset return `WorkPending` without mutation, and `draw_top`
+returns `OpeningPending`. Resume at a decision or completed opening is read-only.
+Accepted actions advance the decision generation once; resumes never advance it,
+create a policy action, or emit a reward/terminal result. No scheduler, batch
+fairness, effect continuation or trajectory reward ledger is implemented here.
+
+Run `cargo test -p mtg-core quantum` and the full torture suite. The
+[quantum evidence](evidence/quantum/README.md) covers SYS-CORE-006's core prefix;
+#18 owns actual effects, #19 snapshots and #27 batch fairness.
