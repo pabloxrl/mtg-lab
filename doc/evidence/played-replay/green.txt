@@ -1,0 +1,19 @@
+     Running tests/played_replay.rs (target/debug/deps/played_replay-369298762966c9c3)
+
+running 3 tests
+test played_replay_normal_reset_independent_checkpoints ... ok
+test played_replay_fresh_process_and_quantum_suffixes has been running for over 60 seconds
+test played_replay_strict_corruption has been running for over 60 seconds
+test played_replay_strict_corruption ... ok
+test played_replay_fresh_process_and_quantum_suffixes ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 318.80s
+
+     Running tests/played_replay.rs (target/release/deps/played_replay-dc6508864ed8a1f1)
+
+running 3 tests
+test played_replay_fresh_process_and_quantum_suffixes ... ok
+test played_replay_strict_corruption ... ok
+test played_replay_normal_reset_independent_checkpoints ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 29.39s

@@ -26,6 +26,11 @@ pub struct Choice {
 #[derive(Debug, PartialEq, Eq)]
 pub enum ReplayError {
     Malformed,
+    Turn(turns::TurnError),
+    SemanticChoice {
+        index: usize,
+        reason: actions::ActionError,
+    },
     Incompatible {
         field: String,
     },
@@ -293,3 +298,6 @@ fn difference(a: &Value, b: &Value, path: String) -> Option<(String, String, Str
     }
     Some((path, a.to_string(), b.to_string()))
 }
+
+#[path = "played_replay.rs"]
+pub mod played;

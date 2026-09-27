@@ -1,0 +1,45 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling cfg-if v1.0.5
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-114/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 37.24s
+     Running tests/played_replay.rs (target/debug/deps/played_replay-844c5098c43f1a90)
+
+running 2 tests
+
+thread 'played_replay_normal_reset_independent_checkpoints' (643) panicked at crates/mtg-core/tests/played_replay.rs:48:96:
+called `Result::unwrap()` on an `Err` value: Malformed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'played_replay_strict_corruption' (644) panicked at crates/mtg-core/tests/played_replay.rs:48:96:
+called `Result::unwrap()` on an `Err` value: Malformed
+test played_replay_strict_corruption ... FAILED
+test played_replay_normal_reset_independent_checkpoints ... FAILED
+
+failures:
+
+failures:
+    played_replay_normal_reset_independent_checkpoints
+    played_replay_strict_corruption
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 9.91s
+
+error: test failed, to rerun pass `-p mtg-core --test played_replay`

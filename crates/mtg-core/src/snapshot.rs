@@ -73,6 +73,7 @@ pub(super) fn engine() -> &'static str {
                 include_str!("card_identities.rs"),
                 include_str!("snapshot.rs"),
                 include_str!("replay.rs"),
+                include_str!("played_replay.rs"),
                 include_str!("actions.rs"),
                 include_str!("../../../data/cards/foundations_micro_v1.json"),
                 include_str!("../../../data/rules/cr-2026-09-25.json")
