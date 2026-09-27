@@ -1,0 +1,34 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-112/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.73s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 4 tests
+
+thread 'opening::policy::tests::combat_policy::policy_combat_independent_subsets_maps_and_allocations' (251) panicked at crates/mtg-core/src/policy_combat_tests.rs:7:93:
+called `Result::unwrap()` on an `Err` value: UnsupportedCombat
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'opening::policy::tests::combat_policy::policy_combat_invalid_block_damage_and_finish_preserve_state' (252) panicked at crates/mtg-core/src/policy_combat_tests.rs:6:80:
+called `Result::unwrap()` on an `Err` value: UnsupportedCombat
+test opening::policy::tests::combat_policy::policy_combat_independent_subsets_maps_and_allocations ... FAILED
+test opening::policy::tests::combat_policy::policy_combat_invalid_block_damage_and_finish_preserve_state ... FAILED
+
+thread 'opening::policy::tests::combat_policy::policy_cleanup_normal_reset_both_seats_and_distinct_sorted_rows' (250) panicked at crates/mtg-core/src/policy_combat_tests.rs:99:63:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+test opening::policy::tests::combat_policy::policy_cleanup_normal_reset_both_seats_and_distinct_sorted_rows ... FAILED
+
+thread 'opening::policy::tests::combat_policy::policy_combat_twins_private_backtracking_errors_and_capacity' (253) panicked at crates/mtg-core/src/policy_combat_tests.rs:7:93:
+called `Result::unwrap()` on an `Err` value: UnsupportedCombat
+test opening::policy::tests::combat_policy::policy_combat_twins_private_backtracking_errors_and_capacity ... FAILED
+
+failures:
+
+failures:
+    opening::policy::tests::combat_policy::policy_cleanup_normal_reset_both_seats_and_distinct_sorted_rows
+    opening::policy::tests::combat_policy::policy_combat_independent_subsets_maps_and_allocations
+    opening::policy::tests::combat_policy::policy_combat_invalid_block_damage_and_finish_preserve_state
+    opening::policy::tests::combat_policy::policy_combat_twins_private_backtracking_errors_and_capacity
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 117 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

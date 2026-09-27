@@ -429,15 +429,19 @@ fn policy_standalone_payment_is_private_and_explicit() {
     }
 }
 #[test]
-fn policy_pending_spell_is_private_combat_and_internal_work_fail_explicitly() {
+fn policy_pending_spell_is_private_combat_supported_and_internal_work_fails() {
     let mut g = game(Seat::P0, false);
     keep(&mut g, Seat::P0);
     // Synthetic current combat decision, not a fake implementation of combat.
     g.turns.decision.as_mut().unwrap().kind =
         turns::TurnKind::Combat(combat::CombatKind::Attackers);
     assert_eq!(
-        g.policy_observe(Seat::P0, CAP),
-        Err(PolicyError::UnsupportedCombat)
+        g.policy_observe(Seat::P0, CAP)
+            .unwrap()
+            .decision
+            .unwrap()
+            .kind,
+        "attackers"
     );
     g.turns.decision.as_mut().unwrap().kind = turns::TurnKind::Priority;
     g.turns.position = Some((1, Seat::P0, turns::Step::PrecombatMain));
@@ -846,7 +850,7 @@ fn policy_wire_contract_owned_records_and_terminal_boundary() {
     ] {
         assert!(!text.contains(forbidden));
     }
-    assert_eq!(o.unsupported_families, ["combat", "cleanup_discard"]);
+    assert!(o.unsupported_families.is_empty());
     let generation = o.decision.as_ref().unwrap().generation;
     let request = Submission {
         revision: 0,
@@ -998,3 +1002,6 @@ fn policy_spell_target_continuation_keeps_opponent_view_available() {
 
 #[path = "policy_spell_tests.rs"]
 mod spells;
+
+#[path = "policy_combat_tests.rs"]
+mod combat_policy;
