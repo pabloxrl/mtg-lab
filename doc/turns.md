@@ -59,12 +59,14 @@ ongoing effects or damage in this component.
 Storage records now retain controller and tapped status. New identities from
 allocation/zone changes default to owner control and untapped; same-zone moves
 preserve status. Game inspection is immutable; [land plays and mana production](mana.md) now
-use validated transitions. Casting remains a separate task. Synthetic unit tests seed battlefield status and
+use validated transitions. [Creature casting](casting.md) joins payments and stack resolution. Synthetic unit tests seed battlefield status and
 mana directly and are explicitly distinguished from normal opening tests.
 
-A nonempty stack returns `UnsupportedStack`; active nonland permanents at the
-combat-declaration boundary return `UnsupportedCombat`. No automatic creature
-choices or spell resolutions substitute for those capabilities. Attempting a
+A stack registered by [creature casting](casting.md) resolves one top spell on
+two consecutive passes, then gives the active player priority without advancing
+the step or emptying mana. Unregistered raw storage stack objects still return
+`UnsupportedStack`. Active nonland permanents at the combat-declaration boundary
+return `UnsupportedCombat`; no automatic combat choices substitute for that capability. Attempting a
 required draw from an empty library returns `TurnError::Draw(EmptyLibrary)` and
 preserves the current decision/state; it is not a terminal result. Terminal
 outcomes remain #72. These limitations prevent claiming complete games.

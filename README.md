@@ -26,8 +26,9 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Episode RNG | [Specified SplitMix64 v1](doc/rng.md), stable episode derivation and separate owned environment/policy streams, with [known-answer tests](crates/mtg-core/tests/rng.rs) | Raw RNG primitive; opening shuffle/reset uses this stream. No game loop yet. |
 | Object storage | [Generation-safe slots and ordered zones](doc/objects.md), shared frozen card identities, slot reuse and reset epochs, with [literal-ledger tests](doc/evidence/objects/README.md) | Storage primitive used by opening reset; no card effects or player observations. |
 | Opening choices | [Validated reset, deterministic shuffle and London mulligans](doc/opening.md), independent seat declarations, cumulative ordered bottoming and top-card draw primitive, with [reset](doc/evidence/opening/README.md) and [mulligan evidence](doc/evidence/mulligan/README.md) | Empty-library loss and full games remain planned; completed opening connects to the turn prefix below. Inspection and explicit shuffle injection are privileged. |
-| Turn progression | [Empty-stack priority, untap, first/subsequent draws, mana boundaries and cleanup discards](doc/turns.md), with [turn acceptance](doc/evidence/turns/README.md) | Empty/lands-only combat progression; casting, combat resolution, effects and terminal outcomes remain planned. |
-| Lands and mana | [Forest/Mountain plays, tap mana and private payment continuations](doc/mana.md), with [independent payment enumeration and regressions](doc/evidence/mana/README.md) | Mana is floated before payment; casting integration, creature mana abilities and complete policy observations remain planned. |
+| Turn progression | [Empty-stack priority, untap, first/subsequent draws, mana boundaries and cleanup discards](doc/turns.md), with [turn acceptance](doc/evidence/turns/README.md) | Empty/lands-only combat progression; combat resolution, effects and terminal outcomes remain planned. |
+| Lands and mana | [Forest/Mountain plays, tap mana and private payment continuations](doc/mana.md), with [independent payment enumeration and regressions](doc/evidence/mana/README.md) | Standalone payments use floated mana; creature mana abilities and complete policy observations remain planned. |
+| Creature casting | [Bear Cub/Swab Goblin casts, payment-time land activations, stack resolution and summoning sickness](doc/casting.md), with [casting acceptance](doc/evidence/casting/README.md) | Sorcery timing; other spell effects, combat and complete games remain planned. Multi-spell LIFO tests use declared synthetic stacks. |
 | Core work quantum | [Resumable reset, shuffle and opening work](doc/opening.md#bounded-work), with [quantum equivalence checks](doc/evidence/quantum/README.md) | Internal yields only; no scheduler, batch runner, effects or reward ledger yet. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
@@ -128,7 +129,7 @@ The [executable torture baseline](doc/testing/torture-suite.md) runs through the
 Docker quickstart above and required CI. Agents must retain coded regressions,
 add independently justified tests with each behavior, run the complete suite and
 obtain separate review before merging. Current executable coverage is verification
-tooling, versioned episode RNG, object storage, opening choices, turns and land/mana transitions; most of the 320 game designs and full AI matches remain planned.
+tooling, versioned episode RNG, object storage, opening choices, turns, land/mana transitions and vanilla creature casting; most of the 320 game designs and full AI matches remain planned.
 
 Work is delivered as [small tested changes](doc/programs/atomic-delivery.md):
 M1 has separate RNG, identity, opening, rules, replay, data and CLI deliveries.
@@ -203,7 +204,7 @@ See [agentic operations](doc/agentic-operations.md) for the full driver guide.
 
 | Path | Purpose |
 | --- | --- |
-| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana transitions and executable fixture comparator. |
+| [crates/](crates/) | Rust workspace: core RNG/storage/opening/turn/mana/casting transitions and executable fixture comparator. |
 | [scripts/](scripts/) | Manifest/scenario validators, verification and reference runners. |
 | [data/](data/) | Frozen rules/card metadata and scoped capability registry. |
 | [fixtures/](fixtures/) | Original scenario and comparator inputs. |
