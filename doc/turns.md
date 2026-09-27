@@ -8,8 +8,7 @@ rules component, not a playable CLI, full engine, or player observation API.
 Complete reset and explicit opening choices as described in [opening.md](opening.md).
 Then call `game.start_turns()?` once. It untaps the starting player's permanents
 and returns their upkeep priority decision. Calling it before opening completes
-or twice returns a structured error unchanged. Existing `decision`, `apply`,
-`resume` and `Progress::OpeningComplete` describe the opening subsystem only;
+or twice returns a structured error unchanged. `decision`, `apply` and `Progress::OpeningComplete` describe opening boundaries;
 use `turn_decision` / `apply_turn` for play after this explicit boundary.
 
 For a `TurnKind::Priority` decision `d`, submit:
@@ -74,11 +73,48 @@ During a target or mana-payment continuation, `turn_decision()` returns None and
 commands reject until payment finishes or is cancelled. Reset clears turn
 state/mana/payment and invalidates old decisions. Turn actions operate
 on the fixed 80-card two-deck state: a pass draws at most one card or untaps at
-most 80 objects; a cleanup choice discards at most 33 cards. This bounded scalar
-turn prefix adds no internal unbounded resolution loop. The existing resumable
-opening work contract remains intact; future effects use their own continuations.
+most 80 objects; a cleanup choice discards at most 33 cards. This fixed
+turn population bound also applies to preflight discovery. The resumable
+opening work contract remains intact; automatic turns now share its work queue.
 
 Run `cargo test -p mtg-core turns` and `./scripts/torture.sh` inside the managed
 container. [Acceptance evidence](evidence/turns/README.md) maps all eight assigned
 catalog cases, retained red/green assertions, mutations and the applicable
 cached XMage priority smoke. Broader shared RFC blocks and M1 remain incomplete.
+
+
+## Bounded turn and cleanup work
+
+Use `start_turns_quantum(NonZeroUsize)` for initial untap/upkeep and
+`apply_turn_quantum(actor, &action, NonZeroUsize)` for passes and discards.
+On `Progress::InternalYield`, call `resume` until `TurnDecision` or `Terminal`.
+Scalar `start_turns` and `apply_turn` drain identical work. No scheduler or
+batch runner is added.
+
+Each work unit performs one boundary update, one zone move, one permanent untap,
+one sickness-entry removal, one combined damage/boost record expiration, or one
+final decision/outcome publication. A first pass publishes priority in one unit;
+a normal step transition takes two, a successful draw takes three, and an empty
+draw takes two. Initial untap costs two plus each eligible permanent and sickness
+entry. Cleanup without discard costs three plus modifier expirations and next
+player's untap/sickness entries. Opening a discard choice costs two; accepting it
+costs that cleanup amount plus one unit per chosen card. Validation, population
+scans, work allocation, storage reservation and existing fixed-pool object-store
+bookkeeping are not separately budgeted: this is a rules-work bound, not a
+wall-clock or allocation-free guarantee.
+
+CR 514.1 discard precedes CR 514.2 expiration. Each modifier record holds both
+boost and damage, removed together; no state-based check or player boundary can
+observe only one removed. All expiration precedes next turn's untap. If priority
+was granted during cleanup (CR 514.3a), two empty-stack passes repeat cleanup,
+including a new hand-size check. M1's positive vanilla boosts have no expiration
+SBA/trigger that opens such a window; the repeated-window regression explicitly
+uses a synthetic cleanup priority position. Trigger creation remains later scope.
+
+While work is pending, views, decisions and outcomes are unavailable and commands
+including concession reject unchanged. Only privileged inspection sees partial
+work. Generation advances once per accepted entry, with no extra action/reward
+for yields; settled resumes are read-only. Compatible snapshots retain every
+pending item and restore with fresh scopes; old engine fingerprints reject.
+
+[Bounded acceptance and reference scope](evidence/turn-settlement/README.md).

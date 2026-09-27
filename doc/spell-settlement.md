@@ -43,9 +43,8 @@ fresh capability scopes. Old engine fingerprints return
 `RestoreError::IncompatibleEngine` before replacing the live game; no migration is
 provided. [Snapshot integrity/trust boundaries](snapshot.md) remain applicable.
 
-Second passes on an empty stack and cleanup discards still execute turn work
-synchronously even through `apply_turn_quantum`; turn/cleanup settlement remains
-with #109. [Combat damage settlement](combat.md#bounded-damage-settlement) now uses
+Second passes on an empty stack and cleanup discards now use
+[bounded turn/cleanup work](turns.md#bounded-turn-and-cleanup-work). [Combat damage settlement](combat.md#bounded-damage-settlement) now uses
 the same owned work through `finish_combat_quantum`. Complete policy decisions, played-game replay, reference effect
 bridges and integration acceptance remain with their respective owners. This is
 not M1 completion; gate #22 is still required.

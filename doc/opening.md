@@ -165,5 +165,6 @@ trajectory reward ledger is implemented here.
 Run `cargo test -p mtg-core quantum` and the full torture suite. The
 [quantum evidence](evidence/quantum/README.md) covers SYS-CORE-006's core prefix;
 #107 adds bounded M1 spell settlement and #108 adds [combat damage
-settlement](combat.md#bounded-damage-settlement); #18 retains complete scalar integration,
+settlement](combat.md#bounded-damage-settlement); #109 adds
+[turn/cleanup settlement](turns.md#bounded-turn-and-cleanup-work). #18 retains complete scalar integration,
 #19 complete snapshot/replay integration and #27 batch fairness.

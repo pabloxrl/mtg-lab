@@ -79,6 +79,21 @@ pub(super) struct TurnState {
     pub(super) sick: Vec<Handle>,
     pub(super) combat: super::combat::CombatState,
 }
+/// Each item is one bounded mutation/publication. Population discovery and
+/// storage reservations happen before accepting a command, over the M1 pool.
+#[derive(serde::Serialize, serde::Deserialize, Debug)]
+pub(super) enum TurnWork {
+    Boundary(u64, Seat, Step),
+    Move(Handle, Zone),
+    Expire,
+    Untap(Handle),
+    Wake(usize),
+    Ready {
+        actor: Seat,
+        kind: TurnKind,
+        failed_draw: Option<Seat>,
+    },
+}
 impl Game {
     pub fn turn_position(&self) -> Option<(u64, Seat, Step)> {
         self.turns.position
@@ -101,6 +116,17 @@ impl Game {
     /// Enter the first upkeep after untap. The opening API retains its explicit
     /// OpeningComplete boundary; starting turns is not a player action.
     pub fn start_turns(&mut self) -> Result<TurnDecision, TurnError> {
+        let mut progress = self.start_turns_quantum(NonZeroUsize::MAX)?;
+        while progress == Progress::InternalYield {
+            progress = self.resume(NonZeroUsize::MAX);
+        }
+        match progress {
+            Progress::TurnDecision(d) => Ok(d),
+            _ => unreachable!("initial upkeep"),
+        }
+    }
+    /// Bounded counterpart of start_turns; opening completion is not a choice.
+    pub fn start_turns_quantum(&mut self, quantum: NonZeroUsize) -> Result<Progress, TurnError> {
         if self.outcome.is_some() {
             return Err(TurnError::NotReady);
         }
@@ -121,10 +147,15 @@ impl Game {
             .generation
             .checked_add(1)
             .ok_or(TurnError::Invalid(ApplyError::DecisionExhausted))?;
-        self.untap(self.starting);
-        self.turns.position = Some((1, self.starting, Step::Upkeep));
-        self.generation = generation;
-        Ok(self.set_turn_decision(self.starting, TurnKind::Priority))
+        let mut work = vec![TurnWork::Boundary(1, self.starting, Step::Upkeep)];
+        self.plan_untap(self.starting, &mut work);
+        work.push(TurnWork::Ready {
+            actor: self.starting,
+            kind: TurnKind::Priority,
+            failed_draw: None,
+        });
+        self.accept_turn_work(generation, work)?;
+        Ok(self.resume(quantum))
     }
     /// Scalar execution drains the same owned continuation as bounded execution.
     pub fn apply_turn(
@@ -142,9 +173,8 @@ impl Game {
             _ => unreachable!("accepted turn command settles at a turn boundary"),
         }
     }
-    /// Validate the complete command before mutation. Stack settlement and first
-    /// priority passes consume bounded work; empty-stack turn/cleanup progression
-    /// remains scalar pending its separately owned continuation.
+    /// Validate and preflight before mutation; all automatic turn settlement
+    /// drains through owned work without publishing intermediate decisions.
     pub fn apply_turn_quantum(
         &mut self,
         actor: Seat,
@@ -204,10 +234,10 @@ impl Game {
             });
             return Ok(());
         }
-        let mut next_turn = turn;
-        let mut next_active = active;
+        let mut work = Vec::new();
+        let cleanup = step == Step::End || step == Step::Cleanup;
         let next_step = match step {
-            Step::Upkeep if turn == 1 => Step::PrecombatMain, // CR 103.8a: whole step skipped.
+            Step::Upkeep if turn == 1 => Step::PrecombatMain, // CR 103.8a: entire step skipped.
             Step::Upkeep => Step::Draw,
             Step::Draw => Step::PrecombatMain,
             Step::PrecombatMain => Step::BeginningCombat,
@@ -223,72 +253,146 @@ impl Game {
             Step::CombatDamage => Step::EndCombat,
             Step::EndCombat => Step::PostcombatMain,
             Step::PostcombatMain => Step::End,
-            Step::End if self.objects.in_zone(Zone::Hand(active)).count() > 7 => Step::Cleanup,
-            Step::End | Step::Cleanup => {
-                next_turn = turn.checked_add(1).ok_or(TurnError::TurnExhausted)?;
-                next_active = opponent(active);
-                Step::Upkeep
-            }
+            Step::End | Step::Cleanup => Step::Cleanup,
         };
-        // Storage failures remain errors without advancement. An attempted empty
-        // draw is a rules result, at the draw step after boundary mana empties.
-        if next_step == Step::Draw {
-            match self.draw_top(active) {
-                Ok(_) => {}
-                Err(DrawError::EmptyLibrary) => {
-                    self.turns.position = Some((next_turn, next_active, next_step));
-                    self.turns.mana = [[0; 6]; 2];
-                    self.turns.passed = false;
-                    self.generation = generation;
-                    return Ok(());
-                }
-                Err(e) => return Err(TurnError::Draw(e)),
-            }
-        }
-        if !discard.is_empty() {
-            self.objects
-                .prepare_moves(&discard, Zone::Graveyard(active))
-                .map_err(TurnError::Storage)?;
-            for h in discard {
+        let mut failed_draw = None;
+        if cleanup {
+            // CR 514.3a: passes in a cleanup priority window begin another cleanup,
+            // including a fresh hand-size check. A discard submission finishes 514.1.
+            let count = self
+                .objects
+                .in_zone(Zone::Hand(active))
+                .count()
+                .saturating_sub(7);
+            work.push(TurnWork::Boundary(turn, active, Step::Cleanup));
+            if matches!(d.kind, TurnKind::Priority) && count > 0 {
+                work.push(TurnWork::Ready {
+                    actor: active,
+                    kind: TurnKind::Discard { count },
+                    failed_draw: None,
+                });
+            } else {
+                let next_turn = turn.checked_add(1).ok_or(TurnError::TurnExhausted)?;
                 self.objects
-                    .move_to(h, Zone::Graveyard(active))
-                    .expect("preflighted cleanup discard");
+                    .prepare_moves(&discard, Zone::Graveyard(active))
+                    .map_err(TurnError::Storage)?;
+                for h in discard {
+                    work.push(TurnWork::Move(h, Zone::Graveyard(active)));
+                }
+                // CR 514.2: each record contains BOTH boost and marked damage.
+                // No SBA or policy boundary occurs between these removals.
+                for _ in &self.turns.modifications {
+                    work.push(TurnWork::Expire);
+                }
+                work.push(TurnWork::Boundary(
+                    next_turn,
+                    opponent(active),
+                    Step::Upkeep,
+                ));
+                self.plan_untap(opponent(active), &mut work);
+                work.push(TurnWork::Ready {
+                    actor: opponent(active),
+                    kind: TurnKind::Priority,
+                    failed_draw: None,
+                });
             }
+        } else {
+            work.push(TurnWork::Boundary(turn, active, next_step));
+            if next_step == Step::Draw {
+                let top = self.objects.in_zone(Zone::Library(active)).next();
+                if let Some(h) = top {
+                    self.objects
+                        .prepare_moves(&[h], Zone::Hand(active))
+                        .map_err(|e| TurnError::Draw(DrawError::Storage(e)))?;
+                    work.push(TurnWork::Move(h, Zone::Hand(active)));
+                } else {
+                    failed_draw = Some(active);
+                }
+            }
+            let kind = if next_step == Step::DeclareAttackers && self.has_combat_creature(active) {
+                TurnKind::Combat(super::combat::CombatKind::Attackers)
+            } else if next_step == Step::DeclareBlockers {
+                TurnKind::Combat(super::combat::CombatKind::Blockers)
+            } else if next_step == Step::CombatDamage {
+                TurnKind::Combat(super::combat::CombatKind::Damage)
+            } else {
+                TurnKind::Priority
+            };
+            work.push(TurnWork::Ready {
+                actor: if next_step == Step::DeclareBlockers {
+                    opponent(active)
+                } else {
+                    active
+                },
+                kind,
+                failed_draw,
+            });
         }
-        if next_step == Step::Upkeep {
-            // CR 514.2: after cleanup discard, expire boosts and remove damage
-            // together, with no intermediate lethal-damage check.
-            self.cleanup_effects();
-            self.turns.land_used = false;
-            self.untap(next_active);
-        }
-        self.turns.position = Some((next_turn, next_active, next_step));
-        self.turns.passed = false;
-        self.turns.mana = [[0; 6]; 2]; // CR 106.4 / 500.4, both players, every boundary.
+        self.accept_turn_work(generation, work)
+    }
+    fn accept_turn_work(&mut self, generation: u64, work: Vec<TurnWork>) -> Result<(), TurnError> {
+        self.work
+            .try_reserve(work.len())
+            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
         self.generation = generation;
-        if next_step == Step::PostcombatMain {
-            self.turns.combat = super::combat::CombatState::default();
-        }
-        let kind = if next_step == Step::DeclareAttackers && self.has_combat_creature(active) {
-            TurnKind::Combat(super::combat::CombatKind::Attackers)
-        } else if next_step == Step::DeclareBlockers {
-            TurnKind::Combat(super::combat::CombatKind::Blockers)
-        } else if next_step == Step::CombatDamage {
-            TurnKind::Combat(super::combat::CombatKind::Damage)
-        } else if next_step == Step::Cleanup {
-            TurnKind::Discard {
-                count: self.objects.in_zone(Zone::Hand(active)).count() - 7,
-            }
-        } else {
-            TurnKind::Priority
-        };
-        let actor = if next_step == Step::DeclareBlockers {
-            opponent(active)
-        } else {
-            next_active
-        };
-        self.set_turn_decision(actor, kind);
+        self.turns.decision = None;
+        self.work.extend(work.into_iter().map(Work::Turn));
         Ok(())
+    }
+    fn plan_untap(&self, active: Seat, work: &mut Vec<TurnWork>) {
+        // Descending indices keep every remaining index valid under swap_remove.
+        for (index, h) in self.turns.sick.iter().enumerate().rev() {
+            if !self
+                .objects
+                .get(*h)
+                .is_ok_and(|o| o.zone == Zone::Battlefield && o.controller != active)
+            {
+                work.push(TurnWork::Wake(index));
+            }
+        }
+        for h in self.objects.in_zone(Zone::Battlefield) {
+            if self.objects.get(h).expect("permanent").controller == active {
+                work.push(TurnWork::Untap(h));
+            }
+        }
+    }
+    pub(super) fn run_turn_work(&mut self, work: &TurnWork) {
+        match *work {
+            TurnWork::Boundary(turn, active, step) => {
+                self.turns.position = Some((turn, active, step));
+                self.turns.passed = false;
+                self.turns.mana = [[0; 6]; 2];
+                if step == Step::Upkeep {
+                    self.turns.land_used = false;
+                }
+                if step == Step::PostcombatMain {
+                    self.turns.combat = super::combat::CombatState::default();
+                }
+            }
+            TurnWork::Move(h, zone) => {
+                self.objects
+                    .move_to(h, zone)
+                    .expect("preflighted turn move");
+            }
+            TurnWork::Expire => {
+                self.turns.modifications.pop().expect("planned expiration");
+            }
+            TurnWork::Untap(h) => {
+                self.objects.get_mut(h).expect("permanent").tapped = false;
+            }
+            TurnWork::Wake(index) => {
+                self.turns.sick.swap_remove(index);
+            }
+            TurnWork::Ready {
+                actor,
+                kind,
+                failed_draw,
+            } => {
+                if self.settle_terminal(failed_draw).is_none() {
+                    self.set_turn_decision(actor, kind);
+                }
+            }
+        }
     }
     pub(super) fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
         let d = TurnDecision {
@@ -301,20 +405,6 @@ impl Game {
         };
         self.turns.decision = Some(d);
         d
-    }
-    fn untap(&mut self, active: Seat) {
-        self.turns.sick.retain(|h| {
-            self.objects
-                .get(*h)
-                .is_ok_and(|o| o.zone == Zone::Battlefield && o.controller != active)
-        });
-        let handles: Vec<_> = self.objects.in_zone(Zone::Battlefield).collect();
-        for h in handles {
-            let o = self.objects.get_mut(h).expect("live permanent");
-            if o.controller == active {
-                o.tapped = false;
-            }
-        }
     }
 }
 
@@ -635,3 +725,7 @@ mod tests {
         }
     }
 }
+
+#[cfg(test)]
+#[path = "turn_quantum_tests.rs"]
+mod quantum_tests;

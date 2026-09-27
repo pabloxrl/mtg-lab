@@ -1,0 +1,40 @@
+{
+  "environment": "managed Linux toolchain container",
+  "base_sha": "d8501ac04d4b2a03bb82cc0407ffd902ab86250c",
+  "runs": [
+    {
+      "command": "./scripts/torture.sh",
+      "status": "passed",
+      "log_sha256": "b082447158b8cf09b7993cf46d96d845b21ef5d1f042179693393606b49f2e17",
+      "python_tests": 134,
+      "rust_tests_per_profile": 216,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ]
+    },
+    {
+      "command": "./scripts/torture.sh",
+      "status": "passed",
+      "log_sha256": "b1c0f5fbda3f77f0311d2c1f4f331f306da667985a21d08f270d38c04a9221de",
+      "python_tests": 134,
+      "rust_tests_per_profile": 216,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ]
+    }
+  ],
+  "checks": [
+    "documentation links",
+    "program and requirement ledger",
+    "320-case design catalog",
+    "Python regression discovery",
+    "rustfmt",
+    "Clippy -D warnings",
+    "all workspace tests, debug and release"
+  ],
+  "note": "Final run includes all seven turn quantum regressions and existing opening regressions; no skipped or weakened tests. First premature docs run failed on evidence links before the evidence README was written; both complete runs passed."
+}

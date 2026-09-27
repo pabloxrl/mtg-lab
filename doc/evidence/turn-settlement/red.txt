@@ -1,0 +1,56 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling syn v3.0.6
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling memchr v2.8.3
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-109/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.57s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+
+thread 'opening::turns::quantum_tests::turn_quantum_priority_in_cleanup_repeats_discard_before_next_turn' (1934) panicked at crates/mtg-core/src/turn_quantum_tests.rs:55:22:
+assertion `left == right` failed
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 0, generation: 5 }, actor: P1, kind: Priority })
+ right: InternalYield
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test opening::turns::quantum_tests::turn_quantum_priority_in_cleanup_repeats_discard_before_next_turn ... FAILED
+
+thread 'opening::turns::quantum_tests::turn_quantum_cleanup_discard_and_simultaneous_expiration' (1932) panicked at crates/mtg-core/src/turn_quantum_tests.rs:55:22:
+assertion `left == right` failed
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 6, generation: 5 }, actor: P1, kind: Priority })
+ right: InternalYield
+test opening::turns::quantum_tests::turn_quantum_cleanup_discard_and_simultaneous_expiration ... FAILED
+
+thread 'opening::turns::quantum_tests::turn_quantum_draw_skip_order_and_empty_terminal' (1933) panicked at crates/mtg-core/src/turn_quantum_tests.rs:55:22:
+assertion `left == right` failed
+  left: TurnDecision(TurnDecision { id: DecisionId { scope: 8, generation: 5 }, actor: P0, kind: Priority })
+ right: InternalYield
+test opening::turns::quantum_tests::turn_quantum_draw_skip_order_and_empty_terminal ... FAILED
+
+failures:
+
+failures:
+    opening::turns::quantum_tests::turn_quantum_cleanup_discard_and_simultaneous_expiration
+    opening::turns::quantum_tests::turn_quantum_draw_skip_order_and_empty_terminal
+    opening::turns::quantum_tests::turn_quantum_priority_in_cleanup_repeats_discard_before_next_turn
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 92 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
