@@ -61,7 +61,7 @@ or proof of correctness.
 | --- | --- |
 | M0 | Complete reviewable designs; source/fixture pins; reject missing, duplicate or unresolved mappings. Existing real one-pass smoke works in both references. No full-game or 320-pass claim. |
 | M1 | Relevant scalar tests fail for a behavioral reason before implementation; stack/cleanup/privacy and invalid-action invariants; real normal-reset slice games; deterministic replay and JSONL/reward boundaries; applicable reference checks. Slice games are not full frozen-deck qualification. |
-| M2 | All frozen cards/mechanics, every category slot executed as applicable, ≥100 distinct reviewed scenarios and XMage coverage for every card/capability; explicit mutation detections; full-pool AI capture and expanded XMage replay; honest baseline. A design count is not a scenario count. |
+| M2 | All frozen cards/mechanics, all M2 rules/card and scalar-interface category slots executed (batch rows remain due at M3), ≥100 distinct reviewed scenarios and XMage coverage for every card/capability; explicit mutation detections; full-pool AI capture and expanded XMage replay; honest baseline. A design count is not a scenario count. |
 | M3 | Scalar/batch/binding/replay equivalence, failure-safe sharded data, actual masked training/update/evaluation/checkpoint/reload and trajectory reload for all three promised frameworks. |
 | M4 | Machine CLI, persistent protocol and two scripted seat clients; no human game input; stale/wrong-seat/error/reattach/privacy checks. |
 | M5 | Required ≥20 independent critical cases in both references and scripted full normal-reset games across required matchups/starting seats; long fuzz/mutation/mode campaigns, independent holdout and measured release qualification on the exact candidate. |
