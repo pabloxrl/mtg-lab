@@ -1,8 +1,8 @@
-# Structured turn and land decisions, schema 1
+# Structured policy decisions, schema 1
 
 `Game::policy_observe(seat, capacity)` returns an owned `policy::Observation`:
 policy schema version, the existing schema-1 `PlayerView`, an actor-only decision,
-and explicit unsupported families. Use `Game::apply_policy(actor, &Submission,
+actor-only provisional spell state, committed stack target rows, and explicit unsupported families. Use `Game::apply_policy(actor, &Submission,
 capacity)` to submit semantic choices. Types live in `mtg_core::opening::policy`
 and serialize through Serde; submissions also deserialize. The trusted caller
 binds the game and authorized seat. Neither a seat nor a revision/generation pair is an
@@ -10,11 +10,13 @@ authentication token; transport routing/idempotency remains later work.
 
 The supported subset is opening keep/mulligan and ordered bottoming, priority
 passes, Forest/Mountain land plays and tap mana, and standalone payment choices
-initiated by trusted rules code. No policy-supplied cost, object handle, RNG,
+initiated by trusted rules code, plus Bear Cub/Swab Goblin casting and Giant
+Growth/Bite Down source/destination targeting, staged land mana, payment, finish
+and cancel. No policy-supplied cost, object handle, RNG,
 shuffle order, opponent hand or library reference is accepted. Existing
 `observe` and `apply_opening_view` retain their schema and behavior (including
 `observe` being unavailable during **any** payment). The new policy projection
-also works during standalone payment and exposes only the committed public pool
+also works during targeting, casting and standalone payment and exposes only the committed public pool
 to either seat, plus payer-only color choices. It does not expose the provisional
 pool, remaining cost or choices to the opponent.
 
@@ -47,8 +49,9 @@ References to an opponent hand or either library cannot be represented.
 | --- | --- | --- |
 | `keep_or_mulligan` | Existing opening choices: keep, then mulligan when offered | One choice |
 | `bottom` | One `bottom { card }` per sorted own-hand row | Exactly `count` distinct cards, in intended bottom order |
-| `priority` | Pass; one `play_land { card }` per own-hand row; one `tap_mana { card }` per public battlefield row | One unmasked choice |
-| `payment` | `pay { color }` for W/U/B/R/G/C (0–5), finish, cancel | One unmasked choice |
+| `priority` | Pass; one `play_land { card }` per own-hand row; `cast { card }` for each supported spell in own hand; one `tap_mana { card }` per public battlefield row | One unmasked choice |
+| `growth_target`, `bite_source`, `bite_destination`, `targets_complete` | `target { card }` per battlefield row; `finish_targets`; `cancel_targets` | One unmasked choice; Bite source precedes destination |
+| `payment` | `pay { color }` for W/U/B/R/G/C (0–5), finish, cast-only battlefield tap rows, cancel | One unmasked choice |
 
 Priority masks use the existing rules' land/source legality. Nonland hand cards,
 second lands, tapped lands and opponent-controlled sources remain visible but
@@ -81,21 +84,39 @@ Errors are context-free snake-case tags: `unsupported_version`, `unavailable`,
 counter/mana exhaustion also maps to `capacity_exceeded`; no private identifiers
 or data are included. Before reset and during internal work the interface is
 unavailable. Unsupported requested spell/combat choices return their explicit
-family error. Pending casting/targeting and combat decisions also return that
-family error for both seats; cleanup discard decisions return
-`unsupported_decision`. No empty/default action silently completes them.
+family error. Combat decisions return that family error for both seats; cleanup discard
+decisions return `unsupported_decision`. No empty/default action silently completes them.
+The legacy fieldless `spell` request remains an explicit unsupported request;
+use `cast { card }` for supported spell choices.
 
-Every successful observation explicitly advertises unsupported families
-`spell`, `combat`, `cleanup_discard`. Priority candidates are only the supported
-subset; their absence does not mean casting is illegal. Existing trusted rules
-APIs can cast and declare combat, but this policy interface cannot yet do so.
-Passing may advance to such an unsupported decision, which then stops policy
-execution. A pass can resolve an already committed supported stack through the
-existing engine; this does not provide policy spell selection or private cast
-views. This API alone does not yet drive a complete played game. Spell/combat
-siblings and #19 retain integration acceptance; no M1 completion claim until #22.
+Every successful observation advertises unsupported families `combat` and
+`cleanup_discard`. Casting legality uses the existing rules: instant timing,
+required legal targets, sorcery timing for creatures, and sufficient resources.
+`pending` is null for the other seat. For the acting seat it identifies the own-hand
+spell, selected targets, staged mana sources, provisional pool and remaining cost
+(the last two are null during targeting). All references use the accompanying
+view rows. Required targets must be selected explicitly, followed by
+`finish_targets`; no response window appears during a cast.
+
+`finish_payment` joins the spell, targets, taps and spending in one commit and
+leaves priority with its caster. It is masked while any cost remains, even when
+no color is currently payable. `cancel_targets` or `cancel_payment` restores the
+committed position, including staged taps; already floated mana remains real.
+Only decision generation advances. Opponent observations are identical throughout
+provisional choices, including cancellation. `stack` is bottom-to-top, with `row`
+indexing the public stack cards and ordered `targets` indexing the battlefield.
+A departed target is null, never rebound to a new object or exposed in a hidden
+zone. The older `observe` API remains unavailable for private continuations;
+use `policy_observe` for this supported projection.
+
+Passing may reach a combat/cleanup decision outside this API's supported subset.
+Complete played-game policy, replay and #19 integration acceptance remain pending;
+no M1 completion claim until #22.
 No Python, tensors, trainers, new rules or CLI protocol are added here.
 
 Run `cargo test -p mtg-core policy`, then `./scripts/torture.sh` in the managed
 container. [Acceptance evidence](evidence/policy/README.md) distinguishes normal
 reset scripts, synthetic resource/storage/payment states and reference limits.
+
+[Spell acceptance and privacy evidence](evidence/policy-spells/README.md) covers
+normal-reset and explicitly synthetic response tests.

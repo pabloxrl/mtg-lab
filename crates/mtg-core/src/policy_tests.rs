@@ -429,7 +429,7 @@ fn policy_standalone_payment_is_private_and_explicit() {
     }
 }
 #[test]
-fn policy_pending_spell_combat_and_internal_work_fail_explicitly() {
+fn policy_pending_spell_is_private_combat_and_internal_work_fail_explicitly() {
     let mut g = game(Seat::P0, false);
     keep(&mut g, Seat::P0);
     // Synthetic current combat decision, not a fake implementation of combat.
@@ -452,12 +452,14 @@ fn policy_pending_spell_combat_and_internal_work_fail_explicitly() {
     g.turns.mana[0] = [0, 0, 0, 2, 0, 0];
     let id = g.turn_decision().unwrap().id;
     g.begin_cast(Seat::P0, id, h).unwrap();
-    for seat in [Seat::P0, Seat::P1] {
-        assert_eq!(
-            g.policy_observe(seat, CAP),
-            Err(PolicyError::UnsupportedSpell)
-        );
-    }
+    let acting = g.policy_observe(Seat::P0, CAP).unwrap();
+    assert_eq!(acting.decision.unwrap().kind, "payment");
+    assert!(acting.pending.is_some());
+    let opponent = g.policy_observe(Seat::P1, CAP).unwrap();
+    assert!(opponent.pending.is_none());
+    assert!(opponent.decision.is_none());
+    assert!(opponent.stack.is_empty());
+    assert_eq!(opponent.view.mana[0], [0, 0, 0, 2, 0, 0]);
     g.reset_quantum(&Config::default(), 1, 0, NonZeroUsize::new(1).unwrap())
         .unwrap();
     assert_eq!(
@@ -671,7 +673,7 @@ fn policy_visible_references_ignore_hidden_storage_and_track_visible_rows() {
     let o = a.policy_observe(Seat::P0, CAP).unwrap();
     assert_eq!(
         o.decision.unwrap().legal_mask,
-        vec![true, true, false, false, true]
+        vec![true, true, false, false, false, true]
     );
     for g in [&mut a, &mut b] {
         let before = format!("{g:?}");
@@ -844,10 +846,7 @@ fn policy_wire_contract_owned_records_and_terminal_boundary() {
     ] {
         assert!(!text.contains(forbidden));
     }
-    assert_eq!(
-        o.unsupported_families,
-        ["spell", "combat", "cleanup_discard"]
-    );
+    assert_eq!(o.unsupported_families, ["combat", "cleanup_discard"]);
     let generation = o.decision.as_ref().unwrap().generation;
     let request = Submission {
         revision: 0,
@@ -934,3 +933,68 @@ fn policy_restore_invalidates_pre_restore_submissions_without_state_change() {
     );
     assert_eq!(format!("{g:?}"), before);
 }
+
+// GH-111: CR 601.2 and RFC 0002 seat privacy require available acting-seat
+// casting decisions, while the opponent continues to see committed state only.
+#[test]
+fn policy_spell_cast_is_offered_and_pending_cast_is_seat_safe() {
+    let mut g = game(Seat::P0, false);
+    keep(&mut g, Seat::P0);
+    g.turns.position = Some((1, Seat::P0, turns::Step::PrecombatMain));
+    let h = g
+        .objects
+        .allocate(
+            CardId::from_key("swab-goblin").unwrap(),
+            Seat::P0,
+            Zone::Hand(Seat::P0),
+        )
+        .unwrap();
+    g.turns.mana[0] = [0, 0, 0, 2, 0, 0];
+    let o = g.policy_observe(Seat::P0, CAP).unwrap();
+    let choices = serde_json::to_value(o.decision.unwrap().candidates).unwrap();
+    assert!(
+        choices
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|c| c["kind"] == "cast"),
+        "CR 601: a payable creature must be offered through the safe interface"
+    );
+    let public = g.policy_observe(Seat::P1, CAP).unwrap();
+    g.begin_cast(Seat::P0, g.turn_decision().unwrap().id, h)
+        .unwrap();
+    assert!(g.policy_observe(Seat::P0, CAP).unwrap().decision.is_some());
+    assert_eq!(g.policy_observe(Seat::P1, CAP).unwrap(), public);
+}
+#[test]
+fn policy_spell_target_continuation_keeps_opponent_view_available() {
+    let mut g = game(Seat::P0, false);
+    keep(&mut g, Seat::P0);
+    g.objects
+        .allocate(
+            CardId::from_key("bear-cub").unwrap(),
+            Seat::P0,
+            Zone::Battlefield,
+        )
+        .unwrap();
+    let h = g
+        .objects
+        .allocate(
+            CardId::from_key("giant-growth").unwrap(),
+            Seat::P0,
+            Zone::Hand(Seat::P0),
+        )
+        .unwrap();
+    g.turns.mana[0][4] = 1;
+    let public = g.policy_observe(Seat::P1, CAP).unwrap();
+    g.begin_targeted_cast(Seat::P0, g.turn_decision().unwrap().id, h, CAP)
+        .unwrap();
+    assert_eq!(
+        g.policy_observe(Seat::P1, CAP),
+        Ok(public),
+        "RFC privacy: pending target selection does not hide or alter committed public state"
+    );
+}
+
+#[path = "policy_spell_tests.rs"]
+mod spells;
