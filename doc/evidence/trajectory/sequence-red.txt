@@ -1,0 +1,21 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-76/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.84s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+
+thread 'trajectory::tests::trajectory_reward_discount_and_capture_conventions_are_explicit' (226) panicked at crates/mtg-core/src/trajectory_tests.rs:521:5:
+assertion `left == right` failed
+  left: Null
+ right: "UndiscountedEpisodic"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test trajectory::tests::trajectory_reward_discount_and_capture_conventions_are_explicit ... FAILED
+
+failures:
+
+failures:
+    trajectory::tests::trajectory_reward_discount_and_capture_conventions_are_explicit
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 82 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

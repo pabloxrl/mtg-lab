@@ -1,0 +1,21 @@
+
+running 1 test
+test trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations ... FAILED
+
+failures:
+
+failures:
+    trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 82 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-76/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.28s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+thread 'trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations' (2986) panicked at crates/mtg-core/src/trajectory_tests.rs:150:13:
+assertion `left == right` failed
+  left: 1
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mtg-core --lib`

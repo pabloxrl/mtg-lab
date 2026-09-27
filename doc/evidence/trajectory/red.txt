@@ -1,0 +1,57 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-76/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.69s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 7 tests
+
+thread 'opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_interaction' (1460) panicked at crates/mtg-core/src/trajectory_rules_tests.rs:58:5:
+simultaneous-loss boundary must be retained
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations' (1463) panicked at crates/mtg-core/src/trajectory_tests.rs:43:5:
+assertion `left == right` failed: every selected decision must be retained
+  left: 0
+ right: 6
+
+thread 'opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_negative' (1461) panicked at crates/mtg-core/src/trajectory_rules_tests.rs:51:33:
+assertion `left == right` failed: nonterminal transition retained
+  left: 0
+ right: 1
+
+thread 'opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_positive' (1462) panicked at crates/mtg-core/src/trajectory_rules_tests.rs:39:5:
+assertion `left == right` failed: lethal damage transition retained
+  left: 0
+ right: 1
+test opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_interaction ... FAILED
+test opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_negative ... FAILED
+test opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_positive ... FAILED
+test trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations ... FAILED
+
+thread 'trajectory::tests::trajectory_truncation_failure_and_incomplete_quarantine' (1465) panicked at crates/mtg-core/src/trajectory_tests.rs:90:9:
+external stop must retain a distinct footer
+
+thread 'trajectory::tests::trajectory_zero_decision_seat_final_credit_and_owned_reset' (1466) panicked at crates/mtg-core/src/trajectory_tests.rs:73:5:
+terminal action must close the episode
+
+thread 'trajectory::tests::trajectory_reject_invalid_choice_continuity_versions_and_false_terminal' (1464) panicked at crates/mtg-core/src/trajectory_tests.rs:103:5:
+assertion `left == right` failed
+  left: Ok(())
+ right: Err(InvalidChoice)
+test trajectory::tests::trajectory_truncation_failure_and_incomplete_quarantine ... FAILED
+test trajectory::tests::trajectory_zero_decision_seat_final_credit_and_owned_reset ... FAILED
+test trajectory::tests::trajectory_reject_invalid_choice_continuity_versions_and_false_terminal ... FAILED
+
+failures:
+
+failures:
+    opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_interaction
+    opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_negative
+    opening::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_positive
+    trajectory::tests::trajectory_handwritten_links_rewards_and_microchoice_durations
+    trajectory::tests::trajectory_reject_invalid_choice_continuity_versions_and_false_terminal
+    trajectory::tests::trajectory_truncation_failure_and_incomplete_quarantine
+    trajectory::tests::trajectory_zero_decision_seat_final_credit_and_owned_reset
+
+test result: FAILED. 0 passed; 7 failed; 0 ignored; 0 measured; 70 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
