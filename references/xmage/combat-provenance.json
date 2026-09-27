@@ -1,0 +1,12 @@
+{
+  "kind": "original",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "note": "API consultation only; no upstream scenario copied. Vanilla combat expectations from CR 508-510 and 704.5g. Existing UPSTREAM-LICENSE.txt retained.",
+  "consulted_sources": {
+    "Mage/src/main/java/mage/game/combat/CombatGroup.java": "a3f6a37d332831855cdc9b7900cc400554331a3a82598438b5c307a7b0e42bc7",
+    "Mage/src/main/java/mage/players/Player.java": "ce6e27813f10480113d16c8900f8492474cfd68529b8dd1bdac9b24552a8420a",
+    "Mage/src/main/java/mage/util/MultiAmountMessage.java": "4f90753749c49a0e40ca27f24c996833bc8605e486395c08c1cf0fb51501ad1b",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
+    "Mage.Tests/src/test/java/org/mage/test/serverside/base/impl/CardTestPlayerAPIImpl.java": "56ddc5e323bf6945536b1ef752488382c486e0a556f63a6e28fddd09eb4e020f"
+  }
+}

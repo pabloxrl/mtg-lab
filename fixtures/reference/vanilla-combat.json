@@ -1,0 +1,646 @@
+{
+  "version": 1,
+  "basis": "Original literal CR 508.1, 509.1, 510.1c/510.2, 704.5g; pinned FDN vanilla 2/2s. Synthetic untapped old creatures, P0 turn one, life 20 each.",
+  "priority_pass_steps": [
+    "UPKEEP",
+    "PRECOMBAT_MAIN",
+    "BEGIN_COMBAT",
+    "DECLARE_ATTACKERS",
+    "DECLARE_BLOCKERS"
+  ],
+  "cases": [
+    {
+      "id": "cub-unblocked",
+      "attacker": "Bear Cub",
+      "blockers": [],
+      "amounts": [],
+      "expected": [
+        {
+          "name": "initial",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        {
+          "name": "attackers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "blockers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "damage",
+          "life": [
+            20,
+            18
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swab-unblocked",
+      "attacker": "Swab Goblin",
+      "blockers": [],
+      "amounts": [],
+      "expected": [
+        {
+          "name": "initial",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        {
+          "name": "attackers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Swab Goblin",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "blockers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Swab Goblin",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "damage",
+          "life": [
+            20,
+            18
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Swab Goblin",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "id": "swab-trade",
+      "attacker": "Bear Cub",
+      "blockers": [
+        "Swab Goblin"
+      ],
+      "amounts": [
+        2
+      ],
+      "expected": [
+        {
+          "name": "initial",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        {
+          "name": "attackers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "blockers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": true,
+          "blockers": [
+            "Swab Goblin"
+          ]
+        },
+        {
+          "name": "damage",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [],
+          "graveyard": [
+            [
+              "Bear Cub"
+            ],
+            [
+              "Swab Goblin"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern-split",
+      "attacker": "Bear Cub",
+      "blockers": [
+        "Bear Cub",
+        "Swab Goblin"
+      ],
+      "amounts": [
+        1,
+        1
+      ],
+      "expected": [
+        {
+          "name": "initial",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        {
+          "name": "attackers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "blockers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": true,
+          "blockers": [
+            "Bear Cub",
+            "Swab Goblin"
+          ]
+        },
+        {
+          "name": "damage",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 1,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 1,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [
+              "Bear Cub"
+            ],
+            []
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern-concentrated",
+      "attacker": "Bear Cub",
+      "blockers": [
+        "Bear Cub",
+        "Swab Goblin"
+      ],
+      "amounts": [
+        0,
+        2
+      ],
+      "expected": [
+        {
+          "name": "initial",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        {
+          "name": "attackers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": false,
+          "blockers": []
+        },
+        {
+          "name": "blockers",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 0,
+              "card": "Bear Cub",
+              "tapped": true,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            },
+            {
+              "seat": 1,
+              "card": "Swab Goblin",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [],
+            []
+          ],
+          "blocked": true,
+          "blockers": [
+            "Bear Cub",
+            "Swab Goblin"
+          ]
+        },
+        {
+          "name": "damage",
+          "life": [
+            20,
+            20
+          ],
+          "battlefield": [
+            {
+              "seat": 1,
+              "card": "Bear Cub",
+              "tapped": false,
+              "damage": 0,
+              "power": 2,
+              "toughness": 2
+            }
+          ],
+          "graveyard": [
+            [
+              "Bear Cub"
+            ],
+            [
+              "Swab Goblin"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

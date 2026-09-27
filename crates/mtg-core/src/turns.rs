@@ -8,6 +8,8 @@ pub enum Step {
     PrecombatMain,
     BeginningCombat,
     DeclareAttackers,
+    DeclareBlockers,
+    CombatDamage,
     EndCombat,
     PostcombatMain,
     End,
@@ -16,6 +18,7 @@ pub enum Step {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TurnKind {
     Priority,
+    Combat(super::combat::CombatKind),
     Discard { count: usize },
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -69,6 +72,7 @@ pub(super) struct TurnState {
     pub(super) modifications: Vec<super::targets::Modification>,
     pub(super) last_resolution: Option<super::targets::Resolution>,
     pub(super) sick: Vec<Handle>,
+    pub(super) combat: super::combat::CombatState,
 }
 impl Game {
     pub fn turn_position(&self) -> Option<(u64, Seat, Step)> {
@@ -171,18 +175,15 @@ impl Game {
             Step::Draw => Step::PrecombatMain,
             Step::PrecombatMain => Step::BeginningCombat,
             Step::BeginningCombat => {
-                // No combat declarations are automated for potentially attacking
-                // creatures. The empty/lands-only battlefield has no attackers.
-                if self.objects.in_zone(Zone::Battlefield).any(|h| {
-                    let o = self.objects.get(h).expect("live battlefield handle");
-                    o.controller == active
-                        && !matches!(o.card.identity().key, "forest" | "mountain")
-                }) {
+                if !self.supported_combat() {
                     return Err(TurnError::UnsupportedCombat);
                 }
                 Step::DeclareAttackers
             }
-            Step::DeclareAttackers => Step::EndCombat, // CR 508.8: no attackers.
+            Step::DeclareAttackers if self.turns.combat.attacks.is_empty() => Step::EndCombat,
+            Step::DeclareAttackers => Step::DeclareBlockers,
+            Step::DeclareBlockers => Step::CombatDamage,
+            Step::CombatDamage => Step::EndCombat,
             Step::EndCombat => Step::PostcombatMain,
             Step::PostcombatMain => Step::End,
             Step::End if self.objects.in_zone(Zone::Hand(active)).count() > 7 => Step::Cleanup,
@@ -218,14 +219,28 @@ impl Game {
         self.turns.passed = false;
         self.turns.mana = [[0; 6]; 2]; // CR 106.4 / 500.4, both players, every boundary.
         self.generation = generation;
-        let kind = if next_step == Step::Cleanup {
+        if next_step == Step::PostcombatMain {
+            self.turns.combat = super::combat::CombatState::default();
+        }
+        let kind = if next_step == Step::DeclareAttackers && self.has_combat_creature(active) {
+            TurnKind::Combat(super::combat::CombatKind::Attackers)
+        } else if next_step == Step::DeclareBlockers {
+            TurnKind::Combat(super::combat::CombatKind::Blockers)
+        } else if next_step == Step::CombatDamage {
+            TurnKind::Combat(super::combat::CombatKind::Damage)
+        } else if next_step == Step::Cleanup {
             TurnKind::Discard {
                 count: self.objects.in_zone(Zone::Hand(active)).count() - 7,
             }
         } else {
             TurnKind::Priority
         };
-        Ok(self.set_turn_decision(next_active, kind))
+        let actor = if next_step == Step::DeclareBlockers {
+            opponent(active)
+        } else {
+            next_active
+        };
+        Ok(self.set_turn_decision(actor, kind))
     }
     pub(super) fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
         let d = TurnDecision {
@@ -255,7 +270,7 @@ impl Game {
     }
 }
 
-fn opponent(seat: Seat) -> Seat {
+pub(super) fn opponent(seat: Seat) -> Seat {
     match seat {
         Seat::P0 => Seat::P1,
         Seat::P1 => Seat::P0,
@@ -403,7 +418,7 @@ mod tests {
         }
         g.objects
             .allocate(
-                CardId::from_key("bear-cub").unwrap(),
+                CardId::from_key("magnigoth-sentry").unwrap(),
                 Seat::P0,
                 Zone::Battlefield,
             )

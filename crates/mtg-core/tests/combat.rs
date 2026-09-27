@@ -1,4 +1,4 @@
-//! Normal reset/keep/land/cast sequences, independent CR 601/117/302 expectations.
+//! Real reset, keep, lands, cast, combat and cleanup. CR 302.6/508–510/514.2.
 use mtg_core::objects::{Seat, Zone};
 use mtg_core::opening::mana::Color;
 use mtg_core::opening::turns::{Step, TurnAction, TurnKind, TurnSelection};
@@ -22,7 +22,7 @@ fn advance(g: &mut Game) {
     .unwrap();
 }
 #[test]
-fn casting_normal_reset_to_two_lands_cast_and_next_untap_both_seats() {
+fn combat_normal_reset_cast_sickness_attack_cleanup_and_next_untap_both_seats() {
     let manifest: serde_json::Value = serde_json::from_str(include_str!(
         "../../../data/cards/foundations_micro_v1.json"
     ))
@@ -132,6 +132,51 @@ fn casting_normal_reset_to_two_lands_cast_and_next_untap_both_seats() {
             assert_eq!(g.turn_position(), Some((first + 4, actor, Step::Upkeep)));
             assert!(!g.summoning_sick(creature));
             assert!(lands.iter().all(|h| !g.objects().get(*h).unwrap().tapped));
+            for _ in 0..16 {
+                if g.turn_position().unwrap().2 == Step::DeclareAttackers {
+                    break;
+                }
+                advance(&mut g);
+            }
+            let d = g.turn_decision().unwrap();
+            let choices = g.combat_decision(actor, 80).unwrap();
+            assert_eq!(choices.attackers, vec![creature]);
+            let d = g.select_attackers(actor, d.id, &[creature]).unwrap();
+            g.finish_combat(actor, d.id).unwrap();
+            assert!(g.objects().get(creature).unwrap().tapped);
+            advance(&mut g);
+            advance(&mut g);
+            let d = g.turn_decision().unwrap();
+            let defender = if actor == Seat::P0 {
+                Seat::P1
+            } else {
+                Seat::P0
+            };
+            assert_eq!(d.actor, defender);
+            let d = g.select_blockers(defender, d.id, &[]).unwrap();
+            g.finish_combat(defender, d.id).unwrap();
+            advance(&mut g);
+            advance(&mut g);
+            let d = g.turn_decision().unwrap();
+            g.finish_combat(actor, d.id).unwrap();
+            assert_eq!(
+                g.life(),
+                if actor == Seat::P0 {
+                    [20, 18]
+                } else {
+                    [18, 20]
+                }
+            );
+            for _ in 0..60 {
+                if g.turn_position() == Some((first + 6, actor, Step::Upkeep)) {
+                    break;
+                }
+                advance(&mut g);
+            }
+            assert_eq!(g.turn_position(), Some((first + 6, actor, Step::Upkeep)));
+            assert!(!g.objects().get(creature).unwrap().tapped);
+            assert_eq!(g.creature_state(creature).unwrap().damage, 0);
+            assert!(g.combat().is_empty());
         }
     }
 }

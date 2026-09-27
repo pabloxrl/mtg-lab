@@ -131,3 +131,16 @@ to redistribute the external dependency bundle or card database. MIT permission
 for XMage code does not license Wizards content. No raw Oracle text, artwork,
 upstream tree or runtime binary is committed. Release-wide REL-01/02/03 remain
 open, including release-specific transitive notice review.
+
+## Vanilla combat extension (GH-71)
+
+The smoke scope above remains unchanged. A separate original
+[VanillaCombatTest](VanillaCombatTest.java) now executes five matched synthetic
+combat cases using the same pinned external engine and dependency inventory.
+[Combat acceptance](../../doc/evidence/combat/README.md) documents shared inputs,
+all observed fields, strict scripted declarations/allocations/passes, actual
+checkpoints, limits and the bounded reproduction command. No upstream scenario
+is copied, no source patch is applied, and no older blocker-order expectation
+is imported: the 1+1 allocation explicitly exercises the current rule.
+[API consultation hashes](combat-provenance.json) supplement the smoke provenance;
+the same retained upstream MIT notice and distribution limitations apply.

@@ -64,8 +64,8 @@ mana directly and are explicitly distinguished from normal opening tests.
 A stack registered by [creature casting](casting.md) or [targeted instants](targets.md) resolves one top spell on
 two consecutive passes, then gives the active player priority without advancing
 the step or emptying mana. Unregistered raw storage stack objects still return
-`UnsupportedStack`. Active nonland permanents at the combat-declaration boundary
-return `UnsupportedCombat`; no automatic combat choices substitute for that capability. Attempting a
+`UnsupportedStack`. [Vanilla combat](combat.md) now adds explicit attacker/blocker
+and damage choices. Other combat permanents still return `UnsupportedCombat`. Attempting a
 required draw from an empty library returns `TurnError::Draw(EmptyLibrary)` and
 preserves the current decision/state; it is not a terminal result. Terminal
 outcomes remain #72. These limitations prevent claiming complete games.
