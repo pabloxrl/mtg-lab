@@ -1,7 +1,8 @@
-# Opening reset
+# Opening reset and London mulligans
 
 `mtg_core::opening::{Game, Config, DeckConfig}` implements the reset prefix of
-SYS-CORE-001 and configuration rejection of SYS-CORE-009 (R0002-B015/B016).
+SYS-CORE-001, real opening-choice rejection for SYS-CORE-003, and configuration
+rejection of SYS-CORE-009 (R0002-B015/B016).
 Create a game with `Game::new()`, then call `reset(&config, master_seed, episode_id)`.
 `Config::default()` selects red versus green, starting seat 0, game one, no
 sideboards, `foundations_micro_v1`, `splitmix64-v1` and
@@ -20,9 +21,9 @@ assert_eq!(decision.candidates, [OpeningChoice::Keep, OpeningChoice::Mulligan]);
 Each player receives seven cards and retains 33 in their library (CR 103.3,
 103.5). The starting player is the first keep/mulligan decision actor; reset
 stops there. `decision()` returns that same boundary, with a checked generation
-that advances on each successful reset. No keep is implicitly selected. Applying
-these choices, London bottoming, the first-turn draw rule and gameplay are future
-capabilities (#65/#67). This does not certify complete opening catalog cases.
+that advances on each successful reset and application. No keep is implicitly
+selected except the rules-mandated keep after seven mulligans. The first-turn
+draw rule and gameplay remain future capabilities (#67 onward).
 
 Deck names are exactly `red` or `green`; card counts are the frozen manifest
 projection. `DeckConfig::order = Some(keys)` specifies an exact **post-shuffle**
@@ -74,3 +75,60 @@ advertise their unimplemented effects.
 Run `cargo test -p mtg-core opening` and `./scripts/torture.sh` inside the managed
 container. [Acceptance evidence](evidence/opening/README.md) records the independent
 expectations, retained regressions and red/green results.
+
+## Applying opening choices
+
+`OpeningDecision` carries a game-scoped `id`, actor and `kind`. At
+`KeepOrMulligan`, candidate index 0 is Keep and 1 is Mulligan. Construct
+`OpeningAction { decision: d.id, selection: Selection::Choose(d.candidate(0)) }`
+and call `game.apply(d.actor, &action)`. The returned `Option<OpeningDecision>`
+is the next opening boundary; `None` means opening choices finished, **not** a
+terminal game. The API does not yet advance turn steps.
+
+Declarations are collected in starting-player order. Only after all remaining
+players declare are mulligan hands shuffled back and seven cards drawn. Each
+mulligan taker then receives `OpeningKind::Bottom { count }`, in the same seat
+order. `bottom_cards()` returns the seven current candidate handles in index
+order. Submit exactly `count` distinct indices using
+`Selection::Bottom(vec![d.candidate(i), ...])`. Selection order is top-to-bottom
+within the appended bottom block: selecting A then B makes A drawn before B.
+The cards leave the hand immediately, **before** the next declaration round
+(CR 103.5 in the pinned 2026-09-25 source). Counts accumulate independently per
+seat; a kept seat receives no further opening choices. At seven mulligans all
+seven cards are bottomed and that seat must keep its empty hand.
+
+For ordinary seeded replacement shuffles, the pre-shuffle sequence is the
+current hand followed by the current top-first library. Apply the same
+Fisher–Yates specification above using the retained environment stream, in
+starting-player order among that round's mulligan takers. Reset still shuffles
+in fixed seat 0/1 order. This order is part of the shuffle version contract.
+
+`apply_with_order(actor, &action, &handles)` is a **privileged reference/test
+chance injection**, not a policy action: it replaces that mulligan's shuffle
+with an exact post-shuffle order. Supply all 40 distinct current handles from
+that seat's hand/library. Order is validated and retained at the declaration;
+no cards move before every declaration arrives. It consumes zero RNG words;
+other seats still consume their normal randomness. An order on Keep or Bottom,
+foreign/stale handles, duplicates and incomplete permutations are rejected.
+
+Every action validates actor, game/decision identity, selection kind, candidate
+generation/range and cardinality/uniqueness before semantic mutation or RNG
+consumption. `ApplyError` distinguishes those rejection classes. Candidate IDs
+are scoped to the decision that generated them, even if a reset or new decision
+reuses the same numeric index. Rejection also preserves the next valid result.
+Finite decision-counter exhaustion fails before mutation. Reset reserves 40
+slots in each hand/library; the seven-mulligan bound keeps subsequent opening
+moves within reserved storage and object generation bounds.
+
+`draw_top(seat)` is a rules primitive for a caller that has established a legal
+draw event. It moves only the top card, creates its new zone identity, preserves
+remaining order, and consumes no randomness. It accepts no selected card. It
+rejects uninitialized games, pending opening choices and empty libraries.
+Empty-library failure here does not implement a rules loss/SBA; that integration
+belongs to #72. This primitive is not a policy action or a turn scheduler.
+
+Run `cargo test -p mtg-core mulligan` for the normally discovered catalog and
+SYS-CORE-003 opening regressions. [Mulligan evidence](evidence/mulligan/README.md)
+maps every assigned case and states reference coverage limits. All inspection,
+decision/chance plumbing and Debug in this module remain privileged; seat-safe
+policy views are #73's delivery.

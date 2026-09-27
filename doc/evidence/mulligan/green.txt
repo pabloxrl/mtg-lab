@@ -1,0 +1,51 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-65/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.01s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 2 tests
+test opening::mulligan_invariants::mulligan_decision_exhaustion_is_atomic_in_both_kinds ... ok
+test opening::mulligan_invariants::mulligan_explicit_chance_and_rejections_do_not_consume_rng ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-ce642592432787ec)
+
+running 17 tests
+test mulligan_random_replacements_match_independent_full_order_vectors ... ok
+test mulligan_rejects_foreign_stale_and_unexpected_replacement_orders ... ok
+test mulligan_both_seats_mirrors_and_distinct_bottom_generations ... ok
+test mulligan_rules_setup_deterministic_reset_positive ... ok
+test mulligan_rules_setup_deterministic_reset_interaction ... ok
+test mulligan_rules_setup_deterministic_reset_regression ... ok
+test mulligan_rules_decisions_stale_candidates_regression ... ok
+test mulligan_explicit_order_validation_and_seven_limit ... ok
+test mulligan_rules_setup_mulligan_bottom_interaction ... ok
+test mulligan_rules_setup_mulligan_bottom_negative ... ok
+test mulligan_rules_setup_mulligan_bottom_regression ... ok
+test mulligan_rules_setup_mulligan_bottom_positive ... ok
+test mulligan_rules_setup_ordered_draw_negative ... ok
+test mulligan_rules_setup_ordered_draw_positive ... ok
+test mulligan_rules_setup_ordered_draw_regression ... ok
+test mulligan_rules_setup_two_player_opening_positive ... ok
+test mulligan_sys_core_003_rejections_between_every_real_stage ... ok
+
+test result: ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-78536aa399b797f2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-7abc55d7215edbe4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
