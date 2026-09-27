@@ -1,0 +1,31 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running tests/rng.rs (target/debug/deps/rng-1ff338ecdde4d1d0)
+
+running 3 tests
+test rng_unknown_versions_rejected ... FAILED
+test rng_episode_known_answers ... FAILED
+test rng_creation_order_and_policy_draws_do_not_change_environment ... ok
+
+failures:
+
+---- rng_unknown_versions_rejected stdout ----
+
+thread 'rng_unknown_versions_rejected' (13) panicked at crates/mtg-core/tests/rng.rs:42:13:
+""
+
+---- rng_episode_known_answers stdout ----
+
+thread 'rng_episode_known_answers' (12) panicked at crates/mtg-core/tests/rng.rs:34:9:
+assertion `left == right` failed: master=0 episode=0
+  left: [0, 0, 0, 0]
+ right: [15190099805125178294, 6853202724793713792, 17227762489395348108, 12474582744829040518]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    rng_episode_known_answers
+    rng_unknown_versions_rejected
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test rng`
