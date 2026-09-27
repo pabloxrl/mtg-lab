@@ -1,0 +1,30 @@
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+
+running 1 test
+test simulate_decision_limit_is_not_a_draw_or_win ... FAILED
+
+failures:
+
+---- simulate_decision_limit_is_not_a_draw_or_win stdout ----
+
+thread 'simulate_decision_limit_is_not_a_draw_or_win' (192) panicked at crates/mtg-cli/tests/simulate.rs:158:5:
+assertion `left == right` failed
+  left: Number(0)
+ right: 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    simulate_decision_limit_is_not_a_draw_or_win
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.01s
+
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-78/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.85s
+     Running unittests src/main.rs (target/debug/deps/mtg-f883a9a2b23c67c8)
+     Running tests/simulate.rs (target/debug/deps/simulate-750cefc1b32a9780)
+error: test failed, to rerun pass `-p mtg-cli --test simulate`

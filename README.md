@@ -6,8 +6,9 @@ experiments, testing and training run without a person playing either seat.
 
 **Current stage: M0 complete — scope and verification foundations.** The repository
 has runnable validation tools and small, real Forge/XMage reference checks.
-The playable Rust engine, full AI matches, Python bindings and training integrations
-are still planned. There is no `simulate` or `train` command yet.
+The scalar Rust slice and a passive headless `simulate` command are implemented.
+Full-policy AI matches, Python bindings and training integrations remain planned;
+there is no `train` command. M1 has not passed its integration gate.
 
 This snapshot is grounded in the [passing M0 audit](doc/evidence/m0-reaudit/README.md)
 and [its merged PR #56](https://github.com/pabloxrl/mtg-lab/pull/56).
@@ -31,13 +32,14 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Creature casting | [Bear Cub/Swab Goblin casts, payment-time land activations, stack resolution and summoning sickness](doc/casting.md), with [casting acceptance](doc/evidence/casting/README.md) | Sorcery timing; creature-only LIFO tests use declared synthetic stacks. |
 | Targeted instants | [Giant Growth/Bite Down, factored targets, response chains, revalidation, damage and simultaneous cleanup](doc/targets.md), with [target acceptance](doc/evidence/targets/README.md) | Normal-reset Growth response script, synthetic Bite edges and real Growth/Bite reset integration below; other spell mechanics remain planned. |
 | Vanilla combat | [Attacker/blocker choices, current damage allocation, simultaneous damage and lethal cleanup](doc/combat.md), with [combat acceptance](doc/evidence/combat/README.md) | Bear Cub/Swab Goblin only; signed life totals, no combat keywords. Normal reset-to-combat scripts, synthetic edge cases and five matched XMage combat scenarios. |
-| Rules outcomes | [Lethal life, attempted empty draws, concession and explicit reset](doc/terminal.md), with [terminal acceptance](doc/evidence/terminal/README.md) | Stable seats and best-of-one finality; normal-reset red/green mirror scripts and matched synthetic XMage boundaries. Recorder rewards are available below; no CLI matches. Terminal state uses the core views below. |
+| Rules outcomes | [Lethal life, attempted empty draws, concession and explicit reset](doc/terminal.md), with [terminal acceptance](doc/evidence/terminal/README.md) | Stable seats and best-of-one finality; normal-reset red/green mirror scripts and matched synthetic XMage boundaries. Recorder rewards and passive CLI games are available below. Terminal state uses the core views below. |
 | Core player views | [Seat-filtered structured observations and opening candidate commands](doc/views.md), with [privacy acceptance](doc/evidence/views/README.md) | Own hand, public zones/counts and historical revelations; no hidden library order, opponent hand or RNG. Private spell continuations explicitly unavailable; complete later policy integration and tensors remain planned. |
 | Core work quantum | [Resumable reset, shuffle and opening work](doc/opening.md#bounded-work), with [quantum equivalence checks](doc/evidence/quantum/README.md) | Internal yields only; no scheduler or batch runner yet; the work quantum currently covers opening work. |
 | Core snapshots | [Versioned full-state save and atomic restore](doc/snapshot.md), with [snapshot acceptance](doc/evidence/snapshot/README.md) | Privileged compatible-engine saves; RNG, opening choices and internal yields preserved. Fresh handle scopes on load; no migration. Pending spell integration remains #19; opening replay is available below. |
 | Opening replays | [Versioned semantic opening scripts and first-divergence verification](doc/replay.md), with [replay acceptance](doc/evidence/replay/README.md) | Privileged rules/cards/engine/config/RNG pins, strict consumed choices and ordered bottom identities. Opening only; spells/full-game integration and CLI remain #19/#79. |
 | In-memory trajectories | [Owned canonical records and per-seat readers](doc/trajectories.md), with [reward/boundary acceptance](doc/evidence/trajectory/README.md) | Versioned collector metadata, action-time candidates/masks, zero-decision seat rewards, final views and failure quarantine. Trusted collector supplies action tables. No full-game collector or pending spell-view integration yet. |
 | JSONL trajectories | [Bounded scalar writer and strict validator](doc/trajectory-jsonl.md), with [handwritten roundtrip/failure evidence](doc/evidence/trajectory-jsonl/README.md) | Canonical owned records, checksums/counts, atomic file publication and explicit backpressure/errors. One run per file; episode/file byte budgets required. Parquet, CLI and full recorder integration remain planned. |
+| Scalar simulation | [Validated headless `mtg simulate`](doc/simulate.md), explicit seeds/budgets, deterministic passive policy, versioned JSONL summaries and SIGTERM accounting, with [subprocess acceptance](doc/evidence/simulate/README.md) | `pass-v1` keeps, passes and discards only; no spell/land plays, random/heuristic policies, trajectory capture, protocol, UI or trainers. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
 M0 verifies that the requirements, test designs and basic reference infrastructure
@@ -92,6 +94,22 @@ It returns JSON with `"status":"pass"`. Replace `equal.json` with `life.json` to
 see an intentional mismatch at `life.p1` and exit code 1. Both checkpoints are
 supplied by the fixture: this demonstrates comparison, not a simulated game.
 See the [comparator contract](doc/fixture-comparator.md) for its schema and errors.
+
+To run two passive games unattended, use the same toolchain image:
+
+```sh
+docker run --rm --cap-drop ALL --security-opt no-new-privileges \
+  --mount "type=bind,source=$PWD,target=/workspace,readonly" \
+  --workdir /workspace -e CARGO_TARGET_DIR=/tmp/target \
+  mtg-lab-toolchain:local \
+  cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/pass-v1.json
+```
+
+This emits a run header, two completed episode summaries and aggregate counts as
+JSONL. Both seats explicitly use `pass-v1`: keep seven, pass priority, discard at
+cleanup. It plays no cards; the nonstarting seat loses to an empty draw on turn 68.
+This is an automation/accounting baseline, not a measure of policy strength or
+complete card support. [Configuration, exit codes and limits](doc/simulate.md).
 
 To inspect the completed test-design mapping without executing games:
 
