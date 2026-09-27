@@ -1,0 +1,20 @@
+[
+  {
+    "mutation": "limit-counted-as-completion",
+    "test": "simulate_decision_limit_is_not_a_draw_or_win",
+    "compiled": true,
+    "caught": true
+  },
+  {
+    "mutation": "signal-counted-as-truncation",
+    "test": "simulate_active_interruption_and_deadline_have_distinct_accounting",
+    "compiled": true,
+    "caught": true
+  },
+  {
+    "mutation": "engine-error-success-exit",
+    "test": "simulate_engine_failure_is_quarantined_and_stops_run",
+    "compiled": true,
+    "caught": true
+  }
+]

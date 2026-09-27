@@ -1,0 +1,24 @@
+
+running 1 test
+test simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run ... FAILED
+
+failures:
+
+---- simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run stdout ----
+
+thread 'simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run' (571) panicked at crates/mtg-cli/src/simulate.rs:274:9:
+assertion `left == right` failed
+  left: 0
+ right: 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-78/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.97s
+     Running unittests src/main.rs (target/debug/deps/mtg-f883a9a2b23c67c8)
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`
