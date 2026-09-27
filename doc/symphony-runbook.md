@@ -268,3 +268,44 @@ resuming ordinary work.
   instructions are configured, but a verified revert/repair drill remains a
   readiness item before increasing concurrency or claiming unattended recovery.
 - Game correctness, reference bridges, and MVP delivery remain separate work.
+
+## Five-minute activity summary
+
+Open <http://localhost:4318/>. The “What’s happening” card above the live dashboard
+shows the worker's own short explanation: current work, why it matters, the
+milestone goal, the wider project goal, the next check and any reported blocker.
+It loads immediately, refreshes every five minutes while the page is open, and
+refreshes when you return to the tab. No second model session or additional AI
+usage is incurred. Original live metrics continue updating independently.
+
+Workers use `scripts/symphony/report_progress.py` to write an ignored, atomic
+`.agent-artifacts/operator-summary.json` in their issue workspace at startup,
+meaningful transitions and every five minutes during active work. Long-running
+tools can delay a note. The card displays both when the agent wrote it and when
+the dashboard checked; notes older than five minutes are explicitly marked old.
+A missing, malformed, future-dated or previous-session report never appears as a
+current update. Idle/retrying/blocked states take precedence over old prose. The
+card is an explanation, not proof of milestone completion; GitHub workpads,
+reviews and exact-main CI remain authoritative.
+
+The container now runs the unchanged pinned Symphony binary on internal 4318,
+a local read-only summary endpoint on 4319, and nginx on 4317. Compose maps host
+`127.0.0.1:4318` to the nginx frontend on 4317. Only that frontend is published.
+Nginx adds the card assets to the HTML and preserves existing API and WebSocket
+routes. The card stays outside Phoenix's managed DOM so live updates cannot erase
+it. All components run as the existing non-root user; logs/temp files use `/tmp`.
+Node is included in the runtime image only to execute the browser-script tests.
+The summary reader uses only allowlisted fields from the worker's explicit note,
+not transcripts, prompts, reasoning, raw commands or credentials. It never executes
+report text or grants work. Direct JSON is at `/operator-summary.json`.
+
+For deployment, rebuild the image and recreate the container at an idle worker
+boundary; a restart alone does not load new baked code. A coordinator can hold
+pending, not-yet-dispatched tasks while the active task finishes, recording exactly
+which holds it added. Preserve pre-existing holds/blocks. Confirm no running or
+retrying session before recreation, verify the new card/API/WebSocket path, remove
+only the temporary holds, then queue one eligible task under the normal controls.
+Do not restart a working agent merely to update the dashboard. `runtime-smoke.sh`
+exercises the real proxy and a WebSocket ping/pong with invalid dispatch credentials
+in an isolated volume, plus browser-script behavior and the Python summary tests
+in the full torture suite.

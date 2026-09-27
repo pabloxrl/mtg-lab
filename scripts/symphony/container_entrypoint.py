@@ -14,5 +14,5 @@ os.environ["GITHUB_TOKEN"] = subprocess.check_output(
 runtime = home / ".local/share/mtg-lab-symphony"
 runtime.mkdir(parents=True, exist_ok=True)
 os.chdir("/opt/mtg-lab")
-os.execvp("symphony", ["symphony", "--i-understand-that-this-will-be-running-without-the-usual-guardrails",
+os.execvp("python3", ["python3", "/opt/mtg-lab/scripts/symphony/dashboard_runtime.py",
                         "--logs-root", str(runtime / "logs"), "WORKFLOW.md"])
