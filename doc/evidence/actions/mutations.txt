@@ -1,0 +1,53 @@
+Mutant: ignore-incarnation
+Exit: 101
+
+running 1 test
+test opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse ... FAILED
+
+failures:
+
+---- opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse stdout ----
+
+thread 'opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse' (262) panicked at crates/mtg-core/src/actions_tests.rs:328:5:
+{"actor":"P0","choices":[{"card":{"birth":80,"card":"forest","incarnation":0,"owner":"P0","zone":"Battlefield"},"kind":"tap_mana"}],"decision":"priority","version":1}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 134 filtered out; finished in 0.06s
+
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-113/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.10s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+error: test failed, to rerun pass `-p mtg-core --lib`
+
+Mutant: ignore-birth
+Exit: 101
+
+running 1 test
+test opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse ... FAILED
+
+failures:
+
+---- opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse stdout ----
+
+thread 'opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse' (521) panicked at crates/mtg-core/src/actions_tests.rs:80:5:
+assertion `left == right` failed
+  left: Object {"actor": String("P0"), "choices": Array [Object {"card": Object {"birth": Number(80), "card": String("forest"), "incarnation": Number(0), "owner": String("P0"), "zone": String("Battlefield")}, "kind": String("tap_mana")}], "decision": String("priority"), "version": Number(1)}
+ right: Object {"actor": String("P0"), "choices": Array [Object {"card": Object {"birth": Number(81), "card": String("forest"), "incarnation": Number(0), "owner": String("P0"), "zone": String("Battlefield")}, "kind": String("tap_mana")}], "decision": String("priority"), "version": Number(1)}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::actions::tests::actions_duplicate_copy_zone_reentry_and_storage_reuse
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 134 filtered out; finished in 0.06s
+
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-113/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.04s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+error: test failed, to rerun pass `-p mtg-core --lib`

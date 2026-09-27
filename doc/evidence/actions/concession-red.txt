@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-113/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.11s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test opening::actions::tests::actions_concession_is_not_a_priority_choice ... FAILED
+
+failures:
+
+---- opening::actions::tests::actions_concession_is_not_a_priority_choice stdout ----
+
+thread 'opening::actions::tests::actions_concession_is_not_a_priority_choice' (262) panicked at crates/mtg-core/src/actions_tests.rs:174:34:
+called `Result::unwrap()` on an `Err` value: Malformed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::actions::tests::actions_concession_is_not_a_priority_choice
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 132 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
