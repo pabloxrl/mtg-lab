@@ -1,0 +1,42 @@
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-69/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.55s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 4 tests
+test opening::casting::tests::casting_literal_payment_stack_resolution_and_priority ... FAILED
+test opening::casting::tests::casting_generic_choices_and_atomic_rejected_final_command ... FAILED
+test opening::casting::tests::casting_land_activation_choices_cancel_and_retry ... FAILED
+test opening::casting::tests::casting_missing_colors_masked_timing_foreign_and_wrong_actor ... ok
+
+failures:
+
+---- opening::casting::tests::casting_literal_payment_stack_resolution_and_priority stdout ----
+
+thread 'opening::casting::tests::casting_literal_payment_stack_resolution_and_priority' (805) panicked at crates/mtg-core/src/casting_tests.rs:24:5:
+CR 601: payable vanilla creature must be offered
+
+---- opening::casting::tests::casting_generic_choices_and_atomic_rejected_final_command stdout ----
+
+thread 'opening::casting::tests::casting_generic_choices_and_atomic_rejected_final_command' (803) panicked at crates/mtg-core/src/casting_tests.rs:24:5:
+CR 601: payable vanilla creature must be offered
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- opening::casting::tests::casting_land_activation_choices_cancel_and_retry stdout ----
+
+thread 'opening::casting::tests::casting_land_activation_choices_cancel_and_retry' (804) panicked at crates/mtg-core/src/casting_tests.rs:24:5:
+CR 601: payable vanilla creature must be offered
+
+
+failures:
+    opening::casting::tests::casting_generic_choices_and_atomic_rejected_final_command
+    opening::casting::tests::casting_land_activation_choices_cancel_and_retry
+    opening::casting::tests::casting_literal_payment_stack_resolution_and_priority
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 19 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

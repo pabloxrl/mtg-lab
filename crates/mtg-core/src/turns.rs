@@ -1,4 +1,4 @@
-//! Empty-stack turn progression. Inspection is privileged, as in opening.
+//! Turn progression and priority, including supported creature-stack resolution. Inspection is privileged, as in opening.
 use super::*;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -61,6 +61,9 @@ pub(super) struct TurnState {
     pub(super) mana: [[u32; 6]; 2],
     pub(super) land_used: bool,
     pub(super) payment: Option<super::mana::Payment>,
+    pub(super) casting: Option<super::casting::PendingCast>,
+    pub(super) stack: Vec<Handle>,
+    pub(super) sick: Vec<Handle>,
 }
 impl Game {
     pub fn turn_position(&self) -> Option<(u64, Seat, Step)> {
@@ -107,7 +110,7 @@ impl Game {
         Ok(self.set_turn_decision(self.starting, TurnKind::Priority))
     }
     /// Validate generation, actor and complete selection before any rules work.
-    /// This entry point accepts empty-stack passes and cleanup discards.
+    /// This entry point accepts priority passes and cleanup discards.
     /// Land/mana methods share the same priority decision identity.
     pub fn apply_turn(
         &mut self,
@@ -147,7 +150,7 @@ impl Game {
             .checked_add(1)
             .ok_or(invalid(ApplyError::DecisionExhausted))?;
         if self.objects.in_zone(Zone::Stack).next().is_some() {
-            return Err(TurnError::UnsupportedStack);
+            return self.pass_stack(actor, generation);
         }
         let (turn, active, step) = self.turns.position.expect("turn decision position");
         if d.kind == TurnKind::Priority && !self.turns.passed {
@@ -229,6 +232,11 @@ impl Game {
         d
     }
     fn untap(&mut self, active: Seat) {
+        self.turns.sick.retain(|h| {
+            self.objects
+                .get(*h)
+                .is_ok_and(|o| o.zone == Zone::Battlefield && o.controller != active)
+        });
         let handles: Vec<_> = self.objects.in_zone(Zone::Battlefield).collect();
         for h in handles {
             let o = self.objects.get_mut(h).expect("live permanent");

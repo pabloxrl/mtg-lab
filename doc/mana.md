@@ -17,7 +17,8 @@ through `opening::mana`, after opening choices and `start_turns`.
 Rules code calls `begin_payment(actor, decision_id, ManaCost)` with a validated
 cost and already floated mana. The exact-symbol array includes colorless C;
 `generic` accepts any color or C. This is a rules integration primitive, not an
-interface allowing a policy to set a spell's price. Spell casting is GH-69.
+interface allowing a policy to set a spell's price. [Creature casting](casting.md)
+supplies its own fixed cost.
 
 `payment_decision(actor)` returns only that payer's current ID and choices.
 `choose_payment(actor, id, color)` consumes one provisional mana unit and returns
@@ -30,17 +31,18 @@ whole-engine capacity claim is made here.
 
 During payment `turn_decision()` returns None, turn/land/tap commands reject, and
 both seats' ordinary pools and objects remain unchanged. The opponent receives
-no payment choices. When choices are empty, `finish_payment` commits once and
-retains the payer's priority. The casting layer must join this preflighted commit
-with its spell commit before returning any decision to a policy. `cancel_payment`
+no payment choices. For a standalone payment, empty choices mean the cost is complete;
+`finish_payment` commits once and retains priority. During a cast an empty list
+can instead mean another land activation is needed. Use `finish_cast` to commit
+the spell; `finish_payment` rejects a pending cast. `cancel_payment`
 discards provisional spending and invalidates prior decisions. Mana abilities
 activated before payment remain committed; cancellation does not untap them.
 
-This prefix does not yet activate mana sources *inside* a casting continuation;
-callers can float land mana first. Casting integration owns that lifecycle and
-must preserve the same atomicity. Creature mana abilities, spell costs, targets,
-stack resolution, complete player observations, snapshots and replay remain
-registered sibling/integration work. Object inspection and `Game` Debug are
+The [casting API](casting.md) also supports staged basic-land activations inside
+a cast, committed atomically with the spell. Cancellation clears those staged
+activations as well as payment choices. Creature mana abilities, other spells,
+targets, complete player observations, snapshots and replay remain registered
+sibling/integration work. Object inspection and `Game` Debug are
 privileged; never use them as policy observations. Seat arguments rely on the
 caller's seat authorization, as with opening/turn APIs.
 

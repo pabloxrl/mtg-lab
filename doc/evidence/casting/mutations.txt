@@ -1,0 +1,76 @@
+omit summoning sickness
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-69/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.38s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 1 test
+test opening::casting::tests::casting_literal_payment_stack_resolution_and_priority ... FAILED
+
+failures:
+
+---- opening::casting::tests::casting_literal_payment_stack_resolution_and_priority stdout ----
+
+thread 'opening::casting::tests::casting_literal_payment_stack_resolution_and_priority' (146) panicked at crates/mtg-core/src/casting_tests.rs:100:9:
+assertion failed: g.summoning_sick(creature)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::casting::tests::casting_literal_payment_stack_resolution_and_priority
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+
+resolve bottom instead of top
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-69/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.97s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 1 test
+test opening::casting::tests::casting_lifo_synthetic_stack_and_mana_response_resets_passes ... FAILED
+
+failures:
+
+---- opening::casting::tests::casting_lifo_synthetic_stack_and_mana_response_resets_passes stdout ----
+
+thread 'opening::casting::tests::casting_lifo_synthetic_stack_and_mana_response_resets_passes' (289) panicked at crates/mtg-core/src/casting_tests.rs:258:5:
+assertion `left == right` failed
+  left: [Handle { store: 0, epoch: 1, generation: 0, slot: 81 }]
+ right: [Handle { store: 0, epoch: 1, generation: 1, slot: 80 }]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::casting::tests::casting_lifo_synthetic_stack_and_mana_response_resets_passes
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+
+deduct no mana on cast
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-69/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.94s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 1 test
+test opening::casting::tests::casting_literal_payment_stack_resolution_and_priority ... FAILED
+
+failures:
+
+---- opening::casting::tests::casting_literal_payment_stack_resolution_and_priority stdout ----
+
+thread 'opening::casting::tests::casting_literal_payment_stack_resolution_and_priority' (432) panicked at crates/mtg-core/src/casting_tests.rs:80:9:
+assertion `left == right` failed
+  left: [[0, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 0]]
+ right: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::casting::tests::casting_literal_payment_stack_resolution_and_priority
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+

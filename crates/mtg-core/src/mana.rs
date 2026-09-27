@@ -50,15 +50,19 @@ pub enum ManaError {
 }
 #[derive(Clone, Debug)]
 pub(super) struct Payment {
-    actor: Seat,
-    id: DecisionId,
-    remaining: ManaCost,
-    pool: [u32; 6],
+    pub(super) actor: Seat,
+    pub(super) id: DecisionId,
+    pub(super) remaining: ManaCost,
+    pub(super) pool: [u32; 6],
 }
 impl Payment {
     fn choices(&self) -> Vec<Color> {
         if let Some(i) = self.remaining.colored.iter().position(|&n| n > 0) {
-            vec![Color::ALL[i]]
+            if self.pool[i] > 0 {
+                vec![Color::ALL[i]]
+            } else {
+                vec![]
+            }
         } else if self.remaining.generic > 0 {
             Color::ALL
                 .into_iter()
@@ -68,7 +72,7 @@ impl Payment {
             vec![]
         }
     }
-    fn decision(&self) -> PaymentDecision {
+    pub(super) fn decision(&self) -> PaymentDecision {
         PaymentDecision {
             id: self.id,
             actor: self.actor,
@@ -76,7 +80,7 @@ impl Payment {
         }
     }
 }
-fn basic_color(card: CardId) -> Option<Color> {
+pub(super) fn basic_color(card: CardId) -> Option<Color> {
     match card.identity().key {
         "forest" => Some(Color::Green),
         "mountain" => Some(Color::Red),
@@ -87,7 +91,7 @@ fn invalid(e: ApplyError) -> ManaError {
     ManaError::Turn(TurnError::Invalid(e))
 }
 impl Game {
-    fn mana_priority(&self, actor: Seat, id: DecisionId) -> Result<(), ManaError> {
+    pub(super) fn mana_priority(&self, actor: Seat, id: DecisionId) -> Result<(), ManaError> {
         if self.turns.payment.is_some() {
             return Err(ManaError::PaymentPending);
         }
@@ -105,7 +109,7 @@ impl Game {
         }
         Ok(())
     }
-    fn next_mana_generation(&self) -> Result<u64, ManaError> {
+    pub(super) fn next_mana_generation(&self) -> Result<u64, ManaError> {
         self.generation
             .checked_add(1)
             .ok_or(invalid(ApplyError::DecisionExhausted))
@@ -224,7 +228,11 @@ impl Game {
             .filter(|p| p.actor == actor)
             .map(Payment::decision)
     }
-    fn validate_payment(&self, actor: Seat, id: DecisionId) -> Result<&Payment, ManaError> {
+    pub(super) fn validate_payment(
+        &self,
+        actor: Seat,
+        id: DecisionId,
+    ) -> Result<&Payment, ManaError> {
         let p = self.turns.payment.as_ref().ok_or(ManaError::NoPayment)?;
         if actor != p.actor {
             return Err(invalid(ApplyError::WrongActor));
@@ -270,6 +278,7 @@ impl Game {
         self.validate_payment(actor, id)?;
         let generation = self.next_mana_generation()?;
         self.turns.payment = None;
+        self.turns.casting = None;
         self.generation = generation;
         Ok(self.set_turn_decision(actor, TurnKind::Priority))
     }
@@ -277,6 +286,16 @@ impl Game {
     /// The casting layer must join this with its own preflighted commit, without
     /// returning an intermediate priority decision to a policy.
     pub fn finish_payment(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+    ) -> Result<TurnDecision, ManaError> {
+        if self.turns.casting.is_some() {
+            return Err(ManaError::PaymentPending);
+        }
+        self.commit_payment(actor, id)
+    }
+    pub(super) fn commit_payment(
         &mut self,
         actor: Seat,
         id: DecisionId,
