@@ -32,12 +32,14 @@ pub enum Choice {
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct Submission {
+    pub revision: u64,
     pub schema_version: u32,
     pub generation: u64,
     pub choices: Vec<Choice>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct Decision {
+    pub revision: u64,
     pub generation: u64,
     pub actor: u8,
     pub kind: &'static str,
@@ -220,6 +222,7 @@ impl Game {
             ("priority", 1)
         };
         Ok(Some(Decision {
+            revision: self.policy_revision,
             generation,
             actor: seat_index(actor) as u8,
             kind,
@@ -261,7 +264,7 @@ impl Game {
         if actor != expected {
             return Err(PolicyError::WrongActor);
         }
-        if submission.generation != generation {
+        if submission.revision != self.policy_revision || submission.generation != generation {
             return Err(PolicyError::StaleDecision);
         }
         for choice in &submission.choices {

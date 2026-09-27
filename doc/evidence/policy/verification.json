@@ -14,7 +14,8 @@
         "release"
       ],
       "log_sha256": "a32a2485bdc709cf73d4c9b82343a96e5dbf7e612aaddc1f61a2b892754a3052",
-      "final_after_current_main_integration": false
+      "final_after_current_main_integration": false,
+      "candidate_phase": "before review correction"
     },
     {
       "command": "./scripts/torture.sh",
@@ -27,7 +28,22 @@
         "release"
       ],
       "log_sha256": "0aeaa523d316d5d05f9c4cd658130a40027338b9076021ab0231af61c17ac6b8",
-      "final_after_current_main_integration": true
+      "final_after_current_main_integration": true,
+      "candidate_phase": "before review correction"
+    },
+    {
+      "command": "./scripts/torture.sh",
+      "exit_code": 0,
+      "python_tests": 134,
+      "rust_tests_per_profile": 226,
+      "doctests_per_profile": 1,
+      "profiles": [
+        "debug",
+        "release"
+      ],
+      "log_sha256": "8f97873277bcea53e69d387576c7f204ba7ccf20e71573766c5f074df0657626",
+      "final_after_current_main_integration": true,
+      "candidate_phase": "after restore-staleness review correction"
     }
   ],
   "checks": [
@@ -39,7 +55,7 @@
     "Clippy warnings denied",
     "all workspace Rust debug and release tests"
   ],
-  "policy_tests": 9,
+  "policy_tests": 10,
   "compiled_mutants_detected": 3,
   "reference_receipts": [
     "xmage-priority.json",

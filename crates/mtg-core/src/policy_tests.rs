@@ -55,6 +55,7 @@ fn submit(g: &mut Game, s: Seat, choices: Vec<Choice>) -> Result<(), PolicyError
     g.apply_policy(
         s,
         &Submission {
+            revision: d.revision,
             schema_version: 1,
             generation: d.generation,
             choices,
@@ -310,6 +311,7 @@ fn policy_hidden_twins_and_invalid_inputs_preserve_full_state() {
                         g,
                         actor,
                         Submission {
+                            revision: 0,
                             schema_version: version,
                             generation: submitted_generation,
                             choices: vec![choice.clone()],
@@ -395,6 +397,7 @@ fn policy_standalone_payment_is_private_and_explicit() {
             &mut g,
             start,
             Submission {
+                revision: 0,
                 schema_version: 1,
                 generation: d.generation,
                 choices: vec![Choice::Pay { color: 3 }],
@@ -504,6 +507,7 @@ fn policy_mulligans_ordered_bottoming_and_old_opening_api_coexist() {
                 &mut g,
                 seat,
                 Submission {
+                    revision: 0,
                     schema_version: 1,
                     generation: d.generation,
                     choices: vec![bottom(0), bottom(0)],
@@ -547,6 +551,7 @@ fn policy_generation_and_resource_exhaustion_are_transactional() {
         &mut g,
         Seat::P0,
         Submission {
+            revision: 0,
             schema_version: 1,
             generation: old,
             choices: vec![Choice::Keep],
@@ -563,6 +568,7 @@ fn policy_generation_and_resource_exhaustion_are_transactional() {
         &mut g,
         Seat::P0,
         Submission {
+            revision: 0,
             schema_version: 1,
             generation: id.generation,
             choices: vec![Choice::PlayLand {
@@ -587,6 +593,7 @@ fn policy_generation_and_resource_exhaustion_are_transactional() {
         &mut g,
         Seat::P0,
         Submission {
+            revision: 0,
             schema_version: 1,
             generation: id.generation,
             choices: vec![Choice::TapMana {
@@ -738,6 +745,7 @@ fn policy_library_only_twins_payment_errors_and_masked_rows() {
                             g,
                             start,
                             Submission {
+                                revision: 0,
                                 schema_version: 1,
                                 generation: d.generation,
                                 choices: vec![choice.clone()],
@@ -776,6 +784,7 @@ fn policy_library_only_twins_payment_errors_and_masked_rows() {
                         g,
                         start,
                         Submission {
+                            revision: 0,
                             schema_version: 1,
                             generation,
                             choices: vec![choice],
@@ -788,6 +797,7 @@ fn policy_library_only_twins_payment_errors_and_masked_rows() {
                     g,
                     other(start),
                     Submission {
+                        revision: 0,
                         schema_version: 1,
                         generation,
                         choices: vec![Choice::CancelPayment],
@@ -799,6 +809,7 @@ fn policy_library_only_twins_payment_errors_and_masked_rows() {
                     g,
                     start,
                     Submission {
+                        revision: 0,
                         schema_version: 1,
                         generation,
                         choices: vec![Choice::Pay { color: 3 }],
@@ -839,13 +850,14 @@ fn policy_wire_contract_owned_records_and_terminal_boundary() {
     );
     let generation = o.decision.as_ref().unwrap().generation;
     let request = Submission {
+        revision: 0,
         schema_version: 1,
         generation,
         choices: vec![Choice::Keep],
     };
     assert_eq!(
         serde_json::to_value(&request).unwrap(),
-        serde_json::json!({"schema_version":1,"generation":generation,"choices":[{"kind":"keep"}]})
+        serde_json::json!({"schema_version":1,"revision":0,"generation":generation,"choices":[{"kind":"keep"}]})
     );
     let decoded: Submission =
         serde_json::from_value(serde_json::to_value(&request).unwrap()).unwrap();
@@ -869,4 +881,56 @@ fn policy_wire_contract_owned_records_and_terminal_boundary() {
     assert!(terminal.decision.is_none());
     assert_eq!(terminal.view.terminal.unwrap().winner, Some(0));
     unchanged(&mut g, Seat::P0, request, CAP, PolicyError::Unavailable);
+}
+#[test]
+fn policy_restore_invalidates_pre_restore_submissions_without_state_change() {
+    let mut g = game(Seat::P0, false);
+    keep(&mut g, Seat::P0);
+    let d = g.policy_observe(Seat::P0, CAP).unwrap().decision.unwrap();
+    let stale = Submission {
+        revision: d.revision,
+        schema_version: 1,
+        generation: d.generation,
+        choices: vec![Choice::Pass],
+    };
+    let saved = g.snapshot();
+    g.apply_policy(Seat::P0, &stale, CAP).unwrap();
+    g.restore(&saved).unwrap();
+    unchanged(
+        &mut g,
+        Seat::P0,
+        stale.clone(),
+        CAP,
+        PolicyError::StaleDecision,
+    );
+    let fresh = g.policy_observe(Seat::P0, CAP).unwrap().decision.unwrap();
+    assert_eq!(fresh.generation, d.generation);
+    assert_eq!(fresh.revision, d.revision + 1);
+    submit(&mut g, Seat::P0, vec![Choice::Pass]).unwrap();
+    g.restore(&saved).unwrap();
+    assert_eq!(
+        g.policy_observe(Seat::P0, CAP)
+            .unwrap()
+            .decision
+            .unwrap()
+            .revision,
+        d.revision + 2
+    );
+    unchanged(
+        &mut g,
+        Seat::P0,
+        Submission {
+            revision: fresh.revision,
+            ..stale
+        },
+        CAP,
+        PolicyError::StaleDecision,
+    );
+    g.policy_revision = u64::MAX; // synthetic finite route-revision boundary
+    let before = format!("{g:?}");
+    assert_eq!(
+        g.restore(&saved),
+        Err(snapshot::RestoreError::IdentityExhausted)
+    );
+    assert_eq!(format!("{g:?}"), before);
 }

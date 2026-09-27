@@ -73,3 +73,10 @@ fingerprints still reject without migration.
 
 [Turn settlement acceptance](evidence/turn-settlement/README.md) checks restore
 after every yielded untap, step, draw, discard and combined modifier expiration.
+
+The additive [policy interface](policy-decisions.md) also binds submissions to a
+destination-local revision. Successful restore increments it; it is excluded
+from snapshot payloads and never rewinds with a save. Refresh the policy decision
+after restore. Counter exhaustion rejects the restore transactionally. Existing
+privileged capability scopes, semantic generations and opening-view API contracts
+are unchanged; the conservative engine fingerprint now includes policy source.

@@ -5,7 +5,7 @@ policy schema version, the existing schema-1 `PlayerView`, an actor-only decisio
 and explicit unsupported families. Use `Game::apply_policy(actor, &Submission,
 capacity)` to submit semantic choices. Types live in `mtg_core::opening::policy`
 and serialize through Serde; submissions also deserialize. The trusted caller
-binds the game and authorized seat. Neither a seat nor a generation is an
+binds the game and authorized seat. Neither a seat nor a revision/generation pair is an
 authentication token; transport routing/idempotency remains later work.
 
 The supported subset is opening keep/mulligan and ordered bottoming, priority
@@ -20,7 +20,7 @@ pool, remaining cost or choices to the opponent.
 
 ## Tables and references
 
-Each actor decision contains `generation`, persistent `actor`, `kind`, required
+Each actor decision contains `revision`, `generation`, persistent `actor`, `kind`, required
 `count`, `candidates` and a parallel `legal_mask`. The other seat receives
 `decision: null`, not the acting player's private rows. Tables are dynamic,
 unpadded and never truncated. `capacity` is a caller-supplied maximum number of
@@ -35,7 +35,11 @@ A `VisibleRef { zone, row }` addresses the current authorized `view.hand` (zone
 indistinguishable duplicates retain their existing tie order. Battlefield rows
 retain public zone-entry order. These references are stable for a decision
 and independent of private storage slots. They are **not persistent object IDs**:
-refresh them and the generation after every accepted action or reset. Tapping
+refresh them and the revision/generation pair after every accepted action, reset
+or restore. The destination-local revision starts at zero and increments on
+every successful snapshot restore. It is not a storage scope or object handle,
+is not saved/loaded from snapshots, and cannot rewind when an old save is loaded.
+Revision exhaustion rejects restore without changing state. Tapping
 does not reorder a battlefield row; moving a card changes its zone/reference.
 References to an opponent hand or either library cannot be represented.
 
@@ -60,14 +64,14 @@ choice. A terminal result has no decision.
 Example semantic land command (the generation comes from the current decision):
 
 ```json
-{"schema_version":1,"generation":5,"choices":[{"kind":"play_land","card":{"zone":"hand","row":0}}]}
+{"schema_version":1,"revision":0,"generation":5,"choices":[{"kind":"play_land","card":{"zone":"hand","row":0}}]}
 ```
 
-The boundary validates version, readiness, actor, generation, unsupported
+The boundary validates version, readiness, actor, revision/generation, unsupported
 families, capacity, cardinality, membership, mask and distinctness before
 resolving any visible reference internally. It then calls the existing
 transactional rules transition. Rejecting stale input, a guessed reference, a
-masked choice, duplicate bottom rows, wrong actor or resource exhaustion leaves
+masked choice, duplicate bottom rows, wrong actor, pre-restore command or resource exhaustion leaves
 the complete state/RNG/history unchanged. Repeating an accepted command is stale,
 not an idempotent transport acknowledgment.
 
