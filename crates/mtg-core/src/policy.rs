@@ -20,17 +20,43 @@ pub struct VisibleRef {
 pub enum Choice {
     Keep,
     Mulligan,
-    Bottom { card: VisibleRef },
+    Bottom {
+        card: VisibleRef,
+    },
     Pass,
-    PlayLand { card: VisibleRef },
-    TapMana { card: VisibleRef },
-    Pay { color: u8 },
+    PlayLand {
+        card: VisibleRef,
+    },
+    TapMana {
+        card: VisibleRef,
+    },
+    Pay {
+        color: u8,
+    },
     FinishPayment,
     CancelPayment,
-    Cast { card: VisibleRef },
-    Target { card: VisibleRef },
+    Cast {
+        card: VisibleRef,
+    },
+    Target {
+        card: VisibleRef,
+    },
     FinishTargets,
     CancelTargets,
+    SelectAttackers {
+        cards: Vec<VisibleRef>,
+    },
+    SelectBlockers {
+        blocks: Vec<(VisibleRef, VisibleRef)>,
+    },
+    AssignDamage {
+        attacker: VisibleRef,
+        amounts: Vec<(VisibleRef, u32)>,
+    },
+    FinishCombat,
+    Discard {
+        card: VisibleRef,
+    },
     Spell,
     Combat,
 }
@@ -50,6 +76,7 @@ pub struct Decision {
     pub count: usize,
     pub candidates: Vec<Choice>,
     pub legal_mask: Vec<bool>,
+    pub factored: Option<CombatChoices>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct Observation {
@@ -58,7 +85,31 @@ pub struct Observation {
     pub decision: Option<Decision>,
     pub pending: Option<PendingSpell>,
     pub stack: Vec<StackSpell>,
-    pub unsupported_families: [&'static str; 2],
+    pub combat: Vec<CombatAttack>,
+    pub unsupported_families: [&'static str; 0],
+}
+/// Factored domains, not a table of every subset/map/integer composition.
+/// Present only for the actor at a combat decision. All rows use the current view.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct CombatChoices {
+    pub attackers: Vec<VisibleRef>,
+    pub blockers: Vec<VisibleRef>,
+    pub selected: Vec<VisibleRef>,
+    pub blocks: Vec<(VisibleRef, VisibleRef)>,
+    pub damage: Vec<DamageAllocation>,
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct DamageAllocation {
+    pub attacker: VisibleRef,
+    pub power: u32,
+    pub blockers: Vec<VisibleRef>,
+    pub amounts: Option<Vec<(VisibleRef, u32)>>,
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct CombatAttack {
+    pub attacker: VisibleRef,
+    pub blocked: bool,
+    pub blockers: Vec<VisibleRef>,
 }
 /// Actor-only provisional state. References use the accompanying visible rows.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
@@ -138,6 +189,15 @@ fn target_error(error: targets::TargetError) -> PolicyError {
         _ => PolicyError::InvalidSelection,
     }
 }
+fn combat_error(error: combat::CombatError) -> PolicyError {
+    match error {
+        combat::CombatError::Invalid(e) => opening_error(e),
+        combat::CombatError::Turn(e) => turn_error(e),
+        combat::CombatError::CapacityExceeded { .. } => PolicyError::CapacityExceeded,
+        combat::CombatError::NotReady => PolicyError::Unavailable,
+        _ => PolicyError::InvalidSelection,
+    }
+}
 impl Game {
     fn policy_battlefield_ref(&self, h: Handle) -> Option<VisibleRef> {
         self.objects
@@ -191,13 +251,6 @@ impl Game {
         if self.rng.is_none() || !self.work.is_empty() {
             return Err(PolicyError::Unavailable);
         }
-        if let Some(d) = self.turn_decision() {
-            match d.kind {
-                turns::TurnKind::Combat(_) => return Err(PolicyError::UnsupportedCombat),
-                turns::TurnKind::Discard { .. } => return Err(PolicyError::UnsupportedDecision),
-                turns::TurnKind::Priority => (),
-            }
-        }
         Ok(())
     }
     fn policy_actor_generation(&self) -> Option<(Seat, u64)> {
@@ -228,6 +281,7 @@ impl Game {
         if actor != seat {
             return Ok(None);
         }
+        let mut factored = None;
         let mut candidates = Vec::new();
         let mut legal_mask = Vec::new();
         let mut push = |choice, legal| -> Result<(), PolicyError> {
@@ -327,6 +381,73 @@ impl Game {
             }
             push(Choice::CancelPayment, true)?;
             ("payment", 1)
+        } else if let Some(d) = self
+            .turn_decision()
+            .filter(|d| matches!(d.kind, turns::TurnKind::Combat(_)))
+        {
+            let c = self.combat_decision(seat, capacity).map_err(combat_error)?;
+            let reference = |h| {
+                self.policy_battlefield_ref(h)
+                    .expect("live public combat object")
+            };
+            let damage = c
+                .damage
+                .iter()
+                .map(|a| DamageAllocation {
+                    attacker: reference(a.attacker),
+                    power: a.power,
+                    blockers: a.blockers.iter().map(|h| reference(*h)).collect(),
+                    amounts: self
+                        .turns
+                        .combat
+                        .assignments
+                        .iter()
+                        .find(|(h, _)| *h == a.attacker)
+                        .map(|(_, amounts)| {
+                            amounts.iter().map(|(h, n)| (reference(*h), *n)).collect()
+                        }),
+                })
+                .collect::<Vec<_>>();
+            push(
+                Choice::FinishCombat,
+                damage.iter().all(|d| d.amounts.is_some()),
+            )?;
+            factored = Some(CombatChoices {
+                attackers: c.attackers.into_iter().map(reference).collect(),
+                blockers: c.blockers.into_iter().map(reference).collect(),
+                selected: c.selected.into_iter().map(reference).collect(),
+                blocks: c
+                    .blocks
+                    .into_iter()
+                    .map(|(b, a)| (reference(b), reference(a)))
+                    .collect(),
+                damage,
+            });
+            (
+                match d.kind {
+                    turns::TurnKind::Combat(combat::CombatKind::Attackers) => "attackers",
+                    turns::TurnKind::Combat(combat::CombatKind::Blockers) => "blockers",
+                    _ => "combat_damage",
+                },
+                1,
+            )
+        } else if let Some(turns::TurnDecision {
+            kind: turns::TurnKind::Discard { count },
+            ..
+        }) = self.turn_decision()
+        {
+            for row in 0..self.view_hand(seat).len() {
+                push(
+                    Choice::Discard {
+                        card: VisibleRef {
+                            zone: VisibleZone::Hand,
+                            row,
+                        },
+                    },
+                    true,
+                )?;
+            }
+            ("cleanup_discard", count)
         } else {
             push(Choice::Pass, true)?;
             let lands = self.land_candidates(seat);
@@ -369,6 +490,31 @@ impl Game {
             }
             ("priority", 1)
         };
+        // Bound all factored domain and provisional rows as well as flat rows.
+        // No enumeration of subsets, maps or damage amounts is needed.
+        let mut needed = candidates.len();
+        if let Some(c) = &factored {
+            for len in [
+                c.attackers.len(),
+                c.blockers.len(),
+                c.selected.len(),
+                c.blocks.len(),
+            ] {
+                needed = needed
+                    .checked_add(len)
+                    .ok_or(PolicyError::CapacityExceeded)?;
+            }
+            for d in &c.damage {
+                needed = needed
+                    .checked_add(1)
+                    .and_then(|n| n.checked_add(d.blockers.len()))
+                    .and_then(|n| n.checked_add(d.amounts.as_ref().map_or(0, Vec::len)))
+                    .ok_or(PolicyError::CapacityExceeded)?;
+            }
+        }
+        if needed > capacity {
+            return Err(PolicyError::CapacityExceeded);
+        }
         Ok(Some(Decision {
             revision: self.policy_revision,
             generation,
@@ -377,6 +523,7 @@ impl Game {
             count,
             candidates,
             legal_mask,
+            factored,
         }))
     }
     /// The caller binds the game and authorized seat. Capacity bounds the entire
@@ -407,7 +554,22 @@ impl Game {
                         .collect(),
                 })
                 .collect(),
-            unsupported_families: ["combat", "cleanup_discard"],
+            combat: self
+                .combat()
+                .into_iter()
+                .map(|a| CombatAttack {
+                    attacker: self
+                        .policy_battlefield_ref(a.creature)
+                        .expect("live attacker"),
+                    blocked: a.blocked,
+                    blockers: a
+                        .blockers
+                        .into_iter()
+                        .map(|h| self.policy_battlefield_ref(h).expect("live blocker"))
+                        .collect(),
+                })
+                .collect(),
+            unsupported_families: [],
         })
     }
     /// Validate semantic choices against the current authorized table before
@@ -443,6 +605,66 @@ impl Game {
             .ok_or(PolicyError::Unavailable)?;
         if submission.choices.len() != d.count {
             return Err(PolicyError::InvalidSelection);
+        }
+        let id = DecisionId {
+            scope: self.objects.scope(),
+            generation,
+        };
+        if let Some(c) = &d.factored {
+            let handle = |r: &VisibleRef| {
+                self.objects
+                    .in_zone(Zone::Battlefield)
+                    .nth(r.row)
+                    .expect("validated combat row")
+            };
+            match &submission.choices[0] {
+                Choice::SelectAttackers { cards } if d.kind == "attackers" => {
+                    if !cards.iter().all(|r| c.attackers.contains(r)) {
+                        return Err(PolicyError::InvalidSelection);
+                    }
+                    let hs = cards.iter().map(handle).collect::<Vec<_>>();
+                    return self
+                        .select_attackers(actor, id, &hs)
+                        .map(|_| ())
+                        .map_err(combat_error);
+                }
+                Choice::SelectBlockers { blocks } if d.kind == "blockers" => {
+                    if !blocks
+                        .iter()
+                        .all(|(b, a)| c.blockers.contains(b) && c.attackers.contains(a))
+                    {
+                        return Err(PolicyError::InvalidSelection);
+                    }
+                    let hs = blocks
+                        .iter()
+                        .map(|(b, a)| (handle(b), handle(a)))
+                        .collect::<Vec<_>>();
+                    return self
+                        .select_blockers(actor, id, &hs)
+                        .map(|_| ())
+                        .map_err(combat_error);
+                }
+                Choice::AssignDamage { attacker, amounts } if d.kind == "combat_damage" => {
+                    let allocation = c
+                        .damage
+                        .iter()
+                        .find(|a| a.attacker == *attacker)
+                        .ok_or(PolicyError::InvalidSelection)?;
+                    if !amounts.iter().all(|(b, _)| allocation.blockers.contains(b)) {
+                        return Err(PolicyError::InvalidSelection);
+                    }
+                    let h = handle(attacker);
+                    let hs = amounts
+                        .iter()
+                        .map(|(b, n)| (handle(b), *n))
+                        .collect::<Vec<_>>();
+                    return self
+                        .assign_combat_damage(actor, id, h, &hs)
+                        .map(|_| ())
+                        .map_err(combat_error);
+                }
+                _ => (),
+            }
         }
         let mut rows = Vec::new();
         for choice in &submission.choices {
@@ -491,7 +713,36 @@ impl Game {
             scope: self.objects.scope(),
             generation,
         };
+        if d.kind == "cleanup_discard" {
+            let hand = self.view_hand(actor);
+            let original = self.discard_cards().expect("discard decision");
+            let selection = turns::TurnSelection::Discard(
+                rows.into_iter()
+                    .map(|row| CandidateId {
+                        decision: id,
+                        index: original
+                            .iter()
+                            .position(|h| *h == hand[row])
+                            .expect("same hand"),
+                    })
+                    .collect(),
+            );
+            return self
+                .apply_turn(
+                    actor,
+                    &turns::TurnAction {
+                        decision: id,
+                        selection,
+                    },
+                )
+                .map(|_| ())
+                .map_err(turn_error);
+        }
         match &submission.choices[0] {
+            Choice::FinishCombat => self
+                .finish_combat(actor, id)
+                .map(|_| ())
+                .map_err(combat_error),
             Choice::Pass => self
                 .apply_turn(
                     actor,

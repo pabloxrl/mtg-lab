@@ -2,7 +2,7 @@
 
 `Game::policy_observe(seat, capacity)` returns an owned `policy::Observation`:
 policy schema version, the existing schema-1 `PlayerView`, an actor-only decision,
-actor-only provisional spell state, committed stack target rows, and explicit unsupported families. Use `Game::apply_policy(actor, &Submission,
+actor-only provisional spell state, committed stack target rows and combat relationships, and explicit unsupported families. Use `Game::apply_policy(actor, &Submission,
 capacity)` to submit semantic choices. Types live in `mtg_core::opening::policy`
 and serialize through Serde; submissions also deserialize. The trusted caller
 binds the game and authorized seat. Neither a seat nor a revision/generation pair is an
@@ -12,7 +12,7 @@ The supported subset is opening keep/mulligan and ordered bottoming, priority
 passes, Forest/Mountain land plays and tap mana, and standalone payment choices
 initiated by trusted rules code, plus Bear Cub/Swab Goblin casting and Giant
 Growth/Bite Down source/destination targeting, staged land mana, payment, finish
-and cancel. No policy-supplied cost, object handle, RNG,
+and cancel, vanilla combat declarations/damage allocation, and cleanup discards. No policy-supplied cost, object handle, RNG,
 shuffle order, opponent hand or library reference is accepted. Existing
 `observe` and `apply_opening_view` retain their schema and behavior (including
 `observe` being unavailable during **any** payment). The new policy projection
@@ -23,10 +23,10 @@ pool, remaining cost or choices to the opponent.
 ## Tables and references
 
 Each actor decision contains `revision`, `generation`, persistent `actor`, `kind`, required
-`count`, `candidates` and a parallel `legal_mask`. The other seat receives
+`count`, `candidates`, a parallel `legal_mask`, and optional `factored` combat domains. The other seat receives
 `decision: null`, not the acting player's private rows. Tables are dynamic,
 unpadded and never truncated. `capacity` is a caller-supplied maximum number of
-candidate rows, including masked rows; exceeding it returns `capacity_exceeded`
+candidate rows, including masked rows and factored rows as defined below; exceeding it returns `capacity_exceeded`
 before any rules mutation. Consumers must stop/report the episode or explicitly
 retry with sufficient resources; treating overflow as pass is invalid. This is
 not a fixed tensor bound or a guarantee that all observation allocations fit a
@@ -51,6 +51,8 @@ References to an opponent hand or either library cannot be represented.
 | `bottom` | One `bottom { card }` per sorted own-hand row | Exactly `count` distinct cards, in intended bottom order |
 | `priority` | Pass; one `play_land { card }` per own-hand row; `cast { card }` for each supported spell in own hand; one `tap_mana { card }` per public battlefield row | One unmasked choice |
 | `growth_target`, `bite_source`, `bite_destination`, `targets_complete` | `target { card }` per battlefield row; `finish_targets`; `cancel_targets` | One unmasked choice; Bite source precedes destination |
+| `cleanup_discard` | One `discard { card }` per sorted own-hand row | Exactly `count` distinct cards |
+| `attackers`, `blockers`, `combat_damage` | `finish_combat`; structured `factored` domains below | One finish or structured replacement command |
 | `payment` | `pay { color }` for W/U/B/R/G/C (0–5), finish, cast-only battlefield tap rows, cancel | One unmasked choice |
 
 Priority masks use the existing rules' land/source legality. Nonland hand cards,
@@ -84,13 +86,13 @@ Errors are context-free snake-case tags: `unsupported_version`, `unavailable`,
 counter/mana exhaustion also maps to `capacity_exceeded`; no private identifiers
 or data are included. Before reset and during internal work the interface is
 unavailable. Unsupported requested spell/combat choices return their explicit
-family error. Combat decisions return that family error for both seats; cleanup discard
-decisions return `unsupported_decision`. No empty/default action silently completes them.
+family error. The fieldless legacy `combat` request is unsupported; use the
+structured commands below. No empty/default submission silently finishes combat.
 The legacy fieldless `spell` request remains an explicit unsupported request;
 use `cast { card }` for supported spell choices.
 
-Every successful observation advertises unsupported families `combat` and
-`cleanup_discard`. Casting legality uses the existing rules: instant timing,
+The `unsupported_families` array is now empty for the implemented decision families;
+this does not imply additional card or keyword support. Casting legality uses the existing rules: instant timing,
 required legal targets, sorcery timing for creatures, and sufficient resources.
 `pending` is null for the other seat. For the acting seat it identifies the own-hand
 spell, selected targets, staged mana sources, provisional pool and remaining cost
@@ -109,7 +111,6 @@ A departed target is null, never rebound to a new object or exposed in a hidden
 zone. The older `observe` API remains unavailable for private continuations;
 use `policy_observe` for this supported projection.
 
-Passing may reach a combat/cleanup decision outside this API's supported subset.
 Complete played-game policy, replay and #19 integration acceptance remain pending;
 no M1 completion claim until #22.
 No Python, tensors, trainers, new rules or CLI protocol are added here.
@@ -120,3 +121,58 @@ reset scripts, synthetic resource/storage/payment states and reference limits.
 
 [Spell acceptance and privacy evidence](evidence/policy-spells/README.md) covers
 normal-reset and explicitly synthetic response tests.
+
+## Factored combat and cleanup
+
+Combat supports the core's Bear Cub/Swab Goblin and existing Growth modifications;
+no flying, trample, deathtouch or other combat keywords are added. `combat` is a
+public list of `{ attacker, blocked, blockers }` using current battlefield rows.
+Departed creatures are removed from those relationships; remembered `blocked`
+remains true when all blockers leave. A returning object is not the old blocker.
+Only committed declarations appear here. Priority windows remain the core's windows.
+
+`decision.factored` is null outside combat and absent with the opponent's entire
+decision. It contains legal `attackers`, legal `blockers`, actor-only provisional
+`selected` and `blocks`, and `damage` entries. Domains use public battlefield
+order (committed attacker/blocker order for damage). These are legal domains,
+not masked illegal rows or an exponential list of combined actions:
+
+- `attackers`: submit one `select_attackers { cards: [VisibleRef, ...] }` with any
+  distinct subset of the attacker domain, including empty. This replaces the
+  provisional selection. `finish_combat` commits it and taps attackers.
+- `blockers`: submit one `select_blockers { blocks: [[blocker, attacker], ...] }`.
+  Every reference must belong to its domain. Each blocker appears at most once;
+  multiple blockers can choose the same attacker. Empty clears the provisional map.
+  `finish_combat` commits it. There is no damage assignment order.
+- `combat_damage`: each `damage` entry identifies an attacker, current `power`,
+  legal `blockers`, and actor-only `amounts` (null until assigned). Submit one
+  `assign_damage { attacker, amounts: [[blocker, nonnegative_u32], ...] }` for a
+  multiply blocked attacker. Recipients must be distinct and amounts sum to its
+  full power; omitted blockers get zero. Repeating this command replaces that
+  attacker's allocation. Any division is legal, including 1+1 for a 2/2 against
+  two 2/2 blockers. `finish_combat` is masked until all required allocations exist;
+  the existing rules validate and commit simultaneous damage. Single/unblocked
+  assignments are determined by the rules, without a discretionary default.
+
+Every command carries the current revision/generation and exactly one structured
+choice. Domain membership is validated before resolving internal handles; core
+validation enforces subset/map distinctness and allocation sums transactionally.
+No opponent sees provisional changes, including replacements with empty choices.
+
+Capacity counts flat candidates plus each attacker/blocker/selected reference,
+each provisional block pair, and for each damage entry one header plus each
+blocker reference and each assigned amount pair. The whole current decision must
+fit, including on submission; no list is clipped. A later decision can require
+more space and fail observation explicitly, so callers must handle capacity errors
+at every boundary. Capacity does not bound public observation size or allocator
+memory usage. The representation grows with creatures and actual relationships,
+not the number of possible subsets, maps or integer compositions.
+
+Cleanup uses exactly `count` distinct `discard` choices from the sorted own hand.
+The adapter maps those rows back to the core's hand order; it does not interpret
+them as privileged storage indices. No provisional discard is revealed. Selection
+commits through the core's existing cleanup and next-turn processing.
+
+[Combat/discard acceptance](evidence/policy-combat/README.md) covers both-seat
+reachable scripts, independent exhaustive small choices, public relationships,
+privacy, capacity, and atomic rejection.

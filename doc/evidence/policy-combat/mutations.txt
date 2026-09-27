@@ -1,0 +1,45 @@
+MUTANT ignore-factored-capacity DETECTED
+
+running 1 test
+test opening::policy::tests::combat_policy::policy_combat_every_boundary_hidden_twins_masks_and_atomic_errors ... FAILED
+
+failures:
+
+failures:
+    opening::policy::tests::combat_policy::policy_combat_every_boundary_hidden_twins_masks_and_atomic_errors
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 124 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-112/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.20s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+thread 'opening::policy::tests::combat_policy::policy_combat_every_boundary_hidden_twins_masks_and_atomic_errors' (1602) panicked at crates/mtg-core/src/policy_combat_tests.rs:461:9:
+assertion `left == right` failed
+  left: Ok(Observation { schema_version: 1, view: PlayerView { schema_version: 1, seat: 0, life: [20, 20], hand_counts: [7, 7], library_counts: [33, 33], hand: [VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false }], public_zones: [PublicZone { zone: "graveyard_0", cards: [] }, PublicZone { zone: "graveyard_1", cards: [] }, PublicZone { zone: "battlefield", cards: [VisibleCard { card: "bear-cub", owner: 0, controller: 0, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }, VisibleCard { card: "bear-cub", owner: 0, controller: 0, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }, VisibleCard { card: "bear-cub", owner: 1, controller: 1, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }, VisibleCard { card: "bear-cub", owner: 1, controller: 1, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }] }, PublicZone { zone: "stack", cards: [] }, PublicZone { zone: "exile", cards: [] }], remembered: [Revelation { card: "bear-cub", owner: 0, zone_at_reveal: "battlefield" }, Revelation { card: "bear-cub", owner: 0, zone_at_reveal: "battlefield" }, Revelation { card: "bear-cub", owner: 1, zone_at_reveal: "battlefield" }, Revelation { card: "bear-cub", owner: 1, zone_at_reveal: "battlefield" }], starting_seat: 0, turn: Some((3, 0, "declare_attackers")), mana: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], acting_seat: Some(0), opening: None, terminal: None }, decision: Some(Decision { revision: 0, generation: 6, actor: 0, kind: "attackers", count: 1, candidates: [FinishCombat], legal_mask: [true], factored: Some(CombatChoices { attackers: [VisibleRef { zone: Battlefield, row: 0 }, VisibleRef { zone: Battlefield, row: 1 }], blockers: [], selected: [], blocks: [], damage: [] }) }), pending: None, stack: [], combat: [], unsupported_families: [] })
+ right: Err(CapacityExceeded)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mtg-core --lib`
+
+MUTANT erase-public-blocked-status DETECTED
+
+running 1 test
+test opening::policy::tests::combat_policy::policy_combat_independent_subsets_maps_and_allocations ... FAILED
+
+failures:
+
+failures:
+    opening::policy::tests::combat_policy::policy_combat_independent_subsets_maps_and_allocations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 124 filtered out; finished in 0.01s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-112/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.10s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+thread 'opening::policy::tests::combat_policy::policy_combat_independent_subsets_maps_and_allocations' (3201) panicked at crates/mtg-core/src/policy_combat_tests.rs:103:17:
+assertion `left == right` failed
+  left: Array [Object {"attacker": Object {"row": Number(0), "zone": String("battlefield")}, "blocked": Bool(false), "blockers": Array [Object {"row": Number(3), "zone": String("battlefield")}]}, Object {"attacker": Object {"row": Number(1), "zone": String("battlefield")}, "blocked": Bool(false), "blockers": Array []}]
+ right: Array [Object {"attacker": Object {"row": Number(0), "zone": String("battlefield")}, "blocked": Bool(true), "blockers": Array [Object {"row": Number(3), "zone": String("battlefield")}]}, Object {"attacker": Object {"row": Number(1), "zone": String("battlefield")}, "blocked": Bool(false), "blockers": Array []}]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p mtg-core --lib`
