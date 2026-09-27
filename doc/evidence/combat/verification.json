@@ -3,8 +3,8 @@
   "exit_code": 0,
   "base_sha": "2899ac17c994794b4dff1fc3249666b5de8a2944",
   "runtime": "managed Linux Docker worker",
-  "python_tests": 130,
-  "rust_tests_per_profile": 102,
+  "python_tests": 131,
+  "rust_tests_per_profile": 103,
   "profiles": [
     "debug",
     "release"
@@ -18,5 +18,6 @@
     "clippy",
     "workspace tests"
   ],
-  "note": "Run after fetching/integrating current main. Exact candidate review and CI recorded in PR/workpad."
+  "note": "Run after fetching/integrating current main. Exact candidate review and CI recorded in PR/workpad.",
+  "reference": "Five actual matched XMage combat cases; see xmage-combat.json"
 }

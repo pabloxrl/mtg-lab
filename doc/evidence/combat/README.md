@@ -49,13 +49,13 @@ Cub coverage. Separate review must explicitly assess this requirement correction
 
 README/API documentation describes implemented behavior and remaining limits;
 quickstart commands and milestone verdicts do not change. M1 remains incomplete.
-The existing XMage bridge exposes priority smoke only, not combat declarations or
-damage, so no combat reference agreement is claimed. Expanded applicable engine
-comparisons remain integration/release acceptance; this is not release qualification.
+Five matched XMage combat scenarios now verify declarations and damage below.
+Expanded cross-feature comparisons remain integration/release acceptance; this
+is not release qualification.
 
 ## Verification receipts
 
-[Named green run](green.txt) includes ten focused combat unit tests and the
+[Named green run](green.txt) includes eleven focused combat unit tests and the
 normal-reset integration test; the name filter also retains existing turn tests.
 [Mutation summary](mutations.json) records three compiled, killed mutants:
 [no attacker tap](no-attacker-tap.txt), [forgotten blocked status](forget-blocked-status.txt),
@@ -67,7 +67,52 @@ headless, using a writable `/tmp/mtg-xmage` copy of the image cache. The initial
 attempt against the read-only image cache failed explicitly; it was not counted
 as agreement. This verifies the shared priority prefix only, not combat damage.
 
-[Full-suite receipt](verification.json): 130 Python tests and 102 Rust tests in
+[Full-suite receipt](verification.json): 131 Python tests and 103 Rust tests in
 both debug/release profiles passed after fresh-main integration, alongside local
 documentation, program/catalog, formatting and Clippy checks. The initial missing
 evidence link was repaired, not skipped. All tests remain in normal discovery.
+
+
+## Matched combat reference checks
+
+Independent review of the first candidate blocked delivery because the priority
+smoke did not verify combat. The finding is resolved by a separate, original
+[test-only XMage bridge](../../../references/xmage/VanillaCombatTest.java) and
+[shared neutral inputs/expectations](../../../fixtures/reference/vanilla-combat.json).
+Five synthetic cases cover unblocked Cub and Swab attacks, Cub/Swab simultaneous
+trade, and multiple blockers with modern 1+1 and 0+2 damage allocations. Literal
+expectations follow CR 508–510/704.5g and the frozen vanilla 2/2 definitions.
+
+`combat_shared_xmage_reference_checkpoints` loads that exact file in normal Rust
+test discovery. XMage consumes the same attack, block and allocation choices and
+exports four checkpoints per case: initial, declared attackers, declared blockers,
+and damage after SBAs. Both sides compare against the shared independent
+expectations. Observed fields are life totals, battlefield card/controller,
+tapped status, power/toughness/marked damage, graveyard cards, blocked status and
+blocker membership. Active player, priority and empty stack are also asserted.
+Noncombat zones, exact generation IDs, legal-choice enumeration, hidden views,
+cleanup and complete games are outside this reference projection; they are not
+claimed as reference agreement. Initial positions are synthetic old creatures,
+20 life, active P0, no effects; native setup omits the forced early-turn passes,
+while XMage explicitly scripts those passes. No AI combat or allocation fallback.
+
+[Actual combat checkpoint receipt](xmage-combat.json) preserves all 20 observed
+checkpoints plus pinned upstream/fixture/bridge/log hashes. The unchanged pinned
+XMage source, card data and dependency lock are validated before execution.
+The original new Java test is compiled into the writable external cache; no
+upstream source or enforcement policy is patched. Its first compilation used
+Java APIs newer than upstream's Java 8 target; those calls were corrected and
+that failed build was never counted as reference evidence.
+
+Reproduce inside the managed image (use a writable copy of its XMage cache):
+
+```sh
+python3 scripts/combat_reference.py --cache /tmp/mtg-xmage --output /tmp/combat-reference.json
+cargo test -p mtg-core combat
+```
+
+The runner closes stdin, unsets displays, runs offline with a 300-second process
+group timeout, and fails on missing/differing checkpoints. The normal Python
+regression `test_combat_reference_rejects_missing_and_changed_checkpoints` proves
+that missing cases, life, zones, marked damage, tapped status and blocked/pair
+changes fail comparison. Forge and broader reference scenarios remain unclaimed.

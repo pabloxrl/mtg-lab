@@ -1,21 +1,21 @@
-   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-71/crates/mtg-core)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.43s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
      Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
 
-running 11 tests
-test opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab ... ok
+running 12 tests
 test opening::combat::tests::combat_blocked_status_survives_departed_and_reentered_blocker ... ok
+test opening::combat::tests::combat_declarations_and_simultaneous_trade_cub_and_swab ... ok
 test opening::combat::tests::combat_departed_attacker_tapped_blocker_and_overflow ... ok
 test opening::combat::tests::combat_backtracking_stale_foreign_reset_and_generation_exhaustion ... ok
 test opening::combat::tests::combat_either_blocked_attacker_and_unblocked_swab_damage ... ok
 test opening::combat::tests::combat_linear_capacity_and_all_remaining_blockers ... ok
-test opening::combat::tests::combat_simultaneous_player_damage_crosses_zero_without_early_stop ... ok
-test opening::turns::tests::turns_empty_library_and_unsupported_combat_preserve_boundary ... ok
 test opening::combat::tests::combat_modern_split_does_not_require_lethal_or_blocker_order ... ok
 test opening::combat::tests::combat_sickness_taps_and_rejections_are_atomic ... ok
+test opening::combat::tests::combat_shared_xmage_reference_checkpoints ... ok
+test opening::combat::tests::combat_simultaneous_player_damage_crosses_zero_without_early_stop ... ok
+test opening::turns::tests::turns_empty_library_and_unsupported_combat_preserve_boundary ... ok
 test opening::combat::tests::combat_each_subset_and_blocker_mapping_is_expressible ... ok
 
-test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 0.01s
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 0.00s
 
      Running tests/casting.rs (target/debug/deps/casting-f48f7921abf11ac4)
 

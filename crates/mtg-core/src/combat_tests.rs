@@ -465,3 +465,102 @@ fn combat_linear_capacity_and_all_remaining_blockers() {
     assert!(g.objects.get(bs[79]).is_err());
     assert_eq!(g.objects.in_zone(Zone::Battlefield).count(), 79);
 }
+
+#[test]
+fn combat_shared_xmage_reference_checkpoints() {
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/vanilla-combat.json"
+    ))
+    .unwrap();
+    fn key(name: &str) -> &'static str {
+        match name {
+            "Bear Cub" => "bear-cub",
+            "Swab Goblin" => "swab-goblin",
+            _ => panic!("unsupported reference card"),
+        }
+    }
+    fn name(key: &str) -> &'static str {
+        match key {
+            "bear-cub" => "Bear Cub",
+            "swab-goblin" => "Swab Goblin",
+            _ => panic!("unsupported reference card"),
+        }
+    }
+    fn checkpoint(g: &Game, label: &str) -> Value {
+        let mut battlefield = vec![];
+        let mut graveyard = vec![];
+        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+            let mut permanents: Vec<_> = g
+                .objects
+                .in_zone(Zone::Battlefield)
+                .filter(|h| g.objects.get(*h).unwrap().controller == seat)
+                .collect();
+            permanents.sort_by_key(|h| name(g.objects.get(*h).unwrap().card.identity().key));
+            for h in permanents {
+                let o = g.objects.get(h).unwrap();
+                let c = g.creature_state(h).unwrap();
+                battlefield.push(json!({"seat":i,"card":name(o.card.identity().key),
+                    "tapped":o.tapped,"damage":c.damage,"power":c.power,"toughness":c.toughness}));
+            }
+            let mut grave: Vec<_> = g
+                .objects
+                .in_zone(Zone::Graveyard(seat))
+                .map(|h| name(g.objects.get(h).unwrap().card.identity().key))
+                .collect();
+            grave.sort();
+            graveyard.push(grave);
+        }
+        let mut c =
+            json!({"name":label,"life":g.life(),"battlefield":battlefield,"graveyard":graveyard});
+        if label == "attackers" || label == "blockers" {
+            let attacks = g.combat();
+            assert_eq!(attacks.len(), 1);
+            c["blocked"] = json!(attacks[0].blocked);
+            let mut blockers: Vec<_> = attacks[0]
+                .blockers
+                .iter()
+                .map(|h| name(g.objects.get(*h).unwrap().card.identity().key))
+                .collect();
+            blockers.sort();
+            c["blockers"] = json!(blockers);
+        }
+        assert_eq!(g.turn_decision().unwrap().actor, Seat::P0);
+        assert_eq!(g.objects.in_zone(Zone::Stack).count(), 0);
+        c
+    }
+    for case in fixture["cases"].as_array().unwrap() {
+        let mut g = ready();
+        g.turns.position = Some((1, Seat::P0, Step::BeginningCombat));
+        let a = add(&mut g, Seat::P0, key(case["attacker"].as_str().unwrap()));
+        let blockers: Vec<_> = case["blockers"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|b| add(&mut g, Seat::P1, key(b.as_str().unwrap())))
+            .collect();
+        let mut points = vec![checkpoint(&g, "initial")];
+        pair(&mut g);
+        select_attack(&mut g, &[a]);
+        points.push(checkpoint(&g, "attackers"));
+        pair(&mut g);
+        select_block(
+            &mut g,
+            &blockers.iter().map(|b| (*b, a)).collect::<Vec<_>>(),
+        );
+        points.push(checkpoint(&g, "blockers"));
+        pair(&mut g);
+        if blockers.len() > 1 {
+            let d = g.turn_decision().unwrap();
+            let amounts: Vec<_> = blockers
+                .iter()
+                .zip(case["amounts"].as_array().unwrap())
+                .map(|(b, n)| (*b, n.as_u64().unwrap() as u32))
+                .collect();
+            g.assign_combat_damage(d.actor, d.id, a, &amounts).unwrap();
+        }
+        damage(&mut g);
+        points.push(checkpoint(&g, "damage"));
+        assert_eq!(json!(points), case["expected"], "{}", case["id"]);
+    }
+}
