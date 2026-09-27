@@ -59,6 +59,8 @@ fn replay_error(e: replay::ReplayError, inspect: bool) -> Error {
             replay::ReplayError::InvalidConfig(_) => "InvalidConfig",
             replay::ReplayError::Storage(_) => "Storage",
             replay::ReplayError::Malformed => "Malformed",
+            replay::ReplayError::Turn(_) => "Turn",
+            replay::ReplayError::SemanticChoice { .. } => "SemanticChoice",
         };
         invalid(format!("replay {kind}; privileged detail withheld"))
     } else {

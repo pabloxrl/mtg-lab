@@ -1,0 +1,24 @@
+{
+  "command": "./scripts/torture.sh",
+  "status": "passed",
+  "exit_code": 0,
+  "environment": "managed Linux container with supplied toolchain; no worker Docker invocation",
+  "base_sha": "37088e997a67f6a43a50410521f77a884afa57a3",
+  "python_tests": 134,
+  "rust_debug_tests_including_doctests": 257,
+  "rust_release_tests_including_doctests": 257,
+  "source_sha256": {
+    "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
+    "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
+    "crates/mtg-core/src/snapshot.rs": "bcaec535814d23f402589f8854af259e758cd99a0d6b6c0818e23cade0f0c0ca",
+    "crates/mtg-core/tests/played_replay.rs": "bfa421f8d000ef1ef7474f7d0e5a39f93982806ea0e85dff778cee5ddd8dfedc",
+    "crates/mtg-cli/src/commands.rs": "701e761c1b39b5dd3eb4426629a24116999d54d7c413649167e08119eb62ccb1"
+  },
+  "log_sha256": "2c904b5e2609699f7d23c05ec2862af6cca0b2db7c3e657462bffbc50d62b848",
+  "reference_receipt": "xmage-combat.json",
+  "notes": [
+    "Full suite after current-main integration; docs, program, catalog, formatting and Clippy passed.",
+    "No existing tests removed, skipped, weakened or rebaselined.",
+    "Quickstart commands unchanged; existing headless CLI tests and both API doctests passed."
+  ]
+}
