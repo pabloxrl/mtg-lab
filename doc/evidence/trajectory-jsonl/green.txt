@@ -1,23 +1,26 @@
+   Compiling serde_json v1.0.151
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-core)
    Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-recorder)
-    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.86s
-     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-ae37f0fe196698ae)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.59s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-301103531683372a)
 
-running 15 tests
+running 16 tests
 test jsonl_contract::jsonl_bounded_overflow_and_write_failure_are_sticky ... ok
 test jsonl_contract::jsonl_atomic_publication_preserves_failed_fragment_and_existing_file ... ok
 test jsonl_contract::jsonl_backpressure_waits_for_sink_before_accepting_next_episode ... ok
-test jsonl_contract::jsonl_duplicate_episode_aborts_recording ... ok
 test jsonl_contract::jsonl_final_metrics_include_the_final_batch_and_seal ... ok
 test jsonl_contract::jsonl_duplicate_unknown_missing_fields_and_mixed_run_are_rejected ... ok
+test jsonl_contract::jsonl_duplicate_episode_aborts_recording ... ok
 test jsonl_contract::jsonl_flush_partial_write_and_read_errors_propagate ... ok
+test jsonl_contract::jsonl_blocking_buffer_drains_without_dropping_and_reports_wait ... ok
 test jsonl_contract::jsonl_hand_authored_roundtrip_and_canonical_bytes ... ok
 test jsonl_contract::jsonl_interrupted_writer_leaves_unsealed_prefix ... ok
-test jsonl_contract::jsonl_blocking_buffer_drains_without_dropping_and_reports_wait ... ok
-test jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum ... ok
 test jsonl_contract::jsonl_rejects_corruption_truncation_and_whole_record_loss ... ok
+test jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum ... ok
 test jsonl_contract::jsonl_order_continuations_truncation_and_zero_decisions ... ok
+test jsonl_contract::jsonl_policy_statistics_preserve_every_float_bit ... ok
 test jsonl_contract::jsonl_terminal_action_draw_and_nonempty_truncation_remain_distinct ... ok
 test jsonl_contract::jsonl_real_episode_capture_off_matches_and_owned_records_survive_reset ... ok
 
-test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
 

@@ -55,7 +55,8 @@ The final line is the single-file manifest/seal:
 ```
 
 The SHA-256 covers the exact bytes of all preceding episode lines, including LF.
-Objects use recursively sorted keys, compact serde_json encoding, explicit nulls
+Objects use recursively sorted keys, compact serde_json encoding with
+roundtrip-safe finite f64 parsing (including optional collector statistics), explicit nulls
 for absent optional fields and no insignificant whitespace. Arrays retain order.
 The committed [handwritten fixture](../crates/mtg-recorder/tests/episode.jsonl)
 fixes the byte-level contract; its seal was calculated independently with Python

@@ -512,3 +512,35 @@ fn jsonl_final_metrics_include_the_final_batch_and_seal() {
     assert_eq!(m.batches, 1);
     assert!(m.write_wait > Duration::ZERO);
 }
+#[test]
+fn jsonl_policy_statistics_preserve_every_float_bit() {
+    // B037 requires the collector's supplied statistics, not rounded substitutes.
+    // Independent review minimized 0.9999999999999999 -> 1.0; an additional
+    // seed-1 integer-LCG probe minimized bits 2377159206977889939 -> ...940.
+    for value in [
+        0.9999999999999999,
+        f64::from_bits(2377159206977889939),
+        f64::MIN_POSITIVE,
+        f64::from_bits(1),
+        f64::MAX,
+        -0.0,
+    ] {
+        let mut e = fixture();
+        let log = -value.abs();
+        e.decisions[0].choice.policy.value = Some(value);
+        e.decisions[0].choice.policy.log_probability = Some(log);
+        let b = bytes(&e);
+        let loaded = read(b.as_slice(), 65536).unwrap();
+        let p = &loaded[0].decisions[0].choice.policy;
+        assert_eq!(
+            p.value.unwrap().to_bits(),
+            value.to_bits(),
+            "value {value:?}"
+        );
+        assert_eq!(
+            p.log_probability.unwrap().to_bits(),
+            log.to_bits(),
+            "log probability {log:?}"
+        );
+    }
+}

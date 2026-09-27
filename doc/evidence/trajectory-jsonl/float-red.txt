@@ -1,0 +1,24 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.20s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-ae37f0fe196698ae)
+
+running 1 test
+test jsonl_contract::jsonl_policy_statistics_preserve_every_float_bit ... FAILED
+
+failures:
+
+---- jsonl_contract::jsonl_policy_statistics_preserve_every_float_bit stdout ----
+
+thread 'jsonl_contract::jsonl_policy_statistics_preserve_every_float_bit' (188) panicked at crates/mtg-recorder/src/jsonl_contract.rs:526:9:
+assertion `left == right` failed: value 0.9999999999999999
+  left: 4607182418800017408
+ right: 4607182418800017407
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    jsonl_contract::jsonl_policy_statistics_preserve_every_float_bit
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`

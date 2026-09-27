@@ -51,9 +51,9 @@ asserted from B036. Native core and policy APIs are unchanged.
 
 ## Verification and limitations
 
-`cargo test -p mtg-recorder jsonl_contract` passes all 15 named tests. The [full torture run](torture.txt) passed: documentation links, current-main
+`cargo test -p mtg-recorder jsonl_contract` passes all 16 named tests. The [full torture run](torture.txt) passed: documentation links, current-main
 program pins/DAG, all 320 unchanged catalog designs, 132 Python tests, fmt/Clippy,
-and 178 Rust tests plus the existing doctest in each debug/release profile.
+and 179 Rust tests plus the existing doctest in each debug/release profile.
 The freshly fetched main remained `986d8c70fa820a025e6d0db517539db236cace63`,
 already the candidate ancestor; no integration conflict or new change existed.
 This ran inside the managed Docker worker without invoking Docker.
@@ -76,3 +76,20 @@ The format is one sealed scalar file, with one complete episode per JSONL row;
 no game rule changes, full-game collector, linked-replay reconstruction,
 privileged-state export, full tensor sequence loader or mature-engine agreement
 is claimed. Unknown fields and noncanonical JSON are rejected intentionally.
+
+## Independent review repair
+
+The [first separate review](review-first.json) requested one blocking correction:
+default serde_json parsing could change optional finite policy statistics by one
+bit, even sealing the changed number. An independent extra integer-LCG probe
+(seed 1) also found the minimized value with bits `2377159206977889939`.
+The [compiled regression red](float-red.txt) preserves the reviewer's simpler
+`0.9999999999999999 -> 1.0` counterexample. The permanent test compares f64 bits,
+including value/log-probability, the second minimized value, minimum normal,
+smallest subnormal, maximum finite and signed zero. Enabling `float_roundtrip`
+fixes canonicalization and loading without changing the expected values.
+All 16 named tests and full torture were rerun after the correction; the final
+candidate requires a fresh independent review. The first reviewer checked README
+and scope, preserved test expectations, and ran 14 prebuilt tests; it did not run
+the filesystem-writing test under its read-only sandbox. That test passed in
+both complete delivery-suite runs, without any skip.
