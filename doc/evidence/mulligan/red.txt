@@ -1,0 +1,127 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-65/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.80s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-ce642592432787ec)
+
+running 14 tests
+test mulligan_explicit_order_validation_and_seven_limit ... FAILED
+test mulligan_rules_setup_deterministic_reset_regression ... FAILED
+test mulligan_rules_setup_deterministic_reset_interaction ... ok
+test mulligan_rules_setup_deterministic_reset_positive ... FAILED
+test mulligan_rules_decisions_stale_candidates_regression ... FAILED
+test mulligan_rules_setup_mulligan_bottom_interaction ... FAILED
+test mulligan_rules_setup_mulligan_bottom_negative ... FAILED
+test mulligan_rules_setup_ordered_draw_positive ... FAILED
+test mulligan_rules_setup_ordered_draw_regression ... FAILED
+test mulligan_rules_setup_two_player_opening_positive ... FAILED
+test mulligan_rules_setup_ordered_draw_negative ... FAILED
+test mulligan_rules_setup_mulligan_bottom_regression ... FAILED
+test mulligan_rules_setup_mulligan_bottom_positive ... FAILED
+test mulligan_sys_core_003_rejections_between_every_real_stage ... FAILED
+
+failures:
+
+---- mulligan_explicit_order_validation_and_seven_limit stdout ----
+
+thread 'mulligan_explicit_order_validation_and_seven_limit' (80) panicked at crates/mtg-core/tests/mulligan.rs:223:42:
+assertion `left == right` failed
+  left: Ok(Some(OpeningDecision { generation: 1, actor: P0, candidates: [Keep, Mulligan], kind: KeepOrMulligan, id: DecisionId { scope: 0, generation: 1 } }))
+ right: Err(InvalidOrder)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- mulligan_rules_setup_deterministic_reset_regression stdout ----
+
+thread 'mulligan_rules_setup_deterministic_reset_regression' (84) panicked at crates/mtg-core/tests/mulligan.rs:61:89:
+assertion failed: g.decision().is_none()
+
+---- mulligan_rules_setup_deterministic_reset_positive stdout ----
+
+thread 'mulligan_rules_setup_deterministic_reset_positive' (83) panicked at crates/mtg-core/tests/mulligan.rs:128:5:
+assertion `left == right` failed
+  left: Some(OpeningDecision { generation: 1, actor: P0, candidates: [Keep, Mulligan], kind: KeepOrMulligan, id: DecisionId { scope: 6, generation: 1 } })
+ right: None
+
+---- mulligan_rules_decisions_stale_candidates_regression stdout ----
+
+thread 'mulligan_rules_decisions_stale_candidates_regression' (81) panicked at crates/mtg-core/tests/mulligan.rs:57:5:
+assertion `left == right` failed
+  left: Ok(Some(OpeningDecision { generation: 2, actor: P0, candidates: [Keep, Mulligan], kind: KeepOrMulligan, id: DecisionId { scope: 1, generation: 2 } }))
+ right: Err(StaleDecision)
+
+---- mulligan_rules_setup_mulligan_bottom_interaction stdout ----
+
+thread 'mulligan_rules_setup_mulligan_bottom_interaction' (85) panicked at crates/mtg-core/tests/mulligan.rs:53:89:
+expected bottom continuation
+
+---- mulligan_rules_setup_mulligan_bottom_negative stdout ----
+
+thread 'mulligan_rules_setup_mulligan_bottom_negative' (86) panicked at crates/mtg-core/tests/mulligan.rs:53:89:
+expected bottom continuation
+
+---- mulligan_rules_setup_ordered_draw_positive stdout ----
+
+thread 'mulligan_rules_setup_ordered_draw_positive' (90) panicked at crates/mtg-core/tests/mulligan.rs:61:89:
+assertion failed: g.decision().is_none()
+
+---- mulligan_rules_setup_ordered_draw_regression stdout ----
+
+thread 'mulligan_rules_setup_ordered_draw_regression' (91) panicked at crates/mtg-core/tests/mulligan.rs:53:89:
+expected bottom continuation
+
+---- mulligan_rules_setup_two_player_opening_positive stdout ----
+
+thread 'mulligan_rules_setup_two_player_opening_positive' (92) panicked at crates/mtg-core/tests/mulligan.rs:70:9:
+assertion `left == right` failed
+  left: P0
+ right: P1
+
+---- mulligan_rules_setup_ordered_draw_negative stdout ----
+
+thread 'mulligan_rules_setup_ordered_draw_negative' (89) panicked at crates/mtg-core/tests/mulligan.rs:57:5:
+assertion `left == right` failed
+  left: Ok(Some(OpeningDecision { generation: 1, actor: P0, candidates: [Keep, Mulligan], kind: KeepOrMulligan, id: DecisionId { scope: 13, generation: 1 } }))
+ right: Err(WrongKind)
+
+---- mulligan_rules_setup_mulligan_bottom_regression stdout ----
+
+thread 'mulligan_rules_setup_mulligan_bottom_regression' (88) panicked at crates/mtg-core/tests/mulligan.rs:53:89:
+expected bottom continuation
+
+---- mulligan_rules_setup_mulligan_bottom_positive stdout ----
+
+thread 'mulligan_rules_setup_mulligan_bottom_positive' (87) panicked at crates/mtg-core/tests/mulligan.rs:82:5:
+assertion `left == right` failed
+  left: P0
+ right: P1
+
+---- mulligan_sys_core_003_rejections_between_every_real_stage stdout ----
+
+thread 'mulligan_sys_core_003_rejections_between_every_real_stage' (93) panicked at crates/mtg-core/tests/mulligan.rs:57:5:
+assertion `left == right` failed
+  left: Ok(Some(OpeningDecision { generation: 1, actor: P0, candidates: [Keep, Mulligan], kind: KeepOrMulligan, id: DecisionId { scope: 16, generation: 1 } }))
+ right: Err(WrongActor)
+
+
+failures:
+    mulligan_explicit_order_validation_and_seven_limit
+    mulligan_rules_decisions_stale_candidates_regression
+    mulligan_rules_setup_deterministic_reset_positive
+    mulligan_rules_setup_deterministic_reset_regression
+    mulligan_rules_setup_mulligan_bottom_interaction
+    mulligan_rules_setup_mulligan_bottom_negative
+    mulligan_rules_setup_mulligan_bottom_positive
+    mulligan_rules_setup_mulligan_bottom_regression
+    mulligan_rules_setup_ordered_draw_negative
+    mulligan_rules_setup_ordered_draw_positive
+    mulligan_rules_setup_ordered_draw_regression
+    mulligan_rules_setup_two_player_opening_positive
+    mulligan_sys_core_003_rejections_between_every_real_stage
+
+test result: FAILED. 1 passed; 13 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --test mulligan`

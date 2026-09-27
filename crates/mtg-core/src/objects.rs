@@ -109,6 +109,9 @@ fn reserve<T>(buffer: &mut Vec<T>) -> Result<(), StorageError> {
         .map_err(|_| StorageError::CapacityExceeded)
 }
 impl ObjectStore {
+    pub(crate) fn scope(&self) -> u64 {
+        self.id
+    }
     pub fn new() -> Result<Self, StorageError> {
         use std::sync::atomic::{AtomicU64, Ordering};
         static NEXT_STORE: AtomicU64 = AtomicU64::new(0);
@@ -246,6 +249,14 @@ impl ObjectStore {
             epoch: self.epoch,
             generation: self.slots[slot as usize].generation,
             slot,
+        }
+    }
+    /// Internal caller supplies a validated complete permutation of this zone.
+    pub(crate) fn reorder(&mut self, zone: Zone, order: &[Handle]) {
+        debug_assert_eq!(self.zones[zone.index()].len(), order.len());
+        debug_assert!(order.iter().enumerate().all(|(i,h)| self.get(*h).is_ok_and(|o| o.zone == zone) && !order[..i].contains(h)));
+        for (slot, handle) in self.zones[zone.index()].iter_mut().zip(order) {
+            *slot = handle.slot;
         }
     }
     fn unlink(&mut self, slot: u32, zone: Zone) {
