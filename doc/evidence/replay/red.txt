@@ -1,0 +1,66 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-75/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 14.14s
+     Running tests/replay.rs (target/debug/deps/replay-0f13caf1c5012784)
+
+running 4 tests
+test replay_literal_opening_and_versioned_roundtrip ... FAILED
+test replay_rejects_malformed_raw_indices_and_wrong_pins ... FAILED
+test replay_requires_exact_choice_consumption ... FAILED
+test replay_reports_first_tampered_action_or_checkpoint ... FAILED
+
+failures:
+
+---- replay_literal_opening_and_versioned_roundtrip stdout ----
+
+thread 'replay_literal_opening_and_versioned_roundtrip' (593) panicked at crates/mtg-core/tests/replay.rs:21:9:
+assertion `left == right` failed
+  left: [0, 0]
+ right: [20, 20]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- replay_rejects_malformed_raw_indices_and_wrong_pins stdout ----
+
+thread 'replay_rejects_malformed_raw_indices_and_wrong_pins' (594) panicked at crates/mtg-core/tests/replay.rs:35:62:
+assertion failed: matches!(verify(b),Err(ReplayError::Malformed))
+
+---- replay_requires_exact_choice_consumption stdout ----
+
+thread 'replay_requires_exact_choice_consumption' (596) panicked at crates/mtg-core/tests/replay.rs:50:33:
+called `Option::unwrap()` on a `None` value
+
+---- replay_reports_first_tampered_action_or_checkpoint stdout ----
+
+thread 'replay_reports_first_tampered_action_or_checkpoint' (595) panicked at /home/agent/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/value/index.rs:78:18:
+cannot access index 0 of JSON null
+
+
+failures:
+    replay_literal_opening_and_versioned_roundtrip
+    replay_rejects_malformed_raw_indices_and_wrong_pins
+    replay_reports_first_tampered_action_or_checkpoint
+    replay_requires_exact_choice_consumption
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test replay`

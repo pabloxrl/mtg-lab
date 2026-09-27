@@ -1,0 +1,31 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-75/crates/mtg-core)
+warning: unused variable: `g`
+   --> crates/mtg-core/src/replay.rs:182:13
+    |
+182 | fn complete(g: &Game, index: usize) -> Result<(), ReplayError> {
+    |             ^ help: if this is intentional, prefix it with an underscore: `_g`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib) generated 1 warning (run `cargo fix --lib -p mtg-core` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.48s
+     Running tests/replay.rs (target/debug/deps/replay-0f13caf1c5012784)
+
+running 1 test
+test replay_requires_exact_choice_consumption ... FAILED
+
+failures:
+
+---- replay_requires_exact_choice_consumption stdout ----
+
+thread 'replay_requires_exact_choice_consumption' (543) panicked at crates/mtg-core/tests/replay.rs:99:5:
+assertion failed: matches!(verify(&bytes(&v)), Err(ReplayError::MissingChoice { index: 1 }))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    replay_requires_exact_choice_consumption
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p mtg-core --test replay`

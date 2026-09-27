@@ -49,7 +49,7 @@ struct GameWire {
 fn digest(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }
-fn engine() -> &'static str {
+pub(super) fn engine() -> &'static str {
     static ENGINE: std::sync::OnceLock<String> = std::sync::OnceLock::new();
     ENGINE.get_or_init(|| {
         // Conservative compatibility: any core-source or pinned data change rejects
@@ -69,6 +69,7 @@ fn engine() -> &'static str {
                 include_str!("views.rs"),
                 include_str!("card_identities.rs"),
                 include_str!("snapshot.rs"),
+                include_str!("replay.rs"),
                 include_str!("../../../data/cards/foundations_micro_v1.json"),
                 include_str!("../../../data/rules/cr-2026-09-25.json")
             )

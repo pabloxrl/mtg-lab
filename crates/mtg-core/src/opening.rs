@@ -21,7 +21,8 @@ pub mod views;
 pub const FORMAT: &str = "foundations_micro_v1";
 pub const SHUFFLE_VERSION: &str = "fisher-yates-rejection-v1";
 
-#[derive(Clone, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
+#[serde(deny_unknown_fields)]
 pub struct DeckConfig {
     pub deck: String,
     /// Optional exact post-shuffle order, top first; must match the frozen deck.
@@ -35,7 +36,8 @@ impl DeckConfig {
         }
     }
 }
-#[derive(Clone, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
+#[serde(deny_unknown_fields)]
 pub struct Config {
     pub format: String,
     pub seats: Vec<DeckConfig>,
@@ -1141,3 +1143,6 @@ mod targets_tests;
 
 #[path = "snapshot.rs"]
 pub mod snapshot;
+
+#[path = "replay.rs"]
+pub mod replay;
