@@ -1,0 +1,86 @@
+retain Growth and marked damage — compiled mutant KILLED by targets_cleanup_damage_and_expiration_simultaneous
+
+running 1 test
+test opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous ... FAILED
+
+failures:
+
+---- opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous stdout ----
+
+thread 'opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous' (865) panicked at crates/mtg-core/src/targets_tests.rs:74:5:
+assertion `left == right` failed
+  left: Some(CreatureState { power: 5, toughness: 5, damage: 2 })
+ right: Some(CreatureState { power: 2, toughness: 2, damage: 0 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::targets_tests::targets_cleanup_damage_and_expiration_simultaneous
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 36 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-70/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.01s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+error: test failed, to rerun pass `-p mtg-core --lib`
+
+cache source power at two — compiled mutant KILLED by targets_response_chain_priority_current_power_and_lethal
+
+running 1 test
+test opening::targets_tests::targets_response_chain_priority_current_power_and_lethal ... FAILED
+
+failures:
+
+---- opening::targets_tests::targets_response_chain_priority_current_power_and_lethal stdout ----
+
+thread 'opening::targets_tests::targets_response_chain_priority_current_power_and_lethal' (1727) panicked at crates/mtg-core/src/targets_tests.rs:287:5:
+assertion failed: g.objects.get(b).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::targets_tests::targets_response_chain_priority_current_power_and_lethal
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 36 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-70/crates/mtg-core)
+warning: unused variable: `a`
+   --> crates/mtg-core/src/targets.rs:321:26
+    |
+321 |             Effect::Bite(a, b) if legal == 2 => {
+    |                          ^ help: if this is intentional, prefix it with an underscore: `_a`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib) generated 1 warning (run `cargo fix --lib -p mtg-core` to apply 1 suggestion)
+warning: `mtg-core` (lib test) generated 1 warning (1 duplicate)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.67s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+error: test failed, to rerun pass `-p mtg-core --lib`
+
+ignore destination controller at resolution — compiled mutant KILLED by targets_resolution_controller_recheck_and_numeric_overflow
+
+running 1 test
+test opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow ... FAILED
+
+failures:
+
+---- opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow stdout ----
+
+thread 'opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow' (2589) panicked at crates/mtg-core/src/targets_tests.rs:74:5:
+assertion `left == right` failed
+  left: None
+ right: Some(CreatureState { power: 2, toughness: 2, damage: 0 })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::targets_tests::targets_resolution_controller_recheck_and_numeric_overflow
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 36 filtered out; finished in 0.00s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-70/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.66s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+error: test failed, to rerun pass `-p mtg-core --lib`
+

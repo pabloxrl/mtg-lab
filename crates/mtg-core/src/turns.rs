@@ -49,6 +49,7 @@ pub enum TurnError {
     Invalid(ApplyError),
     Draw(DrawError),
     UnsupportedStack,
+    EffectOverflow,
     UnsupportedCombat,
     TurnExhausted,
     Storage(StorageError),
@@ -63,6 +64,10 @@ pub(super) struct TurnState {
     pub(super) payment: Option<super::mana::Payment>,
     pub(super) casting: Option<super::casting::PendingCast>,
     pub(super) stack: Vec<Handle>,
+    pub(super) targeting: Option<super::targets::Targeting>,
+    pub(super) effects: Vec<(Handle, super::targets::Effect)>,
+    pub(super) modifications: Vec<super::targets::Modification>,
+    pub(super) last_resolution: Option<super::targets::Resolution>,
     pub(super) sick: Vec<Handle>,
 }
 impl Game {
@@ -70,7 +75,7 @@ impl Game {
         self.turns.position
     }
     pub fn turn_decision(&self) -> Option<TurnDecision> {
-        if self.turns.payment.is_some() {
+        if self.turns.payment.is_some() || self.turns.targeting.is_some() {
             None
         } else {
             self.turns.decision
@@ -203,6 +208,9 @@ impl Game {
             }
         }
         if next_step == Step::Upkeep {
+            // CR 514.2: after cleanup discard, expire boosts and remove damage
+            // together, with no intermediate lethal-damage check.
+            self.cleanup_effects();
             self.turns.land_used = false;
             self.untap(next_active);
         }
