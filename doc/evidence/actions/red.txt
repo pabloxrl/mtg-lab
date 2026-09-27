@@ -1,0 +1,62 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling syn v3.0.6
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-113/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.09s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 4 tests
+
+thread 'opening::actions::tests::actions_hand_authored_normal_reset_spell_combat' (1967) panicked at crates/mtg-core/src/actions_tests.rs:28:49:
+called `Result::unwrap()` on an `Err` value: UnsupportedVersion
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'opening::actions::tests::actions_rejections_do_not_mutate' (1968) panicked at crates/mtg-core/src/actions_tests.rs:28:49:
+called `Result::unwrap()` on an `Err` value: UnsupportedVersion
+test opening::terminal::tests::terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal ... ok
+test opening::actions::tests::actions_hand_authored_normal_reset_spell_combat ... FAILED
+test opening::actions::tests::actions_rejections_do_not_mutate ... FAILED
+
+thread 'opening::actions::tests::actions_fresh_processes' (1966) panicked at crates/mtg-core/src/actions_tests.rs:84:249:
+
+running 1 test
+test opening::actions::tests::actions_hand_authored_normal_reset_spell_combat ... FAILED
+
+failures:
+
+failures:
+    opening::actions::tests::actions_hand_authored_normal_reset_spell_combat
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 127 filtered out; finished in 0.00s
+
+
+test opening::actions::tests::actions_fresh_processes ... FAILED
+
+failures:
+
+failures:
+    opening::actions::tests::actions_fresh_processes
+    opening::actions::tests::actions_hand_authored_normal_reset_spell_combat
+    opening::actions::tests::actions_rejections_do_not_mutate
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 124 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

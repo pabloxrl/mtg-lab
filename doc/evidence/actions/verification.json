@@ -1,0 +1,24 @@
+{
+  "command": "./scripts/torture.sh",
+  "status": "passed",
+  "exit_code": 0,
+  "environment": "managed Linux container; supplied toolchain; worker did not invoke Docker",
+  "base_sha": "5c7aabace18542adcbf424cd0c46f49bdc58475e",
+  "python_tests": 134,
+  "rust_debug_tests_including_doctest": 253,
+  "rust_release_tests_including_doctest": 253,
+  "source_sha256": {
+    "crates/mtg-core/src/actions.rs": "e65b5616ee647296b27544f7e71ba7a69b917823a22094b077b714056255745b",
+    "crates/mtg-core/src/actions_tests.rs": "8c2d0bcd7045267106f0a0fb88b139f63f597d7b2c679825957c885ce90b3639",
+    "crates/mtg-core/src/objects.rs": "5b1ae9654cf41eb15c8f4bc457e978e5da161c4594cded15d783bbfbd840ff1a",
+    "crates/mtg-core/src/opening.rs": "b06fba70d3a005e00d0bce7bdf79c88bdc4c6ca61cd634b2046e097991ee5153",
+    "crates/mtg-core/src/snapshot.rs": "b1485d42d7a850629c8bc1bd854de017cf152c2e72a5e3a92cb00d25a62dd9f9"
+  },
+  "log_sha256": "595c68405bcbbad930d66ea1e199edf279c4f6ad10956d4762ca1a5373fb711d",
+  "reference_receipt": "xmage-combat.json",
+  "notes": [
+    "Includes docs/manifest/ledger/catalog, formatting, Clippy, all workspace tests in debug/release, and existing CLI subprocess tests.",
+    "Final run after current-main integration and after bounded subprocess harness update.",
+    "No tests removed, skipped, weakened, or rebaselined."
+  ]
+}

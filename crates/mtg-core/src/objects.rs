@@ -88,6 +88,14 @@ struct Slot {
     object: Option<Object>,
 }
 
+// Separate metadata preserves compact hot object/slot records. Birth is an
+// episode-local creation ordinal, independent of slot reuse and capability scope.
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
+struct SemanticIdentity {
+    birth: u64,
+    incarnation: u64,
+}
+
 /// Authoritative storage for one game. Handles are process-local capabilities,
 /// not replay IDs. This type deliberately cannot be cloned.
 #[derive(serde::Serialize, Debug, PartialEq, Eq)]
@@ -95,6 +103,8 @@ pub struct ObjectStore {
     id: u64,
     epoch: u64,
     slots: Vec<Slot>,
+    identities: Vec<SemanticIdentity>,
+    next_birth: u64,
     free: Vec<u32>,
     zones: [Vec<u32>; 9],
     knowledge: [Vec<KnownCard>; 2],
@@ -138,6 +148,8 @@ impl ObjectStore {
             id,
             epoch: 0,
             slots: Vec::new(),
+            identities: Vec::new(),
+            next_birth: 0,
             free: Vec::new(),
             zones: std::array::from_fn(|_| Vec::new()),
             knowledge: std::array::from_fn(|_| Vec::new()),
@@ -152,12 +164,14 @@ impl ObjectStore {
         owner: Seat,
         zone: Zone,
     ) -> Result<Handle, StorageError> {
+        let next_birth = next_identity(self.next_birth)?;
         let (slot, generation) = if let Some(&slot) = self.free.last() {
             (slot, next_identity(self.slots[slot as usize].generation)?)
         } else {
             let slot =
                 u32::try_from(self.slots.len()).map_err(|_| StorageError::CapacityExceeded)?;
             reserve(&mut self.slots)?;
+            reserve(&mut self.identities)?;
             (slot, 0)
         };
         reserve(&mut self.zones[zone.index()])?;
@@ -172,10 +186,17 @@ impl ObjectStore {
                 tapped: false,
             }),
         };
+        let identity = SemanticIdentity {
+            birth: self.next_birth,
+            incarnation: 0,
+        };
+        self.next_birth = next_birth;
         if self.free.pop().is_some() {
+            self.identities[slot as usize] = identity;
             self.slots[slot as usize] = entry;
         } else {
             self.slots.push(entry);
+            self.identities.push(identity);
         }
         self.zones[zone.index()].push(slot);
         self.record_public(KnownCard { card, owner, zone });
@@ -205,6 +226,7 @@ impl ObjectStore {
                 return Err(StorageError::InvalidHandle);
             }
             next_identity(handle.generation)?;
+            next_identity(self.identities[handle.slot as usize].incarnation)?;
         }
         self.reserve_knowledge(zone, handles.len())?;
         self.zones[zone.index()]
@@ -228,11 +250,13 @@ impl ObjectStore {
             return Ok(handle);
         }
         let generation = next_identity(handle.generation)?;
+        let incarnation = next_identity(self.identities[handle.slot as usize].incarnation)?;
         reserve(&mut self.zones[zone.index()])?;
         self.reserve_knowledge(zone, 1)?;
         self.unlink(handle.slot, old_zone);
         let slot = &mut self.slots[handle.slot as usize];
         slot.generation = generation;
+        self.identities[handle.slot as usize].incarnation = incarnation;
         let object = slot.object.as_mut().expect("validated live slot");
         object.zone = zone;
         object.controller = object.owner;
@@ -264,6 +288,9 @@ impl ObjectStore {
         zones: [usize; 9],
     ) -> Result<(), StorageError> {
         next_identity(self.epoch)?;
+        self.identities
+            .try_reserve(slots.saturating_sub(self.identities.len()))
+            .map_err(|_| StorageError::CapacityExceeded)?;
         self.slots
             .try_reserve(slots.saturating_sub(self.slots.len()))
             .map_err(|_| StorageError::CapacityExceeded)?;
@@ -280,6 +307,8 @@ impl ObjectStore {
     pub fn reset(&mut self) -> Result<(), StorageError> {
         self.epoch = next_identity(self.epoch)?;
         self.slots.clear();
+        self.identities.clear();
+        self.next_birth = 0;
         self.free.clear();
         for knowledge in &mut self.knowledge {
             knowledge.clear();
@@ -445,6 +474,8 @@ pub(crate) struct StoreWire {
     id: u64,
     epoch: u64,
     slots: Vec<Slot>,
+    identities: Vec<SemanticIdentity>,
+    next_birth: u64,
     free: Vec<u32>,
     zones: [Vec<u32>; 9],
     knowledge: [Vec<KnownCard>; 2],
@@ -461,7 +492,20 @@ impl<'de> serde::Deserialize<'de> for CardId {
 }
 
 impl ObjectStore {
+    pub(crate) fn semantic_identity(&self, h: Handle) -> Result<(u64, u64), StorageError> {
+        self.get(h)?;
+        let identity = self.identities[h.slot as usize];
+        Ok((identity.birth, identity.incarnation))
+    }
     pub(crate) fn snapshot_valid(&self) -> bool {
+        if self.identities.len() != self.slots.len()
+            || self.identities.iter().enumerate().any(|(i, id)| {
+                id.birth >= self.next_birth
+                    || self.identities[..i].iter().any(|old| old.birth == id.birth)
+            })
+        {
+            return false;
+        }
         let mut seen = vec![false; self.slots.len()];
         for (zone, entries) in Zone::ALL.into_iter().zip(&self.zones) {
             for &index in entries {
