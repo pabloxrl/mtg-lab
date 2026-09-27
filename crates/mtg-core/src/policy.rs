@@ -27,6 +27,10 @@ pub enum Choice {
     Pay { color: u8 },
     FinishPayment,
     CancelPayment,
+    Cast { card: VisibleRef },
+    Target { card: VisibleRef },
+    FinishTargets,
+    CancelTargets,
     Spell,
     Combat,
 }
@@ -52,7 +56,25 @@ pub struct Observation {
     pub schema_version: u32,
     pub view: views::PlayerView,
     pub decision: Option<Decision>,
-    pub unsupported_families: [&'static str; 3],
+    pub pending: Option<PendingSpell>,
+    pub stack: Vec<StackSpell>,
+    pub unsupported_families: [&'static str; 2],
+}
+/// Actor-only provisional state. References use the accompanying visible rows.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct PendingSpell {
+    pub card: VisibleRef,
+    pub targets: Vec<Option<VisibleRef>>,
+    pub sources: Vec<Option<VisibleRef>>,
+    pub pool: Option<[u32; 6]>,
+    pub remaining: Option<mana::ManaCost>,
+}
+/// Bottom-to-top committed stack. A departed target is null, never rebound to
+/// another object or looked up in a hidden zone.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct StackSpell {
+    pub row: usize,
+    pub targets: Vec<Option<VisibleRef>>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
 #[serde(rename_all = "snake_case")]
@@ -99,13 +121,75 @@ fn mana_error(error: mana::ManaError) -> PolicyError {
         _ => PolicyError::InvalidSelection,
     }
 }
+fn cast_error(error: casting::CastError) -> PolicyError {
+    match error {
+        casting::CastError::Mana(e) => mana_error(e),
+        casting::CastError::Storage(
+            StorageError::CapacityExceeded | StorageError::IdentityExhausted,
+        ) => PolicyError::CapacityExceeded,
+        _ => PolicyError::InvalidSelection,
+    }
+}
+fn target_error(error: targets::TargetError) -> PolicyError {
+    match error {
+        targets::TargetError::Cast(e) => cast_error(e),
+        targets::TargetError::Invalid(e) => opening_error(e),
+        targets::TargetError::CapacityExceeded { .. } => PolicyError::CapacityExceeded,
+        _ => PolicyError::InvalidSelection,
+    }
+}
 impl Game {
+    fn policy_battlefield_ref(&self, h: Handle) -> Option<VisibleRef> {
+        self.objects
+            .in_zone(Zone::Battlefield)
+            .position(|x| x == h)
+            .map(|row| VisibleRef {
+                zone: VisibleZone::Battlefield,
+                row,
+            })
+    }
+    fn policy_pending(&self, seat: Seat) -> Option<PendingSpell> {
+        let (card, targets, sources) = if let Some(t) = self
+            .turns
+            .targeting
+            .as_ref()
+            .filter(|t| t.decision.actor == seat)
+        {
+            (t.card, t.selected.clone(), vec![])
+        } else {
+            let c = self
+                .turns
+                .casting
+                .as_ref()
+                .filter(|_| self.turns.payment.as_ref().is_some_and(|p| p.actor == seat))?;
+            let targets = match c.effect {
+                Some(targets::Effect::Growth(a)) => vec![a],
+                Some(targets::Effect::Bite(a, b)) => vec![a, b],
+                None => vec![],
+            };
+            (c.card, targets, c.sources.clone())
+        };
+        Some(PendingSpell {
+            card: VisibleRef {
+                zone: VisibleZone::Hand,
+                row: self.view_hand(seat).iter().position(|h| *h == card)?,
+            },
+            targets: targets
+                .into_iter()
+                .map(|h| self.policy_battlefield_ref(h))
+                .collect(),
+            sources: sources
+                .into_iter()
+                .map(|h| self.policy_battlefield_ref(h))
+                .collect(),
+            pool: self.turns.payment.as_ref().map(|p| p.pool),
+            remaining: self.turns.payment.as_ref().map(|p| p.remaining),
+        })
+    }
+
     fn policy_ready(&self) -> Result<(), PolicyError> {
         if self.rng.is_none() || !self.work.is_empty() {
             return Err(PolicyError::Unavailable);
-        }
-        if self.turns.casting.is_some() || self.turns.targeting.is_some() {
-            return Err(PolicyError::UnsupportedSpell);
         }
         if let Some(d) = self.turn_decision() {
             match d.kind {
@@ -119,6 +203,12 @@ impl Game {
     fn policy_actor_generation(&self) -> Option<(Seat, u64)> {
         self.decision
             .map(|d| (d.actor, d.generation))
+            .or_else(|| {
+                self.turns
+                    .targeting
+                    .as_ref()
+                    .map(|t| (t.decision.actor, t.decision.id.generation))
+            })
             .or_else(|| {
                 self.turns
                     .payment
@@ -183,6 +273,32 @@ impl Game {
                     ("bottom", count)
                 }
             }
+        } else if let Some(t) = self.target_decision(seat) {
+            for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
+                push(
+                    Choice::Target {
+                        card: VisibleRef {
+                            zone: VisibleZone::Battlefield,
+                            row,
+                        },
+                    },
+                    t.choices.contains(&h),
+                )?;
+            }
+            push(
+                Choice::FinishTargets,
+                t.kind == targets::TargetKind::Complete,
+            )?;
+            push(Choice::CancelTargets, true)?;
+            (
+                match t.kind {
+                    targets::TargetKind::Growth => "growth_target",
+                    targets::TargetKind::BiteSource => "bite_source",
+                    targets::TargetKind::BiteDestination => "bite_destination",
+                    targets::TargetKind::Complete => "targets_complete",
+                },
+                1,
+            )
         } else if let Some(p) = self.payment_decision(seat) {
             for color in 0..6 {
                 push(
@@ -190,7 +306,25 @@ impl Game {
                     p.choices.contains(&mana::Color::ALL[usize::from(color)]),
                 )?;
             }
-            push(Choice::FinishPayment, p.choices.is_empty())?;
+            let remaining = self.turns.payment.as_ref().expect("payment").remaining;
+            push(
+                Choice::FinishPayment,
+                remaining.generic == 0 && remaining.colored == [0; 6],
+            )?;
+            if self.turns.casting.is_some() {
+                let sources = self.cast_mana_sources(seat);
+                for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
+                    push(
+                        Choice::TapMana {
+                            card: VisibleRef {
+                                zone: VisibleZone::Battlefield,
+                                row,
+                            },
+                        },
+                        sources.contains(&h),
+                    )?;
+                }
+            }
             push(Choice::CancelPayment, true)?;
             ("payment", 1)
         } else {
@@ -206,6 +340,20 @@ impl Game {
                     },
                     lands.contains(&h),
                 )?;
+            }
+            let spells = self.cast_candidates(seat);
+            for (row, h) in self.view_hand(seat).into_iter().enumerate() {
+                if casting::cost(self.objects.get(h).expect("hand").card).is_some() {
+                    push(
+                        Choice::Cast {
+                            card: VisibleRef {
+                                zone: VisibleZone::Hand,
+                                row,
+                            },
+                        },
+                        spells.contains(&h),
+                    )?;
+                }
             }
             let sources = self.mana_sources(seat);
             for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
@@ -243,7 +391,23 @@ impl Game {
             schema_version: SCHEMA_VERSION,
             view,
             decision,
-            unsupported_families: ["spell", "combat", "cleanup_discard"],
+            pending: self.policy_pending(seat),
+            stack: self
+                .turns
+                .stack
+                .iter()
+                .enumerate()
+                .map(|(row, h)| StackSpell {
+                    row,
+                    targets: self
+                        .stack_targets(*h)
+                        .unwrap_or_default()
+                        .into_iter()
+                        .map(|h| self.policy_battlefield_ref(h))
+                        .collect(),
+                })
+                .collect(),
+            unsupported_families: ["combat", "cleanup_discard"],
         })
     }
     /// Validate semantic choices against the current authorized table before
@@ -351,16 +515,57 @@ impl Game {
                     .in_zone(Zone::Battlefield)
                     .nth(card.row)
                     .expect("validated visible row");
-                self.tap_mana(actor, id, h).map(|_| ()).map_err(mana_error)
+                if self.turns.casting.is_some() {
+                    self.cast_tap_mana(actor, id, h)
+                        .map(|_| ())
+                        .map_err(cast_error)
+                } else {
+                    self.tap_mana(actor, id, h).map(|_| ()).map_err(mana_error)
+                }
             }
             Choice::Pay { color } => self
                 .choose_payment(actor, id, mana::Color::ALL[usize::from(*color)])
                 .map(|_| ())
                 .map_err(mana_error),
-            Choice::FinishPayment => self
-                .finish_payment(actor, id)
+            Choice::FinishPayment => {
+                if self.turns.casting.is_some() {
+                    self.finish_cast(actor, id).map(|_| ()).map_err(cast_error)
+                } else {
+                    self.finish_payment(actor, id)
+                        .map(|_| ())
+                        .map_err(mana_error)
+                }
+            }
+            Choice::Cast { card } => {
+                let h = self.view_hand(actor)[card.row];
+                if targets::instant(self.objects.get(h).expect("hand").card) {
+                    self.begin_targeted_cast(actor, id, h, capacity)
+                        .map(|_| ())
+                        .map_err(target_error)
+                } else {
+                    self.begin_cast(actor, id, h)
+                        .map(|_| ())
+                        .map_err(cast_error)
+                }
+            }
+            Choice::Target { card } => {
+                let h = self
+                    .objects
+                    .in_zone(Zone::Battlefield)
+                    .nth(card.row)
+                    .expect("validated target row");
+                self.choose_target(actor, id, h)
+                    .map(|_| ())
+                    .map_err(target_error)
+            }
+            Choice::FinishTargets => self
+                .finish_targets(actor, id)
                 .map(|_| ())
-                .map_err(mana_error),
+                .map_err(target_error),
+            Choice::CancelTargets => self
+                .cancel_targets(actor, id)
+                .map(|_| ())
+                .map_err(target_error),
             Choice::CancelPayment => self
                 .cancel_payment(actor, id)
                 .map(|_| ())

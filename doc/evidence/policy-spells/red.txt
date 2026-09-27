@@ -1,0 +1,47 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-111/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.57s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 2 tests
+
+thread 'opening::policy::tests::policy_spell_cast_is_offered_and_pending_cast_is_seat_safe' (1944) panicked at crates/mtg-core/src/policy_tests.rs:949:5:
+CR 601: a payable creature must be offered through the safe interface
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'opening::policy::tests::policy_spell_target_continuation_keeps_opponent_view_available' (1945) panicked at crates/mtg-core/src/policy_tests.rs:964:5:
+assertion `left == right` failed: RFC privacy: pending target selection does not hide or alter committed public state
+  left: Err(UnsupportedSpell)
+ right: Ok(Observation { schema_version: 1, view: PlayerView { schema_version: 1, seat: 1, life: [20, 20], hand_counts: [8, 7], library_counts: [33, 33], hand: [VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }, VisibleCard { card: "forest", owner: 1, controller: 1, tapped: false, creature: None, summoning_sick: false }], public_zones: [PublicZone { zone: "graveyard_0", cards: [] }, PublicZone { zone: "graveyard_1", cards: [] }, PublicZone { zone: "battlefield", cards: [VisibleCard { card: "bear-cub", owner: 0, controller: 0, tapped: false, creature: Some([2, 2, 0]), summoning_sick: false }] }, PublicZone { zone: "stack", cards: [] }, PublicZone { zone: "exile", cards: [] }], remembered: [Revelation { card: "bear-cub", owner: 0, zone_at_reveal: "battlefield" }], starting_seat: 0, turn: Some((1, 0, "upkeep")), mana: [[0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0]], acting_seat: Some(0), opening: None, terminal: None }, decision: None, unsupported_families: ["spell", "combat", "cleanup_discard"] })
+test opening::policy::tests::policy_spell_target_continuation_keeps_opponent_view_available ... FAILED
+test opening::policy::tests::policy_spell_cast_is_offered_and_pending_cast_is_seat_safe ... FAILED
+
+failures:
+
+failures:
+    opening::policy::tests::policy_spell_cast_is_offered_and_pending_cast_is_seat_safe
+    opening::policy::tests::policy_spell_target_continuation_keeps_opponent_view_available
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 109 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

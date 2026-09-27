@@ -1,0 +1,117 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-111/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.72s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 18 tests
+test opening::policy::tests::policy_generation_and_resource_exhaustion_are_transactional ... ok
+test opening::policy::tests::policy_mulligans_ordered_bottoming_and_old_opening_api_coexist ... ok
+test opening::policy::tests::policy_normal_reset_both_seat_opening_land_mana_pass_literal_states ... ok
+test opening::policy::tests::policy_pending_spell_is_private_combat_and_internal_work_fail_explicitly ... ok
+test opening::policy::tests::policy_spell_cast_is_offered_and_pending_cast_is_seat_safe ... ok
+test opening::policy::tests::policy_spell_target_continuation_keeps_opponent_view_available ... ok
+test opening::policy::tests::policy_standalone_payment_is_private_and_explicit ... ok
+test opening::policy::tests::policy_visible_references_ignore_hidden_storage_and_track_visible_rows ... ok
+test opening::policy::tests::policy_hidden_twins_and_invalid_inputs_preserve_full_state ... ok
+test opening::policy::tests::policy_wire_contract_owned_records_and_terminal_boundary ... ok
+test opening::policy::tests::policy_library_only_twins_payment_errors_and_masked_rows ... ok
+test opening::policy::tests::spells::policy_spells_growth_response_to_bite_and_public_targets ... ok
+test opening::policy::tests::spells::policy_spells_all_generic_colors_preserved_and_finish_requires_paid_cost ... ok
+test opening::policy::tests::spells::policy_spells_partial_invalidation_by_real_response_has_no_source_lki ... ok
+test opening::policy::tests::spells::policy_spells_capacity_masks_stale_and_wrong_seat_at_every_stage ... ok
+test opening::policy::tests::policy_restore_invalidates_pre_restore_submissions_without_state_change ... ok
+test opening::policy::tests::spells::policy_spells_normal_reset_twins_real_lands_creatures_bite_and_cancel ... ok
+test opening::policy::tests::spells::policy_spells_twins_cancel_each_stage_and_reject_without_mutation ... ok
+
+test result: ok. 18 passed; 0 failed; 0 ignored; 0 measured; 99 filtered out; finished in 0.02s
+
+     Running tests/casting.rs (target/debug/deps/casting-39408b63c0a32ecb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/debug/deps/combat-bb63530f24e1b777)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/core_integration.rs (target/debug/deps/core_integration-40a799f3d1fbc983)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-3ea8494fad3cefd6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-6a627dbc7f87ecd9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-1dd9225411e06106)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-2fc5e170a27194bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-93b5d15e842a4e4c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/replay.rs (target/debug/deps/replay-0f13caf1c5012784)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-8f4f3307455ec009)
+
+running 1 test
+test rng_creation_order_and_policy_draws_do_not_change_environment ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests/snapshot.rs (target/debug/deps/snapshot-97bc1a0550947af5)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/debug/deps/targets-d456e61f74043ac8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/terminal.rs (target/debug/deps/terminal-c8dd012c804717b9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/turns.rs (target/debug/deps/turns-1eb9a7df1fbd41ba)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/views.rs (target/debug/deps/views-5d6ad7d558b65654)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+

@@ -1,0 +1,34 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-111/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.96s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 4 tests
+
+thread 'opening::policy::tests::spells::policy_spells_partial_invalidation_by_real_response_has_no_source_lki' (248) panicked at crates/mtg-core/src/policy_spell_tests.rs:35:5:
+assertion failed: serde_json::to_string(&o.decision).unwrap().contains("\"cast\"")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'opening::policy::tests::spells::policy_spells_growth_response_to_bite_and_public_targets' (247) panicked at crates/mtg-core/src/policy_spell_tests.rs:35:5:
+assertion failed: serde_json::to_string(&o.decision).unwrap().contains("\"cast\"")
+
+thread 'opening::policy::tests::spells::policy_spells_all_generic_colors_preserved_and_finish_requires_paid_cost' (246) panicked at crates/mtg-core/src/policy_spell_tests.rs:35:5:
+assertion failed: serde_json::to_string(&o.decision).unwrap().contains("\"cast\"")
+test opening::policy::tests::spells::policy_spells_partial_invalidation_by_real_response_has_no_source_lki ... FAILED
+test opening::policy::tests::spells::policy_spells_growth_response_to_bite_and_public_targets ... FAILED
+test opening::policy::tests::spells::policy_spells_all_generic_colors_preserved_and_finish_requires_paid_cost ... FAILED
+
+thread 'opening::policy::tests::spells::policy_spells_twins_cancel_each_stage_and_reject_without_mutation' (249) panicked at crates/mtg-core/src/policy_spell_tests.rs:24:31:
+called `Result::unwrap()` on an `Err` value: Error("unknown variant `cast`, expected one of `keep`, `mulligan`, `bottom`, `pass`, `play_land`, `tap_mana`, `pay`, `finish_payment`, `cancel_payment`, `spell`, `combat`", line: 0, column: 0)
+test opening::policy::tests::spells::policy_spells_twins_cancel_each_stage_and_reject_without_mutation ... FAILED
+
+failures:
+
+failures:
+    opening::policy::tests::spells::policy_spells_all_generic_colors_preserved_and_finish_requires_paid_cost
+    opening::policy::tests::spells::policy_spells_growth_response_to_bite_and_public_targets
+    opening::policy::tests::spells::policy_spells_partial_invalidation_by_real_response_has_no_source_lki
+    opening::policy::tests::spells::policy_spells_twins_cancel_each_stage_and_reject_without_mutation
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 111 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
