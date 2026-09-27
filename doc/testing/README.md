@@ -1,6 +1,9 @@
 # MVP test strategy
 
-Status: planned tests and delivery obligations, **not implemented game support**.
+Status: planned game tests and delivery obligations, **not implemented game support**.
+The [executable torture baseline](torture-suite.md) covers current verification
+tooling; [atomic delivery](../programs/atomic-delivery.md) is the current ownership
+and sequencing amendment. Original scenario expectations remain unchanged.
 This plan refines [RFC 0002](../rfcs/0002-first-mvp.md), preserving every acceptance
 requirement and its [tracked owner](../programs/rfc-0002.json). It delivers the
 missing design in [correction #52](https://github.com/pabloxrl/mtg-lab/issues/52),

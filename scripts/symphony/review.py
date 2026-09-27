@@ -19,7 +19,10 @@ Inspect git diff {base_sha}...{head}. The candidate is committed and clean.
 Read AGENTS.md and relevant RFC requirements. Do not edit files, use network,
 publish comments, or invoke another review. Find concrete correctness, verification,
 security, and integration defects. Tests are executable evidence, not proof of all
-requirements. Do not invent findings or demand unrelated scope. Return structured
+requirements. Inspect test deletions/skips/weakened assertions or rebaselined
+expectations for independently justified requirement corrections and equivalent
+or stronger coverage. Check README accuracy and atomic task/integration ownership.
+Do not invent findings or demand unrelated scope. Return structured
 findings; changes_requested if any blocking finding, otherwise pass.
 """
 with (artifacts / "review-events.jsonl").open("w") as events, (artifacts / "review-stderr.log").open("w") as errors:

@@ -146,13 +146,268 @@
       "requirements": []
     },
     {
+      "key": "atomic-test-foundation",
+      "issue": 61,
+      "milestone": "M1",
+      "kind": "operations",
+      "depends_on": [
+        59
+      ],
+      "requirements": []
+    },
+    {
+      "key": "atomic-rng",
+      "issue": 62,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        61
+      ],
+      "requirements": [
+        "R0002-B015"
+      ]
+    },
+    {
+      "key": "atomic-objects",
+      "issue": 63,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        61
+      ],
+      "requirements": [
+        "R0002-B015"
+      ]
+    },
+    {
+      "key": "atomic-opening",
+      "issue": 64,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        62,
+        63
+      ],
+      "requirements": [
+        "R0002-B015",
+        "R0002-B016"
+      ]
+    },
+    {
+      "key": "atomic-mulligan",
+      "issue": 65,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        64
+      ],
+      "requirements": [
+        "R0002-B015",
+        "R0002-B016"
+      ]
+    },
+    {
+      "key": "atomic-quantum",
+      "issue": 66,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        65
+      ],
+      "requirements": [
+        "R0002-B015",
+        "R0002-B016"
+      ]
+    },
+    {
+      "key": "atomic-turns",
+      "issue": 67,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        65
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B017",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "atomic-mana",
+      "issue": 68,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        67
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "atomic-casting",
+      "issue": 69,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        68
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "atomic-targets",
+      "issue": 70,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        69
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "atomic-combat",
+      "issue": 71,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        69
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "atomic-terminal",
+      "issue": 72,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        71,
+        70
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "atomic-views",
+      "issue": 73,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        65
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025",
+        "R0002-B033"
+      ]
+    },
+    {
+      "key": "atomic-snapshot",
+      "issue": 74,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        66
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025"
+      ]
+    },
+    {
+      "key": "atomic-replay",
+      "issue": 75,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        74
+      ],
+      "requirements": [
+        "R0002-B016",
+        "R0002-B025"
+      ]
+    },
+    {
+      "key": "atomic-recorder",
+      "issue": 76,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        72,
+        73
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "atomic-jsonl",
+      "issue": 77,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        76
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "atomic-simulate",
+      "issue": 78,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        72,
+        73
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "atomic-cli-tools",
+      "issue": 79,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        75,
+        77,
+        78
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
       "key": "core",
       "milestone": "M1",
       "kind": "implementation",
       "issue": 17,
       "depends_on": [
-        16,
-        59
+        66
       ],
       "requirements": [
         "R0002-B013",
@@ -167,7 +422,8 @@
       "kind": "implementation",
       "issue": 18,
       "depends_on": [
-        17
+        72,
+        66
       ],
       "requirements": [
         "R0002-B017",
@@ -181,7 +437,9 @@
       "kind": "implementation",
       "issue": 19,
       "depends_on": [
-        17
+        73,
+        75,
+        70
       ],
       "requirements": [
         "R0002-B016",
@@ -195,8 +453,8 @@
       "kind": "implementation",
       "issue": 20,
       "depends_on": [
-        18,
-        19
+        77,
+        75
       ],
       "requirements": [
         "R0002-B036",
@@ -209,7 +467,7 @@
       "kind": "implementation",
       "issue": 21,
       "depends_on": [
-        20
+        79
       ],
       "requirements": [
         "R0002-B020",
@@ -235,12 +493,22 @@
       ]
     },
     {
+      "key": "plan-m2",
+      "issue": 80,
+      "milestone": "M2",
+      "kind": "operations",
+      "depends_on": [
+        22
+      ],
+      "requirements": []
+    },
+    {
       "key": "pool",
       "milestone": "M2",
       "kind": "implementation",
       "issue": 23,
       "depends_on": [
-        22
+        80
       ],
       "requirements": [
         "R0002-B010",
@@ -270,7 +538,7 @@
       "kind": "implementation",
       "issue": 25,
       "depends_on": [
-        22
+        80
       ],
       "requirements": [
         "R0002-B008",
@@ -295,12 +563,22 @@
       ]
     },
     {
+      "key": "plan-m3",
+      "issue": 81,
+      "milestone": "M3",
+      "kind": "operations",
+      "depends_on": [
+        26
+      ],
+      "requirements": []
+    },
+    {
       "key": "batch",
       "milestone": "M3",
       "kind": "implementation",
       "issue": 27,
       "depends_on": [
-        26
+        81
       ],
       "requirements": [
         "R0002-B013",
@@ -405,12 +683,22 @@
       ]
     },
     {
+      "key": "plan-m4",
+      "issue": 82,
+      "milestone": "M4",
+      "kind": "operations",
+      "depends_on": [
+        33
+      ],
+      "requirements": []
+    },
+    {
       "key": "protocol",
       "milestone": "M4",
       "kind": "implementation",
       "issue": 34,
       "depends_on": [
-        33
+        82
       ],
       "requirements": [
         "R0002-B039",
@@ -444,12 +732,22 @@
       ]
     },
     {
+      "key": "plan-m5",
+      "issue": 83,
+      "milestone": "M5",
+      "kind": "operations",
+      "depends_on": [
+        36
+      ],
+      "requirements": []
+    },
+    {
       "key": "torture",
       "milestone": "M5",
       "kind": "implementation",
       "issue": 37,
       "depends_on": [
-        36
+        83
       ],
       "requirements": [
         "R0002-B027",
@@ -464,7 +762,7 @@
       "kind": "implementation",
       "issue": 38,
       "depends_on": [
-        36
+        83
       ],
       "requirements": [
         "R0002-B024",
@@ -479,7 +777,7 @@
       "kind": "implementation",
       "issue": 39,
       "depends_on": [
-        36
+        83
       ],
       "requirements": [
         "R0002-B008",

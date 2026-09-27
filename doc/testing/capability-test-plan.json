@@ -19,7 +19,7 @@
       "actions": "Use explicit replacement deck; bottom Mountain; keep",
       "expected": "P0 has six cards and Mountain is last in library",
       "basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -30,7 +30,7 @@
       "actions": "Submit one-card bottom choice",
       "expected": "Reject wrong cardinality without changing hand, library or RNG",
       "basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -41,7 +41,7 @@
       "actions": "Bottom two distinct cards in chosen order",
       "expected": "P0 has five cards; bottom order preserved; P1 hand unchanged",
       "basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -52,7 +52,7 @@
       "actions": "Declare another mulligan with explicit full replacement shuffle",
       "expected": "Draw seven and bottom two; never defer all bottoming until final keep",
       "basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -63,7 +63,7 @@
       "actions": "Advance through first draw step",
       "expected": "P0 still has seven cards before any other draw",
       "basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -74,7 +74,7 @@
       "actions": "Advance draw",
       "expected": "P1 draws one; cannot skip both players first draws",
       "basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -85,7 +85,7 @@
       "actions": "Advance both first turns",
       "expected": "P1 skips; P0 draws known eighth card",
       "basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -96,7 +96,7 @@
       "actions": "Enter draw step",
       "expected": "P0 draws exactly one; skip flag does not persist",
       "basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -107,7 +107,7 @@
       "actions": "Reset and script same keep choices",
       "expected": "Hands, ordered internal libraries and next decisions match",
       "basis": "RFC 0001 UC1 and RFC 0002 §4 state/RNG contract: reset is reproducible from configuration and seed. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -118,7 +118,7 @@
       "actions": "Reset with malformed deck reference",
       "expected": "Diagnosed invalid configuration; existing game and RNG unchanged",
       "basis": "RFC 0001 UC1 and RFC 0002 §4 state/RNG contract: reset is reproducible from configuration and seed. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -129,7 +129,7 @@
       "actions": "Supply identical semantic choices",
       "expected": "Replacement shuffle and bottomed library match",
       "basis": "RFC 0001 UC1 and RFC 0002 §4 state/RNG contract: reset is reproducible from configuration and seed. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -140,7 +140,7 @@
       "actions": "Reset both with same explicit seed",
       "expected": "Prior RNG consumption cannot alter reset result",
       "basis": "RFC 0001 UC1 and RFC 0002 §4 state/RNG contract: reset is reproducible from configuration and seed. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -151,7 +151,7 @@
       "actions": "Draw once",
       "expected": "Forest enters hand; Bear Cub becomes top",
       "basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -162,7 +162,7 @@
       "actions": "Attempt draw naming Bear Cub instead of top",
       "expected": "Reject non-choice; top order unchanged",
       "basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -184,7 +184,7 @@
       "actions": "Draw remaining library to final two",
       "expected": "Final draws are Mountain then Swab Goblin",
       "basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -195,7 +195,7 @@
       "actions": "Observe P0",
       "expected": "Only permitted count is exposed; no library card identities",
       "basis": "RFC 0001 player-knowledge principle; RFC 0002 §7 privacy metamorphism; CR 401 hidden library. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 19,
+      "owner_issue": 73,
       "milestone": "M1"
     },
     {
@@ -206,7 +206,7 @@
       "actions": "Request P0 observations and candidates",
       "expected": "Byte-equivalent authorized content/order; no identity oracle",
       "basis": "RFC 0001 player-knowledge principle; RFC 0002 §7 privacy metamorphism; CR 401 hidden library. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 19,
+      "owner_issue": 73,
       "milestone": "M1"
     },
     {
@@ -217,7 +217,7 @@
       "actions": "Observe P0 after draw",
       "expected": "Same hand/library counts and public state; identities remain hidden",
       "basis": "RFC 0001 player-knowledge principle; RFC 0002 §7 privacy metamorphism; CR 401 hidden library. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 19,
+      "owner_issue": 73,
       "milestone": "M1"
     },
     {
@@ -239,7 +239,7 @@
       "actions": "P0 passes then P1 passes",
       "expected": "First pass gives P1 priority; second advances to beginning combat",
       "basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -250,7 +250,7 @@
       "actions": "P1 attempts pass out of turn",
       "expected": "Reject; pass count and stack unchanged",
       "basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -261,7 +261,7 @@
       "actions": "Both pass once",
       "expected": "Only Bite Down resolves; Growth remains",
       "basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -272,7 +272,7 @@
       "actions": "P0 passes",
       "expected": "Growth resolves; old pass before cast did not count",
       "basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -283,7 +283,7 @@
       "actions": "P0 casts Growth",
       "expected": "Growth waits on stack; P0 retains priority",
       "basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -294,7 +294,7 @@
       "actions": "P1 immediately casts response",
       "expected": "Reject wrong actor; no automatic priority transfer",
       "basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -305,7 +305,7 @@
       "actions": "Both pass to resolve",
       "expected": "P0 receives priority after resolution",
       "basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -316,7 +316,7 @@
       "actions": "Check next priority decision",
       "expected": "Priority belongs to active P0, not last caster",
       "basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -327,7 +327,7 @@
       "actions": "P1 responds Growth on own Cub; resolve Growth then Bite",
       "expected": "P1 Cub is 5/5 with two damage; P0 Cub undamaged",
       "basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -338,7 +338,7 @@
       "actions": "Request resolving lower Bite first",
       "expected": "Reject unavailable action; order unchanged",
       "basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -349,7 +349,7 @@
       "actions": "Resolve top Growth, other Growth, then Bite",
       "expected": "Both Cubs 5/5 before Bite; P1 Cub dies to five damage",
       "basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -360,7 +360,7 @@
       "actions": "Pass only P0",
       "expected": "Remaining stack stays pending until P1 also passes",
       "basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -371,7 +371,7 @@
       "actions": "Caster passes",
       "expected": "Opponent can cast Growth before Bite resolves",
       "basis": "CR 117 and RFC 0002 §4 atomic choices: retain legal response windows but none inside costs/resolution. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -415,7 +415,7 @@
       "actions": "Cast Cub paying G plus R generic",
       "expected": "Cub on stack; both mana spent",
       "basis": "CR 601.2f-h and 118: pay complete cost with required colors. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -426,7 +426,7 @@
       "actions": "Attempt cast paying RR",
       "expected": "Reject missing G; hand/mana/priority unchanged",
       "basis": "CR 601.2f-h and 118: pay complete cost with required colors. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -459,7 +459,7 @@
       "actions": "Pay G colored and R generic",
       "expected": "One G remains",
       "basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -470,7 +470,7 @@
       "actions": "Declare same G unit for colored and generic",
       "expected": "Reject double-spent resource atomically",
       "basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -481,7 +481,7 @@
       "actions": "Choose GG payment then later cast Growth",
       "expected": "Only R remains; Growth unavailable",
       "basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -492,7 +492,7 @@
       "actions": "Choose Mountain plus one Forest for payment",
       "expected": "Other Forest remains untapped; no automatic substitution",
       "basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -635,7 +635,7 @@
       "actions": "Submit complete valid cast",
       "expected": "One spell committed and exact payment deducted",
       "basis": "RFC 0001 boundary legality; RFC 0002 §4: invalid actions preserve state, RNG, decisions and privacy. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -657,7 +657,7 @@
       "actions": "Submit full payment resources",
       "expected": "Neither resources nor targets mutate",
       "basis": "RFC 0001 boundary legality; RFC 0002 §4: invalid actions preserve state, RNG, decisions and privacy. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -668,7 +668,7 @@
       "actions": "Reject final command then submit valid command",
       "expected": "No stranded tap, discard, RNG advance or stale continuation from rejected cast",
       "basis": "RFC 0001 boundary legality; RFC 0002 §4: invalid actions preserve state, RNG, decisions and privacy. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -679,7 +679,7 @@
       "actions": "Cast Bite own Cub to opposing Cub",
       "expected": "Legal; opposing Cub receives two damage and dies",
       "basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -690,7 +690,7 @@
       "actions": "Cast Bite between them",
       "expected": "Reject destination controller restriction",
       "basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -701,7 +701,7 @@
       "actions": "Cast Growth targeting P1 Cub",
       "expected": "Legal; opponent Cub becomes 5/5",
       "basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -712,7 +712,7 @@
       "actions": "Reverse source/destination",
       "expected": "Reject opposing source even if damage destination is own",
       "basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -723,7 +723,7 @@
       "actions": "Select Cub and cast",
       "expected": "One target stored on stack",
       "basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -734,7 +734,7 @@
       "actions": "Submit explicit empty target list",
       "expected": "Reject missing required target",
       "basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -756,7 +756,7 @@
       "actions": "Submit only source target",
       "expected": "Reject incomplete second target instead of inferring opponent",
       "basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -767,7 +767,7 @@
       "actions": "Resolve Bite then Growth",
       "expected": "Cub graveyard new identity; Growth has no legal target and does not resolve",
       "basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -778,7 +778,7 @@
       "actions": "Attempt retargeting Growth to another Cub on resolution",
       "expected": "No such choice; original target remains invalid",
       "basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -800,7 +800,7 @@
       "actions": "Resolve Growth targeting old identity",
       "expected": "New object gets no bonus; never match target by card name",
       "basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -811,7 +811,7 @@
       "actions": "Resolve original Bite",
       "expected": "Spell resolves with source still legal but deals no damage",
       "basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -822,7 +822,7 @@
       "actions": "Resolve original Bite",
       "expected": "No last-known-power damage from illegal targeted source",
       "basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -833,7 +833,7 @@
       "actions": "Resolve Bite",
       "expected": "All targets illegal; spell does not resolve and moves graveyard",
       "basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -844,7 +844,7 @@
       "actions": "Resolve Bite",
       "expected": "No redirected five damage to player or replacement creature",
       "basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -855,7 +855,7 @@
       "actions": "Resolve",
       "expected": "Cub receives +3/+3",
       "basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -866,7 +866,7 @@
       "actions": "Resolve",
       "expected": "No effect on graveyard object",
       "basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -877,7 +877,7 @@
       "actions": "Resolve Growth then Bite",
       "expected": "Target remains legal despite P/T change and takes source current power",
       "basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1075,7 +1075,7 @@
       "actions": "Attack with P0 Cub; block with P1 Cub",
       "expected": "Attacker taps; blocker stays untapped; pair recorded",
       "basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1086,7 +1086,7 @@
       "actions": "Declare it blocker",
       "expected": "Reject entire blocker declaration",
       "basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1097,7 +1097,7 @@
       "actions": "Attack both; choose either attacker for blocker",
       "expected": "Both single assignments legal; unblocked Cub deals two to P1",
       "basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1108,7 +1108,7 @@
       "actions": "Declare both attackers",
       "expected": "Reject atomically; old Cub stays untapped",
       "basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1251,7 +1251,7 @@
       "actions": "Assign two each and deal damage",
       "expected": "Both die in same SBA batch",
       "basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1284,7 +1284,7 @@
       "actions": "Deal damage",
       "expected": "Defender reaches minus one in one damage event; no early stop at first attacker",
       "basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1339,7 +1339,7 @@
       "actions": "Deal combat damage",
       "expected": "P1 loses two",
       "basis": "CR 509.1h/510.1c and 702.19: blocked status persists when blockers leave; trample exception. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -1438,7 +1438,7 @@
       "actions": "Resolve Bite",
       "expected": "No damage based on cached two power",
       "basis": "Bite Down Oracle and CR 608.2b/h: evaluate required information at resolution; illegal target supplies none. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1471,7 +1471,7 @@
       "actions": "Advance cleanup",
       "expected": "Cub survives as 2/2 with zero damage",
       "basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1482,7 +1482,7 @@
       "actions": "Check SBAs",
       "expected": "It dies now; cannot wait for cleanup healing",
       "basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1504,7 +1504,7 @@
       "actions": "Cleanup",
       "expected": "Survives; no intermediate 2/2-with-four SBA",
       "basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1559,7 +1559,7 @@
       "actions": "Inspect battlefield identity",
       "expected": "New zone identity differs from spell; same card ownership retained",
       "basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1570,7 +1570,7 @@
       "actions": "Submit activation/target using prior battlefield handle",
       "expected": "Reject obsolete handle",
       "basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1581,7 +1581,7 @@
       "actions": "Inspect graveyard record",
       "expected": "New identity carries no temporary boost or marked damage",
       "basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1592,7 +1592,7 @@
       "actions": "Target surviving copy using its original handle",
       "expected": "Correct survivor selected; no name-based aliasing",
       "basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1658,7 +1658,7 @@
       "actions": "Declare block",
       "expected": "Reject invalid zone; no phantom battlefield entry",
       "basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1680,7 +1680,7 @@
       "actions": "Inspect new permanent",
       "expected": "No inherited damage/effects or attachments from old identity",
       "basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1691,7 +1691,7 @@
       "actions": "Deal combat damage",
       "expected": "P1 zero, P0 wins at SBA",
       "basis": "CR 704.5a/g: zero player life loses; lethal creature damage destroys without itself ending game. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1702,7 +1702,7 @@
       "actions": "Deal two",
       "expected": "P1 one; game continues",
       "basis": "CR 704.5a/g: zero player life loses; lethal creature damage destroys without itself ending game. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1724,7 +1724,7 @@
       "actions": "Settle SBAs",
       "expected": "Game continues; losing all creatures is not loss",
       "basis": "CR 704.5a/g: zero player life loses; lethal creature damage destroys without itself ending game. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1779,7 +1779,7 @@
       "actions": "Draw",
       "expected": "P0 loses at next SBA",
       "basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1790,7 +1790,7 @@
       "actions": "Pass priority",
       "expected": "No loss solely for empty library",
       "basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1812,7 +1812,7 @@
       "actions": "Advance first draw step",
       "expected": "No attempted draw; no empty-library loss",
       "basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1823,7 +1823,7 @@
       "actions": "P0 concedes",
       "expected": "P1 wins immediately",
       "basis": "CR 104.3a and RFC §8 outcomes: a player may concede any time and loses immediately. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1834,7 +1834,7 @@
       "actions": "P0 sends concession again",
       "expected": "No rewritten result or second outcome",
       "basis": "CR 104.3a and RFC §8 outcomes: a player may concede any time and loses immediately. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1845,7 +1845,7 @@
       "actions": "P1 concedes",
       "expected": "P1 loses despite not holding priority; unresolved stack not played out",
       "basis": "CR 104.3a and RFC §8 outcomes: a player may concede any time and loses immediately. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1856,7 +1856,7 @@
       "actions": "P0 concedes",
       "expected": "Terminal outcome produced once; continuation cannot later commit action",
       "basis": "CR 104.3a and RFC §8 outcomes: a player may concede any time and loses immediately. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -1867,7 +1867,7 @@
       "actions": "Deal lethal damage",
       "expected": "P0 +1 and P1 -1 once; terminal true",
       "basis": "RFC 0002 §8 episode semantics: terminal zero-sum rewards once; terminal not truncation. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 20,
+      "owner_issue": 76,
       "milestone": "M1"
     },
     {
@@ -1878,7 +1878,7 @@
       "actions": "Read transition reward",
       "expected": "No terminal reward; terminal false",
       "basis": "RFC 0002 §8 episode semantics: terminal zero-sum rewards once; terminal not truncation. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 20,
+      "owner_issue": 76,
       "milestone": "M1"
     },
     {
@@ -1889,7 +1889,7 @@
       "actions": "Process SBAs and collect both seats",
       "expected": "Draw rewards zero for each; one terminal boundary",
       "basis": "RFC 0002 §8 episode semantics: terminal zero-sum rewards once; terminal not truncation. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 20,
+      "owner_issue": 76,
       "milestone": "M1"
     },
     {
@@ -1911,7 +1911,7 @@
       "actions": "Enumerate full target choices",
       "expected": "All four ordered source/destination pairs expressible",
       "basis": "RFC 0002 §4 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1922,7 +1922,7 @@
       "actions": "Submit own-to-own Bite pair",
       "expected": "Rejected; completeness does not admit illegal combinations",
       "basis": "RFC 0002 §4 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -1955,7 +1955,7 @@
       "actions": "Submit unmasked cast candidate",
       "expected": "Action commits once",
       "basis": "RFC 0001 and RFC 0002 §4: legality boundary rejects masked actions regardless of client mask. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -1966,7 +1966,7 @@
       "actions": "Submit its raw ID despite mask",
       "expected": "Diagnosed illegal action; state/RNG/decision/private information unchanged",
       "basis": "RFC 0001 and RFC 0002 §4: legality boundary rejects masked actions regardless of client mask. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -1988,7 +1988,7 @@
       "actions": "Forge equivalent second-land command",
       "expected": "Reject through same legality gate; not merely hide it in UI",
       "basis": "RFC 0001 and RFC 0002 §4: legality boundary rejects masked actions regardless of client mask. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 68,
       "milestone": "M1"
     },
     {
@@ -1999,7 +1999,7 @@
       "actions": "Submit with current decision identifier",
       "expected": "Cast accepted",
       "basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -2010,7 +2010,7 @@
       "actions": "Submit old P0 candidate",
       "expected": "Stale-action rejection; P1 decision unchanged",
       "basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -2021,7 +2021,7 @@
       "actions": "Reuse old handle/decision",
       "expected": "Reject rather than select replacement object",
       "basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -2032,7 +2032,7 @@
       "actions": "Submit pre-reset candidate ID",
       "expected": "Generation protects reset boundary; old action rejected",
       "basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -2043,7 +2043,7 @@
       "actions": "Enumerate factored target selections",
       "expected": "All sixteen pairs available through complete choices",
       "basis": "RFC 0001 faithful choices and RFC 0002 §4: overflow diagnosed; factorization never truncates legal combinations. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -2054,7 +2054,7 @@
       "actions": "Request decisions",
       "expected": "Explicit capacity failure or complete factorization; never partial successful mask",
       "basis": "RFC 0001 faithful choices and RFC 0002 §4: overflow diagnosed; factorization never truncates legal combinations. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -2307,7 +2307,7 @@
       "actions": "Normal reset and both keep",
       "expected": "Two seats at 20; seven cards each; 33-card libraries",
       "basis": "RFC 0002 §3 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 65,
       "milestone": "M1"
     },
     {
@@ -2318,7 +2318,7 @@
       "actions": "Initialize",
       "expected": "Unsupported configuration rejected, no approximate game",
       "basis": "RFC 0002 §3 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 64,
       "milestone": "M1"
     },
     {
@@ -2329,7 +2329,7 @@
       "actions": "Complete explicit keep/bottom",
       "expected": "P0 six/P1 seven cards; both 20; P1 starting draw skipped",
       "basis": "RFC 0002 §3 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -2340,7 +2340,7 @@
       "actions": "Read terminal result",
       "expected": "No automatic sideboard/match continuation or life reset within same episode",
       "basis": "RFC 0002 §3 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 17,
+      "owner_issue": 72,
       "milestone": "M1"
     },
     {
@@ -2351,7 +2351,7 @@
       "actions": "Advance through untap/upkeep/draw/main/combat/main/end/cleanup",
       "expected": "Forest untaps; expected phase sequence and draw occur once",
       "basis": "CR 500-514 and 117: scoped full turn sequence, no priority in untap, draw as turn-based action. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
-      "owner_issue": 18,
+      "owner_issue": 67,
       "milestone": "M1"
     },
     {
@@ -2923,7 +2923,7 @@
       "actions": "Play Forest; tap",
       "expected": "One G, Forest tapped, no spell on stack",
       "basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
-      "owner_issue": 18,
+      "owner_issue": 68,
       "milestone": "M1"
     },
     {
@@ -2934,7 +2934,7 @@
       "actions": "Activate again",
       "expected": "Reject; no extra G",
       "basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
-      "owner_issue": 18,
+      "owner_issue": 68,
       "milestone": "M1"
     },
     {
@@ -2945,7 +2945,7 @@
       "actions": "Tap both to cast Cub",
       "expected": "Legal 1G payment; lands unaffected by creature sickness",
       "basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -2956,7 +2956,7 @@
       "actions": "Both pass empty stack into combat",
       "expected": "Mana pool empties; no mana burn or carryover",
       "basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
-      "owner_issue": 18,
+      "owner_issue": 68,
       "milestone": "M1"
     },
     {
@@ -2967,7 +2967,7 @@
       "actions": "Cast on Cub then resolve",
       "expected": "Cub becomes 5/5",
       "basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -2978,7 +2978,7 @@
       "actions": "Attempt cast",
       "expected": "Reject noncreature target",
       "basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -2989,7 +2989,7 @@
       "actions": "Opponent Growth responds on their Cub",
       "expected": "Growth resolves first; 5/5 survives two marked damage",
       "basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -3000,7 +3000,7 @@
       "actions": "Process simultaneous damage removal/effect expiry",
       "expected": "Survives as undamaged 2/2",
       "basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
-      "owner_issue": 18,
+      "owner_issue": 70,
       "milestone": "M1"
     },
     {
@@ -3187,7 +3187,7 @@
       "actions": "Tap for mana",
       "expected": "Adds R, land tapped, stack empty",
       "basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
-      "owner_issue": 18,
+      "owner_issue": 68,
       "milestone": "M1"
     },
     {
@@ -3198,7 +3198,7 @@
       "actions": "Attempt Cub payment RR",
       "expected": "Reject missing G; no invented color conversion",
       "basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -3209,7 +3209,7 @@
       "actions": "Pay R from Mountain and G generic",
       "expected": "Swab cast legally",
       "basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
-      "owner_issue": 18,
+      "owner_issue": 69,
       "milestone": "M1"
     },
     {
@@ -3275,7 +3275,7 @@
       "actions": "Attack unblocked",
       "expected": "Deals two damage and taps",
       "basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {
@@ -3297,7 +3297,7 @@
       "actions": "Combat damage",
       "expected": "Both 2/2 creatures die",
       "basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Basis reviewed against RFC 0002 §3/§7 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
-      "owner_issue": 18,
+      "owner_issue": 71,
       "milestone": "M1"
     },
     {

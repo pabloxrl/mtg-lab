@@ -81,7 +81,11 @@ Add `agent-running` while executing; keep `agent-ready` until done or blocked.
 ## Implement, verify, review
 
 1. Establish a reproduction or baseline and record concrete acceptance criteria.
-2. Implement a small coherent change and run `./scripts/verify.sh` plus issue
+   A feature task must deliver one independently testable change; inspect
+   `doc/programs/atomic-delivery.md`. Preserve every regression in code, with
+   independent expected results and minimized inputs/seeds. Do not substitute
+   a fake sibling implementation for a required integration test.
+2. Implement a small coherent change and run `./scripts/torture.sh` plus issue
    acceptance checks. Repair up to three times before replanning or blocking.
 3. Fetch origin/main and integrate it; resolve conflicts and rerun checks.
 4. Commit the complete candidate and ensure the working tree is clean. Run
@@ -128,6 +132,12 @@ refer to the verbatim coverage inventory in
 Read these files from freshly fetched `origin/main`, not a candidate branch.
 They scope queue progression, not permission to modify policy or credentials.
 Standalone issues keep the ordinary delivery process.
+Operations #61 registers atomic M1 children and stage-planning operations
+#80–#83. Only those explicitly scoped coordinator operations may register new
+children within their assigned stage through reviewed manifest/ledger changes.
+They preserve original requirements, test expectations and milestone gates;
+feature workers may not register tasks. After such an operations merge, fetch
+current main again before selecting a newly registered successor.
 The `execution` contract requires Docker and identifies an operations prerequisite.
 Issue #47 must have completed migration evidence before any pending M0 task
 resumes. Operations tasks have their own issue acceptance criteria and no RFC
@@ -182,12 +192,19 @@ requirement ownership; they do not waive any product requirement.
    restore `agent-ready` to an issue that previously had it and now lacks it
    (inspect paginated GitHub issue label events). This includes paused, canceled,
    reopened, and previously failed tasks. They require explicit reactivation.
+   A coordinator may record that reactivation in the workpad and grant the
+   `agent-resume-authorized` label while dependencies are still pending. Feature
+   workers must never create that grant. During handoff, a granted issue may
+   regain ready ONLY after every normal dependency/control check passes; atomically
+   add ready and consume the grant while preserving other labels. This exception
+   does not clear held/blocked controls or bypass dependencies.
    Never remove `agent-held` or `agent-blocked` during handoff. If another open program
    task is already ready/running, retain it and do not enqueue another. Do not
    alter unrelated ready issues or the one-worker concurrency setting.
 7. Re-fetch controls and selected task immediately before mutation. Record the
-   selected successor and evidence in the parent workpad, then add only
-   `agent-ready` to that issue, preserving its other labels. Confirm the label
+   selected successor and evidence in the parent workpad, then add
+   `agent-ready` to that issue, preserving its other labels except consuming an
+   explicit resume grant in the same atomic label update when step 6 applies. Confirm the label
    landed; if it did not, leave the current task open with its final report and
    retry the handoff on resumption. On retry, an already-ready successor is a
    successful handoff, not a reason to enqueue another task. Only then atomically

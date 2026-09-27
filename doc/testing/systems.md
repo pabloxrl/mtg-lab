@@ -2,6 +2,15 @@
 
 Planning only, authored 2026-09-27 from AGENTS.md, RFC 0001, RFC 0002, the committed program/requirement manifests, WORKFLOW.md, and read-only issue #47. No tests, builds, installs, delivery mutations, or performance measurements were run. No other agent drafts were read. Existing issue numbers are ownership mappings, not new authorization: the original design was authored while only M0 was authorized. Operations #59 subsequently authorizes registered stages subject to their dependency gates and dispatch controls. Future stages below are plans. #47 was closed at inspection; its closure alone is not evidence that every acceptance check passed.
 
+## Current implementation ownership amendment
+
+Operations #61 splits the M1 component owners below into atomic implementation
+children and bounded integration audits. See the exact SYS-family crosswalk in
+[atomic delivery](../programs/atomic-delivery.md) and per-case catalog owners.
+Original family IDs, setups, actions, expected assertions, independent oracles and
+milestone acceptance below are preserved. A core-only child does not owe later
+spell/combat/batch behavior; the named integration owner must execute that suffix.
+
 ## Evidence and test conventions
 
 IDs below are stable scenario-family IDs; parameterized instances append a descriptive suffix, not a renumbered ordinal. `S`, `A`, `E`, `O` mean setup, action, expected assertion, and independent oracle. Each table row supplies all four. Every row must become executable behavior checks, except explicitly identified architecture/documentation audits. A family cannot pass because one parameter succeeds. Mandatory supported parameters may not be skipped. `Bnnn` expands to `R0002-Bnnn` in `doc/programs/rfc-0002-requirements.json`.
