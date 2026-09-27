@@ -1,0 +1,119 @@
+Local documentation links passed.
+RFC 0002 program coverage and dependency gates passed.
+{"capabilities": 80, "designed_slots": 320, "execution_evidence_added": 0, "related_authored_fixtures": 6}
+........................................................................................................................
+----------------------------------------------------------------------
+Ran 120 tests in 3.191s
+
+OK
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.04s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-ca461d1ff5ab616f)
+
+running 3 tests
+test objects::tests::objects_dense_records_and_actual_slot_reuse ... ok
+test rng::tests::rng_primitive_known_answers ... ok
+test objects::tests::objects_identity_exhaustion_is_atomic ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-50383e650ac65147)
+
+running 4 tests
+test objects_allocation_and_zone_change_literal_ledgers ... ok
+test objects_zone_ownership_order_and_foreign_store_rejection ... ok
+test objects_frozen_identities_are_shared_and_match_manifest ... ok
+test objects_reuse_and_reset_never_revive_retained_handles ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-85f5958d5c220c86)
+
+running 3 tests
+test rng_episode_known_answers ... ok
+test rng_unknown_versions_rejected ... ok
+test rng_creation_order_and_policy_draws_do_not_change_environment ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/debug/deps/mtg_fixture-3b5a1b954c594477)
+
+running 2 tests
+test tests::typed_comparison_checks_second_player_before_active_player ... ok
+test tests::parser_rejects_duplicate_nested_fields ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-cf0ff47078fec9b3)
+
+running 6 tests
+test equal_is_deterministic_and_preserves_id ... ok
+test examples_detect_independently_specified_differences ... ok
+test first_difference_and_stack_length_are_explicit ... ok
+test usage_and_io_errors_are_json ... ok
+test schema_rejects_serde_positional_and_enum_representations ... ok
+test invalid_inputs_are_structured_and_deterministic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+   Doc-tests mtg_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+    Finished `release` profile [optimized] target(s) in 0.01s
+     Running unittests src/lib.rs (target/release/deps/mtg_core-ee4066f0291943ae)
+
+running 3 tests
+test objects::tests::objects_dense_records_and_actual_slot_reuse ... ok
+test objects::tests::objects_identity_exhaustion_is_atomic ... ok
+test rng::tests::rng_primitive_known_answers ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/release/deps/objects-6c312dc1dbb3ae80)
+
+running 4 tests
+test objects_allocation_and_zone_change_literal_ledgers ... ok
+test objects_zone_ownership_order_and_foreign_store_rejection ... ok
+test objects_frozen_identities_are_shared_and_match_manifest ... ok
+test objects_reuse_and_reset_never_revive_retained_handles ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/release/deps/rng-d992e60a3cc45f15)
+
+running 3 tests
+test rng_creation_order_and_policy_draws_do_not_change_environment ... ok
+test rng_episode_known_answers ... ok
+test rng_unknown_versions_rejected ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (target/release/deps/mtg_fixture-3cf02bed815f3206)
+
+running 2 tests
+test tests::parser_rejects_duplicate_nested_fields ... ok
+test tests::typed_comparison_checks_second_player_before_active_player ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/release/deps/cli-2a43af16fe76ff39)
+
+running 6 tests
+test equal_is_deterministic_and_preserves_id ... ok
+test examples_detect_independently_specified_differences ... ok
+test first_difference_and_stack_length_are_explicit ... ok
+test usage_and_io_errors_are_json ... ok
+test schema_rejects_serde_positional_and_enum_representations ... ok
+test invalid_inputs_are_structured_and_deterministic ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.31s
+
+   Doc-tests mtg_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

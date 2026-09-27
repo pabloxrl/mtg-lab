@@ -1,0 +1,54 @@
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.151
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-63/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.71s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 4 tests
+test objects_allocation_and_zone_change_literal_ledgers ... FAILED
+test objects_reuse_and_reset_never_revive_retained_handles ... FAILED
+test objects_zone_ownership_order_and_foreign_store_rejection ... FAILED
+test objects_frozen_identities_are_shared_and_match_manifest ... FAILED
+
+failures:
+
+---- objects_allocation_and_zone_change_literal_ledgers stdout ----
+
+thread 'objects_allocation_and_zone_change_literal_ledgers' (278) panicked at crates/mtg-core/tests/objects.rs:24:56:
+called `Result::unwrap()` on an `Err` value: CapacityExceeded
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- objects_reuse_and_reset_never_revive_retained_handles stdout ----
+
+thread 'objects_reuse_and_reset_never_revive_retained_handles' (280) panicked at crates/mtg-core/tests/objects.rs:46:63:
+called `Result::unwrap()` on an `Err` value: CapacityExceeded
+
+---- objects_zone_ownership_order_and_foreign_store_rejection stdout ----
+
+thread 'objects_zone_ownership_order_and_foreign_store_rejection' (281) panicked at crates/mtg-core/tests/objects.rs:73:69:
+called `Result::unwrap()` on an `Err` value: CapacityExceeded
+
+---- objects_frozen_identities_are_shared_and_match_manifest stdout ----
+
+thread 'objects_frozen_identities_are_shared_and_match_manifest' (279) panicked at crates/mtg-core/tests/objects.rs:102:56:
+called `Result::unwrap()` on an `Err` value: CapacityExceeded
+
+
+failures:
+    objects_allocation_and_zone_change_literal_ledgers
+    objects_frozen_identities_are_shared_and_match_manifest
+    objects_reuse_and_reset_never_revive_retained_handles
+    objects_zone_ownership_order_and_foreign_store_rejection
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test objects`

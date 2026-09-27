@@ -1,0 +1,35 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-63/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.74s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 2 tests
+test objects::tests::objects_dense_records_and_actual_slot_reuse ... ok
+test objects::tests::objects_identity_exhaustion_is_atomic ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 4 tests
+test objects_allocation_and_zone_change_literal_ledgers ... ok
+test objects_zone_ownership_order_and_foreign_store_rejection ... FAILED
+test objects_frozen_identities_are_shared_and_match_manifest ... ok
+test objects_reuse_and_reset_never_revive_retained_handles ... ok
+
+failures:
+
+---- objects_zone_ownership_order_and_foreign_store_rejection stdout ----
+
+thread 'objects_zone_ownership_order_and_foreign_store_rejection' (688) panicked at crates/mtg-core/tests/objects.rs:27:5:
+assertion `left == right` failed
+  left: Ok(Object { card: CardId(1), owner: P0, zone: Library(P0) })
+ right: Err(InvalidHandle)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    objects_zone_ownership_order_and_foreign_store_rejection
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --test objects`
