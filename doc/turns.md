@@ -66,9 +66,9 @@ two consecutive passes, then gives the active player priority without advancing
 the step or emptying mana. Unregistered raw storage stack objects still return
 `UnsupportedStack`. [Vanilla combat](combat.md) now adds explicit attacker/blocker
 and damage choices. Other combat permanents still return `UnsupportedCombat`. Attempting a
-required draw from an empty library returns `TurnError::Draw(EmptyLibrary)` and
-preserves the current decision/state; it is not a terminal result. Terminal
-outcomes remain #72. These limitations prevent claiming complete games.
+required draw from an empty library now returns `TurnProgress::Terminal`;
+otherwise `apply_turn` returns `TurnProgress::Decision`. See [rules outcomes](terminal.md)
+for finality and explicit reset. Unsupported cards and keywords remain rejected.
 
 During a target or mana-payment continuation, `turn_decision()` returns None and turn
 commands reject until payment finishes or is cancelled. Reset clears turn

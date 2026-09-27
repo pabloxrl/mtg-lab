@@ -1,0 +1,26 @@
+{
+  "command": "./scripts/torture.sh",
+  "exit_code": 0,
+  "base_sha": "d6b007fde9098f67e620ad7555ad90948bda5fda",
+  "runtime": "managed Linux Docker worker; no nested Docker invocation",
+  "python_tests": 132,
+  "rust_tests_per_profile": 116,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "checks": [
+    "docs",
+    "program",
+    "catalog",
+    "Python",
+    "fmt",
+    "clippy",
+    "workspace tests"
+  ],
+  "log_sha256": "9e06551bd525de13287cba4805eefb496274137fdea06a4caf618fb0c87657a9",
+  "note": "Required run after fetching/integrating current main. Exact candidate review/CI recorded in PR and workpad. No ignored tests. README quickstart commands unchanged; inner container checks passed.",
+  "named_acceptance": "cargo test -p mtg-core terminal: 11 unit tests (including updated turns regression), 3 integration tests; green.txt",
+  "reference": "Seven matched XMage terminal boundaries plus five rerun combat scenarios. See receipts.",
+  "mutations": "Three compiled behavioral mutants killed; mutations.json"
+}

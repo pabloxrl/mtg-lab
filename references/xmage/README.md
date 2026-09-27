@@ -144,3 +144,11 @@ is copied, no source patch is applied, and no older blocker-order expectation
 is imported: the 1+1 allocation explicitly exercises the current rule.
 [API consultation hashes](combat-provenance.json) supplement the smoke provenance;
 the same retained upstream MIT notice and distribution limitations apply.
+
+## Terminal boundary extension (GH-72)
+
+[TerminalTest](TerminalTest.java) executes seven original synthetic settled
+terminal boundaries with shared native/reference inputs. [Acceptance and scope](../../doc/evidence/terminal/README.md)
+records observed life/loss flags/hand/library counts and limitations, including
+no winner-flag or full-game reference claim. [API provenance](terminal-provenance.json)
+supplements the existing pin and MIT notice. No upstream test is copied.

@@ -339,7 +339,7 @@ fn combat_simultaneous_player_damage_crosses_zero_without_early_stop() {
     select_block(&mut g, &[]);
     pair(&mut g);
     damage(&mut g);
-    assert_eq!(g.life()[1], -1); // CR 119.6; negative life is legal, terminal adjudication is #72.
+    assert_eq!(g.life()[1], -1); // CR 119.6: final life remains negative; GH-72 adjudicates the loss.
 }
 #[test]
 fn combat_backtracking_stale_foreign_reset_and_generation_exhaustion() {

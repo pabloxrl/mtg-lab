@@ -291,7 +291,7 @@ impl Game {
         &mut self,
         actor: Seat,
         id: DecisionId,
-    ) -> Result<TurnDecision, CombatError> {
+    ) -> Result<super::turns::TurnProgress, CombatError> {
         let d = self.turn_decision().ok_or(CombatError::NotReady)?;
         let super::turns::TurnKind::Combat(kind) = d.kind else {
             return Err(CombatError::NotReady);
@@ -333,9 +333,14 @@ impl Game {
         }
         self.generation = generation;
         self.turns.passed = false;
-        Ok(self.set_turn_decision(
-            self.turns.position.unwrap().1,
-            super::turns::TurnKind::Priority,
+        if let Some(result) = self.settle_terminal(None) {
+            return Ok(super::turns::TurnProgress::Terminal(result));
+        }
+        Ok(super::turns::TurnProgress::Decision(
+            self.set_turn_decision(
+                self.turns.position.unwrap().1,
+                super::turns::TurnKind::Priority,
+            ),
         ))
     }
     fn deal_combat_damage(&mut self) -> Result<(), CombatError> {

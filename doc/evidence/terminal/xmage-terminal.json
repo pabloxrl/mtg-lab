@@ -1,0 +1,141 @@
+{
+  "status": "agreed",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "fixture_sha256": "92199e46ee32273fba34ebdaf775bd9b42a99aa064adb6ee916a61f34156f5c4",
+  "bridge_sha256": "d7c11f51cc3e25e0329f39cea9cca6268d34f52fa8b025a81457ee241b53838f",
+  "log_sha256": "767961cb697f96aa009e1547ae961ce8a7f6b47733552f226b72e55adf2104bf",
+  "checkpoints": {
+    "nonacting-concession": {
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        0,
+        0
+      ]
+    },
+    "last-card-draw": {
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        1,
+        0
+      ]
+    },
+    "empty-draw": {
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        0,
+        0
+      ]
+    },
+    "empty-no-draw": {
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        0,
+        0
+      ]
+    },
+    "simultaneous-life": {
+      "life": [
+        0,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        0,
+        0
+      ]
+    },
+    "negative-life": {
+      "life": [
+        20,
+        -1
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        0,
+        0
+      ]
+    },
+    "zero-life": {
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "hand": [
+        0,
+        0
+      ]
+    }
+  },
+  "scope": "Seven original synthetic terminal boundaries: zero/negative/simultaneous life, empty versus last-card draw, nonacting concession; observed life, loss flags, hand/library counts.",
+  "limitations": "No combat/stack action integration, winner flags, private views, full-game or Forge reference coverage.",
+  "stdin": "closed",
+  "display": "unset",
+  "offline": true,
+  "timeout_seconds": 300
+}

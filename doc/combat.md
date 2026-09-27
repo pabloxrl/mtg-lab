@@ -38,7 +38,8 @@ illegal commands leave the full state unchanged. `Game::life()` now returns
    reject completion. Single-recipient assignments and each blocker's damage
    are forced by the rules and computed at completion.
 4. `finish_combat` deals all damage simultaneously, moves all lethally damaged
-   creatures to their owners' graveyards, then grants active-player priority.
+   creatures to their owners' graveyards, then returns `TurnProgress::Terminal`
+   on a [rules ending](terminal.md) or `TurnProgress::Decision` for active-player priority.
    No priority occurs between allocation and damage/SBAs. A blocked vanilla
    attacker remains blocked if its blockers leave, and deals no player damage.
    Departed objects and new zone identities cannot deal or receive combat damage.
