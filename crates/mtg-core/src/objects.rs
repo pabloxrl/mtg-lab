@@ -1,5 +1,5 @@
 //! Compact per-game storage; no rules or policy-visible observations.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct CardId(u8);
 #[derive(Debug)]
 pub struct CardIdentity {
@@ -21,12 +21,12 @@ impl CardId {
         (0..IDENTITIES.len()).map(|i| Self(i as u8))
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Seat {
     P0,
     P1,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Zone {
     Library(Seat),
     Hand(Seat),
@@ -54,14 +54,14 @@ impl Zone {
         Self::Exile,
     ];
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Handle {
     store: u64,
     epoch: u64,
     generation: u64,
     slot: u32,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Object {
     pub controller: Seat,
     pub tapped: bool,
@@ -76,13 +76,13 @@ pub enum StorageError {
     CapacityExceeded,
 }
 /// A fact witnessed at an event, never a live pointer into a hidden zone.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) struct KnownCard {
     pub card: CardId,
     pub owner: Seat,
     pub zone: Zone,
 }
-#[derive(Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Debug, PartialEq, Eq)]
 struct Slot {
     generation: u64,
     object: Option<Object>,
@@ -90,7 +90,7 @@ struct Slot {
 
 /// Authoritative storage for one game. Handles are process-local capabilities,
 /// not replay IDs. This type deliberately cannot be cloned.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, Debug, PartialEq, Eq)]
 pub struct ObjectStore {
     id: u64,
     epoch: u64,
@@ -436,5 +436,52 @@ mod tests {
         for h in [a, b, c, d] {
             assert_eq!(s.get(h), Err(StorageError::InvalidHandle));
         }
+    }
+}
+
+#[derive(serde::Deserialize)]
+#[serde(remote = "ObjectStore", deny_unknown_fields)]
+pub(crate) struct StoreWire {
+    id: u64,
+    epoch: u64,
+    slots: Vec<Slot>,
+    free: Vec<u32>,
+    zones: [Vec<u32>; 9],
+    knowledge: [Vec<KnownCard>; 2],
+}
+
+impl<'de> serde::Deserialize<'de> for CardId {
+    fn deserialize<D: serde::Deserializer<'de>>(d: D) -> Result<Self, D::Error> {
+        let id = <u8 as serde::Deserialize>::deserialize(d)?;
+        if usize::from(id) >= IDENTITIES.len() {
+            return Err(serde::de::Error::custom("unknown card identity"));
+        }
+        Ok(Self(id))
+    }
+}
+
+impl ObjectStore {
+    pub(crate) fn snapshot_valid(&self) -> bool {
+        let mut seen = vec![false; self.slots.len()];
+        for (zone, entries) in Zone::ALL.into_iter().zip(&self.zones) {
+            for &index in entries {
+                let i = index as usize;
+                if i >= seen.len()
+                    || seen[i]
+                    || !self.slots[i].object.is_some_and(|o| o.zone == zone)
+                {
+                    return false;
+                }
+                seen[i] = true;
+            }
+        }
+        for &index in &self.free {
+            let i = index as usize;
+            if i >= seen.len() || seen[i] || self.slots[i].object.is_some() {
+                return false;
+            }
+            seen[i] = true;
+        }
+        seen.into_iter().all(|entry| entry)
     }
 }

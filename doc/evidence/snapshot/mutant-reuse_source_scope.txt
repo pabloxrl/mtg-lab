@@ -1,0 +1,31 @@
+
+running 1 test
+test snapshot_fresh_capabilities_preserve_generations_and_reject_old_actions ... FAILED
+
+failures:
+
+---- snapshot_fresh_capabilities_preserve_generations_and_reject_old_actions stdout ----
+
+thread 'snapshot_fresh_capabilities_preserve_generations_and_reject_old_actions' (855) panicked at crates/mtg-core/tests/snapshot.rs:302:9:
+assertion failed: destination.objects().get(h).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    snapshot_fresh_capabilities_preserve_generations_and_reject_old_actions
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.05s
+
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-74/crates/mtg-core)
+warning: unused variable: `fresh`
+   --> crates/mtg-core/src/snapshot.rs:120:13
+    |
+120 |         let fresh = ObjectStore::new()
+    |             ^^^^^ help: if this is intentional, prefix it with an underscore: `_fresh`
+    |
+    = note: `#[warn(unused_variables)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib) generated 1 warning (run `cargo fix --lib -p mtg-core` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.15s
+     Running tests/snapshot.rs (target/debug/deps/snapshot-97bc1a0550947af5)
+error: test failed, to rerun pass `-p mtg-core --test snapshot`

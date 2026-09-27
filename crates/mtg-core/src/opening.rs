@@ -58,30 +58,31 @@ impl Default for Config {
         }
     }
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum OpeningChoice {
     Keep,
     Mulligan,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct OpeningDecision {
     pub generation: u64,
     pub actor: Seat,
+    #[serde(deserialize_with = "snapshot::opening_candidates")]
     pub candidates: &'static [OpeningChoice],
     pub kind: OpeningKind,
     pub id: DecisionId,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct DecisionId {
     scope: u64,
     pub generation: u64,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub struct CandidateId {
     pub decision: DecisionId,
     pub index: usize,
 }
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum OpeningKind {
     KeepOrMulligan,
     Bottom { count: usize },
@@ -141,7 +142,7 @@ pub enum ResetError {
     Storage(StorageError),
     DecisionExhausted,
 }
-#[derive(Debug)]
+#[derive(serde::Serialize, Debug)]
 pub struct Game {
     outcome: Option<terminal::Outcome>,
     episode: Option<terminal::EpisodeId>,
@@ -731,9 +732,10 @@ pub enum Progress {
     OpeningComplete,
     NotStarted,
 }
-#[derive(Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Debug)]
 enum Work {
     Reset {
+        #[serde(with = "snapshot::decks")]
         decks: Box<[[CardId; 40]; 2]>,
         random: [bool; 2],
         seat: usize,
@@ -1136,3 +1138,6 @@ mod quantum {
 #[cfg(test)]
 #[path = "targets_tests.rs"]
 mod targets_tests;
+
+#[path = "snapshot.rs"]
+pub mod snapshot;

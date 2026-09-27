@@ -26,7 +26,7 @@ impl Color {
 }
 /// Exact symbols (including C) and a generic amount. Rules code supplies costs;
 /// this is not permission for a policy to invent a spell's cost.
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct ManaCost {
     pub colored: [u32; 6],
     pub generic: u32,
@@ -48,7 +48,7 @@ pub enum ManaError {
     NoPayment,
     Overflow,
 }
-#[derive(Clone, Debug)]
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
 pub(super) struct Payment {
     pub(super) actor: Seat,
     pub(super) id: DecisionId,
