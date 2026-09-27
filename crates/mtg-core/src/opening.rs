@@ -3,6 +3,9 @@ use crate::objects::{CardId, Handle, ObjectStore, Seat, StorageError, Zone};
 use crate::rng::{EpisodeRng, Stream, VERSION};
 use std::{collections::VecDeque, num::NonZeroUsize};
 
+#[path = "turns.rs"]
+pub mod turns;
+
 pub const FORMAT: &str = "foundations_micro_v1";
 pub const SHUFFLE_VERSION: &str = "fisher-yates-rejection-v1";
 
@@ -127,6 +130,7 @@ pub enum ResetError {
 }
 #[derive(Debug)]
 pub struct Game {
+    turns: turns::TurnState,
     work: VecDeque<Work>,
     objects: ObjectStore,
     life: [u32; 2],
@@ -143,6 +147,7 @@ pub struct Game {
 impl Game {
     pub fn new() -> Result<Self, StorageError> {
         Ok(Self {
+            turns: turns::TurnState::default(),
             work: VecDeque::new(),
             objects: ObjectStore::new()?,
             life: [0; 2],
@@ -444,6 +449,7 @@ impl Game {
             .reserve_reset(80, [40, 40, 40, 40, 0, 0, 0, 0, 0])
             .map_err(ResetError::Storage)?;
         self.objects.reset().map_err(ResetError::Storage)?;
+        self.turns = turns::TurnState::default();
         self.starting = actor;
         self.kept = [false; 2];
         self.declarations = [None; 2];

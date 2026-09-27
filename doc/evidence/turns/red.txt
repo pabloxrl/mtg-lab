@@ -1,0 +1,137 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-67/crates/mtg-core)
+warning: method `get_mut` is never used
+   --> crates/mtg-core/src/objects.rs:173:19
+    |
+113 | impl ObjectStore {
+    | ---------------- method in this implementation
+...
+173 |     pub(crate) fn get_mut(&mut self, handle: Handle) -> Result<&mut Object, StorageError> {
+    |                   ^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `passed` is never read
+  --> crates/mtg-core/src/turns.rs:23:16
+   |
+20 | pub(super) struct TurnState {
+   |                   --------- field in this struct
+...
+23 |     pub(super) passed: bool,
+   |                ^^^^^^
+   |
+   = note: `TurnState` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `mtg-core` (lib) generated 2 warnings
+warning: field `passed` is never read
+  --> crates/mtg-core/src/turns.rs:23:16
+   |
+20 | pub(super) struct TurnState {
+   |                   --------- field in this struct
+...
+23 |     pub(super) passed: bool,
+   |                ^^^^^^
+   |
+   = note: `TurnState` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.35s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 2 tests
+test opening::turns::tests::turns_untap_controller_and_mana_every_boundary ... FAILED
+test opening::turns::tests::turns_exhaustion_and_unsupported_stack_are_unchanged ... FAILED
+
+failures:
+
+---- opening::turns::tests::turns_untap_controller_and_mana_every_boundary stdout ----
+
+thread 'opening::turns::tests::turns_untap_controller_and_mana_every_boundary' (583) panicked at crates/mtg-core/src/turns.rs:53:25:
+called `Result::unwrap()` on an `Err` value: NotReady
+
+---- opening::turns::tests::turns_exhaustion_and_unsupported_stack_are_unchanged stdout ----
+
+thread 'opening::turns::tests::turns_exhaustion_and_unsupported_stack_are_unchanged' (582) panicked at crates/mtg-core/src/turns.rs:65:43:
+called `Result::unwrap()` on an `Err` value: NotReady
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    opening::turns::tests::turns_exhaustion_and_unsupported_stack_are_unchanged
+    opening::turns::tests::turns_untap_controller_and_mana_every_boundary
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+warning: method `get_mut` is never used
+   --> crates/mtg-core/src/objects.rs:173:19
+    |
+113 | impl ObjectStore {
+    | ---------------- method in this implementation
+...
+173 |     pub(crate) fn get_mut(&mut self, handle: Handle) -> Result<&mut Object, StorageError> {
+    |                   ^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `passed` is never read
+  --> crates/mtg-core/src/turns.rs:23:16
+   |
+20 | pub(super) struct TurnState {
+   |                   --------- field in this struct
+...
+23 |     pub(super) passed: bool,
+   |                ^^^^^^
+   |
+   = note: `TurnState` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
+
+warning: `mtg-core` (lib) generated 2 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running tests/turns.rs (target/debug/deps/turns-bcc5af6b89f3f305)
+
+running 5 tests
+test turns_priority_passing_positive_and_stale_candidates_negative ... FAILED
+test turns_empty_combat_sequence_cleanup_and_reset_scope ... FAILED
+test turns_cannot_start_before_opening_or_twice ... FAILED
+test turns_red_mirror_mulligan_opening_interaction ... FAILED
+test turns_first_draw_positive_negative_interaction_regression ... FAILED
+
+failures:
+
+---- turns_priority_passing_positive_and_stale_candidates_negative stdout ----
+
+thread 'turns_priority_passing_positive_and_stale_candidates_negative' (14) panicked at crates/mtg-core/tests/turns.rs:66:40:
+called `Result::unwrap()` on an `Err` value: NotReady
+
+---- turns_empty_combat_sequence_cleanup_and_reset_scope stdout ----
+
+thread 'turns_empty_combat_sequence_cleanup_and_reset_scope' (12) panicked at crates/mtg-core/tests/turns.rs:88:40:
+called `Result::unwrap()` on an `Err` value: NotReady
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- turns_cannot_start_before_opening_or_twice stdout ----
+
+thread 'turns_cannot_start_before_opening_or_twice' (11) panicked at crates/mtg-core/tests/turns.rs:107:40:
+called `Result::unwrap()` on an `Err` value: NotReady
+
+---- turns_red_mirror_mulligan_opening_interaction stdout ----
+
+thread 'turns_red_mirror_mulligan_opening_interaction' (15) panicked at crates/mtg-core/tests/turns.rs:84:21:
+called `Result::unwrap()` on an `Err` value: NotReady
+
+---- turns_first_draw_positive_negative_interaction_regression stdout ----
+
+thread 'turns_first_draw_positive_negative_interaction_regression' (13) panicked at crates/mtg-core/tests/turns.rs:52:31:
+completed opening must enter upkeep: NotReady
+
+
+failures:
+    turns_cannot_start_before_opening_or_twice
+    turns_empty_combat_sequence_cleanup_and_reset_scope
+    turns_first_draw_positive_negative_interaction_regression
+    turns_priority_passing_positive_and_stale_candidates_negative
+    turns_red_mirror_mulligan_opening_interaction
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --test turns`

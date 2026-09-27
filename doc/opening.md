@@ -22,8 +22,8 @@ Each player receives seven cards and retains 33 in their library (CR 103.3,
 103.5). The starting player is the first keep/mulligan decision actor; reset
 stops there. `decision()` returns that same boundary, with a checked generation
 that advances on each successful reset and application. No keep is implicitly
-selected except the rules-mandated keep after seven mulligans. The first-turn
-draw rule and gameplay remain future capabilities (#67 onward).
+selected except the rules-mandated keep after seven mulligans. Completed openings can enter the [turn prefix](turns.md), including first-turn
+draw timing; casting, combat resolution and full gameplay remain planned.
 
 Deck names are exactly `red` or `green`; card counts are the frozen manifest
 projection. `DeckConfig::order = Some(keys)` specifies an exact **post-shuffle**
@@ -83,7 +83,7 @@ expectations, retained regressions and red/green results.
 `OpeningAction { decision: d.id, selection: Selection::Choose(d.candidate(0)) }`
 and call `game.apply(d.actor, &action)`. The returned `Option<OpeningDecision>`
 is the next opening boundary; `None` means opening choices finished, **not** a
-terminal game. The API does not yet advance turn steps.
+terminal game. Call `start_turns()` to enter the [separate turn interface](turns.md).
 
 Declarations are collected in starting-player order. Only after all remaining
 players declare are mulligan hands shuffled back and seven cards drawn. Each
