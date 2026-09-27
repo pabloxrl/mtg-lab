@@ -67,6 +67,11 @@ fn base(card: CardId) -> Option<(u32, u32)> {
         _ => None,
     }
 }
+pub(super) struct PreparedEffect {
+    pub change: Option<Modification>,
+    pub moves: [Vec<Handle>; 2],
+    pub resolution: Resolution,
+}
 impl Game {
     pub fn creature_state(&self, h: Handle) -> Option<CreatureState> {
         let o = self.objects.get(h).ok()?;
@@ -294,7 +299,11 @@ impl Game {
             }
         }
     }
-    pub(super) fn resolve_effect(&mut self, h: Handle, e: Effect) -> Result<(), TurnError> {
+    pub(super) fn prepare_effect(
+        &mut self,
+        h: Handle,
+        e: Effect,
+    ) -> Result<PreparedEffect, TurnError> {
         let o = *self.objects.get(h).map_err(TurnError::Storage)?;
         let legal = self.legal_effect_targets(o.controller, e);
         let mut change = None;
@@ -360,37 +369,15 @@ impl Game {
             .modifications
             .try_reserve(1)
             .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
-        if let Some(m) = change {
-            if let Some(old) = self
-                .turns
-                .modifications
-                .iter_mut()
-                .find(|x| x.handle == m.handle)
-            {
-                *old = m;
-            } else {
-                self.turns.modifications.push(m);
-            }
-        }
-        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
-            for &object in &moves[i] {
-                self.objects
-                    .move_to(object, Zone::Graveyard(seat))
-                    .expect("preflighted resolution");
-            }
-        }
-        self.turns.modifications.retain(|m| {
-            self.objects
-                .get(m.handle)
-                .is_ok_and(|o| o.zone == Zone::Battlefield)
-        });
-        self.turns.effects.retain(|(spell, _)| *spell != h);
-        self.turns.last_resolution = Some(Resolution {
-            spell: o.card,
-            legal_targets: legal,
-            resolved: legal > 0,
-        });
-        Ok(())
+        Ok(PreparedEffect {
+            change,
+            moves,
+            resolution: Resolution {
+                spell: o.card,
+                legal_targets: legal,
+                resolved: legal > 0,
+            },
+        })
     }
     pub(super) fn cleanup_effects(&mut self) {
         self.turns.modifications.clear();

@@ -2,7 +2,8 @@
 //! 400.7, 601.2c, 608.2b/h, 613.4c, 514.2, 704.5g. Synthetic positions.
 use super::*;
 use crate::opening::mana::Color;
-use crate::opening::turns::{Step, TurnAction, TurnKind, TurnSelection};
+use crate::opening::targets::Modification;
+use crate::opening::turns::{Step, TurnAction, TurnError, TurnKind, TurnSelection, opponent};
 fn ready() -> Game {
     let mut g = Game::new().unwrap();
     g.reset(&Config::default(), 42, 9).unwrap();
@@ -602,4 +603,288 @@ fn targets_hold_priority_bite_above_growth_and_five_no_redirection() {
     stats(&g, replacement, 2, 0);
     assert_eq!(g.life(), [20, 20]);
     assert_eq!(g.last_resolution().unwrap().legal_targets, 1);
+}
+
+// GH-107: independently derived from CR 117.3b/117.4, 400.7, 608.2b/h,
+// 613.4c and 704.5g plus pinned Oracle text. Synthetic battlefield/pool;
+// spells, choices, payment, responses and settlement use actual engine APIs.
+fn settlement_action(g: &Game) -> (Seat, TurnAction) {
+    let d = g.turn_decision().unwrap();
+    (
+        d.actor,
+        TurnAction {
+            decision: d.id,
+            selection: TurnSelection::Pass(d.candidate(0)),
+        },
+    )
+}
+fn settlement_state(g: &Game) -> serde_json::Value {
+    fn normalize(v: &mut serde_json::Value) {
+        match v {
+            serde_json::Value::Object(m) => {
+                for (k, v) in m {
+                    if k == "store" || k == "scope" {
+                        *v = 0.into();
+                    } else {
+                        normalize(v);
+                    }
+                }
+            }
+            serde_json::Value::Array(a) => a.iter_mut().for_each(normalize),
+            _ => (),
+        }
+    }
+    let mut v = serde_json::to_value(g).unwrap();
+    normalize(&mut v);
+    v["objects"]["id"] = 0.into();
+    v
+}
+fn settlement_pass(g: &mut Game, budget: usize) -> usize {
+    let (actor, a) = settlement_action(g);
+    let q = NonZeroUsize::new(budget).unwrap();
+    let resolving = g.turns.passed && !g.turns.stack.is_empty();
+    let mut p = g.apply_turn_quantum(actor, &a, q).unwrap();
+    if resolving && budget == 1 {
+        assert_eq!(
+            p,
+            Progress::InternalYield,
+            "resolution must leave owned work at quantum 1"
+        );
+    }
+    let mut yields = 0;
+    while p == Progress::InternalYield {
+        yields += 1;
+        assert!(yields < 20);
+        assert_eq!(g.turn_decision(), None);
+        assert_eq!(g.decision(), None);
+        assert_eq!(g.outcome(), None);
+        for seat in [Seat::P0, Seat::P1] {
+            assert_eq!(
+                g.observe(seat),
+                Err(crate::opening::views::ViewError::Unavailable)
+            );
+        }
+        let before = g.snapshot();
+        assert!(g.apply_turn_quantum(actor, &a, q).is_err());
+        assert!(g.apply_turn(actor, &a).is_err());
+        assert!(g.concede(actor, g.episode_id().unwrap()).is_err());
+        let permanent = g.objects.in_zone(Zone::Battlefield).next().unwrap();
+        assert!(g.tap_mana(actor, a.decision, permanent).is_err());
+        assert!(g.draw_top(actor).is_err());
+        assert!(g.reset(&Config::default(), 42, 9).is_err());
+        assert_eq!(g.snapshot(), before);
+        // Owned work survives trusted snapshot restore at EVERY internal phase.
+        let mut restored = Game::new().unwrap();
+        restored.restore(&before).unwrap();
+        let rp = restored.resume(q);
+        p = g.resume(q);
+        assert_eq!(settlement_state(&restored), settlement_state(g));
+        assert_eq!(
+            matches!(rp, Progress::InternalYield),
+            matches!(p, Progress::InternalYield)
+        );
+    }
+    assert!(matches!(
+        p,
+        Progress::TurnDecision(_) | Progress::Terminal(_)
+    ));
+    let before = g.snapshot();
+    assert_eq!(g.resume(q), p);
+    assert_eq!(g.resume(NonZeroUsize::MAX), p);
+    assert_eq!(g.snapshot(), before); // duplicate resumes never repeat work
+    yields
+}
+#[test]
+fn settlement_quantum_growth_responds_to_bite_literal_checkpoints() {
+    let mut scalar = ready();
+    let a = add(&mut scalar, "bear-cub", Seat::P0, Zone::Battlefield);
+    let b = add(&mut scalar, "bear-cub", Seat::P1, Zone::Battlefield);
+    let bite = cast(&mut scalar, Seat::P0, "bite-down", &[a, b]);
+    pass(&mut scalar); // opponent response window
+    let growth = cast(&mut scalar, Seat::P1, "giant-growth", &[b]);
+    let initial = scalar.snapshot();
+    let rng = serde_json::to_value(&scalar).unwrap()["rng"].clone();
+    let mana = scalar.mana();
+    assert_eq!(mana[0][4], 28);
+    assert_eq!(mana[1][4], 29);
+    let mut expected = Vec::new();
+    for i in 0..4 {
+        pass(&mut scalar);
+        if i >= 1 {
+            stats(&scalar, b, 5, if i == 3 { 2 } else { 0 });
+        }
+        stats(&scalar, a, 2, 0);
+        assert_eq!(
+            scalar.turn_decision().unwrap().actor,
+            [Seat::P0, Seat::P0, Seat::P1, Seat::P0][i]
+        );
+        assert_eq!(scalar.turns.stack.len(), [2, 1, 1, 0][i]);
+        assert_eq!(scalar.objects.get(growth).is_err(), i >= 1);
+        assert_eq!(scalar.objects.get(bite).is_err(), i == 3);
+        assert_eq!(scalar.mana(), mana);
+        assert_eq!(scalar.outcome(), None);
+        assert_eq!(serde_json::to_value(&scalar).unwrap()["rng"], rng);
+        expected.push(settlement_state(&scalar));
+    }
+    for budget in [1, 2, 3, 4, 5, 6, 64] {
+        let mut g = Game::new().unwrap();
+        g.restore(&initial).unwrap();
+        let mut yields = 0;
+        for checkpoint in &expected {
+            yields += settlement_pass(&mut g, budget);
+            assert_eq!(&settlement_state(&g), checkpoint);
+        }
+        if budget == 1 {
+            assert!(yields > 0, "spell settlement must yield at quantum 1");
+        }
+    }
+}
+#[test]
+fn settlement_quantum_bite_uses_grown_source_and_terminal_boundary() {
+    for terminal in [false, true] {
+        for budget in [1, 4, 5, 64] {
+            let mut g = ready();
+            let a = add(&mut g, "bear-cub", Seat::P0, Zone::Battlefield);
+            let b = add(&mut g, "bear-cub", Seat::P1, Zone::Battlefield);
+            cast(&mut g, Seat::P0, "bite-down", &[a, b]);
+            cast(&mut g, Seat::P0, "giant-growth", &[a]);
+            let mut scalar = Game::new().unwrap();
+            scalar.restore(&g.snapshot()).unwrap();
+            for i in 0..4 {
+                if i == 3 && terminal {
+                    scalar.life[1] = 0;
+                }
+                pass(&mut scalar);
+            }
+            settlement_pass(&mut g, budget);
+            let yields = settlement_pass(&mut g, budget);
+            assert_eq!(yields, if budget == 1 { 3 } else { 0 });
+            stats(&g, a, 5, 0);
+            stats(&g, b, 2, 0);
+            settlement_pass(&mut g, budget);
+            // Synthetic boundary loss; M1 spells themselves do not change life.
+            if terminal {
+                g.life[1] = 0;
+            }
+            let yields = settlement_pass(&mut g, budget);
+            assert_eq!(
+                yields,
+                match budget {
+                    1 => 4,
+                    4 => 1,
+                    _ => 0,
+                }
+            );
+            assert!(g.objects.get(b).is_err());
+            stats(&g, a, 5, 0);
+            assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P1)).count(), 1);
+            assert_eq!(
+                g.outcome(),
+                terminal.then_some(crate::opening::terminal::Outcome {
+                    winner: Some(Seat::P0),
+                    losses: [None, Some(crate::opening::terminal::LossReason::Life)],
+                })
+            );
+            assert_eq!(settlement_state(&g), settlement_state(&scalar));
+        }
+    }
+}
+#[test]
+fn settlement_quantum_rejections_preserve_exact_state() {
+    let mut g = ready();
+    let a = add(&mut g, "bear-cub", Seat::P0, Zone::Battlefield);
+    let b = add(&mut g, "bear-cub", Seat::P1, Zone::Battlefield);
+    let h = add(&mut g, "bite-down", Seat::P0, Zone::Hand(Seat::P0));
+    let (actor, old) = settlement_action(&g);
+    let before = g.snapshot();
+    assert!(g.begin_targeted_cast(actor, old.decision, h, 0).is_err());
+    assert_eq!(g.snapshot(), before);
+    cast(&mut g, actor, "bite-down", &[a, b]);
+    let (actor, action) = settlement_action(&g);
+    let before = g.snapshot();
+    assert!(
+        g.apply_turn_quantum(opponent(actor), &action, NonZeroUsize::MIN)
+            .is_err()
+    );
+    assert!(
+        g.apply_turn_quantum(actor, &old, NonZeroUsize::MIN)
+            .is_err()
+    );
+    assert_eq!(g.snapshot(), before);
+    settlement_pass(&mut g, 1);
+    let (actor, action) = settlement_action(&g);
+    g.turns.modifications.push(Modification {
+        handle: b,
+        boost: 0,
+        damage: u32::MAX,
+    });
+    let before = g.snapshot();
+    assert_eq!(
+        g.apply_turn_quantum(actor, &action, NonZeroUsize::MIN),
+        Err(TurnError::EffectOverflow)
+    );
+    assert_eq!(g.snapshot(), before);
+}
+
+#[test]
+fn settlement_quantum_response_death_revalidates_targets() {
+    for budget in [1, 3, 64] {
+        for original in ["giant-growth", "bite-down"] {
+            let mut g = ready();
+            let a = add(&mut g, "bear-cub", Seat::P0, Zone::Battlefield);
+            let b = add(&mut g, "bear-cub", Seat::P1, Zone::Battlefield);
+            let ts = if original == "bite-down" {
+                vec![a, b]
+            } else {
+                vec![a]
+            };
+            cast(&mut g, Seat::P0, original, &ts);
+            settlement_pass(&mut g, budget);
+            cast(&mut g, Seat::P1, "bite-down", &[b, a]);
+            settlement_pass(&mut g, budget);
+            settlement_pass(&mut g, budget);
+            assert!(g.objects.get(a).is_err()); // responding Bite killed source/target
+            stats(&g, b, 2, 0);
+            settlement_pass(&mut g, budget);
+            settlement_pass(&mut g, budget);
+            stats(&g, b, 2, 0); // CR 608.2b: no source LKI or new target
+            let resolution = g.last_resolution().unwrap();
+            assert_eq!(
+                resolution.legal_targets,
+                usize::from(original == "bite-down")
+            );
+            assert_eq!(resolution.resolved, original == "bite-down");
+            assert!(g.turns.stack.is_empty());
+            assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P0)).count(), 2);
+            assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P1)).count(), 1);
+        }
+    }
+}
+#[test]
+fn settlement_quantum_creature_identity_and_sickness() {
+    for (key, color) in [("bear-cub", Color::Green), ("swab-goblin", Color::Red)] {
+        for budget in [1, 3, 64] {
+            let mut g = ready();
+            add(&mut g, "forest", Seat::P0, Zone::Battlefield);
+            let h = add(&mut g, key, Seat::P0, Zone::Hand(Seat::P0));
+            let d = g.turn_decision().unwrap();
+            let p = g.begin_cast(Seat::P0, d.id, h).unwrap();
+            let p = g.choose_payment(Seat::P0, p.id, color).unwrap();
+            let p = g.choose_payment(Seat::P0, p.id, Color::Green).unwrap();
+            g.finish_cast(Seat::P0, p.id).unwrap();
+            let spell = g.turns.stack[0];
+            assert!(g.objects.get(h).is_err());
+            let paid = g.mana();
+            settlement_pass(&mut g, budget);
+            let yields = settlement_pass(&mut g, budget);
+            assert_eq!(yields, if budget == 1 { 2 } else { 0 }); // move, bookkeeping, priority
+            assert!(g.objects.get(spell).is_err());
+            let permanent = g.objects.in_zone(Zone::Battlefield).last().unwrap();
+            assert_eq!(g.objects.get(permanent).unwrap().card.identity().key, key);
+            assert!(g.summoning_sick(permanent));
+            stats(&g, permanent, 2, 0);
+            assert_eq!(g.mana(), paid);
+            assert_eq!(g.turn_decision().unwrap().actor, Seat::P0);
+        }
+    }
 }

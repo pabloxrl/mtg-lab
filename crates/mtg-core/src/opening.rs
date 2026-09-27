@@ -728,6 +728,7 @@ mod mulligan_invariants {
 /// Internal work is never a player choice, terminal result, or reward event.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Progress {
+    TurnDecision(turns::TurnDecision),
     Terminal(terminal::Outcome),
     InternalYield,
     Decision(OpeningDecision),
@@ -736,6 +737,21 @@ pub enum Progress {
 }
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 enum Work {
+    Modify(targets::Modification),
+    SpellMove {
+        handle: Handle,
+        zone: Zone,
+        controller: Option<Seat>,
+    },
+    FinishSpell {
+        spell: Handle,
+        resolution: Option<targets::Resolution>,
+    },
+    Priority {
+        actor: Seat,
+        passed: bool,
+        terminal: bool,
+    },
     Reset {
         #[serde(with = "snapshot::decks")]
         decks: Box<[[CardId; 40]; 2]>,
@@ -789,6 +805,58 @@ impl Game {
                 break;
             };
             let done = match &mut work {
+                Work::Modify(m) => {
+                    if let Some(old) = self
+                        .turns
+                        .modifications
+                        .iter_mut()
+                        .find(|x| x.handle == m.handle)
+                    {
+                        *old = *m;
+                    } else {
+                        self.turns.modifications.push(*m);
+                    }
+                    true
+                }
+                Work::SpellMove {
+                    handle,
+                    zone,
+                    controller,
+                } => {
+                    let moved = self
+                        .objects
+                        .move_to(*handle, *zone)
+                        .expect("preflighted spell move");
+                    if let Some(controller) = controller {
+                        self.objects.get_mut(moved).expect("permanent").controller = *controller;
+                        self.turns.sick.push(moved);
+                    }
+                    true
+                }
+                Work::FinishSpell { spell, resolution } => {
+                    assert_eq!(self.turns.stack.pop(), Some(*spell));
+                    self.turns.effects.retain(|(h, _)| h != spell);
+                    self.turns.modifications.retain(|m| {
+                        self.objects
+                            .get(m.handle)
+                            .is_ok_and(|o| o.zone == Zone::Battlefield)
+                    });
+                    if resolution.is_some() {
+                        self.turns.last_resolution = *resolution;
+                    }
+                    true
+                }
+                Work::Priority {
+                    actor,
+                    passed,
+                    terminal,
+                } => {
+                    self.turns.passed = *passed;
+                    if !*terminal || self.settle_terminal(None).is_none() {
+                        self.set_turn_decision(*actor, turns::TurnKind::Priority);
+                    }
+                    true
+                }
                 Work::Advance => {
                     self.advance_opening();
                     true
@@ -926,6 +994,10 @@ impl Game {
         }
         if !self.work.is_empty() {
             Progress::InternalYield
+        } else if let Some(result) = self.outcome {
+            Progress::Terminal(result)
+        } else if let Some(d) = self.turn_decision() {
+            Progress::TurnDecision(d)
         } else if let Some(d) = self.decision {
             Progress::Decision(d)
         } else if self.rng.is_some() {

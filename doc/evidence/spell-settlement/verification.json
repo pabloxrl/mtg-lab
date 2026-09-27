@@ -1,0 +1,29 @@
+{
+  "command": "./scripts/torture.sh",
+  "environment": "managed Linux ARM64 Docker worker; no worker Docker invocation",
+  "base": "d7ee561b6d81f856242d4bbe1083d70a688ab312",
+  "after_current_main_integration": true,
+  "exit_code": 0,
+  "python_tests": 134,
+  "rust_tests_per_profile": 205,
+  "doctests_per_profile": 1,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "checks": [
+    "docs",
+    "RFC program and ledger",
+    "320-case catalog",
+    "rustfmt",
+    "Clippy",
+    "workspace tests"
+  ],
+  "log_sha256": "a1e879e2ea38890b8765c1069a92a31c7fe96abae497a700f9b0d6ba63937013",
+  "new_normal_discovery_tests": 5,
+  "red_evidence": "behavioral-red.txt",
+  "reference_receipts": [
+    "xmage-priority.json",
+    "xmage-terminal.json"
+  ]
+}

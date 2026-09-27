@@ -13,6 +13,7 @@ pub struct Outcome {
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum ConcedeError {
+    SettlementPending,
     NotStarted,
     AlreadyEnded,
     StaleEpisode,
@@ -29,6 +30,17 @@ impl Game {
     /// Concession does not require priority. The episode token rejects delayed
     /// or foreign commands after reset; transport authentication is external.
     pub fn concede(&mut self, seat: Seat, episode: EpisodeId) -> Result<Outcome, ConcedeError> {
+        if self.work.iter().any(|w| {
+            matches!(
+                w,
+                Work::Modify(_)
+                    | Work::SpellMove { .. }
+                    | Work::FinishSpell { .. }
+                    | Work::Priority { .. }
+            )
+        }) {
+            return Err(ConcedeError::SettlementPending);
+        }
         let current = self.episode_id().ok_or(ConcedeError::NotStarted)?;
         if current != episode {
             return Err(ConcedeError::StaleEpisode);
