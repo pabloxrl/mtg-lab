@@ -1,0 +1,64 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-110/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.20s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 7 tests
+test opening::policy::tests::policy_generation_and_resource_exhaustion_are_transactional ... FAILED
+test opening::policy::tests::policy_normal_reset_both_seat_opening_land_mana_pass_literal_states ... FAILED
+test opening::policy::tests::policy_mulligans_ordered_bottoming_and_old_opening_api_coexist ... FAILED
+test opening::policy::tests::policy_hidden_twins_and_invalid_inputs_preserve_full_state ... FAILED
+test opening::policy::tests::policy_pending_spell_combat_and_internal_work_fail_explicitly ... FAILED
+test opening::policy::tests::policy_visible_references_ignore_hidden_storage_and_track_visible_rows ... FAILED
+test opening::policy::tests::policy_standalone_payment_is_private_and_explicit ... FAILED
+
+failures:
+
+---- opening::policy::tests::policy_generation_and_resource_exhaustion_are_transactional stdout ----
+
+thread 'opening::policy::tests::policy_generation_and_resource_exhaustion_are_transactional' (242) panicked at crates/mtg-core/src/policy_tests.rs:200:44:
+called `Result::unwrap()` on an `Err` value: Unavailable
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- opening::policy::tests::policy_normal_reset_both_seat_opening_land_mana_pass_literal_states stdout ----
+
+thread 'opening::policy::tests::policy_normal_reset_both_seat_opening_land_mana_pass_literal_states' (245) panicked at crates/mtg-core/src/policy_tests.rs:50:46:
+called `Result::unwrap()` on an `Err` value: Unavailable
+
+---- opening::policy::tests::policy_mulligans_ordered_bottoming_and_old_opening_api_coexist stdout ----
+
+thread 'opening::policy::tests::policy_mulligans_ordered_bottoming_and_old_opening_api_coexist' (244) panicked at crates/mtg-core/src/policy_tests.rs:173:91:
+called `Result::unwrap()` on an `Err` value: Unavailable
+
+---- opening::policy::tests::policy_hidden_twins_and_invalid_inputs_preserve_full_state stdout ----
+
+thread 'opening::policy::tests::policy_hidden_twins_and_invalid_inputs_preserve_full_state' (243) panicked at crates/mtg-core/src/policy_tests.rs:96:48:
+called `Result::unwrap()` on an `Err` value: Unavailable
+
+---- opening::policy::tests::policy_pending_spell_combat_and_internal_work_fail_explicitly stdout ----
+
+thread 'opening::policy::tests::policy_pending_spell_combat_and_internal_work_fail_explicitly' (246) panicked at crates/mtg-core/src/policy_tests.rs:32:42:
+called `Result::unwrap()` on an `Err` value: Unavailable
+
+---- opening::policy::tests::policy_visible_references_ignore_hidden_storage_and_track_visible_rows stdout ----
+
+thread 'opening::policy::tests::policy_visible_references_ignore_hidden_storage_and_track_visible_rows' (248) panicked at crates/mtg-core/src/policy_tests.rs:32:42:
+called `Result::unwrap()` on an `Err` value: Unavailable
+
+---- opening::policy::tests::policy_standalone_payment_is_private_and_explicit stdout ----
+
+thread 'opening::policy::tests::policy_standalone_payment_is_private_and_explicit' (247) panicked at crates/mtg-core/src/policy_tests.rs:32:42:
+called `Result::unwrap()` on an `Err` value: Unavailable
+
+
+failures:
+    opening::policy::tests::policy_generation_and_resource_exhaustion_are_transactional
+    opening::policy::tests::policy_hidden_twins_and_invalid_inputs_preserve_full_state
+    opening::policy::tests::policy_mulligans_ordered_bottoming_and_old_opening_api_coexist
+    opening::policy::tests::policy_normal_reset_both_seat_opening_land_mana_pass_literal_states
+    opening::policy::tests::policy_pending_spell_combat_and_internal_work_fail_explicitly
+    opening::policy::tests::policy_standalone_payment_is_private_and_explicit
+    opening::policy::tests::policy_visible_references_ignore_hidden_storage_and_track_visible_rows
+
+test result: FAILED. 0 passed; 7 failed; 0 ignored; 0 measured; 99 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

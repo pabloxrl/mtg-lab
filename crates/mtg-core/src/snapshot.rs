@@ -28,6 +28,8 @@ struct Envelope {
 #[derive(Deserialize)]
 #[serde(remote = "Game", deny_unknown_fields)]
 struct GameWire {
+    #[serde(skip)]
+    policy_revision: u64,
     outcome: Option<terminal::Outcome>,
     episode: Option<terminal::EpisodeId>,
     turns: turns::TurnState,
@@ -67,6 +69,7 @@ pub(super) fn engine() -> &'static str {
                 include_str!("combat.rs"),
                 include_str!("terminal.rs"),
                 include_str!("views.rs"),
+                include_str!("policy.rs"),
                 include_str!("card_identities.rs"),
                 include_str!("snapshot.rs"),
                 include_str!("replay.rs"),
@@ -117,13 +120,18 @@ impl Game {
         if !candidate.objects.snapshot_valid() || !candidate.snapshot_work_valid() {
             return Err(RestoreError::Corrupt);
         }
+        let revision = self
+            .policy_revision
+            .checked_add(1)
+            .ok_or(RestoreError::IdentityExhausted)?;
         let old = candidate.objects.scope();
         let fresh = ObjectStore::new()
             .map_err(|_| RestoreError::IdentityExhausted)?
             .scope();
         rebase(&mut value, old, fresh)?;
         value["objects"]["id"] = fresh.into();
-        let candidate = GameWire::deserialize(value).map_err(|_| RestoreError::Corrupt)?;
+        let mut candidate = GameWire::deserialize(value).map_err(|_| RestoreError::Corrupt)?;
+        candidate.policy_revision = revision;
         *self = candidate;
         Ok(())
     }

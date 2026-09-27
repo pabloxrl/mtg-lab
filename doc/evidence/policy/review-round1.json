@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Found one blocking stale-command defect. Existing core test binary passed all 108 tests, including nine policy tests. No existing tests were weakened or removed; README limitations and atomic ownership are appropriately scoped. Full torture was not rerun under the read-only constraint.",
+  "findings": [
+    {
+      "file": "crates/mtg-core/src/policy.rs:264",
+      "finding": "Policy submissions survive snapshot restore because validation checks only generation, while restore preserves generations and changes the capability scope. Reproduction: save at a priority decision, capture and apply a Pass submission, restore the save into the same Game, then resubmit the old command. It passes validation and mutates the restored game because lines 323\u2013325 supply the current scope internally. This violates the documented requirement that pre-restore actions remain invalid. Bind submissions to a restore-invalidated decision token without exposing privileged handles, and add a regression asserting stale rejection and unchanged state after restore.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "a2ac8ae2507f86e5a0c7e9643b1c835bc45278ed",
+  "head_sha": "d9dbc9c74cff7486a372cf570118953ab48b2ee2"
+}

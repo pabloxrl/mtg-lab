@@ -9,6 +9,8 @@ pub mod casting;
 pub mod combat;
 #[path = "mana.rs"]
 pub mod mana;
+#[path = "policy.rs"]
+pub mod policy;
 #[path = "targets.rs"]
 pub mod targets;
 #[path = "terminal.rs"]
@@ -146,6 +148,9 @@ pub enum ResetError {
 }
 #[derive(serde::Serialize, Debug)]
 pub struct Game {
+    // Destination-local policy timeline; never loaded from a snapshot.
+    #[serde(skip)]
+    policy_revision: u64,
     outcome: Option<terminal::Outcome>,
     episode: Option<terminal::EpisodeId>,
     turns: turns::TurnState,
@@ -165,6 +170,7 @@ pub struct Game {
 impl Game {
     pub fn new() -> Result<Self, StorageError> {
         Ok(Self {
+            policy_revision: 0,
             outcome: None,
             episode: None,
             turns: turns::TurnState::default(),
