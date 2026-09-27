@@ -36,10 +36,11 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Core player views | [Seat-filtered structured observations and opening candidate commands](doc/views.md), with [privacy acceptance](doc/evidence/views/README.md) | Own hand, public zones/counts and historical revelations; no hidden library order, opponent hand or RNG. Private spell continuations explicitly unavailable; complete later policy integration and tensors remain planned. |
 | Core work quantum | [Resumable reset, shuffle and opening work](doc/opening.md#bounded-work), with [quantum equivalence checks](doc/evidence/quantum/README.md) | Internal yields only; no scheduler or batch runner yet; the work quantum currently covers opening work. |
 | Core snapshots | [Versioned full-state save and atomic restore](doc/snapshot.md), with [snapshot acceptance](doc/evidence/snapshot/README.md) | Privileged compatible-engine saves; RNG, opening choices and internal yields preserved. Fresh handle scopes on load; no migration. Pending spell integration remains #19; opening replay is available below. |
-| Opening replays | [Versioned semantic opening scripts and first-divergence verification](doc/replay.md), with [replay acceptance](doc/evidence/replay/README.md) | Privileged rules/cards/engine/config/RNG pins, strict consumed choices and ordered bottom identities. Opening only; spells/full-game integration and CLI remain #19/#79. |
+| Opening replays | [Versioned semantic opening scripts and first-divergence verification](doc/replay.md), with [replay acceptance](doc/evidence/replay/README.md) | Privileged rules/cards/engine/config/RNG pins, strict consumed choices and ordered bottom identities. Opening only; spells/full-game integration remains #19. CLI verification and final seat inspection are available below. |
 | In-memory trajectories | [Owned canonical records and per-seat readers](doc/trajectories.md), with [reward/boundary acceptance](doc/evidence/trajectory/README.md) | Versioned collector metadata, action-time candidates/masks, zero-decision seat rewards, final views and failure quarantine. Trusted collector supplies action tables. No full-game collector or pending spell-view integration yet. |
-| JSONL trajectories | [Bounded scalar writer and strict validator](doc/trajectory-jsonl.md), with [handwritten roundtrip/failure evidence](doc/evidence/trajectory-jsonl/README.md) | Canonical owned records, checksums/counts, atomic file publication and explicit backpressure/errors. One run per file; episode/file byte budgets required. Parquet, CLI and full recorder integration remain planned. |
+| JSONL trajectories | [Bounded scalar writer and strict validator](doc/trajectory-jsonl.md), with [handwritten roundtrip/failure evidence](doc/evidence/trajectory-jsonl/README.md) | Canonical owned records, checksums/counts, atomic file publication and explicit backpressure/errors. One run per file; episode/file byte budgets required. CLI validation is available below; Parquet and full recorder integration remain planned. |
 | Scalar simulation | [Validated headless `mtg simulate`](doc/simulate.md), explicit seeds/budgets, deterministic passive policy, versioned JSONL summaries and SIGTERM accounting, with [subprocess acceptance](doc/evidence/simulate/README.md) | `pass-v1` keeps, passes and discards only; no spell/land plays, random/heuristic policies, trajectory capture, protocol, UI or trainers. |
+| Headless tools | [Replay verify/seat inspect, trajectory validate, checkpoint conformance and scalar benchmark smoke](doc/headless-commands.md), with [subprocess evidence](doc/evidence/headless-cli/README.md) | Opening replays and sealed scalar JSONL only; conformance compares supplied checkpoints, not reference execution. Benchmark is passive scalar smoke, not M2 performance qualification. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
 M0 verifies that the requirements, test designs and basic reference infrastructure
@@ -110,6 +111,19 @@ JSONL. Both seats explicitly use `pass-v1`: keep seven, pass priority, discard a
 cleanup. It plays no cards; the nonstarting seat loses to an empty draw on turn 68.
 This is an automation/accounting baseline, not a measure of policy strength or
 complete card support. [Configuration, exit codes and limits](doc/simulate.md).
+
+Inside the same toolchain container, try a bounded scalar command smoke:
+
+```sh
+cargo run --quiet --locked -p mtg-cli -- bench --workload scalar-pass-v1 --config fixtures/simulate/pass-v1.json
+cargo run --quiet --locked -p mtg-cli -- trajectories validate crates/mtg-recorder/tests/episode.jsonl
+```
+
+The benchmark emits raw elapsed time and separate completed/truncated/failed counts;
+it is not performance qualification. The second command validates the handwritten
+synthetic recorder fixture (one episode, one decision), not a captured full game.
+See the [headless command contract](doc/headless-commands.md) for opening replay
+inspection, strict checkpoint comparison, dependency/input limits and exit codes.
 
 To inspect the completed test-design mapping without executing games:
 
