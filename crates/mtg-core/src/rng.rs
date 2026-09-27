@@ -16,6 +16,7 @@ pub enum Stream {
 pub struct UnsupportedVersion;
 
 /// An owned stream; no shared or global mutable state.
+#[derive(Debug, PartialEq, Eq)]
 pub struct EpisodeRng {
     state: u64,
 }

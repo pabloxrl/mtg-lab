@@ -1,8 +1,10 @@
 //! Rules engine foundation for mtg-lab.
 //!
-//! Versioned episode RNG and generation-safe object storage are available;
-//! game rules remain future work.
+//! Versioned RNG, generation-safe storage and transactional opening reset.
+//! Applying opening choices and subsequent game rules remain future work.
 
 pub mod rng;
 
 pub mod objects;
+
+pub mod opening;

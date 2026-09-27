@@ -192,6 +192,24 @@ impl ObjectStore {
         Ok(object)
     }
 
+    /// Prepare a reset's known capacity bounds without discarding live state.
+    pub(crate) fn reserve_reset(
+        &mut self,
+        slots: usize,
+        zones: [usize; 9],
+    ) -> Result<(), StorageError> {
+        next_identity(self.epoch)?;
+        self.slots
+            .try_reserve(slots.saturating_sub(self.slots.len()))
+            .map_err(|_| StorageError::CapacityExceeded)?;
+        for (buffer, capacity) in self.zones.iter_mut().zip(zones) {
+            buffer
+                .try_reserve(capacity.saturating_sub(buffer.len()))
+                .map_err(|_| StorageError::CapacityExceeded)?;
+        }
+        Ok(())
+    }
+
     /// Clear all live objects while retaining allocations and invalidating every
     /// old handle. Epoch exhaustion leaves the store unchanged.
     pub fn reset(&mut self) -> Result<(), StorageError> {

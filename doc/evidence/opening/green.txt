@@ -1,0 +1,32 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.02s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-4bbcdeed945d7068)
+
+running 3 tests
+test opening::tests::opening_bounded_sampling_rejects_incomplete_tail ... ok
+test opening::tests::opening_counter_exhaustion_preserves_game_and_rng ... ok
+test opening::tests::opening_explicit_orders_do_not_consume_rng ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-2f04146af756aaa6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-78536aa399b797f2)
+
+running 4 tests
+test opening_shuffle_matches_independent_vectors ... ok
+test opening_reset_restarts_rng_reuses_allocations_and_isolates_games ... ok
+test opening_invalid_config_preserves_complete_state_and_rng ... ok
+test opening_ordered_both_starters_and_mirrors ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/rng.rs (target/debug/deps/rng-7abc55d7215edbe4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
