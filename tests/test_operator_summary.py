@@ -120,3 +120,46 @@ class ReportFileTests(unittest.TestCase):
             (root / 'private/operator-summary.json').write_text('{}')
             with self.assertRaises(ValueError):
                 bounded_json(root / '.agent-artifacts/operator-summary.json', 8192)
+
+    def test_collector_uses_allowlisted_workspace_report_and_current_program(self):
+        import io
+        import json
+        from pathlib import Path
+        import tempfile
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import collect
+        from scripts.symphony.report_progress import write_report
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            workspace = root / 'GH-70'
+            workspace.mkdir()
+            (workspace / 'doc/programs').mkdir(parents=True)
+            (workspace / 'doc/programs/rfc-0002.json').write_text(json.dumps(
+                {'tasks': [dict(issue=70, milestone='M1')]}))
+            write_report(workspace, 70, 'I am testing targets.', 'Games need correct responses.', 'Check invalid targets.')
+            state = dict(running=[dict(issue_identifier='GH-70', started_at='2026-01-01T00:00:00Z',
+                workspace_path='/unrelated/private', last_message='private command')], retrying=[], blocked=[])
+            with patch('urllib.request.urlopen', return_value=io.BytesIO(json.dumps(state).encode())):
+                result = collect(root, root / 'unused')
+            self.assertEqual(result['current'], 'I am testing targets.')
+            self.assertEqual(result['milestone'], 'M1')
+            self.assertNotIn('private command', str(result))
+            (workspace / '.agent-artifacts/operator-summary.json').write_text('broken JSON')
+            with patch('urllib.request.urlopen', return_value=io.BytesIO(json.dumps(state).encode())):
+                self.assertEqual(collect(root, root / 'unused')['freshness'], 'missing')
+            with patch('urllib.request.urlopen', side_effect=OSError('private connection detail')):
+                result = collect(root, root / 'unused')
+            self.assertEqual(result['state'], 'unavailable')
+            self.assertNotIn('private connection detail', str(result))
+
+    def test_maximum_unicode_note_is_readable_after_successful_write(self):
+        from pathlib import Path
+        import tempfile
+        from scripts.symphony.operator_summary import bounded_json, MAX_REPORT_BYTES
+        from scripts.symphony.report_progress import write_report
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            sentence = '\U0001f0a1' * 700
+            expected = write_report(root, 70, sentence, sentence, sentence, sentence)
+            self.assertEqual(bounded_json(root / '.agent-artifacts/operator-summary.json',
+                                          MAX_REPORT_BYTES), expected)

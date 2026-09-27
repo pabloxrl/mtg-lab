@@ -30,7 +30,9 @@ with socket.create_connection(('127.0.0.1', 4317), timeout=5) as connection:
         'Sec-WebSocket-Version: 13\r\n\r\n').encode())
     header = b''
     while b'\r\n\r\n' not in header:
-        header += connection.recv(1)
+        byte = connection.recv(1)
+        assert byte, 'WebSocket handshake closed before completing its headers'
+        header += byte
         assert len(header) < 16384
     assert b' 101 ' in header.split(b'\r\n')[0], header
     # Masked ping from client; a real pong proves duplex forwarding, not only HTTP routing.

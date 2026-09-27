@@ -9,6 +9,7 @@ import stat
 import urllib.request
 
 REFRESH_SECONDS = 300
+MAX_REPORT_BYTES = 16384
 PROJECT_GOAL = ('Build a trustworthy Magic simulator where AI players can play reproducible games, '
                 'learn from them, and leave a record we can inspect when something goes wrong.')
 MILESTONES = {
@@ -39,6 +40,8 @@ def validate_report(report):
     if type(report['issue']) is not int or report['issue'] <= 0:
         raise ValueError('invalid issue')
     timestamp(report['updated_at'])
+    if len(report['updated_at']) > 128:
+        raise ValueError('timestamp too long')
     for key in ('current', 'why', 'next', 'blocker'):
         value = report[key]
         if key == 'blocker' and value is None:
@@ -133,7 +136,7 @@ def collect(workspaces=None, control=None):
     if issue:
         workspace = workspaces / f'GH-{issue}'
         try:
-            report = bounded_json(workspace / '.agent-artifacts/operator-summary.json', 8192)
+            report = bounded_json(workspace / '.agent-artifacts/operator-summary.json', MAX_REPORT_BYTES)
         except (OSError, ValueError):
             pass
         for base in (workspace, control):
