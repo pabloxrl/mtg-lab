@@ -1,0 +1,36 @@
+//! Compact per-game storage; no rules or policy-visible observations.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct CardId(u8);
+#[derive(Debug)]
+pub struct CardIdentity { pub key: &'static str, pub content_sha256: &'static str }
+include!("card_identities.rs");
+impl CardId {
+    pub fn from_key(key: &str) -> Option<Self> { IDENTITIES.iter().position(|c| c.key == key).map(|i| Self(i as u8)) }
+    pub fn identity(self) -> &'static CardIdentity { &IDENTITIES[self.0 as usize] }
+    pub fn all() -> impl Iterator<Item=Self> { (0..IDENTITIES.len()).map(|i| Self(i as u8)) }
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Seat { P0, P1 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Zone { Library(Seat), Hand(Seat), Graveyard(Seat), Battlefield, Stack, Exile }
+impl Zone {
+    pub const ALL: [Self;9] = [Self::Library(Seat::P0),Self::Library(Seat::P1),Self::Hand(Seat::P0),Self::Hand(Seat::P1),Self::Graveyard(Seat::P0),Self::Graveyard(Seat::P1),Self::Battlefield,Self::Stack,Self::Exile];
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Handle { store: u64, epoch: u64, generation: u64, slot: u32 }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Object { pub card: CardId, pub owner: Seat, pub zone: Zone }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum StorageError { InvalidHandle, IdentityExhausted, CapacityExceeded }
+pub struct ObjectStore;
+impl ObjectStore {
+    pub fn new() -> Result<Self,StorageError> { Ok(Self) }
+    pub fn allocate(&mut self, _:CardId, _:Seat, _:Zone) -> Result<Handle,StorageError> { Err(StorageError::CapacityExceeded) }
+    pub fn get(&self, _:Handle) -> Result<&Object,StorageError> { Err(StorageError::InvalidHandle) }
+    pub fn move_to(&mut self, _:Handle, _:Zone) -> Result<Handle,StorageError> { Err(StorageError::InvalidHandle) }
+    pub fn remove(&mut self, _:Handle) -> Result<Object,StorageError> { Err(StorageError::InvalidHandle) }
+    pub fn reset(&mut self) -> Result<(),StorageError> { Ok(()) }
+    pub fn slot_count(&self) -> usize { 0 }
+    pub fn capacities(&self) -> (usize,usize,[usize;9]) { (0,0,[0;9]) }
+    pub fn in_zone(&self, _:Zone) -> impl Iterator<Item=Handle> + '_ { std::iter::empty() }
+}

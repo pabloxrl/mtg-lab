@@ -24,6 +24,7 @@ The README describes delivered capabilities; it is not a live worker dashboard.
 | Scenario tooling | Versioned neutral fixtures, six admitted original cases and checkpoint comparison | The six cases are authored; their engine execution is future work. |
 | Reference engines | Pinned headless XMage and Forge bridges execute the same priority-pass smoke and detect deliberate errors | One synthetic pass per engine; no full-game or complete-state verification yet. Current reference receipts are Linux ARM64. |
 | Episode RNG | [Specified SplitMix64 v1](doc/rng.md), stable episode derivation and separate owned environment/policy streams, with [known-answer tests](crates/mtg-core/tests/rng.rs) | Rust primitive only; no shuffle, reset or game loop yet. |
+| Object storage | [Generation-safe slots and ordered zones](doc/objects.md), shared frozen card identities, slot reuse and reset epochs, with [literal-ledger tests](doc/evidence/objects/README.md) | Storage primitive only; no card effects, game reset/opening logic or player observations. |
 | Development | Docker toolchain, required CI, separate agent review and protected automated merging | The registered MVP stages are authorized; each still waits for its preceding audited gate. |
 
 M0 verifies that the requirements, test designs and basic reference infrastructure
@@ -123,7 +124,7 @@ The [executable torture baseline](doc/testing/torture-suite.md) runs through the
 Docker quickstart above and required CI. Agents must retain coded regressions,
 add independently justified tests with each behavior, run the complete suite and
 obtain separate review before merging. Current executable coverage is verification
-tooling and versioned episode RNG; the 320 game designs and full AI matches are still planned.
+tooling, versioned episode RNG and object storage; the 320 game designs and full AI matches are still planned.
 
 Work is delivered as [small tested changes](doc/programs/atomic-delivery.md):
 M1 has separate RNG, identity, opening, rules, replay, data and CLI deliveries.
@@ -198,7 +199,7 @@ See [agentic operations](doc/agentic-operations.md) for the full driver guide.
 
 | Path | Purpose |
 | --- | --- |
-| [crates/](crates/) | Rust workspace: core scaffold and executable fixture comparator. |
+| [crates/](crates/) | Rust workspace: core RNG/storage primitives and executable fixture comparator. |
 | [scripts/](scripts/) | Manifest/scenario validators, verification and reference runners. |
 | [data/](data/) | Frozen rules/card metadata and scoped capability registry. |
 | [fixtures/](fixtures/) | Original scenario and comparator inputs. |
