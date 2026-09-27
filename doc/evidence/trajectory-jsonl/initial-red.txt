@@ -1,0 +1,74 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 17.25s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-ae37f0fe196698ae)
+
+running 5 tests
+test jsonl_contract::jsonl_rejects_corruption_truncation_and_whole_record_loss ... FAILED
+test jsonl_contract::jsonl_bounded_overflow_and_write_failure_are_sticky ... FAILED
+test jsonl_contract::jsonl_hand_authored_roundtrip_and_canonical_bytes ... FAILED
+test jsonl_contract::jsonl_duplicate_episode_aborts_recording ... FAILED
+test jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum ... FAILED
+
+failures:
+
+---- jsonl_contract::jsonl_rejects_corruption_truncation_and_whole_record_loss stdout ----
+
+thread 'jsonl_contract::jsonl_rejects_corruption_truncation_and_whole_record_loss' (619) panicked at crates/mtg-recorder/src/jsonl_contract.rs:25:9:
+prefix 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- jsonl_contract::jsonl_bounded_overflow_and_write_failure_are_sticky stdout ----
+
+thread 'jsonl_contract::jsonl_bounded_overflow_and_write_failure_are_sticky' (616) panicked at crates/mtg-recorder/src/jsonl_contract.rs:81:5:
+assertion failed: matches!(tiny.append(&e),Err(Error::Limit))
+
+---- jsonl_contract::jsonl_hand_authored_roundtrip_and_canonical_bytes stdout ----
+
+thread 'jsonl_contract::jsonl_hand_authored_roundtrip_and_canonical_bytes' (618) panicked at crates/mtg-recorder/src/jsonl_contract.rs:17:5:
+assertion `left == right` failed
+  left: []
+ right: [Episode { reward_convention: SparseZeroSumTerminal, discount_convention: UndiscountedEpisodic, capture_selection: AllDecisions, header: Header { id: EpisodeKey { run: "a34c952c-723c-44ef-95f9-dcdb066db576", ordinal: 7 }, versions: Versions { schema: 1, engine: "engine-v1", rules: "cr-20260925", cards: "pool-v1", action: "script-v1", observation: 1 }, deck_hashes: ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"], config_hash: "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", policies: ["script-a", "script-b"], starting_seat: 0, limits: Limits { decisions: None, turns: None, wall_time_ms: None }, restricted_replay: None }, decisions: [Decision { episode: EpisodeKey { run: "a34c952c-723c-44ef-95f9-dcdb066db576", ordinal: 7 }, index: 0, seat_index: 0, actor: 0, observation: PlayerView { schema_version: 1, seat: 0, life: [20, 20], hand_counts: [0, 0], library_counts: [1, 1], hand: [], public_zones: [], remembered: [], starting_seat: 0, turn: Some((1, 0, "upkeep")), mana: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], acting_seat: Some(0), opening: None, terminal: None }, choice: Choice { kind: "priority", logical_action: 0, micro_choice: 0, candidates: [Candidate { semantic: "pass", features: [0] }], legal_mask: [true], selected: 0, policy: PolicyInfo { checkpoint: None, log_probability: None, value: None, recurrent_state: None, exploration: None } }, action: "pass", reward: [0, 0], next_actor: None, terminated: true, truncated: false }], footer: Some(Footer { end: Completed, complete: true, returns: [1, -1], boundary_reward: [1, -1], decisions: 1, logical_actions: 1, final_observations: [PlayerView { schema_version: 1, seat: 0, life: [20, 20], hand_counts: [0, 0], library_counts: [1, 1], hand: [], public_zones: [], remembered: [], starting_seat: 0, turn: Some((1, 0, "upkeep")), mana: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], acting_seat: None, opening: None, terminal: Some(TerminalView { winner: Some(0), losses: [None, Some("concession")] }) }, PlayerView { schema_version: 1, seat: 1, life: [20, 20], hand_counts: [0, 0], library_counts: [1, 1], hand: [], public_zones: [], remembered: [], starting_seat: 0, turn: Some((1, 0, "upkeep")), mana: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], acting_seat: None, opening: None, terminal: Some(TerminalView { winner: Some(0), losses: [None, Some("concession")] }) }] }) }]
+
+---- jsonl_contract::jsonl_duplicate_episode_aborts_recording stdout ----
+
+thread 'jsonl_contract::jsonl_duplicate_episode_aborts_recording' (617) panicked at crates/mtg-recorder/src/jsonl_contract.rs:74:5:
+assertion failed: w.append(&fixture()).is_err()
+
+---- jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum stdout ----
+
+thread 'jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum' (620) panicked at crates/mtg-recorder/src/jsonl_contract.rs:63:9:
+accepted /header/versions/schema
+
+
+failures:
+    jsonl_contract::jsonl_bounded_overflow_and_write_failure_are_sticky
+    jsonl_contract::jsonl_duplicate_episode_aborts_recording
+    jsonl_contract::jsonl_hand_authored_roundtrip_and_canonical_bytes
+    jsonl_contract::jsonl_rejects_corruption_truncation_and_whole_record_loss
+    jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`

@@ -1,0 +1,22 @@
+
+running 1 test
+test jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum ... FAILED
+
+failures:
+
+---- jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum stdout ----
+
+thread 'jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum' (549) panicked at crates/mtg-recorder/src/jsonl_contract.rs:65:9:
+accepted /decisions/0/reward
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.01s
+
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-77/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.26s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-ae37f0fe196698ae)
+error: test failed, to rerun pass `-p mtg-recorder --lib`

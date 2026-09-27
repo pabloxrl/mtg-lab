@@ -2,7 +2,7 @@
 
 `mtg_core::trajectory` provides owned records and per-seat readers for the M1
 native scalar boundary. [Acceptance and original expectations](evidence/trajectory/README.md)
-cover the atomic portion of RFC 0002 B036/B037. JSONL validation/export is #77;
+cover the atomic portion of RFC 0002 B036/B037. [JSONL validation/export](trajectory-jsonl.md) is provided by `mtg-recorder`;
 full recorder integration is #20. No trainer, storage queue, Parquet, batch worker,
 recurrent tensor loader or full-game collection driver is supplied here.
 
