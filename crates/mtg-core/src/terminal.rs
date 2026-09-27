@@ -33,7 +33,8 @@ impl Game {
         if self.work.iter().any(|w| {
             matches!(
                 w,
-                Work::CombatLife(_)
+                Work::Turn(_)
+                    | Work::CombatLife(_)
                     | Work::FinishCombat
                     | Work::Modify(_)
                     | Work::SpellMove { .. }

@@ -379,7 +379,4 @@ impl Game {
             },
         })
     }
-    pub(super) fn cleanup_effects(&mut self) {
-        self.turns.modifications.clear();
-    }
 }

@@ -134,6 +134,24 @@ impl Game {
             return false;
         }
         self.work.iter().all(|w| match w {
+            Work::Turn(w) => {
+                use turns::TurnWork;
+                self.turns.decision.is_none()
+                    && match w {
+                        TurnWork::Boundary(turn, _, _) => *turn > 0,
+                        TurnWork::Move(h, zone) => {
+                            self.objects.get(*h).is_ok()
+                                && matches!(zone, Zone::Hand(_) | Zone::Graveyard(_))
+                        }
+                        TurnWork::Untap(h) => self
+                            .objects
+                            .get(*h)
+                            .is_ok_and(|o| o.zone == Zone::Battlefield),
+                        TurnWork::Wake(index) => *index < self.turns.sick.len(),
+                        TurnWork::Expire => !self.turns.modifications.is_empty(),
+                        TurnWork::Ready { .. } => self.turns.position.is_some(),
+                    }
+            }
             Work::CombatLife(_) | Work::FinishCombat => {
                 self.turns
                     .position

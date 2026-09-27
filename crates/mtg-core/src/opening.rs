@@ -737,6 +737,7 @@ pub enum Progress {
 }
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 enum Work {
+    Turn(turns::TurnWork),
     CombatLife([i64; 2]),
     FinishCombat,
     Modify(targets::Modification),
@@ -807,6 +808,10 @@ impl Game {
                 break;
             };
             let done = match &mut work {
+                Work::Turn(w) => {
+                    self.run_turn_work(w);
+                    true
+                }
                 Work::CombatLife(life) => {
                     self.life = *life;
                     true

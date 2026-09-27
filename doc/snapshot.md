@@ -70,3 +70,6 @@ and creature APIs. No reference-engine agreement is implied by snapshot equality
 life/mark/death/bookkeeping/publication work at every quantum-1 yield, both seats,
 and terminal suffixes. These are trusted compatible-engine snapshots; old engine
 fingerprints still reject without migration.
+
+[Turn settlement acceptance](evidence/turn-settlement/README.md) checks restore
+after every yielded untap, step, draw, discard and combined modifier expiration.

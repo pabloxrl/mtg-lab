@@ -1,0 +1,15 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-109/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.87s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 7 tests
+test opening::turns::quantum_tests::turn_quantum_initial_untap_unit_bound_and_controller ... ok
+test opening::turns::quantum_tests::turn_quantum_literal_intermediate_cleanup_and_draw_units ... ok
+test opening::turns::quantum_tests::turn_quantum_draw_skip_order_and_empty_terminal ... ok
+test opening::turns::quantum_tests::turn_quantum_shared_xmage_draw_checkpoints ... ok
+test opening::turns::quantum_tests::turn_quantum_priority_in_cleanup_repeats_discard_before_next_turn ... ok
+test opening::turns::quantum_tests::turn_quantum_each_empty_combat_step_and_rejections ... ok
+test opening::turns::quantum_tests::turn_quantum_cleanup_discard_and_simultaneous_expiration ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 92 filtered out; finished in 0.51s
+
