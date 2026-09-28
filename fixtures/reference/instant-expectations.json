@@ -110,7 +110,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -238,7 +239,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -376,7 +378,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -508,7 +511,8 @@
           "id": "growth",
           "legal_targets": 1,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -631,7 +635,8 @@
           "id": "bite",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     }
   ],
@@ -746,7 +751,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -874,7 +880,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -1012,7 +1019,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -1144,7 +1152,8 @@
           "id": "growth",
           "legal_targets": 1,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -1267,7 +1276,8 @@
           "id": "bite",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     }
   ],
@@ -1437,7 +1447,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -1616,7 +1627,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -1809,7 +1821,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -1998,7 +2011,8 @@
           "id": "removal",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -2176,7 +2190,8 @@
           "id": "lower",
           "legal_targets": 0,
           "resolved": false
-        }
+        },
+        "combat": []
       }
     }
   ],
@@ -2346,7 +2361,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -2529,7 +2545,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -2726,7 +2743,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -2919,7 +2937,8 @@
           "id": "removal",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -3097,7 +3116,8 @@
           "id": "lower",
           "legal_targets": 1,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     }
   ],
@@ -3267,7 +3287,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -3450,7 +3471,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -3647,7 +3669,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -3840,7 +3863,8 @@
           "id": "removal",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -4018,7 +4042,8 @@
           "id": "lower",
           "legal_targets": 1,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     }
   ],
@@ -4199,7 +4224,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -4393,7 +4419,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -4601,7 +4628,8 @@
           }
         ],
         "damage_events": [],
-        "last_resolution": null
+        "last_resolution": null,
+        "combat": []
       }
     },
     {
@@ -4805,7 +4833,8 @@
           "id": "removal",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -5023,7 +5052,8 @@
           "id": "removal",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -5232,7 +5262,8 @@
           "id": "removal2",
           "legal_targets": 2,
           "resolved": true
-        }
+        },
+        "combat": []
       }
     },
     {
@@ -5426,7 +5457,957 @@
           "id": "lower",
           "legal_targets": 0,
           "resolved": false
-        }
+        },
+        "combat": []
+      }
+    }
+  ],
+  "bite-killed-blocker": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": []
+      }
+    },
+    {
+      "name": "main",
+      "state": {
+        "turn": 1,
+        "step": "precombat_main",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": []
+      }
+    },
+    {
+      "name": "begin-combat",
+      "state": {
+        "turn": 1,
+        "step": "begin_combat",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": []
+      }
+    },
+    {
+      "name": "attackers",
+      "state": {
+        "turn": 1,
+        "step": "declare_attackers",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [
+          {
+            "attacker": {
+              "id": "attacker",
+              "incarnation": 0
+            },
+            "blocked": false,
+            "blockers": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "blockers",
+      "state": {
+        "turn": 1,
+        "step": "declare_blockers",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [
+          {
+            "attacker": {
+              "id": "attacker",
+              "incarnation": 0
+            },
+            "blocked": true,
+            "blockers": [
+              {
+                "id": "blocker",
+                "incarnation": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "bite-cast",
+      "state": {
+        "turn": 1,
+        "step": "declare_blockers",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "attacker",
+                "incarnation": 0
+              },
+              {
+                "id": "blocker",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [
+          {
+            "attacker": {
+              "id": "attacker",
+              "incarnation": 0
+            },
+            "blocked": true,
+            "blockers": [
+              {
+                "id": "blocker",
+                "incarnation": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "response-window",
+      "state": {
+        "turn": 1,
+        "step": "declare_blockers",
+        "active": 0,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "attacker",
+                "incarnation": 0
+              },
+              {
+                "id": "blocker",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [
+          {
+            "attacker": {
+              "id": "attacker",
+              "incarnation": 0
+            },
+            "blocked": true,
+            "blockers": [
+              {
+                "id": "blocker",
+                "incarnation": 0
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "blocker-died",
+      "state": {
+        "turn": 1,
+        "step": "declare_blockers",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 2
+          }
+        ],
+        "damage_events": [
+          {
+            "source": "attacker",
+            "target": "blocker",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        },
+        "combat": [
+          {
+            "attacker": {
+              "id": "attacker",
+              "incarnation": 0
+            },
+            "blocked": true,
+            "blockers": []
+          }
+        ]
+      }
+    },
+    {
+      "name": "combat-damage",
+      "state": {
+        "turn": 1,
+        "step": "combat_damage",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 2
+          }
+        ],
+        "damage_events": [
+          {
+            "source": "attacker",
+            "target": "blocker",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        },
+        "combat": [
+          {
+            "attacker": {
+              "id": "attacker",
+              "incarnation": 0
+            },
+            "blocked": true,
+            "blockers": []
+          }
+        ]
       }
     }
   ]

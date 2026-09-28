@@ -1,0 +1,374 @@
+{
+  "status": "agreed",
+  "schema_version": 2,
+  "cases": [
+    "bite-both-gone",
+    "bite-destination-gone",
+    "bite-killed-blocker",
+    "bite-source-gone",
+    "destination",
+    "growth-gone",
+    "source"
+  ],
+  "executions_per_engine": 2,
+  "mutations": {
+    "omitted-target": {
+      "native": {
+        "status": "rejected",
+        "reason": "IllegalTarget",
+        "input_sha256": "d8fc53d90be0a129f44a13ed5a22300a2771728866aae6375894838099e99f36",
+        "log_sha256": "8273cd265ce55cae3761229127269bd6d9bf3e975071fb1964a4a9d93f173561"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "illegal target",
+        "input_sha256": "d8fc53d90be0a129f44a13ed5a22300a2771728866aae6375894838099e99f36",
+        "log_sha256": "8f239be9707ede7deac87f39c01273f0ba33b05239c205ee57f0297042f20d6a"
+      }
+    },
+    "extra-target": {
+      "native": {
+        "status": "rejected",
+        "reason": "unexpected target choice",
+        "input_sha256": "0570266953f72dec89112a2496eb58b8a9020044fe38ec9c4cf93eb656bda1f2",
+        "log_sha256": "8a6d69f1c12e88aa26ff3895ff0954974b4d7e1bf3ac7a02e7ca3ed9e2cf2468"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "choice order",
+        "input_sha256": "0570266953f72dec89112a2496eb58b8a9020044fe38ec9c4cf93eb656bda1f2",
+        "log_sha256": "603ebc92a6c1108034ae2c7f0dbb485189fbbd603cdc785859c52fe3689a3314"
+      }
+    },
+    "reordered-payment": {
+      "native": {
+        "status": "rejected",
+        "reason": "payment requested before targets",
+        "input_sha256": "a3282698841760f532b782cf4c25f050c36de84434c32ab500643aef362b6aac",
+        "log_sha256": "9836e96bd7d11ce37b7b7030d261da5b464f404e7ccaa8abb2884dd61f7128f5"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "choice order",
+        "input_sha256": "a3282698841760f532b782cf4c25f050c36de84434c32ab500643aef362b6aac",
+        "log_sha256": "57e90ea9314e944cb99f54c143b2bf2be0f1e385dfbfc8fd347bf49a67956ddb"
+      }
+    },
+    "wrong-actor": {
+      "native": {
+        "status": "rejected",
+        "reason": "WrongActor",
+        "input_sha256": "16216da69b832a76d73c3e3153b8e5815bed1df94b05d9d6b96ee10470a76ec6",
+        "log_sha256": "7f07bab157136fae9ec908a7435147b86327414efb1bbcb3532cbbb3733cf1a3"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "wrong actor",
+        "input_sha256": "16216da69b832a76d73c3e3153b8e5815bed1df94b05d9d6b96ee10470a76ec6",
+        "log_sha256": "eec172494510f9b71c6a9e2691c2e461d4e44ed96a5cd2de269595b303e991ad"
+      }
+    },
+    "changed-target": {
+      "native": {
+        "status": "detected",
+        "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0].id\"}",
+        "log_sha256": "4275e690afb3aa367927f68bcfaf4703b2805e341520184ad47b08e97037b9eb"
+      },
+      "xmage": {
+        "status": "detected",
+        "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0].id\"}",
+        "log_sha256": "5e226c9abefe44246c0a2c051d92482db02451b9afd824f0e2754bb60fb30dba"
+      }
+    },
+    "departed-missing-pass": {
+      "native": {
+        "status": "rejected",
+        "reason": "unfinished stack",
+        "input_sha256": "2fe0b0558b2a1c7d9521866c5537c39aa1c9d6f5481ea8db140188b0ba3b698a",
+        "log_sha256": "df952abcd2b8d5117fe55ed1e0bb135d75d5fded00fc56ccea223d01332e661f"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "unfinished stack",
+        "input_sha256": "2fe0b0558b2a1c7d9521866c5537c39aa1c9d6f5481ea8db140188b0ba3b698a",
+        "log_sha256": "bcd83a7a1211fcec791bf4ea9ce804c9c15820e431b9e388772ab95636c3dbb5"
+      }
+    },
+    "departed-retarget": {
+      "native": {
+        "status": "detected",
+        "error": "first divergence: {\"actual\": \"decoy0\", \"expected\": \"source\", \"path\": \"$.growth-gone.checkpoints[2].state.stack[1].targets[1].id\"}",
+        "input_sha256": "66013c88a75c299204d4fe8a7ed2505a475ba643e916761556074396781f21b2",
+        "log_sha256": "4275e690afb3aa367927f68bcfaf4703b2805e341520184ad47b08e97037b9eb",
+        "minimized_input_sha256": "55e29d4cbc367e6424a7b2568599331906dcc064b2fc7b6c4612371c9c9ae6d7",
+        "minimized_log_sha256": "d8d0018699b75bb83bb9677481c065b92e4547723e0c95c27184898e2d161282"
+      },
+      "xmage": {
+        "status": "detected",
+        "error": "first divergence: {\"actual\": \"decoy0\", \"expected\": \"source\", \"path\": \"$.growth-gone.checkpoints[2].state.stack[1].targets[1].id\"}",
+        "input_sha256": "66013c88a75c299204d4fe8a7ed2505a475ba643e916761556074396781f21b2",
+        "log_sha256": "b26f4bba4835a28bb24028d72fb3c6e3b0f63da239d46cbb91a3c8e5155dcd33",
+        "minimized_input_sha256": "55e29d4cbc367e6424a7b2568599331906dcc064b2fc7b6c4612371c9c9ae6d7",
+        "minimized_log_sha256": "b09bb20a55705a11405848087bf30992bf89a190ef86f0a776fc818c1238a03c"
+      }
+    },
+    "blocker-controls": {
+      "foreign-attacker": {
+        "native": {
+          "status": "rejected",
+          "reason": "IllegalAttacker",
+          "input_sha256": "22990c0b5880c2464d7be9c5c0a2b8038071c7d62ee0edf6045887ebd62eb9d3",
+          "log_sha256": "6dbfb2ccd01955f9fc48767cb4123dc9b4288602082cdb5e5e61d7b4cded7d9e"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "illegal attacker controller",
+          "input_sha256": "22990c0b5880c2464d7be9c5c0a2b8038071c7d62ee0edf6045887ebd62eb9d3",
+          "log_sha256": "0b7246586cd1b4fb1116523526d7b031cf31368f536114110063da092ecb6d96"
+        }
+      },
+      "land-attacker": {
+        "native": {
+          "status": "rejected",
+          "reason": "IllegalAttacker",
+          "input_sha256": "260ecdab9a30c4af2f8a389a3af57ae09f62719e9043cdcd642215d28e2bdf0a",
+          "log_sha256": "0cbe3425efb4fe80d8480c8a4b4d1cd38dd0efb41caee279802d7a68bc398f07"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "illegal attacker",
+          "input_sha256": "260ecdab9a30c4af2f8a389a3af57ae09f62719e9043cdcd642215d28e2bdf0a",
+          "log_sha256": "dee7f13ea52f7197d07a18d8d10a8bf3895c8d3094b1f318137d16d86f7cd9c6"
+        }
+      },
+      "duplicate-attacker": {
+        "native": {
+          "status": "rejected",
+          "reason": "DuplicateCandidate",
+          "input_sha256": "ce5bab6a7071998964cee57268c613b9e3e27761c816c03ab8985926e14d15e3",
+          "log_sha256": "87f0d95d336eaea296fdcbc507c78374c65e2c9417ede80825d36d2f9d28e528"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "duplicate attacker",
+          "input_sha256": "ce5bab6a7071998964cee57268c613b9e3e27761c816c03ab8985926e14d15e3",
+          "log_sha256": "563ed9d5557b262d95a40d7fb2ddc788b220d76358632814a00033447c523520"
+        }
+      },
+      "foreign-blocker": {
+        "native": {
+          "status": "rejected",
+          "reason": "IllegalBlocker",
+          "input_sha256": "b118796a0c870030fe80a0b0302f13510676f2b0e018a08cc75f689e22d6454e",
+          "log_sha256": "be5ad3e33091d6f7f33c995037f33d632b9b572ff6d162118b8c9e5c4595fa61"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "illegal blocker controller",
+          "input_sha256": "b118796a0c870030fe80a0b0302f13510676f2b0e018a08cc75f689e22d6454e",
+          "log_sha256": "aa0e0dcd87a1c944290be794a2ed51e61fc51f069ef133223b261e9ec8f0ac15"
+        }
+      },
+      "nonattacking-target": {
+        "native": {
+          "status": "rejected",
+          "reason": "IllegalBlocker",
+          "input_sha256": "d92a729bd780269623f641a069b88169d6c2398e5dae717c36890d16f109d4fb",
+          "log_sha256": "8096b1f7b621edb370e566eb197409c7cc31aa5c67309dc21033f6182a037884"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "illegal block target",
+          "input_sha256": "d92a729bd780269623f641a069b88169d6c2398e5dae717c36890d16f109d4fb",
+          "log_sha256": "3569200e69613692e4fa9c901e027cedea166cfaaaa83b822dde0acb601ec126"
+        }
+      },
+      "duplicate-blocker": {
+        "native": {
+          "status": "rejected",
+          "reason": "DuplicateCandidate",
+          "input_sha256": "5382f8620743bc872690e6d47d1e2ea7185fd5f5aafc6309720073f8ccd94cd0",
+          "log_sha256": "3c0d2e9420ab126bdd14e943adc69598eebd9f79b454d006b353b727172e3539"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "duplicate blocker",
+          "input_sha256": "5382f8620743bc872690e6d47d1e2ea7185fd5f5aafc6309720073f8ccd94cd0",
+          "log_sha256": "6ea9c50724891eac86ea2965d48dd8ca99cfda349b81ea7cb351a67981a01067"
+        }
+      },
+      "omitted-response": {
+        "native": {
+          "status": "rejected",
+          "reason": "WrongActor",
+          "input_sha256": "d7d286b1de3794a5a7789ed0449806e337e1baa2b3868dead10691c03670de3c",
+          "log_sha256": "64639d7ccfd82112fdd9ed3ec40b5980d25a1a95e20cfc6337562cee451adf06"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "wrong actor",
+          "input_sha256": "d7d286b1de3794a5a7789ed0449806e337e1baa2b3868dead10691c03670de3c",
+          "log_sha256": "a4f71f815b63f0da64049dc9c3edca572e5b1b73cc939dd36de372b9b23755c3"
+        }
+      },
+      "reordered-response": {
+        "native": {
+          "status": "rejected",
+          "reason": "WrongActor",
+          "input_sha256": "db289c2df02e203e7c31d6ebbd14d64b6eb690594875fad87f1b6f853e624913",
+          "log_sha256": "93391fbc5a6d54342ed9e67a024c6cfed4d6b183e65070bffa1d9cd4c56f4d46"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "wrong actor",
+          "input_sha256": "db289c2df02e203e7c31d6ebbd14d64b6eb690594875fad87f1b6f853e624913",
+          "log_sha256": "40f931cc912068e16bd1aacdba7c500997dc0efc2ef44088c224f80e30dd6cb7"
+        }
+      },
+      "omitted-declaration": {
+        "native": {
+          "status": "rejected",
+          "reason": "checkpoint must be settled priority",
+          "input_sha256": "1262a4c38d902c8e92663db90fe0b68a112c4892819ee1501e457ac257befa95",
+          "log_sha256": "bfe759052bca1bd477d221666a587f766b816ee9b8190759bc2be58fd5343ca7"
+        },
+        "xmage": {
+          "status": "rejected",
+          "reason": "choice order",
+          "input_sha256": "1262a4c38d902c8e92663db90fe0b68a112c4892819ee1501e457ac257befa95",
+          "log_sha256": "16aca4b804ed6901dae4b8cc9449e694a9aa8c6ddad50e7e67f002f2206433e5"
+        }
+      }
+    }
+  },
+  "input_boundary": "turn-1-upkeep-priority",
+  "pins": {
+    "fixtures/reference/instant-responses.json": "eba08056cd06e2b50cac5bdec712806f631aa4130c70cc6c514a6744ef0645f7",
+    "fixtures/reference/instant-expectations.json": "d63772be788ee0f40cea578e07599a9a457b5276b0b5a53d15d611bedc567ef2",
+    "references/xmage/InstantResponseTest.java": "b0f6b042b2b2ee44bbd76b42d2a5b7f531d805635e034641237168d2d6bf5b0b",
+    "crates/mtg-core/src/instant_reference_tests.rs": "2dd944142d361fea8d08632eb322649bd14a43655d9f7d9d470041c698129dec",
+    "scripts/instant_reference.py": "9be72fdac69d920975e6c9f8065026768c09273ee2a216d704b8efe06ff51e2f",
+    "references/xmage/pins.json": "f9e59c29095f9f414ecec0208f7f14aebd73f218bee2c16c7bc45202e5176223",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+    "Cargo.lock": "d03857814c36705ffa7e9507ec5ab3a957395fe2bfeaab7212e80b7ba3173d4b",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "artifacts": {
+    "blocker-duplicate-attacker-input.json": "ce5bab6a7071998964cee57268c613b9e3e27761c816c03ab8985926e14d15e3",
+    "blocker-duplicate-attacker-native.log": "87f0d95d336eaea296fdcbc507c78374c65e2c9417ede80825d36d2f9d28e528",
+    "blocker-duplicate-attacker-xmage.log": "563ed9d5557b262d95a40d7fb2ddc788b220d76358632814a00033447c523520",
+    "blocker-duplicate-blocker-input.json": "5382f8620743bc872690e6d47d1e2ea7185fd5f5aafc6309720073f8ccd94cd0",
+    "blocker-duplicate-blocker-native.log": "3c0d2e9420ab126bdd14e943adc69598eebd9f79b454d006b353b727172e3539",
+    "blocker-duplicate-blocker-xmage.log": "6ea9c50724891eac86ea2965d48dd8ca99cfda349b81ea7cb351a67981a01067",
+    "blocker-foreign-attacker-input.json": "22990c0b5880c2464d7be9c5c0a2b8038071c7d62ee0edf6045887ebd62eb9d3",
+    "blocker-foreign-attacker-native.log": "6dbfb2ccd01955f9fc48767cb4123dc9b4288602082cdb5e5e61d7b4cded7d9e",
+    "blocker-foreign-attacker-xmage.log": "0b7246586cd1b4fb1116523526d7b031cf31368f536114110063da092ecb6d96",
+    "blocker-foreign-blocker-input.json": "b118796a0c870030fe80a0b0302f13510676f2b0e018a08cc75f689e22d6454e",
+    "blocker-foreign-blocker-native.log": "be5ad3e33091d6f7f33c995037f33d632b9b572ff6d162118b8c9e5c4595fa61",
+    "blocker-foreign-blocker-xmage.log": "aa0e0dcd87a1c944290be794a2ed51e61fc51f069ef133223b261e9ec8f0ac15",
+    "blocker-land-attacker-input.json": "260ecdab9a30c4af2f8a389a3af57ae09f62719e9043cdcd642215d28e2bdf0a",
+    "blocker-land-attacker-native.log": "0cbe3425efb4fe80d8480c8a4b4d1cd38dd0efb41caee279802d7a68bc398f07",
+    "blocker-land-attacker-xmage.log": "dee7f13ea52f7197d07a18d8d10a8bf3895c8d3094b1f318137d16d86f7cd9c6",
+    "blocker-nonattacking-target-input.json": "d92a729bd780269623f641a069b88169d6c2398e5dae717c36890d16f109d4fb",
+    "blocker-nonattacking-target-native.log": "8096b1f7b621edb370e566eb197409c7cc31aa5c67309dc21033f6182a037884",
+    "blocker-nonattacking-target-xmage.log": "3569200e69613692e4fa9c901e027cedea166cfaaaa83b822dde0acb601ec126",
+    "blocker-omitted-declaration-input.json": "1262a4c38d902c8e92663db90fe0b68a112c4892819ee1501e457ac257befa95",
+    "blocker-omitted-declaration-native.log": "bfe759052bca1bd477d221666a587f766b816ee9b8190759bc2be58fd5343ca7",
+    "blocker-omitted-declaration-xmage.log": "16aca4b804ed6901dae4b8cc9449e694a9aa8c6ddad50e7e67f002f2206433e5",
+    "blocker-omitted-response-input.json": "d7d286b1de3794a5a7789ed0449806e337e1baa2b3868dead10691c03670de3c",
+    "blocker-omitted-response-native.log": "64639d7ccfd82112fdd9ed3ec40b5980d25a1a95e20cfc6337562cee451adf06",
+    "blocker-omitted-response-xmage.log": "a4f71f815b63f0da64049dc9c3edca572e5b1b73cc939dd36de372b9b23755c3",
+    "blocker-reordered-response-input.json": "db289c2df02e203e7c31d6ebbd14d64b6eb690594875fad87f1b6f853e624913",
+    "blocker-reordered-response-native.log": "93391fbc5a6d54342ed9e67a024c6cfed4d6b183e65070bffa1d9cd4c56f4d46",
+    "blocker-reordered-response-xmage.log": "40f931cc912068e16bd1aacdba7c500997dc0efc2ef44088c224f80e30dd6cb7",
+    "changed-target-input.json": "9373c31528d417b57ba93e65f7177d6fbdcd48fbcf32d6c076ff770986a4abcf",
+    "changed-target-native-divergence.json": "261812280bd5cc386090117963ede0c9c959606a7735bf559e8eec846ac7d5bc",
+    "changed-target-native.json": "4a69988070ba1e9d49b2cf9ac4eea65fc25a4f0e6aeb81f3e02226d0246b7cf8",
+    "changed-target-native.log": "4275e690afb3aa367927f68bcfaf4703b2805e341520184ad47b08e97037b9eb",
+    "changed-target-xmage-divergence.json": "86b8a8e06f52f9374e603cd45ee03f8052089f016fb33cdd8221ca1448200cc8",
+    "changed-target-xmage.log": "5e226c9abefe44246c0a2c051d92482db02451b9afd824f0e2754bb60fb30dba",
+    "departed-missing-pass-input.json": "2fe0b0558b2a1c7d9521866c5537c39aa1c9d6f5481ea8db140188b0ba3b698a",
+    "departed-missing-pass-native.log": "df952abcd2b8d5117fe55ed1e0bb135d75d5fded00fc56ccea223d01332e661f",
+    "departed-missing-pass-xmage.log": "bcd83a7a1211fcec791bf4ea9ce804c9c15820e431b9e388772ab95636c3dbb5",
+    "departed-retarget-input.json": "66013c88a75c299204d4fe8a7ed2505a475ba643e916761556074396781f21b2",
+    "departed-retarget-minimized-expected.json": "0b7da824ac53f5179cf3315dd3f7e23e3ec2e91864ba648d655d323ef9085fca",
+    "departed-retarget-minimized-native-divergence.json": "d56e614a65506e5268dc80d6c8fa81c51716d0b8b8569f6752e4d703ff735074",
+    "departed-retarget-minimized-native.json": "e4b9c90cda8bd6d60772332dc740c1e0127bea8595dbe10579b70ec2eaa80207",
+    "departed-retarget-minimized-native.log": "d8d0018699b75bb83bb9677481c065b92e4547723e0c95c27184898e2d161282",
+    "departed-retarget-minimized-xmage-divergence.json": "d56e614a65506e5268dc80d6c8fa81c51716d0b8b8569f6752e4d703ff735074",
+    "departed-retarget-minimized-xmage.log": "b09bb20a55705a11405848087bf30992bf89a190ef86f0a776fc818c1238a03c",
+    "departed-retarget-minimized.json": "55e29d4cbc367e6424a7b2568599331906dcc064b2fc7b6c4612371c9c9ae6d7",
+    "departed-retarget-native-divergence.json": "2928636fdbbe174e00bbc16bdaaee391cffe393be2130e0028430a66bab5d78e",
+    "departed-retarget-native.json": "2d7a9580747f7ea82bce4dc203fac2a5a7ff91471dbaeb7be3eb83c0173174db",
+    "departed-retarget-native.log": "4275e690afb3aa367927f68bcfaf4703b2805e341520184ad47b08e97037b9eb",
+    "departed-retarget-xmage-divergence.json": "cd19a6e679a95292eedafefab331482fba9dda8caa6ccd16d3470e953364ca18",
+    "departed-retarget-xmage.log": "b26f4bba4835a28bb24028d72fb3c6e3b0f63da239d46cbb91a3c8e5155dcd33",
+    "extra-target-input.json": "0570266953f72dec89112a2496eb58b8a9020044fe38ec9c4cf93eb656bda1f2",
+    "extra-target-native.log": "8a6d69f1c12e88aa26ff3895ff0954974b4d7e1bf3ac7a02e7ca3ed9e2cf2468",
+    "extra-target-xmage.log": "603ebc92a6c1108034ae2c7f0dbb485189fbbd603cdc785859c52fe3689a3314",
+    "forgotten-blocked-divergence.json": "7a7fe8a4cda0b0ec6ae27f66027128852e3ba90da211f5cc256acc15a2a08a75",
+    "input.json": "eba08056cd06e2b50cac5bdec712806f631aa4130c70cc6c514a6744ef0645f7",
+    "native-1.json": "8fa097e1d127cd7ea188a1b66c9afed32eefc15f54f476990e07b4974bb70301",
+    "native-1.log": "4275e690afb3aa367927f68bcfaf4703b2805e341520184ad47b08e97037b9eb",
+    "native-2.json": "8fa097e1d127cd7ea188a1b66c9afed32eefc15f54f476990e07b4974bb70301",
+    "native-2.log": "4275e690afb3aa367927f68bcfaf4703b2805e341520184ad47b08e97037b9eb",
+    "omitted-target-input.json": "d8fc53d90be0a129f44a13ed5a22300a2771728866aae6375894838099e99f36",
+    "omitted-target-native.log": "8273cd265ce55cae3761229127269bd6d9bf3e975071fb1964a4a9d93f173561",
+    "omitted-target-xmage.log": "8f239be9707ede7deac87f39c01273f0ba33b05239c205ee57f0297042f20d6a",
+    "reordered-payment-input.json": "a3282698841760f532b782cf4c25f050c36de84434c32ab500643aef362b6aac",
+    "reordered-payment-native.log": "9836e96bd7d11ce37b7b7030d261da5b464f404e7ccaa8abb2884dd61f7128f5",
+    "reordered-payment-xmage.log": "57e90ea9314e944cb99f54c143b2bf2be0f1e385dfbfc8fd347bf49a67956ddb",
+    "wrong-actor-input.json": "16216da69b832a76d73c3e3153b8e5815bed1df94b05d9d6b96ee10470a76ec6",
+    "wrong-actor-native.log": "7f07bab157136fae9ec908a7435147b86327414efb1bbcb3532cbbb3733cf1a3",
+    "wrong-actor-xmage.log": "eec172494510f9b71c6a9e2691c2e461d4e44ed96a5cd2de269595b303e991ad",
+    "xmage-1.json": "99c765c92699fceb7084ce5e5931c20742de466cdadb9af3882e75e900e29ebf",
+    "xmage-1.log": "f5fecb383959bd507df940fbcfe009abd489a508298b8df4cb1331b3d7553a90",
+    "xmage-2.json": "99c765c92699fceb7084ce5e5931c20742de466cdadb9af3882e75e900e29ebf",
+    "xmage-2.log": "d62fb8b101ca811f8a0de11b98d2b88a96b3a964bb33c48e9ecd50b6fe924ee2"
+  },
+  "native_sources": {
+    "crates/mtg-core/src/actions.rs": "e65b5616ee647296b27544f7e71ba7a69b917823a22094b077b714056255745b",
+    "crates/mtg-core/src/actions_tests.rs": "2a9cd364f6b718e175e12ced07ab76c0e28cb4dcb61e32bb6348165579caaedf",
+    "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
+    "crates/mtg-core/src/casting.rs": "a4906231972b7f3a49de50bda16a617e0d6a39b3252d5e8515fed1bb737bef4e",
+    "crates/mtg-core/src/casting_tests.rs": "5fd7d5da78a1d6334aaed459ba134ba2dab28d0fed160c277777042024657e8b",
+    "crates/mtg-core/src/combat.rs": "061c35fae443d256cbb725a79b70176d373c32bf15c33e9056518a8d91f1c7e1",
+    "crates/mtg-core/src/combat_tests.rs": "ac42232abaff36ac41aba2c772ff758668e67a4e87980c94b8e40f95db89dbf7",
+    "crates/mtg-core/src/game.rs": "cc99d0738feaa42d7ac0af179c4b1c2097b9b958d3b72d56b65c13746a3039d4",
+    "crates/mtg-core/src/instant_reference_tests.rs": "2dd944142d361fea8d08632eb322649bd14a43655d9f7d9d470041c698129dec",
+    "crates/mtg-core/src/lib.rs": "1d09e94641e1cc97c2c4024dce8a5a874422a7a387a01a810cdb3db549960157",
+    "crates/mtg-core/src/mana.rs": "23f4ded02086bc32aea47a977b4073298181de086c4fbf679022b8608fef40c7",
+    "crates/mtg-core/src/objects.rs": "5b1ae9654cf41eb15c8f4bc457e978e5da161c4594cded15d783bbfbd840ff1a",
+    "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
+    "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
+    "crates/mtg-core/src/policy.rs": "28e351c39015f64dc2c3555e02143d67cb5cc1d77b6787438d3ed659ce93b06a",
+    "crates/mtg-core/src/policy_combat_tests.rs": "dc535c597d9a731ad65e7ccf9bf0f5305832ef95711e83f070039dd73b7319ae",
+    "crates/mtg-core/src/policy_spell_tests.rs": "41d850e2ab2d038088a3d39d61a0740b4d61c2525e08efe96f1b612f21e9a0cb",
+    "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
+    "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
+    "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
+    "crates/mtg-core/src/snapshot.rs": "4298c5da2e0207ab0ae88197d7a8121f711a89a650a917dc74a0c210851e8349",
+    "crates/mtg-core/src/targets.rs": "626d248075802dfbef0769ad67bd15f9f2eca913579269ad8200e887f858abbc",
+    "crates/mtg-core/src/targets_tests.rs": "1c1ff1ffcd709f0002cfcc875e2fd403fd85e56eadf319475c713b4a884e5942",
+    "crates/mtg-core/src/terminal.rs": "c94be711cb7182125f59ac2336425e66e0d49536075877446b6659b1de3a2829",
+    "crates/mtg-core/src/terminal_tests.rs": "609dcfde02c26c065821708d681e4794b5361e6e5c9ddd4ec695887b01dcded3",
+    "crates/mtg-core/src/trajectory.rs": "5fcf4f83ea43bc2ca8bee93f8d6c3817fc3889880c50fdbae57a5cbe3d7b41cf",
+    "crates/mtg-core/src/trajectory_rules_tests.rs": "163768d38864bf37e4c9bc02a3da83947671e08078bbf01469563325422d38eb",
+    "crates/mtg-core/src/trajectory_tests.rs": "a6f9a2bd6259ad71df327e5b06ec7a4db52904d8bb755b39cd3710780ebb9a61",
+    "crates/mtg-core/src/turn_quantum_tests.rs": "cc4ba9c2df9544b50d635e0078e77385a49c5c00d30144d22322a1349f143e72",
+    "crates/mtg-core/src/turns.rs": "4b15b34479bfa97637ec13e63f2fb69fc3e6617d65d9cc741a0ef62731c5aa1c",
+    "crates/mtg-core/src/views.rs": "2f5b3cbf6dcc4b5ef7ba6a89fd8495aebf418272fd4b8cbd2647b6583e40a8b7",
+    "crates/mtg-core/src/views_tests.rs": "08cefc9f947d972448b55042be7c9f25676cc1be375978963e1fa4c69eebf27a",
+    "crates/mtg-core/src/work.rs": "fdd5710e4a7f3f7b84c6b9ae6b2dce06c14b6cc1c094150134ab12f640379473"
+  },
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "python": "3.12.3",
+  "native_profile": "debug",
+  "stdin": "closed",
+  "display": "unset",
+  "xmage_offline": true,
+  "observability": "Settled priority, bottom-to-top stack with historical target incarnations, named card lineage and current zone incarnation, creature stats/damage, life, mana, taps; actual damage and resolution outcomes; committed attackers, surviving blockers and remembered blocked status through combat damage.",
+  "limitations": "Synthetic setup; no legal-action enumeration, hidden views, general combat/allocations, cleanup, full games or Forge agreement. Graveyard incarnations and same-name decoys are matched; battlefield reentry is an observer-only native regression, not a matched spell scenario."
+}

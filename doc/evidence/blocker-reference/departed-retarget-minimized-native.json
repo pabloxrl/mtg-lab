@@ -1,0 +1,803 @@
+{
+  "growth-gone": {
+    "checkpoints": [
+      {
+        "name": "initial",
+        "state": {
+          "active": 0,
+          "combat": [],
+          "damage_events": [],
+          "last_resolution": null,
+          "life": [
+            20,
+            20
+          ],
+          "mana": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "objects": [
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "source",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "destination",
+              "incarnation": 0,
+              "owner": 1,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "decoy0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "mountain",
+              "damage": null,
+              "id": "r1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "giant-growth",
+              "damage": null,
+              "id": "lower",
+              "incarnation": 0,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "hand"
+            },
+            {
+              "card": "bite-down",
+              "damage": null,
+              "id": "removal",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "hand"
+            }
+          ],
+          "priority": 0,
+          "stack": [],
+          "step": "upkeep",
+          "turn": 1
+        }
+      },
+      {
+        "name": "lower-cast",
+        "state": {
+          "active": 0,
+          "combat": [],
+          "damage_events": [],
+          "last_resolution": null,
+          "life": [
+            20,
+            20
+          ],
+          "mana": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "objects": [
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "source",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "destination",
+              "incarnation": 0,
+              "owner": 1,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "decoy0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "mountain",
+              "damage": null,
+              "id": "r1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "giant-growth",
+              "damage": null,
+              "id": "lower",
+              "incarnation": 1,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "stack"
+            },
+            {
+              "card": "bite-down",
+              "damage": null,
+              "id": "removal",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "hand"
+            }
+          ],
+          "priority": 0,
+          "stack": [
+            {
+              "controller": 0,
+              "id": "lower",
+              "targets": [
+                {
+                  "id": "source",
+                  "incarnation": 0
+                }
+              ]
+            }
+          ],
+          "step": "upkeep",
+          "turn": 1
+        }
+      },
+      {
+        "name": "response-cast",
+        "state": {
+          "active": 0,
+          "combat": [],
+          "damage_events": [],
+          "last_resolution": null,
+          "life": [
+            20,
+            20
+          ],
+          "mana": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "objects": [
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "source",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "destination",
+              "incarnation": 0,
+              "owner": 1,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "decoy0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "mountain",
+              "damage": null,
+              "id": "r1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "giant-growth",
+              "damage": null,
+              "id": "lower",
+              "incarnation": 1,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "stack"
+            },
+            {
+              "card": "bite-down",
+              "damage": null,
+              "id": "removal",
+              "incarnation": 1,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "stack"
+            }
+          ],
+          "priority": 1,
+          "stack": [
+            {
+              "controller": 0,
+              "id": "lower",
+              "targets": [
+                {
+                  "id": "source",
+                  "incarnation": 0
+                }
+              ]
+            },
+            {
+              "controller": 1,
+              "id": "removal",
+              "targets": [
+                {
+                  "id": "destination",
+                  "incarnation": 0
+                },
+                {
+                  "id": "decoy0",
+                  "incarnation": 0
+                }
+              ]
+            }
+          ],
+          "step": "upkeep",
+          "turn": 1
+        }
+      },
+      {
+        "name": "target-departed",
+        "state": {
+          "active": 0,
+          "combat": [],
+          "damage_events": [
+            {
+              "amount": 2,
+              "source": "destination",
+              "target": "decoy0"
+            }
+          ],
+          "last_resolution": {
+            "id": "removal",
+            "legal_targets": 2,
+            "resolved": true
+          },
+          "life": [
+            20,
+            20
+          ],
+          "mana": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "objects": [
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "source",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "destination",
+              "incarnation": 0,
+              "owner": 1,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": null,
+              "id": "decoy0",
+              "incarnation": 1,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "graveyard"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "mountain",
+              "damage": null,
+              "id": "r1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "giant-growth",
+              "damage": null,
+              "id": "lower",
+              "incarnation": 1,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "stack"
+            },
+            {
+              "card": "bite-down",
+              "damage": null,
+              "id": "removal",
+              "incarnation": 2,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "graveyard"
+            }
+          ],
+          "priority": 0,
+          "stack": [
+            {
+              "controller": 0,
+              "id": "lower",
+              "targets": [
+                {
+                  "id": "source",
+                  "incarnation": 0
+                }
+              ]
+            }
+          ],
+          "step": "upkeep",
+          "turn": 1
+        }
+      },
+      {
+        "name": "lower-finished",
+        "state": {
+          "active": 0,
+          "combat": [],
+          "damage_events": [
+            {
+              "amount": 2,
+              "source": "destination",
+              "target": "decoy0"
+            }
+          ],
+          "last_resolution": {
+            "id": "lower",
+            "legal_targets": 1,
+            "resolved": true
+          },
+          "life": [
+            20,
+            20
+          ],
+          "mana": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ],
+          "objects": [
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "source",
+              "incarnation": 0,
+              "owner": 0,
+              "power": 5,
+              "tapped": false,
+              "toughness": 5,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": 0,
+              "id": "destination",
+              "incarnation": 0,
+              "owner": 1,
+              "power": 2,
+              "tapped": false,
+              "toughness": 2,
+              "zone": "battlefield"
+            },
+            {
+              "card": "bear-cub",
+              "damage": null,
+              "id": "decoy0",
+              "incarnation": 1,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "graveyard"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g0",
+              "incarnation": 0,
+              "owner": 0,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "forest",
+              "damage": null,
+              "id": "g1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "mountain",
+              "damage": null,
+              "id": "r1",
+              "incarnation": 0,
+              "owner": 1,
+              "power": null,
+              "tapped": true,
+              "toughness": null,
+              "zone": "battlefield"
+            },
+            {
+              "card": "giant-growth",
+              "damage": null,
+              "id": "lower",
+              "incarnation": 2,
+              "owner": 0,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "graveyard"
+            },
+            {
+              "card": "bite-down",
+              "damage": null,
+              "id": "removal",
+              "incarnation": 2,
+              "owner": 1,
+              "power": null,
+              "tapped": false,
+              "toughness": null,
+              "zone": "graveyard"
+            }
+          ],
+          "priority": 0,
+          "stack": [],
+          "step": "upkeep",
+          "turn": 1
+        }
+      }
+    ],
+    "consumed": [
+      {
+        "kind": "checkpoint",
+        "name": "initial"
+      },
+      {
+        "actor": 0,
+        "kind": "mana",
+        "source": "g0"
+      },
+      {
+        "actor": 0,
+        "kind": "cast",
+        "source": "lower"
+      },
+      {
+        "actor": 0,
+        "kind": "target",
+        "target": "source"
+      },
+      {
+        "actor": 0,
+        "color": "G",
+        "kind": "pay"
+      },
+      {
+        "actor": 0,
+        "kind": "finish_cast"
+      },
+      {
+        "kind": "checkpoint",
+        "name": "lower-cast"
+      },
+      {
+        "actor": 0,
+        "kind": "pass"
+      },
+      {
+        "actor": 1,
+        "kind": "mana",
+        "source": "g1"
+      },
+      {
+        "actor": 1,
+        "kind": "mana",
+        "source": "r1"
+      },
+      {
+        "actor": 1,
+        "kind": "cast",
+        "source": "removal"
+      },
+      {
+        "actor": 1,
+        "kind": "target",
+        "target": "destination"
+      },
+      {
+        "actor": 1,
+        "kind": "target",
+        "target": "decoy0"
+      },
+      {
+        "actor": 1,
+        "color": "G",
+        "kind": "pay"
+      },
+      {
+        "actor": 1,
+        "color": "R",
+        "kind": "pay"
+      },
+      {
+        "actor": 1,
+        "kind": "finish_cast"
+      },
+      {
+        "kind": "checkpoint",
+        "name": "response-cast"
+      },
+      {
+        "actor": 1,
+        "kind": "pass"
+      },
+      {
+        "actor": 0,
+        "kind": "pass"
+      },
+      {
+        "kind": "checkpoint",
+        "name": "target-departed"
+      },
+      {
+        "actor": 0,
+        "kind": "pass"
+      },
+      {
+        "actor": 1,
+        "kind": "pass"
+      },
+      {
+        "kind": "checkpoint",
+        "name": "lower-finished"
+      }
+    ]
+  }
+}

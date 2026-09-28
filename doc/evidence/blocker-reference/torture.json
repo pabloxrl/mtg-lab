@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "command": "./scripts/torture.sh",
+  "execution": "managed Linux ARM64 Docker worker; no Docker invoked by worker",
+  "base_sha": "a606622a5bf49f65b22579bfbda205f94d64c224",
+  "python_tests": 142,
+  "rust_tests_including_doctests_per_profile": [
+    280,
+    280
+  ],
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "checks": [
+    "documentation links",
+    "program graph/ledger",
+    "320-case catalog",
+    "Python normal discovery",
+    "cargo fmt",
+    "Clippy warnings denied",
+    "workspace tests debug/release"
+  ],
+  "log_sha256": "bb8ea8994dac6f2e86ce1234865414170b3edffa82f160bf80500c8d3bbbef59",
+  "reference_receipt": "acceptance.json",
+  "compiled_mutant": "compiled-mutant.json"
+}

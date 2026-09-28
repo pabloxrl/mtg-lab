@@ -8,6 +8,8 @@ import mage.abilities.costs.mana.ManaCost;
 import mage.cards.Card;
 import mage.constants.*;
 import mage.game.Game;
+import mage.game.combat.CombatGroup;
+import mage.util.MultiAmountMessage;
 import mage.game.events.GameEvent;
 import mage.game.permanent.Permanent;
 import mage.game.stack.StackObject;
@@ -87,7 +89,10 @@ public class InstantResponseTest extends CardTestPlayerBase {
     @Override protected TestPlayer createPlayer(String name,RangeOfInfluence range) {
         return new TestPlayer(new TestComputerPlayer(name,range)) {
             @Override public boolean priority(Game game) {
-                assertEquals(1,game.getTurnNum());assertEquals(PhaseStep.UPKEEP,game.getTurnStepType());
+                assertEquals(1,game.getTurnNum());
+                assertTrue("unsupported step",Arrays.asList(PhaseStep.UPKEEP,PhaseStep.PRECOMBAT_MAIN,
+                    PhaseStep.BEGIN_COMBAT,PhaseStep.DECLARE_ATTACKERS,PhaseStep.DECLARE_BLOCKERS,
+                    PhaseStep.COMBAT_DAMAGE).contains(game.getTurnStepType()));
                 int s=seat(getId());
                 if(!observing){
                     // Install synthetic hands at the declared boundary, not before a
@@ -127,6 +132,41 @@ public class InstantResponseTest extends CardTestPlayerBase {
                     }
                     default:throw new AssertionError("unexpected priority choice "+kind());
                 }
+            }
+            @Override public void selectAttackers(Game game,UUID attackingPlayerId) {
+                assertEquals(getId(),attackingPlayerId);
+                JsonObject a=take("attackers",seat(getId()),"attackers");
+                Set<UUID> selected=new HashSet<>();
+                for(JsonElement e:a.getAsJsonArray("attackers")) {
+                    UUID id=object(e.getAsString());Permanent p=game.getPermanent(id);
+                    assertTrue("duplicate attacker",selected.add(id));
+                    assertNotNull("illegal attacker",p);
+                    assertEquals("illegal attacker controller",getId(),p.getControllerId());
+                    assertTrue("illegal attacker",game.getPlayer(getId()).getAvailableAttackers(game).contains(p)
+                        &&p.canAttack(player(1-seat(getId())),game));
+                    declareAttacker(id,player(1-seat(getId())),game,false);
+                    assertNotNull("attacker not declared",game.getCombat().findGroup(id));
+                }
+            }
+            @Override public void selectBlockers(Ability source,Game game,UUID defendingPlayerId) {
+                assertEquals(getId(),defendingPlayerId);
+                JsonObject a=take("blockers",seat(getId()),"blocks");
+                Set<UUID> selected=new HashSet<>();
+                for(JsonElement e:a.getAsJsonArray("blocks")) {
+                    JsonObject b=e.getAsJsonObject();keys(b,"blocker","attacker");
+                    UUID blocker=object(b.get("blocker").getAsString()),attacker=object(b.get("attacker").getAsString());
+                    Permanent p=game.getPermanent(blocker);CombatGroup group=game.getCombat().findGroup(attacker);
+                    assertTrue("duplicate blocker",selected.add(blocker));
+                    assertNotNull("illegal blocker",p);assertNotNull("illegal block target",group);
+                    assertEquals("illegal blocker controller",getId(),p.getControllerId());
+                    assertTrue("illegal blocker",p.canBlock(attacker,game)&&group.canBlock(p,game));
+                    declareBlocker(getId(),blocker,attacker,game);
+                    assertTrue("blocker not declared",group.getBlockers().contains(blocker));
+                }
+            }
+            @Override public List<Integer> getMultiAmountWithIndividualConstraints(Outcome outcome,
+                    List<MultiAmountMessage> messages,int totalMin,int totalMax,MultiAmountType type,Game game) {
+                throw new AssertionError("unscripted combat damage allocation");
             }
             @Override public boolean chooseTarget(Outcome outcome,Target target,Ability source,Game game){
                 JsonObject a=take("target",seat(getId()),"target");UUID id=object(a.get("target").getAsString());
@@ -179,6 +219,21 @@ public class InstantResponseTest extends CardTestPlayerBase {
         }
         state.add("life",life);state.add("mana",mana);state.add("objects",objects);state.add("stack",stack);JsonArray observedDamage=new JsonArray();
         for(JsonElement event:game.getState().getWatcher(DamageObserver.class).events){JsonObject d=event.getAsJsonObject().deepCopy();d.addProperty("source",semantic(UUID.fromString(d.get("source").getAsString())));d.addProperty("target",semantic(UUID.fromString(d.get("target").getAsString())));observedDamage.add(d);}
+        JsonArray combat=new JsonArray();
+        for(CombatGroup group:game.getCombat().getGroups()) {
+            for(UUID attacker:group.getAttackers()) {
+                JsonObject attack=new JsonObject(),identity=new JsonObject();
+                identity.addProperty("id",semantic(attacker));identity.addProperty("incarnation",incarnation(attacker,game));
+                attack.add("attacker",identity);attack.addProperty("blocked",group.getBlocked());
+                JsonArray blockers=new JsonArray();
+                for(UUID blocker:group.getBlockers()) {
+                    JsonObject b=new JsonObject();b.addProperty("id",semantic(blocker));
+                    b.addProperty("incarnation",incarnation(blocker,game));blockers.add(b);
+                }
+                attack.add("blockers",blockers);combat.add(attack);
+            }
+        }
+        state.add("combat",combat);
         state.add("damage_events",observedDamage);state.add("last_resolution",lastResolution.deepCopy());
         JsonObject out=new JsonObject();out.addProperty("name",name);out.add("state",state);return out;
     }
@@ -197,7 +252,7 @@ public class InstantResponseTest extends CardTestPlayerBase {
             assertNull(ids.put(o.get("id").getAsString(),card.getId()));
         }
         for(int owner=0;owner<2;owner++){TestPlayer p=owner==0?playerA:playerB;initialHands.put(owner,new ArrayList<>(getHandCards(p)));getHandCards(p).clear();}
-        setStopAt(1,PhaseStep.PRECOMBAT_MAIN);execute();assertEquals(script().size(),cursor);
+        setStopAt(1,PhaseStep.END_COMBAT);execute();assertEquals(script().size(),cursor);
         JsonObject result=new JsonObject();result.add("checkpoints",checkpoints);result.add("consumed",consumed);
         Files.write(Paths.get(System.getProperty("mtglab.output"),fixture.get("id").getAsString()+".json"),new GsonBuilder().serializeNulls().setPrettyPrinting().create().toJson(result).getBytes(StandardCharsets.UTF_8));
     }
