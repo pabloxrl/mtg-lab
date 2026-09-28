@@ -1,12 +1,16 @@
-//! Rules engine foundation for mtg-lab.
+//! Deterministic rules engine for mtg-lab.
 //!
-//! Versioned RNG, generation-safe storage, opening choices, turns, land/mana transitions vanilla creature casting targeted Growth/Bite effects vanilla combat and rules terminal outcomes.
-//! Other spell effects, combat keywords and CLI matches remain future work.
+//! Game state, rule transitions and seat-authorized choices are owned by game;
+//! persistence and command-line orchestration live in separate crates.
 
+pub mod game;
+pub mod objects;
 pub mod rng;
 
-pub mod objects;
-
-pub mod opening;
+/// Compatibility facade for the original opening-rooted API.
+/// New callers may use game; both paths name the same types and implementation.
+pub mod opening {
+    pub use crate::game::*;
+}
 
 pub mod trajectory;
