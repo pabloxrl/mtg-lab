@@ -43,42 +43,66 @@ struct Adapter {
     game: Game,
     objects: Vec<Value>,
     damage: Vec<Value>,
+    births: Vec<u64>,
+    history: Vec<(Handle, usize, u64)>,
+    last_resolution: Value,
 }
 impl Adapter {
-    fn handle(&self, id: &str) -> Handle {
-        let spec = self
-            .objects
+    fn new(game: Game, objects: Vec<Value>, handles: Vec<Handle>) -> Self {
+        let births = handles
             .iter()
-            .find(|o| o["id"] == id)
-            .expect("unknown object");
-        let mut found = vec![];
-        for zone in [
-            Zone::Battlefield,
-            Zone::Stack,
-            Zone::Hand(Seat::P0),
-            Zone::Hand(Seat::P1),
-            Zone::Graveyard(Seat::P0),
-            Zone::Graveyard(Seat::P1),
-        ] {
+            .map(|h| game.objects.semantic_identity(*h).unwrap().0)
+            .collect();
+        let mut adapter = Self {
+            game,
+            objects,
+            births,
+            history: vec![],
+            damage: vec![],
+            last_resolution: Value::Null,
+        };
+        adapter.remember();
+        adapter
+    }
+    fn remember(&mut self) {
+        for zone in Zone::ALL {
             for h in self.game.objects.in_zone(zone) {
-                let o = self.game.objects.get(h).unwrap();
-                if o.card.identity().key == text(&spec["card"]) && o.owner == seat(&spec["owner"]) {
-                    found.push(h);
+                let (birth, incarnation) = self.game.objects.semantic_identity(h).unwrap();
+                if let Some(index) = self.births.iter().position(|b| *b == birth)
+                    && !self.history.iter().any(|(old, _, _)| *old == h)
+                {
+                    self.history.push((h, index, incarnation));
                 }
             }
         }
-        assert_eq!(found.len(), 1, "ambiguous/missing semantic object");
+    }
+    fn handle(&self, id: &str) -> Handle {
+        let index = self
+            .objects
+            .iter()
+            .position(|o| o["id"] == id)
+            .expect("unknown object");
+        let found: Vec<_> = Zone::ALL
+            .into_iter()
+            .flat_map(|z| self.game.objects.in_zone(z))
+            .filter(|h| self.game.objects.semantic_identity(*h).unwrap().0 == self.births[index])
+            .collect();
+        assert_eq!(found.len(), 1, "missing semantic object");
         found[0]
     }
+    fn identity(&self, handle: Handle) -> (usize, u64) {
+        let (_, index, incarnation) = self
+            .history
+            .iter()
+            .find(|(h, _, _)| *h == handle)
+            .expect("missing historical identity");
+        (*index, *incarnation)
+    }
     fn id(&self, handle: Handle) -> &str {
-        let o = self.game.objects.get(handle).unwrap();
-        text(
-            &self
-                .objects
-                .iter()
-                .find(|v| text(&v["card"]) == o.card.identity().key && seat(&v["owner"]) == o.owner)
-                .unwrap()["id"],
-        )
+        text(&self.objects[self.identity(handle).0]["id"])
+    }
+    fn target(&self, handle: Handle) -> Value {
+        json!({"id":self.id(handle),"incarnation":self.identity(handle).1})
     }
     fn checkpoint(&self, name: &str) -> Value {
         let g = &self.game;
@@ -118,20 +142,25 @@ impl Adapter {
         }
         let objects: Vec<_> = self.objects.iter().map(|spec| {
             let h = self.handle(text(&spec["id"])); let o = g.objects.get(h).unwrap();
+            assert_eq!(o.card.identity().key, text(&spec["card"]), "card identity changed");
+            assert_eq!(o.owner, seat(&spec["owner"]), "owner changed");
+            assert_eq!(o.controller, o.owner, "unsupported controller change");
             let zone = match o.zone { Zone::Battlefield => "battlefield", Zone::Stack => "stack", Zone::Hand(_) => "hand", Zone::Graveyard(_) => "graveyard", _ => panic!("unsupported zone") };
             let c = (o.zone == Zone::Battlefield).then(|| g.creature_state(h)).flatten();
             json!({"id": spec["id"], "card": spec["card"], "owner": spec["owner"], "zone": zone, "tapped": o.tapped,
-                "power": c.map(|s| s.power), "toughness": c.map(|s| s.toughness), "damage": c.map(|s| s.damage)})
+                "power": c.map(|s| s.power), "toughness": c.map(|s| s.toughness), "damage": c.map(|s| s.damage), "incarnation":g.objects.semantic_identity(h).unwrap().1})
         }).collect();
         let stack: Vec<_> = g.turns.stack.iter().map(|h| {
             let effect = g.turns.effects.iter().find(|(spell, _)| spell == h).unwrap().1;
-            let ts = match effect { Effect::Growth(t) => vec![self.id(t)], Effect::Bite(a,b) => vec![self.id(a),self.id(b)] };
+            let ts = match effect { Effect::Growth(t) => vec![self.target(t)], Effect::Bite(a,b) => vec![self.target(a),self.target(b)] };
             json!({"id": self.id(*h), "controller": seat_index(g.objects.get(*h).unwrap().controller), "targets": ts})
         }).collect();
-        json!({"name":name,"state":{"turn":1,"step":"upkeep","active":0,"priority":seat_index(d.actor),"life":g.life(),"mana":g.mana(),"stack":stack,"objects":objects,"damage_events":self.damage}})
+        json!({"name":name,"state":{"turn":1,"step":"upkeep","active":0,"priority":seat_index(d.actor),"life":g.life(),"mana":g.mana(),"stack":stack,"objects":objects,"damage_events":self.damage,"last_resolution":self.last_resolution}})
     }
     fn pass(&mut self, actor: Seat) {
         let d = self.game.turn_decision().expect("priority");
+        let top = self.game.turns.stack.last().copied();
+        let top_id = top.map(|h| self.id(h).to_owned());
         // Observe actual applied damage during automatic settlement before lethal SBA
         // removes the object. No choice/checkpoint is published at this internal boundary.
         let source = self
@@ -161,6 +190,7 @@ impl Adapter {
             )
             .unwrap();
         loop {
+            self.remember();
             if let Some((ref a, b)) = source
                 && let Some(c) = self.game.creature_state(b)
                 && c.damage > before
@@ -174,6 +204,13 @@ impl Adapter {
                 break;
             }
             p = self.game.resume(NonZeroUsize::new(1).unwrap());
+        }
+        if let Some(h) = top
+            && !self.game.turns.stack.contains(&h)
+        {
+            let r = self.game.last_resolution().expect("missing resolution");
+            self.last_resolution =
+                json!({"id":top_id.unwrap(),"legal_targets":r.legal_targets,"resolved":r.resolved});
         }
     }
 }
@@ -206,11 +243,11 @@ fn execute(case: &Value) -> Value {
     g.kept = [true; 2];
     let objects = setup["objects"].as_array().unwrap().clone();
     let mut ids = std::collections::BTreeSet::new();
-    let mut identities = std::collections::BTreeSet::new();
+    let mut handles = vec![];
     for o in &objects {
         keys(o, &["id", "card", "owner", "zone"]);
         assert!(ids.insert(text(&o["id"])));
-        assert!(identities.insert((text(&o["card"]), o["owner"].as_u64().unwrap())));
+
         let owner = seat(&o["owner"]);
         let zone = match text(&o["zone"]) {
             "battlefield" => Zone::Battlefield,
@@ -227,16 +264,14 @@ fn execute(case: &Value) -> Value {
             ]
             .contains(&text(&o["card"]))
         );
-        g.objects
-            .allocate(CardId::from_key(text(&o["card"])).unwrap(), owner, zone)
-            .unwrap();
+        handles.push(
+            g.objects
+                .allocate(CardId::from_key(text(&o["card"])).unwrap(), owner, zone)
+                .unwrap(),
+        );
     }
     g.start_turns().unwrap();
-    let mut a = Adapter {
-        game: g,
-        objects,
-        damage: vec![],
-    };
+    let mut a = Adapter::new(g, objects, handles);
     let mut checkpoints = vec![];
     let mut consumed = vec![];
     let mut cast_actor = None;
@@ -309,23 +344,11 @@ fn execute(case: &Value) -> Value {
                 _ => panic!("unsupported choice"),
             }
         }
+        a.remember();
         consumed.push(action.clone());
     }
     assert!(cast_actor.is_none());
     assert!(a.game.turns.stack.is_empty(), "unfinished stack");
-    assert_eq!(
-        checkpoints
-            .iter()
-            .map(|c| text(&c["name"]))
-            .collect::<Vec<_>>(),
-        [
-            "initial",
-            "bite-cast",
-            "response-cast",
-            "growth-resolved",
-            "bite-resolved"
-        ]
-    );
     json!({"checkpoints":checkpoints,"consumed":consumed})
 }
 #[test]
@@ -410,11 +433,12 @@ fn instant_checkpoint_rejects_unlisted_objects_in_every_zone() {
             )
             .unwrap();
         g.start_turns().unwrap();
-        let mut a = Adapter {
-            game: g,
-            objects: vec![json!({"id":"source","card":"bear-cub","owner":0,"zone":"battlefield"})],
-            damage: vec![],
-        };
+        let handles = g.objects.in_zone(Zone::Battlefield).collect();
+        let mut a = Adapter::new(
+            g,
+            vec![json!({"id":"source","card":"bear-cub","owner":0,"zone":"battlefield"})],
+            handles,
+        );
         a.checkpoint("initial"); // Minimal complete inventory is valid.
         a.game
             .objects
@@ -423,6 +447,118 @@ fn instant_checkpoint_rejects_unlisted_objects_in_every_zone() {
         assert!(
             std::panic::catch_unwind(|| a.checkpoint("initial")).is_err(),
             "unlisted object in {zone:?}"
+        );
+    }
+}
+
+#[test]
+fn instant_departed_targets_literal_expectations() {
+    // CR 400.7, 608.2b: real responding Bite spells kill selected targets;
+    // duplicate-name permanents and the new graveyard objects cannot replace them.
+    for case in fixture()["cases"].as_array().unwrap().iter().skip(2) {
+        let result = execute(case);
+        assert_eq!(result["checkpoints"], expectations()[text(&case["id"])]);
+        assert_eq!(result["consumed"], case["script"]);
+    }
+}
+
+#[test]
+fn instant_identity_survives_departure_and_reentry_without_retargeting() {
+    // Observer-only synthetic CR 400.7 regression, separate from the real-spell
+    // matched scenarios. A new incarnation and a same-name card are distinct.
+    let mut g = Game::new().unwrap();
+    let card = CardId::from_key("bear-cub").unwrap();
+    let original = g
+        .objects
+        .allocate(card, Seat::P0, Zone::Battlefield)
+        .unwrap();
+    let decoy = g
+        .objects
+        .allocate(card, Seat::P0, Zone::Battlefield)
+        .unwrap();
+    let mut a = Adapter::new(
+        g,
+        vec![
+            json!({"id":"original","card":"bear-cub","owner":0,"zone":"battlefield"}),
+            json!({"id":"decoy","card":"bear-cub","owner":0,"zone":"battlefield"}),
+        ],
+        vec![original, decoy],
+    );
+    let dead = a
+        .game
+        .objects
+        .move_to(original, Zone::Graveyard(Seat::P0))
+        .unwrap();
+    a.remember();
+    let returned = a.game.objects.move_to(dead, Zone::Battlefield).unwrap();
+    a.remember();
+    assert_eq!(a.target(original), json!({"id":"original","incarnation":0}));
+    assert_eq!(a.target(dead), json!({"id":"original","incarnation":1}));
+    assert_eq!(a.target(returned), json!({"id":"original","incarnation":2}));
+    assert_eq!(a.target(decoy), json!({"id":"decoy","incarnation":0}));
+    assert_eq!(a.handle("original"), returned);
+    assert!(a.game.objects.get(original).is_err());
+    a.history.retain(|(h, _, _)| *h != original);
+    assert!(std::panic::catch_unwind(|| a.target(original)).is_err());
+}
+
+#[test]
+fn instant_departure_choices_are_not_silently_dropped() {
+    for base in fixture()["cases"].as_array().unwrap().iter().skip(2) {
+        let valid = |case: &Value| {
+            std::panic::catch_unwind(|| {
+                let result = execute(case);
+                assert_eq!(result["checkpoints"], expectations()[text(&base["id"])]);
+            })
+            .is_ok()
+        };
+        assert!(valid(base));
+        // Every scripted callback, including passes after departure, is required.
+        for i in 0..base["script"].as_array().unwrap().len() {
+            let mut omitted = base.clone();
+            omitted["script"].as_array_mut().unwrap().remove(i);
+            assert!(!valid(&omitted), "silently omitted {i}");
+            let mut extra = base.clone();
+            let choice = extra["script"][i].clone();
+            extra["script"].as_array_mut().unwrap().insert(i, choice);
+            assert!(!valid(&extra), "silently ignored {i}");
+        }
+    }
+}
+
+#[test]
+fn instant_lineage_binding_still_checks_actual_card_and_owner() {
+    // Binding by creation identity must retain the old observer's validation of
+    // card/owner rather than echoing setup metadata over a corrupted live object.
+    for mutation in ["card", "owner", "controller"] {
+        let mut g = Game::new().unwrap();
+        g.life = [20; 2];
+        g.rng = Some(EpisodeRng::new(VERSION, 0, 0, Stream::Environment).unwrap());
+        g.kept = [true; 2];
+        let h = g
+            .objects
+            .allocate(
+                CardId::from_key("bear-cub").unwrap(),
+                Seat::P0,
+                Zone::Battlefield,
+            )
+            .unwrap();
+        g.start_turns().unwrap();
+        let mut a = Adapter::new(
+            g,
+            vec![json!({"id":"source","card":"bear-cub","owner":0,"zone":"battlefield"})],
+            vec![h],
+        );
+        a.checkpoint("initial");
+        let o = a.game.objects.get_mut(h).unwrap();
+        match mutation {
+            "card" => o.card = CardId::from_key("forest").unwrap(),
+            "owner" => o.owner = Seat::P1,
+            _ => o.controller = Seat::P1,
+        }
+        assert!(
+            std::panic::catch_unwind(|| a.checkpoint("initial")).is_err(),
+            "unobserved {mutation}"
         );
     }
 }

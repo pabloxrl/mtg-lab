@@ -35,6 +35,24 @@ public class InstantResponseTest extends CardTestPlayerBase {
     private int cursor;
     private final Map<Integer,List<Card>> initialHands = new HashMap<>();
     private boolean observing;
+    private final Map<UUID,Integer> initialCounters = new HashMap<>();
+    private final Map<UUID,Map<UUID,Integer>> targetIncarnations = new HashMap<>();
+    private Spell pendingResolution;
+    private JsonElement lastResolution = JsonNull.INSTANCE;
+    private int incarnation(UUID id, Game game) {
+        assertTrue("missing initial identity", initialCounters.containsKey(id));
+        return game.getCard(id).getZoneChangeCounter(game)-initialCounters.get(id);
+    }
+    private void observeResolution(Game game) {
+        if(pendingResolution==null)return;
+        for(StackObject so:game.getStack())if(so.getId().equals(pendingResolution.getId()))return;
+        assertTrue("removed spell never attempted resolution",pendingResolution.isResolving());
+        int legal=0;
+        for(Target t:pendingResolution.getSpellAbility().getTargets())legal+=t.getTargets().size();
+        JsonObject r=new JsonObject();r.addProperty("id",semantic(pendingResolution.getSourceId()));
+        r.addProperty("legal_targets",legal);r.addProperty("resolved",!pendingResolution.isCountered());
+        lastResolution=r;pendingResolution=null;
+    }
     @Parameterized.Parameters(name="{index}") public static Collection<Object[]> cases() throws Exception {
         JsonObject d=JsonParser.parseString(new String(Files.readAllBytes(Paths.get(System.getProperty("mtglab.fixture"))),StandardCharsets.UTF_8)).getAsJsonObject();
         keys(d,"version","cases"); assertEquals(1,d.get("version").getAsInt());
@@ -75,15 +93,21 @@ public class InstantResponseTest extends CardTestPlayerBase {
                     // Install synthetic hands at the declared boundary, not before a
                     // hidden mulligan phase. No opening-game execution is claimed.
                     for(int owner=0;owner<2;owner++) game.cheat(player(owner),Collections.emptyList(),initialHands.get(owner),Collections.emptyList(),Collections.emptyList(),Collections.emptyList(),Collections.emptyList());
-                    game.getState().addWatcher(new DamageObserver());observing=true;
+                    game.getState().addWatcher(new DamageObserver());
+                    for(UUID id:ids.values())initialCounters.put(id,game.getCard(id).getZoneChangeCounter(game));
+                    observing=true;
                 }
+                observeResolution(game);
                 while(cursor<script().size()&&kind().equals("checkpoint")){
                     JsonObject c=script().get(cursor).getAsJsonObject();keys(c,"kind","name");
                     checkpoints.add(checkpoint(c.get("name").getAsString(),game));cursor++;consumed.add(c.deepCopy());
                 }
                 if(cursor==script().size()){assertTrue("unfinished stack",game.getStack().isEmpty());game.pause();return false;}
                 switch(kind()){
-                    case "pass":take("pass",s);pass(game);return true;
+                    case "pass":
+                        take("pass",s);
+                        if(!game.getStack().isEmpty())pendingResolution=(Spell)game.getStack().peek();
+                        pass(game);return true;
                     case "mana":{
                         JsonObject a=take("mana",s,"source");Permanent p=game.getPermanent(object(a.get("source").getAsString()));assertNotNull(p);assertEquals(getId(),p.getControllerId());
                         List<ActivatedManaAbilityImpl> abilities=p.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD);assertEquals(1,abilities.size());
@@ -93,7 +117,13 @@ public class InstantResponseTest extends CardTestPlayerBase {
                         JsonObject a=take("cast",s,"source");Card card=game.getCard(object(a.get("source").getAsString()));assertTrue(game.getPlayer(getId()).getHand().contains(card.getId()));
                         getManaPool().setAutoPayment(false);
                         assertTrue("illegal cast",cast(card.getSpellAbility(),game,false,null));
-                        take("finish_cast",s);return true;
+                        take("finish_cast",s);
+                        Spell spell=(Spell)game.getStack().peek();
+                        assertEquals(card.getId(),spell.getSourceId());
+                        Map<UUID,Integer> incarnations=new HashMap<>();
+                        for(Target t:spell.getSpellAbility().getTargets())for(UUID id:t.getTargets())incarnations.put(id,incarnation(id,game));
+                        targetIncarnations.put(spell.getSourceId(),incarnations);
+                        return true;
                     }
                     default:throw new AssertionError("unexpected priority choice "+kind());
                 }
@@ -133,6 +163,7 @@ public class InstantResponseTest extends CardTestPlayerBase {
             if(p!=null)assertEquals(player(spec.get("owner").getAsInt()),p.getControllerId());
             Zone z=game.getState().getZone(id);String zone;
             switch(z){case BATTLEFIELD:zone="battlefield";break;case HAND:zone="hand";break;case STACK:zone="stack";break;case GRAVEYARD:zone="graveyard";break;default:throw new AssertionError("unsupported zone "+z);}
+            o.addProperty("incarnation",incarnation(id,game));
             o.addProperty("zone",zone);o.addProperty("tapped",p!=null&&p.isTapped());
             if(p!=null&&p.isCreature(game)){o.addProperty("power",p.getPower().getValue());o.addProperty("toughness",p.getToughness().getValue());o.addProperty("damage",p.getDamage());}
             else{ o.add("power",JsonNull.INSTANCE);o.add("toughness",JsonNull.INSTANCE);o.add("damage",JsonNull.INSTANCE); }
@@ -140,11 +171,15 @@ public class InstantResponseTest extends CardTestPlayerBase {
         }
         List<StackObject> spells=new ArrayList<>();for(StackObject s:game.getStack())spells.add(s);Collections.reverse(spells);
         for(StackObject so:spells){assertTrue(so instanceof Spell);Spell spell=(Spell)so;JsonObject s=new JsonObject();s.addProperty("id",semantic(spell.getSourceId()));s.addProperty("controller",seat(spell.getControllerId()));JsonArray ts=new JsonArray();
-            for(Target t:spell.getSpellAbility().getTargets())for(UUID id:t.getTargets())ts.add(semantic(id));s.add("targets",ts);stack.add(s);
+            for(Target t:spell.getSpellAbility().getTargets())for(UUID id:t.getTargets()){
+                JsonObject target=new JsonObject();target.addProperty("id",semantic(id));
+                Integer incarnation=targetIncarnations.get(spell.getSourceId()).get(id);assertNotNull("missing target identity",incarnation);
+                target.addProperty("incarnation",incarnation);ts.add(target);
+            }s.add("targets",ts);stack.add(s);
         }
         state.add("life",life);state.add("mana",mana);state.add("objects",objects);state.add("stack",stack);JsonArray observedDamage=new JsonArray();
         for(JsonElement event:game.getState().getWatcher(DamageObserver.class).events){JsonObject d=event.getAsJsonObject().deepCopy();d.addProperty("source",semantic(UUID.fromString(d.get("source").getAsString())));d.addProperty("target",semantic(UUID.fromString(d.get("target").getAsString())));observedDamage.add(d);}
-        state.add("damage_events",observedDamage);
+        state.add("damage_events",observedDamage);state.add("last_resolution",lastResolution.deepCopy());
         JsonObject out=new JsonObject();out.addProperty("name",name);out.add("state",state);return out;
     }
     @Test public void instant() throws Exception {
@@ -154,17 +189,15 @@ public class InstantResponseTest extends CardTestPlayerBase {
         setStrictChooseMode(true);currentGame.setStartingPlayerId(playerA.getId());gameOptions.skipInitShuffling=true;
         for(int s=0;s<2;s++){TestPlayer p=s==0?playerA:playerB;removeAllCardsFromHand(p);removeAllCardsFromLibrary(p);setLife(p,setup.getAsJsonArray("life").get(s).getAsInt());}
         Map<String,String> names=new HashMap<>();names.put("bear-cub","Bear Cub");names.put("forest","Forest");names.put("mountain","Mountain");names.put("bite-down","Bite Down");names.put("giant-growth","Giant Growth");
-        Set<String> identities=new HashSet<>();
         for(JsonElement e:setup.getAsJsonArray("objects")){
             JsonObject o=e.getAsJsonObject();keys(o,"id","card","owner","zone");String key=o.get("card").getAsString();assertTrue(names.containsKey(key));int s=o.get("owner").getAsInt();TestPlayer p=s==0?playerA:playerB;player(s);
-            assertTrue("ambiguous identity",identities.add(s+":"+key));String z=o.get("zone").getAsString();assertTrue(z.equals("hand")||z.equals("battlefield"));
+            String z=o.get("zone").getAsString();assertTrue(z.equals("hand")||z.equals("battlefield"));
             Zone zone=z.equals("hand")?Zone.HAND:Zone.BATTLEFIELD;addCard(zone,p,"FDN-"+names.get(key),1);
             Card card=zone==Zone.HAND?getHandCards(p).get(getHandCards(p).size()-1):getBattlefieldCards(p).get(getBattlefieldCards(p).size()-1).getCard();
             assertNull(ids.put(o.get("id").getAsString(),card.getId()));
         }
         for(int owner=0;owner<2;owner++){TestPlayer p=owner==0?playerA:playerB;initialHands.put(owner,new ArrayList<>(getHandCards(p)));getHandCards(p).clear();}
         setStopAt(1,PhaseStep.PRECOMBAT_MAIN);execute();assertEquals(script().size(),cursor);
-        JsonArray checkpointNames=new JsonArray();for(JsonElement c:checkpoints)checkpointNames.add(c.getAsJsonObject().get("name"));assertEquals(JsonParser.parseString("[\"initial\",\"bite-cast\",\"response-cast\",\"growth-resolved\",\"bite-resolved\"]"),checkpointNames);
         JsonObject result=new JsonObject();result.add("checkpoints",checkpoints);result.add("consumed",consumed);
         Files.write(Paths.get(System.getProperty("mtglab.output"),fixture.get("id").getAsString()+".json"),new GsonBuilder().serializeNulls().setPrettyPrinting().create().toJson(result).getBytes(StandardCharsets.UTF_8));
     }
