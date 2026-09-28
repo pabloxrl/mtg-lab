@@ -98,3 +98,18 @@ class InstantReferenceTests(unittest.TestCase):
                 self.assertIn(variant,str(caught.exception))
                 if mutation in ['retarget','new-incarnation','missing-identity']:
                     self.assertIn('checkpoints[3].state.stack[0].targets[0]',str(caught.exception))
+
+    def test_blocker_death_cannot_forget_blocked_status_or_deal_player_damage(self):
+        # Independent CR 509.1h/510.1c literals, not engine-generated expectations.
+        for mutation in ['blocked','blockers','life','target','step','missing-combat']:
+            wrong=copy.deepcopy(self.results)
+            state=wrong['bite-killed-blocker']['checkpoints'][-1]['state']
+            if mutation=='blocked': state['combat'][0]['blocked']=False
+            elif mutation=='blockers': state['combat'][0]['blockers']=[{'id':'blocker','incarnation':1}]
+            elif mutation=='life': state['life'][1]=18
+            elif mutation=='target': wrong['bite-killed-blocker']['checkpoints'][5]['state']['stack'][0]['targets'][1]['id']='attacker'
+            elif mutation=='step': state['step']='declare_blockers'
+            else: del state['combat']
+            with self.assertRaisesRegex(ValueError,'first divergence') as caught:
+                instant.compare(self.fixture,wrong)
+            self.assertIn('bite-killed-blocker.checkpoints',str(caught.exception))

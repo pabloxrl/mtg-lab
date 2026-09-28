@@ -99,9 +99,9 @@
           "source": "bite"
         },
         {
-          "kind": "target",
+          "kind": "pay",
           "actor": 0,
-          "target": "source"
+          "color": "G"
         },
         {
           "kind": "target",
@@ -109,9 +109,9 @@
           "target": "destination"
         },
         {
-          "kind": "pay",
+          "kind": "target",
           "actor": 0,
-          "color": "G"
+          "target": "source"
         },
         {
           "kind": "pay",

@@ -1,0 +1,8 @@
+{
+  "status": "detected",
+  "source": "crates/mtg-core/src/combat.rs",
+  "original_sha256": "061c35fae443d256cbb725a79b70176d373c32bf15c33e9056518a8d91f1c7e1",
+  "replace": "blocked: a.blocked,",
+  "with": "blocked: a.blockers.iter().any(|b| self.combat_live(*b, super::turns::opponent(active))),",
+  "first_divergence": "first divergence: {\"actual\": false, \"expected\": true, \"path\": \"$.bite-killed-blocker.checkpoints[7].state.combat[0].blocked\"}"
+}

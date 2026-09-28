@@ -106,11 +106,25 @@ impl Adapter {
     }
     fn checkpoint(&self, name: &str) -> Value {
         let g = &self.game;
-        assert_eq!(g.turn_position(), Some((1, Seat::P0, Step::Upkeep)));
+        let (turn, active, step) = g.turn_position().unwrap();
+        assert_eq!((turn, active), (1, Seat::P0));
+        let step = match step {
+            Step::Upkeep => "upkeep",
+            Step::PrecombatMain => "precombat_main",
+            Step::BeginningCombat => "begin_combat",
+            Step::DeclareAttackers => "declare_attackers",
+            Step::DeclareBlockers => "declare_blockers",
+            Step::CombatDamage => "combat_damage",
+            _ => panic!("unsupported checkpoint step"),
+        };
         let d = g
             .turn_decision()
             .expect("checkpoint must be settled priority");
-        assert_eq!(d.kind, TurnKind::Priority);
+        assert_eq!(
+            d.kind,
+            TurnKind::Priority,
+            "checkpoint must be settled priority"
+        );
         let expected_handles: Vec<_> = self
             .objects
             .iter()
@@ -155,7 +169,17 @@ impl Adapter {
             let ts = match effect { Effect::Growth(t) => vec![self.target(t)], Effect::Bite(a,b) => vec![self.target(a),self.target(b)] };
             json!({"id": self.id(*h), "controller": seat_index(g.objects.get(*h).unwrap().controller), "targets": ts})
         }).collect();
-        json!({"name":name,"state":{"turn":1,"step":"upkeep","active":0,"priority":seat_index(d.actor),"life":g.life(),"mana":g.mana(),"stack":stack,"objects":objects,"damage_events":self.damage,"last_resolution":self.last_resolution}})
+        let combat: Vec<_> = g
+            .combat()
+            .iter()
+            .map(|a| {
+                json!({
+                    "attacker":self.target(a.creature), "blocked":a.blocked,
+                    "blockers":a.blockers.iter().map(|b| self.target(*b)).collect::<Vec<_>>()
+                })
+            })
+            .collect();
+        json!({"name":name,"state":{"combat":combat,"turn":turn,"step":step,"active":0,"priority":seat_index(d.actor),"life":g.life(),"mana":g.mana(),"stack":stack,"objects":objects,"damage_events":self.damage,"last_resolution":self.last_resolution}})
     }
     fn pass(&mut self, actor: Seat) {
         let d = self.game.turn_decision().expect("priority");
@@ -204,6 +228,17 @@ impl Adapter {
                 break;
             }
             p = self.game.resume(NonZeroUsize::new(1).unwrap());
+        }
+        // A single blocked attacker with no blockers has no damage allocation
+        // choice. Translate the core's explicit completion boundary only when
+        // its legal allocation list is empty; never choose among alternatives.
+        if let Some(d) = self.game.turn_decision()
+            && d.kind == TurnKind::Combat(combat::CombatKind::Damage)
+        {
+            let c = self.game.combat_decision(d.actor, 80).unwrap();
+            assert!(c.damage.is_empty(), "unscripted combat damage allocation");
+            self.game.finish_combat(d.actor, d.id).unwrap();
+            self.remember();
         }
         if let Some(h) = top
             && !self.game.turns.stack.contains(&h)
@@ -284,6 +319,38 @@ fn execute(case: &Value) -> Value {
         } else {
             let actor = seat(&action["actor"]);
             match kind {
+                "attackers" => {
+                    keys(action, &["kind", "actor", "attackers"]);
+                    assert!(cast_actor.is_none());
+                    let cards: Vec<_> = action["attackers"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .map(|id| a.handle(text(id)))
+                        .collect();
+                    let d = a.game.turn_decision().unwrap();
+                    let d = a.game.select_attackers(actor, d.id, &cards).unwrap();
+                    a.game.finish_combat(actor, d.id).unwrap();
+                }
+                "blockers" => {
+                    keys(action, &["kind", "actor", "blocks"]);
+                    assert!(cast_actor.is_none());
+                    let blocks: Vec<_> = action["blocks"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .map(|b| {
+                            keys(b, &["blocker", "attacker"]);
+                            (
+                                a.handle(text(&b["blocker"])),
+                                a.handle(text(&b["attacker"])),
+                            )
+                        })
+                        .collect();
+                    let d = a.game.turn_decision().unwrap();
+                    let d = a.game.select_blockers(actor, d.id, &blocks).unwrap();
+                    a.game.finish_combat(actor, d.id).unwrap();
+                }
                 "mana" => {
                     keys(action, &["kind", "actor", "source"]);
                     assert!(cast_actor.is_none());
@@ -560,5 +627,80 @@ fn instant_lineage_binding_still_checks_actual_card_and_owner() {
             std::panic::catch_unwind(|| a.checkpoint("initial")).is_err(),
             "unobserved {mutation}"
         );
+    }
+}
+
+#[test]
+fn instant_blocker_script_reaches_damage_with_remembered_blocked_status() {
+    // CR 509.1h/510.1c: a blocked vanilla attacker with no remaining blockers
+    // remains blocked and assigns no combat damage to the defending player.
+    let f = fixture();
+    let case = f["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|c| c["id"] == "bite-killed-blocker")
+        .unwrap();
+    let result = execute(case);
+    assert_eq!(result["checkpoints"], expectations()["bite-killed-blocker"]);
+    assert_eq!(result["consumed"], case["script"]);
+}
+
+#[test]
+fn instant_blocker_illegal_declarations_and_response_order_fail() {
+    let f = fixture();
+    let base = f["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|c| c["id"] == "bite-killed-blocker")
+        .unwrap();
+    let valid = |c: &Value| {
+        std::panic::catch_unwind(|| {
+            let r = execute(c);
+            assert_eq!(r["checkpoints"], expectations()["bite-killed-blocker"]);
+        })
+        .is_ok()
+    };
+    assert!(valid(base));
+    for mutation in [
+        "foreign-attacker",
+        "land-attacker",
+        "duplicate-attacker",
+        "foreign-blocker",
+        "land-blocker",
+        "nonattacking-target",
+        "duplicate-blocker",
+        "wrong-declarer",
+        "response-order",
+    ] {
+        let mut c = base.clone();
+        let script = c["script"].as_array_mut().unwrap();
+        let attack = script
+            .iter()
+            .position(|a| a["kind"] == "attackers")
+            .unwrap();
+        let block = script.iter().position(|a| a["kind"] == "blockers").unwrap();
+        match mutation {
+            "foreign-attacker" => script[attack]["attackers"] = json!(["blocker"]),
+            "land-attacker" => script[attack]["attackers"] = json!(["forest0"]),
+            "duplicate-attacker" => script[attack]["attackers"] = json!(["attacker", "attacker"]),
+            "foreign-blocker" => script[block]["blocks"][0]["blocker"] = json!("attacker"),
+            "land-blocker" => script[block]["blocks"][0]["blocker"] = json!("forest0"),
+            "nonattacking-target" => script[block]["blocks"][0]["attacker"] = json!("forest0"),
+            "duplicate-blocker" => {
+                let b = script[block]["blocks"][0].clone();
+                script[block]["blocks"].as_array_mut().unwrap().push(b);
+            }
+            "wrong-declarer" => script[block]["actor"] = json!(0),
+            _ => {
+                let cast = script
+                    .iter()
+                    .position(|a| a["name"] == "bite-cast")
+                    .unwrap();
+                script.swap(cast + 1, cast + 3);
+            }
+        }
+        assert!(!valid(&c), "survived {mutation}");
     }
 }

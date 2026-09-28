@@ -24,7 +24,11 @@
     "Mage/src/main/java/mage/game/stack/Spell.java": "7613dc12a6650f28f30cddca34bc409021108489792961eb4a7a7bcf9e747099",
     "Mage/src/main/java/mage/target/TargetImpl.java": "4366d56a414e29c40704e8b734f760d1ec6657d57b0abf8998f51f50d566f915",
     "Mage/src/main/java/mage/abilities/AbilityImpl.java": "dac914825d442d3300f3b18788ba80371c46bde1e32dac706f582d12c830a980",
-    "Mage/src/main/java/mage/game/events/GameEvent.java": "3df463d33eff295607e700578e547cef896cf183e1dba3c41131a353f53cb7dc"
+    "Mage/src/main/java/mage/game/events/GameEvent.java": "3df463d33eff295607e700578e547cef896cf183e1dba3c41131a353f53cb7dc",
+    "Mage/src/main/java/mage/game/combat/Combat.java": "3c2de1444f0e35216eb8e9bfebd88e02c6693995a41b5ea2a271bf3e585c6250",
+    "Mage/src/main/java/mage/game/combat/CombatGroup.java": "a3f6a37d332831855cdc9b7900cc400554331a3a82598438b5c307a7b0e42bc7",
+    "Mage/src/main/java/mage/game/permanent/PermanentImpl.java": "5b72e235e1fe716b7337ffe76539d7fd79a5a9de1c54e6f343426126aeec6fe1",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e"
   },
   "toolchain_base_image": "maven:3.9.11-eclipse-temurin-21-noble@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237",
   "jdk_runtime": "21.0.9+10"

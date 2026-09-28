@@ -1,0 +1,45 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-138/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.55s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::instant_reference_tests::instant_blocker_script_reaches_damage_with_remembered_blocked_status ... FAILED
+
+failures:
+
+---- game::instant_reference_tests::instant_blocker_script_reaches_damage_with_remembered_blocked_status stdout ----
+
+thread 'game::instant_reference_tests::instant_blocker_script_reaches_damage_with_remembered_blocked_status' (629) panicked at crates/mtg-core/src/instant_reference_tests.rs:109:9:
+assertion `left == right` failed
+  left: Some((1, P0, PrecombatMain))
+ right: Some((1, P0, Upkeep))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::instant_reference_tests::instant_blocker_script_reaches_damage_with_remembered_blocked_status
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 143 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
