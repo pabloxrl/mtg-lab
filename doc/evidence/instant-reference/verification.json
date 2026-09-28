@@ -1,0 +1,16 @@
+{
+  "command": "./scripts/torture.sh",
+  "status": "passed",
+  "environment": "managed Linux ARM64 container",
+  "base": "f3874a2172dce497adbb6c3fc80d07fc8433a4b3",
+  "python_tests": 140,
+  "rust_tests_per_profile": 271,
+  "doctests_per_profile": 2,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "log_sha256": "649706c71f2fa85c2594c59ad519c353192ba4aee8c20fc25eb0a00f3126d60b",
+  "post_main_integration": true,
+  "existing_tests_removed_skipped_or_weakened": false
+}

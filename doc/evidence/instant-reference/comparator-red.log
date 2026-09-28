@@ -1,0 +1,29 @@
+FFF
+======================================================================
+FAIL: test_every_consumed_choice_is_exact (test_instant_reference.InstantReferenceTests.test_every_consumed_choice_is_exact)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-136/tests/test_instant_reference.py", line 38, in test_every_consumed_choice_is_exact
+    with self.assertRaisesRegex(ValueError,'first divergence'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_extra_or_supplied_success_fail (test_instant_reference.InstantReferenceTests.test_missing_extra_or_supplied_success_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-136/tests/test_instant_reference.py", line 48, in test_missing_extra_or_supplied_success_fail
+    with self.assertRaises(ValueError): instant.compare(self.fixture,wrong)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_target_power_stack_mutations_fail (test_instant_reference.InstantReferenceTests.test_target_power_stack_mutations_fail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-136/tests/test_instant_reference.py", line 24, in test_target_power_stack_mutations_fail
+    with self.assertRaisesRegex(ValueError,'first divergence'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=3)

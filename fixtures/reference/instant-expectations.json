@@ -1,0 +1,1136 @@
+{
+  "destination": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "bite-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              "source",
+              "destination"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "response-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              "source",
+              "destination"
+            ]
+          },
+          {
+            "id": "growth",
+            "controller": 1,
+            "targets": [
+              "destination"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "growth-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              "source",
+              "destination"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "bite-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ]
+      }
+    }
+  ],
+  "source": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "bite-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              "source",
+              "destination"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "response-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              "source",
+              "destination"
+            ]
+          },
+          {
+            "id": "growth",
+            "controller": 1,
+            "targets": [
+              "source"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "growth-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              "source",
+              "destination"
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": []
+      }
+    },
+    {
+      "name": "bite-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 5
+          }
+        ]
+      }
+    }
+  ]
+}
