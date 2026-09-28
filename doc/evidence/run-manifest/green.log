@@ -1,0 +1,20 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-116/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.41s
+     Running tests/manifest_contract.rs (target/debug/deps/manifest_contract-0dcad35a5b19302b)
+
+running 12 tests
+test empty_sealed_run_and_io_failure_remain_explicit ... ok
+test bounds_and_unsupported_conventions_rejected ... ok
+test declared_seed_subset_is_preserved_but_not_selected_by_loader ... ok
+test every_required_field_and_unknown_fields_rejected ... ok
+test diagnostic_mode_never_salvages_corrupt_or_unsealed_prefixes ... ok
+test handwritten_pair_roundtrips ... ok
+test nested_required_fields_duplicates_and_invalid_declarations_rejected ... ok
+test failed_and_interrupted_runs_are_explicit_diagnostics ... ok
+test inventory_checksum_and_completion_are_binding ... ok
+test incompatible_versions_and_provenance_rejected ... ok
+test truncated_episode_is_not_a_completed_run ... ok
+test replay_ids_never_enter_policy_rows_and_paths_are_rejected ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

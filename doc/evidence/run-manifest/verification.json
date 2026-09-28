@@ -1,0 +1,18 @@
+{
+  "command": "./scripts/torture.sh",
+  "status": "passed",
+  "exit_code": 0,
+  "environment": "managed Linux container; supplied toolchain; no worker Docker invocation",
+  "base_sha": "31a35d4589b05133af50186ff4d876c65f4f4c60",
+  "python_tests": 134,
+  "rust_debug_tests_including_doctests": 270,
+  "rust_release_tests_including_doctests": 270,
+  "focused_command": "cargo test -p mtg-recorder --test manifest_contract",
+  "focused_tests": 12,
+  "log_sha256": "d63e50020bd10833ee5674ed7c5d6704f78d58905f73d0e7d9dd645a45e87a01",
+  "source_sha256": {
+    "crates/mtg-recorder/src/manifest.rs": "3fce6741b7df995301fced6c0699d89cc575015bcba3ee959642dd1673e4f646",
+    "crates/mtg-recorder/tests/manifest_contract.rs": "07107d05e24df8a872b1fba4c8c1339b80ac0108d362e0ed422ca6a051618035",
+    "crates/mtg-recorder/tests/manifest.json": "c57d24cdcd6b1d51c726a4879f49d859456ba1a06475d1a4cd68d83417dd332b"
+  }
+}
