@@ -60,6 +60,8 @@ pub(super) fn engine() -> &'static str {
             concat!(
                 include_str!("lib.rs"),
                 include_str!("opening.rs"),
+                include_str!("game.rs"),
+                include_str!("work.rs"),
                 include_str!("objects.rs"),
                 include_str!("rng.rs"),
                 include_str!("turns.rs"),

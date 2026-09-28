@@ -50,6 +50,22 @@ M0 verifies that the requirements, test designs and basic reference infrastructu
 are ready. It does not certify a playable Magic engine. The original failed M0
 audit is retained alongside the successful re-audit so the evidence remains traceable.
 
+## Core module responsibilities
+
+The canonical rules API is now rooted at [mtg_core::game](crates/mtg-core/src/game.rs).
+It owns game state and shared decision identities.
+[Opening setup](crates/mtg-core/src/opening.rs) handles reset, initial hands and
+mulligans; the private [work executor](crates/mtg-core/src/work.rs) resumes owned
+opening, turn, spell and combat work. The existing mtg_core::opening API remains
+a compatibility re-export of the same types and implementation.
+
+This extraction does not change rules, serialized field schemas or supported
+cards. The existing conservative engine fingerprint includes the moved sources,
+so snapshots and replays produced before the refactor are explicitly incompatible.
+Rule modules still share private Game state; narrower state transitions,
+centralized card definitions and explicit recorder conversion remain tracked
+refactors, not completed architectural claims.
+
 ## Quickstart: run the checks
 
 You can verify the current repository today. You do not need a GitHub token,
