@@ -8,6 +8,10 @@ atomic #77 portion of R0002-B036/B037. This is small scalar dataset persistence;
 #20 retains recorder/replay integration, #79 CLI validation, and M3 retains
 sharded Parquet, batch interleaving, Python readers and trainer exports.
 
+A separate [scalar run manifest](run-manifest.md) binds this file to run-level
+provenance, capture declarations and completion, with a completed-run default.
+Bare JSONL validation retains the episode-level behavior below.
+
 ## Use
 
 Convert a completed or externally truncated native episode with
@@ -48,7 +52,7 @@ Each episode occupies one LF-terminated UTF-8 JSON object:
 {"episode":{...all canonical episode fields...},"kind":"episode"}
 ```
 
-The final line is the single-file manifest/seal:
+The final line is the single-file integrity seal:
 
 ```text
 {"decisions":N,"episodes":M,"format":1,"kind":"seal","sha256":"..."}

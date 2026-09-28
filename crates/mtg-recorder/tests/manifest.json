@@ -1,0 +1,19 @@
+{
+  "dataset_schema": 1,
+  "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+  "versions": {"schema": 1, "engine": "engine-v1", "rules": "cr-20260925", "cards": "pool-v1", "action": "script-v1", "observation": 1},
+  "deck_hashes": ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"],
+  "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "policies": ["script-a", "script-b"],
+  "seats": [0, 1],
+  "starting_seat": 0,
+  "limits": {"decisions": null, "turns": null, "wall_time_ms": null},
+  "reward": "SparseZeroSumTerminal",
+  "discount": "UndiscountedEpisodic",
+  "time": "DecisionAndLogicalAction",
+  "capture": {"AllEpisodes": {"first_ordinal": 7, "count": 1}},
+  "episodes": [{"ordinal": 7, "status": "Completed"}],
+  "end": "Completed",
+  "recording_complete": true,
+  "file": {"name": "episode.jsonl", "format": 1, "bytes": 2318, "sha256": "778584a206189a8ad3352b8bd26cb6fbca143b44c21459f8a7f3854a1dff8bb6", "episodes": 1, "decisions": 1}
+}

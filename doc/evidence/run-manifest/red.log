@@ -1,0 +1,75 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-116/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-116/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 27.44s
+     Running tests/manifest_contract.rs (target/debug/deps/manifest_contract-0dcad35a5b19302b)
+
+running 8 tests
+test bounds_and_unsupported_conventions_rejected ... ok
+test handwritten_pair_roundtrips ... ok
+test failed_and_interrupted_runs_are_explicit_diagnostics ... FAILED
+test incompatible_versions_and_provenance_rejected ... FAILED
+test every_required_field_and_unknown_fields_rejected ... ok
+test inventory_checksum_and_completion_are_binding ... FAILED
+test truncated_episode_is_not_a_completed_run ... FAILED
+test replay_ids_never_enter_policy_rows_and_paths_are_rejected ... FAILED
+
+failures:
+
+---- failed_and_interrupted_runs_are_explicit_diagnostics stdout ----
+
+thread 'failed_and_interrupted_runs_are_explicit_diagnostics' (756) panicked at crates/mtg-recorder/tests/manifest_contract.rs:76:9:
+assertion failed: matches!(load(&m,DATA,LoadMode::default()),Err(Error::Incomplete))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- incompatible_versions_and_provenance_rejected stdout ----
+
+thread 'incompatible_versions_and_provenance_rejected' (758) panicked at crates/mtg-recorder/tests/manifest_contract.rs:51:61:
+["dataset_schema"]
+
+---- inventory_checksum_and_completion_are_binding stdout ----
+
+thread 'inventory_checksum_and_completion_are_binding' (759) panicked at crates/mtg-recorder/tests/manifest_contract.rs:65:33:
+["file", "format"]
+
+---- truncated_episode_is_not_a_completed_run stdout ----
+
+thread 'truncated_episode_is_not_a_completed_run' (761) panicked at crates/mtg-recorder/tests/manifest_contract.rs:98:5:
+assertion failed: matches!(load(&m,&b,LoadMode::default()),Err(Error::Incomplete))
+
+---- replay_ids_never_enter_policy_rows_and_paths_are_rejected stdout ----
+
+thread 'replay_ids_never_enter_policy_rows_and_paths_are_rejected' (760) panicked at crates/mtg-recorder/tests/manifest_contract.rs:115:9:
+/tmp/private.replay
+
+
+failures:
+    failed_and_interrupted_runs_are_explicit_diagnostics
+    incompatible_versions_and_provenance_rejected
+    inventory_checksum_and_completion_are_binding
+    replay_ids_never_enter_policy_rows_and_paths_are_rejected
+    truncated_episode_is_not_a_completed_run
+
+test result: FAILED. 3 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-recorder --test manifest_contract`

@@ -1,6 +1,7 @@
 //! Bounded JSONL persistence for canonical scalar trajectories.
 //!
 //! See `doc/trajectory-jsonl.md`. No engine calls or RNG use occur here.
+pub mod manifest;
 pub mod schema;
 use schema::*;
 use serde::{Deserialize, Serialize};
