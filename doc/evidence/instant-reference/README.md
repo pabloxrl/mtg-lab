@@ -129,9 +129,16 @@ receipt hashes identify them. Normal/full-suite and independent candidate review
 results are recorded in the issue workpad and PR. Only protected merge plus
 successful exact-main CI completes this delivery.
 
-Pre-review verification: all 140 Python tests and 271 Rust tests plus two doctests
+Pre-review verification: all 140 Python tests and 272 Rust tests plus two doctests
 in each debug/release profile passed in the managed container, including
 formatting, Clippy, documentation, program and catalog validation. No existing
 test was deleted, skipped or weakened. README commands and the new reference
 command were exercised; the milestone table remains unchanged. Final candidate
 review, PR checks and exact-main CI are linked from the delivery workpad.
+
+Independent review initially passed with one advisory: native observations did not
+assert the complete object inventory. The retained `inventory-red.log` reproduces
+that gap before the fix. A normal-discovery regression now injects one unexpected
+card into each of all nine zones; every mutation is rejected, while a complete
+minimal inventory passes. Native checkpoints explicitly assert empty libraries
+and exile, matching the documented scope. The revised candidate is reviewed again.

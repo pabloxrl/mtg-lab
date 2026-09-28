@@ -87,6 +87,35 @@ impl Adapter {
             .turn_decision()
             .expect("checkpoint must be settled priority");
         assert_eq!(d.kind, TurnKind::Priority);
+        let expected_handles: Vec<_> = self
+            .objects
+            .iter()
+            .map(|o| self.handle(text(&o["id"])))
+            .collect();
+        let actual_handles: Vec<_> = Zone::ALL
+            .into_iter()
+            .flat_map(|zone| g.objects.in_zone(zone))
+            .collect();
+        assert_eq!(
+            actual_handles.len(),
+            expected_handles.len(),
+            "missing/extra object"
+        );
+        assert!(
+            actual_handles.iter().all(|h| expected_handles.contains(h)),
+            "unexpected object or zone"
+        );
+        for zone in [
+            Zone::Library(Seat::P0),
+            Zone::Library(Seat::P1),
+            Zone::Exile,
+        ] {
+            assert_eq!(
+                g.objects.in_zone(zone).count(),
+                0,
+                "unsupported nonempty zone"
+            );
+        }
         let objects: Vec<_> = self.objects.iter().map(|spec| {
             let h = self.handle(text(&spec["id"])); let o = g.objects.get(h).unwrap();
             let zone = match o.zone { Zone::Battlefield => "battlefield", Zone::Stack => "stack", Zone::Hand(_) => "hand", Zone::Graveyard(_) => "graveyard", _ => panic!("unsupported zone") };
@@ -361,5 +390,39 @@ fn instant_export_observations() {
         for (id, r) in out {
             assert_eq!(r["checkpoints"], expectations()[id]);
         }
+    }
+}
+
+#[test]
+fn instant_checkpoint_rejects_unlisted_objects_in_every_zone() {
+    // Inventory is part of explicit synthetic setup, regardless of whether the
+    // added card would change this short spell sequence's result.
+    for zone in Zone::ALL {
+        let mut g = Game::new().unwrap();
+        g.life = [20; 2];
+        g.rng = Some(EpisodeRng::new(VERSION, 0, 0, Stream::Environment).unwrap());
+        g.kept = [true; 2];
+        g.objects
+            .allocate(
+                CardId::from_key("bear-cub").unwrap(),
+                Seat::P0,
+                Zone::Battlefield,
+            )
+            .unwrap();
+        g.start_turns().unwrap();
+        let mut a = Adapter {
+            game: g,
+            objects: vec![json!({"id":"source","card":"bear-cub","owner":0,"zone":"battlefield"})],
+            damage: vec![],
+        };
+        a.checkpoint("initial"); // Minimal complete inventory is valid.
+        a.game
+            .objects
+            .allocate(CardId::from_key("forest").unwrap(), Seat::P1, zone)
+            .unwrap();
+        assert!(
+            std::panic::catch_unwind(|| a.checkpoint("initial")).is_err(),
+            "unlisted object in {zone:?}"
+        );
     }
 }

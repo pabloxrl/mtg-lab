@@ -1,11 +1,11 @@
 {
   "omitted-target-native": {
     "reason": "IllegalTarget",
-    "log_sha256": "a0994a5bb972acd995c9cd164ae24407ac500c596cb29b34a53783e3ffb2a42a",
+    "log_sha256": "0b38978971ddcfb6e293064f3a40a61e34b8bf143a0e99dbc489f45bbcbdba82",
     "excerpts": [
       [
         "",
-        "thread 'game::instant_reference_tests::instant_export_observations' (589) panicked at crates/mtg-core/src/instant_reference_tests.rs:246:69:",
+        "thread 'game::instant_reference_tests::instant_export_observations' (323) panicked at crates/mtg-core/src/instant_reference_tests.rs:275:69:",
         "called `Result::unwrap()` on an `Err` value: IllegalTarget",
         "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
         ""
@@ -14,7 +14,7 @@
   },
   "omitted-target-xmage": {
     "reason": "illegal target",
-    "log_sha256": "a6087890d412006db0c3fc4498f660e45d3bf6bf5a86b32e67bcf5beda89d7fc",
+    "log_sha256": "d6f7c66aabc15307a9c131fd4db3c8b92416bc325b73a6f36ce118bdd912cf3f",
     "excerpts": [
       [
         "[INFO] ",
@@ -34,11 +34,11 @@
   },
   "extra-target-native": {
     "reason": "unexpected target choice",
-    "log_sha256": "d15787bceac035bf26f1ea6e67644ec7f447514d318d62bda996d217e6af675f",
+    "log_sha256": "644b0075f0a65f12b55160501b4e29b0fbdb1d982521136320f60183894f5955",
     "excerpts": [
       [
         "",
-        "thread 'game::instant_reference_tests::instant_export_observations' (707) panicked at crates/mtg-core/src/instant_reference_tests.rs:244:26:",
+        "thread 'game::instant_reference_tests::instant_export_observations' (441) panicked at crates/mtg-core/src/instant_reference_tests.rs:273:26:",
         "unexpected target choice",
         "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
         ""
@@ -47,7 +47,7 @@
   },
   "extra-target-xmage": {
     "reason": "choice order",
-    "log_sha256": "9a42a7f7a1117d459272eb77c115393df611e21e1a58dbcb7ea1a7a9e3e188e5",
+    "log_sha256": "bd6277220864534c7aa4e4d80e6af7e4efd5851db187678c07271278c63aa936",
     "excerpts": [
       [
         "[INFO] ",
@@ -67,11 +67,11 @@
   },
   "reordered-payment-native": {
     "reason": "payment requested before targets",
-    "log_sha256": "9904b34fe9e31f1a3e24635bee75005089fdf205497f8765bdd6b7aa4fdba13b",
+    "log_sha256": "cb9dbd4d2aefb0fba648c5b3477aebd6778fc925bba80e23ba4a2a11fcc9ca4a",
     "excerpts": [
       [
         "",
-        "thread 'game::instant_reference_tests::instant_export_observations' (825) panicked at crates/mtg-core/src/instant_reference_tests.rs:257:26:",
+        "thread 'game::instant_reference_tests::instant_export_observations' (559) panicked at crates/mtg-core/src/instant_reference_tests.rs:286:26:",
         "payment requested before targets",
         "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
         ""
@@ -80,7 +80,7 @@
   },
   "reordered-payment-xmage": {
     "reason": "choice order",
-    "log_sha256": "eec77e605a09ee0fa23b2b0446bbe7a7d21391f3b1d2f676491f82fe03b98ce2",
+    "log_sha256": "730a61f8ebff18698ae0a6013bf0d1d4c04a22556b34894d78f64dfa2a3fbb57",
     "excerpts": [
       [
         "[INFO] ",
@@ -100,11 +100,11 @@
   },
   "wrong-actor-native": {
     "reason": "WrongActor",
-    "log_sha256": "dc365ae431e0b2e83f6d4cb492efae31ae3dbf5eb3bf9f3fe4a221151ffc4608",
+    "log_sha256": "1face68c9b15742ca3fc33dd277496c86317bb15fb66cc0745dc40f19c0ee1a6",
     "excerpts": [
       [
         "",
-        "thread 'game::instant_reference_tests::instant_export_observations' (943) panicked at crates/mtg-core/src/instant_reference_tests.rs:235:68:",
+        "thread 'game::instant_reference_tests::instant_export_observations' (677) panicked at crates/mtg-core/src/instant_reference_tests.rs:264:68:",
         "called `Result::unwrap()` on an `Err` value: Cast(Mana(Turn(Invalid(WrongActor))))",
         "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
         ""
@@ -113,7 +113,7 @@
   },
   "wrong-actor-xmage": {
     "reason": "wrong actor",
-    "log_sha256": "98d0e82c1914bd6d92ac9b64d450e2683128f679114669eca14d6991fa5c5e8a",
+    "log_sha256": "f3e4864b68da5c941a2675ca5e0400422adf9ad394cd1c19cb407794b434db96",
     "excerpts": [
       [
         "[INFO] ",

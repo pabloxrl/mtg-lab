@@ -1,0 +1,13 @@
+{
+  "verdict": "pass",
+  "summary": "No blocking defects found. Scope, integration ownership, README claims, and independent expectations are consistent. Existing tests were not weakened. Five read-only Python tests and three native tests passed; retained observations and source hashes matched. Full torture and XMage execution were not rerun.",
+  "findings": [
+    {
+      "file": "crates/mtg-core/src/instant_reference_tests.rs:95",
+      "finding": "The native checkpoint observes only fixture-listed objects and never asserts empty libraries/exile or rejects unexpected objects, unlike the XMage adapter. The evidence README says these emptiness checks are asserted. Add equivalent native inventory checks or narrow that documentation claim.",
+      "severity": "advisory"
+    }
+  ],
+  "base_sha": "f3874a2172dce497adbb6c3fc80d07fc8433a4b3",
+  "head_sha": "594a265b7ba573fa52aca283dc769d332b3fc0b1"
+}

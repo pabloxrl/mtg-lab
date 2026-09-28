@@ -12,13 +12,13 @@
         "status": "rejected",
         "reason": "IllegalTarget",
         "input_sha256": "08ada40d67bfe58c2f97c9a9163b0c4220de1c2dd4d8b0ee34d4c468f5d83c3c",
-        "log_sha256": "a0994a5bb972acd995c9cd164ae24407ac500c596cb29b34a53783e3ffb2a42a"
+        "log_sha256": "0b38978971ddcfb6e293064f3a40a61e34b8bf143a0e99dbc489f45bbcbdba82"
       },
       "xmage": {
         "status": "rejected",
         "reason": "illegal target",
         "input_sha256": "08ada40d67bfe58c2f97c9a9163b0c4220de1c2dd4d8b0ee34d4c468f5d83c3c",
-        "log_sha256": "a6087890d412006db0c3fc4498f660e45d3bf6bf5a86b32e67bcf5beda89d7fc"
+        "log_sha256": "d6f7c66aabc15307a9c131fd4db3c8b92416bc325b73a6f36ce118bdd912cf3f"
       }
     },
     "extra-target": {
@@ -26,13 +26,13 @@
         "status": "rejected",
         "reason": "unexpected target choice",
         "input_sha256": "f63d2ddf491f5a40be2a1970ba48e3f085984429f75ce07a810d977c1a0577b1",
-        "log_sha256": "d15787bceac035bf26f1ea6e67644ec7f447514d318d62bda996d217e6af675f"
+        "log_sha256": "644b0075f0a65f12b55160501b4e29b0fbdb1d982521136320f60183894f5955"
       },
       "xmage": {
         "status": "rejected",
         "reason": "choice order",
         "input_sha256": "f63d2ddf491f5a40be2a1970ba48e3f085984429f75ce07a810d977c1a0577b1",
-        "log_sha256": "9a42a7f7a1117d459272eb77c115393df611e21e1a58dbcb7ea1a7a9e3e188e5"
+        "log_sha256": "bd6277220864534c7aa4e4d80e6af7e4efd5851db187678c07271278c63aa936"
       }
     },
     "reordered-payment": {
@@ -40,13 +40,13 @@
         "status": "rejected",
         "reason": "payment requested before targets",
         "input_sha256": "68db641caccad3d45e6b39b84270d32d9b326e2fd69023335f86638a1617d7bf",
-        "log_sha256": "9904b34fe9e31f1a3e24635bee75005089fdf205497f8765bdd6b7aa4fdba13b"
+        "log_sha256": "cb9dbd4d2aefb0fba648c5b3477aebd6778fc925bba80e23ba4a2a11fcc9ca4a"
       },
       "xmage": {
         "status": "rejected",
         "reason": "choice order",
         "input_sha256": "68db641caccad3d45e6b39b84270d32d9b326e2fd69023335f86638a1617d7bf",
-        "log_sha256": "eec77e605a09ee0fa23b2b0446bbe7a7d21391f3b1d2f676491f82fe03b98ce2"
+        "log_sha256": "730a61f8ebff18698ae0a6013bf0d1d4c04a22556b34894d78f64dfa2a3fbb57"
       }
     },
     "wrong-actor": {
@@ -54,25 +54,25 @@
         "status": "rejected",
         "reason": "WrongActor",
         "input_sha256": "e39377bc4715249acca37fa18c45fbd38c9e3ba819d1e810ba069144c43ca082",
-        "log_sha256": "dc365ae431e0b2e83f6d4cb492efae31ae3dbf5eb3bf9f3fe4a221151ffc4608"
+        "log_sha256": "1face68c9b15742ca3fc33dd277496c86317bb15fb66cc0745dc40f19c0ee1a6"
       },
       "xmage": {
         "status": "rejected",
         "reason": "wrong actor",
         "input_sha256": "e39377bc4715249acca37fa18c45fbd38c9e3ba819d1e810ba069144c43ca082",
-        "log_sha256": "98d0e82c1914bd6d92ac9b64d450e2683128f679114669eca14d6991fa5c5e8a"
+        "log_sha256": "f3e4864b68da5c941a2675ca5e0400422adf9ad394cd1c19cb407794b434db96"
       }
     },
     "changed-target": {
       "native": {
         "status": "detected",
         "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0]\"}",
-        "log_sha256": "a30ec39a8c2e2b47acb47676a0b2e6c786334f50aa17a7935cadab11c148d68e"
+        "log_sha256": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7"
       },
       "xmage": {
         "status": "detected",
         "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0]\"}",
-        "log_sha256": "98957642519471e605ae5475c463876dd661640417d4a5754613b6046d8da414"
+        "log_sha256": "7555cf42438aa18dd3303d49defdcb32ae1f9c1b8534e8ec19491fbbb474bd3b"
       }
     }
   },
@@ -81,7 +81,7 @@
     "fixtures/reference/instant-responses.json": "d9e2588821e37f3a2d78403fc566fccaacba09361818e9941965058c35eaa8a1",
     "fixtures/reference/instant-expectations.json": "142ca12f4ded4a0fe6d443f61f22111cbdbe7eacda7d1a91263d650009736348",
     "references/xmage/InstantResponseTest.java": "d61b0441f0dfcfbdfe92770babcd1e46e54514a41aa56aa0d15f02479a6e38a6",
-    "crates/mtg-core/src/instant_reference_tests.rs": "b310350efc861c5947178f26bac1c97a06738820e9604c48770dcabcb8f928e5",
+    "crates/mtg-core/src/instant_reference_tests.rs": "86256da1db2dddbfcb278c281d803a42c06b5d1da4823822aeb1d72681d8e687",
     "scripts/instant_reference.py": "457f47f0714a0f96ca6e4eaea7c7391285ab56e3953df5a28c336666aff45c76",
     "references/xmage/pins.json": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
     "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
@@ -92,32 +92,32 @@
   "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
   "artifacts": {
     "changed-target-input.json": "24e7a960d94de6ef79f114dfaae57e386a1fa69534de9711a91350ee04440232",
-    "changed-target-native-divergence.json": "0911380ff983d5fb1d1513b43cff6731d1fb85626865335fc5de5df27b97fc62",
+    "changed-target-native-divergence.json": "6da61455e33405bc299444536d13140fd4434545bb6dbaee920ed1b06cc81c4e",
     "changed-target-native.json": "110983527cc6262b0228d2425cf88e02cd06a971294092e917b689f676b15947",
-    "changed-target-native.log": "a30ec39a8c2e2b47acb47676a0b2e6c786334f50aa17a7935cadab11c148d68e",
-    "changed-target-xmage-divergence.json": "2385dc22ea2f791e7cc93ba61d65995adb011f7b59db4537fe734d19cdc841fd",
-    "changed-target-xmage.log": "98957642519471e605ae5475c463876dd661640417d4a5754613b6046d8da414",
+    "changed-target-native.log": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7",
+    "changed-target-xmage-divergence.json": "bac97749a53e288161cf8825634b78c82fcb6364cc54958247e639e624448387",
+    "changed-target-xmage.log": "7555cf42438aa18dd3303d49defdcb32ae1f9c1b8534e8ec19491fbbb474bd3b",
     "extra-target-input.json": "f63d2ddf491f5a40be2a1970ba48e3f085984429f75ce07a810d977c1a0577b1",
-    "extra-target-native.log": "d15787bceac035bf26f1ea6e67644ec7f447514d318d62bda996d217e6af675f",
-    "extra-target-xmage.log": "9a42a7f7a1117d459272eb77c115393df611e21e1a58dbcb7ea1a7a9e3e188e5",
+    "extra-target-native.log": "644b0075f0a65f12b55160501b4e29b0fbdb1d982521136320f60183894f5955",
+    "extra-target-xmage.log": "bd6277220864534c7aa4e4d80e6af7e4efd5851db187678c07271278c63aa936",
     "input.json": "d9e2588821e37f3a2d78403fc566fccaacba09361818e9941965058c35eaa8a1",
     "native-1.json": "16ff842b906a28333a0d0c228fe35b5a7bebc842ff7bb8d4479db862f5a01a1f",
-    "native-1.log": "e30ea4b734ee345c5aa8e376321f36cf47d66f7c2bd8f62fdc055727203a906e",
+    "native-1.log": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7",
     "native-2.json": "16ff842b906a28333a0d0c228fe35b5a7bebc842ff7bb8d4479db862f5a01a1f",
-    "native-2.log": "a30ec39a8c2e2b47acb47676a0b2e6c786334f50aa17a7935cadab11c148d68e",
+    "native-2.log": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7",
     "omitted-target-input.json": "08ada40d67bfe58c2f97c9a9163b0c4220de1c2dd4d8b0ee34d4c468f5d83c3c",
-    "omitted-target-native.log": "a0994a5bb972acd995c9cd164ae24407ac500c596cb29b34a53783e3ffb2a42a",
-    "omitted-target-xmage.log": "a6087890d412006db0c3fc4498f660e45d3bf6bf5a86b32e67bcf5beda89d7fc",
+    "omitted-target-native.log": "0b38978971ddcfb6e293064f3a40a61e34b8bf143a0e99dbc489f45bbcbdba82",
+    "omitted-target-xmage.log": "d6f7c66aabc15307a9c131fd4db3c8b92416bc325b73a6f36ce118bdd912cf3f",
     "reordered-payment-input.json": "68db641caccad3d45e6b39b84270d32d9b326e2fd69023335f86638a1617d7bf",
-    "reordered-payment-native.log": "9904b34fe9e31f1a3e24635bee75005089fdf205497f8765bdd6b7aa4fdba13b",
-    "reordered-payment-xmage.log": "eec77e605a09ee0fa23b2b0446bbe7a7d21391f3b1d2f676491f82fe03b98ce2",
+    "reordered-payment-native.log": "cb9dbd4d2aefb0fba648c5b3477aebd6778fc925bba80e23ba4a2a11fcc9ca4a",
+    "reordered-payment-xmage.log": "730a61f8ebff18698ae0a6013bf0d1d4c04a22556b34894d78f64dfa2a3fbb57",
     "wrong-actor-input.json": "e39377bc4715249acca37fa18c45fbd38c9e3ba819d1e810ba069144c43ca082",
-    "wrong-actor-native.log": "dc365ae431e0b2e83f6d4cb492efae31ae3dbf5eb3bf9f3fe4a221151ffc4608",
-    "wrong-actor-xmage.log": "98d0e82c1914bd6d92ac9b64d450e2683128f679114669eca14d6991fa5c5e8a",
+    "wrong-actor-native.log": "1face68c9b15742ca3fc33dd277496c86317bb15fb66cc0745dc40f19c0ee1a6",
+    "wrong-actor-xmage.log": "f3e4864b68da5c941a2675ca5e0400422adf9ad394cd1c19cb407794b434db96",
     "xmage-1.json": "133c329c5f8581007292552632a0597117b9eb94f410b088ca228d7384bc360c",
-    "xmage-1.log": "065ef62c398d833cee7e872cba5fb339769fa3310d624d5aa3dd2416b428ca0e",
+    "xmage-1.log": "a48792071fb4407b72924331fb00e95a92d05718b227b757456540b97c38531e",
     "xmage-2.json": "133c329c5f8581007292552632a0597117b9eb94f410b088ca228d7384bc360c",
-    "xmage-2.log": "295621fcdb4d4dd0b4f0b481ec5a997afe7e30c3848bc8b25f181ec6d95d3b8d"
+    "xmage-2.log": "d76a8ae4fba98f5db9f72199e50cae25df8d2486e423e028dff0cb6a66785d90"
   },
   "native_sources": {
     "crates/mtg-core/src/actions.rs": "e65b5616ee647296b27544f7e71ba7a69b917823a22094b077b714056255745b",
@@ -128,7 +128,7 @@
     "crates/mtg-core/src/combat.rs": "061c35fae443d256cbb725a79b70176d373c32bf15c33e9056518a8d91f1c7e1",
     "crates/mtg-core/src/combat_tests.rs": "ac42232abaff36ac41aba2c772ff758668e67a4e87980c94b8e40f95db89dbf7",
     "crates/mtg-core/src/game.rs": "cc99d0738feaa42d7ac0af179c4b1c2097b9b958d3b72d56b65c13746a3039d4",
-    "crates/mtg-core/src/instant_reference_tests.rs": "b310350efc861c5947178f26bac1c97a06738820e9604c48770dcabcb8f928e5",
+    "crates/mtg-core/src/instant_reference_tests.rs": "86256da1db2dddbfcb278c281d803a42c06b5d1da4823822aeb1d72681d8e687",
     "crates/mtg-core/src/lib.rs": "1d09e94641e1cc97c2c4024dce8a5a874422a7a387a01a810cdb3db549960157",
     "crates/mtg-core/src/mana.rs": "23f4ded02086bc32aea47a977b4073298181de086c4fbf679022b8608fef40c7",
     "crates/mtg-core/src/objects.rs": "5b1ae9654cf41eb15c8f4bc457e978e5da161c4594cded15d783bbfbd840ff1a",
