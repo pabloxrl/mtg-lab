@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-137/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.16s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::instant_reference_tests::instant_departed_targets_literal_expectations ... FAILED
+
+failures:
+
+---- game::instant_reference_tests::instant_departed_targets_literal_expectations stdout ----
+
+thread 'game::instant_reference_tests::instant_departed_targets_literal_expectations' (276) panicked at crates/mtg-core/src/instant_reference_tests.rs:213:9:
+assertion failed: identities.insert((text(&o["card"]), o["owner"].as_u64().unwrap()))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::instant_reference_tests::instant_departed_targets_literal_expectations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 139 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

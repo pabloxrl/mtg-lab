@@ -20,7 +20,11 @@
     "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
     "Mage.Tests/src/test/java/org/mage/test/player/TestComputerPlayer.java": "9386e731ad7dfbf29a85962b8030f1812adf8615af17171dd926bec502e4a10a",
     "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
-    "Mage/src/main/java/mage/players/Library.java": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c"
+    "Mage/src/main/java/mage/players/Library.java": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c",
+    "Mage/src/main/java/mage/game/stack/Spell.java": "7613dc12a6650f28f30cddca34bc409021108489792961eb4a7a7bcf9e747099",
+    "Mage/src/main/java/mage/target/TargetImpl.java": "4366d56a414e29c40704e8b734f760d1ec6657d57b0abf8998f51f50d566f915",
+    "Mage/src/main/java/mage/abilities/AbilityImpl.java": "dac914825d442d3300f3b18788ba80371c46bde1e32dac706f582d12c830a980",
+    "Mage/src/main/java/mage/game/events/GameEvent.java": "3df463d33eff295607e700578e547cef896cf183e1dba3c41131a353f53cb7dc"
   },
   "toolchain_base_image": "maven:3.9.11-eclipse-temurin-21-noble@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237",
   "jdk_runtime": "21.0.9+10"

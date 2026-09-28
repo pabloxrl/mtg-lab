@@ -1,5 +1,10 @@
 # Shared instant-response executor (GH-136)
 
+Historical delivery evidence for #136. The current executor additionally covers
+[departed targets (#137)](../departed-reference/README.md), with incarnation-aware
+observations and separate updated receipts. Scope statements below describe the
+original delivery; the original receipt remains unchanged.
+
 This delivery covers only Giant Growth responding to Bite Down on its destination
 and on its source. M1, #115/#18 integration, departed targets, combat, cleanup,
 full-pool, Forge and dual-reference/full-game release requirements remain open.

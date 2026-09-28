@@ -1,4 +1,4 @@
-"""Execute the two original shared instant scripts in native Rust and pinned XMage."""
+"""Execute original shared instant and departed-target scripts in native Rust and pinned XMage."""
 import argparse
 import copy
 import subprocess
@@ -133,6 +133,76 @@ def strict_mutations(cache, output, document):
             receipts['changed-target'][engine] = failure
         else:
             raise ValueError('changed target mutant survived: ' + engine)
+    receipts['departed-missing-pass'] = {}
+    mutant = copy.deepcopy(document)
+    case = next(c for c in mutant['cases'] if c['id'] == 'growth-gone')
+    case['script'].pop(-2)  # Omit the second pass that would finish Growth.
+    path = output / 'departed-missing-pass-input.json'
+    path.write_text(json.dumps(mutant, indent=2) + '\n')
+    for engine in ('native', 'xmage'):
+        stem = 'departed-missing-pass-' + engine
+        log = output / (stem + '.log')
+        try:
+            if engine == 'native':
+                run_native(output / (stem + '.json'), log, path)
+            else:
+                run_xmage(cache, output / stem, log, path)
+        except ValueError:
+            xmage.scenario.require('unfinished stack' in log.read_text(), 'unrelated departure choice failure')
+            receipts['departed-missing-pass'][engine] = {
+                'status': 'rejected', 'reason': 'unfinished stack',
+                'input_sha256': xmage.sha(path), 'log_sha256': xmage.sha(log)}
+        else:
+            raise ValueError('missing departure pass survived: ' + engine)
+    # A legal removal of the other same-name creature must not be mistaken for
+    # removal of the selected target. Both engines really execute this control.
+    mutant = copy.deepcopy(document)
+    case = next(c for c in mutant['cases'] if c['id'] == 'growth-gone')
+    targets = [a for a in case['script'] if a['kind'] == 'target']
+    targets[-1]['target'] = 'decoy0'
+    path = output / 'departed-retarget-input.json'
+    path.write_text(json.dumps(mutant, indent=2) + '\n')
+    # Keep only this case and objects referenced by its original/mutated choices.
+    minimal = copy.deepcopy(case)
+    original = next(c for c in document['cases'] if c['id'] == case['id'])
+    used = {a[key] for c in (case, original) for a in c['script']
+            for key in ('source', 'target') if key in a}
+    minimal['setup']['objects'] = [o for o in minimal['setup']['objects'] if o['id'] in used]
+    minimized_path = output / 'departed-retarget-minimized.json'
+    minimized_path.write_text(json.dumps({'version': document['version'], 'cases': [minimal]}, indent=2) + '\n')
+    expected_minimal = json.loads(EXPECTATIONS.read_text())[case['id']]
+    for point in expected_minimal:
+        point['state']['objects'] = [o for o in point['state']['objects'] if o['id'] in used]
+    (output / 'departed-retarget-minimized-expected.json').write_text(json.dumps(expected_minimal, indent=2) + '\n')
+    receipts['departed-retarget'] = {}
+    for engine in ('native', 'xmage'):
+        stem = 'departed-retarget-' + engine
+        log = output / (stem + '.log')
+        result = (run_native(output / (stem + '.json'), log, path) if engine == 'native'
+                  else run_xmage(cache, output / stem, log, path))
+        try:
+            compare(document, result)
+        except ValueError as error:
+            failure = {'status': 'detected', 'error': str(error),
+                       'input_sha256': xmage.sha(path), 'log_sha256': xmage.sha(log)}
+            xmage.scenario.require('growth-gone.checkpoints[2].state.stack[1].targets[1].id' in str(error),
+                                   'retarget control failed at unrelated checkpoint')
+            (output / (stem + '-divergence.json')).write_text(json.dumps(failure, indent=2) + '\n')
+            receipts['departed-retarget'][engine] = failure
+        else:
+            raise ValueError('departed retarget mutant survived: ' + engine)
+        # Re-execute the reduced script, preserving its own first divergence.
+        mini_stem = 'departed-retarget-minimized-' + engine
+        mini_log = output / (mini_stem + '.log')
+        minimal_result = (run_native(output / (mini_stem + '.json'), mini_log, minimized_path)
+                          if engine == 'native' else run_xmage(cache, output / mini_stem, mini_log, minimized_path))
+        divergence = difference(expected_minimal, minimal_result[case['id']]['checkpoints'])
+        xmage.scenario.require(divergence is not None and
+                               divergence['path'] == '$[2].state.stack[1].targets[1].id',
+                               'minimized script lost first retarget divergence')
+        (output / (mini_stem + '-divergence.json')).write_text(json.dumps(divergence, indent=2) + '\n')
+        receipts['departed-retarget'][engine]['minimized_input_sha256'] = xmage.sha(minimized_path)
+        receipts['departed-retarget'][engine]['minimized_log_sha256'] = xmage.sha(mini_log)
     return receipts
 
 
@@ -174,7 +244,7 @@ def main():
         files = [FIXTURE, EXPECTATIONS, BRIDGE, NATIVE, Path(__file__), ROOT / 'references/xmage/pins.json',
                  ROOT / 'references/xmage/dependencies.json', ROOT / 'Cargo.lock', ROOT / 'data/rules/cr-2026-09-25.json',
                  ROOT / 'data/cards/foundations_micro_v1.json']
-        report = {'status': 'agreed', 'schema_version': 1, 'cases': list(runs['native-1']),
+        report = {'status': 'agreed', 'schema_version': 2, 'cases': list(runs['native-1']),
                   'executions_per_engine': 2, 'mutations': mutations, 'input_boundary': 'turn-1-upkeep-priority',
                   'pins': {str(p.relative_to(ROOT)): xmage.sha(p) for p in files},
                   'upstream_commit': xmage.scenario.load(ROOT / 'references/xmage/pins.json')['upstream_commit'],
@@ -183,10 +253,10 @@ def main():
                   'rustc': subprocess.check_output(['rustc', '--version'], text=True, timeout=10).strip(),
                   'python': sys.version.split()[0], 'native_profile': 'debug',
                   'stdin': 'closed', 'display': 'unset', 'xmage_offline': True,
-                  'observability': 'Settled priority, bottom-to-top stack and targets, named zones, creature stats/damage, life, mana, taps; damage event observed before lethal SBA.',
-                  'limitations': 'Synthetic setup; no legal-action enumeration, hidden views, departed targets, combat, cleanup, full games or Forge agreement.'}
+                  'observability': 'Settled priority, bottom-to-top stack with historical target incarnations, named card lineage and current zone incarnation, creature stats/damage, life, mana, taps; actual damage and resolution outcomes.',
+                  'limitations': 'Synthetic setup; no legal-action enumeration, hidden views, combat, cleanup, full games or Forge agreement. Graveyard incarnations and same-name decoys are matched; battlefield reentry is an observer-only native regression, not a matched spell scenario.'}
         receipt.write_text(json.dumps(report, indent=2) + '\n')
-        print('Both instant-response cases agreed with independent expectations in both engines, twice.')
+        print(f"All {len(document['cases'])} instant-response cases agreed with independent expectations in both engines, twice.")
     except (ValueError, OSError, KeyError) as error:
         failure_path.write_text(json.dumps({'status': 'failed', 'error': str(error),
                                           'input': str(FIXTURE), 'artifacts': str(output)}, indent=2) + '\n')

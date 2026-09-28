@@ -78,3 +78,23 @@ class InstantReferenceTests(unittest.TestCase):
                 self.assertEqual(instant.main(),1)
             self.assertFalse((output/'acceptance.json').exists())
             self.assertIn('unavailable pinned reference',json.loads((output/'first-divergence.json').read_text())['error'])
+
+    def test_departed_identity_and_resolution_mutants_fail_at_first_checkpoint(self):
+        # CR 400.7 / 608.2b: the old target persists on stack, and no illegal
+        # source can deal damage. These mutations do not calculate expectations.
+        for variant in ['growth-gone','bite-source-gone','bite-destination-gone','bite-both-gone']:
+            for mutation in ['retarget','new-incarnation','missing-identity','illegal-damage','resolution','unconsumed']:
+                wrong=copy.deepcopy(self.results)
+                state=wrong[variant]['checkpoints'][3]['state']
+                final=wrong[variant]['checkpoints'][-1]['state']
+                if mutation=='retarget': state['stack'][0]['targets'][0]['id']='decoy0'
+                elif mutation=='new-incarnation': state['stack'][0]['targets'][0]['incarnation']=1
+                elif mutation=='missing-identity': del state['stack'][0]['targets'][0]['incarnation']
+                elif mutation=='illegal-damage': final['damage_events'].append({'source':'source','target':'destination','amount':2})
+                elif mutation=='resolution': final['last_resolution']['resolved']=not final['last_resolution']['resolved']
+                else: wrong[variant]['consumed'].pop()
+                with self.assertRaisesRegex(ValueError,'first divergence') as caught:
+                    instant.compare(self.fixture,wrong)
+                self.assertIn(variant,str(caught.exception))
+                if mutation in ['retarget','new-incarnation','missing-identity']:
+                    self.assertIn('checkpoints[3].state.stack[0].targets[0]',str(caught.exception))

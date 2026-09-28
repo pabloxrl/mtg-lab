@@ -1,0 +1,20 @@
+{
+  "command": "./scripts/torture.sh",
+  "exit_code": 0,
+  "environment": "managed Linux ARM64 Docker worker; no Docker invocation from worker",
+  "base_sha": "004eaeaf8c4d77aa5985b2475637e11b08b875c4",
+  "python_tests": 141,
+  "rust_passes_including_doctests_both_profiles": 556,
+  "log_sha256": "ad66f86cd7aef44a55ddc7cc23c17da447c293e9202aeffab96a558eb3a86b1f",
+  "checks": [
+    "documentation links",
+    "RFC program and requirement ledger",
+    "capability catalog",
+    "Python discovery",
+    "Rust formatting",
+    "Clippy",
+    "Rust debug tests and doctests",
+    "Rust release tests and doctests"
+  ],
+  "reference_receipt": "acceptance.json"
+}
