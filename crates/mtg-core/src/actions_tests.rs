@@ -260,7 +260,7 @@ fn actions_fresh_processes() {
         let mut child = std::process::Command::new(std::env::current_exe().unwrap())
             .args([
                 "--exact",
-                "opening::actions::tests::actions_hand_authored_normal_reset_spell_combat",
+                "game::actions::tests::actions_hand_authored_normal_reset_spell_combat",
                 "--nocapture",
             ])
             .stdin(std::process::Stdio::null())
