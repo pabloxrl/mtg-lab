@@ -156,3 +156,7 @@ This registration operation #106 must pass separate review, protected merge and 
 The coordinator records operation completion, closes it only after validation, and queues exactly one eligible child. New children have no previous dispatch counter. The four resumed integration workspaces receive a one-time archived-counter reset while the controller is stopped, preserving files and workpads. Future blocks still require diagnosis; this plan does not authorize automatic retry-limit resets.
 
 For the driver: no issue unblocking or PR review is needed. Read the dashboard for current work and parent #7 for evidence. Agents advance through these prerequisites, then rerun the four integration checks and M1 gate. Essential product decisions or missing access remain reasons to ask for input.
+
+## Matched-reference refinement
+
+The [matched instant reference prerequisite plan](instant-reference-prerequisites.md) splits #115 into #136–#139 after its source audit identified missing executor and continuation contracts. It supersedes the assumption that all matched scenarios fit one implementation PR. #115 retains aggregate acceptance and waits for these children; original requirements and test expectations remain intact.

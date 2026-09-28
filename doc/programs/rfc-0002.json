@@ -554,14 +554,82 @@
       ]
     },
     {
+      "key": "plan-instant-references",
+      "issue": 135,
+      "milestone": "M1",
+      "kind": "operations",
+      "depends_on": [
+        106
+      ],
+      "requirements": []
+    },
+    {
+      "key": "instant-executor",
+      "issue": 136,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        135,
+        70
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "departed-reference",
+      "issue": 137,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        136
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "blocker-reference",
+      "issue": 138,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        136,
+        71
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "cleanup-reference",
+      "issue": 139,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        136
+      ],
+      "requirements": [
+        "R0002-B017",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
       "key": "instant-reference",
       "issue": 115,
       "milestone": "M1",
       "kind": "implementation",
       "depends_on": [
-        106,
-        70,
-        71
+        137,
+        138,
+        139
       ],
       "requirements": [
         "R0002-B017",
