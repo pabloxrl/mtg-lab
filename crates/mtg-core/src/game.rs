@@ -149,3 +149,7 @@ mod trajectory_rules_tests;
 
 #[path = "actions.rs"]
 pub mod actions;
+
+#[cfg(test)]
+#[path = "instant_reference_tests.rs"]
+mod instant_reference_tests;

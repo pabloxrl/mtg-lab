@@ -1,0 +1,134 @@
+{
+  "omitted-target-native": {
+    "reason": "IllegalTarget",
+    "log_sha256": "0b38978971ddcfb6e293064f3a40a61e34b8bf143a0e99dbc489f45bbcbdba82",
+    "excerpts": [
+      [
+        "",
+        "thread 'game::instant_reference_tests::instant_export_observations' (323) panicked at crates/mtg-core/src/instant_reference_tests.rs:275:69:",
+        "called `Result::unwrap()` on an `Err` value: IllegalTarget",
+        "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+        ""
+      ]
+    ]
+  },
+  "omitted-target-xmage": {
+    "reason": "illegal target",
+    "log_sha256": "d6f7c66aabc15307a9c131fd4db3c8b92416bc325b73a6f36ce118bdd912cf3f",
+    "excerpts": [
+      [
+        "[INFO] ",
+        "[INFO] Stack trace",
+        "[INFO] java.lang.AssertionError: illegal target",
+        "\tat org.junit.Assert.fail(Assert.java:89)",
+        "\tat org.junit.Assert.assertTrue(Assert.java:42)"
+      ],
+      [
+        "[INFO] ",
+        "[ERROR] Failures: ",
+        "[ERROR]   InstantResponseTest.instant:166->CardTestPlayerAPIImpl.execute:324 illegal target",
+        "[INFO] ",
+        "[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0"
+      ]
+    ]
+  },
+  "extra-target-native": {
+    "reason": "unexpected target choice",
+    "log_sha256": "644b0075f0a65f12b55160501b4e29b0fbdb1d982521136320f60183894f5955",
+    "excerpts": [
+      [
+        "",
+        "thread 'game::instant_reference_tests::instant_export_observations' (441) panicked at crates/mtg-core/src/instant_reference_tests.rs:273:26:",
+        "unexpected target choice",
+        "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+        ""
+      ]
+    ]
+  },
+  "extra-target-xmage": {
+    "reason": "choice order",
+    "log_sha256": "bd6277220864534c7aa4e4d80e6af7e4efd5851db187678c07271278c63aa936",
+    "excerpts": [
+      [
+        "[INFO] ",
+        "[INFO] Stack trace",
+        "[INFO] org.junit.ComparisonFailure: choice order at 6 expected:<[pay]> but was:<[target]>",
+        "\tat org.junit.Assert.assertEquals(Assert.java:117)",
+        "\tat org.mage.test.mtglab.InstantResponseTest.take(InstantResponseTest.java:50)"
+      ],
+      [
+        "[INFO] ",
+        "[ERROR] Failures: ",
+        "[ERROR]   InstantResponseTest.instant:166->CardTestPlayerAPIImpl.execute:324->access$1100:31->take:50 choice order at 6 expected:<[pay]> but was:<[target]>",
+        "[INFO] ",
+        "[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0"
+      ]
+    ]
+  },
+  "reordered-payment-native": {
+    "reason": "payment requested before targets",
+    "log_sha256": "cb9dbd4d2aefb0fba648c5b3477aebd6778fc925bba80e23ba4a2a11fcc9ca4a",
+    "excerpts": [
+      [
+        "",
+        "thread 'game::instant_reference_tests::instant_export_observations' (559) panicked at crates/mtg-core/src/instant_reference_tests.rs:286:26:",
+        "payment requested before targets",
+        "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+        ""
+      ]
+    ]
+  },
+  "reordered-payment-xmage": {
+    "reason": "choice order",
+    "log_sha256": "730a61f8ebff18698ae0a6013bf0d1d4c04a22556b34894d78f64dfa2a3fbb57",
+    "excerpts": [
+      [
+        "[INFO] ",
+        "[INFO] Stack trace",
+        "[INFO] org.junit.ComparisonFailure: choice order at 4 expected:<[target]> but was:<[pay]>",
+        "\tat org.junit.Assert.assertEquals(Assert.java:117)",
+        "\tat org.mage.test.mtglab.InstantResponseTest.take(InstantResponseTest.java:50)"
+      ],
+      [
+        "[INFO] ",
+        "[ERROR] Failures: ",
+        "[ERROR]   InstantResponseTest.instant:166->CardTestPlayerAPIImpl.execute:324->access$1100:31->take:50 choice order at 4 expected:<[target]> but was:<[pay]>",
+        "[INFO] ",
+        "[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0"
+      ]
+    ]
+  },
+  "wrong-actor-native": {
+    "reason": "WrongActor",
+    "log_sha256": "1face68c9b15742ca3fc33dd277496c86317bb15fb66cc0745dc40f19c0ee1a6",
+    "excerpts": [
+      [
+        "",
+        "thread 'game::instant_reference_tests::instant_export_observations' (677) panicked at crates/mtg-core/src/instant_reference_tests.rs:264:68:",
+        "called `Result::unwrap()` on an `Err` value: Cast(Mana(Turn(Invalid(WrongActor))))",
+        "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+        ""
+      ]
+    ]
+  },
+  "wrong-actor-xmage": {
+    "reason": "wrong actor",
+    "log_sha256": "f3e4864b68da5c941a2675ca5e0400422adf9ad394cd1c19cb407794b434db96",
+    "excerpts": [
+      [
+        "[INFO] ",
+        "[INFO] Stack trace",
+        "[INFO] java.lang.AssertionError: wrong actor at 3 expected:<0> but was:<1>",
+        "\tat org.junit.Assert.fail(Assert.java:89)",
+        "\tat org.junit.Assert.failNotEquals(Assert.java:835)"
+      ],
+      [
+        "[INFO] ",
+        "[ERROR] Failures: ",
+        "[ERROR]   InstantResponseTest.instant:166->CardTestPlayerAPIImpl.execute:324->access$1100:31->take:52 wrong actor at 3 expected:<0> but was:<1>",
+        "[INFO] ",
+        "[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-136/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.52s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::instant_reference_tests::instant_checkpoint_rejects_unlisted_objects_in_every_zone ... FAILED
+
+failures:
+
+---- game::instant_reference_tests::instant_checkpoint_rejects_unlisted_objects_in_every_zone stdout ----
+
+thread 'game::instant_reference_tests::instant_checkpoint_rejects_unlisted_objects_in_every_zone' (276) panicked at crates/mtg-core/src/instant_reference_tests.rs:394:9:
+unlisted object in Library(P0)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::instant_reference_tests::instant_checkpoint_rejects_unlisted_objects_in_every_zone
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 138 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

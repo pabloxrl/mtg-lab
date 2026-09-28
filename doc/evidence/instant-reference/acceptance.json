@@ -1,0 +1,165 @@
+{
+  "status": "agreed",
+  "schema_version": 1,
+  "cases": [
+    "destination",
+    "source"
+  ],
+  "executions_per_engine": 2,
+  "mutations": {
+    "omitted-target": {
+      "native": {
+        "status": "rejected",
+        "reason": "IllegalTarget",
+        "input_sha256": "08ada40d67bfe58c2f97c9a9163b0c4220de1c2dd4d8b0ee34d4c468f5d83c3c",
+        "log_sha256": "0b38978971ddcfb6e293064f3a40a61e34b8bf143a0e99dbc489f45bbcbdba82"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "illegal target",
+        "input_sha256": "08ada40d67bfe58c2f97c9a9163b0c4220de1c2dd4d8b0ee34d4c468f5d83c3c",
+        "log_sha256": "d6f7c66aabc15307a9c131fd4db3c8b92416bc325b73a6f36ce118bdd912cf3f"
+      }
+    },
+    "extra-target": {
+      "native": {
+        "status": "rejected",
+        "reason": "unexpected target choice",
+        "input_sha256": "f63d2ddf491f5a40be2a1970ba48e3f085984429f75ce07a810d977c1a0577b1",
+        "log_sha256": "644b0075f0a65f12b55160501b4e29b0fbdb1d982521136320f60183894f5955"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "choice order",
+        "input_sha256": "f63d2ddf491f5a40be2a1970ba48e3f085984429f75ce07a810d977c1a0577b1",
+        "log_sha256": "bd6277220864534c7aa4e4d80e6af7e4efd5851db187678c07271278c63aa936"
+      }
+    },
+    "reordered-payment": {
+      "native": {
+        "status": "rejected",
+        "reason": "payment requested before targets",
+        "input_sha256": "68db641caccad3d45e6b39b84270d32d9b326e2fd69023335f86638a1617d7bf",
+        "log_sha256": "cb9dbd4d2aefb0fba648c5b3477aebd6778fc925bba80e23ba4a2a11fcc9ca4a"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "choice order",
+        "input_sha256": "68db641caccad3d45e6b39b84270d32d9b326e2fd69023335f86638a1617d7bf",
+        "log_sha256": "730a61f8ebff18698ae0a6013bf0d1d4c04a22556b34894d78f64dfa2a3fbb57"
+      }
+    },
+    "wrong-actor": {
+      "native": {
+        "status": "rejected",
+        "reason": "WrongActor",
+        "input_sha256": "e39377bc4715249acca37fa18c45fbd38c9e3ba819d1e810ba069144c43ca082",
+        "log_sha256": "1face68c9b15742ca3fc33dd277496c86317bb15fb66cc0745dc40f19c0ee1a6"
+      },
+      "xmage": {
+        "status": "rejected",
+        "reason": "wrong actor",
+        "input_sha256": "e39377bc4715249acca37fa18c45fbd38c9e3ba819d1e810ba069144c43ca082",
+        "log_sha256": "f3e4864b68da5c941a2675ca5e0400422adf9ad394cd1c19cb407794b434db96"
+      }
+    },
+    "changed-target": {
+      "native": {
+        "status": "detected",
+        "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0]\"}",
+        "log_sha256": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7"
+      },
+      "xmage": {
+        "status": "detected",
+        "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0]\"}",
+        "log_sha256": "7555cf42438aa18dd3303d49defdcb32ae1f9c1b8534e8ec19491fbbb474bd3b"
+      }
+    }
+  },
+  "input_boundary": "turn-1-upkeep-priority",
+  "pins": {
+    "fixtures/reference/instant-responses.json": "d9e2588821e37f3a2d78403fc566fccaacba09361818e9941965058c35eaa8a1",
+    "fixtures/reference/instant-expectations.json": "142ca12f4ded4a0fe6d443f61f22111cbdbe7eacda7d1a91263d650009736348",
+    "references/xmage/InstantResponseTest.java": "d61b0441f0dfcfbdfe92770babcd1e46e54514a41aa56aa0d15f02479a6e38a6",
+    "crates/mtg-core/src/instant_reference_tests.rs": "86256da1db2dddbfcb278c281d803a42c06b5d1da4823822aeb1d72681d8e687",
+    "scripts/instant_reference.py": "457f47f0714a0f96ca6e4eaea7c7391285ab56e3953df5a28c336666aff45c76",
+    "references/xmage/pins.json": "44374312292ccf8891943f4386a5512e0c4730a0f636a5a36675d076033ebeb0",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+    "Cargo.lock": "d03857814c36705ffa7e9507ec5ab3a957395fe2bfeaab7212e80b7ba3173d4b",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "artifacts": {
+    "changed-target-input.json": "24e7a960d94de6ef79f114dfaae57e386a1fa69534de9711a91350ee04440232",
+    "changed-target-native-divergence.json": "6da61455e33405bc299444536d13140fd4434545bb6dbaee920ed1b06cc81c4e",
+    "changed-target-native.json": "110983527cc6262b0228d2425cf88e02cd06a971294092e917b689f676b15947",
+    "changed-target-native.log": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7",
+    "changed-target-xmage-divergence.json": "bac97749a53e288161cf8825634b78c82fcb6364cc54958247e639e624448387",
+    "changed-target-xmage.log": "7555cf42438aa18dd3303d49defdcb32ae1f9c1b8534e8ec19491fbbb474bd3b",
+    "extra-target-input.json": "f63d2ddf491f5a40be2a1970ba48e3f085984429f75ce07a810d977c1a0577b1",
+    "extra-target-native.log": "644b0075f0a65f12b55160501b4e29b0fbdb1d982521136320f60183894f5955",
+    "extra-target-xmage.log": "bd6277220864534c7aa4e4d80e6af7e4efd5851db187678c07271278c63aa936",
+    "input.json": "d9e2588821e37f3a2d78403fc566fccaacba09361818e9941965058c35eaa8a1",
+    "native-1.json": "16ff842b906a28333a0d0c228fe35b5a7bebc842ff7bb8d4479db862f5a01a1f",
+    "native-1.log": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7",
+    "native-2.json": "16ff842b906a28333a0d0c228fe35b5a7bebc842ff7bb8d4479db862f5a01a1f",
+    "native-2.log": "4bcf04ac003c2bb2fc8ff5249f04a639ddecc3a2baec2ea38316ec84e9588cb7",
+    "omitted-target-input.json": "08ada40d67bfe58c2f97c9a9163b0c4220de1c2dd4d8b0ee34d4c468f5d83c3c",
+    "omitted-target-native.log": "0b38978971ddcfb6e293064f3a40a61e34b8bf143a0e99dbc489f45bbcbdba82",
+    "omitted-target-xmage.log": "d6f7c66aabc15307a9c131fd4db3c8b92416bc325b73a6f36ce118bdd912cf3f",
+    "reordered-payment-input.json": "68db641caccad3d45e6b39b84270d32d9b326e2fd69023335f86638a1617d7bf",
+    "reordered-payment-native.log": "cb9dbd4d2aefb0fba648c5b3477aebd6778fc925bba80e23ba4a2a11fcc9ca4a",
+    "reordered-payment-xmage.log": "730a61f8ebff18698ae0a6013bf0d1d4c04a22556b34894d78f64dfa2a3fbb57",
+    "wrong-actor-input.json": "e39377bc4715249acca37fa18c45fbd38c9e3ba819d1e810ba069144c43ca082",
+    "wrong-actor-native.log": "1face68c9b15742ca3fc33dd277496c86317bb15fb66cc0745dc40f19c0ee1a6",
+    "wrong-actor-xmage.log": "f3e4864b68da5c941a2675ca5e0400422adf9ad394cd1c19cb407794b434db96",
+    "xmage-1.json": "133c329c5f8581007292552632a0597117b9eb94f410b088ca228d7384bc360c",
+    "xmage-1.log": "a48792071fb4407b72924331fb00e95a92d05718b227b757456540b97c38531e",
+    "xmage-2.json": "133c329c5f8581007292552632a0597117b9eb94f410b088ca228d7384bc360c",
+    "xmage-2.log": "d76a8ae4fba98f5db9f72199e50cae25df8d2486e423e028dff0cb6a66785d90"
+  },
+  "native_sources": {
+    "crates/mtg-core/src/actions.rs": "e65b5616ee647296b27544f7e71ba7a69b917823a22094b077b714056255745b",
+    "crates/mtg-core/src/actions_tests.rs": "2a9cd364f6b718e175e12ced07ab76c0e28cb4dcb61e32bb6348165579caaedf",
+    "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
+    "crates/mtg-core/src/casting.rs": "a4906231972b7f3a49de50bda16a617e0d6a39b3252d5e8515fed1bb737bef4e",
+    "crates/mtg-core/src/casting_tests.rs": "5fd7d5da78a1d6334aaed459ba134ba2dab28d0fed160c277777042024657e8b",
+    "crates/mtg-core/src/combat.rs": "061c35fae443d256cbb725a79b70176d373c32bf15c33e9056518a8d91f1c7e1",
+    "crates/mtg-core/src/combat_tests.rs": "ac42232abaff36ac41aba2c772ff758668e67a4e87980c94b8e40f95db89dbf7",
+    "crates/mtg-core/src/game.rs": "cc99d0738feaa42d7ac0af179c4b1c2097b9b958d3b72d56b65c13746a3039d4",
+    "crates/mtg-core/src/instant_reference_tests.rs": "86256da1db2dddbfcb278c281d803a42c06b5d1da4823822aeb1d72681d8e687",
+    "crates/mtg-core/src/lib.rs": "1d09e94641e1cc97c2c4024dce8a5a874422a7a387a01a810cdb3db549960157",
+    "crates/mtg-core/src/mana.rs": "23f4ded02086bc32aea47a977b4073298181de086c4fbf679022b8608fef40c7",
+    "crates/mtg-core/src/objects.rs": "5b1ae9654cf41eb15c8f4bc457e978e5da161c4594cded15d783bbfbd840ff1a",
+    "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
+    "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
+    "crates/mtg-core/src/policy.rs": "28e351c39015f64dc2c3555e02143d67cb5cc1d77b6787438d3ed659ce93b06a",
+    "crates/mtg-core/src/policy_combat_tests.rs": "dc535c597d9a731ad65e7ccf9bf0f5305832ef95711e83f070039dd73b7319ae",
+    "crates/mtg-core/src/policy_spell_tests.rs": "41d850e2ab2d038088a3d39d61a0740b4d61c2525e08efe96f1b612f21e9a0cb",
+    "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
+    "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
+    "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
+    "crates/mtg-core/src/snapshot.rs": "4298c5da2e0207ab0ae88197d7a8121f711a89a650a917dc74a0c210851e8349",
+    "crates/mtg-core/src/targets.rs": "626d248075802dfbef0769ad67bd15f9f2eca913579269ad8200e887f858abbc",
+    "crates/mtg-core/src/targets_tests.rs": "1c1ff1ffcd709f0002cfcc875e2fd403fd85e56eadf319475c713b4a884e5942",
+    "crates/mtg-core/src/terminal.rs": "c94be711cb7182125f59ac2336425e66e0d49536075877446b6659b1de3a2829",
+    "crates/mtg-core/src/terminal_tests.rs": "609dcfde02c26c065821708d681e4794b5361e6e5c9ddd4ec695887b01dcded3",
+    "crates/mtg-core/src/trajectory.rs": "5fcf4f83ea43bc2ca8bee93f8d6c3817fc3889880c50fdbae57a5cbe3d7b41cf",
+    "crates/mtg-core/src/trajectory_rules_tests.rs": "163768d38864bf37e4c9bc02a3da83947671e08078bbf01469563325422d38eb",
+    "crates/mtg-core/src/trajectory_tests.rs": "a6f9a2bd6259ad71df327e5b06ec7a4db52904d8bb755b39cd3710780ebb9a61",
+    "crates/mtg-core/src/turn_quantum_tests.rs": "cc4ba9c2df9544b50d635e0078e77385a49c5c00d30144d22322a1349f143e72",
+    "crates/mtg-core/src/turns.rs": "4b15b34479bfa97637ec13e63f2fb69fc3e6617d65d9cc741a0ef62731c5aa1c",
+    "crates/mtg-core/src/views.rs": "2f5b3cbf6dcc4b5ef7ba6a89fd8495aebf418272fd4b8cbd2647b6583e40a8b7",
+    "crates/mtg-core/src/views_tests.rs": "08cefc9f947d972448b55042be7c9f25676cc1be375978963e1fa4c69eebf27a",
+    "crates/mtg-core/src/work.rs": "fdd5710e4a7f3f7b84c6b9ae6b2dce06c14b6cc1c094150134ab12f640379473"
+  },
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "python": "3.12.3",
+  "native_profile": "debug",
+  "stdin": "closed",
+  "display": "unset",
+  "xmage_offline": true,
+  "observability": "Settled priority, bottom-to-top stack and targets, named zones, creature stats/damage, life, mana, taps; damage event observed before lethal SBA.",
+  "limitations": "Synthetic setup; no legal-action enumeration, hidden views, departed targets, combat, cleanup, full games or Forge agreement."
+}
