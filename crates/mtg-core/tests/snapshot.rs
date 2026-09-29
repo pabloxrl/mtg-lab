@@ -484,3 +484,28 @@ fn snapshot_structural_corruption_with_recomputed_digest_is_atomic() {
         assert_eq!(format!("{g:?}"), before);
     }
 }
+
+#[test]
+fn snapshot_missing_required_rng_rejected_before_live_replacement() {
+    // RFC B016: RNG state is mandatory even at a player decision (no queued
+    // work). A missing field is not the explicit null of an unstarted game.
+    use sha2::{Digest, Sha256};
+    let mut g = Game::new().unwrap();
+    g.reset(&Config::default(), 19, 2).unwrap();
+    let original = g.snapshot();
+    for field in ["rng", "decision", "episode", "outcome"] {
+        let mut envelope: serde_json::Value = serde_json::from_slice(&original).unwrap();
+        let mut payload: serde_json::Value =
+            serde_json::from_str(envelope["payload"].as_str().unwrap()).unwrap();
+        payload.as_object_mut().unwrap().remove(field);
+        let text = serde_json::to_string(&payload).unwrap();
+        envelope["sha256"] = format!("{:x}", Sha256::digest(text.as_bytes())).into();
+        envelope["payload"] = text.into();
+        assert_eq!(
+            g.restore(&serde_json::to_vec(&envelope).unwrap()),
+            Err(RestoreError::Corrupt),
+            "missing {field}"
+        );
+        assert_eq!(g.snapshot(), original);
+    }
+}

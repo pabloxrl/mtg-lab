@@ -30,14 +30,18 @@ struct Envelope {
 struct GameWire {
     #[serde(skip)]
     policy_revision: u64,
+    #[serde(deserialize_with = "Option::deserialize")]
     outcome: Option<terminal::Outcome>,
+    #[serde(deserialize_with = "Option::deserialize")]
     episode: Option<terminal::EpisodeId>,
     turns: turns::TurnState,
     work: VecDeque<Work>,
     #[serde(with = "crate::objects::StoreWire")]
     objects: ObjectStore,
     life: [i64; 2],
+    #[serde(deserialize_with = "Option::deserialize")]
     decision: Option<OpeningDecision>,
+    #[serde(deserialize_with = "Option::deserialize")]
     rng: Option<EpisodeRng>,
     generation: u64,
     starting: Seat,

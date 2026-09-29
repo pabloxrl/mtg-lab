@@ -22,7 +22,7 @@ engine fingerprint hashes the core source files and frozen card/rules manifests;
 source changes (even formatting) reject old saves. Unsupported versions and
 incompatible fingerprints are explicit errors. There are no migrations and no
 cross-engine compatibility promise. Internal payload field layout is not a
-policy or replay schema. Semantic replay belongs to #75.
+policy or replay schema. See [semantic replay](replay.md) for opening and played-game formats.
 
 State includes the RNG word, object slots/free list/ordered zones, object and
 reset generations, knowledge history, life, episode identity/outcome, opening
@@ -59,8 +59,9 @@ allocation-free guarantee is made.
 Run `cargo test -p mtg-core snapshot` in the managed toolchain, then
 `./scripts/torture.sh`. [Acceptance evidence](evidence/snapshot/README.md) covers
 opening decisions/yields, corruption, RNG, identity isolation, new-process load,
-turn priority, historical knowledge and terminal/reset boundaries. #19 retains
-complete cross-feature pending-choice/response-chain snapshot acceptance.
+turn priority, historical knowledge and terminal/reset boundaries. The tests now include
+complete cross-feature pending-choice/response-chain snapshot acceptance in the
+[integration report](evidence/private-replay-integration/README.md).
 [Spell settlement acceptance](evidence/spell-settlement/README.md) additionally
 checks restore at every internal spell-work phase using the actual Growth/Bite
 and creature APIs. No reference-engine agreement is implied by snapshot equality.
@@ -80,3 +81,9 @@ from snapshot payloads and never rewinds with a save. Refresh the policy decisio
 after restore. Counter exhaustion rejects the restore transactionally. Existing
 privileged capability scopes, semantic generations and opening-view API contracts
 are unchanged; the conservative engine fingerprint now includes policy source.
+
+The nullable top-level RNG, decision, episode and outcome fields must be present
+explicitly. Missing fields are corruption, not implicit `null`; rejection leaves
+the live destination unchanged. Valid unstarted and terminal snapshots remain
+supported. This decoder change updates the conservative engine fingerprint;
+older artifacts reject explicitly, with no migration.

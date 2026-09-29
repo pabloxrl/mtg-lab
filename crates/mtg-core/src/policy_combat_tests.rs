@@ -686,3 +686,76 @@ fn policy_combat_storage_twins_and_departed_blockers_keep_public_identity() {
         }
     }
 }
+
+// GH-19: CR 510.1c permits 1+1 rather than lethal-first allocation. The
+// synthetic four-Cub position isolates restore; reachable games are covered
+// separately by tests/played_replay.rs.
+#[test]
+fn snapshot_nondefault_combat_fresh_process() {
+    const INPUT: &str = "MTG_COMBAT_SNAPSHOT_TEST";
+    if let Ok(path) = std::env::var(INPUT) {
+        let mut g = Game::new().unwrap();
+        g.restore(&std::fs::read(path).unwrap()).unwrap();
+        let s = g.turn_decision().unwrap().actor;
+        assert_eq!(view(&g, s)["decision"]["kind"], "combat_damage");
+        assert_eq!(view(&g, s)["decision"]["factored"]["damage"][0]["power"], 2);
+        let hidden = view(&g, other(s));
+        send(
+            &mut g,
+            s,
+            serde_json::json!({"kind":"assign_damage","attacker":bf(0),"amounts":[[bf(2),1],[bf(3),1]]}),
+        );
+        assert_eq!(view(&g, other(s)), hidden);
+        // Saving an already selected nondefault division must preserve it too.
+        let saved = g.snapshot();
+        g.restore(&saved).unwrap();
+        finish(&mut g, s);
+        assert_eq!(g.life(), [20, 20]);
+        assert_eq!(g.objects.in_zone(Zone::Graveyard(s)).count(), 1);
+        assert_eq!(g.objects.in_zone(Zone::Graveyard(other(s))).count(), 0);
+        let survivors = g
+            .objects
+            .in_zone(Zone::Battlefield)
+            .filter(|h| g.objects.get(*h).unwrap().controller == other(s))
+            .collect::<Vec<_>>();
+        assert_eq!(survivors.len(), 2);
+        for h in survivors {
+            let c = g.creature_state(h).unwrap();
+            assert_eq!((c.power, c.toughness, c.damage), (2, 2, 1));
+        }
+        return;
+    }
+    for s in [Seat::P0, Seat::P1] {
+        let mut g = position(s, false);
+        attacks(&mut g, s, &[0]);
+        finish(&mut g, s);
+        pair(&mut g);
+        blocks(&mut g, other(s), &[(2, 0), (3, 0)]);
+        finish(&mut g, other(s));
+        pair(&mut g);
+        let path =
+            std::env::temp_dir().join(format!("combat-snapshot-{}.json", std::process::id()));
+        std::fs::write(&path, g.snapshot()).unwrap();
+        let output = std::process::Command::new("timeout")
+            .arg("30")
+            .arg(std::env::current_exe().unwrap())
+            .args([
+                "--exact",
+                "game::policy::tests::combat_policy::snapshot_nondefault_combat_fresh_process",
+                "--nocapture",
+            ])
+            .env(INPUT, &path)
+            .env_remove("DISPLAY")
+            .stdin(std::process::Stdio::null())
+            .output()
+            .unwrap();
+        std::fs::remove_file(path).unwrap();
+        assert!(
+            output.status.success(),
+            "{} {}",
+            String::from_utf8_lossy(&output.stdout),
+            String::from_utf8_lossy(&output.stderr)
+        );
+        assert!(String::from_utf8_lossy(&output.stdout).contains("1 passed; 0 failed"));
+    }
+}

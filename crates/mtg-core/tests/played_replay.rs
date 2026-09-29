@@ -460,6 +460,7 @@ fn played_replay_fresh_process_and_quantum_suffixes() {
         assert_eq!(scalar.life(), [20, 0]);
         let v: Value = serde_json::from_slice(&bytes).unwrap();
         let config: Config = serde_json::from_value(v["config"].clone()).unwrap();
+        let mut saved_work = std::collections::BTreeSet::new();
         for budget in [1, 3, 17] {
             let q = NonZeroUsize::new(budget).unwrap();
             let mut g = Game::new().unwrap();
@@ -541,6 +542,24 @@ fn played_replay_fresh_process_and_quantum_suffixes() {
                     while p == Progress::InternalYield {
                         yields += 1;
                         assert!(yields < 1000);
+                        let state = normalized(&g);
+                        let first = &state["work"][0];
+                        let family = first
+                            .as_object()
+                            .map(|o| o.keys().next().unwrap().clone())
+                            .unwrap_or_else(|| first.to_string());
+                        if budget == 1 && saved_work.insert(family.clone()) {
+                            let suffix = v["choices"].as_array().unwrap()[i + 1..]
+                                .iter()
+                                .map(|r| r["choice"].clone())
+                                .collect::<Vec<_>>();
+                            let request = json!({"snapshot":String::from_utf8(g.snapshot()).unwrap(),"suffix":suffix,"expected":normalized(&scalar),"yielded":true});
+                            fresh_snapshot_suffix(&request, &family);
+                        }
+                        let save = g.snapshot();
+                        let before = normalized(&g);
+                        g.restore(&save).unwrap();
+                        assert_eq!(normalized(&g), before);
                         p = g.resume(q);
                     }
                 }
@@ -551,6 +570,10 @@ fn played_replay_fresh_process_and_quantum_suffixes() {
                     comparison.start_turns().unwrap();
                     let mut p = g.start_turns_quantum(q).unwrap();
                     while p == Progress::InternalYield {
+                        let save = g.snapshot();
+                        let before = normalized(&g);
+                        g.restore(&save).unwrap();
+                        assert_eq!(normalized(&g), before);
                         p = g.resume(q);
                     }
                 }
@@ -615,4 +638,162 @@ fn normalized(g: &Game) -> Value {
     value["objects"]["id"] = json!(0);
     scrub(&mut value);
     value
+}
+
+// GH-19: fresh-process snapshots at every distinct pending choice and response
+// boundary. Literal outcomes come from script()'s CR/card ledger, while full
+// state equality is an additional metamorphic check (not a rules oracle).
+#[test]
+fn snapshot_played_pending_choices_fresh_process() {
+    let _guard = REPLAY_TEST_LOCK.lock().unwrap();
+    const INPUT: &str = "MTG_PENDING_SNAPSHOT_TEST";
+    if let Ok(path) = std::env::var(INPUT) {
+        let request: Value = serde_json::from_slice(&std::fs::read(path).unwrap()).unwrap();
+        let mut g = Game::new().unwrap();
+        g.restore(request["snapshot"].as_str().unwrap().as_bytes())
+            .unwrap();
+        let expected: Value = request["expected"].clone();
+        if request["yielded"] == true {
+            let mut progress = g.resume(std::num::NonZeroUsize::new(1).unwrap());
+            let mut count = 0;
+            while progress == Progress::InternalYield {
+                count += 1;
+                assert!(count < 1000);
+                progress = g.resume(std::num::NonZeroUsize::new(1).unwrap());
+            }
+        }
+        for r in request["suffix"].as_array().unwrap() {
+            let bytes = serde_json::to_vec(r).unwrap();
+            // Semantic records reacquire the new process's handles and decision.
+            actions::apply(&mut g, &bytes, CAP).unwrap();
+            if g.decision().is_none() && g.turn_position().is_none() && g.outcome().is_none() {
+                g.start_turns().unwrap();
+            }
+        }
+        assert_eq!(g.life(), [20, 0]);
+        assert_eq!(g.outcome().unwrap().winner, Some(Seat::P0));
+        assert_eq!(
+            normalized(&g),
+            expected,
+            "complete state, RNG and ordered zones"
+        );
+        return;
+    }
+    let s = script();
+    let mut g = Game::new().unwrap();
+    g.reset(&config(), 114, 0).unwrap();
+    let mut seen = std::collections::BTreeSet::new();
+    let path = std::env::temp_dir().join(format!("pending-snapshot-{}.json", std::process::id()));
+    for (i, r) in s.choices.iter().enumerate() {
+        let bytes = serde_json::to_vec(r).unwrap();
+        let actions::Decoded::Decision { actor, submission } =
+            actions::decode(&g, &bytes, CAP).unwrap()
+        else {
+            panic!()
+        };
+        let view = g.policy_observe(actor, CAP).unwrap();
+        let kind = view.decision.as_ref().unwrap().kind;
+        // Each payment microchoice and each response stack depth gets a save.
+        let key = format!(
+            "{kind}/{:?}/{}",
+            submission.choices,
+            g.objects().in_zone(Zone::Stack).count()
+        );
+        let snapshot = g.snapshot();
+        let before = normalized(&g);
+        g.restore(&snapshot).unwrap();
+        assert_eq!(normalized(&g), before);
+        let unchanged = g.snapshot();
+        assert_eq!(
+            g.apply_policy(actor, &submission, CAP),
+            Err(policy::PolicyError::StaleDecision)
+        );
+        assert_eq!(g.snapshot(), unchanged);
+        let actions::Decoded::Decision {
+            submission: fresh, ..
+        } = actions::decode(&g, &bytes, CAP).unwrap()
+        else {
+            panic!()
+        };
+        let wrong = if actor == Seat::P0 {
+            Seat::P1
+        } else {
+            Seat::P0
+        };
+        assert_eq!(
+            g.apply_policy(wrong, &fresh, CAP),
+            Err(policy::PolicyError::WrongActor)
+        );
+        assert_eq!(g.snapshot(), unchanged);
+        if seen.insert(key) {
+            let request = json!({"snapshot":String::from_utf8(snapshot).unwrap(),"suffix":&s.choices[i..],"expected":normalized(&s.g)});
+            std::fs::write(&path, serde_json::to_vec(&request).unwrap()).unwrap();
+            let output = std::process::Command::new("timeout")
+                .arg("120")
+                .arg(std::env::current_exe().unwrap())
+                .args([
+                    "--exact",
+                    "snapshot_played_pending_choices_fresh_process",
+                    "--nocapture",
+                ])
+                .env(INPUT, &path)
+                .env_remove("DISPLAY")
+                .stdin(std::process::Stdio::null())
+                .output()
+                .unwrap();
+            assert!(
+                output.status.success(),
+                "choice {i} {kind}: {} {}",
+                String::from_utf8_lossy(&output.stdout),
+                String::from_utf8_lossy(&output.stderr)
+            );
+            assert!(String::from_utf8_lossy(&output.stdout).contains("1 passed; 0 failed"));
+        }
+        actions::apply(&mut g, &bytes, CAP).unwrap();
+        if g.decision().is_none() && g.turn_position().is_none() && g.outcome().is_none() {
+            g.start_turns().unwrap();
+        }
+    }
+    std::fs::remove_file(path).unwrap();
+    for kind in [
+        "bite_source/",
+        "bite_destination/",
+        "targets_complete/",
+        "payment/",
+        "attackers/",
+        "blockers/",
+        "cleanup_discard/",
+    ] {
+        assert!(
+            seen.iter().any(|s| s.starts_with(kind)),
+            "missing {kind}: {seen:?}"
+        );
+    }
+    assert_eq!(normalized(&g), normalized(&s.g));
+}
+
+fn fresh_snapshot_suffix(request: &Value, context: &str) {
+    let path = std::env::temp_dir().join(format!("yield-snapshot-{}.json", std::process::id()));
+    std::fs::write(&path, serde_json::to_vec(request).unwrap()).unwrap();
+    let output = std::process::Command::new("timeout")
+        .arg("120")
+        .arg(std::env::current_exe().unwrap())
+        .args([
+            "--exact",
+            "snapshot_played_pending_choices_fresh_process",
+            "--nocapture",
+        ])
+        .env("MTG_PENDING_SNAPSHOT_TEST", &path)
+        .env_remove("DISPLAY")
+        .stdin(std::process::Stdio::null())
+        .output()
+        .unwrap();
+    std::fs::remove_file(path).unwrap();
+    assert!(
+        output.status.success(),
+        "{context}: {} {}",
+        String::from_utf8_lossy(&output.stdout),
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(String::from_utf8_lossy(&output.stdout).contains("1 passed; 0 failed"));
 }

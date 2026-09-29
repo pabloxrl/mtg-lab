@@ -542,3 +542,106 @@ fn policy_spells_capacity_masks_stale_and_wrong_seat_at_every_stage() {
     assert_eq!(g.objects.in_zone(Zone::Stack).count(), 1);
     assert_eq!(g.mana()[0], [0; 6]);
 }
+
+#[test]
+fn integration_privacy_growth_snapshot_diagnostics_and_seat_jsonl_twins() {
+    // RFC B033 / CR 400.2, 401.2, 402.3. Explicit synthetic additions let us
+    // isolate private hand identity/order from the same legal Growth action.
+    for seat in [Seat::P0, Seat::P1] {
+        let build = |hidden| {
+            let mut g = game(seat, hidden);
+            keep(&mut g, seat);
+            g.turns.position = Some((1, seat, turns::Step::PrecombatMain));
+            add(&mut g, "bear-cub", seat, Zone::Battlefield);
+            add(&mut g, "forest", seat, Zone::Battlefield);
+            add(&mut g, "giant-growth", seat, Zone::Hand(seat));
+            g
+        };
+        let mut a = build(false);
+        let mut b = build(true);
+        // Hidden other hand is seven Forests versus seven Mountains.
+        assert_eq!(
+            a.objects
+                .in_zone(Zone::Hand(other(seat)))
+                .map(|h| a.objects.get(h).unwrap().card.identity().key)
+                .collect::<Vec<_>>(),
+            vec!["forest"; 7]
+        );
+        assert_eq!(
+            b.objects
+                .in_zone(Zone::Hand(other(seat)))
+                .map(|h| b.objects.get(h).unwrap().card.identity().key)
+                .collect::<Vec<_>>(),
+            vec!["mountain"; 7]
+        );
+        let growth = hand(&a, seat, "giant-growth");
+        let sequence = [
+            wire("cast", Some(growth)),
+            wire("target", Some(reference(VisibleZone::Battlefield, 0))),
+            wire("finish_targets", None),
+            wire("tap_mana", Some(reference(VisibleZone::Battlefield, 1))),
+            Choice::Pay { color: 4 },
+            Choice::FinishPayment,
+        ];
+        for choice in sequence {
+            let mut lines = vec![];
+            for g in [&mut a, &mut b] {
+                let before = g.snapshot();
+                // Materialize privileged diagnostics first, then export only the
+                // typed policy view. Snapshot bytes must never replace that view.
+                let debug = format!("{g:?}");
+                assert!(!debug.is_empty());
+                g.restore(&before).unwrap();
+                let o = g.policy_observe(seat, CAP).unwrap();
+                let d = o.decision.as_ref().unwrap();
+                let mut line = serde_json::to_string(&o).unwrap();
+                line.push('\n');
+                let decoded: serde_json::Value = serde_json::from_str(&line).unwrap();
+                assert_eq!(decoded["view"]["hand_counts"][seat_index(other(seat))], 7);
+                for forbidden in [
+                    "rng",
+                    "seed",
+                    "payload",
+                    "sha256",
+                    "birth",
+                    "scope",
+                    "library_order",
+                ] {
+                    assert!(!line.contains(forbidden), "{forbidden}: {line}");
+                }
+                // Unknown private refs are never resolved through privileged IDs.
+                for card in [
+                    reference(VisibleZone::Hand, 999),
+                    reference(VisibleZone::Battlefield, 999),
+                ] {
+                    let request = Submission {
+                        schema_version: 1,
+                        revision: d.revision,
+                        generation: d.generation,
+                        choices: vec![wire("target", Some(card))],
+                    };
+                    let saved = g.snapshot();
+                    let err = g.apply_policy(seat, &request, CAP).unwrap_err();
+                    assert_eq!(err, PolicyError::InvalidSelection);
+                    assert_eq!(format!("{err:?}"), "InvalidSelection");
+                    assert_eq!(g.snapshot(), saved);
+                }
+                lines.push(line);
+                submit(g, seat, vec![choice.clone()]).unwrap();
+            }
+            assert_eq!(
+                lines[0].as_bytes(),
+                lines[1].as_bytes(),
+                "includes masks/order/length and own hand"
+            );
+        }
+        assert_eq!(a.policy_observe(seat, CAP), b.policy_observe(seat, CAP));
+        for g in [&mut a, &mut b] {
+            pass(g);
+            pass(g);
+            let h = g.objects.in_zone(Zone::Battlefield).next().unwrap();
+            let c = g.creature_state(h).unwrap();
+            assert_eq!((c.power, c.toughness, c.damage), (5, 5, 0));
+        }
+    }
+}

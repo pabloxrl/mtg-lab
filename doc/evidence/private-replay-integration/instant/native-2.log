@@ -1,0 +1,9 @@
+    Blocking waiting for file lock on build directory
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.21s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::instant_reference_tests::instant_export_observations ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 150 filtered out; finished in 0.04s
+

@@ -1,0 +1,19 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-19/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.23s
+     Running tests/snapshot.rs (target/debug/deps/snapshot-97bc1a0550947af5)
+
+running 11 tests
+test snapshot_literal_corruption_is_atomic ... ok
+test snapshot_fresh_capabilities_preserve_generations_and_reject_old_actions ... ok
+test snapshot_cross_process_restore ... ok
+test snapshot_missing_required_rng_rejected_before_live_replacement ... ok
+test snapshot_reset_yield_resumes_to_independent_ordered_ledger ... ok
+test snapshot_pending_mulligan_restores_expected_choices_and_cards ... ok
+test snapshot_structural_corruption_with_recomputed_digest_is_atomic ... ok
+test snapshot_unstarted_turns_knowledge_terminal_and_reset ... ok
+test snapshot_versions_corruption_and_truncation_preserve_destination ... ok
+test snapshot_pending_explicit_chance_order_survives_all_seven_rounds ... ok
+test snapshot_every_random_reset_redraw_bottom_yield_matches_independent_vectors ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.26s
+
