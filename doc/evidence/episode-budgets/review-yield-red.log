@@ -1,0 +1,24 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-161/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.48s
+     Running tests/budgets.rs (target/debug/deps/budgets-1af60af85809b2a9)
+
+running 1 test
+test submission_during_internal_work_is_rejected_without_poisoning_either_capture_mode ... FAILED
+
+failures:
+
+---- submission_during_internal_work_is_rejected_without_poisoning_either_capture_mode stdout ----
+
+thread 'submission_during_internal_work_is_rejected_without_poisoning_either_capture_mode' (103) panicked at crates/mtg-core/tests/budgets.rs:819:13:
+assertion `left == right` failed: unavailable input must not poison an episode
+  left: Some(Failed(Recording))
+ right: None
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    submission_during_internal_work_is_rejected_without_poisoning_either_capture_mode
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --test budgets`

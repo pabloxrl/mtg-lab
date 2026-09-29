@@ -9,7 +9,7 @@ Use `Driver::reset_captured(config, master, ordinal, quantum, &header)` instead 
 `reset` to enable capture for an episode. The header must satisfy canonical v2
 validation and match the actual ordinal/starting seat. Other header provenance
 and policy identity remain caller declarations; deriving run provenance belongs
-to #163. No configured header budget is enforced here. `reset` starts an episode
+to #163. `Driver::new` does not enforce header budgets. Use [bounded episodes](episode-budgets.md) to enforce limits; bounded captured headers must match those limits. `reset` starts an episode
 without capture. Either reset requires explicit `finish` of the previous episode.
 Capture cannot be toggled halfway through a game.
 
@@ -47,13 +47,13 @@ frame preserves its full domain even if that next input exceeds the limit:
 that next observation/submission fails explicitly, while previous accepted rows
 remain available diagnostically. Capturing never silently truncates candidates.
 Unexpected capture invariant failures return a capture error and prevent further
-mutation or successful finalization; no successful complete episode is advertised.
-Error accounting and configurable budgets remain #161.
+mutation. `finish()` returns a once-only failed result with quarantined diagnostic
+rows and explicit accounting, for both bounded and unrestricted drivers. No
+successful complete sample is advertised. See [episode outcomes](episode-budgets.md).
 
 The global episode contains both seats' separately authorized inputs and is
 sensitive dataset data. Give policies only their own observation or seat reader.
 Privileged reset inputs, semantic history, full snapshots and RNG remain on the
 separately named driver/result methods, never in canonical policy records.
 Transport authentication is external. This API makes no disk writes, policy
-choices, replay authorization, run publication or performance claim. Both history
-and canonical capture grow with accepted decisions; it is a scalar memory API.
+choices, replay authorization, run publication or performance claim. Unbounded history and canonical capture grow with accepted decisions; bounded drivers cap their record counts. This remains a scalar memory API, not a total-byte memory bound.

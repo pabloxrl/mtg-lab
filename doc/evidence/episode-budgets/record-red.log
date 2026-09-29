@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-161/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.48s
+     Running tests/budgets.rs (target/debug/deps/budgets-1af60af85809b2a9)
+
+running 1 test
+test record_capacity_failure_retains_first_decision_and_blocks_all_input ... FAILED
+
+failures:
+
+---- record_capacity_failure_retains_first_decision_and_blocks_all_input stdout ----
+
+thread 'record_capacity_failure_retains_first_decision_and_blocks_all_input' (102) panicked at crates/mtg-core/tests/budgets.rs:114:71:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    record_capacity_failure_retains_first_decision_and_blocks_all_input
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --test budgets`
