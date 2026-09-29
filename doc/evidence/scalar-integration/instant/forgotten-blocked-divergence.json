@@ -1,0 +1,9 @@
+{
+  "status": "detected",
+  "error": "first divergence: {\"actual\": false, \"expected\": true, \"path\": \"$.bite-killed-blocker.checkpoints[7].state.combat[0].blocked\"}",
+  "difference": {
+    "path": "$.bite-killed-blocker.checkpoints[7].state.combat[0].blocked",
+    "expected": true,
+    "actual": false
+  }
+}

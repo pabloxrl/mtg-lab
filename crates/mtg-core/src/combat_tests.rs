@@ -898,3 +898,63 @@ fn combat_quantum_preflight_rejections_preserve_exact_snapshot() {
     );
     assert_eq!(g.snapshot(), before);
 }
+
+/// GH-18 catalog response-window/simultaneous-damage negatives. CR 117,
+/// 508.2, 509.2 and 510.2: Growth is possible after declarations, never inside
+/// simultaneous damage/SBA work. Synthetic position; literal 2/2 trade oracle.
+#[test]
+fn integration_growth_windows_end_before_atomic_combat_damage() {
+    for active in [Seat::P0, Seat::P1] {
+        let defender = super::super::turns::opponent(active);
+        let mut g = combat_quantum_setup(active);
+        let a = add(&mut g, active, "bear-cub");
+        let b = add(&mut g, defender, "swab-goblin");
+        let growth = g
+            .objects
+            .allocate(
+                CardId::from_key("giant-growth").unwrap(),
+                active,
+                Zone::Hand(active),
+            )
+            .unwrap();
+        g.turns.mana[crate::game::seat_index(active)][4] = 1;
+        pair(&mut g);
+        select_attack(&mut g, &[a]);
+        // Mana empties at step boundaries, so provide the declared synthetic
+        // payment pool at each legal response window.
+        g.turns.mana[crate::game::seat_index(active)][4] = 1;
+        assert_eq!(g.turn_decision().unwrap().actor, active);
+        assert!(g.cast_candidates(active).contains(&growth));
+        pair(&mut g);
+        select_block(&mut g, &[(b, a)]);
+        g.turns.mana[crate::game::seat_index(active)][4] = 1;
+        assert_eq!(g.turn_decision().unwrap().actor, active);
+        assert!(g.cast_candidates(active).contains(&growth));
+        pair(&mut g);
+        let d = g.turn_decision().unwrap();
+        let q = NonZeroUsize::new(1).unwrap();
+        let mut p = g.finish_combat_quantum(active, d.id, q).unwrap();
+        let mut yields = 0;
+        while p == Progress::InternalYield {
+            yields += 1;
+            assert!(yields < 100);
+            let before = g.snapshot();
+            for seat in [active, defender] {
+                assert!(g.begin_targeted_cast(seat, d.id, growth, 80).is_err());
+                assert!(g.cast_candidates(seat).is_empty());
+                assert!(g.observe(seat).is_err());
+                assert!(g.turn_decision().is_none());
+            }
+            assert_eq!(g.snapshot(), before);
+            p = g.resume(q);
+        }
+        assert!(yields > 1);
+        assert!(g.objects.get(a).is_err());
+        assert!(g.objects.get(b).is_err());
+        assert_eq!(g.objects.in_zone(Zone::Graveyard(active)).count(), 1);
+        assert_eq!(g.objects.in_zone(Zone::Graveyard(defender)).count(), 1);
+        assert_eq!(g.objects.get(growth).unwrap().zone, Zone::Hand(active));
+        assert_eq!(g.life(), [20, 20]);
+        assert_eq!(g.turn_decision().unwrap().actor, active);
+    }
+}

@@ -481,3 +481,54 @@ fn turn_quantum_shared_xmage_draw_checkpoints() {
         }
     }
 }
+
+/// GH-18 turn-structure negative. CR 502.4/117: untap has no priority,
+/// including when the scheduler pauses between individual untaps.
+#[test]
+fn integration_growth_rejected_through_every_untap_yield() {
+    for active in [Seat::P0, Seat::P1] {
+        let mut g = ready(Step::End, active, 1);
+        let stale = g.turn_decision().unwrap().id;
+        g.turns = TurnState::default();
+        let growth = g
+            .objects
+            .allocate(
+                CardId::from_key("giant-growth").unwrap(),
+                active,
+                Zone::Hand(active),
+            )
+            .unwrap();
+        let cub = g
+            .objects
+            .allocate(
+                CardId::from_key("bear-cub").unwrap(),
+                active,
+                Zone::Battlefield,
+            )
+            .unwrap();
+        g.objects.get_mut(cub).unwrap().tapped = true;
+        g.turns.sick.push(cub);
+        let mut p = g.start_turns_quantum(q(1)).unwrap();
+        let mut yields = 0;
+        while p == Progress::InternalYield {
+            yields += 1;
+            assert!(yields < 10);
+            let before = g.snapshot();
+            for seat in [active, opponent(active)] {
+                assert!(g.begin_targeted_cast(seat, stale, growth, 80).is_err());
+                assert!(g.cast_candidates(seat).is_empty());
+                assert!(g.observe(seat).is_err());
+                assert!(g.turn_decision().is_none());
+            }
+            assert_eq!(g.snapshot(), before);
+            p = g.resume(q(1));
+        }
+        assert_eq!(yields, 3);
+        assert_eq!(g.turn_position(), Some((1, active, Step::Upkeep)));
+        assert_eq!(g.turn_decision().unwrap().actor, active);
+        assert!(!g.objects.get(cub).unwrap().tapped);
+        assert!(!g.summoning_sick(cub));
+        assert_eq!(g.objects.get(growth).unwrap().zone, Zone::Hand(active));
+        assert_eq!(g.creature_state(cub).unwrap().power, 2);
+    }
+}

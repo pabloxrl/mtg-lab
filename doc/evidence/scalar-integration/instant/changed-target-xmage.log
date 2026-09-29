@@ -1,0 +1,1007 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Mage Root                                                          [pom]
+[INFO] Mage Framework                                                     [jar]
+[INFO] Mage Common Classes                                                [jar]
+[INFO] Mage Sets                                                          [jar]
+[INFO] Mage Server Plugins                                                [pom]
+[INFO] Mage Player AI (basic)                                             [jar]
+[INFO] Mage Deck Constructed                                              [jar]
+[INFO] Mage Deck Limited                                                  [jar]
+[INFO] Mage Game Commander Two Player                                     [jar]
+[INFO] Mage Game Brawl Two Player                                         [jar]
+[INFO] Mage Game Commander Free For All                                   [jar]
+[INFO] Mage Game Brawl Free For All                                       [jar]
+[INFO] Mage Game Free For All                                             [jar]
+[INFO] Mage Game Two Player                                               [jar]
+[INFO] Mage Player Human                                                  [jar]
+[INFO] Mage Player AI (mad bot)                                           [jar]
+[INFO] Mage Player AI MCTS                                                [jar]
+[INFO] Mage Tournament Booster Draft                                      [jar]
+[INFO] Mage Tournament Sealed                                             [jar]
+[INFO] Mage Tournament Constructed                                        [jar]
+[INFO] Mage Player AI (draft bot)                                         [jar]
+[INFO] Mage Game Tiny Leaders Two Player                                  [jar]
+[INFO] Mage Game Canadian Highlander Two Player                           [jar]
+[INFO] Mage Game Penny Dreadful Commander Free For All                    [jar]
+[INFO] Mage Game Freeform Commander Free For All                          [jar]
+[INFO] Mage Game Freeform Unlimited Commander                             [jar]
+[INFO] Mage Game Freeform Commander Two Player                            [jar]
+[INFO] Mage Game Custom Pillar of the Paruns Two Player Duel              [jar]
+[INFO] Mage Game Oathbreaker Free For All                                 [jar]
+[INFO] Mage Game Oathbreaker Two Player                                   [jar]
+[INFO] Mage Game Momir Basic Two Player                                   [jar]
+[INFO] Mage Game Momir Basic Free for All                                 [jar]
+[INFO] Mage Server                                                        [jar]
+[INFO] Mage Tests                                                         [jar]
+[INFO] 
+[INFO] -------------------------< org.mage:mage-root >-------------------------
+[INFO] Building Mage Root 1.4.61                                         [1/34]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-root ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] ---------------------------< org.mage:mage >----------------------------
+[INFO] Building Mage Framework 1.4.61                                    [2/34]
+[INFO]   from Mage/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- protoc-jar:3.11.4:run (default) @ mage ---
+[INFO] Skipping code generation, proto files appear unchanged since last compilation
+[INFO] Input directories:
+[INFO]     /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage/src/main/proto
+[INFO] 
+[INFO] --- build-helper:3.2.0:add-source (add-classes) @ mage ---
+[INFO] Source directory: /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage/target/generated-sources added.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 19 resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage ---
+[INFO] 
+[INFO] ------------------------< org.mage:mage-common >------------------------
+[INFO] Building Mage Common Classes 1.4.61                               [3/34]
+[INFO]   from Mage.Common/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-common ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-common ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Common/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-common ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-common ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Common/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-common ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-common ---
+[INFO] 
+[INFO] -------------------------< org.mage:mage-sets >-------------------------
+[INFO] Building Mage Sets 1.4.61                                         [4/34]
+[INFO]   from Mage.Sets/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-sets ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-sets ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Sets/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-sets ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-sets ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Sets/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-sets ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-sets ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------------< org.mage:mage-server-plugins >--------------------
+[INFO] Building Mage Server Plugins 1.4.61                               [5/34]
+[INFO]   from Mage.Server.Plugins/pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-server-plugins ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] ----------------------< org.mage:mage-player-ai >-----------------------
+[INFO] Building Mage Player AI (basic) 1.4.61                            [6/34]
+[INFO]   from Mage.Server.Plugins/Mage.Player.AI/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-player-ai ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-player-ai ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AI/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-player-ai ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-player-ai ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AI/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-player-ai ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-player-ai ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -------------------< org.mage:mage-deck-constructed >-------------------
+[INFO] Building Mage Deck Constructed 1.4.61                             [7/34]
+[INFO]   from Mage.Server.Plugins/Mage.Deck.Constructed/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-deck-constructed ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-deck-constructed ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Deck.Constructed/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-deck-constructed ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-deck-constructed ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Deck.Constructed/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-deck-constructed ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-deck-constructed ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ---------------------< org.mage:mage-deck-limited >---------------------
+[INFO] Building Mage Deck Limited 1.4.61                                 [8/34]
+[INFO]   from Mage.Server.Plugins/Mage.Deck.Limited/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-deck-limited ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-deck-limited ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Deck.Limited/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-deck-limited ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-deck-limited ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Deck.Limited/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-deck-limited ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-deck-limited ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ------------------< org.mage:mage-game-commanderduel >------------------
+[INFO] Building Mage Game Commander Two Player 1.4.61                    [9/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.CommanderDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-commanderduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-commanderduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CommanderDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-commanderduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-commanderduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CommanderDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-commanderduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-commanderduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------------< org.mage:mage-game-brawlduel >--------------------
+[INFO] Building Mage Game Brawl Two Player 1.4.61                       [10/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.BrawlDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-brawlduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-brawlduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.BrawlDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-brawlduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-brawlduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.BrawlDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-brawlduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-brawlduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ---------------< org.mage:mage-game-commanderfreeforall >---------------
+[INFO] Building Mage Game Commander Free For All 1.4.61                 [11/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.CommanderFreeForAll/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-commanderfreeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-commanderfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CommanderFreeForAll/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-commanderfreeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-commanderfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CommanderFreeForAll/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-commanderfreeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-commanderfreeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------------< org.mage:mage-game-brawlfreeforall >-----------------
+[INFO] Building Mage Game Brawl Free For All 1.4.61                     [12/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.BrawlFreeForAll/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-brawlfreeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-brawlfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.BrawlFreeForAll/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-brawlfreeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-brawlfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.BrawlFreeForAll/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-brawlfreeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-brawlfreeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -------------------< org.mage:mage-game-freeforall >--------------------
+[INFO] Building Mage Game Free For All 1.4.61                           [13/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.FreeForAll/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-freeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-freeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeForAll/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-freeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-freeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeForAll/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-freeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-freeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ------------------< org.mage:mage-game-twoplayerduel >------------------
+[INFO] Building Mage Game Two Player 1.4.61                             [14/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.TwoPlayerDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-twoplayerduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-twoplayerduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.TwoPlayerDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-twoplayerduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-twoplayerduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.TwoPlayerDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-twoplayerduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-twoplayerduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ---------------------< org.mage:mage-player-human >---------------------
+[INFO] Building Mage Player Human 1.4.61                                [15/34]
+[INFO]   from Mage.Server.Plugins/Mage.Player.Human/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-player-human ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-player-human ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.Human/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-player-human ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-player-human ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.Human/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-player-human ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-player-human ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------------< org.mage:mage-player-ai-mad >---------------------
+[INFO] Building Mage Player AI (mad bot) 1.4.61                         [16/34]
+[INFO]   from Mage.Server.Plugins/Mage.Player.AI.MAD/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-player-ai-mad ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-player-ai-mad ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AI.MAD/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-player-ai-mad ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-player-ai-mad ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AI.MAD/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-player-ai-mad ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-player-ai-mad ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------------< org.mage:mage-player-ai-mcts >--------------------
+[INFO] Building Mage Player AI MCTS 1.4.61                              [17/34]
+[INFO]   from Mage.Server.Plugins/Mage.Player.AIMCTS/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-player-ai-mcts ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-player-ai-mcts ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AIMCTS/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-player-ai-mcts ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-player-ai-mcts ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AIMCTS/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-player-ai-mcts ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-player-ai-mcts ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ---------------< org.mage:mage-tournament-boosterdraft >----------------
+[INFO] Building Mage Tournament Booster Draft 1.4.61                    [18/34]
+[INFO]   from Mage.Server.Plugins/Mage.Tournament.BoosterDraft/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-tournament-boosterdraft ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-tournament-boosterdraft ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Tournament.BoosterDraft/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-tournament-boosterdraft ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-tournament-boosterdraft ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Tournament.BoosterDraft/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-tournament-boosterdraft ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-tournament-boosterdraft ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ------------------< org.mage:mage-tournament-sealed >-------------------
+[INFO] Building Mage Tournament Sealed 1.4.61                           [19/34]
+[INFO]   from Mage.Server.Plugins/Mage.Tournament.Sealed/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-tournament-sealed ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-tournament-sealed ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Tournament.Sealed/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-tournament-sealed ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-tournament-sealed ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Tournament.Sealed/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-tournament-sealed ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-tournament-sealed ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ----------------< org.mage:mage-tournament-constructed >----------------
+[INFO] Building Mage Tournament Constructed 1.4.61                      [20/34]
+[INFO]   from Mage.Server.Plugins/Mage.Tournament.Constructed/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-tournament-constructed ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-tournament-constructed ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Tournament.Constructed/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-tournament-constructed ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-tournament-constructed ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Tournament.Constructed/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-tournament-constructed ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-tournament-constructed ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ------------------< org.mage:mage-player-ai-draftbot >------------------
+[INFO] Building Mage Player AI (draft bot) 1.4.61                       [21/34]
+[INFO]   from Mage.Server.Plugins/Mage.Player.AI.DraftBot/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-player-ai-draftbot ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-player-ai-draftbot ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AI.DraftBot/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-player-ai-draftbot ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-player-ai-draftbot ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Player.AI.DraftBot/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-player-ai-draftbot ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-player-ai-draftbot ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------------< org.mage:mage-game-tinyleadersduel >-----------------
+[INFO] Building Mage Game Tiny Leaders Two Player 1.4.61                [22/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.TinyLeadersDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-tinyleadersduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-tinyleadersduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.TinyLeadersDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-tinyleadersduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-tinyleadersduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.TinyLeadersDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-tinyleadersduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-tinyleadersduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -------------< org.mage:mage-game-canadianhighlanderduel >--------------
+[INFO] Building Mage Game Canadian Highlander Two Player 1.4.61         [23/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.CanadianHighlanderDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-canadianhighlanderduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-canadianhighlanderduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CanadianHighlanderDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-canadianhighlanderduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-canadianhighlanderduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CanadianHighlanderDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-canadianhighlanderduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-canadianhighlanderduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------< org.mage:mage-game-pennydreadfulcommanderfreeforall >---------
+[INFO] Building Mage Game Penny Dreadful Commander Free For All 1.4.61  [24/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.PennyDreadfulCommanderFreeForAll/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-pennydreadfulcommanderfreeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-pennydreadfulcommanderfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.PennyDreadfulCommanderFreeForAll/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-pennydreadfulcommanderfreeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-pennydreadfulcommanderfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.PennyDreadfulCommanderFreeForAll/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-pennydreadfulcommanderfreeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-pennydreadfulcommanderfreeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------< org.mage:mage-game-freeformcommanderfreeforall >-----------
+[INFO] Building Mage Game Freeform Commander Free For All 1.4.61        [25/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.FreeformCommanderFreeForAll/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-freeformcommanderfreeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-freeformcommanderfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeformCommanderFreeForAll/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-freeformcommanderfreeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-freeformcommanderfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeformCommanderFreeForAll/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-freeformcommanderfreeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-freeformcommanderfreeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------< org.mage:mage-game-freeformunlimitedcommander >------------
+[INFO] Building Mage Game Freeform Unlimited Commander 1.4.61           [26/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.FreeformUnlimitedCommander/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-freeformunlimitedcommander ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-freeformunlimitedcommander ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeformUnlimitedCommander/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-freeformunlimitedcommander ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-freeformunlimitedcommander ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeformUnlimitedCommander/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-freeformunlimitedcommander ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-freeformunlimitedcommander ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------< org.mage:mage-game-freeformcommanderduel >--------------
+[INFO] Building Mage Game Freeform Commander Two Player 1.4.61          [27/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.FreeformCommanderDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-freeformcommanderduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-freeformcommanderduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeformCommanderDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-freeformcommanderduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-freeformcommanderduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.FreeformCommanderDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-freeformcommanderduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-freeformcommanderduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------< org.mage:mage-game-custompillaroftheparunsduel >-----------
+[INFO] Building Mage Game Custom Pillar of the Paruns Two Player Duel 1.4.61 [28/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.CustomPillarOfTheParunsDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-custompillaroftheparunsduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-custompillaroftheparunsduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CustomPillarOfTheParunsDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-custompillaroftheparunsduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-custompillaroftheparunsduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.CustomPillarOfTheParunsDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-custompillaroftheparunsduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-custompillaroftheparunsduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------< org.mage:mage-game-oathbreakerfreeforall >--------------
+[INFO] Building Mage Game Oathbreaker Free For All 1.4.61               [29/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.OathbreakerFreeForAll/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-oathbreakerfreeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-oathbreakerfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.OathbreakerFreeForAll/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-oathbreakerfreeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-oathbreakerfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.OathbreakerFreeForAll/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-oathbreakerfreeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-oathbreakerfreeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------------< org.mage:mage-game-oathbreakerduel >-----------------
+[INFO] Building Mage Game Oathbreaker Two Player 1.4.61                 [30/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.OathbreakerDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-oathbreakerduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-oathbreakerduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.OathbreakerDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-oathbreakerduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-oathbreakerduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.OathbreakerDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-oathbreakerduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-oathbreakerduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --------------------< org.mage:mage-game-momirduel >--------------------
+[INFO] Building Mage Game Momir Basic Two Player 1.4.61                 [31/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.MomirDuel/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-momirduel ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-momirduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.MomirDuel/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-momirduel ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-momirduel ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.MomirDuel/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-momirduel ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-momirduel ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] -----------------< org.mage:mage-game-momirfreeforall >-----------------
+[INFO] Building Mage Game Momir Basic Free for All 1.4.61               [32/34]
+[INFO]   from Mage.Server.Plugins/Mage.Game.MomirGame/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-game-momirfreeforall ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-game-momirfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.MomirGame/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-game-momirfreeforall ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-game-momirfreeforall ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server.Plugins/Mage.Game.MomirGame/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-game-momirfreeforall ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-game-momirfreeforall ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] ------------------------< org.mage:mage-server >------------------------
+[INFO] Building Mage Server 1.4.61                                      [33/34]
+[INFO]   from Mage.Server/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-server ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- build-helper:3.2.0:add-source (add-source) @ mage-server ---
+[INFO] Source directory: /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server/target/generated-sources/xjc added.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-server ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- jaxb2:0.14.0:generate (default) @ mage-server ---
+[INFO] Latest timestamp of the source resources is [2026-09-26 04:39:40.000], earliest timestamp of the target resources is [2026-09-26 22:27:28.184].
+[INFO] Sources are up-to-date, XJC will be skipped.
+[INFO] 
+[INFO] --- markdown-page-generator:2.4.0:generate (default) @ mage-server ---
+[INFO] Pre-processing markdown files from input directory: ../
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-server ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Server/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-server ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-server ---
+[INFO] 
+[INFO] ------------------------< org.mage:mage-tests >-------------------------
+[INFO] Building Mage Tests 1.4.61                                       [34/34]
+[INFO]   from Mage.Tests/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.11:prepare-agent (default) @ mage-tests ---
+[INFO] Skipping JaCoCo execution because property jacoco.skip is set.
+[INFO] 
+[INFO] --- resources:3.2.0:resources (default-resources) @ mage-tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] skip non existing resourceDirectory /tmp/mtg-xmage/mage-000d8a7abc0ac31cc24af08691423e0c24dc59e7/Mage.Tests/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ mage-tests ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- resources:3.2.0:testResources (default-testResources) @ mage-tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Using 'UTF-8' encoding to copy filtered properties files.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ mage-tests ---
+[INFO] Compiling 1 source file with javac [debug release 8] to target/test-classes
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ mage-tests ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] +--org.mage.test.mtglab.InstantResponseTest - 7.376 ss
+[INFO] |  +-- [OK] instant[0] - 6.214 ss
+[INFO] |  +-- [OK] instant[1] - 0.065 ss
+[INFO] |  +-- [OK] instant[2] - 0.139 ss
+[INFO] |  +-- [OK] instant[3] - 0.098 ss
+[INFO] |  +-- [OK] instant[4] - 0.030 ss
+[INFO] |  +-- [OK] instant[5] - 0.069 ss
+[INFO] |  +-- [OK] instant[6] - 0.065 ss
+[INFO] |  +-- [OK] instant[7] - 0.133 ss
+[INFO] |  +-- [OK] instant[8] - 0.109 ss
+[INFO] |  +-- [OK] instant[9] - 0.137 ss
+[INFO] |  '-- [OK] instant[10] - 0.087 ss
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 11, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Mage Root 1.4.61:
+[INFO] 
+[INFO] Mage Root .......................................... SUCCESS [  0.076 s]
+[INFO] Mage Framework ..................................... SUCCESS [  0.797 s]
+[INFO] Mage Common Classes ................................ SUCCESS [  0.078 s]
+[INFO] Mage Sets .......................................... SUCCESS [  0.324 s]
+[INFO] Mage Server Plugins ................................ SUCCESS [  0.005 s]
+[INFO] Mage Player AI (basic) ............................. SUCCESS [  0.019 s]
+[INFO] Mage Deck Constructed .............................. SUCCESS [  0.027 s]
+[INFO] Mage Deck Limited .................................. SUCCESS [  0.016 s]
+[INFO] Mage Game Commander Two Player ..................... SUCCESS [  0.014 s]
+[INFO] Mage Game Brawl Two Player ......................... SUCCESS [  0.017 s]
+[INFO] Mage Game Commander Free For All ................... SUCCESS [  0.016 s]
+[INFO] Mage Game Brawl Free For All ....................... SUCCESS [  0.015 s]
+[INFO] Mage Game Free For All ............................. SUCCESS [  0.010 s]
+[INFO] Mage Game Two Player ............................... SUCCESS [  0.015 s]
+[INFO] Mage Player Human .................................. SUCCESS [  0.009 s]
+[INFO] Mage Player AI (mad bot) ........................... SUCCESS [  0.006 s]
+[INFO] Mage Player AI MCTS ................................ SUCCESS [  0.005 s]
+[INFO] Mage Tournament Booster Draft ...................... SUCCESS [  0.005 s]
+[INFO] Mage Tournament Sealed ............................. SUCCESS [  0.005 s]
+[INFO] Mage Tournament Constructed ........................ SUCCESS [  0.004 s]
+[INFO] Mage Player AI (draft bot) ......................... SUCCESS [  0.005 s]
+[INFO] Mage Game Tiny Leaders Two Player .................. SUCCESS [  0.007 s]
+[INFO] Mage Game Canadian Highlander Two Player ........... SUCCESS [  0.012 s]
+[INFO] Mage Game Penny Dreadful Commander Free For All .... SUCCESS [  0.016 s]
+[INFO] Mage Game Freeform Commander Free For All .......... SUCCESS [  0.032 s]
+[INFO] Mage Game Freeform Unlimited Commander ............. SUCCESS [  0.021 s]
+[INFO] Mage Game Freeform Commander Two Player ............ SUCCESS [  0.023 s]
+[INFO] Mage Game Custom Pillar of the Paruns Two Player Duel SUCCESS [  0.020 s]
+[INFO] Mage Game Oathbreaker Free For All ................. SUCCESS [  0.018 s]
+[INFO] Mage Game Oathbreaker Two Player ................... SUCCESS [  0.017 s]
+[INFO] Mage Game Momir Basic Two Player ................... SUCCESS [  0.019 s]
+[INFO] Mage Game Momir Basic Free for All ................. SUCCESS [  0.012 s]
+[INFO] Mage Server ........................................ SUCCESS [  0.396 s]
+[INFO] Mage Tests ......................................... SUCCESS [  9.138 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.483 s
+[INFO] Finished at: 2026-09-29T03:43:24Z
+[INFO] ------------------------------------------------------------------------
