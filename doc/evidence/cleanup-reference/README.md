@@ -109,6 +109,10 @@ python3 -m unittest discover -s tests -p test_instant_reference.py
 ./scripts/torture.sh
 ```
 
+Every file listed in the acceptance receipt’s artifact inventory is retained in
+this directory, including the legacy controls’ logs. The initial independent
+review’s advisory about missing logs is resolved by retaining the complete inventory.
+
 The acceptance receipt pins scenario/expectation/bridge/native-source hashes,
 source/archive and card/rules revisions, Java/Maven/dependencies and Rust/Python
 versions. Reference execution is offline, headless, stdin closed and bounded.
