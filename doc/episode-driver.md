@@ -21,7 +21,7 @@ APIs; it is not the full collector. Related to #159. [Acceptance evidence](evide
    Observe after submission to see the next decision or terminal view, or call
    advance for pending internal work. `advance` after terminal returns `Ended`.
 5. Either seat may `concede(seat, episode_id)` under the core concession contract.
-   Concession during internal work (including reset) is rejected until advancement
+   Concession during internal work (including reset and the opening-to-turn gap) is rejected until advancement
    settles. This adds one semantic concession record, not a fabricated policy decision.
 6. Call `finish()` once. It returns an owned `EpisodeResult` with
    `Completed(outcome)` only for a real core outcome; all other states are

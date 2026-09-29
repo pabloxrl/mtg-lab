@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Found one replay-integrity defect. Both existing episode test binaries passed all five tests; no tests were weakened. README scope and integration ownership are accurate. No files were changed or network used.",
+  "findings": [
+    {
+      "file": "crates/mtg-core/src/episode.rs:207",
+      "finding": "Concession still accepts an internal opening-to-turn boundary. After both seats submit Keep, progress is CoreProgress::OpeningComplete with no turn position; boundary() reports InternalYield, but this guard only rejects CoreProgress::InternalYield. Conceding immediately produces a Completed result before turns start. Advancing first and then conceding produces the identical semantic history but a different final turn state and generation. Existing played_replay also automatically starts turns after the last Keep, so it cannot reconstruct the former result. Reject concession at the OpeningComplete/no-turn boundary as well, and add a regression covering both Keep submissions followed immediately by concession.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "5d2eddaf1318adc1adc4c7734bb2fe8ac821d90c",
+  "head_sha": "c1b759080bf8a848d1e7d299e28cc1174fe67db8"
+}

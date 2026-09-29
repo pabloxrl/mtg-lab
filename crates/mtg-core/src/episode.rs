@@ -204,7 +204,7 @@ impl Driver {
         }
         // Semantic history starts from a fully executed normal reset. A terminal
         // result during a yield could not be reproduced by that action stream.
-        if self.progress == CoreProgress::InternalYield {
+        if self.boundary() == Progress::InternalYield {
             return Err(Error::Concede(terminal::ConcedeError::SettlementPending));
         }
         let record = actions::encode_concession(&self.game, seat).map_err(Error::Action)?;

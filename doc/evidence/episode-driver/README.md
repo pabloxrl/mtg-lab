@@ -80,3 +80,15 @@ concession during internal work without state/history changes. Both seats are
 checked; advancing to the opening boundary then conceding remains legal and matches
 a fresh normal-reset action replay including full RNG. Core rules are unchanged.
 The complete suite and separate candidate review are repeated after this repair.
+
+The second review of `c1b759080bf8a848d1e7d299e28cc1174fe67db8` found the
+related opening-to-turn gap after both Keeps: the public boundary is InternalYield
+although the core reports OpeningComplete. [Original second review](review-round2.json).
+The new `opening_to_turn_yields_reject_concession_until_a_replayable_boundary` test
+compiled and reproduced acceptance where SettlementPending was required;
+[preserved failure](opening-concession-red.log). Concession now uses the driver's
+complete yield classification. The regression checks both seats at the gap and
+every quantum-one turn-start yield, then verifies the settled three-record
+Keep/Keep/Concede history against full state/RNG replay. A separate normal-reset
+pending-payment concession regression ensures that a ready microchoice remains
+legal and replayable; the guard does not treat payment as internal work.

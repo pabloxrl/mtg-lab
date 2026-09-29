@@ -505,3 +505,102 @@ fn concession_during_yielding_reset_is_rejected_then_settled_history_replays() {
         normalized(&replay.snapshot())
     );
 }
+
+#[test]
+fn opening_to_turn_yields_reject_concession_until_a_replayable_boundary() {
+    let mut d = Driver::new(CAP).unwrap();
+    d.reset(&config(), 159, 0, NonZeroUsize::MAX).unwrap();
+    for seat in [Seat::P0, Seat::P1] {
+        let decision = d.observe(seat).unwrap().decision.unwrap();
+        d.submit(
+            seat,
+            &policy::Submission {
+                schema_version: 1,
+                revision: decision.revision,
+                generation: decision.generation,
+                choices: vec![policy::Choice::Keep],
+            },
+        )
+        .unwrap();
+    }
+    // No automatic advance here: second Keep leaves the opening-to-turn gap.
+    let id = d.episode_id().unwrap();
+    for _ in 0..20 {
+        let before = d.privileged_snapshot();
+        let history = d.privileged_history().to_vec();
+        for seat in [Seat::P0, Seat::P1] {
+            assert_eq!(
+                d.concede(seat, id),
+                Err(Error::Concede(
+                    mtg_core::game::terminal::ConcedeError::SettlementPending
+                ))
+            );
+            assert_eq!(d.privileged_snapshot(), before);
+            assert_eq!(d.privileged_history(), history);
+        }
+        if d.advance(q()).unwrap() == Progress::Ready {
+            break;
+        }
+    }
+    assert_eq!(
+        d.observe(Seat::P0).unwrap().view.turn,
+        Some((1, 0, "upkeep"))
+    );
+    d.concede(Seat::P1, id).unwrap();
+    let result = d.finish().unwrap();
+    assert_eq!(result.privileged_history().len(), 3);
+    let mut replay = Game::new().unwrap();
+    replay.reset(&config(), 159, 0).unwrap();
+    for record in result.privileged_history() {
+        actions::apply(&mut replay, record, CAP).unwrap();
+        if replay.decision().is_none()
+            && replay.turn_position().is_none()
+            && replay.outcome().is_none()
+        {
+            replay.start_turns().unwrap();
+        }
+    }
+    assert_eq!(replay.life(), [20, 20]);
+    assert_eq!(replay.outcome().unwrap().winner, Some(Seat::P0));
+    assert_eq!(
+        normalized(result.privileged_snapshot()),
+        normalized(&replay.snapshot())
+    );
+}
+
+#[test]
+fn concession_at_ready_payment_boundary_remains_recorded_and_replayable() {
+    let mut s = Script::new(false);
+    for seat in [Seat::P0, Seat::P1] {
+        s.send(seat, "keep_or_mulligan", json!({"kind":"keep"}));
+    }
+    for turn in 1..=3 {
+        let seat = if turn % 2 == 1 { Seat::P0 } else { Seat::P1 };
+        s.until(turn, "precombat_main");
+        s.send(
+            seat,
+            "priority",
+            json!({"kind":"play_land","card":hand(seat,turn.div_ceil(2),"forest")}),
+        );
+    }
+    s.send(
+        Seat::P0,
+        "priority",
+        json!({"kind":"cast","card":hand(Seat::P0,0,"bear-cub")}),
+    );
+    assert_eq!(
+        s.driver.observe(Seat::P0).unwrap().decision.unwrap().kind,
+        "payment"
+    );
+    s.driver
+        .concede(Seat::P1, s.driver.episode_id().unwrap())
+        .unwrap();
+    let result = s.driver.finish().unwrap();
+    let record = result.privileged_history().last().unwrap();
+    actions::apply(&mut s.replay, record, CAP).unwrap();
+    assert_eq!(s.replay.outcome().unwrap().winner, Some(Seat::P0));
+    assert_eq!(
+        normalized(result.privileged_snapshot()),
+        normalized(&s.replay.snapshot())
+    );
+}
