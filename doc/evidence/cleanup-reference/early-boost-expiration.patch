@@ -1,0 +1,14 @@
+--- a/crates/mtg-core/src/turns.rs
++++ b/crates/mtg-core/src/turns.rs
+@@ -388,6 +388,11 @@
+                 kind,
+                 failed_draw,
+             } => {
++                if matches!(kind, TurnKind::Discard { .. }) {
++                    for modification in &mut self.turns.modifications {
++                        modification.boost = 0;
++                    }
++                }
+                 if self.settle_terminal(failed_draw).is_none() {
+                     self.set_turn_decision(actor, kind);
+                 }

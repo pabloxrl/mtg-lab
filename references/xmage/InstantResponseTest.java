@@ -24,6 +24,8 @@ import org.mage.test.player.TestComputerPlayer;
 import org.mage.test.player.TestPlayer;
 import org.mage.test.serverside.base.CardTestPlayerBase;
 import java.nio.file.*;
+import java.io.Serializable;
+import mage.target.common.TargetDiscard;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import static org.junit.Assert.*;
@@ -89,10 +91,10 @@ public class InstantResponseTest extends CardTestPlayerBase {
     @Override protected TestPlayer createPlayer(String name,RangeOfInfluence range) {
         return new TestPlayer(new TestComputerPlayer(name,range)) {
             @Override public boolean priority(Game game) {
-                assertEquals(1,game.getTurnNum());
+                assertTrue(game.getTurnNum()==1||game.getTurnNum()==2);
                 assertTrue("unsupported step",Arrays.asList(PhaseStep.UPKEEP,PhaseStep.PRECOMBAT_MAIN,
                     PhaseStep.BEGIN_COMBAT,PhaseStep.DECLARE_ATTACKERS,PhaseStep.DECLARE_BLOCKERS,
-                    PhaseStep.COMBAT_DAMAGE).contains(game.getTurnStepType()));
+                    PhaseStep.COMBAT_DAMAGE,PhaseStep.END_COMBAT,PhaseStep.POSTCOMBAT_MAIN,PhaseStep.END_TURN).contains(game.getTurnStepType()));
                 int s=seat(getId());
                 if(!observing){
                     // Install synthetic hands at the declared boundary, not before a
@@ -168,6 +170,32 @@ public class InstantResponseTest extends CardTestPlayerBase {
                     List<MultiAmountMessage> messages,int totalMin,int totalMax,MultiAmountType type,Game game) {
                 throw new AssertionError("unscripted combat damage allocation");
             }
+            @Override public boolean choose(Outcome outcome,Target target,Ability source,Game game,Map<String,Serializable> options){
+                assertTrue("unexpected non-target choice",target instanceof TargetDiscard);
+                assertEquals(PhaseStep.CLEANUP,game.getTurnStepType());
+                assertEquals(getId(),game.getActivePlayerId());
+                assertEquals(Outcome.Discard,outcome);
+                while(cursor<script().size()&&kind().equals("checkpoint")){
+                    JsonObject c=script().get(cursor).getAsJsonObject();keys(c,"kind","name");
+                    JsonObject point=checkpoint(c.get("name").getAsString(),game);
+                    JsonObject state=point.getAsJsonObject("state");state.add("priority",JsonNull.INSTANCE);
+                    JsonObject discard=new JsonObject();discard.addProperty("actor",seat(getId()));discard.addProperty("count",target.getMinNumberOfTargets());state.add("discard",discard);
+                    checkpoints.add(point);cursor++;consumed.add(c.deepCopy());
+                }
+                JsonObject a=take("discard",seat(getId()),"cards");
+                JsonArray cards=a.getAsJsonArray("cards");
+                assertEquals("discard count",target.getMinNumberOfTargets(),cards.size());
+                assertEquals("discard count",target.getMaxNumberOfTargets(),cards.size());
+                Set<UUID> selected=new HashSet<>();
+                for(JsonElement card:cards){
+                    UUID id=object(card.getAsString());
+                    assertTrue("illegal discard card",getHand().contains(id));
+                    assertTrue("duplicate discard card",selected.add(id));
+                    target.addTarget(id,source,game);
+                    assertTrue("illegal discard selection",target.getTargets().contains(id));
+                }
+                return true;
+            }
             @Override public boolean chooseTarget(Outcome outcome,Target target,Ability source,Game game){
                 JsonObject a=take("target",seat(getId()),"target");UUID id=object(a.get("target").getAsString());
                 assertTrue("illegal target",target.canTarget(id,source,game));target.addTarget(id,source,game);return true;
@@ -234,6 +262,14 @@ public class InstantResponseTest extends CardTestPlayerBase {
             }
         }
         state.add("combat",combat);
+        JsonObject zones=new JsonObject();JsonArray hands=new JsonArray(),graves=new JsonArray();
+        for(int owner=0;owner<2;owner++){
+            JsonArray hand=new JsonArray(),grave=new JsonArray();Player p=game.getPlayer(player(owner));
+            for(UUID id:p.getHand())hand.add(semantic(id));
+            for(UUID id:p.getGraveyard())grave.add(semantic(id));
+            hands.add(hand);graves.add(grave);
+        }
+        zones.add("hand",hands);zones.add("graveyard",graves);state.add("ordered_zones",zones);
         state.add("damage_events",observedDamage);state.add("last_resolution",lastResolution.deepCopy());
         JsonObject out=new JsonObject();out.addProperty("name",name);out.add("state",state);return out;
     }
@@ -252,7 +288,7 @@ public class InstantResponseTest extends CardTestPlayerBase {
             assertNull(ids.put(o.get("id").getAsString(),card.getId()));
         }
         for(int owner=0;owner<2;owner++){TestPlayer p=owner==0?playerA:playerB;initialHands.put(owner,new ArrayList<>(getHandCards(p)));getHandCards(p).clear();}
-        setStopAt(1,PhaseStep.END_COMBAT);execute();assertEquals(script().size(),cursor);
+        setStopAt(2,PhaseStep.UPKEEP);execute();assertEquals(script().size(),cursor);
         JsonObject result=new JsonObject();result.add("checkpoints",checkpoints);result.add("consumed",consumed);
         Files.write(Paths.get(System.getProperty("mtglab.output"),fixture.get("id").getAsString()+".json"),new GsonBuilder().serializeNulls().setPrettyPrinting().create().toJson(result).getBytes(StandardCharsets.UTF_8));
     }

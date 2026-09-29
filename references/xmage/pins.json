@@ -28,7 +28,10 @@
     "Mage/src/main/java/mage/game/combat/Combat.java": "3c2de1444f0e35216eb8e9bfebd88e02c6693995a41b5ea2a271bf3e585c6250",
     "Mage/src/main/java/mage/game/combat/CombatGroup.java": "a3f6a37d332831855cdc9b7900cc400554331a3a82598438b5c307a7b0e42bc7",
     "Mage/src/main/java/mage/game/permanent/PermanentImpl.java": "5b72e235e1fe716b7337ffe76539d7fd79a5a9de1c54e6f343426126aeec6fe1",
-    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e"
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage/src/main/java/mage/game/turn/CleanupStep.java": "7b518f89e5e5f8eb07129c06eae074068068324927694c10d19f1746eec45b09",
+    "Mage/src/main/java/mage/cards/CardsImpl.java": "e3a32dd4f367a6429bd83cb8c1a1890e314b5dfbbedf8d61f4251797646dc1e0",
+    "Mage/src/main/java/mage/target/common/TargetDiscard.java": "f165d4061cca290e354f611246bf39c1157977742d5d9ae93fca883b22118668"
   },
   "toolchain_base_image": "maven:3.9.11-eclipse-temurin-21-noble@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237",
   "jdk_runtime": "21.0.9+10"

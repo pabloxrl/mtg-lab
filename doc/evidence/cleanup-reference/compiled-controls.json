@@ -1,0 +1,30 @@
+{
+  "status": "detected",
+  "original_restored_sha256": "4b15b34479bfa97637ec13e63f2fb69fc3e6617d65d9cc741a0ef62731c5aa1c",
+  "controls": {
+    "early-damage-removal": {
+      "status": "detected",
+      "first_checkpoint": "before-discard",
+      "difference": {
+        "path": "$[14].state.objects[1].damage",
+        "expected": 4,
+        "actual": 0
+      },
+      "mutated_source_sha256": "dded3d26a0b0bf299507692f4e246198ce04132ff325f403cd55f461b9158d6f",
+      "patch_sha256": "ea7dfbea3d77a2987b19e6043cc3b6079faf5f45a14f7e44906d9fe9bf127baa",
+      "log_sha256": "50651ab6534b72050f17cfd19d151d60237b314a9f70bd3aed4d33c68744a54e"
+    },
+    "early-boost-expiration": {
+      "status": "detected",
+      "first_checkpoint": "before-discard",
+      "difference": {
+        "path": "$[14].state.objects[1].power",
+        "expected": 5,
+        "actual": 2
+      },
+      "mutated_source_sha256": "c4155289943637511fbdde56a40d3f111cf7ea2312c467ed69a4a1015b50bd15",
+      "patch_sha256": "b7dfa89d0480946201b8cf0c0f57fe6ba2967edd966b9f5a9bb71dd107979b65",
+      "log_sha256": "3b3f53a07b810f172392194fd791381b1c91b9c9be5ceda1ddb656146f9c9a55"
+    }
+  }
+}

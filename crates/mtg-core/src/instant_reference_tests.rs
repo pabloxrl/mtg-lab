@@ -107,7 +107,7 @@ impl Adapter {
     fn checkpoint(&self, name: &str) -> Value {
         let g = &self.game;
         let (turn, active, step) = g.turn_position().unwrap();
-        assert_eq!((turn, active), (1, Seat::P0));
+        assert!((turn == 1 && active == Seat::P0) || (turn == 2 && active == Seat::P1));
         let step = match step {
             Step::Upkeep => "upkeep",
             Step::PrecombatMain => "precombat_main",
@@ -115,15 +115,18 @@ impl Adapter {
             Step::DeclareAttackers => "declare_attackers",
             Step::DeclareBlockers => "declare_blockers",
             Step::CombatDamage => "combat_damage",
+            Step::EndCombat => "end_combat",
+            Step::PostcombatMain => "postcombat_main",
+            Step::End => "end_turn",
+            Step::Cleanup => "cleanup",
             _ => panic!("unsupported checkpoint step"),
         };
         let d = g
             .turn_decision()
             .expect("checkpoint must be settled priority");
-        assert_eq!(
-            d.kind,
-            TurnKind::Priority,
-            "checkpoint must be settled priority"
+        assert!(
+            matches!(d.kind, TurnKind::Priority | TurnKind::Discard { .. }),
+            "checkpoint must be settled priority or discard"
         );
         let expected_handles: Vec<_> = self
             .objects
@@ -179,7 +182,19 @@ impl Adapter {
                 })
             })
             .collect();
-        json!({"name":name,"state":{"combat":combat,"turn":turn,"step":step,"active":0,"priority":seat_index(d.actor),"life":g.life(),"mana":g.mana(),"stack":stack,"objects":objects,"damage_events":self.damage,"last_resolution":self.last_resolution}})
+        let ordered = |zone: fn(Seat) -> Zone| -> Vec<Vec<&str>> {
+            [Seat::P0, Seat::P1]
+                .into_iter()
+                .map(|s| g.objects.in_zone(zone(s)).map(|h| self.id(h)).collect())
+                .collect()
+        };
+        let mut result = json!({"name":name,"state":{"combat":combat,"turn":turn,"step":step,"active":seat_index(active),"priority":seat_index(d.actor),"life":g.life(),"mana":g.mana(),"stack":stack,"objects":objects,"damage_events":self.damage,"last_resolution":self.last_resolution,
+            "ordered_zones":{"hand":ordered(Zone::Hand),"graveyard":ordered(Zone::Graveyard)}}});
+        if let TurnKind::Discard { count } = d.kind {
+            result["state"]["priority"] = Value::Null;
+            result["state"]["discard"] = json!({"actor":seat_index(d.actor),"count":count});
+        }
+        result
     }
     fn pass(&mut self, actor: Seat) {
         let d = self.game.turn_decision().expect("priority");
@@ -319,6 +334,35 @@ fn execute(case: &Value) -> Value {
         } else {
             let actor = seat(&action["actor"]);
             match kind {
+                "discard" => {
+                    keys(action, &["kind", "actor", "cards"]);
+                    assert!(cast_actor.is_none());
+                    let d = a.game.turn_decision().expect("missing discard decision");
+                    let cards = a.game.discard_cards().expect("unexpected discard choice");
+                    let selected = action["cards"]
+                        .as_array()
+                        .unwrap()
+                        .iter()
+                        .map(|id| {
+                            let h = a.handle(text(id));
+                            d.candidate(
+                                cards
+                                    .iter()
+                                    .position(|c| *c == h)
+                                    .expect("illegal discard card"),
+                            )
+                        })
+                        .collect();
+                    a.game
+                        .apply_turn(
+                            actor,
+                            &TurnAction {
+                                decision: d.id,
+                                selection: TurnSelection::Discard(selected),
+                            },
+                        )
+                        .unwrap();
+                }
                 "attackers" => {
                     keys(action, &["kind", "actor", "attackers"]);
                     assert!(cast_actor.is_none());
@@ -702,5 +746,71 @@ fn instant_blocker_illegal_declarations_and_response_order_fail() {
             }
         }
         assert!(!valid(&c), "survived {mutation}");
+    }
+}
+
+#[test]
+fn instant_cleanup_literal_discard_and_next_turn() {
+    // CR 514.1 precedes 514.2; no priority is granted by this discard.
+    // CR 514.2 expires Growth and removes 2/4 damage together, preserving the Cub.
+    for case in fixture()["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| text(&c["id"]).starts_with("cleanup-"))
+    {
+        let result = execute(case);
+        assert_eq!(result["checkpoints"], expectations()[text(&case["id"])]);
+        assert_eq!(result["consumed"], case["script"]);
+    }
+}
+
+#[test]
+fn instant_cleanup_strict_discard_identity_count_and_actor() {
+    let f = fixture();
+    let base = f["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|c| c["id"] == "cleanup-8-4")
+        .unwrap();
+    for mutation in [
+        "missing",
+        "extra",
+        "empty",
+        "two",
+        "foreign",
+        "wrong-actor",
+        "different-card",
+        "priority",
+    ] {
+        let mut case = base.clone();
+        let script = case["script"].as_array_mut().unwrap();
+        let index = script.iter().position(|a| a["kind"] == "discard").unwrap();
+        match mutation {
+            "missing" => {
+                script.remove(index);
+            }
+            "extra" => {
+                let a = script[index].clone();
+                script.insert(index, a);
+            }
+            "empty" => script[index]["cards"] = json!([]),
+            "two" => script[index]["cards"] = json!(["keep3", "keep4"]),
+            "foreign" => script[index]["cards"] = json!(["growth"]),
+            "wrong-actor" => script[index]["actor"] = json!(1),
+            "different-card" => script[index]["cards"] = json!(["keep1"]),
+            _ => {
+                script.insert(index, json!({"kind":"pass","actor":0}));
+            }
+        }
+        assert!(
+            std::panic::catch_unwind(|| {
+                let result = execute(&case);
+                assert_eq!(result["checkpoints"], expectations()["cleanup-8-4"]);
+            })
+            .is_err(),
+            "survived {mutation}"
+        );
     }
 }
