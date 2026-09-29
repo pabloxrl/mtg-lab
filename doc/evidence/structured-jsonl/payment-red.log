@@ -1,0 +1,22 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.67s
+     Running tests/structured_contract.rs (target/debug/deps/structured_contract-a30e1969a5c3b2c1)
+
+running 1 test
+test structured_native_payment_without_a_spell_preserves_null_pending ... FAILED
+
+failures:
+
+---- structured_native_payment_without_a_spell_preserves_null_pending stdout ----
+
+thread 'structured_native_payment_without_a_spell_preserves_null_pending' (189) panicked at crates/mtg-recorder/tests/structured_contract.rs:761:53:
+called `Result::unwrap()` on an `Err` value: Invalid
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    structured_native_payment_without_a_spell_preserves_null_pending
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-recorder --test structured_contract`

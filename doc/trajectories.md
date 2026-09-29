@@ -15,9 +15,9 @@ no lossy conversion between them. A v1 recorder rejects a v2 header and a v2
 recorder rejects a v1/unknown header. Structured observation and Submission
 versions are independently checked against `policy::SCHEMA_VERSION` (currently
 1). Engine/rules/cards/action strings remain producer provenance, not migration
-instructions. The existing JSONL writer/reader and run manifest support **v1
-only**; v2 persistence is #153, and the owned collection driver is #154. No
-collector, sink, CLI, trainer or new rules are supplied by v2.
+instructions. The existing [JSONL writer/reader](trajectory-jsonl.md) and [run manifest](run-manifest.md)
+support explicit v1 and v2 schemas. The owned collection driver remains #154. No
+collector, CLI, trainer or new rules are supplied by the in-memory contract.
 
 Create a v2 `Frame::capture(&game, capacity)` at an existing policy boundary,
 then `v2::Recorder::new(&header, &frame)` with `header.versions.schema = 2`.

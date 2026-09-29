@@ -3,6 +3,7 @@
 //! See `doc/trajectory-jsonl.md`. No engine calls or RNG use occur here.
 pub mod manifest;
 pub mod schema;
+pub mod structured;
 use schema::*;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -34,9 +35,9 @@ pub struct Metrics {
 }
 #[derive(Serialize, Deserialize)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
-enum Record {
+enum Record<E = Episode> {
     Episode {
-        episode: Box<Episode>,
+        episode: Box<E>,
     },
     Seal {
         format: u32,
@@ -52,26 +53,25 @@ struct Inventory {
     decisions: u64,
 }
 impl Inventory {
-    fn add(&mut self, e: &Episode) -> Result<(), Error> {
-        if self
-            .last
-            .as_ref()
-            .is_some_and(|last| last.run != e.header.id.run || last.ordinal >= e.header.id.ordinal)
-        {
+    fn add<E: Durable>(&mut self, e: &E) -> Result<(), Error> {
+        if self.last.as_ref().is_some_and(|last| {
+            last.run != e.metadata().0.id.run || last.ordinal >= e.metadata().0.id.ordinal
+        }) {
             return Err(Error::Invalid);
         }
         self.episodes = self.episodes.checked_add(1).ok_or(Error::Limit)?;
         self.decisions = self
             .decisions
-            .checked_add(e.decisions.len() as u64)
+            .checked_add(e.decision_count() as u64)
             .ok_or(Error::Limit)?;
-        self.last = Some(e.header.id.clone());
+        self.last = Some(e.metadata().0.id.clone());
         Ok(())
     }
 }
 /// An episode-sized bounded queue. Oversized episodes fail explicitly; callers
 /// must enforce an episode budget. `finish` is mandatory, including for zero episodes.
 pub struct Writer<W> {
+    format: u32,
     sink: W,
     capacity: usize,
     mode: Backpressure,
@@ -87,6 +87,7 @@ impl<W: Write> Writer<W> {
             return Err(Error::Limit);
         }
         Ok(Self {
+            format: 1,
             sink,
             capacity,
             mode,
@@ -97,10 +98,22 @@ impl<W: Write> Writer<W> {
             metrics: Metrics::default(),
         })
     }
+    /// Explicit v2 stream, including an empty dataset; never inferred from rows.
+    pub fn new_v2(sink: W, capacity: usize, mode: Backpressure) -> Result<Self, Error> {
+        let mut writer = Self::new(sink, capacity, mode)?;
+        writer.format = 2;
+        Ok(writer)
+    }
+    pub fn append_v2(&mut self, episode: &structured::Episode) -> Result<(), Error> {
+        self.append_record(episode)
+    }
     pub fn metrics(&self) -> &Metrics {
         &self.metrics
     }
     pub fn append(&mut self, episode: &Episode) -> Result<(), Error> {
+        self.append_record(episode)
+    }
+    fn append_record<E: Durable>(&mut self, episode: &E) -> Result<(), Error> {
         if self.poisoned {
             return Err(Error::Poisoned);
         }
@@ -110,12 +123,15 @@ impl<W: Write> Writer<W> {
         }
         result
     }
-    fn append_inner(&mut self, episode: &Episode) -> Result<(), Error> {
-        validate(episode)?;
+    fn append_inner<E: Durable>(&mut self, episode: &E) -> Result<(), Error> {
+        if self.format != E::FORMAT {
+            return Err(Error::Invalid);
+        }
+        episode.validate_record()?;
         #[derive(Serialize)]
-        struct Row<'a> {
+        struct Row<'a, E> {
             kind: &'static str,
-            episode: &'a Episode,
+            episode: &'a E,
         }
         let line = canonical(
             &Row {
@@ -168,8 +184,8 @@ impl<W: Write> Writer<W> {
             return Err(Error::Poisoned);
         }
         self.flush_batch()?;
-        let seal = Record::Seal {
-            format: 1,
+        let seal: Record = Record::Seal {
+            format: self.format,
             episodes: self.inventory.episodes,
             decisions: self.inventory.decisions,
             sha256: format!("{:x}", self.digest.finalize()),
@@ -444,6 +460,13 @@ pub fn validate(e: &Episode) -> Result<(), Error> {
 /// Loads only a complete, canonical, sealed file. The explicit byte budget bounds
 /// input and deserialization memory; no unbounded line or identity set is used.
 pub fn read(source: impl Read, max_bytes: usize) -> Result<Vec<Episode>, Error> {
+    read_typed(source, max_bytes)
+}
+/// Explicit structured schema v2 reader. V1 and unknown versions are rejected.
+pub fn read_v2(source: impl Read, max_bytes: usize) -> Result<Vec<structured::Episode>, Error> {
+    read_typed(source, max_bytes)
+}
+fn read_typed<E: Durable>(source: impl Read, max_bytes: usize) -> Result<Vec<E>, Error> {
     let mut bytes = Vec::new();
     source
         .take((max_bytes as u64).saturating_add(1))
@@ -463,15 +486,15 @@ pub fn read(source: impl Read, max_bytes: usize) -> Result<Vec<Episode>, Error> 
         if sealed {
             return Err(Error::Invalid);
         }
-        let record: Record = serde_json::from_slice(line).map_err(|_| Error::Invalid)?;
+        let record: Record<E> = serde_json::from_slice(line).map_err(|_| Error::Invalid)?;
         // Reject unknown/missing/duplicate fields and noncanonical representations.
         if canonical(&record, max_bytes)? != line {
             return Err(Error::Invalid);
         }
         match record {
             Record::Episode { episode } => {
-                validate(&episode)?;
-                inventory.add(&episode)?;
+                episode.validate_record()?;
+                inventory.add(episode.as_ref())?;
                 digest.update(line);
                 episodes.push(*episode);
             }
@@ -481,7 +504,7 @@ pub fn read(source: impl Read, max_bytes: usize) -> Result<Vec<Episode>, Error> 
                 decisions,
                 sha256,
             } => {
-                if format != 1 {
+                if format != E::FORMAT {
                     return Err(Error::Invalid);
                 }
                 if episodes != inventory.episodes
@@ -509,6 +532,23 @@ pub fn write_file(
     capacity: usize,
     mode: Backpressure,
 ) -> Result<(), Error> {
+    write_file_typed(path, episodes, capacity, mode)
+}
+/// Same no-replace publication protocol as v1, with an explicit v2 seal.
+pub fn write_file_v2(
+    path: &std::path::Path,
+    episodes: &[structured::Episode],
+    capacity: usize,
+    mode: Backpressure,
+) -> Result<(), Error> {
+    write_file_typed(path, episodes, capacity, mode)
+}
+fn write_file_typed<E: Durable>(
+    path: &std::path::Path,
+    episodes: &[E],
+    capacity: usize,
+    mode: Backpressure,
+) -> Result<(), Error> {
     use std::fs::{self, OpenOptions};
     // The sibling fragment and final name are on the same filesystem. A hard
     // link publishes atomically and fails if the final name already exists.
@@ -527,8 +567,9 @@ pub fn write_file(
         .open(&partial)
         .map_err(Error::Io)?;
     let mut writer = Writer::new(file, capacity, mode)?;
+    writer.format = E::FORMAT;
     for episode in episodes {
-        writer.append(episode)?;
+        writer.append_record(episode)?;
     }
     let file = writer.finish()?;
     file.sync_all().map_err(Error::Io)?;
@@ -542,4 +583,77 @@ pub fn write_file(
         .and_then(|f| f.sync_all())
         .map_err(Error::Io)?;
     Ok(())
+}
+
+// One serializer, queue, integrity reader and publisher; schema-specific checks
+// are the only version-dependent behavior.
+pub(crate) trait Durable: Serialize + serde::de::DeserializeOwned {
+    const FORMAT: u32;
+    fn validate_record(&self) -> Result<(), Error>;
+    fn metadata(
+        &self,
+    ) -> (
+        &Header,
+        &RewardConvention,
+        &DiscountConvention,
+        Option<&End>,
+    );
+    fn decision_count(&self) -> usize;
+}
+impl Durable for Episode {
+    const FORMAT: u32 = 1;
+    fn validate_record(&self) -> Result<(), Error> {
+        validate(self)
+    }
+    fn metadata(
+        &self,
+    ) -> (
+        &Header,
+        &RewardConvention,
+        &DiscountConvention,
+        Option<&End>,
+    ) {
+        (
+            &self.header,
+            &self.reward_convention,
+            &self.discount_convention,
+            self.footer.as_ref().map(|f| &f.end),
+        )
+    }
+    fn decision_count(&self) -> usize {
+        self.decisions.len()
+    }
+}
+impl Durable for structured::Episode {
+    const FORMAT: u32 = 2;
+    fn validate_record(&self) -> Result<(), Error> {
+        structured::validate(self)
+    }
+    fn metadata(
+        &self,
+    ) -> (
+        &Header,
+        &RewardConvention,
+        &DiscountConvention,
+        Option<&End>,
+    ) {
+        (
+            &self.header,
+            &self.reward_convention,
+            &self.discount_convention,
+            self.footer.as_ref().map(|f| &f.end),
+        )
+    }
+    fn decision_count(&self) -> usize {
+        self.decisions.len()
+    }
+}
+/// Copies only canonical owned v2 policy data. Missing statistics stay absent.
+pub fn from_core_v2(
+    episode: &mtg_core::trajectory::v2::Episode,
+) -> Result<structured::Episode, Error> {
+    let e = serde_json::from_value(serde_json::to_value(episode).map_err(|_| Error::Invalid)?)
+        .map_err(|_| Error::Invalid)?;
+    structured::validate(&e)?;
+    Ok(e)
 }

@@ -1,0 +1,69 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.12s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-301103531683372a)
+
+running 16 tests
+test jsonl_contract::jsonl_bounded_overflow_and_write_failure_are_sticky ... ok
+test jsonl_contract::jsonl_atomic_publication_preserves_failed_fragment_and_existing_file ... ok
+test jsonl_contract::jsonl_backpressure_waits_for_sink_before_accepting_next_episode ... ok
+test jsonl_contract::jsonl_duplicate_episode_aborts_recording ... ok
+test jsonl_contract::jsonl_final_metrics_include_the_final_batch_and_seal ... ok
+test jsonl_contract::jsonl_flush_partial_write_and_read_errors_propagate ... ok
+test jsonl_contract::jsonl_duplicate_unknown_missing_fields_and_mixed_run_are_rejected ... ok
+test jsonl_contract::jsonl_hand_authored_roundtrip_and_canonical_bytes ... ok
+test jsonl_contract::jsonl_interrupted_writer_leaves_unsealed_prefix ... ok
+test jsonl_contract::jsonl_blocking_buffer_drains_without_dropping_and_reports_wait ... ok
+test jsonl_contract::jsonl_rejects_corruption_truncation_and_whole_record_loss ... ok
+test jsonl_contract::jsonl_order_continuations_truncation_and_zero_decisions ... ok
+test jsonl_contract::jsonl_semantic_validation_does_not_trust_checksum ... ok
+test jsonl_contract::jsonl_policy_statistics_preserve_every_float_bit ... ok
+test jsonl_contract::jsonl_terminal_action_draw_and_nonempty_truncation_remain_distinct ... ok
+test jsonl_contract::jsonl_real_episode_capture_off_matches_and_owned_records_survive_reset ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/manifest_contract.rs (target/debug/deps/manifest_contract-0dcad35a5b19302b)
+
+running 12 tests
+test empty_sealed_run_and_io_failure_remain_explicit ... ok
+test bounds_and_unsupported_conventions_rejected ... ok
+test declared_seed_subset_is_preserved_but_not_selected_by_loader ... ok
+test every_required_field_and_unknown_fields_rejected ... ok
+test diagnostic_mode_never_salvages_corrupt_or_unsealed_prefixes ... ok
+test handwritten_pair_roundtrips ... ok
+test nested_required_fields_duplicates_and_invalid_declarations_rejected ... ok
+test failed_and_interrupted_runs_are_explicit_diagnostics ... ok
+test inventory_checksum_and_completion_are_binding ... ok
+test truncated_episode_is_not_a_completed_run ... ok
+test incompatible_versions_and_provenance_rejected ... ok
+test replay_ids_never_enter_policy_rows_and_paths_are_rejected ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/structured_contract.rs (target/debug/deps/structured_contract-a30e1969a5c3b2c1)
+
+running 15 tests
+test structured_core_conversion_and_reset_preserve_owned_final_inputs ... ok
+test structured_existing_writer_matches_independent_python_bytes ... ok
+test structured_file_publication_is_atomic_and_retains_failed_fragments ... ok
+test structured_kind_cardinality_and_command_grammar_reject_corruption ... ok
+test structured_buffer_ownership_and_optional_statistics ... ok
+test structured_literal_records_validate_and_read_exactly ... ok
+test structured_manifest_version_is_explicit ... ok
+test structured_blocking_is_measured_and_does_not_drop_rows ... ok
+test structured_native_payment_without_a_spell_preserves_null_pending ... ok
+test structured_nonempty_stack_provisional_and_departed_references_are_lossless ... ok
+test structured_overflow_errors_interruption_and_version_mixing_never_seal ... ok
+test structured_same_seat_readers_preserve_rewards_time_and_privacy ... ok
+test structured_missing_extra_invalid_fields_and_versions_reject ... ok
+test structured_factored_multichoice_temporal_and_seal_negatives ... ok
+test structured_manifest_roundtrip_provenance_integrity_and_seat_isolation ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+   Doc-tests mtg_recorder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
