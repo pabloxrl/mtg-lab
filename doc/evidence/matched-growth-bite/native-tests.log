@@ -1,0 +1,19 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.03s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 12 tests
+test game::instant_reference_tests::instant_checkpoint_rejects_unlisted_objects_in_every_zone ... ok
+test game::instant_reference_tests::instant_blocker_script_reaches_damage_with_remembered_blocked_status ... ok
+test game::instant_reference_tests::instant_blocker_illegal_declarations_and_response_order_fail ... ok
+test game::instant_reference_tests::instant_cleanup_literal_discard_and_next_turn ... ok
+test game::instant_reference_tests::instant_cleanup_strict_discard_identity_count_and_actor ... ok
+test game::instant_reference_tests::instant_identity_survives_departure_and_reentry_without_retargeting ... ok
+test game::instant_reference_tests::instant_lineage_binding_still_checks_actual_card_and_owner ... ok
+test game::instant_reference_tests::instant_departed_targets_literal_expectations ... ok
+test game::instant_reference_tests::instant_shared_script_literal_expectations ... ok
+test game::instant_reference_tests::instant_export_observations ... ok
+test game::instant_reference_tests::instant_strict_choice_regressions ... ok
+test game::instant_reference_tests::instant_departure_choices_are_not_silently_dropped ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 135 filtered out; finished in 4.47s
+

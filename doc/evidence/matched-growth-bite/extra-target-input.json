@@ -1,0 +1,3022 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "destination",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        }
+      ]
+    },
+    {
+      "id": "source",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "source"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        }
+      ]
+    },
+    {
+      "id": "growth-gone",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy0",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy1",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r1",
+            "card": "mountain",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "lower",
+            "card": "giant-growth",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "removal",
+            "card": "bite-down",
+            "owner": 1,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "g0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "lower"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "g1"
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "r1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "removal"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "source"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "target-departed"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-finished"
+        }
+      ]
+    },
+    {
+      "id": "bite-source-gone",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy0",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy1",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r1",
+            "card": "mountain",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "lower",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "removal",
+            "card": "bite-down",
+            "owner": 1,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "g0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "r0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "lower"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "g1"
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "r1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "removal"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "source"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "target-departed"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-finished"
+        }
+      ]
+    },
+    {
+      "id": "bite-destination-gone",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy0",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy1",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r1",
+            "card": "mountain",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "lower",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "removal",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "g0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "r0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "lower"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-cast"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "g2"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "r2"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "removal"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "target-departed"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-finished"
+        }
+      ]
+    },
+    {
+      "id": "bite-both-gone",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy0",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "decoy1",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r1",
+            "card": "mountain",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "g2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "r2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "lower",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "removal",
+            "card": "bite-down",
+            "owner": 1,
+            "zone": "hand"
+          },
+          {
+            "id": "removal2",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "g0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "r0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "lower"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "g1"
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "r1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "removal"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "source"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "target-departed"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "g2"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "r2"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "removal2"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "decoy0"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "second-response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "both-departed"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "lower-finished"
+        }
+      ]
+    },
+    {
+      "id": "bite-killed-blocker",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin-combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": [
+            "attacker"
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "blockers",
+          "actor": 1,
+          "blocks": [
+            {
+              "blocker": "blocker",
+              "attacker": "attacker"
+            }
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "blockers"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "forest0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "mountain"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "attacker"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "blocker"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "blocker-died"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "combat-damage"
+        }
+      ]
+    },
+    {
+      "id": "cleanup-7-2",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "precombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": []
+        },
+        {
+          "kind": "checkpoint",
+          "name": "no-attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "postcombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_turn"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end-response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep-response"
+        }
+      ]
+    },
+    {
+      "id": "cleanup-7-4",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          },
+          {
+            "id": "green2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite2",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green2"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red2"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite2"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "second-bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "four-damage"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "precombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": []
+        },
+        {
+          "kind": "checkpoint",
+          "name": "no-attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "postcombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_turn"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end-response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep-response"
+        }
+      ]
+    },
+    {
+      "id": "cleanup-8-2",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep7",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "precombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": []
+        },
+        {
+          "kind": "checkpoint",
+          "name": "no-attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "postcombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_turn"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end-response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "before-discard"
+        },
+        {
+          "kind": "discard",
+          "actor": 0,
+          "cards": [
+            "keep3"
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep-response"
+        }
+      ]
+    },
+    {
+      "id": "cleanup-8-4",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          },
+          {
+            "id": "green2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite2",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep7",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green2"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red2"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite2"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "second-bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "four-damage"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "precombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": []
+        },
+        {
+          "kind": "checkpoint",
+          "name": "no-attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "postcombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_turn"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end-response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "before-discard"
+        },
+        {
+          "kind": "discard",
+          "actor": 0,
+          "cards": [
+            "keep3"
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep-response"
+        }
+      ]
+    }
+  ]
+}
