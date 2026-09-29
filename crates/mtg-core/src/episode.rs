@@ -202,6 +202,11 @@ impl Driver {
         if self.game.episode_id() != Some(episode) {
             return Err(Error::Concede(terminal::ConcedeError::StaleEpisode));
         }
+        // Semantic history starts from a fully executed normal reset. A terminal
+        // result during a yield could not be reproduced by that action stream.
+        if self.progress == CoreProgress::InternalYield {
+            return Err(Error::Concede(terminal::ConcedeError::SettlementPending));
+        }
         let record = actions::encode_concession(&self.game, seat).map_err(Error::Action)?;
         let outcome = self.game.concede(seat, episode).map_err(Error::Concede)?;
         self.history.push(record);

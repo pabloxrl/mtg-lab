@@ -66,3 +66,17 @@ made: this wraps established rules and introduces no new game mechanics.
 Full-suite, exact-candidate separate review, protected PR and exact-main CI receipts
 are recorded in the [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/159#issuecomment-5893322183)
 and delivery PR. Those gates must pass before delivery is complete.
+
+## Independent review repair
+
+The first prescribed review of `4ec29c933b509308f87fbc26527cc8c3a6fbbe03`
+found one blocking replay-integrity defect: concession during an unfinished reset
+could return Completed with a partial deck/RNG state that normal reset plus history
+cannot reconstruct. [Original review](review-round1.json). The added normal-discovery
+`concession_during_yielding_reset_is_rejected_then_settled_history_replays` test first
+compiled and failed with `Ok(())` versus `Err(Concede(SettlementPending))`;
+[preserved behavioral failure](concession-red.log). The driver now rejects
+concession during internal work without state/history changes. Both seats are
+checked; advancing to the opening boundary then conceding remains legal and matches
+a fresh normal-reset action replay including full RNG. Core rules are unchanged.
+The complete suite and separate candidate review are repeated after this repair.

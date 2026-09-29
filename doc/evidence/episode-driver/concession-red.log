@@ -1,0 +1,21 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-159/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.11s
+     Running tests/episode.rs (target/debug/deps/episode-df36124fe24826ec)
+
+running 1 test
+
+thread 'concession_during_yielding_reset_is_rejected_then_settled_history_replays' (299) panicked at crates/mtg-core/tests/episode.rs:480:9:
+assertion `left == right` failed
+  left: Ok(())
+ right: Err(Concede(SettlementPending))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test concession_during_yielding_reset_is_rejected_then_settled_history_replays ... FAILED
+
+failures:
+
+failures:
+    concession_during_yielding_reset_is_rejected_then_settled_history_replays
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --test episode`

@@ -467,3 +467,41 @@ fn seat_observations_and_capacity_failure_are_nonmutating() {
     assert_eq!(small.privileged_snapshot(), before);
     assert!(small.privileged_history().is_empty());
 }
+
+#[test]
+fn concession_during_yielding_reset_is_rejected_then_settled_history_replays() {
+    // A completed result must be reproducible from normal reset inputs/history.
+    // CR 104.3a does not require this API to expose partial internal reset state.
+    let mut d = Driver::new(CAP).unwrap();
+    d.reset(&Config::default(), 159, 7, q()).unwrap();
+    let id = d.episode_id().unwrap();
+    let before = d.privileged_snapshot();
+    for seat in [Seat::P0, Seat::P1] {
+        assert_eq!(
+            d.concede(seat, id),
+            Err(Error::Concede(
+                mtg_core::game::terminal::ConcedeError::SettlementPending
+            ))
+        );
+        assert_eq!(d.privileged_snapshot(), before);
+        assert!(d.privileged_history().is_empty());
+    }
+    settle(&mut d);
+    d.concede(Seat::P1, id).unwrap();
+    let result = d.finish().unwrap();
+    assert_eq!(result.privileged_history().len(), 1);
+    let mut replay = Game::new().unwrap();
+    replay.reset(&Config::default(), 159, 7).unwrap();
+    actions::apply(&mut replay, &result.privileged_history()[0], CAP).unwrap();
+    assert_eq!(
+        replay.outcome(),
+        Some(Outcome {
+            winner: Some(Seat::P0),
+            losses: [None, Some(LossReason::Concession)]
+        })
+    );
+    assert_eq!(
+        normalized(result.privileged_snapshot()),
+        normalized(&replay.snapshot())
+    );
+}

@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "One blocking replay-integrity defect found. Existing tests are unchanged, and README scope and integration ownership are accurate. All four prebuilt release episode tests passed; the full suite was not rerun.",
+  "findings": [
+    {
+      "file": "crates/mtg-core/src/episode.rs:199",
+      "finding": "Concession is accepted during partially executed reset. Calling reset with quantum 1, then concede with the current episode ID, then finish returns Completed with unfinished deck construction and RNG state. History contains only the concession, so replaying it after normal reset produces a different full state. The result retains neither the reset work position nor its quantum, preventing reconstruction from inputs/history. Reject concession until reset settles, or preserve sufficient execution information for exact reconstruction. Add a regression covering concession immediately after a yielding reset.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "5d2eddaf1318adc1adc4c7734bb2fe8ac821d90c",
+  "head_sha": "4ec29c933b509308f87fbc26527cc8c3a6fbbe03"
+}
