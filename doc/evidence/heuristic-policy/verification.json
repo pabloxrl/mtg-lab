@@ -1,0 +1,18 @@
+{
+  "issue": 119,
+  "base": "f2f2093923a00a10e16ee7f756432d4f9ecf62ab",
+  "policy_version": "heuristic-m1-v1",
+  "behavioral_red_groups": 6,
+  "new_tests": 9,
+  "normal_reset_configurations": 4,
+  "repetitions_each": 2,
+  "torture": "pass",
+  "rules_changes": false,
+  "reference_agreement_claimed": false,
+  "sha256": {
+    "crates/mtg-policy/src/heuristic.rs": "dbad8d70ebe58cdca84fdd29605b11e1e261b56331a89a1ff4fdf96060cfc381",
+    "crates/mtg-policy/tests/heuristic.rs": "d53e8f370d4d6cecc411d8a3b6972d2dfbdcc8aa95b91ad8b55a21d5358378e4",
+    "crates/mtg-policy/tests/heuristic_games.rs": "3fbc9275845840ccef882dc24925130734a20270b5485225a03acfbff261330d",
+    "doc/heuristic-policy.md": "0a8e19883b1b8edf08749ab4971fe7ca81621ab8dd93d71cc413775988dd1c26"
+  }
+}
