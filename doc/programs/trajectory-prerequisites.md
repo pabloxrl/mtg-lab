@@ -1,5 +1,17 @@
 # Lossless played-policy trajectory prerequisites
 
+## Superseding collector registration
+
+Operations [#158](https://github.com/pabloxrl/mtg-lab/issues/158) supersedes ONLY
+the oversized C boundary and its delivery sequence below with the
+[six collector contracts](collector-prerequisites.md). A (#152) and B (#153)
+are delivered; C (#154) is now the final collector integration audit after
+#164, followed by the unchanged #117 aggregate audit. The original A/B/C plan
+below remains historical evidence, including the unsuccessful obligation to
+implement all collector contracts in C. It no longer assigns that combined
+implementation to a prerequisite. The new clause crosswalk preserves all its
+acceptance; no child must implement a future sibling to pass its component tests.
+
 Operations [#151](https://github.com/pabloxrl/mtg-lab/issues/151) registers exactly
 three M1 prerequisites for the preserved unsuccessful #117 audit. This is a plan,
 not delivered trajectory capability or an M1 completion verdict.

@@ -693,13 +693,105 @@
       ]
     },
     {
+      "key": "collector-prerequisites",
+      "issue": 158,
+      "milestone": "M1",
+      "kind": "operations",
+      "depends_on": [
+        151
+      ],
+      "requirements": []
+    },
+    {
+      "key": "owned-episode-driver",
+      "issue": 159,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        158,
+        113
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "owned-decision-capture",
+      "issue": 160,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        159,
+        152
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "collector-budgets",
+      "issue": 161,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        160
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "collector-replay-access",
+      "issue": 162,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        160,
+        114
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "collector-persistence",
+      "issue": 163,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        161,
+        153
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "collector-publication",
+      "issue": 164,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        163,
+        162
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
       "key": "owned-scalar-collector",
       "issue": 154,
       "milestone": "M1",
       "kind": "implementation",
       "depends_on": [
-        153,
-        114
+        164
       ],
       "requirements": [
         "R0002-B036",

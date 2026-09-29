@@ -13,6 +13,15 @@ The [lossless trajectory prerequisite plan](trajectory-prerequisites.md) further
 splits the contracts exposed by #117 into #152–#154. #117 retains aggregate
 acceptance, and #20/#120/#21/#22 retain their integration and gate obligations.
 
+Operations #158 explicitly supersedes the oversized C (#154) implementation
+boundary in that historical plan. The [collector prerequisite plan and complete
+acceptance crosswalk](collector-prerequisites.md) register exactly #159–#164:
+owned execution, canonical capture, budgets, replay access, persistence and
+publication. #154 becomes the final collector integration audit after #164;
+#117 repeats its original aggregate acceptance afterward. Neither the driver
+nor another prerequisite inherits the full collector obligation. All original
+owners, catalog expectations and later/reference gates remain unchanged.
+
 ## M1 work packages
 
 | Issue | Deliverable | Direct prerequisites | Integration owner |
