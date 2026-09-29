@@ -1,0 +1,21 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-159/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.47s
+     Running tests/episode.rs (target/debug/deps/episode-df36124fe24826ec)
+
+running 1 test
+
+thread 'opening_to_turn_yields_reject_concession_until_a_replayable_boundary' (110) panicked at crates/mtg-core/tests/episode.rs:532:13:
+assertion `left == right` failed
+  left: Ok(())
+ right: Err(Concede(SettlementPending))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test opening_to_turn_yields_reject_concession_until_a_replayable_boundary ... FAILED
+
+failures:
+
+failures:
+    opening_to_turn_yields_reject_concession_until_a_replayable_boundary
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --test episode`

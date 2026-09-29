@@ -1,0 +1,49 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling unicode-ident v1.0.26
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-159/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.38s
+     Running tests/episode.rs (target/debug/deps/episode-df36124fe24826ec)
+
+running 2 tests
+
+thread 'normal_reset_literal_combat_history_and_rejected_interleavings' (639) panicked at crates/mtg-core/tests/episode.rs:42:9:
+assertion `left == right` failed
+  left: Err(NotStarted)
+ right: Ok(InternalYield)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'concession_incomplete_reset_and_owned_result_lifetime' (638) panicked at crates/mtg-core/tests/episode.rs:42:9:
+assertion `left == right` failed
+  left: Err(NotStarted)
+ right: Ok(InternalYield)
+test normal_reset_literal_combat_history_and_rejected_interleavings ... FAILED
+test concession_incomplete_reset_and_owned_result_lifetime ... FAILED
+
+failures:
+
+failures:
+    concession_incomplete_reset_and_owned_result_lifetime
+    normal_reset_literal_combat_history_and_rejected_interleavings
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --test episode`
