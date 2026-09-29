@@ -1,0 +1,34 @@
+{
+  "baseline_main": "18a3ff1d4ebfa4333427638c90961755bd8107b3",
+  "managed_linux": true,
+  "focused_regressions": 15,
+  "python_tests": 143,
+  "rust_checks_per_profile_including_doctests": 334,
+  "full_torture_runs_passed": 2,
+  "post_integration_torture": "PASS",
+  "scope": "Partial R0002-B036/B037 only; no played-game collector, CLI, game rule, program or workflow changes.",
+  "readme": "Updated v2 persistence support; CLI v1-only, collector planned, milestone table unchanged.",
+  "source_sha256": {
+    "README.md": "f0e9cb80a5756132b165dc80a97beb12442093e451c084e42e5c299dab24be7b",
+    "doc/trajectories.md": "b5b1f1608db62a503657fabd621a9d2a236def2f07dbb1697902010e1ecd63df",
+    "doc/trajectory-jsonl.md": "18bbcdcc06e5dccb9008aa0f56a1d89c7949c0e9d092ccf940b8a343482a7910",
+    "doc/run-manifest.md": "d1b42c8a979846b2d277e035a4ad39a1b533be07e0c58c4294f8112db3d8c1a4",
+    "crates/mtg-recorder/src/lib.rs": "352e8a7dc88678d0440060f22b23185226e1668e597dab11bc84074f53bb905b",
+    "crates/mtg-recorder/src/manifest.rs": "aab8e21d71f20721c73fe023e803eb96769b6fc758aa491e7d4a925d63be111e",
+    "crates/mtg-recorder/src/structured.rs": "6c4bae5dbe26982a164ac821b288ab95068225472315e4e02f13942b1b19304b",
+    "crates/mtg-recorder/tests/structured_contract.rs": "8233e8e9b3f9349014db1e4f00c54a5a2141b73e4136cdeff471000d3d0d0009",
+    "crates/mtg-recorder/tests/structured.json": "923a1371a71f542b936ef2c9d9f0feef04b24dc2aa8d34ef412dbc52cb55de3f",
+    "crates/mtg-recorder/tests/structured.jsonl": "0d180fa7ce89829854b3c064854dfa00bab038c63de590af95a332f67d20149d",
+    "crates/mtg-recorder/tests/structured-manifest.json": "f34e021db190658001b6add32dc222451bdf1bb401a2092ee1ce70bf6ceb1ac6"
+  },
+  "log_sha256": {
+    "green.log": "2afde51324cba24cec46bb9757fa9be85ed21f8724e412270622b9b621cf4960",
+    "payment-red.log": "b5b8514f5aecfe4741710b052477a5c4786e67cbff9faab8bdcdd93e397fe431",
+    "kind-red.log": "cf2ca99006caaba0335f4aa079f6adca589ecc1a7300afc1e2a0a422d2aa25f5",
+    "torture-before-main.log": "da4a02af753b76d98b4168643cd55d6d14c20ac687ee02414f630ac4bc430605",
+    "seat-red.log": "11dbddadb150da2e32dbfc7c16ed39390c6ab81f6721b98387c469ebb3e4e262",
+    "torture-first.log": "c2fccbd14a05af1a14018c39a48d305776f7b1d6f3b75d38a534a47e1be2ed31",
+    "torture.log": "73eff8490da2ea781a06f3d73b0f349c4a9008bf2a159cfd6ac418a41e84ac44",
+    "red.log": "f65fa726417ee4453b7ea12a180c8988678ac7d5453e72ac53345540c7d9ee91"
+  }
+}

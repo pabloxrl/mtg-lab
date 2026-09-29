@@ -1,0 +1,86 @@
+Local documentation links passed.
+RFC 0002 program coverage and dependency gates passed.
+{"capabilities": 80, "designed_slots": 320, "execution_evidence_added": 0, "related_authored_fixtures": 6}
+...................................................unavailable pinned reference
+............................................................................................
+----------------------------------------------------------------------
+Ran 143 tests in 16.805s
+
+OK
+   Compiling libc v0.2.189
+    Checking serde_core v1.0.229
+    Checking typenum v1.20.1
+    Checking zmij v1.0.23
+    Checking memchr v2.8.3
+    Checking itoa v1.0.18
+    Checking cfg-if v1.0.5
+    Checking generic-array v0.14.7
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking digest v0.10.7
+    Checking cpufeatures v0.2.17
+    Checking sha2 v0.10.9
+    Checking errno v0.3.14
+   Compiling signal-hook v0.3.18
+    Checking serde v1.0.229
+    Checking serde_json v1.0.151
+    Checking signal-hook-registry v1.4.8
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-cli)
+    Checking mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-core)
+    Checking mtg-fixture v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-fixture)
+    Checking mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-recorder)
+    Checking mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-policy)
+error: this `if` statement can be collapsed
+   --> crates/mtg-recorder/src/structured.rs:389:5
+    |
+389 | /     if let Some(p) = &o.pending {
+390 | |         if !valid_ref(o, &p.card, VisibleZone::Hand)
+391 | |             || !p.targets.iter().flatten().all(field)
+392 | |             || !p.sources.iter().flatten().all(field)
+...   |
+397 | |     }
+    | |_____^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if
+    = note: `-D clippy::collapsible-if` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::collapsible_if)]`
+help: collapse nested if block
+    |
+389 ~     if let Some(p) = &o.pending
+390 ~         && (!valid_ref(o, &p.card, VisibleZone::Hand)
+391 |             || !p.targets.iter().flatten().all(field)
+392 |             || !p.sources.iter().flatten().all(field)
+393 ~             || p.pool.is_some() != p.remaining.is_some())
+394 |         {
+395 |             return false;
+396 ~         }
+    |
+
+error: this `if` statement can be collapsed
+   --> crates/mtg-recorder/src/structured.rs:457:9
+    |
+457 | /         if let Some(f) = &d.factored {
+458 | |             if !unique(&f.attackers)
+459 | |                 || !unique(&f.blockers)
+460 | |                 || !unique(&f.selected)
+...   |
+483 | |         }
+    | |_________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#collapsible_if
+help: collapse nested if block
+    |
+457 ~         if let Some(f) = &d.factored
+458 ~             && (!unique(&f.attackers)
+459 |                 || !unique(&f.blockers)
+...
+478 |                         && d.amounts.as_ref().is_none_or(|a| allocation(d, a))
+479 ~                 }))
+480 |             {
+481 |                 return false;
+482 ~             }
+    |
+
+error: could not compile `mtg-recorder` (lib) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `mtg-recorder` (lib test) due to 2 previous errors

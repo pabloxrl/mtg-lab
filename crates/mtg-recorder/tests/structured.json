@@ -1,0 +1,4347 @@
+[
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 0
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 0
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "precombat_main"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": null,
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "payment",
+            "count": 1,
+            "candidates": [
+              {
+                "kind": "pay",
+                "color": 0
+              },
+              {
+                "kind": "pay",
+                "color": 1
+              },
+              {
+                "kind": "pay",
+                "color": 2
+              },
+              {
+                "kind": "pay",
+                "color": 3
+              },
+              {
+                "kind": "pay",
+                "color": 4
+              },
+              {
+                "kind": "pay",
+                "color": 5
+              },
+              {
+                "kind": "finish_payment"
+              },
+              {
+                "kind": "tap_mana",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 0
+                }
+              },
+              {
+                "kind": "tap_mana",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 1
+                }
+              },
+              {
+                "kind": "tap_mana",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 2
+                }
+              },
+              {
+                "kind": "tap_mana",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 3
+                }
+              },
+              {
+                "kind": "tap_mana",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 4
+                }
+              },
+              {
+                "kind": "cancel_payment"
+              }
+            ],
+            "legal_mask": [
+              false,
+              false,
+              false,
+              false,
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              true
+            ],
+            "factored": null
+          },
+          "pending": {
+            "card": {
+              "zone": "hand",
+              "row": 0
+            },
+            "targets": [
+              {
+                "zone": "battlefield",
+                "row": 0
+              }
+            ],
+            "sources": [
+              {
+                "zone": "battlefield",
+                "row": 4
+              }
+            ],
+            "pool": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0
+            ],
+            "remaining": {
+              "colored": [
+                0,
+                0,
+                0,
+                0,
+                1,
+                0
+              ],
+              "generic": 0
+            }
+          },
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "cancel_payment"
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Cancelled",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 1,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "precombat_main"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "precombat_main"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        }
+      ]
+    }
+  },
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 1
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 1
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              7,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": null,
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": {
+              "generation": 20,
+              "kind": "bottom",
+              "count": 2,
+              "candidates": [
+                "giant-growth",
+                "forest",
+                "forest",
+                "forest",
+                "forest",
+                "forest",
+                "forest"
+              ]
+            },
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "bottom",
+            "count": 2,
+            "candidates": [
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 0
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 1
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 2
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 3
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 4
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 5
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 6
+                }
+              }
+            ],
+            "legal_mask": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "factored": null
+          },
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 1
+                }
+              },
+              {
+                "kind": "bottom",
+                "card": {
+                  "zone": "hand",
+                  "row": 0
+                }
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Committed",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 0,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              5,
+              1
+            ],
+            "library_counts": [
+              32,
+              31
+            ],
+            "hand": [
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": null,
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              5,
+              1
+            ],
+            "library_counts": [
+              32,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": null,
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        }
+      ]
+    }
+  },
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 2
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 2
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              9,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "cleanup"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": null,
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "cleanup_discard",
+            "count": 2,
+            "candidates": [
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 0
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 1
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 2
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 3
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 4
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 5
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 6
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 7
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 8
+                }
+              }
+            ],
+            "legal_mask": [
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true,
+              true
+            ],
+            "factored": null
+          },
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 1
+                }
+              },
+              {
+                "kind": "discard",
+                "card": {
+                  "zone": "hand",
+                  "row": 0
+                }
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Committed",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 0,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              7,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              },
+              {
+                "zone": "graveyard_0",
+                "cards": [
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "giant-growth",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "cleanup"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              7,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              },
+              {
+                "zone": "graveyard_0",
+                "cards": [
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "giant-growth",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "cleanup"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        }
+      ]
+    }
+  },
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 3
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 3
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "declare_attackers"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": null,
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "attackers",
+            "count": 1,
+            "candidates": [
+              {
+                "kind": "finish_combat"
+              }
+            ],
+            "legal_mask": [
+              true
+            ],
+            "factored": {
+              "attackers": [
+                {
+                  "zone": "battlefield",
+                  "row": 0
+                },
+                {
+                  "zone": "battlefield",
+                  "row": 1
+                }
+              ],
+              "blockers": [],
+              "selected": [],
+              "blocks": [],
+              "damage": []
+            }
+          },
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "select_attackers",
+                "cards": [
+                  {
+                    "zone": "battlefield",
+                    "row": 0
+                  },
+                  {
+                    "zone": "battlefield",
+                    "row": 1
+                  }
+                ]
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Continuing",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 0,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "declare_attackers"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "declare_attackers"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        }
+      ]
+    }
+  },
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 4
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 4
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              1,
+              "declare_blockers"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": null,
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "blockers",
+            "count": 1,
+            "candidates": [
+              {
+                "kind": "finish_combat"
+              }
+            ],
+            "legal_mask": [
+              true
+            ],
+            "factored": {
+              "attackers": [
+                {
+                  "zone": "battlefield",
+                  "row": 2
+                },
+                {
+                  "zone": "battlefield",
+                  "row": 3
+                }
+              ],
+              "blockers": [
+                {
+                  "zone": "battlefield",
+                  "row": 0
+                },
+                {
+                  "zone": "battlefield",
+                  "row": 1
+                }
+              ],
+              "selected": [],
+              "blocks": [],
+              "damage": []
+            }
+          },
+          "pending": null,
+          "stack": [],
+          "combat": [
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 2
+              },
+              "blocked": false,
+              "blockers": []
+            },
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 3
+              },
+              "blocked": false,
+              "blockers": []
+            }
+          ],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "select_blockers",
+                "blocks": [
+                  [
+                    {
+                      "zone": "battlefield",
+                      "row": 0
+                    },
+                    {
+                      "zone": "battlefield",
+                      "row": 2
+                    }
+                  ],
+                  [
+                    {
+                      "zone": "battlefield",
+                      "row": 1
+                    },
+                    {
+                      "zone": "battlefield",
+                      "row": 2
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Continuing",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 0,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              1,
+              "declare_blockers"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 2
+              },
+              "blocked": false,
+              "blockers": []
+            },
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 3
+              },
+              "blocked": false,
+              "blockers": []
+            }
+          ],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              1,
+              "declare_blockers"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 2
+              },
+              "blocked": false,
+              "blockers": []
+            },
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 3
+              },
+              "blocked": false,
+              "blockers": []
+            }
+          ],
+          "unsupported_families": []
+        }
+      ]
+    }
+  },
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 5
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 5
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "combat_damage"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": null,
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "combat_damage",
+            "count": 1,
+            "candidates": [
+              {
+                "kind": "finish_combat"
+              }
+            ],
+            "legal_mask": [
+              false
+            ],
+            "factored": {
+              "attackers": [],
+              "blockers": [],
+              "selected": [],
+              "blocks": [],
+              "damage": [
+                {
+                  "attacker": {
+                    "zone": "battlefield",
+                    "row": 0
+                  },
+                  "power": 2,
+                  "blockers": [
+                    {
+                      "zone": "battlefield",
+                      "row": 2
+                    },
+                    {
+                      "zone": "battlefield",
+                      "row": 3
+                    }
+                  ],
+                  "amounts": null
+                }
+              ]
+            }
+          },
+          "pending": null,
+          "stack": [],
+          "combat": [
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 0
+              },
+              "blocked": true,
+              "blockers": [
+                {
+                  "zone": "battlefield",
+                  "row": 2
+                },
+                {
+                  "zone": "battlefield",
+                  "row": 3
+                }
+              ]
+            }
+          ],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "assign_damage",
+                "attacker": {
+                  "zone": "battlefield",
+                  "row": 0
+                },
+                "amounts": [
+                  [
+                    {
+                      "zone": "battlefield",
+                      "row": 2
+                    },
+                    1
+                  ],
+                  [
+                    {
+                      "zone": "battlefield",
+                      "row": 3
+                    },
+                    1
+                  ]
+                ]
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Continuing",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 0,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "combat_damage"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 0
+              },
+              "blocked": true,
+              "blockers": [
+                {
+                  "zone": "battlefield",
+                  "row": 2
+                },
+                {
+                  "zone": "battlefield",
+                  "row": 3
+                }
+              ]
+            }
+          ],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "combat_damage"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [
+            {
+              "attacker": {
+                "zone": "battlefield",
+                "row": 0
+              },
+              "blocked": true,
+              "blockers": [
+                {
+                  "zone": "battlefield",
+                  "row": 2
+                },
+                {
+                  "zone": "battlefield",
+                  "row": 3
+                }
+              ]
+            }
+          ],
+          "unsupported_families": []
+        }
+      ]
+    }
+  },
+  {
+    "reward_convention": "SparseZeroSumTerminal",
+    "discount_convention": "UndiscountedEpisodic",
+    "capture_selection": "AllDecisions",
+    "header": {
+      "id": {
+        "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+        "ordinal": 6
+      },
+      "versions": {
+        "schema": 2,
+        "engine": "engine-v1",
+        "rules": "cr-20260925",
+        "cards": "pool-v1",
+        "action": "policy-v1",
+        "observation": 1
+      },
+      "deck_hashes": [
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      ],
+      "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "policies": [
+        "script-a",
+        "script-b"
+      ],
+      "starting_seat": 0,
+      "limits": {
+        "decisions": null,
+        "turns": null,
+        "wall_time_ms": null
+      },
+      "restricted_replay": null
+    },
+    "decisions": [
+      {
+        "episode": {
+          "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+          "ordinal": 6
+        },
+        "index": 0,
+        "seat_index": 0,
+        "actor": 0,
+        "observation": {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "precombat_main"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": 0,
+            "opening": null,
+            "terminal": null
+          },
+          "decision": {
+            "revision": 10,
+            "generation": 20,
+            "actor": 0,
+            "kind": "growth_target",
+            "count": 1,
+            "candidates": [
+              {
+                "kind": "target",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 0
+                }
+              },
+              {
+                "kind": "target",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 1
+                }
+              },
+              {
+                "kind": "target",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 2
+                }
+              },
+              {
+                "kind": "target",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 3
+                }
+              },
+              {
+                "kind": "target",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 4
+                }
+              },
+              {
+                "kind": "finish_targets"
+              },
+              {
+                "kind": "cancel_targets"
+              }
+            ],
+            "legal_mask": [
+              true,
+              true,
+              true,
+              true,
+              false,
+              false,
+              true
+            ],
+            "factored": null
+          },
+          "pending": {
+            "card": {
+              "zone": "hand",
+              "row": 0
+            },
+            "targets": [],
+            "sources": [],
+            "pool": null,
+            "remaining": null
+          },
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        "choice": {
+          "submission": {
+            "schema_version": 1,
+            "revision": 10,
+            "generation": 20,
+            "choices": [
+              {
+                "kind": "target",
+                "card": {
+                  "zone": "battlefield",
+                  "row": 1
+                }
+              }
+            ]
+          },
+          "logical_action": 0,
+          "micro_choice": 0,
+          "status": "Continuing",
+          "policy": {}
+        },
+        "reward": [
+          0,
+          0
+        ],
+        "next_actor": null,
+        "terminated": true,
+        "truncated": false
+      }
+    ],
+    "footer": {
+      "end": "Completed",
+      "complete": true,
+      "returns": [
+        1,
+        -1
+      ],
+      "boundary_reward": [
+        1,
+        -1
+      ],
+      "decisions": 1,
+      "logical_actions": 1,
+      "cancelled_actions": 0,
+      "final_observations": [
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 0,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "giant-growth",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              },
+              {
+                "card": "forest",
+                "owner": 0,
+                "controller": 0,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "precombat_main"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        },
+        {
+          "schema_version": 1,
+          "view": {
+            "schema_version": 1,
+            "seat": 1,
+            "life": [
+              20,
+              20
+            ],
+            "hand_counts": [
+              2,
+              1
+            ],
+            "library_counts": [
+              30,
+              31
+            ],
+            "hand": [
+              {
+                "card": "mountain",
+                "owner": 1,
+                "controller": 1,
+                "tapped": false,
+                "creature": null,
+                "summoning_sick": false
+              }
+            ],
+            "public_zones": [
+              {
+                "zone": "battlefield",
+                "cards": [
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "bear-cub",
+                    "owner": 1,
+                    "controller": 1,
+                    "tapped": false,
+                    "creature": [
+                      2,
+                      2,
+                      0
+                    ],
+                    "summoning_sick": false
+                  },
+                  {
+                    "card": "forest",
+                    "owner": 0,
+                    "controller": 0,
+                    "tapped": false,
+                    "creature": null,
+                    "summoning_sick": false
+                  }
+                ]
+              },
+              {
+                "zone": "stack",
+                "cards": []
+              }
+            ],
+            "remembered": [],
+            "starting_seat": 0,
+            "turn": [
+              1,
+              0,
+              "precombat_main"
+            ],
+            "mana": [
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ]
+            ],
+            "acting_seat": null,
+            "opening": null,
+            "terminal": {
+              "winner": 0,
+              "losses": [
+                null,
+                "concession"
+              ]
+            }
+          },
+          "decision": null,
+          "pending": null,
+          "stack": [],
+          "combat": [],
+          "unsupported_families": []
+        }
+      ]
+    }
+  }
+]

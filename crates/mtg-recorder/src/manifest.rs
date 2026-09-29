@@ -80,14 +80,16 @@ pub enum LoadMode {
     CompletedOnly,
     Diagnostic,
 }
-pub struct LoadedRun {
-    episodes: Vec<Episode>,
+pub struct LoadedRun<E = Episode> {
+    episodes: Vec<E>,
 }
-impl LoadedRun {
+impl<E> LoadedRun<E> {
     /// Authorized offline dataset access; contains both seats' observations.
-    pub fn episodes(&self) -> &[Episode] {
+    pub fn episodes(&self) -> &[E] {
         &self.episodes
     }
+}
+impl LoadedRun {
     /// Seat authorization is the caller's responsibility. No replay resolution.
     pub fn policy_decisions(&self, seat: u8) -> Result<impl Iterator<Item = &Decision>, Error> {
         if seat > 1 {
@@ -121,8 +123,8 @@ impl Manifest {
     /// Check metadata without reading or resolving any artifact path.
     pub fn validate(&self) -> Result<(), Error> {
         let v = &self.versions;
-        if self.dataset_schema != 1
-            || v.schema != 1
+        if !matches!(self.dataset_schema, 1 | 2)
+            || v.schema != self.dataset_schema
             || v.observation != 1
             || ![&v.engine, &v.rules, &v.cards, &v.action]
                 .iter()
@@ -133,7 +135,7 @@ impl Manifest {
             || !self.deck_hashes.iter().all(|s| crate::hash(s))
             || !crate::hash(&self.config_hash)
             || !self.policies.iter().all(|s| crate::nonempty(s))
-            || self.file.format != 1
+            || self.file.format != self.dataset_schema
             || !crate::hash(&self.file.sha256)
             || !safe_name(&self.file.name)
             || [
@@ -224,6 +226,29 @@ impl Manifest {
         max_bytes: usize,
         mode: LoadMode,
     ) -> Result<LoadedRun, Error> {
+        self.load_typed(name, source, expected, max_bytes, mode)
+    }
+    pub fn load_v2(
+        &self,
+        name: &str,
+        source: impl Read,
+        expected: &Versions,
+        max_bytes: usize,
+        mode: LoadMode,
+    ) -> Result<LoadedRun<crate::structured::Episode>, Error> {
+        self.load_typed(name, source, expected, max_bytes, mode)
+    }
+    fn load_typed<E: crate::Durable>(
+        &self,
+        name: &str,
+        source: impl Read,
+        expected: &Versions,
+        max_bytes: usize,
+        mode: LoadMode,
+    ) -> Result<LoadedRun<E>, Error> {
+        if self.dataset_schema != E::FORMAT {
+            return Err(Error::Invalid);
+        }
         self.validate()?;
         if &self.versions != expected || self.file.name != name {
             return Err(Error::Invalid);
@@ -237,7 +262,7 @@ impl Manifest {
         {
             return Err(Error::Integrity);
         }
-        let episodes = crate::read(bytes.as_slice(), max_bytes)?;
+        let episodes: Vec<E> = crate::read_typed(bytes.as_slice(), max_bytes)?;
         let declarations: Vec<_> = self
             .episodes
             .iter()
@@ -253,8 +278,8 @@ impl Manifest {
         }
         let mut decisions = 0u64;
         for (episode, declaration) in episodes.iter().zip(declarations) {
-            let h = &episode.header;
-            let footer = episode.footer.as_ref().ok_or(Error::Incomplete)?;
+            let (h, reward, discount, end) = episode.metadata();
+            let end = end.ok_or(Error::Incomplete)?;
             if h.id.run != self.run
                 || h.id.ordinal != declaration.ordinal
                 || h.versions != self.versions
@@ -263,13 +288,13 @@ impl Manifest {
                 || h.policies != self.policies
                 || h.starting_seat != self.starting_seat
                 || h.limits != self.limits
-                || episode.reward_convention != self.reward
-                || episode.discount_convention != self.discount
+                || reward != &self.reward
+                || discount != &self.discount
                 || h.restricted_replay
                     .as_ref()
                     .is_some_and(|id| !crate::uuid(id))
                 || !matches!(
-                    (&declaration.status, &footer.end),
+                    (&declaration.status, end),
                     (EpisodeStatus::Completed, End::Completed)
                         | (EpisodeStatus::Truncated, End::Truncated(_))
                 )
@@ -277,7 +302,7 @@ impl Manifest {
                 return Err(Error::Invalid);
             }
             decisions = decisions
-                .checked_add(episode.decisions.len() as u64)
+                .checked_add(episode.decision_count() as u64)
                 .ok_or(Error::Limit)?;
         }
         if decisions != self.file.decisions {
@@ -308,4 +333,21 @@ fn safe_name(name: &str) -> bool {
             .bytes()
             .all(|b| b.is_ascii_alphanumeric() || b"._-".contains(&b))
         && !name.ends_with(".partial")
+}
+
+impl LoadedRun<crate::structured::Episode> {
+    /// Caller authorizes the seat; rows never carry replay references or other-seat inputs.
+    pub fn policy_decisions(
+        &self,
+        seat: u8,
+    ) -> Result<impl Iterator<Item = &crate::structured::Decision>, Error> {
+        if seat > 1 {
+            return Err(Error::Invalid);
+        }
+        Ok(self
+            .episodes
+            .iter()
+            .flat_map(|e| &e.decisions)
+            .filter(move |d| d.actor == seat))
+    }
 }

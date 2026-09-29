@@ -1,0 +1,59 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling unicode-ident v1.0.26
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.80s
+     Running tests/structured_contract.rs (target/debug/deps/structured_contract-a30e1969a5c3b2c1)
+
+running 4 tests
+test structured_manifest_version_is_explicit ... FAILED
+test structured_existing_writer_matches_independent_python_bytes ... FAILED
+test structured_literal_records_validate_and_read_exactly ... FAILED
+test structured_missing_extra_invalid_fields_and_versions_reject ... ok
+
+failures:
+
+---- structured_manifest_version_is_explicit stdout ----
+
+thread 'structured_manifest_version_is_explicit' (735) panicked at crates/mtg-recorder/tests/structured_contract.rs:24:92:
+called `Result::unwrap()` on an `Err` value: Invalid
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- structured_existing_writer_matches_independent_python_bytes stdout ----
+
+thread 'structured_existing_writer_matches_independent_python_bytes' (733) panicked at crates/mtg-recorder/tests/structured_contract.rs:19:43:
+called `Result::unwrap()` on an `Err` value: Invalid
+
+---- structured_literal_records_validate_and_read_exactly stdout ----
+
+thread 'structured_literal_records_validate_and_read_exactly' (734) panicked at crates/mtg-recorder/tests/structured_contract.rs:13:50:
+called `Result::unwrap()` on an `Err` value: Invalid
+
+
+failures:
+    structured_existing_writer_matches_independent_python_bytes
+    structured_literal_records_validate_and_read_exactly
+    structured_manifest_version_is_explicit
+
+test result: FAILED. 1 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-recorder --test structured_contract`

@@ -1,4 +1,4 @@
-# Scalar trajectory JSONL v1
+# Scalar trajectory JSONL
 
 `mtg-recorder` adds persistence outside the rules core. It consumes the
 [canonical in-memory contract](trajectories.md), preserving every serialized
@@ -12,7 +12,53 @@ A separate [scalar run manifest](run-manifest.md) binds this file to run-level
 provenance, capture declarations and completion, with a completed-run default.
 Bare JSONL validation retains the episode-level behavior below.
 
-## Use
+## Structured v2 compatibility
+
+The same writer, bounded queue, strict reader, inventory and file publisher now
+support `mtg_core::trajectory::v2`. Use `from_core_v2`, `Writer::new_v2`,
+`writer.append_v2`, `read_v2` and `write_file_v2` with owned
+`structured::Episode`. V2 stores the full policy-v1 observation, pending spell
+and payment inputs, stack targets, combat relationships, flat candidates/masks,
+factored domains/provisional selections and complete ordered Submission.
+There is no fabricated selected-candidate index or lossy v1 conversion on disk.
+`structured::validate` checks references within the authorized view, full
+submission membership/cardinality, revision/generation, logical/microchoice
+commit/cancellation timing, footer accounting and actor-only pending fields.
+This remains a producer-trust contract, not proof of engine execution or of the
+completeness/authenticity of a collector's domain.
+
+| Contract | Legacy API | Structured API |
+| --- | --- | --- |
+| Episode schema / JSONL seal format | 1 / 1 | 2 / 2 |
+| Policy observation/submission schema | Legacy view 1 | Structured policy 1, nested view 1 |
+| Dataset manifest schema | 1 | 2 |
+| Missing policy statistics | Explicit null (unchanged) | Keys omitted; an unsupplied policy is `{}` |
+
+V2 nullable action-time fields (such as pending state, factored domains and
+remaining cost) are still required and explicitly null when absent. Only the
+optional policy statistic keys may be omitted. Unknown/mixed versions, duplicate,
+extra or missing required fields, noncanonical bytes and invalid structured
+records reject. Readers never try another version after a failure; even an empty
+file must carry the explicitly selected seal version. Legacy APIs, fixtures and
+bytes are unchanged. The existing CLI trajectory command remains v1-only.
+
+`structured::Episode::seat(0 or 1)` validates and returns owned same-seat
+transitions/final observations, accumulated intervening rewards, decision/logical
+intervals and cancellation counts. Terminal credit is assigned once, including
+seats with no decisions; opponent observations and restricted replay references
+are excluded. The caller authorizes the seat and access to the full dataset.
+
+[Independent literal fixtures, compiled red and verification evidence](evidence/structured-jsonl/README.md)
+cover pending payment/targeting, ordered bottom/discard, attacker/blocker/damage
+payloads, privacy, buffers/reset, integrity and errors. These are durable contract
+fixtures, not #154/#117 played-game collector acceptance. No game driver, CLI,
+Parquet, batching, trainer or new rules are added.
+
+```sh
+cargo test -p mtg-recorder --test structured_contract
+```
+
+## Legacy v1 use
 
 Convert a completed or externally truncated native episode with
 `mtg_recorder::from_core(recorder.episode())`. This copies and validates the

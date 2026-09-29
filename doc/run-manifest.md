@@ -1,4 +1,4 @@
-# Scalar dataset run manifest v1
+# Scalar dataset run manifest
 
 `mtg_recorder::manifest` binds one run's declared provenance and completeness to
 one existing [canonical JSONL file](trajectory-jsonl.md). The independently
@@ -7,6 +7,23 @@ one existing [canonical JSONL file](trajectory-jsonl.md). The independently
 pair, not a recorded played game. [Acceptance evidence](evidence/run-manifest/README.md)
 covers the #116 portion of R0002-B036/B037. #117 owns collection and #20 retains
 full recorder integration; M1 completion still requires #22.
+
+## Explicit structured v2
+
+`dataset_schema: 2` requires `versions.schema: 2`, `versions.observation: 1`
+and `file.format: 2`. All other manifest declarations and integrity/completion
+rules below apply unchanged. `Manifest::parse/encode/validate` supports either
+explicit contract. Use `manifest.load_v2(...)` to obtain
+`LoadedRun<structured::Episode>`; `load(...)` remains v1-only. Neither loader
+silently migrates or falls back, and expected versions remain caller-supplied.
+V2 `policy_decisions(seat)` excludes opponent inputs and replay references;
+`episodes()[i].seat(seat)` additionally builds owned same-seat reward sequences.
+The caller authorizes both forms of access. See [v2 durable evidence](evidence/structured-jsonl/README.md).
+
+This extends the existing single-file manifest and publisher, with no new
+coordinated multi-artifact publication API. Publish finalized JSONL before
+advertising its manifest; a metadata encode result is not a published dataset.
+The existing CLI trajectory validation command remains v1-only.
 
 ## Reading and writing metadata
 

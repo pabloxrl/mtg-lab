@@ -1,0 +1,29 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-153/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.62s
+     Running tests/structured_contract.rs (target/debug/deps/structured_contract-a30e1969a5c3b2c1)
+
+running 8 tests
+test structured_existing_writer_matches_independent_python_bytes ... ok
+test structured_manifest_version_is_explicit ... ok
+test structured_literal_records_validate_and_read_exactly ... ok
+test structured_overflow_errors_interruption_and_version_mixing_never_seal ... ok
+test structured_same_seat_readers_preserve_rewards_time_and_privacy ... FAILED
+test structured_buffer_ownership_and_optional_statistics ... ok
+test structured_missing_extra_invalid_fields_and_versions_reject ... ok
+test structured_manifest_roundtrip_provenance_integrity_and_seat_isolation ... ok
+
+failures:
+
+---- structured_same_seat_readers_preserve_rewards_time_and_privacy stdout ----
+
+thread 'structured_same_seat_readers_preserve_rewards_time_and_privacy' (262) panicked at crates/mtg-recorder/tests/structured_contract.rs:388:24:
+called `Result::unwrap()` on an `Err` value: Invalid
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    structured_same_seat_readers_preserve_rewards_time_and_privacy
+
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+error: test failed, to rerun pass `-p mtg-recorder --test structured_contract`

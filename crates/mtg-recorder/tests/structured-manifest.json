@@ -1,0 +1,80 @@
+{
+  "dataset_schema": 2,
+  "run": "a34c952c-723c-44ef-95f9-dcdb066db576",
+  "versions": {
+    "schema": 2,
+    "engine": "engine-v1",
+    "rules": "cr-20260925",
+    "cards": "pool-v1",
+    "action": "policy-v1",
+    "observation": 1
+  },
+  "deck_hashes": [
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  ],
+  "config_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "policies": [
+    "script-a",
+    "script-b"
+  ],
+  "seats": [
+    0,
+    1
+  ],
+  "starting_seat": 0,
+  "limits": {
+    "decisions": null,
+    "turns": null,
+    "wall_time_ms": null
+  },
+  "reward": "SparseZeroSumTerminal",
+  "discount": "UndiscountedEpisodic",
+  "time": "DecisionAndLogicalAction",
+  "capture": {
+    "AllEpisodes": {
+      "first_ordinal": 0,
+      "count": 7
+    }
+  },
+  "episodes": [
+    {
+      "ordinal": 0,
+      "status": "Completed"
+    },
+    {
+      "ordinal": 1,
+      "status": "Completed"
+    },
+    {
+      "ordinal": 2,
+      "status": "Completed"
+    },
+    {
+      "ordinal": 3,
+      "status": "Completed"
+    },
+    {
+      "ordinal": 4,
+      "status": "Completed"
+    },
+    {
+      "ordinal": 5,
+      "status": "Completed"
+    },
+    {
+      "ordinal": 6,
+      "status": "Completed"
+    }
+  ],
+  "end": "Completed",
+  "recording_complete": true,
+  "file": {
+    "name": "structured.jsonl",
+    "format": 2,
+    "bytes": 40082,
+    "sha256": "0d180fa7ce89829854b3c064854dfa00bab038c63de590af95a332f67d20149d",
+    "episodes": 7,
+    "decisions": 7
+  }
+}
