@@ -345,6 +345,11 @@ impl Driver {
         info: &PolicyInfo,
     ) -> Result<(), Error> {
         self.before_input()?;
+        // Pending core work has no policy frame. This is a rejected request,
+        // not a recorder fault; preserve the resumable episode in both modes.
+        if self.progress == CoreProgress::InternalYield {
+            return Err(Error::Policy(policy::PolicyError::Unavailable));
+        }
         if info
             .log_probability
             .is_some_and(|x| !x.is_finite() || x > 0.0)

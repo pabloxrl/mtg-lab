@@ -69,3 +69,13 @@ README's owned-episode row now describes this bounded in-memory scope and its
 limitations. Quickstart commands/setup are unchanged; torture checks their
 existing command paths. Independent review must assess README accuracy. No tests
 were removed/weakened/skipped; no rules, CLI, CI or workflow policy changed.
+
+Independent candidate review found that an input submitted during captured
+internal work was incorrectly classified as recording failure. The
+[compiled failing regression](review-yield-red.log) preserves that finding.
+`submission_during_internal_work_is_rejected_without_poisoning_either_capture_mode`
+now checks both constructors, with capture on/off, during partial reset and
+opening-to-turn work. Stale/unsupported inputs leave exact state, history and
+accounting unchanged; valid advancement, decisions and terminal capture still
+succeed afterward. The fix rejects unavailable input before attempting a policy
+frame. No existing test or requirement was changed.

@@ -805,3 +805,77 @@ fn simultaneous_decision_turn_and_time_limits_have_fixed_precedence() {
         assert_eq!(d.accounting().truncated, 1);
     }
 }
+#[test]
+fn submission_during_internal_work_is_rejected_without_poisoning_either_capture_mode() {
+    for (bounded, captured) in [(false, false), (false, true), (true, false), (true, true)] {
+        let mut d = if bounded {
+            Driver::bounded(256, budget(100), Box::new(Manual(Rc::new(Cell::new(0))))).unwrap()
+        } else {
+            Driver::new(256).unwrap()
+        };
+        let mut h = header();
+        h.limits.decisions = Some(100);
+        if captured {
+            d.reset_captured(&config(), 161, 0, NonZeroUsize::MIN, &h)
+                .unwrap();
+        } else {
+            d.reset(&config(), 161, 0, NonZeroUsize::MIN).unwrap();
+        }
+        let before = d.privileged_snapshot();
+        for schema_version in [1, 99] {
+            assert!(
+                d.submit(
+                    Seat::P0,
+                    &policy::Submission {
+                        schema_version,
+                        revision: 0,
+                        generation: 0,
+                        choices: vec![C::Keep]
+                    }
+                )
+                .is_err()
+            );
+            assert_eq!(d.privileged_snapshot(), before);
+            assert_eq!(
+                d.status(),
+                None,
+                "unavailable input must not poison an episode"
+            );
+            assert_eq!(d.accounting().failed, 0);
+        }
+        ready(&mut d);
+        send(&mut d, Seat::P0, C::Keep).unwrap();
+        send(&mut d, Seat::P1, C::Keep).unwrap();
+        assert_eq!(
+            d.advance(NonZeroUsize::MIN).unwrap(),
+            Progress::InternalYield
+        );
+        let before = d.privileged_snapshot();
+        assert!(
+            d.submit(
+                Seat::P0,
+                &policy::Submission {
+                    schema_version: 1,
+                    revision: 1,
+                    generation: 0,
+                    choices: vec![C::Pass]
+                }
+            )
+            .is_err()
+        );
+        assert_eq!(d.privileged_snapshot(), before);
+        assert_eq!(d.status(), None);
+        assert_eq!(d.accounting().failed, 0);
+        ready(&mut d);
+        send(&mut d, Seat::P0, C::Pass).unwrap();
+        d.concede(Seat::P1, d.episode_id().unwrap()).unwrap();
+        let r = d.finish().unwrap();
+        assert!(matches!(r.status(), Status::Completed(_)));
+        assert_eq!(r.accepted_decisions(), 3);
+        assert_eq!(d.accounting().completed, 1);
+        if captured {
+            assert_eq!(r.trajectory().unwrap().decisions().len(), 3);
+            assert_eq!(r.trajectory().unwrap().footer().unwrap().returns, [1, -1]);
+        }
+    }
+}
