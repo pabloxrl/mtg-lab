@@ -8,6 +8,9 @@ use std::num::NonZeroUsize;
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
+    InvalidBudget,
+    Stopped,
+    RecordCapacity,
     Storage(StorageError),
     Capture(trajectory::Error),
     RevisionExhausted,
@@ -25,6 +28,33 @@ pub enum Error {
 pub enum Status {
     Completed(terminal::Outcome),
     Incomplete,
+    Truncated(trajectory::Limit),
+    Failed(Failure),
+}
+/// External monotonic milliseconds; the rules core never reads a wall clock.
+pub trait Clock: std::fmt::Debug {
+    fn now_ms(&self) -> u64;
+}
+#[derive(Clone, Debug)]
+pub struct Budget {
+    pub limits: trajectory::Limits,
+    pub work_quantum: NonZeroUsize,
+    pub records: NonZeroUsize,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Failure {
+    Recording,
+    RecordCapacity,
+    Capacity,
+    Clock,
+}
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Accounting {
+    pub started: u64,
+    pub completed: u64,
+    pub truncated: u64,
+    pub failed: u64,
+    pub incomplete: u64,
 }
 /// A ready policy boundary includes opening, payment, targets and combat choices.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -32,6 +62,7 @@ pub enum Progress {
     InternalYield,
     Ready,
     Terminal(terminal::Outcome),
+    Stopped(Status),
 }
 #[derive(Clone, Debug)]
 pub struct Inputs {
@@ -47,8 +78,20 @@ pub struct EpisodeResult {
     history: Vec<Vec<u8>>,
     trajectory: Option<v2::Episode>,
     capture_requested: bool,
+    final_observations: Option<[policy::Observation; 2]>,
+    budget: Option<Budget>,
+    accepted_decisions: u64,
 }
 impl EpisodeResult {
+    pub fn budget(&self) -> Option<&Budget> {
+        self.budget.as_ref()
+    }
+    pub fn accepted_decisions(&self) -> u64 {
+        self.accepted_decisions
+    }
+    pub fn final_observations(&self) -> Option<&[policy::Observation; 2]> {
+        self.final_observations.as_ref()
+    }
     pub fn trajectory(&self) -> Option<&v2::Episode> {
         self.trajectory.as_ref()
     }
@@ -87,8 +130,147 @@ pub struct Driver {
     capture_header: Option<Header>,
     recorder: Option<v2::Recorder>,
     capture_error: Option<trajectory::Error>,
+    budget: Option<Budget>,
+    clock: Option<Box<dyn Clock>>,
+    started_ms: u64,
+    last_ms: u64,
+    decisions: u64,
+    status: Option<Status>,
+    accounting: Accounting,
 }
 impl Driver {
+    pub fn bounded(capacity: usize, budget: Budget, clock: Box<dyn Clock>) -> Result<Self, Error> {
+        if capacity == 0
+            || [
+                budget.limits.decisions,
+                budget.limits.turns,
+                budget.limits.wall_time_ms,
+            ]
+            .contains(&Some(0))
+        {
+            return Err(Error::InvalidBudget);
+        }
+        let mut driver = Self::new(capacity).map_err(Error::Storage)?;
+        driver.budget = Some(budget);
+        driver.clock = Some(clock);
+        Ok(driver)
+    }
+    pub fn accounting(&self) -> Accounting {
+        self.accounting
+    }
+    pub fn status(&self) -> Option<Status> {
+        self.status
+    }
+    fn quantum(&self, requested: NonZeroUsize) -> NonZeroUsize {
+        self.budget
+            .as_ref()
+            .map_or(requested, |b| requested.min(b.work_quantum))
+    }
+    fn account(&mut self, status: Status) {
+        if self.status.is_some() {
+            return;
+        }
+        self.status = Some(status);
+        match status {
+            Status::Completed(_) => self.accounting.completed += 1,
+            Status::Truncated(_) => self.accounting.truncated += 1,
+            Status::Failed(_) => self.accounting.failed += 1,
+            Status::Incomplete => self.accounting.incomplete += 1,
+        }
+    }
+    fn fail(&mut self, failure: Failure) {
+        if let Some(recorder) = &mut self.recorder {
+            recorder.quarantine(format!("owned collector: {failure:?}"));
+        }
+        self.account(Status::Failed(failure));
+    }
+    // Recording errors outrank rules completion. No failed capture is exposed as
+    // a training sample, even if its underlying game reached a terminal state.
+    fn capture_checked(&mut self, result: Result<(), Error>) -> Result<(), Error> {
+        if let Err(Error::Capture(e)) = &result {
+            self.capture_error = Some(e.clone());
+            self.fail(Failure::Recording);
+        }
+        result
+    }
+    fn check_boundary(&mut self) -> Result<(), Error> {
+        if self.status.is_some() {
+            return Ok(());
+        }
+        if let Some(outcome) = self.game.outcome() {
+            self.account(Status::Completed(outcome));
+            return Ok(());
+        }
+        if self.budget.is_some() && self.progress != CoreProgress::InternalYield {
+            for seat in [Seat::P0, Seat::P1] {
+                if self.game.policy_observe(seat, self.capacity)
+                    == Err(policy::PolicyError::CapacityExceeded)
+                {
+                    self.fail(Failure::Capacity);
+                    return Err(Error::Policy(policy::PolicyError::CapacityExceeded));
+                }
+            }
+        }
+        let Some(b) = &self.budget else {
+            return Ok(());
+        };
+        let now = self.clock.as_ref().unwrap().now_ms();
+        if now < self.last_ms {
+            self.fail(Failure::Clock);
+            return Err(Error::Stopped);
+        }
+        self.last_ms = now;
+        let limit = if b.limits.decisions.is_some_and(|n| self.decisions >= n) {
+            Some(trajectory::Limit::Decisions)
+        } else if b.limits.turns.is_some_and(|n| {
+            self.game
+                .turn_position()
+                .is_some_and(|(turn, _, _)| turn > n)
+        }) {
+            Some(trajectory::Limit::Turns)
+        } else if b
+            .limits
+            .wall_time_ms
+            .is_some_and(|n| now - self.started_ms >= n)
+        {
+            Some(trajectory::Limit::WallTime)
+        } else {
+            None
+        };
+        if let Some(limit) = limit {
+            // Partial reset has no authorized observation yet. Keep its actual
+            // snapshot, without advancing to manufacture a final frame.
+            if self.recorder.is_some() && self.progress != CoreProgress::InternalYield {
+                let result = (|| {
+                    let frame = self.frame()?;
+                    self.recorder
+                        .as_mut()
+                        .unwrap()
+                        .finish(&frame, trajectory::End::Truncated(limit))
+                        .map_err(Error::Capture)
+                })();
+                self.capture_checked(result)?;
+            }
+            self.account(Status::Truncated(limit));
+        }
+        Ok(())
+    }
+    fn before_input(&mut self) -> Result<(), Error> {
+        self.active()?;
+        self.check_boundary()?;
+        self.active()
+    }
+    fn record_slot(&mut self) -> Result<(), Error> {
+        if self
+            .budget
+            .as_ref()
+            .is_some_and(|b| self.history.len() >= b.records.get())
+        {
+            self.fail(Failure::RecordCapacity);
+            return Err(Error::RecordCapacity);
+        }
+        Ok(())
+    }
     pub fn new(capacity: usize) -> Result<Self, StorageError> {
         Ok(Self {
             game: Game::new()?,
@@ -101,6 +283,13 @@ impl Driver {
             capture_header: None,
             recorder: None,
             capture_error: None,
+            budget: None,
+            clock: None,
+            started_ms: 0,
+            last_ms: 0,
+            decisions: 0,
+            status: None,
+            accounting: Accounting::default(),
         })
     }
     /// Enable complete in-memory capture for this reset. Header provenance and
@@ -117,10 +306,14 @@ impl Driver {
         if header.id.ordinal != ordinal {
             return Err(Error::Capture(trajectory::Error::InvalidHeader));
         }
-        let progress = self.reset(config, master, ordinal, quantum)?;
-        self.capture_header = Some(header.clone());
-        self.refresh_capture()?;
-        Ok(progress)
+        if self
+            .budget
+            .as_ref()
+            .is_some_and(|b| b.limits != header.limits)
+        {
+            return Err(Error::InvalidBudget);
+        }
+        self.reset_owned(config, master, ordinal, quantum, Some(header.clone()))
     }
     /// Immutable diagnostic view; unfinished episodes have no training reader.
     pub fn trajectory(&self) -> Option<&v2::Episode> {
@@ -130,7 +323,7 @@ impl Driver {
         v2::Frame::owned(&self.game, self.revision).map_err(Error::Capture)
     }
     fn refresh_capture(&mut self) -> Result<(), Error> {
-        if self.capture_header.is_none() || self.boundary() == Progress::InternalYield {
+        if self.capture_header.is_none() || self.progress == CoreProgress::InternalYield {
             return Ok(());
         }
         let frame = self.frame()?;
@@ -151,7 +344,7 @@ impl Driver {
         submission: &policy::Submission,
         info: &PolicyInfo,
     ) -> Result<(), Error> {
-        self.active()?;
+        self.before_input()?;
         if info
             .log_probability
             .is_some_and(|x| !x.is_finite() || x > 0.0)
@@ -160,11 +353,24 @@ impl Driver {
             return Err(Error::Capture(trajectory::Error::InvalidChoice));
         }
         let before = if self.capture_header.is_some() {
-            Some(self.frame()?)
+            match self.frame() {
+                Ok(frame) => Some(frame),
+                Err(error) => return self.capture_checked(Err(error)),
+            }
         } else {
             None
         };
-        self.submit_core(seat, submission)?;
+        let accepted = self.submit_core(seat, submission);
+        if self.budget.is_some()
+            && matches!(
+                accepted,
+                Err(Error::Policy(policy::PolicyError::CapacityExceeded))
+            )
+        {
+            self.fail(Failure::Capacity);
+        }
+        accepted?;
+        self.decisions += 1;
         if let Some(before) = before {
             // Core acceptance is the execution receipt, not the recorder's domain
             // validator. Preserve an explicit poisoned owner if an invariant fails.
@@ -193,11 +399,9 @@ impl Driver {
                     .append(&before, &choice, &after)
                     .map_err(Error::Capture)
             })();
-            if let Err(Error::Capture(error)) = &captured {
-                self.capture_error = Some(error.clone());
-            }
-            captured?;
+            self.capture_checked(captured)?;
         }
+        self.check_boundary()?;
         Ok(())
     }
     /// Start a fresh normal-reset game. Finish the previous episode first, even
@@ -209,6 +413,16 @@ impl Driver {
         ordinal: u64,
         quantum: NonZeroUsize,
     ) -> Result<Progress, Error> {
+        self.reset_owned(config, master, ordinal, quantum, None)
+    }
+    fn reset_owned(
+        &mut self,
+        config: &Config,
+        master: u64,
+        ordinal: u64,
+        quantum: NonZeroUsize,
+        header: Option<Header>,
+    ) -> Result<Progress, Error> {
         if self.inputs.is_some() && !self.finalized {
             return Err(Error::ActiveEpisode);
         }
@@ -219,8 +433,9 @@ impl Driver {
         // A new owner also permits explicit abandonment during an internal yield;
         // the saved incomplete result keeps the exact unfinished state.
         let mut game = Game::new().map_err(Error::Storage)?;
+        let started_ms = self.clock.as_ref().map_or(0, |c| c.now_ms());
         let progress = game
-            .reset_quantum(config, master, ordinal, quantum)
+            .reset_quantum(config, master, ordinal, self.quantum(quantum))
             .map_err(Error::Reset)?;
         self.game = game;
         self.inputs = Some(Inputs {
@@ -229,15 +444,27 @@ impl Driver {
             ordinal,
         });
         self.history.clear();
-        self.capture_header = None;
+        self.capture_header = header;
         self.recorder = None;
         self.capture_error = None;
         self.finalized = false;
         self.revision = revision;
         self.progress = progress;
+        self.started_ms = started_ms;
+        self.last_ms = started_ms;
+        self.decisions = 0;
+        self.status = None;
+        self.accounting.started += 1;
+        // Capture must exist before a reset-time budget stop is finalized.
+        let capture = self.refresh_capture();
+        self.capture_checked(capture)?;
+        self.check_boundary()?;
         Ok(self.boundary())
     }
     fn boundary(&self) -> Progress {
+        if let Some(status @ (Status::Truncated(_) | Status::Failed(_))) = self.status {
+            return Progress::Stopped(status);
+        }
         match self.progress {
             CoreProgress::Terminal(outcome) => Progress::Terminal(outcome),
             CoreProgress::InternalYield => Progress::InternalYield,
@@ -254,6 +481,9 @@ impl Driver {
         if self.finalized {
             return Err(Error::Finalized);
         }
+        if matches!(self.status, Some(Status::Truncated(_) | Status::Failed(_))) {
+            return Err(Error::Stopped);
+        }
         if let Some(error) = &self.capture_error {
             return Err(Error::Capture(error.clone()));
         }
@@ -266,16 +496,29 @@ impl Driver {
     /// boundary; the next advance starts turns. Submission itself is synchronous.
     pub fn advance(&mut self, quantum: NonZeroUsize) -> Result<Progress, Error> {
         self.active()?;
+        self.check_boundary()?;
+        if self.status.is_some() {
+            return Ok(self.boundary());
+        }
+        let quantum = self.quantum(quantum);
         self.progress = if self.progress == CoreProgress::OpeningComplete
             && self.game.turn_position().is_none()
         {
-            self.game
-                .start_turns_quantum(quantum)
-                .map_err(Error::Turn)?
+            match self.game.start_turns_quantum(quantum) {
+                Ok(progress) => progress,
+                Err(error) => {
+                    if self.budget.is_some() {
+                        self.fail(Failure::Capacity);
+                    }
+                    return Err(Error::Turn(error));
+                }
+            }
         } else {
             self.game.resume(quantum)
         };
-        self.refresh_capture()?;
+        let result = self.refresh_capture();
+        self.capture_checked(result)?;
+        self.check_boundary()?;
         Ok(self.boundary())
     }
     /// Caller supplies its authorized seat; transport authentication is external.
@@ -312,6 +555,7 @@ impl Driver {
         core.revision = d.revision;
         let record =
             actions::encode(&self.game, seat, &core, self.capacity).map_err(Error::Action)?;
+        self.record_slot()?;
         self.game
             .apply_policy(seat, &core, self.capacity)
             .map_err(Error::Policy)?;
@@ -321,7 +565,7 @@ impl Driver {
         Ok(())
     }
     pub fn concede(&mut self, seat: Seat, episode: terminal::EpisodeId) -> Result<(), Error> {
-        self.active()?;
+        self.before_input()?;
         if self.game.episode_id() != Some(episode) {
             return Err(Error::Concede(terminal::ConcedeError::StaleEpisode));
         }
@@ -331,17 +575,23 @@ impl Driver {
             return Err(Error::Concede(terminal::ConcedeError::SettlementPending));
         }
         let record = actions::encode_concession(&self.game, seat).map_err(Error::Action)?;
+        self.record_slot()?;
         let outcome = self.game.concede(seat, episode).map_err(Error::Concede)?;
         self.history.push(record);
         self.progress = CoreProgress::Terminal(outcome);
-        if self.capture_header.is_some() {
-            let frame = self.frame()?;
-            self.recorder
-                .as_mut()
-                .ok_or(Error::Capture(trajectory::Error::Unavailable))?
-                .finish(&frame, trajectory::End::Completed)
-                .map_err(Error::Capture)?;
-        }
+        let captured = (|| {
+            if self.capture_header.is_some() {
+                let frame = self.frame()?;
+                self.recorder
+                    .as_mut()
+                    .ok_or(Error::Capture(trajectory::Error::Unavailable))?
+                    .finish(&frame, trajectory::End::Completed)
+                    .map_err(Error::Capture)?;
+            }
+            Ok(())
+        })();
+        self.capture_checked(captured)?;
+        self.check_boundary()?;
         Ok(())
     }
     pub fn episode_id(&self) -> Option<terminal::EpisodeId> {
@@ -358,19 +608,34 @@ impl Driver {
     /// Seal exactly once without inventing a rules result for unfinished work.
     /// The returned buffers and actual reset inputs survive every subsequent reset.
     pub fn finish(&mut self) -> Result<EpisodeResult, Error> {
-        let inputs = self.inputs.as_ref().ok_or(Error::NotStarted)?;
+        let inputs = self.inputs.clone().ok_or(Error::NotStarted)?;
         if self.finalized {
             return Err(Error::Finalized);
         }
-        if let Some(error) = &self.capture_error {
-            return Err(Error::Capture(error.clone()));
+        self.check_boundary()?;
+        if self.status.is_none() {
+            self.account(Status::Incomplete);
         }
+        let final_observations = match (
+            self.game.policy_observe(Seat::P0, usize::MAX),
+            self.game.policy_observe(Seat::P1, usize::MAX),
+        ) {
+            (Ok(mut a), Ok(mut b)) => {
+                for o in [&mut a, &mut b] {
+                    if let Some(d) = &mut o.decision {
+                        d.revision = self.revision;
+                    }
+                }
+                Some([a, b])
+            }
+            _ => None,
+        };
         let result = EpisodeResult {
-            inputs: inputs.clone(),
-            status: self
-                .game
-                .outcome()
-                .map_or(Status::Incomplete, Status::Completed),
+            inputs,
+            status: self.status.unwrap(),
+            budget: self.budget.clone(),
+            accepted_decisions: self.decisions,
+            final_observations,
             snapshot: self.game.snapshot(),
             history: self.history.clone(),
             trajectory: self.trajectory().cloned(),
@@ -402,8 +667,19 @@ impl Driver {
             capture_header: Some(header),
             recorder: None,
             capture_error: None,
+            budget: None,
+            clock: None,
+            started_ms: 0,
+            last_ms: 0,
+            decisions: 0,
+            status: None,
+            accounting: Accounting::default(),
         };
         d.refresh_capture().unwrap();
         d
     }
 }
+
+#[cfg(test)]
+#[path = "episode_budget_tests.rs"]
+mod budget_tests;

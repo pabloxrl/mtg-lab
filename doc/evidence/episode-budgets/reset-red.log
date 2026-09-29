@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-161/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.49s
+     Running tests/budgets.rs (target/debug/deps/budgets-1af60af85809b2a9)
+
+running 1 test
+test reset_expiry_at_a_ready_boundary_seals_the_actual_zero_decision_frame ... FAILED
+
+failures:
+
+---- reset_expiry_at_a_ready_boundary_seals_the_actual_zero_decision_frame stdout ----
+
+thread 'reset_expiry_at_a_ready_boundary_seals_the_actual_zero_decision_frame' (102) panicked at crates/mtg-core/tests/budgets.rs:718:312:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    reset_expiry_at_a_ready_boundary_seals_the_actual_zero_decision_frame
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --test budgets`

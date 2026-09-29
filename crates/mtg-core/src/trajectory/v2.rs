@@ -341,6 +341,11 @@ impl Recorder {
         });
         self.last = frame.clone();
     }
+    /// An owning collector's capture failure invalidates the whole sample,
+    /// including a terminal footer. Retain all captured rows for diagnostics.
+    pub(crate) fn quarantine(&mut self, reason: String) {
+        self.close(&self.last.clone(), End::Failed(reason), [0, 0]);
+    }
     pub fn episode(&self) -> &Episode {
         &self.episode
     }

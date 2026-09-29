@@ -1,0 +1,51 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling syn v3.0.6
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-161/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.07s
+     Running tests/budgets.rs (target/debug/deps/budgets-1af60af85809b2a9)
+
+running 2 tests
+test invalid_zero_limit_is_rejected_before_start ... FAILED
+test literal_one_decision_budget_stops_before_second_keep ... FAILED
+
+failures:
+
+---- invalid_zero_limit_is_rejected_before_start stdout ----
+
+thread 'invalid_zero_limit_is_rejected_before_start' (624) panicked at crates/mtg-core/tests/budgets.rs:88:2:
+assertion failed: Driver::bounded(256, budget(0),
+        Box::new(Manual(Rc::new(Cell::new(0))))).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- literal_one_decision_budget_stops_before_second_keep stdout ----
+
+thread 'literal_one_decision_budget_stops_before_second_keep' (625) panicked at crates/mtg-core/tests/budgets.rs:80:2:
+a second decision must not be accepted after budget one
+
+
+failures:
+    invalid_zero_limit_is_rejected_before_start
+    literal_one_decision_budget_stops_before_second_keep
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --test budgets`
