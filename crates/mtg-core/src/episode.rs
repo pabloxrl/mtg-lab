@@ -1,4 +1,5 @@
 //! Owned scalar execution; privileged history is separate from policy views.
+use crate::trajectory::{self, Header, PolicyInfo, v2};
 use crate::{
     game::{self, Config, Game, Progress as CoreProgress, actions, policy, terminal},
     objects::{Seat, StorageError},
@@ -8,6 +9,7 @@ use std::num::NonZeroUsize;
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
     Storage(StorageError),
+    Capture(trajectory::Error),
     RevisionExhausted,
     NotStarted,
     Finalized,
@@ -43,8 +45,16 @@ pub struct EpisodeResult {
     status: Status,
     snapshot: Vec<u8>,
     history: Vec<Vec<u8>>,
+    trajectory: Option<v2::Episode>,
+    capture_requested: bool,
 }
 impl EpisodeResult {
+    pub fn trajectory(&self) -> Option<&v2::Episode> {
+        self.trajectory.as_ref()
+    }
+    pub fn capture_requested(&self) -> bool {
+        self.capture_requested
+    }
     pub fn privileged_inputs(&self) -> &Inputs {
         &self.inputs
     }
@@ -74,6 +84,9 @@ pub struct Driver {
     finalized: bool,
     revision: u64,
     progress: CoreProgress,
+    capture_header: Option<Header>,
+    recorder: Option<v2::Recorder>,
+    capture_error: Option<trajectory::Error>,
 }
 impl Driver {
     pub fn new(capacity: usize) -> Result<Self, StorageError> {
@@ -85,7 +98,107 @@ impl Driver {
             finalized: false,
             revision: 0,
             progress: CoreProgress::NotStarted,
+            capture_header: None,
+            recorder: None,
+            capture_error: None,
         })
+    }
+    /// Enable complete in-memory capture for this reset. Header provenance and
+    /// policy identity are caller declarations; run provenance is a separate layer.
+    pub fn reset_captured(
+        &mut self,
+        config: &Config,
+        master: u64,
+        ordinal: u64,
+        quantum: NonZeroUsize,
+        header: &Header,
+    ) -> Result<Progress, Error> {
+        v2::Recorder::validate_header(header, config.starting_seat).map_err(Error::Capture)?;
+        if header.id.ordinal != ordinal {
+            return Err(Error::Capture(trajectory::Error::InvalidHeader));
+        }
+        let progress = self.reset(config, master, ordinal, quantum)?;
+        self.capture_header = Some(header.clone());
+        self.refresh_capture()?;
+        Ok(progress)
+    }
+    /// Immutable diagnostic view; unfinished episodes have no training reader.
+    pub fn trajectory(&self) -> Option<&v2::Episode> {
+        self.recorder.as_ref().map(v2::Recorder::episode)
+    }
+    fn frame(&self) -> Result<v2::Frame, Error> {
+        v2::Frame::owned(&self.game, self.revision).map_err(Error::Capture)
+    }
+    fn refresh_capture(&mut self) -> Result<(), Error> {
+        if self.capture_header.is_none() || self.boundary() == Progress::InternalYield {
+            return Ok(());
+        }
+        let frame = self.frame()?;
+        match &mut self.recorder {
+            Some(r) => r.settle(&frame).map_err(Error::Capture)?,
+            None => {
+                self.recorder = Some(
+                    v2::Recorder::new(self.capture_header.as_ref().unwrap(), &frame)
+                        .map_err(Error::Capture)?,
+                )
+            }
+        }
+        Ok(())
+    }
+    pub fn submit_with_policy(
+        &mut self,
+        seat: Seat,
+        submission: &policy::Submission,
+        info: &PolicyInfo,
+    ) -> Result<(), Error> {
+        self.active()?;
+        if info
+            .log_probability
+            .is_some_and(|x| !x.is_finite() || x > 0.0)
+            || info.value.is_some_and(|x| !x.is_finite())
+        {
+            return Err(Error::Capture(trajectory::Error::InvalidChoice));
+        }
+        let before = if self.capture_header.is_some() {
+            Some(self.frame()?)
+        } else {
+            None
+        };
+        self.submit_core(seat, submission)?;
+        if let Some(before) = before {
+            // Core acceptance is the execution receipt, not the recorder's domain
+            // validator. Preserve an explicit poisoned owner if an invariant fails.
+            let captured = (|| {
+                let after = self.frame()?;
+                let recorder = self
+                    .recorder
+                    .as_mut()
+                    .ok_or(Error::Capture(trajectory::Error::Unavailable))?;
+                let (logical_action, micro_choice) =
+                    recorder.episode().decisions().last().map_or((0, 0), |d| {
+                        if d.choice.status == v2::ActionStatus::Continuing {
+                            (d.choice.logical_action, d.choice.micro_choice + 1)
+                        } else {
+                            (d.choice.logical_action + 1, 0)
+                        }
+                    });
+                let choice = v2::Choice {
+                    submission: submission.clone(),
+                    logical_action,
+                    micro_choice,
+                    status: after.status_after(submission),
+                    policy: info.clone(),
+                };
+                recorder
+                    .append(&before, &choice, &after)
+                    .map_err(Error::Capture)
+            })();
+            if let Err(Error::Capture(error)) = &captured {
+                self.capture_error = Some(error.clone());
+            }
+            captured?;
+        }
+        Ok(())
     }
     /// Start a fresh normal-reset game. Finish the previous episode first, even
     /// if incomplete. Invalid configuration preserves the entire previous episode.
@@ -116,6 +229,9 @@ impl Driver {
             ordinal,
         });
         self.history.clear();
+        self.capture_header = None;
+        self.recorder = None;
+        self.capture_error = None;
         self.finalized = false;
         self.revision = revision;
         self.progress = progress;
@@ -138,6 +254,9 @@ impl Driver {
         if self.finalized {
             return Err(Error::Finalized);
         }
+        if let Some(error) = &self.capture_error {
+            return Err(Error::Capture(error.clone()));
+        }
         if self.game.outcome().is_some() {
             return Err(Error::Ended);
         }
@@ -156,6 +275,7 @@ impl Driver {
         } else {
             self.game.resume(quantum)
         };
+        self.refresh_capture()?;
         Ok(self.boundary())
     }
     /// Caller supplies its authorized seat; transport authentication is external.
@@ -172,6 +292,9 @@ impl Driver {
     }
     /// Validate and encode before mutation; append exactly once after acceptance.
     pub fn submit(&mut self, seat: Seat, submission: &policy::Submission) -> Result<(), Error> {
+        self.submit_with_policy(seat, submission, &PolicyInfo::default())
+    }
+    fn submit_core(&mut self, seat: Seat, submission: &policy::Submission) -> Result<(), Error> {
         self.active()?;
         if submission.schema_version != policy::SCHEMA_VERSION {
             return Err(Error::Policy(policy::PolicyError::UnsupportedVersion));
@@ -211,6 +334,14 @@ impl Driver {
         let outcome = self.game.concede(seat, episode).map_err(Error::Concede)?;
         self.history.push(record);
         self.progress = CoreProgress::Terminal(outcome);
+        if self.capture_header.is_some() {
+            let frame = self.frame()?;
+            self.recorder
+                .as_mut()
+                .ok_or(Error::Capture(trajectory::Error::Unavailable))?
+                .finish(&frame, trajectory::End::Completed)
+                .map_err(Error::Capture)?;
+        }
         Ok(())
     }
     pub fn episode_id(&self) -> Option<terminal::EpisodeId> {
@@ -231,6 +362,9 @@ impl Driver {
         if self.finalized {
             return Err(Error::Finalized);
         }
+        if let Some(error) = &self.capture_error {
+            return Err(Error::Capture(error.clone()));
+        }
         let result = EpisodeResult {
             inputs: inputs.clone(),
             status: self
@@ -239,8 +373,37 @@ impl Driver {
                 .map_or(Status::Incomplete, Status::Completed),
             snapshot: self.game.snapshot(),
             history: self.history.clone(),
+            trajectory: self.trajectory().cloned(),
+            capture_requested: self.capture_header.is_some(),
         };
         self.finalized = true;
         Ok(result)
+    }
+}
+
+// This constructor exists only in unit-test binaries to exercise unreachable
+// component-edge positions. Production capture can start only at normal reset.
+#[cfg(test)]
+impl Driver {
+    pub(crate) fn synthetic_capture_test(mut game: Game, header: Header) -> Self {
+        let progress = game.resume(NonZeroUsize::MIN);
+        let mut d = Self {
+            game,
+            capacity: 256,
+            inputs: Some(Inputs {
+                config: Config::default(),
+                master: 0,
+                ordinal: 0,
+            }),
+            history: vec![],
+            finalized: false,
+            revision: 1,
+            progress,
+            capture_header: Some(header),
+            recorder: None,
+            capture_error: None,
+        };
+        d.refresh_capture().unwrap();
+        d
     }
 }
