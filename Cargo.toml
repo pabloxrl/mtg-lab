@@ -1,5 +1,5 @@
 [workspace]
-members = ["crates/mtg-core", "crates/mtg-fixture", "crates/mtg-recorder", "crates/mtg-cli"]
+members = ["crates/mtg-core", "crates/mtg-fixture", "crates/mtg-recorder", "crates/mtg-cli", "crates/mtg-policy"]
 resolver = "3"
 
 [workspace.package]

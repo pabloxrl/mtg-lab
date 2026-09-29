@@ -1,0 +1,24 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-118/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.30s
+     Running tests/selection.rs (target/debug/deps/selection-389b7fe423d538ab)
+
+running 1 test
+test newly_enabled_unsupported_card_is_an_error_not_a_fallback ... FAILED
+
+failures:
+
+---- newly_enabled_unsupported_card_is_an_error_not_a_fallback stdout ----
+
+thread 'newly_enabled_unsupported_card_is_an_error_not_a_fallback' (79) panicked at crates/mtg-policy/tests/selection.rs:269:5:
+assertion `left == right` failed
+  left: "Ok(Submission { revision: 0, schema_version: 1, generation: 1, choices: [Pass] })"
+ right: "Err(UnsupportedContent)"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    newly_enabled_unsupported_card_is_an_error_not_a_fallback
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test selection`
