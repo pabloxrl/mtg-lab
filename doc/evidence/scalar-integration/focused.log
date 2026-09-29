@@ -1,0 +1,10 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-18/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.11s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 2 tests
+test game::turns::quantum_tests::integration_growth_rejected_through_every_untap_yield ... ok
+test game::combat::tests::integration_growth_windows_end_before_atomic_combat_damage ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 147 filtered out; finished in 0.04s
+

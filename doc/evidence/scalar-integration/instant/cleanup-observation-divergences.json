@@ -1,0 +1,102 @@
+{
+  "cleanup-7-2/early-expiration": {
+    "path": "$[11].state.objects[1].power",
+    "expected": 5,
+    "actual": 2
+  },
+  "cleanup-7-2/early-removal": {
+    "path": "$[11].state.objects[1].damage",
+    "expected": 2,
+    "actual": 0
+  },
+  "cleanup-7-2/retained-damage": {
+    "path": "$[12].state.objects[1].damage",
+    "expected": 0,
+    "actual": 2
+  },
+  "cleanup-7-2/invented-priority": {
+    "path": "$[11].state.priority",
+    "expected": 1,
+    "actual": 0
+  },
+  "cleanup-7-2/hand-order": {
+    "path": "$[12].state.ordered_zones.hand[0][0]",
+    "expected": "keep0",
+    "actual": "keep6"
+  },
+  "cleanup-7-4/early-expiration": {
+    "path": "$[13].state.objects[1].power",
+    "expected": 5,
+    "actual": 2
+  },
+  "cleanup-7-4/early-removal": {
+    "path": "$[13].state.objects[1].damage",
+    "expected": 4,
+    "actual": 0
+  },
+  "cleanup-7-4/retained-damage": {
+    "path": "$[14].state.objects[1].damage",
+    "expected": 0,
+    "actual": 4
+  },
+  "cleanup-7-4/invented-priority": {
+    "path": "$[13].state.priority",
+    "expected": 1,
+    "actual": 0
+  },
+  "cleanup-7-4/hand-order": {
+    "path": "$[14].state.ordered_zones.hand[0][0]",
+    "expected": "keep0",
+    "actual": "keep6"
+  },
+  "cleanup-8-2/early-expiration": {
+    "path": "$[12].state.objects[1].power",
+    "expected": 5,
+    "actual": 2
+  },
+  "cleanup-8-2/early-removal": {
+    "path": "$[12].state.objects[1].damage",
+    "expected": 2,
+    "actual": 0
+  },
+  "cleanup-8-2/retained-damage": {
+    "path": "$[13].state.objects[1].damage",
+    "expected": 0,
+    "actual": 2
+  },
+  "cleanup-8-2/invented-priority": {
+    "path": "$[12].state.priority",
+    "expected": null,
+    "actual": 0
+  },
+  "cleanup-8-2/hand-order": {
+    "path": "$[13].state.ordered_zones.hand[0][0]",
+    "expected": "keep0",
+    "actual": "keep7"
+  },
+  "cleanup-8-4/early-expiration": {
+    "path": "$[14].state.objects[1].power",
+    "expected": 5,
+    "actual": 2
+  },
+  "cleanup-8-4/early-removal": {
+    "path": "$[14].state.objects[1].damage",
+    "expected": 4,
+    "actual": 0
+  },
+  "cleanup-8-4/retained-damage": {
+    "path": "$[15].state.objects[1].damage",
+    "expected": 0,
+    "actual": 4
+  },
+  "cleanup-8-4/invented-priority": {
+    "path": "$[14].state.priority",
+    "expected": null,
+    "actual": 0
+  },
+  "cleanup-8-4/hand-order": {
+    "path": "$[15].state.ordered_zones.hand[0][0]",
+    "expected": "keep0",
+    "actual": "keep7"
+  }
+}

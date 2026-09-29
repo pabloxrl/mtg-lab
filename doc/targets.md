@@ -64,8 +64,10 @@ Supported cast creatures are Bear Cub and Swab Goblin. A synthetic Sentry's
 frozen 4/4 characteristics are recognized solely to exercise the assigned
 no-source-LKI catalog case; its casting, Reach and other M2 mechanics are not
 implemented. Unsupported creature definitions are not target candidates.
-Nonempty creature combat still returns `UnsupportedCombat`, and terminal
-outcomes remain GH-72; full games are not advertised.
+Vanilla [combat](combat.md) and [terminal outcomes](terminal.md) are implemented.
+The [scalar integration audit](evidence/scalar-integration/README.md) covers native
+normal-reset games and matched synthetic Growth/Bite scenarios; full-pool and
+full-game reference qualification remain outstanding.
 
 Run `cargo test -p mtg-core targets` and `./scripts/torture.sh` in the managed
 container. [Acceptance evidence](evidence/targets/README.md) maps the exact
