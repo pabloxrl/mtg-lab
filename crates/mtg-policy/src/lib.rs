@@ -289,3 +289,6 @@ mod tests {
         assert_eq!(bounded(|| words.next().unwrap(), u64::MAX), 0);
     }
 }
+
+mod heuristic;
+pub use heuristic::{HEURISTIC_VERSION, Heuristic};

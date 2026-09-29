@@ -1,0 +1,81 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling unicode-ident v1.0.26
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling syn v3.0.6
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-119/crates/mtg-core)
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-119/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.09s
+     Running tests/heuristic.rs (target/debug/deps/heuristic-20fb6b02136b30a1)
+
+running 6 tests
+test heuristic_attack_block_allocate_then_finish ... FAILED
+test heuristic_opening_discard_and_bottom_values ... FAILED
+test heuristic_land_creature_response_and_mask_ties ... FAILED
+test heuristic_errors_never_default_to_pass ... FAILED
+test heuristic_payment_prefers_progress_and_needed_color ... FAILED
+test heuristic_target_scores_and_cancellation ... FAILED
+
+failures:
+
+---- heuristic_attack_block_allocate_then_finish stdout ----
+
+thread 'heuristic_attack_block_allocate_then_finish' (644) panicked at crates/mtg-policy/tests/heuristic.rs:17:97:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- heuristic_opening_discard_and_bottom_values stdout ----
+
+thread 'heuristic_opening_discard_and_bottom_values' (647) panicked at crates/mtg-policy/tests/heuristic.rs:17:97:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+
+---- heuristic_land_creature_response_and_mask_ties stdout ----
+
+thread 'heuristic_land_creature_response_and_mask_ties' (646) panicked at crates/mtg-policy/tests/heuristic.rs:17:97:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+
+---- heuristic_errors_never_default_to_pass stdout ----
+
+thread 'heuristic_errors_never_default_to_pass' (645) panicked at crates/mtg-policy/tests/heuristic.rs:90:67:
+assertion `left == right` failed
+  left: Err(UnsupportedDecision)
+ right: Err(UnsupportedContent)
+
+---- heuristic_payment_prefers_progress_and_needed_color stdout ----
+
+thread 'heuristic_payment_prefers_progress_and_needed_color' (648) panicked at crates/mtg-policy/tests/heuristic.rs:17:97:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+
+---- heuristic_target_scores_and_cancellation stdout ----
+
+thread 'heuristic_target_scores_and_cancellation' (649) panicked at crates/mtg-policy/tests/heuristic.rs:17:97:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+
+
+failures:
+    heuristic_attack_block_allocate_then_finish
+    heuristic_errors_never_default_to_pass
+    heuristic_land_creature_response_and_mask_ties
+    heuristic_opening_discard_and_bottom_values
+    heuristic_payment_prefers_progress_and_needed_color
+    heuristic_target_scores_and_cancellation
+
+test result: FAILED. 0 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test heuristic`

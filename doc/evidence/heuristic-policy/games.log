@@ -1,0 +1,15 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-119/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.46s
+     Running tests/heuristic_games.rs (target/debug/deps/heuristic_games-8abafc46ca4e3467)
+
+running 3 tests
+test heuristic_opponent_hand_twins_at_normal_opening ... ok
+test heuristic_hidden_library_twins_through_real_payment_and_combat ... ok
+start=0 shuffled=false decisions=[294, 311] terminal=TerminalView { winner: Some(1), losses: [Some("life"), None] }
+start=0 shuffled=true decisions=[194, 164] terminal=TerminalView { winner: Some(0), losses: [None, Some("life")] }
+start=1 shuffled=false decisions=[311, 294] terminal=TerminalView { winner: Some(0), losses: [None, Some("life")] }
+start=1 shuffled=true decisions=[202, 172] terminal=TerminalView { winner: Some(0), losses: [None, Some("life")] }
+test heuristic_complete_games_both_seats_repeat_and_account_terminal ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.76s
+
