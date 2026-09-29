@@ -1,0 +1,31 @@
+{
+  "baseline": "d5fe803e3c51fa32c3eddbabf6f067424cf8808c",
+  "environment": "Managed Linux container, supplied tools; no worker Docker invocation",
+  "commands": {
+    "./scripts/torture.sh": "PASS; includes verify.sh and workspace debug/release tests",
+    "python3 scripts/instant_reference.py --cache /tmp/mtg-xmage --output /tmp/gh19-reference": "PASS; 11 native/XMage scenarios twice plus live negative controls"
+  },
+  "rust_tests_per_profile": 310,
+  "python_tests": [
+    "143"
+  ],
+  "source_sha256": {
+    "crates/mtg-core/src/snapshot.rs": "4f0723116b6b0c0b632153a8a9e4a0ad6ff66298a32d09b1608d3d63104c822a",
+    "crates/mtg-core/src/policy_spell_tests.rs": "8638b1d12770ec9ecddee0df4c0375b23d0a182d60a1770f05a94260d72e3f14",
+    "crates/mtg-core/src/policy_combat_tests.rs": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
+    "crates/mtg-core/tests/played_replay.rs": "551855fb374002340f5b9f0e17cb6cffc9c9ca7ff39f448dfdcd275b35d7af76",
+    "crates/mtg-core/tests/snapshot.rs": "a72abaedef21126f2007170ed2ae4bd0b0d099510f42c3c7b74df3a209838a3a"
+  },
+  "evidence_sha256": {
+    "red.txt": "379c2b1c84d25b9c7c31d5958e779dc2b857cbb35e1fbcd110efb4512d9081b4",
+    "green.txt": "1e3bbc59683fd4bfc3ed3a043d08b84876aaf433bd953f35d58b17ebd41bf64e",
+    "torture.txt": "250c7bdfa8b79bb8cd740cb34b738a5ef7bc8a491dac5dcf8e0a4b5f71a84c95",
+    "reference.txt": "1e5d3a0a3cd090aa280da2c8018fd02f915e37dc010c0a703f55635093c8bf28",
+    "instant/acceptance.json": "bb0312140d8023874a635ce554b24143775a9e3e6b3468d9fbb6194a234ff1eb"
+  },
+  "limitations": [
+    "No Forge or full-game reference agreement claimed",
+    "M1 gate and later shared-block obligations remain open",
+    "Prior test-authoring label/path corrections and initial missing report link check are not behavioral red or delivery passes"
+  ]
+}
