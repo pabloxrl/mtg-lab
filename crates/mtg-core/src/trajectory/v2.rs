@@ -1,93 +1,46 @@
-//! Canonical owned in-memory trajectories. See doc/trajectories.md.
+//! Canonical structured played-policy trajectories. See doc/trajectories.md.
+use super::{
+    CaptureSelection, DiscountConvention, End, EpisodeKey, Error, Header, PolicyInfo,
+    RewardConvention, Versions, hash, uuid,
+};
+use crate::game::policy::{self, Choice as Command, Observation, Submission};
 use crate::objects::Seat;
-use crate::opening::{Game, terminal::EpisodeId, views::PlayerView};
+use crate::opening::{Game, terminal::EpisodeId};
 use serde::Serialize;
 
-pub const SCHEMA_VERSION: u32 = 1;
+pub const SCHEMA_VERSION: u32 = 2;
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub struct Versions {
-    pub schema: u32,
-    pub engine: String,
-    pub rules: String,
-    pub cards: String,
-    pub action: String,
-    pub observation: u32,
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub struct EpisodeKey {
-    /// Collector-generated globally unique run UUID; never a seed.
-    pub run: String,
-    pub ordinal: u64,
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub struct Header {
-    pub id: EpisodeKey,
-    pub versions: Versions,
-    pub deck_hashes: [String; 2],
-    pub config_hash: String,
-    pub policies: [String; 2],
-    pub starting_seat: u8,
-    pub limits: Limits,
-    /// Opaque reference to separately permissioned seeds/replay configuration.
-    pub restricted_replay: Option<String>,
-}
-#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize)]
-pub struct Limits {
-    pub decisions: Option<u64>,
-    pub turns: Option<u64>,
-    pub wall_time_ms: Option<u64>,
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub struct Candidate {
-    pub semantic: String,
-    pub features: Vec<i64>,
-}
-#[derive(Clone, Debug, Default, PartialEq, Serialize)]
-pub struct PolicyInfo {
-    pub checkpoint: Option<String>,
-    pub log_probability: Option<f64>,
-    pub value: Option<f64>,
-    pub recurrent_state: Option<String>,
-    pub exploration: Option<String>,
+pub enum ActionStatus {
+    Continuing,
+    Committed,
+    Cancelled,
 }
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct Choice {
-    pub kind: String,
+    pub submission: Submission,
     pub logical_action: u64,
     pub micro_choice: u64,
-    pub candidates: Vec<Candidate>,
-    pub legal_mask: Vec<bool>,
-    pub selected: usize,
+    pub status: ActionStatus,
     pub policy: PolicyInfo,
 }
 /// Only authorized views, with a nonserialized episode identity guard.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Frame {
     episode: EpisodeId,
-    views: [PlayerView; 2],
+    views: [Observation; 2],
 }
 impl Frame {
-    pub fn capture(game: &Game) -> Result<Self, Error> {
+    pub fn capture(game: &Game, capacity: usize) -> Result<Self, Error> {
         Ok(Self {
             episode: game.episode_id().ok_or(Error::Unavailable)?,
             views: [
-                game.observe(Seat::P0).map_err(|_| Error::Unavailable)?,
-                game.observe(Seat::P1).map_err(|_| Error::Unavailable)?,
+                game.policy_observe(Seat::P0, capacity)
+                    .map_err(|_| Error::Unavailable)?,
+                game.policy_observe(Seat::P1, capacity)
+                    .map_err(|_| Error::Unavailable)?,
             ],
         })
     }
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub enum End {
-    Completed,
-    Truncated(Limit),
-    Failed(String),
-}
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
-pub enum Limit {
-    Decisions,
-    Turns,
-    WallTime,
 }
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct Decision {
@@ -95,9 +48,8 @@ pub struct Decision {
     pub index: usize,
     pub seat_index: usize,
     pub actor: u8,
-    pub observation: PlayerView,
+    pub observation: Observation,
     pub choice: Choice,
-    pub action: String,
     pub reward: [i8; 2],
     pub next_actor: Option<u8>,
     pub terminated: bool,
@@ -112,19 +64,8 @@ pub struct Footer {
     pub boundary_reward: [i8; 2],
     pub decisions: usize,
     pub logical_actions: usize,
-    pub final_observations: [PlayerView; 2],
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub enum RewardConvention {
-    SparseZeroSumTerminal,
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub enum DiscountConvention {
-    UndiscountedEpisodic,
-}
-#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
-pub enum CaptureSelection {
-    AllDecisions,
+    pub cancelled_actions: usize,
+    pub final_observations: [Observation; 2],
 }
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct Episode {
@@ -140,17 +81,6 @@ pub struct Recorder {
     episode: Episode,
     last: Frame,
 }
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub enum Error {
-    Unavailable,
-    InvalidHeader,
-    InvalidChoice,
-    Discontinuity,
-    AlreadyEnded,
-    InvalidEnd,
-    Quarantined,
-    MissingProbability,
-}
 #[derive(Clone, Debug, PartialEq, Serialize)]
 pub struct Transition {
     pub episode: EpisodeKey,
@@ -158,12 +88,13 @@ pub struct Transition {
     pub seat_index: usize,
     pub decision_index: usize,
     pub next_decision: Option<usize>,
-    pub observation: PlayerView,
-    pub next_observation: PlayerView,
+    pub observation: Observation,
+    pub next_observation: Observation,
     pub choice: Choice,
     pub reward: i8,
     pub decisions_elapsed: usize,
     pub logical_actions_elapsed: usize,
+    pub cancelled_actions_elapsed: usize,
     pub terminated: bool,
     pub truncated: bool,
 }
@@ -174,7 +105,7 @@ pub struct SeatSequence {
     pub episode: EpisodeKey,
     pub seat: u8,
     pub transitions: Vec<Transition>,
-    pub final_observation: PlayerView,
+    pub final_observation: Observation,
     /// Sole reward-bearing record if this seat made no decisions; otherwise zero.
     pub unassigned_reward: i8,
     pub total_return: i8,
@@ -187,24 +118,11 @@ fn seat_number(seat: Seat) -> usize {
     }
 }
 fn rewards(frame: &Frame) -> [i8; 2] {
-    match frame.views[0].terminal.as_ref().and_then(|t| t.winner) {
+    match frame.views[0].view.terminal.as_ref().and_then(|t| t.winner) {
         Some(0) => [1, -1],
         Some(1) => [-1, 1],
         _ => [0, 0],
     }
-}
-fn hash(s: &str) -> bool {
-    s.len() == 64 && s.bytes().all(|b| b.is_ascii_hexdigit())
-}
-fn uuid(s: &str) -> bool {
-    s.len() == 36
-        && s.bytes().enumerate().all(|(i, b)| {
-            if [8, 13, 18, 23].contains(&i) {
-                b == b'-'
-            } else {
-                b.is_ascii_hexdigit()
-            }
-        })
 }
 fn action_count(decisions: &[Decision]) -> usize {
     decisions
@@ -219,7 +137,7 @@ impl Recorder {
     pub fn new(header: &Header, initial: &Frame) -> Result<Self, Error> {
         let v = &header.versions;
         if v.schema != SCHEMA_VERSION
-            || v.observation != crate::opening::views::SCHEMA_VERSION
+            || v.observation != policy::SCHEMA_VERSION
             || [&v.engine, &v.rules, &v.cards, &v.action]
                 .iter()
                 .any(|s| s.trim().is_empty())
@@ -228,7 +146,7 @@ impl Recorder {
             || !hash(&header.config_hash)
             || header.policies.iter().any(|s| s.trim().is_empty())
             || header.starting_seat > 1
-            || header.starting_seat != initial.views[0].starting_seat
+            || header.starting_seat != initial.views[0].view.starting_seat
             || header
                 .restricted_replay
                 .as_ref()
@@ -248,7 +166,7 @@ impl Recorder {
             last: initial.clone(),
         })
     }
-    /// Producer supplies the exact action-time table and chosen semantic action.
+    /// Retain the captured policy domain and complete accepted semantic submission.
     /// Validation is transactional; it never applies a game action or consumes RNG.
     pub fn append(&mut self, before: &Frame, choice: &Choice, after: &Frame) -> Result<(), Error> {
         if self.episode.footer.is_some() {
@@ -257,35 +175,45 @@ impl Recorder {
         if before != &self.last || before.episode != after.episode {
             return Err(Error::Discontinuity);
         }
-        let actor = before.views[0].acting_seat.ok_or(Error::InvalidChoice)?;
-        if actor > 1 || before.views[0].terminal.is_some() {
+        let actor = before.views[0]
+            .view
+            .acting_seat
+            .ok_or(Error::InvalidChoice)?;
+        if actor > 1 || before.views[0].view.terminal.is_some() {
             return Err(Error::InvalidChoice);
         }
         let p = &choice.policy;
         let sequence_ok = match self.episode.decisions.last() {
             None => choice.logical_action == 0 && choice.micro_choice == 0,
-            Some(d) => {
-                (choice.logical_action == d.choice.logical_action
-                    && d.choice.micro_choice.checked_add(1) == Some(choice.micro_choice))
-                    || (d.choice.logical_action.checked_add(1) == Some(choice.logical_action)
-                        && choice.micro_choice == 0)
-            }
+            Some(d) => match d.choice.status {
+                ActionStatus::Continuing => {
+                    d.actor == actor
+                        && choice.logical_action == d.choice.logical_action
+                        && d.choice.micro_choice.checked_add(1) == Some(choice.micro_choice)
+                }
+                _ => {
+                    d.choice.logical_action.checked_add(1) == Some(choice.logical_action)
+                        && choice.micro_choice == 0
+                }
+            },
         };
+        let observation = &before.views[actor as usize];
         if !sequence_ok
-            || choice.kind.trim().is_empty()
-            || choice.candidates.is_empty()
-            || choice.candidates.len() != choice.legal_mask.len()
-            || choice.legal_mask.get(choice.selected) != Some(&true)
-            || choice
-                .candidates
-                .iter()
-                .any(|c| c.semantic.trim().is_empty())
+            || !valid_submission(observation, &choice.submission)
+            || choice.status != action_status(observation, &choice.submission)
+            || before == after
             || p.log_probability.is_some_and(|x| !x.is_finite() || x > 0.0)
             || p.value.is_some_and(|x| !x.is_finite())
         {
             return Err(Error::InvalidChoice);
         }
-        let terminated = after.views[0].terminal.is_some();
+        if let Some(next) = after.views.iter().find_map(|v| v.decision.as_ref()) {
+            let previous = observation.decision.as_ref().ok_or(Error::InvalidChoice)?;
+            if (next.revision, next.generation) <= (previous.revision, previous.generation) {
+                return Err(Error::Discontinuity);
+            }
+        }
+        let terminated = after.views[0].view.terminal.is_some();
         let reward = if terminated { rewards(after) } else { [0, 0] };
         self.episode.decisions.push(Decision {
             episode: self.episode.header.id.clone(),
@@ -299,9 +227,8 @@ impl Recorder {
             actor,
             observation: before.views[actor as usize].clone(),
             choice: choice.clone(),
-            action: choice.candidates[choice.selected].semantic.clone(),
             reward,
-            next_actor: after.views[0].acting_seat,
+            next_actor: after.views[0].view.acting_seat,
             terminated,
             truncated: false,
         });
@@ -320,7 +247,7 @@ impl Recorder {
         if self.last.episode != final_frame.episode {
             return Err(Error::Discontinuity);
         }
-        let terminal = final_frame.views[0].terminal.is_some();
+        let terminal = final_frame.views[0].view.terminal.is_some();
         match &end {
             End::Completed if !terminal => return Err(Error::InvalidEnd),
             End::Truncated(_) if terminal || final_frame != &self.last => {
@@ -355,6 +282,7 @@ impl Recorder {
             boundary_reward,
             decisions: self.episode.decisions.len(),
             logical_actions: action_count(&self.episode.decisions),
+            cancelled_actions: cancellation_count(&self.episode.decisions),
             final_observations: frame.views.clone(),
         });
         self.last = frame.clone();
@@ -413,6 +341,7 @@ impl Episode {
                         },
                     decisions_elapsed: interval.len(),
                     logical_actions_elapsed: action_count(interval),
+                    cancelled_actions_elapsed: cancellation_count(interval),
                     terminated: next.is_none() && matches!(f.end, End::Completed),
                     truncated: next.is_none() && matches!(f.end, End::Truncated(_)),
                 }
@@ -444,8 +373,78 @@ impl Episode {
         Ok(())
     }
 }
-#[cfg(test)]
-#[path = "trajectory_tests.rs"]
-mod tests;
 
-pub mod v2;
+fn cancellation_count(decisions: &[Decision]) -> usize {
+    decisions
+        .iter()
+        .filter(|d| d.choice.status == ActionStatus::Cancelled)
+        .count()
+}
+fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
+    match s.choices.first() {
+        Some(Command::CancelPayment | Command::CancelTargets) => ActionStatus::Cancelled,
+        Some(
+            Command::Cast { .. }
+            | Command::Target { .. }
+            | Command::FinishTargets
+            | Command::Pay { .. }
+            | Command::SelectAttackers { .. }
+            | Command::SelectBlockers { .. }
+            | Command::AssignDamage { .. },
+        ) => ActionStatus::Continuing,
+        Some(Command::TapMana { .. }) if o.pending.is_some() => ActionStatus::Continuing,
+        _ => ActionStatus::Committed,
+    }
+}
+fn unique<T: PartialEq>(items: &[T]) -> bool {
+    items
+        .iter()
+        .enumerate()
+        .all(|(i, x)| !items[..i].contains(x))
+}
+/// Validate only the authorized input domain. The producer must submit to the
+/// engine first; this storage API neither drives nor replays a game.
+fn valid_submission(o: &Observation, s: &Submission) -> bool {
+    let Some(d) = &o.decision else {
+        return false;
+    };
+    if s.schema_version != policy::SCHEMA_VERSION
+        || s.revision != d.revision
+        || s.generation != d.generation
+        || s.choices.len() != d.count
+    {
+        return false;
+    }
+    if let (Some(f), [command]) = (&d.factored, s.choices.as_slice()) {
+        match command {
+            Command::SelectAttackers { cards } if d.kind == "attackers" => {
+                return unique(cards) && cards.iter().all(|r| f.attackers.contains(r));
+            }
+            Command::SelectBlockers { blocks } if d.kind == "blockers" => {
+                return unique(&blocks.iter().map(|(b, _)| b).collect::<Vec<_>>())
+                    && blocks
+                        .iter()
+                        .all(|(b, a)| f.blockers.contains(b) && f.attackers.contains(a));
+            }
+            Command::AssignDamage { attacker, amounts } if d.kind == "combat_damage" => {
+                let Some(a) = f.damage.iter().find(|a| a.attacker == *attacker) else {
+                    return false;
+                };
+                return unique(&amounts.iter().map(|(b, _)| b).collect::<Vec<_>>())
+                    && amounts.iter().all(|(b, _)| a.blockers.contains(b))
+                    && amounts
+                        .iter()
+                        .try_fold(0u32, |sum, (_, n)| sum.checked_add(*n))
+                        == Some(a.power);
+            }
+            _ => (),
+        }
+    }
+    unique(&s.choices)
+        && s.choices.iter().all(|c| {
+            d.candidates
+                .iter()
+                .enumerate()
+                .any(|(i, candidate)| candidate == c && d.legal_mask.get(i) == Some(&true))
+        })
+}

@@ -153,3 +153,7 @@ pub mod actions;
 #[cfg(test)]
 #[path = "instant_reference_tests.rs"]
 mod instant_reference_tests;
+
+#[cfg(test)]
+#[path = "trajectory_v2_tests.rs"]
+mod trajectory_v2_tests;
