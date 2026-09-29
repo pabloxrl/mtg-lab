@@ -1,0 +1,21 @@
+{
+  "baseline": "8c0c6d473a4889fb008d1c059cb4e2d6ab38b32f",
+  "command": "./scripts/torture.sh",
+  "execution": "managed Linux Docker worker; no worker Docker invocation",
+  "result": "pass",
+  "python_tests": 143,
+  "rust_tests_each_profile": 293,
+  "rust_doctests_each_profile": 2,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "focused_policy_tests": 13,
+  "source_sha256": {
+    "crates/mtg-policy/src/lib.rs": "9acf8c4717f6ce6f2ecc424d97d327f324ef7996fd8e604226182d54813602c9",
+    "crates/mtg-policy/tests/selection.rs": "e9663e33f01d26ba3982d169519b66c57297c8005c35883bb2a3471ad5895c8d",
+    "crates/mtg-policy/tests/games.rs": "eb58bf1dc79e3c4b0149ebd4336e1b0282e71fc46e3163fef5b5b2504d7039d6",
+    "Cargo.lock": "6626ebefaeb7a3aa1876eba3f0ccbc5efc5951111fd5fa63ab4c331f342db3dd"
+  },
+  "limitations": "No rules changes or new reference agreement. Native M1 policy only; CLI still passive; M1 gate remains pending."
+}

@@ -1,0 +1,15 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-118/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.36s
+     Running tests/selection.rs (target/debug/deps/selection-389b7fe423d538ab)
+
+running 7 tests
+test explicit_errors_no_unsupported_fallback ... ok
+test factored_vectors_have_declared_distribution ... ok
+test literal_masked_selection_vectors_both_seats ... ok
+test newly_enabled_unsupported_card_is_an_error_not_a_fallback ... ok
+test three_recipient_distribution_is_sequential_not_uniform_compositions ... ok
+test ordered_without_replacement_vector ... ok
+test episode_vectors_interleaving_and_invalid_inputs_do_not_advance_stream ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

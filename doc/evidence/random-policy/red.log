@@ -1,0 +1,51 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-118/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.31s
+     Running unittests src/lib.rs (target/debug/deps/mtg_policy-d213a4af0142c20b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/selection.rs (target/debug/deps/selection-389b7fe423d538ab)
+
+running 4 tests
+test literal_masked_selection_vectors_both_seats ... FAILED
+test ordered_without_replacement_vector ... FAILED
+test explicit_errors_no_unsupported_fallback ... FAILED
+test factored_vectors_have_declared_distribution ... FAILED
+
+failures:
+
+---- literal_masked_selection_vectors_both_seats stdout ----
+
+thread 'literal_masked_selection_vectors_both_seats' (69) panicked at crates/mtg-policy/tests/selection.rs:26:32:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- ordered_without_replacement_vector stdout ----
+
+thread 'ordered_without_replacement_vector' (70) panicked at crates/mtg-policy/tests/selection.rs:40:37:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+
+---- explicit_errors_no_unsupported_fallback stdout ----
+
+thread 'explicit_errors_no_unsupported_fallback' (67) panicked at crates/mtg-policy/tests/selection.rs:49:5:
+assertion `left == right` failed
+  left: Err(UnsupportedDecision)
+ right: Err(WrongSeat)
+
+---- factored_vectors_have_declared_distribution stdout ----
+
+thread 'factored_vectors_have_declared_distribution' (68) panicked at crates/mtg-policy/tests/selection.rs:67:37:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+
+
+failures:
+    explicit_errors_no_unsupported_fallback
+    factored_vectors_have_declared_distribution
+    literal_masked_selection_vectors_both_seats
+    ordered_without_replacement_vector
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test selection`

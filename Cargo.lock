@@ -114,6 +114,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "mtg-policy"
+version = "0.1.0"
+dependencies = [
+ "mtg-core",
+ "serde_json",
+]
+
+[[package]]
 name = "mtg-recorder"
 version = "0.0.0"
 dependencies = [

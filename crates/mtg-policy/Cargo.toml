@@ -1,0 +1,12 @@
+[package]
+name = "mtg-policy"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+mtg-core = { path = "../mtg-core" }
+
+[dev-dependencies]
+serde_json = "1"
