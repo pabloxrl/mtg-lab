@@ -30,6 +30,35 @@ pub struct Frame {
     views: [Observation; 2],
 }
 impl Frame {
+    pub(crate) fn owned(game: &Game, revision: u64) -> Result<Self, Error> {
+        // Capacity governs accepted input. A resulting decision may exceed it;
+        // retaining its full domain must not silently truncate or lose the action.
+        let mut frame = Self::capture(game, usize::MAX)?;
+        for view in &mut frame.views {
+            if let Some(d) = &mut view.decision {
+                d.revision = revision;
+            }
+        }
+        Ok(frame)
+    }
+    pub(crate) fn status_after(&self, submission: &Submission) -> ActionStatus {
+        match submission.choices.first() {
+            Some(Command::CancelPayment | Command::CancelTargets) => ActionStatus::Cancelled,
+            _ if self.views.iter().any(|v| v.pending.is_some()) => ActionStatus::Continuing,
+            Some(
+                Command::SelectAttackers { .. }
+                | Command::SelectBlockers { .. }
+                | Command::AssignDamage { .. },
+            ) if self
+                .views
+                .iter()
+                .any(|v| v.decision.as_ref().is_some_and(|d| d.factored.is_some())) =>
+            {
+                ActionStatus::Continuing
+            }
+            _ => ActionStatus::Committed,
+        }
+    }
     pub fn capture(game: &Game, capacity: usize) -> Result<Self, Error> {
         Ok(Self {
             episode: game.episode_id().ok_or(Error::Unavailable)?,
@@ -134,7 +163,7 @@ fn action_count(decisions: &[Decision]) -> usize {
         .count()
 }
 impl Recorder {
-    pub fn new(header: &Header, initial: &Frame) -> Result<Self, Error> {
+    pub(crate) fn validate_header(header: &Header, starting_seat: u8) -> Result<(), Error> {
         let v = &header.versions;
         if v.schema != SCHEMA_VERSION
             || v.observation != policy::SCHEMA_VERSION
@@ -146,7 +175,7 @@ impl Recorder {
             || !hash(&header.config_hash)
             || header.policies.iter().any(|s| s.trim().is_empty())
             || header.starting_seat > 1
-            || header.starting_seat != initial.views[0].view.starting_seat
+            || header.starting_seat != starting_seat
             || header
                 .restricted_replay
                 .as_ref()
@@ -154,6 +183,31 @@ impl Recorder {
         {
             return Err(Error::InvalidHeader);
         }
+        Ok(())
+    }
+    // Only the owned driver may cross a real internal-work boundary. This is
+    // deliberately not a public way for a producer to omit policy decisions.
+    pub(crate) fn settle(&mut self, frame: &Frame) -> Result<(), Error> {
+        if self.episode.footer.is_some() {
+            return Err(Error::AlreadyEnded);
+        }
+        if self.last.episode != frame.episode
+            || self.last.views.iter().any(|v| v.decision.is_some())
+        {
+            return if &self.last == frame {
+                Ok(())
+            } else {
+                Err(Error::Discontinuity)
+            };
+        }
+        self.last = frame.clone();
+        if let Some(last) = self.episode.decisions.last_mut() {
+            last.next_actor = frame.views[0].view.acting_seat;
+        }
+        Ok(())
+    }
+    pub fn new(header: &Header, initial: &Frame) -> Result<Self, Error> {
+        Self::validate_header(header, initial.views[0].view.starting_seat)?;
         Ok(Self {
             episode: Episode {
                 reward_convention: RewardConvention::SparseZeroSumTerminal,

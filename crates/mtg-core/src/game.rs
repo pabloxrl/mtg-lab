@@ -157,3 +157,7 @@ mod instant_reference_tests;
 #[cfg(test)]
 #[path = "trajectory_v2_tests.rs"]
 mod trajectory_v2_tests;
+
+#[cfg(test)]
+#[path = "episode_capture_tests.rs"]
+mod episode_capture_tests;

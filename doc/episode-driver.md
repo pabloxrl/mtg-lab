@@ -17,7 +17,7 @@ APIs; it is not the full collector. Related to #159. [Acceptance evidence](evide
 4. Call `submit(seat, &submission)`. Submission is synchronous, including core
    settlement; a quantum is not a preemptible submission or run budget. The
    driver encodes and validates the privileged semantic record before applying
-   it, then appends exactly once on acceptance. Errors preserve state/history.
+   it, then appends exactly once on acceptance. Rejected submissions preserve state/history.
    Observe after submission to see the next decision or terminal view, or call
    advance for pending internal work. `advance` after terminal returns `Ended`.
 5. Either seat may `concede(seat, episode_id)` under the core concession contract.
@@ -48,8 +48,15 @@ The history uses the existing versioned `game::actions` bytes. It can be reappli
 from the same actual reset inputs with `actions::apply`, starting turns after
 opening. Incomplete histories need not replay to a settled or terminal state;
 particularly an unfinished reset has no player actions. This driver supplies no
-replay envelope, replay resolver, trajectory frames, timing, policy selection,
+replay envelope, replay resolver, policy selection,
 limits/truncation policy, outcome accounting across runs, disk I/O or publication.
-Memory grows with accepted history; no bounded-memory or throughput claim is made.
-Canonical capture and later composition remain #160–#164, with all original
+Memory grows with accepted history and optional capture; no bounded-memory or
+throughput claim is made. Later composition remains #161–#164, with all original
 integration acceptance retained by #154/#117 and M1's gate #22.
+
+## Canonical capture
+
+The driver also supports [optional owned canonical v2 capture](episode-capture.md)
+through `reset_captured` and `submit_with_policy`. The original `reset` execution
+path remains capture-disabled. Budget, replay resolver and publication work is
+separate; both modes retain privileged history.
