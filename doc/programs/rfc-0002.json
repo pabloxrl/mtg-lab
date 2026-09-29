@@ -652,14 +652,67 @@
       ]
     },
     {
+      "key": "trajectory-prerequisites",
+      "issue": 151,
+      "milestone": "M1",
+      "kind": "operations",
+      "depends_on": [
+        106
+      ],
+      "requirements": []
+    },
+    {
+      "key": "played-trajectory-contract",
+      "issue": 152,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        151,
+        76,
+        111,
+        112
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "structured-jsonl",
+      "issue": 153,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        152,
+        77,
+        116
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "owned-scalar-collector",
+      "issue": 154,
+      "milestone": "M1",
+      "kind": "implementation",
+      "depends_on": [
+        153,
+        114
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
       "key": "scalar-collector",
       "issue": 117,
       "milestone": "M1",
       "kind": "implementation",
       "depends_on": [
-        114,
-        116,
-        76
+        154
       ],
       "requirements": [
         "R0002-B036",
