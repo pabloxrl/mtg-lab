@@ -9,6 +9,10 @@ are complete. It is not dispatched ahead of them.
 
 The original table below records the first component deliveries. The [M1 integration prerequisite plan](m1-integration-prerequisites.md) adds the missing played-game contracts found by #18–#21. Its issue-level scopes and the current manifest supersede the earlier assumption that those integration gaps were small. Original acceptance and catalog ownership remain intact; #18–#21 audit the completed prerequisites.
 
+The [lossless trajectory prerequisite plan](trajectory-prerequisites.md) further
+splits the contracts exposed by #117 into #152–#154. #117 retains aggregate
+acceptance, and #20/#120/#21/#22 retain their integration and gate obligations.
+
 ## M1 work packages
 
 | Issue | Deliverable | Direct prerequisites | Integration owner |

@@ -4,6 +4,10 @@ Operations [#106](https://github.com/pabloxrl/mtg-lab/issues/106) repairs the mi
 
 The pinned RFC, all original acceptance clauses, existing requirement owners and the entire 320-case catalog remain unchanged. Added requirement owners are partial implementation owners. The original issues retain final acceptance, including every directly owned catalog case. No future-stage scope is pulled forward or waived.
 
+The [lossless trajectory prerequisite plan](trajectory-prerequisites.md) supersedes
+the original #117 prerequisite row below with #154 (and transitive #152/#153).
+The original scope remains aggregate acceptance after those children.
+
 ## Work and dependencies
 
 | Issue | Deliverable | Direct prerequisites | Integration owner |
