@@ -1,0 +1,22 @@
+{
+  "base_sha": "a2a681b8561e1aab73bee041f16c24209c997b18",
+  "command": "./scripts/torture.sh",
+  "environment": "managed Linux container; image toolchain; no Docker invocation",
+  "result": "pass",
+  "python_tests": 143,
+  "rust_checks_per_profile_including_doctests": 319,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "source_sha256": {
+    "crates/mtg-core/src/trajectory.rs": "c3ac69e470227e23c64d3986cd56a9cd9a9617e7fb461c3ea0ae2da787d2a4d6",
+    "crates/mtg-core/src/trajectory/v2.rs": "844a6cccc36968645e896777e9220e4e65d4ffdf0851bd90458bb33d21a352af",
+    "crates/mtg-core/src/trajectory_v2_tests.rs": "e98b94ebc35080151b02b8278a4a5b8664627281cdd2c589b8ed5c97b0aee716",
+    "crates/mtg-core/src/game.rs": "034e750d125643afbee64d0264574889499e6869c3300e899169a6981951e255",
+    "README.md": "2e7ea7a929e6a80c51efd45c9f013857a8a1219611d4573a5800189c146436a4",
+    "doc/trajectories.md": "dcd149618998de98c06e25b1da8cba2ef440eeba5ffec6063ba0776442038027"
+  },
+  "log_sha256": "b8e84ab309163627e90e268351b08dfbab8ea3cc639e9d7bf6944f55b1f8cb8f",
+  "new_reference_agreement": false
+}
