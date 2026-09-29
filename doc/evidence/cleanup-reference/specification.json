@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "basis": "original CR/Oracle-derived literals; no engine-generated expected checkpoints",
+  "rules_source": {
+    "schema_version": 1,
+    "rules_version": "cr-2026-09-25",
+    "source_url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+    "effective_date": "2026-09-25",
+    "retrieval_date": "2026-09-26",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "rules_read": [
+    "103.8a",
+    "117",
+    "400.7",
+    "402.3",
+    "404.2",
+    "500.1",
+    "502.3",
+    "503.1",
+    "514.1",
+    "514.2",
+    "514.3",
+    "704.5g"
+  ],
+  "existing_checkpoint_assertions_preserved": [
+    "destination",
+    "source",
+    "growth-gone",
+    "bite-source-gone",
+    "bite-destination-gone",
+    "bite-both-gone",
+    "bite-killed-blocker"
+  ],
+  "new_order_fields": "actual insertion-order hand and oldest-to-newest graveyard; stack already bottom-to-top",
+  "new_cases": {
+    "cleanup-7-2": 14,
+    "cleanup-7-4": 16,
+    "cleanup-8-2": 15,
+    "cleanup-8-4": 17
+  },
+  "card_manifest_sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+}

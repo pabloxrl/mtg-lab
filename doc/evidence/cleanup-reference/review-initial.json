@@ -1,0 +1,13 @@
+{
+  "verdict": "pass",
+  "summary": "No blocking defects found. Prior expectations are preserved; README claims and integration ownership remain appropriately scoped. Eight read-only Python tests and 12 tests from the existing Rust binary passed. Full torture and XMage execution were not rerun.",
+  "findings": [
+    {
+      "file": "doc/evidence/cleanup-reference/acceptance.json",
+      "finding": "The artifact manifest lists 34 logs absent from the committed evidence, including changed-target-native.log and blocker-duplicate-attacker-native.log. Retain these logs or explicitly identify their omission so readers can distinguish available evidence from execution-time inventory.",
+      "severity": "advisory"
+    }
+  ],
+  "base_sha": "680eeabd0f9824c5acfc6ee7cf3ed927fce760e1",
+  "head_sha": "88c7e501752d7f40e5e88043a35edb6ed40ec05c"
+}

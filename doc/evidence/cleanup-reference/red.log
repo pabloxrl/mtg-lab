@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-139/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.15s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::instant_reference_tests::instant_cleanup_literal_discard_and_next_turn ... FAILED
+
+failures:
+
+---- game::instant_reference_tests::instant_cleanup_literal_discard_and_next_turn stdout ----
+
+thread 'game::instant_reference_tests::instant_cleanup_literal_discard_and_next_turn' (276) panicked at crates/mtg-core/src/instant_reference_tests.rs:118:18:
+unsupported checkpoint step
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::instant_reference_tests::instant_cleanup_literal_discard_and_next_turn
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 145 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "command": "./scripts/torture.sh",
+  "environment": "managed Linux ARM64 Docker worker; no Docker command/socket",
+  "python_tests": 143,
+  "rust_tests_per_profile": 280,
+  "doctests_per_profile": 2,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "docs_program_catalog_fmt_clippy": "passed",
+  "log_sha256": "2e92b6d8a9b305bbd9dad63b2db15900a9788ab41e304ad1ed41c340cb37df2c",
+  "reference_source_pins_verified": true,
+  "production_turns_source_restored": true
+}

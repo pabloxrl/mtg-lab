@@ -113,3 +113,28 @@ class InstantReferenceTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'first divergence') as caught:
                 instant.compare(self.fixture,wrong)
             self.assertIn('bite-killed-blocker.checkpoints',str(caught.exception))
+
+    def test_cleanup_order_discard_and_simultaneous_expiration_controls(self):
+        # CR 514.1/514.2/514.3: discard first, then simultaneous cleanup,
+        # without a priority opportunity. Ordered hand/graveyard identities matter.
+        for variant in ['cleanup-7-2','cleanup-7-4','cleanup-8-2','cleanup-8-4']:
+            for mutation in ['early-damage','early-expiration','damage-retained','boost-retained','dead-cub','hand-order','grave-order','discard-identity','extra-discard','priority','next-active']:
+                wrong=copy.deepcopy(self.results)
+                points=wrong[variant]['checkpoints']
+                before=next(p['state'] for p in points if p['name']==('before-discard' if '-8-' in variant else 'end-response-window'))
+                after=next(p['state'] for p in points if p['name']=='next-upkeep')
+                cub=lambda state: next(o for o in state['objects'] if o['id']=='destination')
+                if mutation=='early-damage': cub(before)['damage']=0
+                elif mutation=='early-expiration': cub(before).update(power=2,toughness=2)
+                elif mutation=='damage-retained': cub(after)['damage']=int(variant[-1])
+                elif mutation=='boost-retained': cub(after).update(power=5,toughness=5)
+                elif mutation=='dead-cub': cub(after)['zone']='graveyard'
+                elif mutation=='hand-order': after['ordered_zones']['hand'][0].reverse()
+                elif mutation=='grave-order': after['ordered_zones']['graveyard'][0].insert(0,'invented')
+                elif mutation=='discard-identity': after['ordered_zones']['hand'][0][0]='keep3'
+                elif mutation=='extra-discard': after['ordered_zones']['hand'][0].pop()
+                elif mutation=='priority': before['priority']=0 if before['priority'] is None else None
+                else: after['active']=0
+                with self.assertRaisesRegex(ValueError,'first divergence') as caught:
+                    instant.compare(self.fixture,wrong)
+                self.assertIn(variant+'.checkpoints',str(caught.exception))

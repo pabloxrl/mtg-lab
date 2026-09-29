@@ -254,6 +254,81 @@ def blocker_mutations(cache, output, document):
     return receipts
 
 
+def cleanup_mutations(cache, output, document, observed):
+    """Execute bad discard continuations and retain exact first divergences."""
+    base = next(c for c in document['cases'] if c['id'] == 'cleanup-8-4')
+    receipts = {}
+    for name, native_reason, reference_reason in [
+        ('missing', 'WrongActor', 'choice order'),
+        ('extra', 'unexpected discard choice', 'unexpected priority choice discard'),
+        ('empty', 'WrongCardinality', 'discard count'),
+        ('two', 'WrongCardinality', 'discard count'),
+        ('foreign', 'illegal discard card', 'illegal discard card'),
+        ('actor', 'WrongActor', 'wrong actor'),
+        ('priority', 'WrongKind', 'choice order'),
+        ('seven-extra', 'unexpected discard choice', 'unexpected priority choice discard'),
+    ]:
+        case = copy.deepcopy(base if name != 'seven-extra' else next(c for c in document['cases'] if c['id']=='cleanup-7-4'))
+        script = case['script']
+        index = next((i for i,a in enumerate(script) if a['kind']=='discard'), len(script)-3)
+        if name == 'missing': script.pop(index)
+        elif name == 'extra': script.insert(index, copy.deepcopy(script[index]))
+        elif name == 'empty': script[index]['cards'] = []
+        elif name == 'two': script[index]['cards'] = ['keep3','keep4']
+        elif name == 'foreign': script[index]['cards'] = ['growth']
+        elif name == 'actor': script[index]['actor'] = 1
+        elif name == 'priority': script.insert(index, {'kind':'pass','actor':0})
+        else: script.insert(index, {'kind':'discard','actor':0,'cards':['keep3']})
+        path = output / ('cleanup-'+name+'-input.json')
+        path.write_text(json.dumps({'version':1,'cases':[case]},indent=2)+'\n')
+        receipts[name] = {}
+        for engine, reason in [('native',native_reason),('xmage',reference_reason)]:
+            stem = 'cleanup-'+name+'-'+engine
+            log = output / (stem+'.log')
+            try:
+                if engine=='native': run_native(output/(stem+'.json'),log,path)
+                else: run_xmage(cache,output/stem,log,path)
+            except ValueError:
+                xmage.scenario.require(reason in log.read_text(), 'unrelated cleanup control failure: '+stem)
+                receipts[name][engine] = {'status':'rejected','reason':reason,'input_sha256':xmage.sha(path),'log_sha256':xmage.sha(log)}
+            else: raise ValueError('cleanup control survived: '+stem)
+    # A different legal card really executes in each engine; it must not agree
+    # with the independently requested exact discarded identity.
+    case=copy.deepcopy(base)
+    next(a for a in case['script'] if a['kind']=='discard')['cards']=['keep1']
+    path=output/'cleanup-different-card-input.json'
+    path.write_text(json.dumps({'version':1,'cases':[case]},indent=2)+'\n')
+    expected=json.loads(EXPECTATIONS.read_text())[base['id']]
+    receipts['different-card']={}
+    for engine in ('native','xmage'):
+        stem='cleanup-different-card-'+engine;log=output/(stem+'.log')
+        result=(run_native(output/(stem+'.json'),log,path) if engine=='native' else run_xmage(cache,output/stem,log,path))
+        diff=difference(expected,result[base['id']]['checkpoints'])
+        xmage.scenario.require(diff is not None and 'objects' in diff['path'],'discard identity mutant not detected')
+        (output/(stem+'-divergence.json')).write_text(json.dumps(diff,indent=2)+'\n')
+        receipts['different-card'][engine]={'status':'detected','difference':diff,'input_sha256':xmage.sha(path),'log_sha256':xmage.sha(log)}
+    # Fault injection into actual observed checkpoints proves the comparator
+    # sees pre-discard order, removal/expiration and absence of priority.
+    controls={}
+    for variant in ('cleanup-7-2','cleanup-7-4','cleanup-8-2','cleanup-8-4'):
+        for fault in ('early-expiration','early-removal','retained-damage','invented-priority','hand-order'):
+            mutant=copy.deepcopy(observed[variant]['checkpoints'])
+            before=next(p['state'] for p in mutant if p['name']==('before-discard' if '-8-' in variant else 'end-response-window'))
+            after=next(p['state'] for p in mutant if p['name']=='next-upkeep')
+            cub=lambda s:next(o for o in s['objects'] if o['id']=='destination')
+            if fault=='early-expiration': cub(before).update(power=2,toughness=2)
+            elif fault=='early-removal': cub(before)['damage']=0
+            elif fault=='retained-damage': cub(after)['damage']=int(variant[-1])
+            elif fault=='invented-priority': before['priority']=0
+            else: after['ordered_zones']['hand'][0].reverse()
+            diff=difference(json.loads(EXPECTATIONS.read_text())[variant],mutant)
+            xmage.scenario.require(diff is not None,'cleanup observation mutant survived')
+            controls[variant+'/'+fault]=diff
+    (output/'cleanup-observation-divergences.json').write_text(json.dumps(controls,indent=2)+'\n')
+    receipts['observation-faults']=controls
+    return receipts
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cache', type=Path, required=True)
@@ -304,6 +379,7 @@ def main():
             raise ValueError('forgotten blocked status mutant survived')
         mutations = strict_mutations(cache, output, document)
         mutations['blocker-controls'] = blocker_mutations(cache, output, document)
+        mutations['cleanup-controls'] = cleanup_mutations(cache, output, document, runs['native-1'])
         files = [FIXTURE, EXPECTATIONS, BRIDGE, NATIVE, Path(__file__), ROOT / 'references/xmage/pins.json',
                  ROOT / 'references/xmage/dependencies.json', ROOT / 'Cargo.lock', ROOT / 'data/rules/cr-2026-09-25.json',
                  ROOT / 'data/cards/foundations_micro_v1.json']
@@ -316,8 +392,8 @@ def main():
                   'rustc': subprocess.check_output(['rustc', '--version'], text=True, timeout=10).strip(),
                   'python': sys.version.split()[0], 'native_profile': 'debug',
                   'stdin': 'closed', 'display': 'unset', 'xmage_offline': True,
-                  'observability': 'Settled priority, bottom-to-top stack with historical target incarnations, named card lineage and current zone incarnation, creature stats/damage, life, mana, taps; actual damage and resolution outcomes; committed attackers, surviving blockers and remembered blocked status through combat damage.',
-                  'limitations': 'Synthetic setup; no legal-action enumeration, hidden views, general combat/allocations, cleanup, full games or Forge agreement. Graveyard incarnations and same-name decoys are matched; battlefield reentry is an observer-only native regression, not a matched spell scenario.'}
+                  'observability': 'Settled priority, bottom-to-top stack with historical target incarnations, named card lineage and current zone incarnation, creature stats/damage, life, mana, taps; actual damage and resolution outcomes; committed attackers, surviving blockers and remembered blocked status through combat damage; ordered hand/graveyard identities; cleanup discard boundary without priority and next-turn upkeep.',
+                  'limitations': 'Synthetic setup; no legal-action enumeration, hidden views, general combat/allocations, cleanup triggers/extra cleanup, next-turn draw, full games or Forge agreement. Graveyard incarnations and same-name decoys are matched; battlefield reentry is an observer-only native regression, not a matched spell scenario.'}
         receipt.write_text(json.dumps(report, indent=2) + '\n')
         print(f"All {len(document['cases'])} instant-response cases agreed with independent expectations in both engines, twice.")
     except (ValueError, OSError, KeyError) as error:
