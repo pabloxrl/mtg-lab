@@ -1,6 +1,59 @@
 //! Injected recorder failures isolate the ownership boundary, not played-game acceptance.
 use super::*;
 use crate::trajectory::{EpisodeKey, Limits, Versions};
+thread_local! {
+    pub(super) static CAPTURE_FRAMES: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
+}
+
+// SYS-DATA-005, RFC B037: disabled capture must not build trajectory-only
+// frames. Thread-local instrumentation cannot be disturbed by parallel tests.
+#[test]
+fn disabled_capture_never_materializes_trajectory_frames() {
+    for capture in [false, true] {
+        CAPTURE_FRAMES.with(|count| count.set(0));
+        let mut d = if capture {
+            driver(false)
+        } else {
+            let mut d = Driver::new(256).unwrap();
+            d.reset(&Config::default(), 161, 0, NonZeroUsize::MAX)
+                .unwrap();
+            d
+        };
+        for i in 0..6 {
+            while d.advance(NonZeroUsize::MAX).unwrap() == Progress::InternalYield {}
+            let (seat, decision) = [Seat::P0, Seat::P1]
+                .into_iter()
+                .find_map(|s| d.observe(s).unwrap().decision.map(|decision| (s, decision)))
+                .unwrap();
+            d.submit(
+                seat,
+                &policy::Submission {
+                    schema_version: 1,
+                    revision: decision.revision,
+                    generation: decision.generation,
+                    choices: vec![if i < 2 {
+                        policy::Choice::Keep
+                    } else {
+                        policy::Choice::Pass
+                    }],
+                },
+            )
+            .unwrap();
+        }
+        d.concede(Seat::P1, d.episode_id().unwrap()).unwrap();
+        let result = d.finish().unwrap();
+        assert_eq!(result.trajectory().is_some(), capture);
+        assert_eq!(result.accepted_decisions(), 6);
+        d.reset(&Config::default(), 162, 1, NonZeroUsize::MAX)
+            .unwrap();
+        let count = CAPTURE_FRAMES.with(|count| count.get());
+        if capture {
+            assert!(count > 0, "positive control must exercise the frame hook");
+        } else {
+            assert_eq!(count, 0, "disabled capture must not build extra frames");
+        }
+    }
+}
 #[derive(Debug)]
 struct Zero;
 impl Clock for Zero {

@@ -1,0 +1,27 @@
+GH-20 local verification receipt
+UTC: 2026-09-30T09:19:23.002782+00:00
+Base/fetched main: af5c71e53e544d03a0bb6f4e94790ecc40baee3a
+Command: ./scripts/torture.sh (includes ./scripts/verify.sh)
+Execution: managed Linux Docker worker; no nested Docker or host installation
+Exit: 0; 143 Python tests pass; docs/program/catalog/fmt/Clippy pass.
+debug: 414 Rust test/doctest executions, 0 failed, 0 ignored; includes two child reload executions (412 top-level tests/doctests).
+release: 414 Rust test/doctest executions, 0 failed, 0 ignored; includes two child reload executions (412 top-level tests/doctests).
+No test removed, skipped, weakened or replaced. No runtime/rules behavior change.
+New test errors corrected: optional footer compile access; documented Driver Ended contract; three unnecessary-cast lint errors. None is production behavioral red.
+rustc 1.98.1 (48a229cea 2026-09-01)
+cargo 1.98.1 (797e8a9bc 2026-08-05)
+SHA-256:
+6626ebefaeb7a3aa1876eba3f0ccbc5efc5951111fd5fa63ab4c331f342db3dd  Cargo.lock
+6f6a025163327ad1fcdf1f174a52b837b8199e05cf1f503a897b8a27e43dad1e  crates/mtg-core/src/episode.rs
+84b241da7fb178873ea4290e7f3117ea5a4666d341dd4bac22324063b79f85d6  crates/mtg-core/src/episode_budget_tests.rs
+b403bf43fd6504e5e52f4b678003414f867999413e54131d8b1fa0838df454fc  crates/mtg-core/src/trajectory/v2.rs
+c2391658f08462963c9b11040cb49c0a10b4ee4b399a625d10207f858c77e18e  crates/mtg-core/tests/capture.rs
+541f5007a7f64934100c79b479a7961eb49ea15648fa4ea8416a307b00056824  crates/mtg-recorder/tests/collector_audit.rs
+5c1350a04e4e18436bb6985a66df6b9650bb8e9d94bef3559d46d415cfc2db59  crates/mtg-recorder/tests/collector.rs
+8233e8e9b3f9349014db1e4f00c54a5a2141b73e4136cdeff471000d3d0d0009  crates/mtg-recorder/tests/structured_contract.rs
+07107d05e24df8a872b1fba4c8c1339b80ac0108d362e0ed422ca6a051618035  crates/mtg-recorder/tests/manifest_contract.rs
+3a7e2954b8460cd121be015770a5edba0e7687ecb2f3919dd4e6942b90c7cde5  crates/mtg-recorder/src/publication.rs
+8648e792cc40cbef0ca9e83d5aa177943047d896d2e6f7cf114389879c9a98e7  crates/mtg-recorder/src/publication_tests.rs
+af47d6fc952e5f629ffe05d9b063a387d148ec282aa449f638931e4a6172be83  README.md
+277e94c9d9023f25d0c855c9601936df0333cb6dd547287d4b4e195e24a723ce  doc/evidence/trajectory-integration/README.md
+8c8b8fb8c911b7f48087a011da7501568b0afecb61aaa524b020efc9f72845e7  doc/evidence/trajectory-integration/torture.log

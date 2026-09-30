@@ -320,6 +320,8 @@ impl Driver {
         self.recorder.as_ref().map(v2::Recorder::episode)
     }
     fn frame(&self) -> Result<v2::Frame, Error> {
+        #[cfg(test)]
+        budget_tests::CAPTURE_FRAMES.with(|count| count.set(count.get() + 1));
         v2::Frame::owned(&self.game, self.revision).map_err(Error::Capture)
     }
     fn refresh_capture(&mut self) -> Result<(), Error> {
