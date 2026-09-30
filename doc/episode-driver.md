@@ -60,3 +60,33 @@ The driver also supports [optional owned canonical v2 capture](episode-capture.m
 through `reset_captured` and `submit_with_policy`. The original `reset` execution
 path remains capture-disabled. Budget, replay resolver and publication work is
 separate; both modes retain privileged history.
+
+## Privileged semantic input
+
+`submit_record(authorized_seat, context, bytes)` accepts the existing
+[`actions` v1 semantic record](actions.md) through the same validated `submit`
+or `concede` path. It never exposes a mutable Game or applies through a second
+execution loop. Capture uses absent/default policy statistics and appends the
+canonical accepted submission exactly once; caller JSON whitespace/order is not
+preserved. This is privileged replay/debug input, not a policy observation or
+transport authentication. The caller authenticates the seat and routes to the
+intended Driver.
+
+For a decision, supply `RecordContext::Decision { revision, generation }` from
+that seat's current `observe` decision. The record's actor must match the
+caller-authorized seat; the context must match the current driver revision and
+core decision generation. The driver translates the decoded core revision to its
+owner revision before ordinary submission. For concession, either seat may
+supply `RecordContext::Concession { episode: driver.episode_id().unwrap() }`;
+priority is unnecessary, but an old/foreign episode token or a decision context
+is rejected. Live context is separate from saved records: semantic v1 remains
+unchanged and stores neither revisions nor generation tokens.
+
+Advance internal work explicitly before input. Malformed, unsupported, incomplete,
+illegal, wrong-seat, stale-context and stale-object records reject without
+changing game/RNG/history/capture. Existing budget boundary checks still apply:
+a due limit can finalize truncation, and an exhausted record slot quarantines
+recording without accepting the attempted choice. Subsequent input cannot mutate
+a stopped, terminal or finalized episode. There is no retry, fallback choice,
+CLI change, new rules, or throughput qualification. See the
+[normal-reset acceptance and compiled behavioral failure](evidence/semantic-input/README.md).

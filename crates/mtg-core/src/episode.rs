@@ -64,6 +64,14 @@ pub enum Progress {
     Terminal(terminal::Outcome),
     Stopped(Status),
 }
+/// Live authorization context for privileged semantic input, never persisted in
+/// the action record. Obtain decision tokens from `observe`, or an episode token
+/// from `episode_id` for an out-of-band concession.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum RecordContext {
+    Decision { revision: u64, generation: u64 },
+    Concession { episode: terminal::EpisodeId },
+}
 #[derive(Clone, Debug)]
 pub struct Inputs {
     pub config: Config,
@@ -543,6 +551,55 @@ impl Driver {
     /// Validate and encode before mutation; append exactly once after acceptance.
     pub fn submit(&mut self, seat: Seat, submission: &policy::Submission) -> Result<(), Error> {
         self.submit_with_policy(seat, submission, &PolicyInfo::default())
+    }
+    /// Submit existing privileged semantic bytes with explicit seat and freshness.
+    /// This is a replay/debug input, not a policy-visible format. Authentication
+    /// and routing to the intended owner remain the caller's responsibility.
+    /// Accepted records use the same canonical history/capture as `submit` and
+    /// `concede`; policy statistics are absent. No implicit advancement occurs.
+    pub fn submit_record(
+        &mut self,
+        seat: Seat,
+        context: RecordContext,
+        bytes: &[u8],
+    ) -> Result<(), Error> {
+        self.before_input()?;
+        if self.boundary() == Progress::InternalYield {
+            return Err(Error::Policy(policy::PolicyError::Unavailable));
+        }
+        match actions::decode(&self.game, bytes, self.capacity).map_err(Error::Action)? {
+            actions::Decoded::Decision {
+                actor,
+                mut submission,
+            } => {
+                if actor != seat {
+                    return Err(Error::Policy(policy::PolicyError::WrongActor));
+                }
+                let RecordContext::Decision {
+                    revision,
+                    generation,
+                } = context
+                else {
+                    return Err(Error::Action(actions::ActionError::WrongKind));
+                };
+                if revision != self.revision || generation != submission.generation {
+                    return Err(Error::Policy(policy::PolicyError::StaleDecision));
+                }
+                // decode returns core-local tokens. submit owns translation back
+                // to the core and all accepted-action accounting/capture.
+                submission.revision = revision;
+                self.submit(seat, &submission)
+            }
+            actions::Decoded::Concession { actor, .. } => {
+                if actor != seat {
+                    return Err(Error::Policy(policy::PolicyError::WrongActor));
+                }
+                let RecordContext::Concession { episode } = context else {
+                    return Err(Error::Action(actions::ActionError::WrongKind));
+                };
+                self.concede(seat, episode)
+            }
+        }
     }
     fn submit_core(&mut self, seat: Seat, submission: &policy::Submission) -> Result<(), Error> {
         self.active()?;

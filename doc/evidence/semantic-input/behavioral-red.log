@@ -1,0 +1,43 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-176/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.79s
+     Running tests/semantic_input.rs (target/debug/deps/semantic_input-b4bc604bc6609a5b)
+
+running 4 tests
+test records_limits_and_record_exhaustion_follow_owner_finalization ... FAILED
+test records_rejections_recover_without_owner_mutation ... FAILED
+test records_object_corruptions_and_illegal_land_are_transactional ... FAILED
+test records_played_spell_combat_capture_and_owner_modes ... FAILED
+
+failures:
+
+---- records_limits_and_record_exhaustion_follow_owner_finalization stdout ----
+
+thread 'records_limits_and_record_exhaustion_follow_owner_finalization' (124) panicked at crates/mtg-core/tests/semantic_input.rs:331:74:
+called `Result::unwrap()` on an `Err` value: Action(InvalidState)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- records_rejections_recover_without_owner_mutation stdout ----
+
+thread 'records_rejections_recover_without_owner_mutation' (127) panicked at crates/mtg-core/tests/semantic_input.rs:280:53:
+called `Result::unwrap()` on an `Err` value: Action(InvalidState)
+
+---- records_object_corruptions_and_illegal_land_are_transactional stdout ----
+
+thread 'records_object_corruptions_and_illegal_land_are_transactional' (125) panicked at crates/mtg-core/tests/semantic_input.rs:174:44:
+called `Result::unwrap()` on an `Err` value: Action(InvalidState)
+
+---- records_played_spell_combat_capture_and_owner_modes stdout ----
+
+thread 'records_played_spell_combat_capture_and_owner_modes' (126) panicked at crates/mtg-core/tests/semantic_input.rs:174:44:
+called `Result::unwrap()` on an `Err` value: Action(InvalidState)
+
+
+failures:
+    records_limits_and_record_exhaustion_follow_owner_finalization
+    records_object_corruptions_and_illegal_land_are_transactional
+    records_played_spell_combat_capture_and_owner_modes
+    records_rejections_recover_without_owner_mutation
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --test semantic_input`
