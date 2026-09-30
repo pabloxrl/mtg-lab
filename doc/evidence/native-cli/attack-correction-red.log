@@ -1,0 +1,77 @@
+Local documentation links passed.
+RFC 0002 program coverage and dependency gates passed.
+{"capabilities": 80, "designed_slots": 320, "execution_evidence_added": 0, "related_authored_fixtures": 6}
+...................................................unavailable pinned reference
+............................................................................................
+----------------------------------------------------------------------
+Ran 143 tests in 16.250s
+
+OK
+    Checking mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-recorder)
+    Checking mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-policy)
+    Checking mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-cli)
+    Checking mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-core)
+    Checking mtg-fixture v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-fixture)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.18s
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-recorder)
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-policy)
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-cli)
+   Compiling mtg-fixture v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-fixture)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.58s
+     Running unittests src/main.rs (target/debug/deps/mtg-29a4217c7233c08c)
+
+running 8 tests
+test native::tests::native_maximum_episode_count_prestart_stop_does_not_allocate_or_overflow ... ok
+test simulate::tests::simulate_active_interruption_and_deadline_have_distinct_accounting ... ok
+test simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run ... ok
+test simulate::tests::simulate_seed_extremes_preserve_rules_derived_passive_outcome ... ok
+test native::tests::native_synthetic_policy_failure_is_incomplete_caller_error_not_rules_failure ... ok
+test simulate::tests::simulate_writer_failure_propagates_instead_of_success ... ok
+test native::tests::native_output_failure_at_header_episode_and_summary_never_returns_success ... ok
+test native::tests::native_deterministic_prestart_and_midgame_stop_deadline_accounting ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.86s
+
+     Running tests/headless_commands.rs (target/debug/deps/headless_commands-f5d6150f779fa9fb)
+
+running 9 tests
+test benchmark_smoke_runs_scalar_production_and_keeps_truncation_distinct ... ok
+test conformance_missing_dependencies_and_malformed_input_fail_without_prompt ... ok
+test input_limits_and_benchmark_configuration_fail_explicitly ... ok
+test files_usage_and_output_failures_are_structured ... ok
+test conformance_compares_actual_checkpoints_and_preserves_failure_artifacts ... ok
+test replay_errors_are_explicit_and_inspection_diagnostics_are_redacted ... ok
+test trajectories_validate_seal_and_reject_corruption ... ok
+test replay_verify_and_seat_filtered_inspect ... ok
+test conformance_deadline_kills_unresponsive_dependency ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.00s
+
+     Running tests/native_simulate.rs (target/debug/deps/native_simulate-ddd79640fc6b19a7)
+
+running 8 tests
+test native_configuration_never_silently_runs_as_passive_benchmark ... ok
+test native_explicit_work_and_record_limits_account_exactly ... ok
+test native_bad_versions_policies_bounds_and_overflow_fail_without_output ... ok
+test native_signals_have_bounded_complete_accounting ... ok
+test native_stdout_failure_is_a_caller_error ... ok
+test native_literal_first_land_checkpoint_both_starting_seats ... ok
+test native_one_decision_cannot_be_a_rules_outcome ... ok
+test native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints ... FAILED
+
+failures:
+
+---- native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints stdout ----
+
+thread 'native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints' (4447) panicked at crates/mtg-cli/tests/native_simulate.rs:263:13:
+real played game must exercise select_attackers
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints
+
+test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 22.28s
+
+error: test failed, to rerun pass `-p mtg-cli --test native_simulate`

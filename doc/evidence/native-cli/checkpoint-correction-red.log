@@ -1,0 +1,24 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.57s
+     Running tests/native_simulate.rs (target/debug/deps/native_simulate-ddd79640fc6b19a7)
+
+running 1 test
+test native_literal_first_land_checkpoint_both_starting_seats ... FAILED
+
+failures:
+
+---- native_literal_first_land_checkpoint_both_starting_seats stdout ----
+
+thread 'native_literal_first_land_checkpoint_both_starting_seats' (305) panicked at crates/mtg-cli/tests/native_simulate.rs:291:9:
+assertion `left == right` failed
+  left: Object {"card": String("forest"), "controller": Number(0), "creature": Null, "owner": Number(0), "summoning_sick": Bool(false), "tapped": Bool(false)}
+ right: Object {"card": String("forest"), "controller": Number(0), "creature": Null, "owner": Number(0), "summoning_sick": Bool(true), "tapped": Bool(false)}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native_literal_first_land_checkpoint_both_starting_seats
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p mtg-cli --test native_simulate`

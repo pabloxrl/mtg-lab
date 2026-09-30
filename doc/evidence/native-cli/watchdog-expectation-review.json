@@ -1,0 +1,11 @@
+{
+  "verdict": "pass",
+  "summary": "The proposed correction is independently justified. RFC0001 requires bounded unattended verification and measured performance claims; RFC0002 §9 requires bounded subprocess execution, while §10 explicitly treats shared-CI timing as diagnostic. The CLI plan’s #177 contract requires deterministic both-seat native games, independent checkpoints and bounded signal handling, and explicitly excludes performance qualification. None establishes a 10-second full-game requirement. The log records the watchdog panic with seven other native subprocess tests passing; it does not establish a semantic failure. Preserving all six workloads, seeds, repeated complete JSONL comparisons, direct-library comparisons and rules assertions provides equivalent semantic coverage. A 60-second kill/reap watchdog preserves bounded-liveness coverage, with slower hang detection; retaining the other 10-second guards preserves their responsiveness checks. No concrete issue with this scoped proposal. This is a focused expectation review, not final candidate approval or evidence that the revised candidate passes CI. No README change is needed for this test-only correction.",
+  "findings": [
+    {
+      "file": "crates/mtg-cli/src/native.rs:326",
+      "finding": "Evidence wording clarification: deterministic hooks assert exactly one decision at poll 3 and exact work-call counts, but poll 200 asserts only decisions > 2. Preserve these assertions; describing every stop/deadline decision count as exact overstates existing coverage. This does not undermine the watchdog correction.",
+      "severity": "advisory"
+    }
+  ]
+}

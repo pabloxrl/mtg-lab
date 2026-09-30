@@ -14,6 +14,8 @@ use std::io::{self, Write};
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub native: Option<super::native::Config>,
     pub schema_version: u32,
     pub game: mtg_core::opening::Config,
     pub policies: [String; 2],
@@ -25,17 +27,22 @@ pub struct Config {
 }
 impl Config {
     pub fn validate(&self) -> Result<(), String> {
-        if self.schema_version != 1
+        if ![1, 2].contains(&self.schema_version)
             || self.episodes == 0
             || self.max_decisions == 0
             || self.deadline_ms == Some(0)
         {
-            return Err("version must be 1 and budgets must be positive".into());
+            return Err("unsupported version or nonpositive budget".into());
         }
         self.first_episode
             .checked_add(self.episodes - 1)
             .ok_or("episode ID range overflows")?;
-        if self.policies.iter().any(|p| p != "pass-v1") {
+        if self.schema_version == 2 {
+            self.native
+                .as_ref()
+                .ok_or("native bounds required")?
+                .validate(&self.policies)?;
+        } else if self.native.is_some() || self.policies.iter().any(|p| p != "pass-v1") {
             return Err("both policies must explicitly be pass-v1; no policy fallback".into());
         }
         let mut g = Game::new().map_err(debug)?;
@@ -47,10 +54,10 @@ impl Config {
 fn debug(e: impl std::fmt::Debug) -> String {
     format!("{e:?}")
 }
-fn hash(bytes: &[u8]) -> String {
+pub(crate) fn hash(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }
-fn emit(w: &mut impl Write, mut value: Value) -> io::Result<()> {
+pub(crate) fn emit(w: &mut impl Write, mut value: Value) -> io::Result<()> {
     value["schema_version"] = json!(1);
     serde_json::to_writer(&mut *w, &value)?;
     w.write_all(b"\n")?;
@@ -63,14 +70,14 @@ pub enum Stop {
     Deadline,
 }
 impl Stop {
-    fn reason(self) -> &'static str {
+    pub(crate) fn reason(self) -> &'static str {
         match self {
             Self::Sigterm => "sigterm",
             Self::Sigint => "sigint",
             Self::Deadline => "deadline",
         }
     }
-    fn code(self) -> i32 {
+    pub(crate) fn code(self) -> i32 {
         match self {
             Self::Sigterm => 143,
             Self::Sigint => 130,
@@ -245,6 +252,7 @@ mod tests {
     use super::*;
     fn config() -> Config {
         Config {
+            native: None,
             schema_version: 1,
             game: Default::default(),
             policies: ["pass-v1".into(), "pass-v1".into()],

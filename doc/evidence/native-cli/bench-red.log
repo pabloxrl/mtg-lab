@@ -1,0 +1,24 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.44s
+     Running tests/native_simulate.rs (target/debug/deps/native_simulate-ddd79640fc6b19a7)
+
+running 1 test
+test native_configuration_never_silently_runs_as_passive_benchmark ... FAILED
+
+failures:
+
+---- native_configuration_never_silently_runs_as_passive_benchmark stdout ----
+
+thread 'native_configuration_never_silently_runs_as_passive_benchmark' (161) panicked at crates/mtg-cli/tests/native_simulate.rs:305:35:
+assertion `left == right` failed
+  left: 0
+ right: 2
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native_configuration_never_silently_runs_as_passive_benchmark
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-cli --test native_simulate`

@@ -1,0 +1,30 @@
+{
+  "command": "./scripts/torture.sh",
+  "exit_code": 0,
+  "execution": "managed Linux container; no worker Docker invocation",
+  "base_sha": "16f698b66af01a0939836d7984fe4f23e94f978c",
+  "python_tests": 143,
+  "rust_executions_including_fresh_process_children": 862,
+  "failed": 0,
+  "ignored": 0,
+  "log_sha256": "df3d543d810d8199efb238b9752b0f738ef6590377ff12ea19077c9acb8129d8",
+  "checks": [
+    "docs",
+    "program gates/source pins",
+    "catalog",
+    "Python",
+    "fmt",
+    "Clippy",
+    "Rust debug",
+    "Rust release"
+  ],
+  "source_sha256": {
+    "crates/mtg-cli/src/native.rs": "159f557a3aefdd6c661e1d4e01b4f86ae3f9d659c87b4d98d64e3a06943ae23d",
+    "crates/mtg-cli/src/simulate.rs": "cd053121c693e0105bbfcce6b012acd7fac6f2011c50ca7f650cfbffa22d25fb",
+    "crates/mtg-cli/src/main.rs": "ad2f87704b398a8b66dfa3900165c51ce24e0ead7bb8838fd12a2b4b7df02bb4",
+    "crates/mtg-cli/src/commands.rs": "6107ee0bd85193a379a38577ceaf83a6cafe7e2c189756238b3a7ad9178a58a0",
+    "crates/mtg-cli/tests/native_simulate.rs": "dfccffa00fe07f16e5a1ce5d909cf76c3bbbbe898008c290a9c42142c79ce591"
+  },
+  "candidate_sha": "0555c508f1b14fa969358314b3208425a0da3e3b",
+  "scope": "Original complete implementation before the independently reviewed test-only watchdog correction. Final rerun and exact candidate receipts are recorded in the issue/PR workpad."
+}
