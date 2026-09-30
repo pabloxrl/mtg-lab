@@ -1,0 +1,25 @@
+{
+  "base_sha": "86d7763a34a5f2dbd71024afab96b21da83dfe6c",
+  "command": "./scripts/torture.sh",
+  "result": "PASS",
+  "python_tests": 143,
+  "rust_tests_including_doctests_per_profile": 387,
+  "profiles": [
+    "debug",
+    "release"
+  ],
+  "ignored": 0,
+  "focused_tests": 11,
+  "sha256": {
+    "README.md": "93a466242ac027fef6cd7546119f293e6ad14492a2cca667d94685f9efe8991d",
+    "crates/mtg-core/src/snapshot.rs": "f606a80a69d5f75d7601da99b68185b29fe7795c404154bcc5219f4a96b38d22",
+    "crates/mtg-recorder/src/collector.rs": "d963acd7c39633e349890179a9d2d10870cd985e53d7386c15f2d1c30e800d40",
+    "crates/mtg-recorder/src/lib.rs": "9ef4fbda1c378bb2955f506290800fa8cf6bebb17166c5f7e4ef0496a3cd0a53",
+    "crates/mtg-recorder/tests/collector.rs": "5c1350a04e4e18436bb6985a66df6b9650bb8e9d94bef3559d46d415cfc2db59",
+    "doc/collector-persistence.md": "a6aef2e2f1cdd82a3041bb898962d0655a26381a302ff251788ecedfb437e429",
+    "doc/evidence/collector-persistence/behavioral-red.txt": "407ac1b14c134a2877cbaa35f53889eb825fcce7042b8bae3cf5fac9db30b45b",
+    "doc/evidence/collector-persistence/focused-green.txt": "c7ac5d8437262b30f87991c32b1af6e21f70fe977df7755f5163b64ff04ef693",
+    "doc/evidence/collector-persistence/internal-work-red.txt": "db68deb4c583ff1443febdbce67fb25fcc02461e3fe239eeb62909791f81d12d",
+    "doc/evidence/collector-persistence/torture-final.txt": "16f059ae2f11fd4da9ff271dd9d5ae414925726bbe85138fe34884a06b7d3059"
+  }
+}

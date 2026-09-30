@@ -1,0 +1,19 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-163/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.42s
+     Running tests/collector.rs (target/debug/deps/collector-cc817e3d763c7557)
+
+running 11 tests
+test budget_stop_during_internal_reset_is_accounted_as_recording_incomplete ... ok
+test actual_decision_truncation_is_diagnostic_and_never_a_rules_completion ... ok
+test actual_completed_results_reload_with_literal_decisions_and_sealed_inventory ... ok
+test corrupt_fields_versions_checksum_unsealed_and_late_changed_provenance_never_validate ... ok
+test missing_duplicate_reordered_and_mismatched_inputs_reject_without_consuming_results ... ok
+test mixed_actual_failures_and_incomplete_ordinals_never_become_training_rows ... ok
+test provenance_matches_independent_pins_and_actual_config_not_caller_labels ... ok
+test append_backpressure_and_drain_failures_are_not_silent_drops ... ok
+test unrelated_capture_header_versions_decks_and_config_are_rejected ... ok
+test writer_drain_seal_flush_and_late_failure_propagate_and_originals_survive ... ok
+test zero_rows_and_all_unfinished_runs_still_require_valid_seals ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+

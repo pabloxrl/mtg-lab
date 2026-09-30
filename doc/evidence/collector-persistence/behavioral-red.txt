@@ -1,0 +1,44 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-163/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.49s
+     Running tests/collector.rs (target/debug/deps/collector-cc817e3d763c7557)
+
+running 5 tests
+test actual_decision_truncation_is_diagnostic_and_never_a_rules_completion ... FAILED
+test writer_drain_seal_flush_and_late_failure_propagate_and_originals_survive ... FAILED
+test mixed_actual_failures_and_incomplete_ordinals_never_become_training_rows ... FAILED
+test missing_duplicate_reordered_and_mismatched_inputs_reject_without_consuming_results ... ok
+test actual_completed_results_reload_with_literal_decisions_and_sealed_inventory ... FAILED
+
+failures:
+
+---- actual_decision_truncation_is_diagnostic_and_never_a_rules_completion stdout ----
+
+thread 'actual_decision_truncation_is_diagnostic_and_never_a_rules_completion' (122) panicked at crates/mtg-recorder/tests/collector.rs:60:41:
+valid truncated rows must seal: Incomplete
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- writer_drain_seal_flush_and_late_failure_propagate_and_originals_survive stdout ----
+
+thread 'writer_drain_seal_flush_and_late_failure_propagate_and_originals_survive' (125) panicked at crates/mtg-recorder/tests/collector.rs:101:9:
+assertion failed: matches!(r.persist_with_sink(&results,storage(),sink),Err(Error::Io(_)))
+
+---- mixed_actual_failures_and_incomplete_ordinals_never_become_training_rows stdout ----
+
+thread 'mixed_actual_failures_and_incomplete_ordinals_never_become_training_rows' (124) panicked at crates/mtg-recorder/tests/collector.rs:72:41:
+diagnostic run retains valid rows: Incomplete
+
+---- actual_completed_results_reload_with_literal_decisions_and_sealed_inventory stdout ----
+
+thread 'actual_completed_results_reload_with_literal_decisions_and_sealed_inventory' (121) panicked at crates/mtg-recorder/tests/collector.rs:40:49:
+completed owned games must persist: Incomplete
+
+
+failures:
+    actual_completed_results_reload_with_literal_decisions_and_sealed_inventory
+    actual_decision_truncation_is_diagnostic_and_never_a_rules_completion
+    mixed_actual_failures_and_incomplete_ordinals_never_become_training_rows
+    writer_drain_seal_flush_and_late_failure_propagate_and_originals_survive
+
+test result: FAILED. 1 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p mtg-recorder --test collector`
