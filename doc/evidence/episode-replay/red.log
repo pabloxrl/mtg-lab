@@ -1,0 +1,51 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-162/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.64s
+     Running tests/capture.rs (target/debug/deps/capture-e8ead1ab1f252735)
+
+running 7 tests
+test complete_played_ledger_targets_payment_cancel_retry_and_factored_combat ... FAILED
+test direct_submit_cannot_bypass_capture_and_invalid_stats_headers_are_atomic ... ok
+test multi_bottom_and_hidden_hand_library_twins ... ok
+test next_domain_capacity_overflow_cannot_erase_accepted_opening_decisions ... ok
+test opening_capture_seat_sequences_concession_and_owned_reset ... ok
+test unfinished_capture_remains_quarantined ... ok
+test zero_decision_and_nonacting_terminal_seats ... ok
+
+failures:
+
+---- complete_played_ledger_targets_payment_cancel_retry_and_factored_combat stdout ----
+
+thread 'complete_played_ledger_targets_payment_cancel_retry_and_factored_combat' (683) panicked at crates/mtg-core/tests/capture.rs:964:5:
+assertion `left == right` failed
+  left: Err(Binding)
+ right: Ok(Available("45b374c9-a4db-44fe-a681-603c4055708a"))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    complete_played_ledger_targets_payment_cancel_retry_and_factored_combat
+
+test result: FAILED. 6 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 17.00s
+
+error: test failed, to rerun pass `-p mtg-core --test capture`
