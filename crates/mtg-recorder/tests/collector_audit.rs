@@ -314,6 +314,27 @@ fn played(start: usize) -> (Run, EpisodeResult, Ledger) {
         }
     }
     assert_eq!(l.rows.len(), 1140); // 2 keeps + 14 passes + 66*(16 passes+discard) + 2 passes.
+    // GH-20: terminal polling is not another transition or reward event.
+    let ended = on.trajectory().unwrap().clone();
+    let snapshot = on.privileged_snapshot();
+    let history = on.privileged_history().to_vec();
+    let outcome = match on.status().unwrap() {
+        mtg_core::episode::Status::Completed(outcome) => outcome,
+        other => panic!("expected rules completion, got {other:?}"),
+    };
+    for quantum in [NonZeroUsize::MIN, NonZeroUsize::MAX] {
+        for _ in 0..3 {
+            // doc/episode-driver.md: advancement after terminal is rejected.
+            assert_eq!(on.advance(quantum), Err(mtg_core::episode::Error::Ended));
+            assert_eq!(
+                on.status(),
+                Some(mtg_core::episode::Status::Completed(outcome))
+            );
+            assert_eq!(on.trajectory(), Some(&ended));
+            assert_eq!(on.privileged_snapshot(), snapshot);
+            assert_eq!(on.privileged_history(), history);
+        }
+    }
     let result = on.finish().unwrap();
     assert!(on.finish().is_err());
     assert!(off.finish().unwrap().trajectory().is_none());
@@ -545,6 +566,180 @@ fn both_starting_seats_full_independent_ledger_publish_reload_and_replay() {
             )
             .is_err()
         );
+    }
+}
+
+// Catalog rules-terminal-rewards-once-regression; RFC 0002 B036/B037.
+// A normal-reset CR 104.3c win, not an edited terminal test position.
+#[test]
+fn restored_terminal_polling_preserves_once_only_persisted_rewards() {
+    for start in 0..2 {
+        let (r, mut result, _) = played(start);
+        let mut restored = mtg_core::game::Game::new().unwrap();
+        restored.restore(result.privileged_snapshot()).unwrap();
+        let expected = mtg_core::game::terminal::Outcome {
+            winner: Some(seat(start)),
+            losses: if start == 0 {
+                [None, Some(mtg_core::game::terminal::LossReason::EmptyDraw)]
+            } else {
+                [Some(mtg_core::game::terminal::LossReason::EmptyDraw), None]
+            },
+        };
+        let snapshot = restored.snapshot();
+        let views = [Seat::P0, Seat::P1].map(|s| restored.policy_observe(s, 256).unwrap());
+        assert_eq!(&views, result.final_observations().unwrap());
+        for quantum in [NonZeroUsize::MIN, NonZeroUsize::MAX] {
+            for _ in 0..3 {
+                assert_eq!(restored.outcome(), Some(expected));
+                assert_eq!(
+                    restored.resume(quantum),
+                    mtg_core::game::Progress::Terminal(expected)
+                );
+                assert_eq!(restored.snapshot(), snapshot);
+                for (s, view) in views.iter().enumerate() {
+                    assert_eq!(&restored.policy_observe(seat(s), 256).unwrap(), view);
+                    assert!(view.decision.is_none());
+                }
+                assert_eq!(
+                    restored.concede(seat(start), restored.episode_id().unwrap()),
+                    Err(mtg_core::game::terminal::ConcedeError::AlreadyEnded)
+                );
+            }
+        }
+        let (_temp, manifest, bytes) = publish_check(&r, &mut result);
+        for _ in 0..3 {
+            let data = manifest
+                .load_v2(
+                    "episodes.jsonl",
+                    bytes.as_slice(),
+                    &manifest.versions,
+                    MAX,
+                    LoadMode::CompletedOnly,
+                )
+                .unwrap();
+            let episode = &data.episodes()[0];
+            assert_eq!(episode.decisions.len(), 1140);
+            // A syntactically valid second terminal credit must be rejected by
+            // semantic validation even before checksums become relevant.
+            let mut duplicate = episode.clone();
+            duplicate.footer.as_mut().unwrap().boundary_reward =
+                if start == 0 { [1, -1] } else { [-1, 1] };
+            assert!(mtg_recorder::structured::validate(&duplicate).is_err());
+            for s in 0..2 {
+                let reward = if s == start { 1 } else { -1 };
+                assert_eq!(
+                    episode
+                        .decisions
+                        .iter()
+                        .map(|d| i64::from(d.reward[s]))
+                        .sum::<i64>(),
+                    reward
+                );
+                assert_eq!(episode.footer.as_ref().unwrap().boundary_reward[s], 0);
+                assert_eq!(
+                    i64::from(episode.footer.as_ref().unwrap().returns[s]),
+                    reward
+                );
+                let sequence = result.trajectory().unwrap().seat(seat(s)).unwrap();
+                assert_eq!(
+                    sequence
+                        .transitions
+                        .iter()
+                        .map(|t| i64::from(t.reward))
+                        .sum::<i64>(),
+                    reward
+                );
+                assert_eq!(sequence.unassigned_reward, 0);
+            }
+        }
+    }
+}
+
+// DRL-005: reopen actual published bytes in another process. The parent grants
+// replay export separately; no default trajectory reader resolves private IDs.
+#[test]
+fn canonical_trajectory_and_authorized_replay_reload_in_fresh_process() {
+    const CHILD: &str = "MTG_GH20_RELOAD_ROOT";
+    if let Some(root) = std::env::var_os(CHILD) {
+        let literal: Vec<mtg_recorder::structured::Episode> =
+            serde_json::from_str(include_str!("structured.json")).unwrap();
+        assert_eq!(
+            mtg_recorder::read_v2(include_bytes!("structured.jsonl").as_slice(), MAX).unwrap(),
+            literal
+        );
+        let root = PathBuf::from(root);
+        let manifest = Manifest::parse(
+            fs::File::open(root.join("data").join(RUN).join("manifest.json")).unwrap(),
+            MAX,
+        )
+        .unwrap();
+        let bytes = fs::read(root.join("data").join(RUN).join("episodes.jsonl")).unwrap();
+        let data = manifest
+            .load_v2(
+                "episodes.jsonl",
+                bytes.as_slice(),
+                &manifest.versions,
+                MAX,
+                LoadMode::CompletedOnly,
+            )
+            .unwrap();
+        let game = mtg_core::opening::replay::played::verify(
+            &fs::read(root.join("authorized-replay")).unwrap(),
+        )
+        .unwrap();
+        fs::write(
+            root.join("reloaded.json"),
+            serde_json::to_vec(
+                &json!({"episodes":data.episodes(),"state":normalized(&game.snapshot())}),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        return;
+    }
+    for start in 0..2 {
+        let (r, mut result, _) = played(start);
+        let (temp, _, _) = publish_check(&r, &mut result);
+        let replay = publication::read_replay(
+            &temp.0.join("private"),
+            REPLAY,
+            &result,
+            |id, key| id == REPLAY && key.run == RUN,
+            MAX,
+        )
+        .unwrap();
+        fs::write(temp.0.join("authorized-replay"), replay).unwrap();
+        let mut child = std::process::Command::new(std::env::current_exe().unwrap())
+            .args([
+                "--exact",
+                "canonical_trajectory_and_authorized_replay_reload_in_fresh_process",
+                "--nocapture",
+            ])
+            .env(CHILD, &temp.0)
+            .env_remove("DISPLAY")
+            .stdin(std::process::Stdio::null())
+            .spawn()
+            .unwrap();
+        let deadline = std::time::Instant::now() + std::time::Duration::from_secs(30);
+        loop {
+            if let Some(status) = child.try_wait().unwrap() {
+                assert!(status.success());
+                break;
+            }
+            if std::time::Instant::now() >= deadline {
+                child.kill().unwrap();
+                child.wait().unwrap();
+                panic!("fresh-process reload exceeded 30 seconds");
+            }
+            std::thread::sleep(std::time::Duration::from_millis(10));
+        }
+        let loaded: Value =
+            serde_json::from_slice(&fs::read(temp.0.join("reloaded.json")).unwrap()).unwrap();
+        assert_eq!(
+            loaded["episodes"],
+            json!([mtg_recorder::from_core_v2(result.trajectory().unwrap()).unwrap()])
+        );
+        assert_eq!(loaded["state"], normalized(result.privileged_snapshot()));
     }
 }
 // Re-execute the original real combat script and every original assertion;
