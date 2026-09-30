@@ -164,3 +164,15 @@ For the driver: no issue unblocking or PR review is needed. Read the dashboard f
 ## Matched-reference refinement
 
 The [matched instant reference prerequisite plan](instant-reference-prerequisites.md) splits #115 into #136–#139 after its source audit identified missing executor and continuation contracts. It supersedes the assumption that all matched scenarios fit one implementation PR. #115 retains aggregate acceptance and waits for these children; original requirements and test expectations remain intact.
+
+## Played CLI prerequisite refinement
+
+Operations #175 registers exactly #176–#181 in the [played CLI prerequisite
+plan and complete acceptance crosswalk](cli-prerequisites.md). It refines the
+preserved unsuccessful #120 proposal into owned semantic input, native
+simulation, script routing, canonical publication, played replay verification
+and structured dataset validation. #120 audits all original composed acceptance
+after #179/#180/#181; #21/#22 and later gates remain unchanged. Historical
+prerequisite rows above are retained; the current manifest and this refinement
+supersede the original #120 implementation boundary. Registration delivers no
+new CLI capability and does not complete M1.

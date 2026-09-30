@@ -66,3 +66,15 @@ One task has one observable deliverable, a runnable positive and negative test, 
 ## What the driver does
 
 Describe the desired behavior and constraints in an issue. Agents break it into tested deliveries, implement and retain regressions, independently review, merge after CI and move the queue. You can watch #7 for completed work and blockers; no PR review or routine stage approval is needed. Product ambiguity or missing access is brought back to you. A failed test stops the affected delivery; it is never disabled to progress. Request pause/resume or change priorities through the coordinator. The growing executable baseline and reproducible command are in [torture-suite.md](../testing/torture-suite.md).
+
+## Played CLI prerequisite refinement
+
+Operations #175 registers exactly #176–#181 in the [played CLI prerequisite
+plan and complete acceptance crosswalk](cli-prerequisites.md). It refines the
+preserved unsuccessful #120 proposal into owned semantic input, native
+simulation, script routing, canonical publication, played replay verification
+and structured dataset validation. #120 audits all original composed acceptance
+after #179/#180/#181; #21/#22 and later gates remain unchanged. Historical
+prerequisite rows above are retained; the current manifest and this refinement
+supersede the original #120 implementation boundary. Registration delivers no
+new CLI capability and does not complete M1.
