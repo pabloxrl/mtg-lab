@@ -688,3 +688,6 @@ impl Driver {
 #[cfg(test)]
 #[path = "episode_budget_tests.rs"]
 mod budget_tests;
+
+#[path = "episode_replay.rs"]
+pub mod replay;

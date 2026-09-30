@@ -1,0 +1,40 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-162/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.92s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+test episode::replay::tests::incomplete_and_injected_failure_statuses_never_create_replay ... FAILED
+test episode::replay::tests::injected_config_history_snapshot_and_status_mismatches_fail ... FAILED
+test episode::replay::tests::default_denial_exact_artifact_authority_and_registry_lifetime ... FAILED
+
+failures:
+
+---- episode::replay::tests::incomplete_and_injected_failure_statuses_never_create_replay stdout ----
+
+thread 'episode::replay::tests::incomplete_and_injected_failure_statuses_never_create_replay' (279) panicked at crates/mtg-core/src/episode_replay.rs:81:13:
+assertion `left == right` failed
+  left: Err(Binding)
+ right: Ok(Unavailable(Incomplete))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- episode::replay::tests::injected_config_history_snapshot_and_status_mismatches_fail stdout ----
+
+thread 'episode::replay::tests::injected_config_history_snapshot_and_status_mismatches_fail' (280) panicked at crates/mtg-core/src/episode_replay.rs:107:31:
+called `Result::unwrap()` on an `Err` value: Binding
+
+---- episode::replay::tests::default_denial_exact_artifact_authority_and_registry_lifetime stdout ----
+
+thread 'episode::replay::tests::default_denial_exact_artifact_authority_and_registry_lifetime' (278) panicked at crates/mtg-core/src/episode_replay.rs:60:9:
+assertion `left == right` failed
+  left: Err(Binding)
+ right: Ok(Available("45b374c9-a4db-44fe-a681-603c4055708a"))
+
+
+failures:
+    episode::replay::tests::default_denial_exact_artifact_authority_and_registry_lifetime
+    episode::replay::tests::incomplete_and_injected_failure_statuses_never_create_replay
+    episode::replay::tests::injected_config_history_snapshot_and_status_mismatches_fail
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 164 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

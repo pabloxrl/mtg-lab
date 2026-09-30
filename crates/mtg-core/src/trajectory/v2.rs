@@ -351,6 +351,9 @@ impl Recorder {
     }
 }
 impl Episode {
+    pub(crate) fn bind_replay(&mut self, id: &str) {
+        self.header.restricted_replay = Some(id.into());
+    }
     pub fn header(&self) -> &Header {
         &self.header
     }

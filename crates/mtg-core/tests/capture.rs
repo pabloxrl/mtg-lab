@@ -764,6 +764,8 @@ fn complete_played_ledger_targets_payment_cancel_retry_and_factored_combat() {
         normalized(&replay.snapshot()),
         normalized(result.privileged_snapshot())
     );
+
+    check_authorized_replay(result);
 }
 #[test]
 fn multi_bottom_and_hidden_hand_library_twins() {
@@ -950,4 +952,87 @@ fn next_domain_capacity_overflow_cannot_erase_accepted_opening_decisions() {
     assert_eq!(r.status(), Status::Incomplete);
     assert!(r.trajectory().unwrap().footer().is_none());
     assert_eq!(r.trajectory().unwrap().decisions().len(), 2);
+}
+
+// GH-162 acceptance extends the actual normal-reset combat script above. Its
+// opening 7/33, paid Cub, Growth 5/5 with 4 damage, and ten 2-damage attacks
+// are literal CR-derived checkpoints, not generated replay expectations.
+fn check_authorized_replay(mut result: mtg_core::episode::EpisodeResult) {
+    use mtg_core::episode::replay::{Availability, Error, Registry};
+    let mut registry = Registry::default();
+    let id = "45b374c9-a4db-44fe-a681-603c4055708a";
+    assert_eq!(
+        registry.register(id, &mut result),
+        Ok(Availability::Available(id.into()))
+    );
+    assert_eq!(
+        result
+            .trajectory()
+            .unwrap()
+            .header()
+            .restricted_replay
+            .as_deref(),
+        Some(id)
+    );
+    assert_eq!(
+        registry.resolve(id, &result, |_, _| false),
+        Err(Error::Denied)
+    );
+    assert_eq!(
+        registry.resolve("unknown", &result, |_, _| true),
+        Err(Error::Unknown)
+    );
+    let key = result.trajectory().unwrap().header().id.clone();
+    let bytes = registry
+        .resolve(id, &result, |artifact, episode| {
+            artifact == id && *episode == key
+        })
+        .unwrap();
+    let game = mtg_core::opening::replay::played::verify(bytes).unwrap();
+    assert_eq!(
+        normalized(&game.snapshot()),
+        normalized(result.privileged_snapshot())
+    );
+    let payload: Value = serde_json::from_slice(bytes).unwrap();
+    assert_eq!(payload["initial"]["life"], json!([20, 20]));
+    assert_eq!(
+        payload["choices"].as_array().unwrap().last().unwrap()["after"]["life"],
+        json!([20, 0])
+    );
+    assert!(payload["choices"].as_array().unwrap().iter().any(|r| {
+        r["after"]["zones"].as_array().unwrap().iter().any(|z| {
+            z["objects"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|o| o["creature"] == json!({"power":5,"toughness":5,"damage":4}))
+        })
+    }));
+    for seat in [Seat::P0, Seat::P1] {
+        let reader =
+            serde_json::to_string(&result.trajectory().unwrap().seat(seat).unwrap()).unwrap();
+        for secret in [
+            "master",
+            "rng",
+            "privileged_history",
+            "mtg-core-played-replay",
+        ] {
+            assert!(!reader.contains(secret));
+        }
+    }
+    let mut corrupt = payload;
+    corrupt["choices"][0]["after"]["life"] = json!([19, 20]);
+    assert!(
+        mtg_core::opening::replay::played::verify(&serde_json::to_vec(&corrupt).unwrap()).is_err()
+    );
+    registry.remove(id).unwrap();
+    assert_eq!(
+        registry.resolve(id, &result, |_, _| true),
+        Err(Error::Unknown)
+    );
+    assert!(registry.register(id, &mut result).is_err());
+    assert_eq!(
+        Registry::default().resolve(id, &result, |_, _| true),
+        Err(Error::Unknown)
+    );
 }
