@@ -35,7 +35,7 @@ fn header() -> Header {
         restricted_replay: None,
     }
 }
-fn config() -> Config {
+pub fn config() -> Config {
     let prefix = [
         "bear-cub",
         "bear-cub",
@@ -138,9 +138,12 @@ struct Script {
 }
 impl Script {
     fn new(config: &Config) -> Self {
+        Self::with_header(config, &header())
+    }
+    fn with_header(config: &Config, capture_header: &Header) -> Self {
         let mut on = Driver::new(CAP).unwrap();
         let mut off = Driver::new(CAP).unwrap();
-        on.reset_captured(config, 160, 0, NonZeroUsize::MIN, &header())
+        on.reset_captured(config, 160, 0, NonZeroUsize::MIN, capture_header)
             .unwrap();
         off.reset(config, 160, 0, NonZeroUsize::MIN).unwrap();
         settle(&mut on);
@@ -563,7 +566,12 @@ fn growth(s: &mut Script) {
 }
 #[test]
 fn complete_played_ledger_targets_payment_cancel_retry_and_factored_combat() {
-    let mut s = Script::new(&config());
+    played_combat(header());
+}
+// Shared with the recorder's integration audit. All original assertions execute
+// in both callers; only actual run provenance replaces the component header.
+pub fn played_combat(capture_header: Header) -> mtg_core::episode::EpisodeResult {
+    let mut s = Script::with_header(&config(), &capture_header);
     for seat in [Seat::P0, Seat::P1] {
         s.send(seat, "keep_or_mulligan", vec![C::Keep], A::Committed)
     }
@@ -765,7 +773,8 @@ fn complete_played_ledger_targets_payment_cancel_retry_and_factored_combat() {
         normalized(result.privileged_snapshot())
     );
 
-    check_authorized_replay(result);
+    check_authorized_replay(result.clone());
+    result
 }
 #[test]
 fn multi_bottom_and_hidden_hand_library_twins() {

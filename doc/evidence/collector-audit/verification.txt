@@ -1,0 +1,24 @@
+GH-154 scalar collector composition audit
+Base: 9be0df059fc8e79705e6b81db00b953c1f2f7b12
+Fresh origin/main integrated before full run; main unchanged.
+
+./scripts/torture.sh: PASS, exit 0, managed Linux container, 2026-09-30 UTC.
+143 Python tests; 408 Rust tests/doctests in EACH debug/release profile.
+Zero failed/ignored. Docs/program/catalog/fmt/Clippy passed.
+The ten-test collector_audit target includes three new composed-path tests and
+seven re-executed original capture tests; all pass in both profiles.
+No executable source/assertions changed during this full run. Audit prose and
+README links were assembled during the run; check_docs.py/check_program.py were
+repeated successfully afterward. Quickstart commands unchanged; existing CLI
+checks ran in full torture. No new rules/reference-engine agreement claimed.
+
+SHA-256:
+c2391658f08462963c9b11040cb49c0a10b4ee4b399a625d10207f858c77e18e  crates/mtg-core/tests/capture.rs
+064293ac98ffc67ab6763bafb525419e5e534c437ade0699fa263937a9c7faee  crates/mtg-recorder/tests/collector_audit.rs
+9d51c69f258307abc1301ece2f332157e2f38c8ec69812821ebff0ece99d9227  doc/evidence/collector-audit/torture.log
+
+Review, protected PR merge and successful exact-main CI receipts are recorded
+in the issue's single Agent workpad and PR, tied to the committed candidate.
+This file does not pre-claim those still-pending delivery steps or M1 completion.
+No production behavior changed. Initial fixture compilation mistakes and the
+contract-derived Sentry oracle correction are not feature behavioral-red claims.
