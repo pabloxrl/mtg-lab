@@ -1,0 +1,28 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-164/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.94s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-301103531683372a)
+
+running 1 test
+test publication::tests::directory_reservation_and_parent_sync_failures_never_advertise ... FAILED
+
+failures:
+
+---- publication::tests::directory_reservation_and_parent_sync_failures_never_advertise stdout ----
+
+thread 'publication::tests::directory_reservation_and_parent_sync_failures_never_advertise' (243) panicked at crates/mtg-recorder/src/publication_tests.rs:664:13:
+assertion failed: publish_at(&t, &r, &a, &registry,
+        &mut |path, boundary|
+                {
+                    if path == reserved && boundary == stage {
+                        Err(std::io::Error::other("injected run reservation failure"))
+                    } else { Ok(()) }
+                }).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    publication::tests::directory_reservation_and_parent_sync_failures_never_advertise
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 25 filtered out; finished in 0.10s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`

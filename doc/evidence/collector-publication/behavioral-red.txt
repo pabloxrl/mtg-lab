@@ -1,0 +1,25 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-164/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.75s
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-301103531683372a)
+
+running 3 tests
+
+thread 'publication::tests::diagnostics_preserve_real_truncation_failure_and_incomplete_accounting' (226) panicked at crates/mtg-recorder/src/publication_tests.rs:163:153:
+called `Result::unwrap()` on an `Err` value: Incomplete
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test publication::tests::diagnostics_preserve_real_truncation_failure_and_incomplete_accounting ... FAILED
+
+thread 'publication::tests::real_normal_reset_publication_reopens_manifest_jsonl_and_authorized_replay' (227) panicked at crates/mtg-recorder/src/publication_tests.rs:122:10:
+validated artifacts must publish: Incomplete
+test publication::tests::real_normal_reset_publication_reopens_manifest_jsonl_and_authorized_replay ... FAILED
+test publication::tests::denied_missing_or_wrong_replay_binding_never_reserves_a_run ... ok
+
+failures:
+
+failures:
+    publication::tests::diagnostics_preserve_real_truncation_failure_and_incomplete_accounting
+    publication::tests::real_normal_reset_publication_reopens_manifest_jsonl_and_authorized_replay
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.08s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`

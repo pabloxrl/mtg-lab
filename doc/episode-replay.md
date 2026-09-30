@@ -46,3 +46,7 @@ must be managed by the local run owner; memory and replay validation cost grow
 with captured history. There is no disk persistence or automatic grant store.
 
 [Executable acceptance and independent checkpoints](evidence/episode-replay/README.md).
+
+[Local publication](collector-publication.md) composes this registry with the
+sealed dataset adapter and separate disk storage. The registry remains in-memory;
+the authorized disk reader requires the retained actual owned result.
