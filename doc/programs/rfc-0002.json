@@ -844,15 +844,121 @@
       ]
     },
     {
+      "key": "cli-prerequisite-registration",
+      "milestone": "M1",
+      "kind": "operations",
+      "issue": 175,
+      "depends_on": [
+        158
+      ],
+      "requirements": []
+    },
+    {
+      "key": "owned-semantic-submission",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 176,
+      "depends_on": [
+        175,
+        161,
+        113
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "owned-native-cli",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 177,
+      "depends_on": [
+        175,
+        161,
+        118,
+        119,
+        79
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "played-script-cli",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 178,
+      "depends_on": [
+        176,
+        177
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "captured-cli-publication",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 179,
+      "depends_on": [
+        178,
+        164,
+        117
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "played-replay-cli",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 180,
+      "depends_on": [
+        175,
+        114,
+        79
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
+      "key": "structured-dataset-cli",
+      "milestone": "M1",
+      "kind": "implementation",
+      "issue": 181,
+      "depends_on": [
+        175,
+        153,
+        79
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B039",
+        "R0002-B041"
+      ]
+    },
+    {
       "key": "cli-capture",
       "issue": 120,
       "milestone": "M1",
       "kind": "implementation",
       "depends_on": [
-        117,
-        118,
-        119,
-        79
+        179,
+        180,
+        181
       ],
       "requirements": [
         "R0002-B020",
