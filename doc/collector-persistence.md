@@ -64,8 +64,10 @@ manifest against those bytes through `Manifest::load_v2` in diagnostic mode.
 Checksums detect corruption, not malicious authenticated substitution.
 
 The returned `Bundle` has immutable metadata/bytes/metrics accessors and an
-`into_parts` ownership transfer for a separate publisher. Replay references are
-explicitly absent at this boundary. The original privileged results remain
+`into_parts` ownership transfer for a separate publisher. Opaque UUID replay
+references may now be preserved for completed results. This boundary validates their syntax, not replay availability or authorization; the
+[local publisher](collector-publication.md) performs those checks. The original
+privileged results remain
 separate for the authorized replay component. Both-seat datasets require offline
 authorization; they are not live player exports. No filesystem advertising,
 sampling, automatic reset/retry, CLI, alternate recorder or new rules are added.

@@ -1,8 +1,10 @@
 //! Bounded JSONL persistence for canonical scalar trajectories.
 //!
-//! See `doc/trajectory-jsonl.md`. No game execution or RNG use occurs here.
+//! See `doc/trajectory-jsonl.md`. Publication validates replays through the core;
+//! the recorder does not implement game rules or consume game RNG streams.
 pub mod collector;
 pub mod manifest;
+pub mod publication;
 pub mod schema;
 pub mod structured;
 use schema::*;
@@ -19,6 +21,9 @@ pub enum Error {
     Limit,
     Overflow,
     Poisoned,
+    /// A published link could not be durably withdrawn after a sync failure.
+    /// Inspect retained artifacts; never retry the reserved run ID automatically.
+    PublicationUncertain,
     Io(std::io::Error),
 }
 #[derive(Clone, Copy, Default)]
@@ -550,6 +555,27 @@ fn write_file_typed<E: Durable>(
     capacity: usize,
     mode: Backpressure,
 ) -> Result<(), Error> {
+    write_file_observed(path, episodes, capacity, mode, &mut |_, _| Ok(()))
+}
+// Publication fault boundary shared with the existing single-file writer.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum FileStage {
+    Create,
+    Write,
+    Sync,
+    Link,
+    UnlinkPartial,
+    DirectorySync,
+    Withdraw,
+}
+pub(crate) type FileHook<'a> = dyn FnMut(&std::path::Path, FileStage) -> std::io::Result<()> + 'a;
+pub(crate) fn write_file_observed<E: Durable>(
+    path: &std::path::Path,
+    episodes: &[E],
+    capacity: usize,
+    mode: Backpressure,
+    hook: &mut FileHook<'_>,
+) -> Result<(), Error> {
     use std::fs::{self, OpenOptions};
     // The sibling fragment and final name are on the same filesystem. A hard
     // link publishes atomically and fails if the final name already exists.
@@ -562,24 +588,30 @@ fn write_file_typed<E: Durable>(
             "dataset exists",
         )));
     }
+    hook(path, FileStage::Create).map_err(Error::Io)?;
     let file = OpenOptions::new()
         .write(true)
         .create_new(true)
         .open(&partial)
         .map_err(Error::Io)?;
+    hook(path, FileStage::Write).map_err(Error::Io)?;
     let mut writer = Writer::new(file, capacity, mode)?;
     writer.format = E::FORMAT;
     for episode in episodes {
         writer.append_record(episode)?;
     }
     let file = writer.finish()?;
+    hook(path, FileStage::Sync).map_err(Error::Io)?;
     file.sync_all().map_err(Error::Io)?;
+    hook(path, FileStage::Link).map_err(Error::Io)?;
     fs::hard_link(&partial, path).map_err(Error::Io)?;
+    hook(path, FileStage::UnlinkPartial).map_err(Error::Io)?;
     fs::remove_file(&partial).map_err(Error::Io)?;
     let parent = path
         .parent()
         .filter(|p| !p.as_os_str().is_empty())
         .unwrap_or(std::path::Path::new("."));
+    hook(path, FileStage::DirectorySync).map_err(Error::Io)?;
     std::fs::File::open(parent)
         .and_then(|f| f.sync_all())
         .map_err(Error::Io)?;

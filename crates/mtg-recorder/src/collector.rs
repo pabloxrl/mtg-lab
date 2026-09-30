@@ -181,7 +181,18 @@ impl Run {
             {
                 return Err(Error::Invalid);
             }
-            let expected = self.header(ordinal)?;
+            let mut expected = self.header(ordinal)?;
+            // Opaque linkage only; publication separately validates authorization,
+            // actual result/history binding and replay bytes before advertising.
+            if let Some(id) = result
+                .trajectory()
+                .and_then(|t| t.header().restricted_replay.as_ref())
+            {
+                if !crate::uuid(id) || !matches!(result.status(), Status::Completed(_)) {
+                    return Err(Error::Invalid);
+                }
+                expected.restricted_replay = Some(id.clone());
+            }
             if result.trajectory().is_some_and(|t| t.header() != &expected) {
                 return Err(Error::Invalid);
             }

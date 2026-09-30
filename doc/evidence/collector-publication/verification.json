@@ -1,0 +1,19 @@
+{
+  "issue": 164,
+  "base_sha": "4115ebf7d402efd94bc346cc04a6eef7a07207e1",
+  "command": "./scripts/torture.sh",
+  "python_tests": 143,
+  "rust_debug": 398,
+  "rust_release": 398,
+  "ignored": 0,
+  "sha256": {
+    "crates/mtg-recorder/src/publication.rs": "3a7e2954b8460cd121be015770a5edba0e7687ecb2f3919dd4e6942b90c7cde5",
+    "crates/mtg-recorder/src/publication_tests.rs": "8648e792cc40cbef0ca9e83d5aa177943047d896d2e6f7cf114389879c9a98e7",
+    "crates/mtg-recorder/src/collector.rs": "60b9b18010883f641752851fd42010d7833627898b8e1c4fa50986c9e69f4876",
+    "crates/mtg-recorder/src/lib.rs": "e0a4bca5e45cf1c62e319067ad8e42abef3007f764be0e348fe01fff9c189775",
+    "doc/evidence/collector-publication/behavioral-red.txt": "fd417c333c7e1ce2220536e48f2e108442b7e2a6cc088b325fdcd139655ad55e",
+    "doc/evidence/collector-publication/directory-red.txt": "c82ddaf6512d7365d93d4035207960e3885d5141978599332e470b5304e152ea",
+    "doc/evidence/collector-publication/focused-green.txt": "3a11971d5916b3caef8dc9241c6697af2cddbbd3ef698f23e9f523dcdd3d5b00",
+    "doc/evidence/collector-publication/torture-final.txt": "c8dba94545e22902e72b51b7ad6beeb771f471e72b29b9700e05d521623d9756"
+  }
+}
