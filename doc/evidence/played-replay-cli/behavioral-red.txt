@@ -1,0 +1,52 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-180/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.42s
+     Running tests/played_replay_commands.rs (target/debug/deps/played_replay_commands-4cc214be2969caaf)
+
+running 4 tests
+test bounded_malformed_input_and_inspection_do_not_enable_privilege ... FAILED
+test played_and_opening_verify_with_literal_public_summary ... FAILED
+test history_and_semantic_corruptions_fail_without_private_details ... FAILED
+test routing_rejects_unsupported_missing_and_duplicate_discriminators ... FAILED
+
+failures:
+
+---- bounded_malformed_input_and_inspection_do_not_enable_privilege stdout ----
+
+thread 'bounded_malformed_input_and_inspection_do_not_enable_privilege' (128) panicked at crates/mtg-cli/tests/played_replay_commands.rs:151:5:
+assertion `left == right` failed
+  left: Object {"exit_code": Number(2), "message": String("replay: Malformed"), "schema_version": Number(1), "type": String("error")}
+ right: Object {"exit_code": Number(2), "message": String("replay Malformed; privileged detail withheld"), "schema_version": Number(1), "type": String("error")}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- played_and_opening_verify_with_literal_public_summary stdout ----
+
+thread 'played_and_opening_verify_with_literal_public_summary' (130) panicked at crates/mtg-cli/tests/played_replay_commands.rs:93:5:
+assertion `left == right` failed: {"exit_code":2,"message":"replay: Malformed","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- history_and_semantic_corruptions_fail_without_private_details stdout ----
+
+thread 'history_and_semantic_corruptions_fail_without_private_details' (129) panicked at crates/mtg-cli/tests/played_replay_commands.rs:151:5:
+assertion `left == right` failed
+  left: Object {"exit_code": Number(2), "message": String("replay: Malformed"), "schema_version": Number(1), "type": String("error")}
+ right: Object {"exit_code": Number(2), "message": String("replay MissingChoice; privileged detail withheld"), "schema_version": Number(1), "type": String("error")}
+
+---- routing_rejects_unsupported_missing_and_duplicate_discriminators stdout ----
+
+thread 'routing_rejects_unsupported_missing_and_duplicate_discriminators' (131) panicked at crates/mtg-cli/tests/played_replay_commands.rs:151:5:
+assertion `left == right` failed
+  left: Object {"exit_code": Number(2), "message": String("replay: Malformed"), "schema_version": Number(1), "type": String("error")}
+ right: Object {"exit_code": Number(2), "message": String("replay Incompatible; privileged detail withheld"), "schema_version": Number(1), "type": String("error")}
+
+
+failures:
+    bounded_malformed_input_and_inspection_do_not_enable_privilege
+    history_and_semantic_corruptions_fail_without_private_details
+    played_and_opening_verify_with_literal_public_summary
+    routing_rejects_unsupported_missing_and_duplicate_discriminators
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+error: test failed, to rerun pass `-p mtg-cli --test played_replay_commands`
