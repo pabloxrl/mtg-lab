@@ -614,3 +614,108 @@ fn zero_decision_and_nonacting_rewards_survive_publication_for_both_losers() {
         }
     }
 }
+
+#[test]
+fn ordered_mulligan_choices_survive_aggregate_publication_for_both_starting_seats() {
+    // CR 103.5: two mulligans leave five cards, with two explicitly ordered
+    // bottom selections. The policy contract exposes bottoming before the next
+    // keep/mulligan prompt. No shuffled card identities are used as an oracle.
+    for start in 0..2 {
+        let r = run(start as u8);
+        let mut d = Driver::new(256).unwrap();
+        d.reset_captured(&r.config, 117, 0, NonZeroUsize::MAX, &r.header(0).unwrap())
+            .unwrap();
+        let script = [
+            (start, "keep_or_mulligan", vec![Choice::Mulligan]),
+            (1 - start, "keep_or_mulligan", vec![Choice::Keep]),
+            (start, "bottom", vec![Choice::Bottom { card: hand(0) }]),
+            (start, "keep_or_mulligan", vec![Choice::Mulligan]),
+            (
+                start,
+                "bottom",
+                vec![
+                    Choice::Bottom { card: hand(5) },
+                    Choice::Bottom { card: hand(1) },
+                ],
+            ),
+            (start, "keep_or_mulligan", vec![Choice::Keep]),
+        ];
+        let mut submissions = Vec::new();
+        for (i, (actor, kind, choices)) in script.iter().enumerate() {
+            ready(&mut d);
+            let domain = d.observe(seat(*actor)).unwrap().decision.unwrap();
+            assert_eq!(domain.kind, *kind);
+            assert_eq!(domain.actor, *actor as u8);
+            assert_eq!(domain.count, if i == 4 { 2 } else { 1 });
+            if *kind == "bottom" {
+                assert_eq!(
+                    domain.candidates,
+                    (0..7)
+                        .map(|row| Choice::Bottom { card: hand(row) })
+                        .collect::<Vec<_>>()
+                );
+                assert_eq!(domain.legal_mask, vec![true; 7]);
+            }
+            let submission = Submission {
+                schema_version: 1,
+                revision: domain.revision,
+                generation: domain.generation,
+                choices: choices.clone(),
+            };
+            if i == 4 {
+                let before = d.privileged_snapshot();
+                let mut missing = submission.clone();
+                missing.choices.pop();
+                assert!(d.submit(seat(*actor), &missing).is_err());
+                assert_eq!(d.privileged_snapshot(), before);
+                assert_eq!(d.trajectory().unwrap().decisions().len(), 4);
+            }
+            d.submit(seat(*actor), &submission).unwrap();
+            submissions.push(submission);
+        }
+        ready(&mut d);
+        let mut counts = [7, 7];
+        counts[start] = 5;
+        assert_eq!(d.observe(seat(start)).unwrap().view.hand_counts, counts);
+        d.concede(seat(1 - start), d.episode_id().unwrap()).unwrap();
+        let mut result = d.finish().unwrap();
+        let owned = result.trajectory().unwrap().clone();
+        d.reset(&r.config, 118, 1, NonZeroUsize::MAX).unwrap();
+        assert_eq!(result.trajectory(), Some(&owned));
+        let (_temp, m, bytes) = publish_check(&r, &mut result);
+        let data = m
+            .load_v2(
+                "episodes.jsonl",
+                bytes.as_slice(),
+                &m.versions,
+                MAX,
+                LoadMode::CompletedOnly,
+            )
+            .unwrap();
+        let e = &data.episodes()[0];
+        assert_eq!(e.decisions.len(), 6);
+        for (i, row) in e.decisions.iter().enumerate() {
+            assert_eq!(row.actor, script[i].0 as u8);
+            assert_eq!(row.index, i);
+            assert_eq!(
+                serde_json::to_value(&row.choice.submission).unwrap(),
+                serde_json::to_value(&submissions[i]).unwrap()
+            );
+            assert_eq!(row.choice.logical_action, i as u64);
+            assert_eq!(row.choice.micro_choice, 0);
+            assert_eq!(
+                serde_json::to_value(&row.choice.policy).unwrap(),
+                json!({}) // doc/trajectory-jsonl.md: absent v2 statistics omit keys.
+            );
+            assert_eq!(row.reward, [0, 0]);
+            // External concession marks the last global row's boundary;
+            // its reward remains solely in the footer (doc/trajectories.md).
+            assert_eq!(row.terminated, i == 5);
+            assert!(!row.truncated);
+        }
+        let rewards = if start == 0 { [1, -1] } else { [-1, 1] };
+        assert_eq!(e.footer.as_ref().unwrap().returns, rewards);
+        assert_eq!(e.footer.as_ref().unwrap().boundary_reward, rewards);
+        assert_eq!(e.footer.as_ref().unwrap().decisions, 6);
+    }
+}
