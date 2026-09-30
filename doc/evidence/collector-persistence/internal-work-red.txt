@@ -1,0 +1,22 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-163/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running tests/collector.rs (target/debug/deps/collector-cc817e3d763c7557)
+
+running 1 test
+test budget_stop_during_internal_reset_is_accounted_as_recording_incomplete ... FAILED
+
+failures:
+
+---- budget_stop_during_internal_reset_is_accounted_as_recording_incomplete stdout ----
+
+thread 'budget_stop_during_internal_reset_is_accounted_as_recording_incomplete' (123) panicked at crates/mtg-recorder/tests/collector.rs:552:62:
+internal-work stop must retain explicit incomplete accounting: Incomplete
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    budget_stop_during_internal_reset_is_accounted_as_recording_incomplete
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-recorder --test collector`

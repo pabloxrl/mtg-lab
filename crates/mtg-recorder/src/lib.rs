@@ -1,6 +1,7 @@
 //! Bounded JSONL persistence for canonical scalar trajectories.
 //!
-//! See `doc/trajectory-jsonl.md`. No engine calls or RNG use occur here.
+//! See `doc/trajectory-jsonl.md`. No game execution or RNG use occurs here.
+pub mod collector;
 pub mod manifest;
 pub mod schema;
 pub mod structured;

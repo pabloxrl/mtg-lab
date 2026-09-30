@@ -55,7 +55,8 @@ struct GameWire {
 fn digest(bytes: &[u8]) -> String {
     format!("{:x}", Sha256::digest(bytes))
 }
-pub(super) fn engine() -> &'static str {
+/// Conservative source/data compatibility identity used by snapshots and run provenance.
+pub fn engine() -> &'static str {
     static ENGINE: std::sync::OnceLock<String> = std::sync::OnceLock::new();
     ENGINE.get_or_init(|| {
         // Conservative compatibility: any core-source or pinned data change rejects
