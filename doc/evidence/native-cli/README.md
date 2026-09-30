@@ -40,7 +40,8 @@ Normal-discovery `crates/mtg-cli/tests/native_simulate.rs` covers:
   only exit/accounting invariants; no wall-time-based expected decision counts.
 
 Unit tests in `native.rs` inject deterministic stop/deadline controls before start,
-after exactly one accepted choice and after 198 owner operations. Pre-start has
+after exactly one accepted choice and after 199 total work calls (including reset).
+The later stop asserts more than two decisions, not an exact decision count. Pre-start has
 zero started; active signals are incomplete, deadlines truncated, with two of
 three episodes not started. Maximum-u64 episode count stops before any allocation.
 Explicit synthetic unavailable-policy and write/flush failures supplement real
@@ -83,9 +84,34 @@ table is unchanged and accuracy must be independently checked at candidate revie
 ## Local validation receipt
 
 [Complete torture log](torture.log) and [machine receipt/source hashes](validation.json)
-record successful validation after fresh-main integration: 143 Python tests and
+record successful validation of original implementation candidate `0555c508`
+after fresh-main integration: 143 Python tests and
 862 Rust executions across debug/release, including fresh-process child tests;
 zero failed or ignored. [Native, legacy and benchmark quickstarts](quickstarts.json)
 passed with stdin closed and display variables unset. No new reference-engine
 execution or performance qualification is claimed. Final independent review,
 protected merge and exact-main CI remain separate delivery gates in the workpad.
+
+
+## Shared-runner watchdog correction
+
+[Required CI run 36747824217](https://github.com/pabloxrl/mtg-lab/actions/runs/36747824217)
+reached the new complete-game comparison and hit its copied ten-second subprocess
+watchdog; the other seven native subprocess tests passed. [Failure excerpt](ci-watchdog-red.log)
+is retained. [Independent requirements review](watchdog-expectation-review.json)
+approved a 60-second kill/reap watchdog only for full-game subprocess comparisons:
+RFC bounded automation does not promise ten-second debug-game performance on a
+shared runner, and #177 explicitly excludes performance qualification. Slower
+hang detection is the explicit tradeoff. Every workload, seed, repeat/direct
+comparison and semantic assertion remains. Signal/error/tiny-limit subprocess
+guards remain ten seconds; deterministic stop/deadline assertions are unchanged.
+No product, CI, workflow or enforcement behavior changed. The reviewer’s wording
+clarification is reflected above: poll 3 has an exact decision count; the later
+stop has exact work counts and a nontrivial-decision predicate.
+
+The watchdog-only follow-up reruns full torture before push. Its exact candidate,
+exit status, counts and log digest are recorded in the [delivery workpad](https://github.com/pabloxrl/mtg-lab/issues/177#issuecomment-5915385501)
+and PR alongside the repeated clean-candidate review. The original log/source
+receipt above remains attributed to its original commit; it is not relabeled as
+a run of the changed test helper. Product sources and quickstart behavior did not
+change in this follow-up.

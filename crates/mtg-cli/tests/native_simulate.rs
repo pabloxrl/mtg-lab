@@ -49,7 +49,17 @@ fn run(value: Value, extra: &[&str]) -> (i32, Vec<Value>, String) {
     c.args(extra);
     run_command(c)
 }
-fn run_command(mut command: Command) -> (i32, Vec<Value>, String) {
+fn run_command(command: Command) -> (i32, Vec<Value>, String) {
+    run_command_with_timeout(command, Duration::from_secs(10))
+}
+fn run_game(value: Value) -> (i32, Vec<Value>, String) {
+    let input = Input::new(&value);
+    // Full debug games are not a shared-runner performance qualification.
+    // Independent watchdog review retains all semantic and ten-second signal
+    // checks; this outer liveness guard still kills/reaps a hung subprocess.
+    run_command_with_timeout(command(&input), Duration::from_secs(60))
+}
+fn run_command_with_timeout(mut command: Command, timeout: Duration) -> (i32, Vec<Value>, String) {
     let mut child = command.spawn().unwrap();
     let out = child.stdout.take();
     let mut err = child.stderr.take().unwrap();
@@ -65,7 +75,7 @@ fn run_command(mut command: Command) -> (i32, Vec<Value>, String) {
         err.read_to_string(&mut s).unwrap();
         s
     });
-    let until = Instant::now() + Duration::from_secs(10);
+    let until = Instant::now() + timeout;
     let status = loop {
         if let Some(s) = child.try_wait().unwrap() {
             break s;
@@ -295,9 +305,9 @@ fn native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints() 
             c["first_episode"] = json!(7);
             c["max_decisions"] = json!(20000);
             c["native"]["max_records"] = json!(20000);
-            let (code, r, e) = run(c.clone(), &[]);
+            let (code, r, e) = run_game(c.clone());
             assert_eq!(code, 0, "{e}");
-            assert_eq!(r, run(c.clone(), &[]).1);
+            assert_eq!(r, run_game(c.clone()).1);
             let expected = direct(&c);
             for (key, v) in expected.as_object().unwrap() {
                 assert_eq!(&r[1][key], v, "{key}");

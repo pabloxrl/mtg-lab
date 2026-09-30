@@ -24,5 +24,7 @@
     "crates/mtg-cli/src/main.rs": "ad2f87704b398a8b66dfa3900165c51ce24e0ead7bb8838fd12a2b4b7df02bb4",
     "crates/mtg-cli/src/commands.rs": "6107ee0bd85193a379a38577ceaf83a6cafe7e2c189756238b3a7ad9178a58a0",
     "crates/mtg-cli/tests/native_simulate.rs": "dfccffa00fe07f16e5a1ce5d909cf76c3bbbbe898008c290a9c42142c79ce591"
-  }
+  },
+  "candidate_sha": "0555c508f1b14fa969358314b3208425a0da3e3b",
+  "scope": "Original complete implementation before the independently reviewed test-only watchdog correction. Final rerun and exact candidate receipts are recorded in the issue/PR workpad."
 }

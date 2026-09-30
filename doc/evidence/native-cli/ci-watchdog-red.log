@@ -1,0 +1,28 @@
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.5885143Z      Running tests/native_simulate.rs (/tmp/target/debug/deps/native_simulate-cbd025cd4d8a64cf)
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.5897073Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.5899416Z running 8 tests
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.5986588Z test native_configuration_never_silently_runs_as_passive_benchmark ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.6444187Z test native_explicit_work_and_record_limits_account_exactly ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.6798048Z test native_bad_versions_policies_bounds_and_overflow_fail_without_output ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.7404440Z test native_signals_have_bounded_complete_accounting ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.7462400Z test native_stdout_failure_is_a_caller_error ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.7684559Z test native_literal_first_land_checkpoint_both_starting_seats ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T16:59:13.8005222Z test native_one_decision_cannot_be_a_rules_outcome ... ok
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9546921Z test native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints ... FAILED
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9548667Z error: test failed, to rerun pass `-p mtg-cli --test native_simulate`
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9549249Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9549587Z failures:
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9549956Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9550580Z ---- native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints stdout ----
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9551391Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9552323Z thread 'native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints' (5752) panicked at crates/mtg-cli/tests/native_simulate.rs:76:13:
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9553837Z headless subprocess deadline exceeded
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9554641Z note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9555606Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9555758Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9556016Z failures:
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9556670Z     native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9557349Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9557924Z test result: FAILED. 7 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 53.36s
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:06.9558713Z 
+verify	Run ./scripts/verify-docker.sh	2026-09-30T17:00:07.8955980Z ##[error]Process completed with exit code 101.
