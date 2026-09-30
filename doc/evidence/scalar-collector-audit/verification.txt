@@ -1,0 +1,18 @@
+GH-117 aggregate audit verification
+Base/main: b428a73be643db55105d3324d07605fa7fa1d9d3
+Managed Linux container, 2026-09-30. No worker Docker invocation.
+Command: ./scripts/torture.sh
+Exit: 0
+143 Python tests; 409 Rust tests/doctests per debug/release profile; zero failed/ignored.
+Docs/program/catalog/fmt/Clippy passed.
+Final executable source unchanged throughout full torture.
+New focused ordered-mulligan test passed before full torture. Earlier new-fixture assertion corrections are documented in README; no production red claim.
+Fresh origin/main fetched before run; HEAD equals that base, so no integration delta.
+No rules change or new reference agreement claim.
+Independent review, PR, protected merge and exact-main CI receipts: issue 117 workpad and linked PR.
+
+SHA-256:
+9d8cccb93878f3349597579a10ba13236168246011dc8fd243b49fc142d73a63  README.md
+0566a6c412a8e4813ffd596b67b6b8b51d7575012acc659beea2fe5e61b1e3ad  crates/mtg-recorder/tests/collector_audit.rs
+584105c5cf3ab830b5c94c1041584812e0382b4030c3cf30c6a706f6ec0d0b01  doc/evidence/scalar-collector-audit/README.md
+6efef072f2009798025fc36d9154f07777d49392592937b648fca6308c9887d0  doc/evidence/scalar-collector-audit/torture.log
