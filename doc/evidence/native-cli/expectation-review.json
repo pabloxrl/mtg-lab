@@ -1,0 +1,11 @@
+{
+  "verdict": "pass",
+  "summary": "The specific true→false correction is independently justified. doc/views.md defines battlefield creature summoning sickness; doc/casting.md describes the restriction for creatures. Pinned CR302.6 evidence in doc/evidence/casting/README.md explicitly distinguishes creature control-since-turn-start restrictions from fresh lands, which have no creature sickness. Existing views_tests.rs:226 positively asserts creature sickness. Thus a newly played noncreature Forest should expose false, independently of actual output. Retain all other assertions: both starting seats, five decisions (two keeps, two upkeep passes, land), turn 1, life 20/20, hands 6/7 by starting seat, libraries 33/33, exactly one untapped Forest, and empty other public zones. Reviewed local evidence only; no edits or execution. This approves only the expectation correction, not the final candidate.",
+  "findings": [
+    {
+      "file": "crates/mtg-cli/tests/native_simulate.rs:291",
+      "finding": "Add a short CR302.6/contract rationale beside the corrected literal. Keeping this explicit false assertion alongside the existing creature-true view assertion preserves coverage of both outcomes; do not replace the literal checkpoint with implementation-derived comparisons.",
+      "severity": "advisory"
+    }
+  ]
+}

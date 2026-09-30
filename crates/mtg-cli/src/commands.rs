@@ -151,6 +151,9 @@ fn benchmark(path: &std::ffi::OsStr, signal: &AtomicUsize) -> Result<(i32, Value
     let c: simulate::Config =
         serde_json::from_slice(&read(path, 1_048_576)?).map_err(|e| invalid(e.to_string()))?;
     c.validate().map_err(invalid)?;
+    if c.schema_version != 1 {
+        return Err(invalid("scalar-pass-v1 requires legacy pass configuration"));
+    }
     if c.episodes > 100 || c.max_decisions > 10_000 {
         return Err(invalid(
             "scalar smoke limits: at most 100 episodes and 10000 decisions per episode",

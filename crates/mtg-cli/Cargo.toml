@@ -10,6 +10,7 @@ name = "mtg"
 path = "src/main.rs"
 
 [dependencies]
+mtg-policy = { path = "../mtg-policy" }
 mtg-core = { path = "../mtg-core" }
 mtg-recorder = { path = "../mtg-recorder" }
 serde = { version = "1", features = ["derive"] }

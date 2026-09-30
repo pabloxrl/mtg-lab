@@ -1,4 +1,5 @@
 mod commands;
+mod native;
 mod simulate;
 use serde_json::json;
 use std::{
@@ -37,8 +38,8 @@ fn execute() -> Result<i32, (i32, String)> {
         return Err((2, "config must be a regular file of at most 1 MiB".into()));
     }
     let bytes = std::fs::read(&args[2]).map_err(|e| (2, e.to_string()))?;
-    let config: simulate::Config =
-        serde_json::from_slice(&bytes).map_err(|e| (2, e.to_string()))?;
+    let config: simulate::Config = serde_json::from_slice(&bytes)
+        .map_err(|_| (2, "invalid simulation configuration".into()))?;
     config.validate().map_err(|e| (2, e))?;
     let mut output: Box<dyn Write> = if args.len() == 5 {
         Box::new(
@@ -63,7 +64,12 @@ fn execute() -> Result<i32, (i32, String)> {
         }
         _ => None,
     };
-    simulate::run(&config, &mut output, control, simulate::step).map_err(|e| (3, e.to_string()))
+    if config.schema_version == 2 {
+        native::run(&config, &mut output, control)
+            .map_err(|_| (3, "simulation output failed".into()))
+    } else {
+        simulate::run(&config, &mut output, control, simulate::step).map_err(|e| (3, e.to_string()))
+    }
 }
 fn main() {
     let code = match execute() {

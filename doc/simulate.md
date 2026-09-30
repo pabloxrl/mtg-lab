@@ -1,4 +1,4 @@
-# Scalar unattended simulation, schema 1
+# Scalar unattended simulation
 
 Run inside the project toolchain container:
 
@@ -7,7 +7,7 @@ cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/pas
 cargo test -p mtg-cli simulate
 ```
 
-The binary is `mtg`. It accepts only `simulate --config FILE` and optional
+The binary is `mtg`. Its simulation command accepts `simulate --config FILE` and optional
 `--output NEW_FILE`. Existing files are never overwritten. Without `--output`,
 stdout contains JSONL only; diagnostics are versioned JSON on stderr. No stdin,
 TTY, display, browser, controller prompt or process per game is used. The
@@ -26,15 +26,15 @@ it includes reset, policy, core transitions and writing. The decision budget
 includes opening and cleanup choices. Reset and automatic rules work are not
 policy decisions.
 
-Only `pass-v1` is implemented here. Both seats explicitly choose it: keep the
+Schema 1 supports `pass-v1`. Both seats explicitly choose it: keep the
 opening seven, pass priority, and select the first required cleanup candidate
 rows in the core's hand order. The core validates every action. This deterministic
 policy consumes no policy RNG and reads no hidden cards. There is no random or
 human fallback. It plays no lands or spells and never creates combat choices;
 an unexpected choice is a failed episode, not an implicit action. Unplayed cards
 retain their real identities. This does not claim complete behavior for either
-frozen deck. Broader native random/heuristic policies remain M2; CLI recording,
-replay and cross-feature acceptance remain #79/#21. No rules are implemented in
+frozen deck. Schema 2 native policies are described below; CLI recording, played replay
+routing and composed acceptance remain with #179/#180/#120/#21. No rules are implemented in
 the CLI. No trajectory or performance benchmark is produced.
 
 Every record carries `schema_version: 1`:
@@ -79,3 +79,78 @@ external supervisor when storage/pipe consumers can stall. `deadline_ms` is a
 cooperative simulation deadline, not an I/O preemption mechanism.
 
 [Behavioral red/green and regression evidence](evidence/simulate/README.md).
+
+
+## Native simulation, schema 2
+
+```sh
+env -u DISPLAY -u WAYLAND_DISPLAY cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/native-v2.json </dev/null
+cargo test -p mtg-cli --test native_simulate
+```
+
+The [resolved example](../fixtures/simulate/native-v2.json) keeps the same required
+seed, episode, decision and game fields, sets `schema_version: 2`, and adds a
+required `native` object. Each seat explicitly selects `legal-random-m1-v1` or
+`heuristic-m1-v1`; mixing these two is supported. `pass-v1` remains schema 1 only.
+`bench --workload scalar-pass-v1` accepts schema 1 only, never silently substituting
+a passive policy for native configuration. Unknown versions/policies fail before
+output; no human, random, or pass fallback exists.
+
+All native object fields are required:
+
+| Field | Meaning |
+| --- | --- |
+| `policy_seed` | Unsigned 64-bit master for independent episode/seat policy streams; heuristic is stateless and does not consume it |
+| `rng_version` | Exactly `legal-random-rng-v1`, independent from the environment RNG version |
+| `work_quantum` | Positive platform-sized integer clamping each owner reset/advance call's internal work |
+| `max_work_calls` | Positive u64 per-episode ceiling counting reset, each advance, and each attempted policy submission once |
+| `max_records` | Positive platform-sized ceiling on accepted semantic history records; exhaustion fails the episode |
+
+`max_decisions` remains a positive per-episode accepted-choice limit. These are
+count/work limits, not byte/RSS or performance promises. Submit is synchronous;
+one call can execute its existing atomic core operation. Limits include opening
+choices. One work call with quantum one leaves a partial reset, zero decisions,
+and unavailable final views. Work exhaustion abandons the owner and is reported
+as **incomplete**, not a rules result or a bootstrappable truncation. Decision and
+deadline limits use owner **truncated** outcomes. Record exhaustion is **failed**.
+Work/decision limits continue to the next requested episode; a failure stops the
+run. The run retains only one game and its explicitly bounded semantic history.
+Policy observation capacity is 256 rows/domain entries; an owner capacity error
+fails explicitly rather than clipping legal choices.
+
+The caller checks run deadline/signals between owner operations and before every
+episode. Deadline expiry is passed to the owner's injected monotonic clock before
+finalization; owner precedence (failure, rules terminal, decision, time) remains
+authoritative. SIGTERM/SIGINT finalize an active owner as incomplete. Neither
+signals nor deadline fabricate a rules loss. Already-terminal episodes retain
+completion. Output errors are caller errors and may prevent the final summary;
+there is no claim of recovery from a stalled sink, SIGKILL or a crash.
+
+Output records retain schema 1 envelopes, with `execution: owned-native-v1` in
+the run header and the complete schema 2 config/policy identities. Native episode
+rows expose final public life/turn/active seat/step, hand/library **counts**, public zones, terminal
+predicates and a semantic-history digest, never private hand contents. The digest
+is SHA-256 of compact JSON encoding of the owner's ordered semantic byte records;
+it is an equivalence receipt, not a replay. The optional `caller_error` is a fixed
+redacted category. Policy/routing errors leave an incomplete owner and nonzero
+runtime exit, separately from owner failures. An unavailable finalization has
+null state/decision fields rather than invented results.
+
+Native summaries use `incomplete` instead of legacy `unfinished`:
+`started = completed + truncated + failed + incomplete`,
+`requested = started + not_started`. Only completed outcomes affect wins/draws.
+Exit codes remain 0/2/3/4/130/143 as above; exit 0 can include explicit limited
+outcomes. A maximum-u64 episode request is processed incrementally with checked
+ID ranges and no episode-count allocation. Config 1 JSON and existing commands
+remain compatible.
+
+The sole rules owner is `episode::Driver`; policies consume seat-authorized
+observations and submit through its validated boundary. Capture is disabled.
+Supported policy actions remain the delivered six-card M1 subset (Forest,
+Mountain, Bear Cub, Swab Goblin, Giant Growth, Bite Down and vanilla combat);
+other fixed-deck cards are uncastable. No new algorithm, semantic script mode,
+persistent capture, second game loop, batching/training, performance or strength
+qualification is delivered. #120 retains all composed CLI clauses; #21/#22 and
+later requirement owners remain unchanged.
+
+[Native acceptance and independent expectations](evidence/native-cli/README.md).

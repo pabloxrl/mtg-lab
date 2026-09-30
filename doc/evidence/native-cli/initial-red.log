@@ -1,0 +1,62 @@
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling libc v0.2.189
+   Compiling proc-macro2 v1.0.107
+   Compiling generic-array v0.14.7
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling cfg-if v1.0.5
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling sha2 v0.10.9
+   Compiling errno v0.3.14
+   Compiling signal-hook v0.3.18
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-cli)
+   Compiling signal-hook-registry v1.4.8
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-177/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.56s
+     Running tests/native_simulate.rs (target/debug/deps/native_simulate-a61440a2ec238892)
+
+running 3 tests
+test native_explicit_work_and_record_limits_account_exactly ... FAILED
+test native_one_decision_is_one_keep_not_a_rules_outcome ... FAILED
+test native_bad_versions_policies_bounds_and_overflow_fail_without_output ... ok
+
+failures:
+
+---- native_explicit_work_and_record_limits_account_exactly stdout ----
+
+thread 'native_explicit_work_and_record_limits_account_exactly' (1088) panicked at crates/mtg-cli/tests/native_simulate.rs:131:5:
+assertion `left == right` failed: {"exit_code":2,"message":"unknown field `native`, expected one of `schema_version`, `game`, `policies`, `master_seed`, `first_episode`, `episodes`, `max_decisions`, `deadline_ms` at line 1 column 337","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- native_one_decision_is_one_keep_not_a_rules_outcome stdout ----
+
+thread 'native_one_decision_is_one_keep_not_a_rules_outcome' (1089) panicked at crates/mtg-cli/tests/native_simulate.rs:112:13:
+assertion `left == right` failed: {"exit_code":2,"message":"unknown field `native`, expected one of `schema_version`, `game`, `policies`, `master_seed`, `first_episode`, `episodes`, `max_decisions`, `deadline_ms` at line 1 column 334","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+
+failures:
+    native_explicit_work_and_record_limits_account_exactly
+    native_one_decision_is_one_keep_not_a_rules_outcome
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+
+error: test failed, to rerun pass `-p mtg-cli --test native_simulate`
