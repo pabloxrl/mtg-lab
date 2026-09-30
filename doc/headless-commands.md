@@ -7,6 +7,7 @@ container. The CLI calls the existing core/recorder/comparator implementations.
 
 ```text
 mtg replay verify opening.json
+mtg replay verify played.json
 mtg replay inspect opening.json --seat 0 --format jsonl
 mtg trajectories validate episodes.jsonl
 mtg conformance --suite checkpoints-v1 --fixture fixture.json --actual checkpoints.json --artifacts new-directory
@@ -27,16 +28,40 @@ write can leave an incomplete output file and must not be accepted as a result.
 | Conformance interruption/10-second timeout or benchmark wall deadline | 4 |
 | Benchmark SIGINT / SIGTERM, with accounted summary when output succeeds | 130 / 143 |
 
-Replay verification accepts the current [opening replay format](replay.md),
-reconstructing it through core reset/apply and checking every recorded checkpoint
-and consumed semantic choice. It does not verify post-opening spells or full games.
-Verification diagnostics can contain privileged first-divergence values; restrict
-access just as for the replay itself. Inspection verifies the entire artifact
-before emitting **only the final opening observation** for the explicit seat using
-`Game::observe`. It does not dump checkpoints, other hands, libraries or RNG.
-Inspection errors report an error category without private divergence values.
-Possession of a replay file already grants access to its privileged contents;
-seat filtering is an output contract, not host authentication.
+Replay verification accepts the current [opening and played replay formats](replay.md).
+The required top-level `format` and integer `version` select exactly one core
+verifier: `mtg-core-opening-replay`/1 or `mtg-core-played-replay`/1. Missing or
+duplicate discriminators are malformed; unsupported pairs fail explicitly.
+There is no parser fallback or migration. The core reconstructs normal reset,
+consumes every semantic choice and checks every recorded checkpoint. Played
+histories must be terminal, with no missing or extra choices.
+
+The caller supplies an existing library-produced file (these commands do not
+capture or create replays). Selecting its local path deliberately reads a
+privileged artifact containing both seats' secrets. This does not resolve opaque
+replay IDs, persist a grant, or authenticate provenance. Successful opening
+verification retains its `scope: "opening-v1"` summary. Played verification emits:
+
+```json
+{"schema_version":1,"type":"replay_verification","status":"verified","scope":"played-v1","checkpoint":"terminal","life":[20,20],"outcome":{"winner":"P0","losses":[null,"Concession"]}}
+```
+
+This example describes a P1 concession with unchanged life; life/outcome reflect
+the verified public terminal state. Verification never dumps hands, seeds, paths
+or semantic payloads. Both verify and inspect report only error categories:
+`Malformed`, `Incompatible`, `InvalidConfig`, `Divergence`, `MissingChoice`,
+`UnconsumedChoice`, `InvalidChoice`, `SemanticChoice`, `Storage`, or `Turn`, in
+`replay CATEGORY; privileged detail withheld`. Input failures use a fixed
+readable-regular-file/byte-limit message. All these failures exit 2 with the
+existing schema-version 1 error object. Detailed private divergence remains
+available only through the deliberately privileged core API.
+
+Inspection remains **opening-v1 only** and rejects played artifacts explicitly.
+It verifies the entire opening artifact before emitting only its final observation
+for the explicit seat through `Game::observe`. Verification does not enable
+privileged inspection, and no `--privileged` flag is supported. Seat filtering is
+an output contract, not host authentication. [CLI acceptance](evidence/played-replay-cli/README.md)
+covers normal-reset land/concession play, legacy opening, routing and redaction.
 
 Trajectory validation uses the [canonical JSONL reader](trajectory-jsonl.md):
 strict records, episode accounting, seal counts and SHA-256 integrity. Success

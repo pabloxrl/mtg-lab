@@ -1,0 +1,15 @@
+{
+  "command": "./scripts/torture.sh",
+  "environment": "managed Linux container; no worker Docker invocation",
+  "exit_code": 0,
+  "base_sha": "fac991744a4ff0d9686a204897472ded93e2f154",
+  "python_tests": 143,
+  "rust_passing_executions_including_subprocesses": 870,
+  "rust_failed": 0,
+  "rust_ignored": 0,
+  "log_sha256": "dbac67e83bdbf8e06c32610e44e9775a51634838ee902d27b6ed99ea3c9cd7a6",
+  "source_sha256": {
+    "crates/mtg-cli/src/commands.rs": "962b26921ac6207a472f512e118e4967e5e85083767d64ccb14f9c99e1d63164",
+    "crates/mtg-cli/tests/played_replay_commands.rs": "7854d3f14b69e21e3ddaaaeb89a8662e78b20f11b0b221dae89861347042b922"
+  }
+}

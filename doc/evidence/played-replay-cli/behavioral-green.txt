@@ -1,0 +1,12 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-180/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.66s
+     Running tests/played_replay_commands.rs (target/debug/deps/played_replay_commands-4cc214be2969caaf)
+
+running 4 tests
+test bounded_malformed_input_and_inspection_do_not_enable_privilege ... ok
+test routing_rejects_unsupported_missing_and_duplicate_discriminators ... ok
+test played_and_opening_verify_with_literal_public_summary ... ok
+test history_and_semantic_corruptions_fail_without_private_details ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.30s
+

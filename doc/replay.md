@@ -3,7 +3,7 @@
 `mtg_core::opening::replay` records and verifies complete normal-reset opening
 scripts. This is the GH-75 core portion of R0002-B016/B025 and SYS-REPLAY.
 Spells and cross-feature acceptance remain with #19; the unattended replay CLI
-remains #79. There is no full-game replay command yet.
+was delivered by #79 and extended for played verification by #180.
 
 ```rust
 use mtg_core::objects::Seat;
@@ -76,8 +76,9 @@ independent expected results from self-round-trip consistency.
 
 `opening::replay::played::{record, verify}` extends the core persistence API to
 complete games using `opening::actions::Record` (action version 1). The opening
-v1 API and CLI remain supported separately; the CLI does **not** accept this new
-format yet. Example:
+v1 API and CLI remain supported separately. The [CLI](headless-commands.md)
+verifies both formats by explicit envelope routing; seat inspection remains
+opening-only and ordinary diagnostics redact private details. Example:
 
 ```rust
 use mtg_core::{objects::Seat, opening::{Config, actions, replay::played}};

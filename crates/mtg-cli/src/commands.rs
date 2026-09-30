@@ -46,25 +46,65 @@ fn stopped(signal: &AtomicUsize) -> Option<simulate::Stop> {
         _ => None,
     }
 }
-fn replay_error(e: replay::ReplayError, inspect: bool) -> Error {
-    if inspect {
-        // Replay divergence includes privileged expected/actual values. Never
-        // forward those into a player-visible inspection diagnostic.
-        let kind = match e {
-            replay::ReplayError::Divergence { .. } => "Divergence",
-            replay::ReplayError::MissingChoice { .. } => "MissingChoice",
-            replay::ReplayError::UnconsumedChoice { .. } => "UnconsumedChoice",
-            replay::ReplayError::InvalidChoice { .. } => "InvalidChoice",
-            replay::ReplayError::Incompatible { .. } => "Incompatible",
-            replay::ReplayError::InvalidConfig(_) => "InvalidConfig",
-            replay::ReplayError::Storage(_) => "Storage",
-            replay::ReplayError::Malformed => "Malformed",
-            replay::ReplayError::Turn(_) => "Turn",
-            replay::ReplayError::SemanticChoice { .. } => "SemanticChoice",
-        };
-        invalid(format!("replay {kind}; privileged detail withheld"))
-    } else {
-        invalid(format!("replay: {e:?}"))
+fn replay_error(e: replay::ReplayError) -> Error {
+    // Both verification and inspection are ordinary output surfaces. Core errors
+    // may contain private checkpoints, field paths, seeds and semantic payloads.
+    let kind = match e {
+        replay::ReplayError::Divergence { .. } => "Divergence",
+        replay::ReplayError::MissingChoice { .. } => "MissingChoice",
+        replay::ReplayError::UnconsumedChoice { .. } => "UnconsumedChoice",
+        replay::ReplayError::InvalidChoice { .. } => "InvalidChoice",
+        replay::ReplayError::Incompatible { .. } => "Incompatible",
+        replay::ReplayError::InvalidConfig(_) => "InvalidConfig",
+        replay::ReplayError::Storage(_) => "Storage",
+        replay::ReplayError::Malformed => "Malformed",
+        replay::ReplayError::Turn(_) => "Turn",
+        replay::ReplayError::SemanticChoice { .. } => "SemanticChoice",
+    };
+    invalid(format!("replay {kind}; privileged detail withheld"))
+}
+#[derive(serde::Deserialize)]
+struct ReplayHeader {
+    format: String,
+    version: u32,
+}
+fn replay_command(path: &std::ffi::OsStr, inspect: bool, seat: Seat) -> Result<Value, Error> {
+    // Explicit local path access is deliberate privileged input access, not a
+    // registry grant. Keep the existing byte bound; never print the path/errors.
+    let bytes = read(path, INPUT_LIMIT).map_err(|_| {
+        invalid("replay input must be a readable regular file within the byte limit")
+    })?;
+    // Deserialize directly from bytes: duplicate discriminators are errors, not
+    // last-key-wins Value normalization. Never retry another format on failure.
+    let header: ReplayHeader =
+        serde_json::from_slice(&bytes).map_err(|_| replay_error(replay::ReplayError::Malformed))?;
+    match (header.format.as_str(), header.version) {
+        ("mtg-core-opening-replay", replay::REPLAY_VERSION) => {
+            let game = replay::verify(&bytes).map_err(replay_error)?;
+            if inspect {
+                let view = game
+                    .observe(seat)
+                    .map_err(|_| invalid("replay observation unavailable"))?;
+                Ok(
+                    json!({"type":"replay_inspection","scope":"opening-v1","checkpoint":"final","observation":view}),
+                )
+            } else {
+                Ok(json!({"type":"replay_verification","status":"verified","scope":"opening-v1"}))
+            }
+        }
+        ("mtg-core-played-replay", replay::played::VERSION) => {
+            if inspect {
+                return Err(invalid("replay inspection supports opening-v1 only"));
+            }
+            let game = replay::played::verify(&bytes).map_err(replay_error)?;
+            Ok(
+                json!({"type":"replay_verification","status":"verified","scope":"played-v1",
+                "checkpoint":"terminal","life":game.life(),"outcome":game.outcome()}),
+            )
+        }
+        _ => Err(replay_error(replay::ReplayError::Incompatible {
+            field: "format/version".into(),
+        })),
     }
 }
 pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
@@ -91,16 +131,7 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
         } else {
             Seat::P0
         };
-        let game =
-            replay::verify(&read(&args[2], INPUT_LIMIT)?).map_err(|e| replay_error(e, inspect))?;
-        let value = if inspect {
-            let view = game
-                .observe(seat)
-                .map_err(|_| invalid("replay observation unavailable"))?;
-            json!({"type":"replay_inspection","scope":"opening-v1","checkpoint":"final","observation":view})
-        } else {
-            json!({"type":"replay_verification","status":"verified","scope":"opening-v1"})
-        };
+        let value = replay_command(&args[2], inspect, seat)?;
         (0, value)
     } else if args.len() == 3 && is(0, "trajectories") && is(1, "validate") {
         let bytes = read(&args[2], INPUT_LIMIT)?;
