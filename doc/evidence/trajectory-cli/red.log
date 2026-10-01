@@ -1,0 +1,64 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-181/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.62s
+     Running tests/trajectory_commands.rs (target/debug/deps/trajectory_commands-49790b1eb32e03d4)
+
+running 7 tests
+test bounded_explicit_file_selection_and_options_fail_safely ... FAILED
+test diagnostic_reports_failed_and_incomplete_runs_without_completed_prefix_claim ... FAILED
+test real_played_v2_and_manifest_have_independently_counted_summaries ... FAILED
+test v1_fixture_and_explicit_v1_and_manifest_remain_supported ... FAILED
+test synthetic_manifest_mismatches_and_private_reasons_are_redacted ... FAILED
+test synthetic_version_duplicate_missing_and_corrupt_data_never_salvage ... FAILED
+test library_played_inputs_match_literal_accounting_before_cli ... ok
+
+failures:
+
+---- bounded_explicit_file_selection_and_options_fail_safely stdout ----
+
+thread 'bounded_explicit_file_selection_and_options_fail_safely' (137) panicked at crates/mtg-cli/tests/trajectory_commands.rs:219:5:
+{"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- diagnostic_reports_failed_and_incomplete_runs_without_completed_prefix_claim stdout ----
+
+thread 'diagnostic_reports_failed_and_incomplete_runs_without_completed_prefix_claim' (138) panicked at crates/mtg-cli/tests/trajectory_commands.rs:106:5:
+{"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+---- real_played_v2_and_manifest_have_independently_counted_summaries stdout ----
+
+thread 'real_played_v2_and_manifest_have_independently_counted_summaries' (140) panicked at crates/mtg-cli/tests/trajectory_commands.rs:91:5:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- v1_fixture_and_explicit_v1_and_manifest_remain_supported stdout ----
+
+thread 'v1_fixture_and_explicit_v1_and_manifest_remain_supported' (152) panicked at crates/mtg-cli/tests/trajectory_commands.rs:91:5:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+
+---- synthetic_manifest_mismatches_and_private_reasons_are_redacted stdout ----
+
+thread 'synthetic_manifest_mismatches_and_private_reasons_are_redacted' (144) panicked at crates/mtg-cli/tests/trajectory_commands.rs:219:5:
+{"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+---- synthetic_version_duplicate_missing_and_corrupt_data_never_salvage stdout ----
+
+thread 'synthetic_version_duplicate_missing_and_corrupt_data_never_salvage' (148) panicked at crates/mtg-cli/tests/trajectory_commands.rs:219:5:
+{"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+
+failures:
+    bounded_explicit_file_selection_and_options_fail_safely
+    diagnostic_reports_failed_and_incomplete_runs_without_completed_prefix_claim
+    real_played_v2_and_manifest_have_independently_counted_summaries
+    synthetic_manifest_mismatches_and_private_reasons_are_redacted
+    synthetic_version_duplicate_missing_and_corrupt_data_never_salvage
+    v1_fixture_and_explicit_v1_and_manifest_remain_supported
+
+test result: FAILED. 1 passed; 6 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.21s
+
+error: test failed, to rerun pass `-p mtg-cli --test trajectory_commands`

@@ -133,15 +133,8 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
         };
         let value = replay_command(&args[2], inspect, seat)?;
         (0, value)
-    } else if args.len() == 3 && is(0, "trajectories") && is(1, "validate") {
-        let bytes = read(&args[2], INPUT_LIMIT)?;
-        let episodes = mtg_recorder::read(bytes.as_slice(), INPUT_LIMIT)
-            .map_err(|e| invalid(format!("trajectory: {e:?}")))?;
-        let decisions: usize = episodes.iter().map(|e| e.decisions.len()).sum();
-        (
-            0,
-            json!({"type":"trajectory_validation","status":"valid","format":"scalar-jsonl-v1","episodes":episodes.len(),"decisions":decisions}),
-        )
+    } else if is(0, "trajectories") && is(1, "validate") {
+        (0, crate::trajectories::validate(&args[2..])?)
     } else if args.len() == 5
         && is(0, "bench")
         && is(1, "--workload")
@@ -168,7 +161,13 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
                 .write(true)
                 .create_new(true)
                 .open(path)
-                .map_err(|e| io_error(format!("output: {e}")))?,
+                .map_err(|e| {
+                    if is(0, "trajectories") {
+                        io_error("trajectory output failure; private detail withheld")
+                    } else {
+                        io_error(format!("output: {e}"))
+                    }
+                })?,
         ),
         None => Box::new(io::stdout().lock()),
     };

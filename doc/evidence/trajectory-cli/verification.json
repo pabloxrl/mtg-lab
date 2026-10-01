@@ -1,0 +1,27 @@
+{
+  "baseline": "765af749acbdae589de7715c4c64ddd4305c6cc0",
+  "focused": {
+    "command": "cargo test --locked -p mtg-cli --test headless_commands --test trajectory_commands",
+    "passed": 18,
+    "failed": 0,
+    "ignored": 0,
+    "log_sha256": "420daeb77bcc1b870030f5666475d2ccc80752c07d58f90ed9b1b450bafa9119"
+  },
+  "quickstarts": {
+    "environment": "closed stdin, DISPLAY and WAYLAND_DISPLAY unset, 15-second external timeout",
+    "v1": {
+      "episodes": 1,
+      "decisions": 1,
+      "status": "valid"
+    },
+    "v1_manifest": {
+      "episodes": 1,
+      "decisions": 1,
+      "declared_episodes": 1,
+      "run_end": "completed",
+      "status": "valid"
+    }
+  },
+  "full_torture": "First run detected legacy error category regression; repaired without changing assertions. Full repaired and fresh-main integration runs are in progress; final results and hashes must be recorded in issue workpad and PR before push.",
+  "review": "Required separate clean-candidate review and delivery CI receipts belong in PR and issue workpad."
+}
