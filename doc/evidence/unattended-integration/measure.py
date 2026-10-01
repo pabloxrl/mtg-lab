@@ -21,6 +21,30 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def attempt(command, env, timeout=30):
+    before = time.perf_counter_ns()
+    try:
+        p = subprocess.run(command, stdin=subprocess.DEVNULL, capture_output=True,
+                           text=True, timeout=timeout, env=env)
+    except subprocess.TimeoutExpired as error:
+        def decoded(value):
+            return value.decode("utf-8", errors="replace") if isinstance(value, bytes) else value or ""
+        return {"process_elapsed_ns": time.perf_counter_ns() - before,
+                "exit_code": None, "failure": "timeout", "result": None,
+                "stdout": decoded(error.stdout), "stderr": decoded(error.stderr)}
+    except OSError as error:
+        return {"process_elapsed_ns": time.perf_counter_ns() - before,
+                "exit_code": None, "failure": "launch_error", "result": None,
+                "stdout": "", "stderr": str(error)}
+    row = {"process_elapsed_ns": time.perf_counter_ns() - before,
+           "exit_code": p.returncode, "stderr": p.stderr, "result": None}
+    try:
+        row["result"] = json.loads(p.stdout)
+    except (ValueError, TypeError):
+        row.update(failure="invalid_json", stdout=p.stdout)
+    return row
+
+
 def main():
     binary = Path("target/release/mtg").resolve()
     config = json.loads(Path("fixtures/simulate/native-v2.json").read_text())
@@ -59,11 +83,8 @@ def main():
                         for seat in (0, 1):
                             c["game"]["seats"][seat]["deck"] = decks[seat]
                         path.write_text(json.dumps(c))
-                        before = time.perf_counter_ns()
-                        p = subprocess.run([str(binary), "bench", "--workload", "native-rollout-v1", "--config", str(path)], stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=30, env=env)
                         sample = {"repeat": repeat, "policy": policy, "decks": decks, "starter": starter,
-                                  "process_elapsed_ns": time.perf_counter_ns()-before, "exit_code": p.returncode,
-                                  "stderr": p.stderr, "result": json.loads(p.stdout) if p.stdout else None}
+                                  **attempt([str(binary), "bench", "--workload", "native-rollout-v1", "--config", str(path)], env)}
                         receipt["samples"].append(sample)
                         # Keep every attempt, including failures; refresh the raw artifact.
                         output.seek(0)

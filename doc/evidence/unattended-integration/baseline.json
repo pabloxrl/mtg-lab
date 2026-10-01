@@ -3,13 +3,13 @@
   "qualification": "initial-baseline-only",
   "protocol": "five repeats; no warmup; 16 cases per repeat; one episode per invocation",
   "limitations": "shared container, unpinned affinity, short windows; no hardware/performance qualification",
-  "created_utc": "2026-10-01T22:19:02Z",
-  "base_commit": "762d331984c8f312b4a7c85fd1ed7cbdd1e6edc1",
+  "created_utc": "2026-10-01T23:12:16Z",
+  "base_commit": "fd94c1712b60c51481aacd2810b6ec4e9f655ec0",
   "source_sha256": {
     "crates/mtg-cli/build.rs": "3e0772d281cfd2e7f7eb9f30e79d907d7150dfd86cc0b352ac86be4db446ffea",
     "crates/mtg-cli/src/capture.rs": "203e1a28c319315465426e99402c49fed861899ce4b569badb193732bdffe144",
     "crates/mtg-cli/src/capture_tests.rs": "73f3d9355478508ccf1bfcb6baddeec45956044bb099982bb868db81a3915fa7",
-    "crates/mtg-cli/src/commands.rs": "7813504d08aae0e1e5dc9d4b47fbf820c61b51cf5cef0b5d491f83b8a52453d3",
+    "crates/mtg-cli/src/commands.rs": "ae0904960e1ac48fa968482fb9eb310d6eca5b9b7c3ef7fc7d6b58a715b02b76",
     "crates/mtg-cli/src/main.rs": "86ebfd55893009d338599d38b073d83277cd131ff9c9eb6c24962ba962d76240",
     "crates/mtg-cli/src/native.rs": "c739730a0fbf959b05bf3b98f3f970d967d153617d023e10f1e4e4c72786d74f",
     "crates/mtg-cli/src/script.rs": "2833778f59032d7a6e0db99a0d03c83dd70791f791733b738cd24b85b0f0c43a",
@@ -107,7 +107,7 @@
     "Cargo.toml": "85d00c5126a95706f3e725e81cf813955ebee186ba8ef4930b1002a09ee84743",
     "Cargo.lock": "67081ff442812f9e210f7cadd7d563f2c4501defe5bcb2c6d91229bee4226408"
   },
-  "binary_sha256": "ccefcd90ece966083cd6277a37d3696fc6858a17b4da8cac28f925356a54a0db",
+  "binary_sha256": "eb49827fb6700a25031012e9a10db54ef94a9cfaf3c1e30c06cee7ea9f7ded8c",
   "build": "cargo build --locked --release -p mtg-cli",
   "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-unknown-linux-gnu\nrelease: 1.98.1\nLLVM version: 22.1.8\n",
   "rustflags": "",
@@ -131,7 +131,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 120074381,
+      "process_elapsed_ns": 125076264,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -141,7 +141,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 119168754,
+        "elapsed_ns": 124238102,
         "episodes": [
           {
             "caller_error": null,
@@ -436,7 +436,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 126336,
+        "policy_ns": 138320,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -527,7 +527,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 91947494,
+      "process_elapsed_ns": 87645834,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -537,7 +537,7 @@
           "work_calls": 794
         },
         "debug_assertions": false,
-        "elapsed_ns": 91027090,
+        "elapsed_ns": 86932156,
         "episodes": [
           {
             "caller_error": null,
@@ -764,7 +764,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 116287,
+        "policy_ns": 80629,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -855,7 +855,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 97454518,
+      "process_elapsed_ns": 91333495,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -865,7 +865,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 96405447,
+        "elapsed_ns": 90809949,
         "episodes": [
           {
             "caller_error": null,
@@ -1084,7 +1084,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 118715,
+        "policy_ns": 82890,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -1175,7 +1175,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 124187584,
+      "process_elapsed_ns": 120485003,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -1185,7 +1185,7 @@
           "work_calls": 1054
         },
         "debug_assertions": false,
-        "elapsed_ns": 123283164,
+        "elapsed_ns": 119829446,
         "episodes": [
           {
             "caller_error": null,
@@ -1468,7 +1468,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 136058,
+        "policy_ns": 110217,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -1559,7 +1559,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 123391809,
+      "process_elapsed_ns": 125573542,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -1569,7 +1569,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 122503415,
+        "elapsed_ns": 124723602,
         "episodes": [
           {
             "caller_error": null,
@@ -1860,7 +1860,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 123723,
+        "policy_ns": 130833,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -1951,7 +1951,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 115513528,
+      "process_elapsed_ns": 121556691,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -1961,7 +1961,7 @@
           "work_calls": 1040
         },
         "debug_assertions": false,
-        "elapsed_ns": 114696190,
+        "elapsed_ns": 120717050,
         "episodes": [
           {
             "caller_error": null,
@@ -2244,7 +2244,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 107810,
+        "policy_ns": 119391,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -2335,7 +2335,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 91271168,
+      "process_elapsed_ns": 94397120,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -2345,7 +2345,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 90423477,
+        "elapsed_ns": 93562690,
         "episodes": [
           {
             "caller_error": null,
@@ -2568,7 +2568,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 90640,
+        "policy_ns": 111276,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -2659,7 +2659,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 93619929,
+      "process_elapsed_ns": 90763441,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -2669,7 +2669,7 @@
           "work_calls": 816
         },
         "debug_assertions": false,
-        "elapsed_ns": 92672857,
+        "elapsed_ns": 90010088,
         "episodes": [
           {
             "caller_error": null,
@@ -2904,7 +2904,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 98972,
+        "policy_ns": 92002,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -2995,7 +2995,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 525010938,
+      "process_elapsed_ns": 521409566,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -3005,7 +3005,7 @@
           "work_calls": 3964
         },
         "debug_assertions": false,
-        "elapsed_ns": 523851689,
+        "elapsed_ns": 520585091,
         "episodes": [
           {
             "caller_error": null,
@@ -3632,7 +3632,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 374336,
+        "policy_ns": 362717,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -3723,7 +3723,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 400260360,
+      "process_elapsed_ns": 309263566,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -3733,7 +3733,7 @@
           "work_calls": 2592
         },
         "debug_assertions": false,
-        "elapsed_ns": 399486243,
+        "elapsed_ns": 308469822,
         "episodes": [
           {
             "caller_error": null,
@@ -4204,7 +4204,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 193215,
+        "policy_ns": 196017,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -4295,7 +4295,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 281528107,
+      "process_elapsed_ns": 286662988,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -4305,7 +4305,7 @@
           "work_calls": 2400
         },
         "debug_assertions": false,
-        "elapsed_ns": 280911000,
+        "elapsed_ns": 285945820,
         "episodes": [
           {
             "caller_error": null,
@@ -4740,7 +4740,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 167758,
+        "policy_ns": 178153,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -4831,7 +4831,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 527701473,
+      "process_elapsed_ns": 528677026,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -4841,7 +4841,7 @@
           "work_calls": 4040
         },
         "debug_assertions": false,
-        "elapsed_ns": 526846958,
+        "elapsed_ns": 528056096,
         "episodes": [
           {
             "caller_error": null,
@@ -5468,7 +5468,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 385658,
+        "policy_ns": 353688,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -5559,7 +5559,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 435206635,
+      "process_elapsed_ns": 442309965,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -5569,7 +5569,7 @@
           "work_calls": 3412
         },
         "debug_assertions": false,
-        "elapsed_ns": 434376797,
+        "elapsed_ns": 441615791,
         "episodes": [
           {
             "caller_error": null,
@@ -6184,7 +6184,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 262360,
+        "policy_ns": 280317,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -6275,7 +6275,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 491811501,
+      "process_elapsed_ns": 498834083,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -6285,7 +6285,7 @@
           "work_calls": 3750
         },
         "debug_assertions": false,
-        "elapsed_ns": 490979735,
+        "elapsed_ns": 497995908,
         "episodes": [
           {
             "caller_error": null,
@@ -6904,7 +6904,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 322185,
+        "policy_ns": 341158,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -6995,7 +6995,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 552192217,
+      "process_elapsed_ns": 559342064,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -7005,7 +7005,7 @@
           "work_calls": 4186
         },
         "debug_assertions": false,
-        "elapsed_ns": 551400242,
+        "elapsed_ns": 558511148,
         "episodes": [
           {
             "caller_error": null,
@@ -7636,7 +7636,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 384818,
+        "policy_ns": 381251,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -7727,7 +7727,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 532329843,
+      "process_elapsed_ns": 536284808,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -7737,7 +7737,7 @@
           "work_calls": 4084
         },
         "debug_assertions": false,
-        "elapsed_ns": 531489480,
+        "elapsed_ns": 535546900,
         "episodes": [
           {
             "caller_error": null,
@@ -8296,7 +8296,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 367038,
+        "policy_ns": 365478,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -8387,7 +8387,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 120256052,
+      "process_elapsed_ns": 120447723,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -8397,7 +8397,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 119531045,
+        "elapsed_ns": 119618115,
         "episodes": [
           {
             "caller_error": null,
@@ -8692,7 +8692,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 135803,
+        "policy_ns": 129450,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -8783,7 +8783,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 86346772,
+      "process_elapsed_ns": 86478842,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -8793,7 +8793,7 @@
           "work_calls": 794
         },
         "debug_assertions": false,
-        "elapsed_ns": 85818298,
+        "elapsed_ns": 85872853,
         "episodes": [
           {
             "caller_error": null,
@@ -9020,7 +9020,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 79564,
+        "policy_ns": 79978,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -9111,7 +9111,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 91099590,
+      "process_elapsed_ns": 90153390,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -9121,7 +9121,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 90551382,
+        "elapsed_ns": 89645140,
         "episodes": [
           {
             "caller_error": null,
@@ -9340,7 +9340,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 78861,
+        "policy_ns": 78308,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -9431,7 +9431,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 120156258,
+      "process_elapsed_ns": 119791356,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -9441,7 +9441,7 @@
           "work_calls": 1054
         },
         "debug_assertions": false,
-        "elapsed_ns": 119481155,
+        "elapsed_ns": 119208860,
         "episodes": [
           {
             "caller_error": null,
@@ -9724,7 +9724,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 111773,
+        "policy_ns": 104996,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -9815,7 +9815,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 119725451,
+      "process_elapsed_ns": 122241865,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -9825,7 +9825,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 118931448,
+        "elapsed_ns": 121734242,
         "episodes": [
           {
             "caller_error": null,
@@ -10116,7 +10116,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 104781,
+        "policy_ns": 104212,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -10207,7 +10207,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 116019258,
+      "process_elapsed_ns": 115780292,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -10217,7 +10217,7 @@
           "work_calls": 1040
         },
         "debug_assertions": false,
-        "elapsed_ns": 115325587,
+        "elapsed_ns": 115238080,
         "episodes": [
           {
             "caller_error": null,
@@ -10500,7 +10500,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 107411,
+        "policy_ns": 99366,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -10591,7 +10591,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 90884936,
+      "process_elapsed_ns": 91179314,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -10601,7 +10601,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 90343930,
+        "elapsed_ns": 90655360,
         "episodes": [
           {
             "caller_error": null,
@@ -10824,7 +10824,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 92489,
+        "policy_ns": 91248,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -10915,7 +10915,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 89417163,
+      "process_elapsed_ns": 91364700,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -10925,7 +10925,7 @@
           "work_calls": 816
         },
         "debug_assertions": false,
-        "elapsed_ns": 88886898,
+        "elapsed_ns": 90853057,
         "episodes": [
           {
             "caller_error": null,
@@ -11160,7 +11160,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 83831,
+        "policy_ns": 87110,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -11251,7 +11251,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 519085430,
+      "process_elapsed_ns": 514315636,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -11261,7 +11261,7 @@
           "work_calls": 3964
         },
         "debug_assertions": false,
-        "elapsed_ns": 518384550,
+        "elapsed_ns": 513679250,
         "episodes": [
           {
             "caller_error": null,
@@ -11888,7 +11888,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 344957,
+        "policy_ns": 352095,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -11979,7 +11979,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 309392882,
+      "process_elapsed_ns": 306988131,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -11989,7 +11989,7 @@
           "work_calls": 2592
         },
         "debug_assertions": false,
-        "elapsed_ns": 308564932,
+        "elapsed_ns": 306339626,
         "episodes": [
           {
             "caller_error": null,
@@ -12460,7 +12460,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 200673,
+        "policy_ns": 194360,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -12551,7 +12551,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 282338599,
+      "process_elapsed_ns": 281688671,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -12561,7 +12561,7 @@
           "work_calls": 2400
         },
         "debug_assertions": false,
-        "elapsed_ns": 281561815,
+        "elapsed_ns": 281097862,
         "episodes": [
           {
             "caller_error": null,
@@ -12996,7 +12996,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 177840,
+        "policy_ns": 187903,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -13087,7 +13087,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 534726434,
+      "process_elapsed_ns": 538944684,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -13097,7 +13097,7 @@
           "work_calls": 4040
         },
         "debug_assertions": false,
-        "elapsed_ns": 533892855,
+        "elapsed_ns": 538183887,
         "episodes": [
           {
             "caller_error": null,
@@ -13724,7 +13724,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 347560,
+        "policy_ns": 356248,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -13815,7 +13815,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 439135075,
+      "process_elapsed_ns": 435589719,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -13825,7 +13825,7 @@
           "work_calls": 3412
         },
         "debug_assertions": false,
-        "elapsed_ns": 438120465,
+        "elapsed_ns": 434754467,
         "episodes": [
           {
             "caller_error": null,
@@ -14440,7 +14440,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 292728,
+        "policy_ns": 263163,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -14531,7 +14531,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 524620046,
+      "process_elapsed_ns": 488634367,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -14541,7 +14541,7 @@
           "work_calls": 3750
         },
         "debug_assertions": false,
-        "elapsed_ns": 523671334,
+        "elapsed_ns": 487852698,
         "episodes": [
           {
             "caller_error": null,
@@ -15160,7 +15160,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 448812,
+        "policy_ns": 327142,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -15251,7 +15251,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 576705647,
+      "process_elapsed_ns": 557814934,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -15261,7 +15261,7 @@
           "work_calls": 4186
         },
         "debug_assertions": false,
-        "elapsed_ns": 575656371,
+        "elapsed_ns": 557012237,
         "episodes": [
           {
             "caller_error": null,
@@ -15892,7 +15892,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 467800,
+        "policy_ns": 426887,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -15983,7 +15983,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 524000598,
+      "process_elapsed_ns": 532352293,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -15993,7 +15993,7 @@
           "work_calls": 4084
         },
         "debug_assertions": false,
-        "elapsed_ns": 522983788,
+        "elapsed_ns": 531587848,
         "episodes": [
           {
             "caller_error": null,
@@ -16552,7 +16552,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 357471,
+        "policy_ns": 347597,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -16643,7 +16643,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 118994987,
+      "process_elapsed_ns": 120718913,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -16653,7 +16653,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 118290813,
+        "elapsed_ns": 120121662,
         "episodes": [
           {
             "caller_error": null,
@@ -16948,7 +16948,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 130524,
+        "policy_ns": 129041,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -17039,7 +17039,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 86697437,
+      "process_elapsed_ns": 86643364,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -17049,7 +17049,7 @@
           "work_calls": 794
         },
         "debug_assertions": false,
-        "elapsed_ns": 86080239,
+        "elapsed_ns": 86130543,
         "episodes": [
           {
             "caller_error": null,
@@ -17276,7 +17276,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 78015,
+        "policy_ns": 77618,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -17367,7 +17367,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 91867760,
+      "process_elapsed_ns": 90497941,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -17377,7 +17377,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 91182697,
+        "elapsed_ns": 89998036,
         "episodes": [
           {
             "caller_error": null,
@@ -17596,7 +17596,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 92877,
+        "policy_ns": 79398,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -17687,7 +17687,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 118341851,
+      "process_elapsed_ns": 122188115,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -17697,7 +17697,7 @@
           "work_calls": 1054
         },
         "debug_assertions": false,
-        "elapsed_ns": 117579510,
+        "elapsed_ns": 121293055,
         "episodes": [
           {
             "caller_error": null,
@@ -17980,7 +17980,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 105997,
+        "policy_ns": 117154,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -18071,7 +18071,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 120613547,
+      "process_elapsed_ns": 118973234,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -18081,7 +18081,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 119939423,
+        "elapsed_ns": 118197007,
         "episodes": [
           {
             "caller_error": null,
@@ -18372,7 +18372,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 117580,
+        "policy_ns": 104217,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -18463,7 +18463,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 127482149,
+      "process_elapsed_ns": 117534017,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -18473,7 +18473,7 @@
           "work_calls": 1040
         },
         "debug_assertions": false,
-        "elapsed_ns": 125948540,
+        "elapsed_ns": 116742916,
         "episodes": [
           {
             "caller_error": null,
@@ -18756,7 +18756,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 132935,
+        "policy_ns": 101653,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -18847,7 +18847,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 100480680,
+      "process_elapsed_ns": 92575027,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -18857,7 +18857,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 99329785,
+        "elapsed_ns": 91735748,
         "episodes": [
           {
             "caller_error": null,
@@ -19080,7 +19080,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 152619,
+        "policy_ns": 93923,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -19171,7 +19171,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 102386263,
+      "process_elapsed_ns": 89000551,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -19181,7 +19181,7 @@
           "work_calls": 816
         },
         "debug_assertions": false,
-        "elapsed_ns": 101254063,
+        "elapsed_ns": 88329120,
         "episodes": [
           {
             "caller_error": null,
@@ -19416,7 +19416,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 143594,
+        "policy_ns": 83893,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -19507,7 +19507,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 555123955,
+      "process_elapsed_ns": 522126720,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -19517,7 +19517,7 @@
           "work_calls": 3964
         },
         "debug_assertions": false,
-        "elapsed_ns": 554086720,
+        "elapsed_ns": 521393718,
         "episodes": [
           {
             "caller_error": null,
@@ -20144,7 +20144,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 480861,
+        "policy_ns": 371302,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -20235,7 +20235,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 317529365,
+      "process_elapsed_ns": 310531080,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -20245,7 +20245,7 @@
           "work_calls": 2592
         },
         "debug_assertions": false,
-        "elapsed_ns": 316529926,
+        "elapsed_ns": 309677090,
         "episodes": [
           {
             "caller_error": null,
@@ -20716,7 +20716,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 231084,
+        "policy_ns": 202931,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -20807,7 +20807,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 284951962,
+      "process_elapsed_ns": 284013401,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -20817,7 +20817,7 @@
           "work_calls": 2400
         },
         "debug_assertions": false,
-        "elapsed_ns": 284186644,
+        "elapsed_ns": 283278378,
         "episodes": [
           {
             "caller_error": null,
@@ -21252,7 +21252,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 180413,
+        "policy_ns": 182805,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -21343,7 +21343,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 579076362,
+      "process_elapsed_ns": 530866597,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -21353,7 +21353,7 @@
           "work_calls": 4040
         },
         "debug_assertions": false,
-        "elapsed_ns": 578230680,
+        "elapsed_ns": 530158011,
         "episodes": [
           {
             "caller_error": null,
@@ -21980,7 +21980,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 609362,
+        "policy_ns": 344946,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -22071,7 +22071,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 565155018,
+      "process_elapsed_ns": 431139030,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -22081,7 +22081,7 @@
           "work_calls": 3412
         },
         "debug_assertions": false,
-        "elapsed_ns": 563828423,
+        "elapsed_ns": 430490222,
         "episodes": [
           {
             "caller_error": null,
@@ -22696,7 +22696,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 922798,
+        "policy_ns": 262695,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -22787,7 +22787,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 522204184,
+      "process_elapsed_ns": 495106086,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -22797,7 +22797,7 @@
           "work_calls": 3750
         },
         "debug_assertions": false,
-        "elapsed_ns": 521050751,
+        "elapsed_ns": 494291871,
         "episodes": [
           {
             "caller_error": null,
@@ -23416,7 +23416,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 466741,
+        "policy_ns": 343411,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -23507,7 +23507,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 551481813,
+      "process_elapsed_ns": 559290233,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -23517,7 +23517,7 @@
           "work_calls": 4186
         },
         "debug_assertions": false,
-        "elapsed_ns": 550529605,
+        "elapsed_ns": 558409259,
         "episodes": [
           {
             "caller_error": null,
@@ -24148,7 +24148,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 392797,
+        "policy_ns": 433513,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -24239,7 +24239,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 544044326,
+      "process_elapsed_ns": 528514209,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -24249,7 +24249,7 @@
           "work_calls": 4084
         },
         "debug_assertions": false,
-        "elapsed_ns": 543119802,
+        "elapsed_ns": 527649428,
         "episodes": [
           {
             "caller_error": null,
@@ -24808,7 +24808,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 422050,
+        "policy_ns": 365394,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -24899,7 +24899,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 122875164,
+      "process_elapsed_ns": 121290745,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -24909,7 +24909,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 121805317,
+        "elapsed_ns": 120615407,
         "episodes": [
           {
             "caller_error": null,
@@ -25204,7 +25204,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 161038,
+        "policy_ns": 129514,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -25295,7 +25295,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 92775791,
+      "process_elapsed_ns": 86324662,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -25305,7 +25305,7 @@
           "work_calls": 794
         },
         "debug_assertions": false,
-        "elapsed_ns": 91753994,
+        "elapsed_ns": 85770925,
         "episodes": [
           {
             "caller_error": null,
@@ -25532,7 +25532,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 96652,
+        "policy_ns": 82948,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -25623,7 +25623,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 90604077,
+      "process_elapsed_ns": 90249119,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -25633,7 +25633,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 89747666,
+        "elapsed_ns": 89753657,
         "episodes": [
           {
             "caller_error": null,
@@ -25852,7 +25852,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 82684,
+        "policy_ns": 86320,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -25943,7 +25943,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 119298208,
+      "process_elapsed_ns": 117475115,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -25953,7 +25953,7 @@
           "work_calls": 1054
         },
         "debug_assertions": false,
-        "elapsed_ns": 118570668,
+        "elapsed_ns": 116928474,
         "episodes": [
           {
             "caller_error": null,
@@ -26236,7 +26236,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 107831,
+        "policy_ns": 108207,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -26327,7 +26327,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 120615665,
+      "process_elapsed_ns": 118512835,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -26337,7 +26337,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 119905983,
+        "elapsed_ns": 117960141,
         "episodes": [
           {
             "caller_error": null,
@@ -26628,7 +26628,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 113516,
+        "policy_ns": 111464,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -26719,7 +26719,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 114798444,
+      "process_elapsed_ns": 116666598,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -26729,7 +26729,7 @@
           "work_calls": 1040
         },
         "debug_assertions": false,
-        "elapsed_ns": 114134726,
+        "elapsed_ns": 116146204,
         "episodes": [
           {
             "caller_error": null,
@@ -27012,7 +27012,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 97925,
+        "policy_ns": 109451,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -27103,7 +27103,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 90885492,
+      "process_elapsed_ns": 91557401,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -27113,7 +27113,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 90315794,
+        "elapsed_ns": 91054719,
         "episodes": [
           {
             "caller_error": null,
@@ -27336,7 +27336,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 100974,
+        "policy_ns": 95754,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -27427,7 +27427,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 89871885,
+      "process_elapsed_ns": 90742233,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -27437,7 +27437,7 @@
           "work_calls": 816
         },
         "debug_assertions": false,
-        "elapsed_ns": 89330001,
+        "elapsed_ns": 90097896,
         "episodes": [
           {
             "caller_error": null,
@@ -27672,7 +27672,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 84062,
+        "policy_ns": 85520,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -27763,7 +27763,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 515373947,
+      "process_elapsed_ns": 512797582,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -27773,7 +27773,7 @@
           "work_calls": 3964
         },
         "debug_assertions": false,
-        "elapsed_ns": 514762652,
+        "elapsed_ns": 512022649,
         "episodes": [
           {
             "caller_error": null,
@@ -28400,7 +28400,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 348567,
+        "policy_ns": 338157,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -28491,7 +28491,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 316386212,
+      "process_elapsed_ns": 305160580,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -28501,7 +28501,7 @@
           "work_calls": 2592
         },
         "debug_assertions": false,
-        "elapsed_ns": 315619810,
+        "elapsed_ns": 304439015,
         "episodes": [
           {
             "caller_error": null,
@@ -28972,7 +28972,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 224132,
+        "policy_ns": 198597,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -29063,7 +29063,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 283078583,
+      "process_elapsed_ns": 287617725,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -29073,7 +29073,7 @@
           "work_calls": 2400
         },
         "debug_assertions": false,
-        "elapsed_ns": 282238475,
+        "elapsed_ns": 286853425,
         "episodes": [
           {
             "caller_error": null,
@@ -29508,7 +29508,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 179585,
+        "policy_ns": 182439,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -29599,7 +29599,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 520531276,
+      "process_elapsed_ns": 527796537,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -29609,7 +29609,7 @@
           "work_calls": 4040
         },
         "debug_assertions": false,
-        "elapsed_ns": 519657021,
+        "elapsed_ns": 526973128,
         "episodes": [
           {
             "caller_error": null,
@@ -30236,7 +30236,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 358496,
+        "policy_ns": 364778,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -30327,7 +30327,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 433472456,
+      "process_elapsed_ns": 441875553,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -30337,7 +30337,7 @@
           "work_calls": 3412
         },
         "debug_assertions": false,
-        "elapsed_ns": 432607356,
+        "elapsed_ns": 440998880,
         "episodes": [
           {
             "caller_error": null,
@@ -30952,7 +30952,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 263094,
+        "policy_ns": 280001,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -31043,7 +31043,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 591066252,
+      "process_elapsed_ns": 497913236,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -31053,7 +31053,7 @@
           "work_calls": 3750
         },
         "debug_assertions": false,
-        "elapsed_ns": 590069858,
+        "elapsed_ns": 497134295,
         "episodes": [
           {
             "caller_error": null,
@@ -31672,7 +31672,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 449053,
+        "policy_ns": 329797,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -31763,7 +31763,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 564808062,
+      "process_elapsed_ns": 557966409,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -31773,7 +31773,7 @@
           "work_calls": 4186
         },
         "debug_assertions": false,
-        "elapsed_ns": 563692324,
+        "elapsed_ns": 557165784,
         "episodes": [
           {
             "caller_error": null,
@@ -32404,7 +32404,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 441332,
+        "policy_ns": 413731,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -32495,7 +32495,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 531642338,
+      "process_elapsed_ns": 530354325,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -32505,7 +32505,7 @@
           "work_calls": 4084
         },
         "debug_assertions": false,
-        "elapsed_ns": 530595926,
+        "elapsed_ns": 529565027,
         "episodes": [
           {
             "caller_error": null,
@@ -33064,7 +33064,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 353223,
+        "policy_ns": 370613,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -33155,7 +33155,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 120881006,
+      "process_elapsed_ns": 126676210,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -33165,7 +33165,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 120081557,
+        "elapsed_ns": 125898933,
         "episodes": [
           {
             "caller_error": null,
@@ -33460,7 +33460,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 130991,
+        "policy_ns": 155685,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -33551,7 +33551,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 86731818,
+      "process_elapsed_ns": 90186662,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -33561,7 +33561,7 @@
           "work_calls": 794
         },
         "debug_assertions": false,
-        "elapsed_ns": 86111088,
+        "elapsed_ns": 89350746,
         "episodes": [
           {
             "caller_error": null,
@@ -33788,7 +33788,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 80273,
+        "policy_ns": 83205,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -33879,7 +33879,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 90827337,
+      "process_elapsed_ns": 155989974,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -33889,7 +33889,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 90297507,
+        "elapsed_ns": 154944626,
         "episodes": [
           {
             "caller_error": null,
@@ -34108,7 +34108,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 90575,
+        "policy_ns": 146254,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -34199,7 +34199,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 120115202,
+      "process_elapsed_ns": 118875301,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -34209,7 +34209,7 @@
           "work_calls": 1054
         },
         "debug_assertions": false,
-        "elapsed_ns": 119331909,
+        "elapsed_ns": 118178109,
         "episodes": [
           {
             "caller_error": null,
@@ -34492,7 +34492,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 118891,
+        "policy_ns": 104012,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -34583,7 +34583,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 119675648,
+      "process_elapsed_ns": 119372791,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -34593,7 +34593,7 @@
           "work_calls": 1074
         },
         "debug_assertions": false,
-        "elapsed_ns": 118964934,
+        "elapsed_ns": 118784378,
         "episodes": [
           {
             "caller_error": null,
@@ -34884,7 +34884,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 110068,
+        "policy_ns": 112821,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -34975,7 +34975,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 119303213,
+      "process_elapsed_ns": 115777414,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -34985,7 +34985,7 @@
           "work_calls": 1040
         },
         "debug_assertions": false,
-        "elapsed_ns": 118664201,
+        "elapsed_ns": 115199656,
         "episodes": [
           {
             "caller_error": null,
@@ -35268,7 +35268,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 123845,
+        "policy_ns": 106387,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -35359,7 +35359,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 95394408,
+      "process_elapsed_ns": 91997048,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -35369,7 +35369,7 @@
           "work_calls": 836
         },
         "debug_assertions": false,
-        "elapsed_ns": 94562347,
+        "elapsed_ns": 91468479,
         "episodes": [
           {
             "caller_error": null,
@@ -35592,7 +35592,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 110075,
+        "policy_ns": 94285,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -35683,7 +35683,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 89195924,
+      "process_elapsed_ns": 90385018,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -35693,7 +35693,7 @@
           "work_calls": 816
         },
         "debug_assertions": false,
-        "elapsed_ns": 88492283,
+        "elapsed_ns": 89860997,
         "episodes": [
           {
             "caller_error": null,
@@ -35928,7 +35928,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 84448,
+        "policy_ns": 88620,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -36019,7 +36019,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 527807296,
+      "process_elapsed_ns": 527239533,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -36029,7 +36029,7 @@
           "work_calls": 3964
         },
         "debug_assertions": false,
-        "elapsed_ns": 527020664,
+        "elapsed_ns": 526499058,
         "episodes": [
           {
             "caller_error": null,
@@ -36656,7 +36656,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 361793,
+        "policy_ns": 368987,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -36747,7 +36747,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 315607106,
+      "process_elapsed_ns": 309001892,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -36757,7 +36757,7 @@
           "work_calls": 2592
         },
         "debug_assertions": false,
-        "elapsed_ns": 314538606,
+        "elapsed_ns": 308120810,
         "episodes": [
           {
             "caller_error": null,
@@ -37228,7 +37228,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 217992,
+        "policy_ns": 202443,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -37319,7 +37319,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 294886902,
+      "process_elapsed_ns": 290282871,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -37329,7 +37329,7 @@
           "work_calls": 2400
         },
         "debug_assertions": false,
-        "elapsed_ns": 293888188,
+        "elapsed_ns": 289384115,
         "episodes": [
           {
             "caller_error": null,
@@ -37764,7 +37764,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 197104,
+        "policy_ns": 189893,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -37855,7 +37855,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 519510469,
+      "process_elapsed_ns": 523820508,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -37865,7 +37865,7 @@
           "work_calls": 4040
         },
         "debug_assertions": false,
-        "elapsed_ns": 518519705,
+        "elapsed_ns": 522990272,
         "episodes": [
           {
             "caller_error": null,
@@ -38492,7 +38492,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 333620,
+        "policy_ns": 354216,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -38583,7 +38583,7 @@
         "red"
       ],
       "starter": 0,
-      "process_elapsed_ns": 428883601,
+      "process_elapsed_ns": 437981141,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -38593,7 +38593,7 @@
           "work_calls": 3412
         },
         "debug_assertions": false,
-        "elapsed_ns": 428020754,
+        "elapsed_ns": 437183400,
         "episodes": [
           {
             "caller_error": null,
@@ -39208,7 +39208,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 256734,
+        "policy_ns": 266560,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -39299,7 +39299,7 @@
         "red"
       ],
       "starter": 1,
-      "process_elapsed_ns": 484208017,
+      "process_elapsed_ns": 487389741,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -39309,7 +39309,7 @@
           "work_calls": 3750
         },
         "debug_assertions": false,
-        "elapsed_ns": 483287789,
+        "elapsed_ns": 486609671,
         "episodes": [
           {
             "caller_error": null,
@@ -39928,7 +39928,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 321501,
+        "policy_ns": 318240,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -40019,7 +40019,7 @@
         "green"
       ],
       "starter": 0,
-      "process_elapsed_ns": 565653859,
+      "process_elapsed_ns": 550217871,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -40029,7 +40029,7 @@
           "work_calls": 4186
         },
         "debug_assertions": false,
-        "elapsed_ns": 564794463,
+        "elapsed_ns": 549419191,
         "episodes": [
           {
             "caller_error": null,
@@ -40660,7 +40660,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 422264,
+        "policy_ns": 389967,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {
@@ -40751,7 +40751,7 @@
         "green"
       ],
       "starter": 1,
-      "process_elapsed_ns": 521005217,
+      "process_elapsed_ns": 526759853,
       "exit_code": 0,
       "stderr": "",
       "result": {
@@ -40761,7 +40761,7 @@
           "work_calls": 4084
         },
         "debug_assertions": false,
-        "elapsed_ns": 520066407,
+        "elapsed_ns": 525981412,
         "episodes": [
           {
             "caller_error": null,
@@ -41320,7 +41320,7 @@
         "max_wall_ms": 10000,
         "measurement": "reset-policy-core-and-summary-encoding",
         "os": "linux",
-        "policy_ns": 355837,
+        "policy_ns": 350909,
         "policy_timing": "initialization-and-choice-attempts-excluding-observation-and-submission",
         "qualification": "initial-baseline-only",
         "run": {

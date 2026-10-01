@@ -195,9 +195,11 @@ fn benchmark(
         return Err(invalid("scalar-pass-v1 requires legacy pass configuration"));
     }
     if c.episodes > 100 || c.max_decisions > if native { 100_000 } else { 10_000 } {
-        return Err(invalid(
-            "benchmark limits: at most 100 episodes, 10000 passive or 100000 native decisions per episode",
-        ));
+        return Err(invalid(if native {
+            "native benchmark limits: at most 100 episodes and 100000 decisions per episode"
+        } else {
+            "scalar smoke limits: at most 100 episodes and 10000 decisions per episode"
+        }));
     }
     // Includes reset, policy, game work, observations used by simulation, and
     // summary JSON encoding. No terminal rendering occurs in this window.

@@ -49,6 +49,21 @@ contract and explicit budget configuration; no generated benchmark winner is
 installed as expected rules data. Existing tests/assertions remain unchanged.
 No cached-reference rerun is claimed for this instrumentation-only change.
 
+The first full suite caught a compatibility regression in the pre-existing
+`input_limits_and_benchmark_configuration_fail_explicitly` test: the passive
+budget diagnostic lost its documented `smoke limits` text. The original message
+was restored; the unchanged regression passes. The first independent review
+passed with one advisory: the measurement driver omitted a timed-out or malformed
+attempt because Python raised before publication. `tests/test_unattended_measure.py`
+now reproduces actual timeout/partial output and malformed/missing JSON, and
+retains nonzero structured outcomes. [Behavioral red](measure-red.log) and
+[green](measure-green.log) show that these become explicit failed samples, with
+elapsed time and available output, rather than disappearing. The loop continues
+to retain subsequent attempts. A launch error likewise becomes a failed sample.
+Neither failed samples nor partial JSON become completed games. The final
+baseline was rerun after the compatibility fix; the first review does not approve
+the repaired candidate, which requires a new full suite and independent review.
+
 ## Complete original acceptance crosswalk
 
 Each listed suite is executed again by the full torture command, including the
@@ -150,7 +165,7 @@ Recorded 2026-10-01 on shared Linux aarch64, four visible Apple CPU cores,
 8,113,364 KiB visible RAM; affinity allowed cores 0–3, **not pinned**; one worker.
 Rust 1.98.1 release build, empty RUSTFLAGS, Python 3.12.3, complete compiler/OS/CPU
 metadata and binary/source SHA-256s in the artifact. Source hashes identify the
-uncommitted candidate exactly against the base above; the final reviewed commit
+measured source exactly against the artifact's base commit; the final reviewed commit
 is linked from the workpad. Resolved configuration/version hashes occur in every
 sample. CPU visibility is not dedicated-host reservation or an RSS measurement.
 
@@ -163,11 +178,11 @@ or correctness claims. Individual raw episode outcomes/counters remain available
 
 | Policy | Total seconds per repeat (all five) | Completed games/s median [min, max] | Accepted decisions/s median [min, max] |
 | --- | --- | --- | --- |
-| heuristic-m1-v1 | 0.850180, 0.828870, 0.859605, 0.835564, 0.836506 | 9.564 [9.307, 9.652] | 4487.7 [4367.1, 4529.1] |
-| legal-random-m1-v1 | 3.739342, 3.702836, 3.911563, 3.749243, 3.650137 | 2.139 [2.045, 2.192] | 3799.1 [3631.8, 3891.9] |
+| heuristic-m1-v1 | 0.850823, 0.832826, 0.832548, 0.828327, 0.903686 | 9.606 [8.853, 9.658] | 4507.5 [4154.1, 4532.0] |
+| legal-random-m1-v1 | 3.676727, 3.650508, 3.655348, 3.655152, 3.646188 | 2.189 [2.176, 2.194] | 3886.6 [3863.8, 3896.1] |
 
 Accepted decisions per eight-case repeat: 3,754 heuristic, 14,206 random. Policy
-initialization/choice time occupies 0.0959–0.1110% and 0.0657–0.0947% respectively;
+initialization/choice time occupies 0.0930–0.1017% and 0.0669–0.0686% respectively;
 observation construction/submission is outside that subset but inside total time.
 These clock-granularity-sensitive numbers are not evidence of a dominant cost.
 The benchmark excludes executable startup/config parsing/final output; raw
