@@ -1,0 +1,31 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-179/crates/mtg-cli)
+warning: unused import: `mtg_core::episode::Status`
+ --> crates/mtg-cli/src/capture_tests.rs:3:5
+  |
+3 | use mtg_core::episode::Status;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-cli` (bin "mtg" test) generated 1 warning (run `cargo fix --bin "mtg" -p mtg-cli --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.98s
+     Running unittests src/main.rs (target/debug/deps/mtg-29a4217c7233c08c)
+
+running 1 test
+test capture::tests::publication_flush_failure_reaches_cli_accounting ... FAILED
+
+failures:
+
+---- capture::tests::publication_flush_failure_reaches_cli_accounting stdout ----
+
+thread 'capture::tests::publication_flush_failure_reaches_cli_accounting' (198) panicked at crates/mtg-cli/src/capture_tests.rs:169:5:
+publisher must expose its flush boundary to cancellation/fault observation
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    capture::tests::publication_flush_failure_reaches_cli_accounting
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.06s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

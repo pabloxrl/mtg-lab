@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Found one blocking provenance defect. No existing tests were deleted or weakened; README and integration ownership remain appropriately scoped. Review was read-only; tests were inspected, not executed.",
+  "findings": [
+    {
+      "file": "crates/mtg-cli/src/capture.rs:94",
+      "finding": "Every published manifest and episode header declares wall_time_ms=1, including the supplied native fixture with deadline_ms=null. This copies the driver's synthetic deadline signal into canonical experiment metadata as though it were an actual millisecond limit. Consumers therefore receive incorrect configured limits, contrary to the trajectory provenance contract. Preserve the actual timing semantics in the driver and captured metadata, including no limit when disabled, and add assertions against independently specified configuration values rather than only comparing persisted records with the same driver's output.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "72eddc6adf54563805b2584cdb035f9cc0cf470f",
+  "head_sha": "ec1c2947ed14cbe232ac337dcba85f40862c645d"
+}

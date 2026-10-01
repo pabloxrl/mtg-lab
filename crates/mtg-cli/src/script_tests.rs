@@ -170,6 +170,10 @@ fn script_control_stops_account_remaining_input_and_never_start_next_episode() {
         (crate::simulate::Stop::Sigterm, 143, "incomplete"),
     ] {
         let mut c = config();
+        // Production emits Deadline only for an explicitly configured limit.
+        if matches!(stop, crate::simulate::Stop::Deadline) {
+            c.deadline_ms = Some(7);
+        }
         // A full reset quantum makes poll 3 occur after the first accepted
         // choice, rather than during opening internal work.
         c.native.as_mut().unwrap().work_quantum = NonZeroUsize::new(1000).unwrap();

@@ -1,4 +1,4 @@
-//! Capture-disabled native client of the authoritative episode owner.
+//! Native/script client of the authoritative episode owner.
 use crate::simulate::{self, Stop, emit, hash};
 use mtg_core::{
     episode::{Budget, Clock, Driver, Failure, Progress, Status},
@@ -90,8 +90,23 @@ struct Counts {
 pub fn run(
     c: &simulate::Config,
     w: &mut impl Write,
-    mut control: impl FnMut() -> Option<Stop>,
+    control: impl FnMut() -> Option<Stop>,
 ) -> io::Result<i32> {
+    run_observed(c, w, control, &mut |_, _| Ok(()), &mut |_| {})
+}
+
+pub(crate) fn run_observed(
+    c: &simulate::Config,
+    w: &mut impl Write,
+    mut control: impl FnMut() -> Option<Stop>,
+    hook: &mut mtg_recorder::FileHook<'_>,
+    observe: &mut impl FnMut(&mtg_core::episode::EpisodeResult),
+) -> io::Result<i32> {
+    let mut capture = c
+        .capture
+        .as_ref()
+        .map(|capture| crate::capture::Session::new(c, capture))
+        .transpose()?;
     let n = c
         .native
         .as_ref()
@@ -103,10 +118,14 @@ pub fn run(
             .unwrap()
             .remove("records");
     }
+    // Root paths and the local declaration are never public replay grants.
+    if let Some(config) = &c.capture {
+        resolved["capture"] = json!({"mode":"canonical-v2","max_episodes":config.max_episodes,"backpressure":config.backpressure,"queue_bytes":config.queue_bytes,"max_bytes":config.max_bytes});
+    }
     let mut cursor = 0;
     emit(
         w,
-        json!({"type":"run","config":resolved,"config_sha256":hash(&serde_json::to_vec(c)?),"engine_sha256":env!("MTG_ENGINE_SHA256"),"cli_version":env!("CARGO_PKG_VERSION"),"policies":c.policies,"policy_rng_version":n.rng_version,"rules_sha256":hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),"cards_sha256":hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),"workers":1,"instrumentation":"summary-v1","capture":"none","execution":if c.script.is_some() {"owned-script-v1"} else {"owned-native-v1"},"script_privacy":c.script.as_ref().map(|_|"privileged")}),
+        json!({"type":"run","config":resolved,"config_sha256":hash(&serde_json::to_vec(c)?),"engine_sha256":env!("MTG_ENGINE_SHA256"),"cli_version":env!("CARGO_PKG_VERSION"),"policies":c.policies,"policy_rng_version":n.rng_version,"rules_sha256":hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),"cards_sha256":hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),"workers":1,"instrumentation":"summary-v1","capture":if capture.is_some() {"canonical-v2"} else {"none"},"execution":if c.script.is_some() {"owned-script-v1"} else {"owned-native-v1"},"script_privacy":c.script.as_ref().map(|_|"privileged")}),
     )?;
     let mut counts = Counts {
         requested: c.episodes,
@@ -130,7 +149,7 @@ pub fn run(
             Budget {
                 limits: Limits {
                     decisions: Some(c.max_decisions),
-                    wall_time_ms: Some(1),
+                    wall_time_ms: c.deadline_ms,
                     turns: None,
                 },
                 work_quantum: n.work_quantum,
@@ -148,7 +167,15 @@ pub fn run(
         });
         counts.started += 1;
         let mut work_calls = 1;
-        let reset = d.reset(&c.game, c.master_seed, episode, n.work_quantum);
+        let reset = if let Some(session) = &capture {
+            let header = session
+                .run
+                .header(episode)
+                .map_err(|_| io::Error::other("capture header failed"))?;
+            d.reset_captured(&c.game, c.master_seed, episode, n.work_quantum, &header)
+        } else {
+            d.reset(&c.game, c.master_seed, episode, n.work_quantum)
+        };
         let mut caller_error = None;
         let mut reason = "abandoned";
         let mut progress = match reset {
@@ -167,7 +194,7 @@ pub fn run(
                 run_reason = stop.reason();
                 reason = stop.reason();
                 if matches!(stop, Stop::Deadline) {
-                    clock.set(1);
+                    clock.set(c.deadline_ms.unwrap_or(0));
                 }
                 break;
             }
@@ -303,6 +330,12 @@ pub fn run(
             w,
             json!({"type":"episode","episode":episode,"status":status,"reason":reason,"winner":winner,"decisions":owned.map(|r|r.accepted_decisions()),"work_calls":work_calls,"life":view.map(|v|v.life),"turn":view.and_then(|v|v.turn.map(|t|t.0)),"turn_position":view.and_then(|v|v.turn),"hand_counts":view.map(|v|v.hand_counts),"library_counts":view.map(|v|v.library_counts),"public_zones":view.map(|v|&v.public_zones),"terminal":view.and_then(|v|v.terminal.as_ref()),"history_sha256":owned.map(|r|hash(&serde_json::to_vec(r.privileged_history()).unwrap())),"caller_error":caller_error,"owner_status":owned.map(|r| match r.status() {Status::Completed(_)=>"completed",Status::Truncated(_)=>"truncated",Status::Failed(_)=>"failed",Status::Incomplete=>"incomplete"}),"script_consumed":c.script.as_ref().map(|_|cursor-episode_start),"script_status":c.script.as_ref().map(|_|if caller_error.is_some() {"error"} else if status=="completed" {"complete"} else if status=="truncated" {"truncated"} else {"incomplete"})}),
         )?;
+        if let Ok(result) = result {
+            observe(&result);
+            if let Some(session) = &mut capture {
+                session.results.push(result);
+            }
+        }
         if exit != 0 || (c.script.is_some() && status != "completed") {
             if exit == 0 && c.script.is_some() {
                 run_reason = reason;
@@ -310,11 +343,32 @@ pub fn run(
             break;
         }
     }
+    let mut publication = None;
+    if let Some(session) = &mut capture {
+        let (row, stop, failed) = session.publish(
+            c.capture.as_ref().unwrap(),
+            counts.started,
+            &mut control,
+            hook,
+        );
+        if let Some(stop) = stop {
+            exit = stop.code();
+            run_reason = stop.reason();
+        } else if failed && exit == 0 {
+            exit = 3;
+            run_reason = "publication_failed";
+        }
+        publication = Some(row["status"].clone());
+        emit(w, row)?;
+    }
     counts.not_started = counts.requested - counts.started;
     let mut summary = serde_json::to_value(counts)?;
     if let Some(script) = &c.script {
         summary["script_consumed"] = json!(cursor);
         summary["script_remaining"] = json!(script.records.len() - cursor);
+    }
+    if let Some(status) = publication {
+        summary["publication"] = status;
     }
     summary["type"] = json!("summary");
     summary["reason"] = json!(run_reason);
@@ -346,8 +400,14 @@ mod tests {
             for poll in [1, 3, 200] {
                 let mut output = vec![];
                 let mut polls = 0;
+                let mut c = config();
+                // Inject expiry of an explicitly configured deadline. Production
+                // control cannot produce Deadline when the config disables it.
+                if matches!(stop, Stop::Deadline) {
+                    c.deadline_ms = Some(7);
+                }
                 assert_eq!(
-                    run(&config(), &mut output, || {
+                    run(&c, &mut output, || {
                         polls += 1;
                         (polls == poll).then_some(stop)
                     })

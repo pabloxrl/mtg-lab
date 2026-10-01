@@ -40,7 +40,9 @@ pub fn publish(
         &mut |_, _| Ok(()),
     )
 }
-fn publish_observed(
+/// Publish with a caller cancellation/fault boundary before each filesystem stage.
+/// Hooks must allow withdrawal cleanup; no hard I/O deadline is promised.
+pub fn publish_observed(
     run: &Run,
     results: &[EpisodeResult],
     registry: &Registry,
@@ -170,6 +172,7 @@ fn write_artifact(path: &Path, bytes: &[u8], hook: &mut FileHook<'_>) -> Result<
     let mut file = options.open(&partial).map_err(Error::Io)?;
     hook(path, FileStage::Write).map_err(Error::Io)?;
     file.write_all(bytes).map_err(Error::Io)?;
+    hook(path, FileStage::Flush).map_err(Error::Io)?;
     file.flush().map_err(Error::Io)?;
     hook(path, FileStage::Sync).map_err(Error::Io)?;
     file.sync_all().map_err(Error::Io)?;
