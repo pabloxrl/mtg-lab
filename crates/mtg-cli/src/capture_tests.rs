@@ -297,7 +297,10 @@ fn captured_limits_and_game_stops_preserve_diagnostics_and_not_started() {
             _ => (),
         }
         let stop = match mode {
-            3 => Some(Stop::Deadline),
+            3 => {
+                c.deadline_ms = Some(7);
+                Some(Stop::Deadline)
+            }
             4 => Some(Stop::Sigint),
             5 => Some(Stop::Sigterm),
             _ => None,
@@ -503,4 +506,35 @@ fn consecutive_captured_episodes_keep_distinct_opaque_ids_and_exact_counts() {
     );
     assert_eq!(data.episodes()[0].decisions.len(), 0);
     assert_eq!(data.episodes()[1].decisions.len(), 0);
+}
+
+#[test]
+fn published_limits_match_explicit_configuration_not_internal_clock_signals() {
+    // RFC0002 trajectory header: configured limits, not implementation sentinels.
+    for deadline in [None, Some(70_000)] {
+        let root = Root::new();
+        let mut c = root.config(true);
+        short(&mut c);
+        c.deadline_ms = deadline;
+        c.max_decisions = 20_000;
+        let mut out = vec![];
+        assert_eq!(crate::native::run(&c, &mut out, || None).unwrap(), 0);
+        let r = rows(&out);
+        let dir = root.0.join("data").join(r[2]["run_id"].as_str().unwrap());
+        let m =
+            Manifest::parse(&fs::read(dir.join("manifest.json")).unwrap()[..], 67108864).unwrap();
+        assert_eq!(m.limits.wall_time_ms, deadline);
+        assert_eq!(m.limits.decisions, Some(20_000));
+        let data = fs::read(dir.join("episodes.jsonl")).unwrap();
+        let loaded = m
+            .load_v2(
+                "episodes.jsonl",
+                &data[..],
+                &m.versions,
+                67108864,
+                LoadMode::CompletedOnly,
+            )
+            .unwrap();
+        assert_eq!(loaded.episodes()[0].header.limits.wall_time_ms, deadline);
+    }
 }

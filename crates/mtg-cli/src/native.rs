@@ -149,7 +149,7 @@ pub(crate) fn run_observed(
             Budget {
                 limits: Limits {
                     decisions: Some(c.max_decisions),
-                    wall_time_ms: Some(1),
+                    wall_time_ms: c.deadline_ms,
                     turns: None,
                 },
                 work_quantum: n.work_quantum,
@@ -194,7 +194,7 @@ pub(crate) fn run_observed(
                 run_reason = stop.reason();
                 reason = stop.reason();
                 if matches!(stop, Stop::Deadline) {
-                    clock.set(1);
+                    clock.set(c.deadline_ms.unwrap_or(0));
                 }
                 break;
             }
@@ -400,8 +400,14 @@ mod tests {
             for poll in [1, 3, 200] {
                 let mut output = vec![];
                 let mut polls = 0;
+                let mut c = config();
+                // Inject expiry of an explicitly configured deadline. Production
+                // control cannot produce Deadline when the config disables it.
+                if matches!(stop, Stop::Deadline) {
+                    c.deadline_ms = Some(7);
+                }
                 assert_eq!(
-                    run(&config(), &mut output, || {
+                    run(&c, &mut output, || {
                         polls += 1;
                         (polls == poll).then_some(stop)
                     })

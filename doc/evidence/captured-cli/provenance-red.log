@@ -1,0 +1,24 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-179/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.01s
+     Running unittests src/main.rs (target/debug/deps/mtg-29a4217c7233c08c)
+
+running 1 test
+test capture::tests::published_limits_match_explicit_configuration_not_internal_clock_signals ... FAILED
+
+failures:
+
+---- capture::tests::published_limits_match_explicit_configuration_not_internal_clock_signals stdout ----
+
+thread 'capture::tests::published_limits_match_explicit_configuration_not_internal_clock_signals' (199) panicked at crates/mtg-cli/src/capture_tests.rs:516:9:
+assertion `left == right` failed
+  left: Some(1)
+ right: None
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    capture::tests::published_limits_match_explicit_configuration_not_internal_clock_signals
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.06s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

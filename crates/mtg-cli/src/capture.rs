@@ -91,7 +91,7 @@ impl Session {
                 policies: c.policies.clone(),
                 limits: Limits {
                     decisions: Some(c.max_decisions),
-                    wall_time_ms: Some(1),
+                    wall_time_ms: c.deadline_ms,
                     turns: None,
                 },
                 first_ordinal: c.first_episode,

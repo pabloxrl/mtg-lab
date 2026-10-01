@@ -68,3 +68,25 @@ limits are per file plus explicit episode/record/queue counts, not total RSS/dis
 quotas. Deadline checks are cooperative at operation/filesystem boundaries.
 The run summary alone accounts never-started requests; manifests describe started
 results only. Aggregate CLI/M1 acceptance remains pending.
+
+## Independent review finding and provenance repair
+
+[First candidate review](review-1.json) requested changes on `ec1c294`: canonical
+headers copied the driver's internal one-tick deadline sentinel as a configured
+one-millisecond limit. [Compiled provenance red](provenance-red.log) independently
+asserts disabled deadlines are `None`; it failed with `Some(1)`. The corrected
+run header and Driver budget use the actual `deadline_ms`, and expiry publishes
+that configured threshold to the injected clock. No deadline is recorded when
+disabled. The new regression checks manifest AND episode metadata for no deadline
+and an explicitly specified 70,000 ms, plus an explicitly specified 20,000-choice
+limit. These values are declared inputs, not implementation-generated oracles.
+
+Two prior injected-clock tests in `native.rs` and `script_tests.rs` now explicitly
+configure seven milliseconds only in their Deadline cases. Their previous null
+configuration plus injected Deadline was impossible through production `main.rs`,
+whose control emits Deadline only when `config.deadline_ms.is_some_and(...)`.
+Every prior expected status/count/reason and assertion remains intact; signal
+cases still have no configured deadline. This aligns the test trigger with the
+existing public requirement rather than weakening a budget outcome. The next
+prescribed independent candidate review must check this correction and the new
+stronger provenance coverage explicitly. No rule behavior changes.
