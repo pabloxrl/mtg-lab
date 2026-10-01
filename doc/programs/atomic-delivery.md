@@ -61,7 +61,7 @@ Coordinator operations #80 (M2), #81 (M3), #82 (M4), #83 (M5) are prerequisites 
 
 ## Atomic task contract
 
-One task has one observable deliverable, a runnable positive and negative test, an independent expected result, explicit exclusions, and only the contracts/code it needs as prerequisites. Target one reviewable PR within the existing 90-minute budget; the budget is a ceiling, not a sizing goal. Keep an independent ready task eligible when another blocks. Do not create a dependency merely because two tasks are in the same component. Do not call a task atomic if its only meaningful test requires an unimplemented sibling. Synthetic state tests are allowed when explicitly declared; they do not substitute for promised real game sequences.
+One task has one observable deliverable, a runnable positive and negative test, an independent expected result, explicit exclusions, and only the contracts/code it needs as prerequisites. Target one reviewable PR sized by independent testability and coherent scope. Elapsed time and dispatch count are not task-sizing or stopping criteria. Keep an independent ready task eligible when another blocks. Do not create a dependency merely because two tasks are in the same component. Do not call a task atomic if its only meaningful test requires an unimplemented sibling. Synthetic state tests are allowed when explicitly declared; they do not substitute for promised real game sequences.
 
 ## What the driver does
 

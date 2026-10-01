@@ -129,24 +129,48 @@ python3 scripts/symphony/import-workspace.py ~/.local/share/mtg-lab-symphony/wor
 
 Build outputs are excluded because macOS artifacts cannot be reused as Linux
 executables. Keep original review reports as history; rerun verification/review
-for the Linux candidate. The coordinator explicitly replans the paused task and
-resets its time window once at cutover, retaining the previous evidence.
+for the Linux candidate. The coordinator explicitly replans/reactivates the paused
+task at cutover, retaining previous evidence and diagnostic counters.
 
-## Limits and resuming a blocked issue
+## Continuous delivery and real blockers
 
-One implementation issue runs at a time. Review uses an additional short-lived
-Codex process. Policy allows three repair/review cycles and a 90-minute issue work
-window. The before-run hook pauses re-dispatch after five attempts or expiry of
-that window. It does not interrupt an already running turn. Silence timeouts are
-10 minutes, the reviewer subprocess timeout is 15 minutes, and CI times out after
-30 minutes (including image construction). `max_turns: 12` is not a total run or spending limit. No hard dollar
-budget is configured; usage is subject to the account's limits.
+One implementation issue runs at a time; separate candidate review uses an
+additional short-lived Codex process. Authorized work continues through review,
+CI, exact-main verification and handoff across sessions. There is no total issue
+elapsed-time or lifetime dispatch-attempt ceiling. After three repair/review
+cycles, record an evidence-based diagnosis and revised approach; continue when
+a viable in-scope step exists. Independent testability determines atomic scope.
 
-To resume after resolving a blocker, stop the service first, preserve any desired
-evidence, remove that issue's ignored `.symphony-attempts.json` from its `GH-N`
-workspace, remove `agent-blocked`, add `agent-ready`, then start the service.
-Do not delete the branch or workpad: workers use them to avoid duplicate delivery.
-Do not add `agent-ready` while editing the counter with the service running.
+The hook retains `.symphony-attempts.json` (`started`, `attempts`, and any extra
+fields) as diagnostic history, incrementing attempts after execution checks.
+Age/count never comments, blocks, or removes readiness. Malformed diagnostics
+fail visibly without rewriting the original file or changing authorization;
+coordinator repair must preserve that evidence and all existing controls.
+Healthy continuation requires no counter deletion, archival or manual reset.
+
+The pinned Symphony v0.0.3 controller returns after `max_turns: 12` and schedules
+a continuation check after one second on normal worker completion. It rechecks
+active state and routing/readiness before further execution. Abnormal worker
+exits use exponential backoff starting at 10 seconds and capped at 300 seconds;
+tracker lookup failures retain retry state. These retries have no lifetime
+attempt ceiling. Transient service or usage unavailability waits/retries through
+that behavior, without credential workarounds or readiness removal. An actual
+input-required response, unavailable access, essential decision, irreparable
+failure or genuine scope change remains visible for resolution.
+
+Turn and stall timeouts remain 10 minutes, reviewer subprocess timeout 15 minutes,
+and CI timeout 30 minutes (including image construction). These bound individual
+operations; they are not total delivery deadlines. Account/provider limits still
+apply; no hard dollar budget is configured. The
+[credential-free acceptance checks](evidence/continuous-delivery/README.md)
+exercise packaged controller continuation/retry decisions and hook regressions.
+They do not establish recovery from every process crash or provider outage.
+
+To resume after resolving a genuine blocker, the coordinator records its resolution,
+removes only the resolved `agent-blocked`/`agent-held` control, then explicitly
+reactivates the intended issue under normal dependency and program checks. Preserve
+other holds, the branch, workpad and counters. A deferred resume grant can be
+consumed only by the existing bounded handoff, after all controls pass.
 
 ## RFC 0002 program: operator workflow
 
@@ -176,7 +200,7 @@ one eligible successor through the normal bounded handoff; routine milestone
 transitions no longer wait for a separate coordinator activation. Authorization
 is not completion, and workers cannot add tasks or expand scope. New corrective
 work/registration still needs reviewed coordinator operations. Pause/hold controls,
-removed ready labels, failed dependencies and bounded retry limits remain binding.
+removed ready labels, failed dependencies and per-operation limits remain binding.
 Essential product decisions or missing access remain blockers; independent eligible
 work may continue. No human PR review is required.
 
@@ -188,7 +212,7 @@ Controls:
   last, preventing repeated dispatch. Stop the service for immediate shutdown;
   a label cannot undo an operation already in flight. After clearing the parent
   pause, the coordinator explicitly removes the intended task's hold and
-  reactivates it, following the counter-reset procedure if needed. Clearing the
+  reactivates it after normal checks. Clearing the
   parent label alone never restores dispatch authorization.
 - **Hold a task:** add `agent-held` and remove `agent-ready`. The handoff never
   removes a hold. Even without `agent-held`, a previous removal of `agent-ready`
@@ -200,7 +224,7 @@ Controls:
   for a program pause, without reporting it completed. Canceled dependencies remain
   unsatisfied; agents cannot count them as delivered or silently skip them.
 - **Resolve a blocker:** supply the decision/access information in the issue,
-  then follow the bounded-counter reset procedure above and reactivate it.
+  then explicitly reactivate it under the controls above; retain its diagnostics.
   Do not mark a task complete to unblock its dependents.
 
 Completed dependencies require a completed issue plus its workpad's acceptance,
@@ -211,9 +235,10 @@ create an unbounded backlog or expand their own scope; an oversized task is
 reported for coordinator replanning. A blocked task does not freeze independent
 work, but its dependents and the milestone gate remain ineligible.
 
-Handoff normally resumes from the still-open delivering issue after a crash.
-After an operator force-closes a task, a hard process failure bypasses the handoff,
-or the before-run retry limit is exhausted, the queue can become idle. Ask the
+Normal session completion and controller-observed worker failure retry the still-open
+ready issue. Restart can rediscover ready issues and reuse persistent workspaces.
+After an operator force-closes a task or an arbitrary hard process failure bypasses
+handoff, the queue can become idle; automatic recovery is not guaranteed. Ask the
 coordinator to reconcile the manifest against GitHub evidence and activate the
 next eligible issue. This is agent-managed progression with bounded recovery,
 not a continuously running dependency scheduler. Initial setup also reconciles
