@@ -1,0 +1,24 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-178/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.25s
+     Running tests/script_simulate.rs (target/debug/deps/script_simulate-a72d8ffd6e548d49)
+
+running 1 test
+test script_played_combat_reaches_literal_rules_terminal_without_concession ... FAILED
+
+failures:
+
+---- script_played_combat_reaches_literal_rules_terminal_without_concession stdout ----
+
+thread 'script_played_combat_reaches_literal_rules_terminal_without_concession' (143) panicked at crates/mtg-cli/tests/script_simulate.rs:356:5:
+assertion `left == right` failed
+  left: 434
+ right: 534
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    script_played_combat_reaches_literal_rules_terminal_without_concession
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-cli --test script_simulate`

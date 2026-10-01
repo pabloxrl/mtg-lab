@@ -1,0 +1,739 @@
+{
+  "schema_version": 3,
+  "game": {
+    "format": "foundations_micro_v1",
+    "seats": [
+      {
+        "deck": "green",
+        "order": [
+          "bear-cub",
+          "giant-growth",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "bear-cub",
+          "bear-cub",
+          "bear-cub",
+          "giant-growth",
+          "giant-growth",
+          "llanowar-elves",
+          "llanowar-elves",
+          "llanowar-elves",
+          "druid-of-the-cowl",
+          "druid-of-the-cowl",
+          "magnigoth-sentry",
+          "magnigoth-sentry",
+          "tajuru-pathwarden",
+          "tajuru-pathwarden",
+          "thornweald-archer",
+          "thornweald-archer",
+          "thornweald-archer",
+          "bite-down",
+          "bite-down",
+          "bite-down",
+          "wildheart-invoker",
+          "wildheart-invoker"
+        ]
+      },
+      {
+        "deck": "green",
+        "order": [
+          "bear-cub",
+          "giant-growth",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "forest",
+          "bear-cub",
+          "bear-cub",
+          "bear-cub",
+          "giant-growth",
+          "giant-growth",
+          "llanowar-elves",
+          "llanowar-elves",
+          "llanowar-elves",
+          "druid-of-the-cowl",
+          "druid-of-the-cowl",
+          "magnigoth-sentry",
+          "magnigoth-sentry",
+          "tajuru-pathwarden",
+          "tajuru-pathwarden",
+          "thornweald-archer",
+          "thornweald-archer",
+          "thornweald-archer",
+          "bite-down",
+          "bite-down",
+          "bite-down",
+          "wildheart-invoker",
+          "wildheart-invoker"
+        ]
+      }
+    ],
+    "starting_seat": 0,
+    "game_number": 1,
+    "sideboards": false,
+    "rng_version": "splitmix64-v1",
+    "shuffle_version": "fisher-yates-rejection-v1"
+  },
+  "policies": [
+    "semantic-script-v1",
+    "semantic-script-v1"
+  ],
+  "master_seed": 178,
+  "first_episode": 0,
+  "episodes": 1,
+  "max_decisions": 1000,
+  "deadline_ms": null,
+  "native": {
+    "policy_seed": 42,
+    "rng_version": "legal-random-rng-v1",
+    "work_quantum": 64,
+    "max_work_calls": 100000,
+    "max_records": 20000
+  },
+  "script": {
+    "version": 1,
+    "privacy": "privileged",
+    "max_bytes": 262144,
+    "max_records": 1000,
+    "records": [
+      {
+        "episode": 0,
+        "decision": 0,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"keep_or_mulligan\",\"choices\":[{\"kind\":\"keep\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 1,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"keep_or_mulligan\",\"choices\":[{\"kind\":\"keep\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 2,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 3,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 4,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 5,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 6,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 7,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 8,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 9,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 10,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 11,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 12,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 13,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 14,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 15,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 16,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 17,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 18,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 19,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 20,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 21,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":42,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 22,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 23,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 24,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 25,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 26,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 27,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 28,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 29,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 30,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 31,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 32,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 33,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 34,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 35,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 36,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 37,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 38,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":3,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 39,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"cast\",\"card\":{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 40,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"tap_mana\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":2}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 41,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"tap_mana\",\"card\":{\"birth\":3,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":2}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 42,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"pay\",\"color\":4}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 43,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"pay\",\"color\":4}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 44,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"finish_payment\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 45,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 46,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 47,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 48,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 49,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 50,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 51,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 52,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 53,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 54,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 55,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 56,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 57,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 58,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 59,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 60,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 61,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 62,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 63,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 64,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":43,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 65,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 66,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 67,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 68,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 69,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 70,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 71,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 72,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 73,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 74,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 75,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 76,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 77,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 78,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 79,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 80,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 81,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"cast\",\"card\":{\"birth\":1,\"card\":\"giant-growth\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 82,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"growth_target\",\"choices\":[{\"kind\":\"target\",\"card\":{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 83,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"targets_complete\",\"choices\":[{\"kind\":\"finish_targets\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 84,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"tap_mana\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":2}}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 85,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"pay\",\"color\":4}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 86,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"finish_payment\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 87,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 88,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 89,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 90,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 91,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 92,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 93,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 94,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 95,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 96,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 97,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 98,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 99,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 100,
+        "seat": "P0",
+        "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+      },
+      {
+        "episode": 0,
+        "decision": 101,
+        "seat": "P1",
+        "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"concession\",\"choices\":[{\"kind\":\"concede\"}]}"
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "command": "cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/script-v3.json",
+    "exit": 0,
+    "summary": {
+      "completed": 1,
+      "draws": 0,
+      "exit_code": 0,
+      "failed": 0,
+      "incomplete": 0,
+      "not_started": 0,
+      "reason": "budget_complete",
+      "requested": 1,
+      "schema_version": 1,
+      "script_consumed": 102,
+      "script_remaining": 0,
+      "started": 1,
+      "truncated": 0,
+      "type": "summary",
+      "wins": [
+        1,
+        0
+      ]
+    }
+  },
+  {
+    "command": "cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/native-v2.json",
+    "exit": 0,
+    "summary": {
+      "completed": 2,
+      "draws": 0,
+      "exit_code": 0,
+      "failed": 0,
+      "incomplete": 0,
+      "not_started": 0,
+      "reason": "budget_complete",
+      "requested": 2,
+      "schema_version": 1,
+      "started": 2,
+      "truncated": 0,
+      "type": "summary",
+      "wins": [
+        2,
+        0
+      ]
+    }
+  },
+  {
+    "command": "cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/pass-v1.json",
+    "exit": 0,
+    "summary": {
+      "completed": 2,
+      "draws": 0,
+      "exit_code": 0,
+      "failed": 0,
+      "not_started": 0,
+      "reason": "budget_complete",
+      "requested": 2,
+      "schema_version": 1,
+      "started": 2,
+      "truncated": 0,
+      "type": "summary",
+      "unfinished": 0,
+      "wins": [
+        2,
+        0
+      ]
+    }
+  }
+]

@@ -1,10 +1,11 @@
 mod commands;
 mod native;
+mod script;
 mod simulate;
 use serde_json::json;
 use std::{
     fs::OpenOptions,
-    io::{self, Write},
+    io::{self, Read, Write},
     sync::{
         Arc,
         atomic::{AtomicUsize, Ordering},
@@ -37,7 +38,13 @@ fn execute() -> Result<i32, (i32, String)> {
     if !meta.is_file() || meta.len() > 1_048_576 {
         return Err((2, "config must be a regular file of at most 1 MiB".into()));
     }
-    let bytes = std::fs::read(&args[2]).map_err(|e| (2, e.to_string()))?;
+    let mut bytes = Vec::new();
+    std::fs::File::open(&args[2])
+        .and_then(|f| f.take(1_048_577).read_to_end(&mut bytes))
+        .map_err(|_| (2, "configuration read failed".into()))?;
+    if bytes.len() > 1_048_576 {
+        return Err((2, "configuration byte bound exceeded".into()));
+    }
     let config: simulate::Config = serde_json::from_slice(&bytes)
         .map_err(|_| (2, "invalid simulation configuration".into()))?;
     config.validate().map_err(|e| (2, e))?;
@@ -64,7 +71,7 @@ fn execute() -> Result<i32, (i32, String)> {
         }
         _ => None,
     };
-    if config.schema_version == 2 {
+    if config.schema_version >= 2 {
         native::run(&config, &mut output, control)
             .map_err(|_| (3, "simulation output failed".into()))
     } else {
