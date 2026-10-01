@@ -40,7 +40,7 @@ optional policy statistic keys may be omitted. Unknown/mixed versions, duplicate
 extra or missing required fields, noncanonical bytes and invalid structured
 records reject. Readers never try another version after a failure; even an empty
 file must carry the explicitly selected seal version. Legacy APIs, fixtures and
-bytes are unchanged. The existing CLI trajectory command remains v1-only.
+bytes are unchanged. The [CLI validator](headless-commands.md) supports explicit v1/v2 JSONL and run manifests; v1 remains its legacy default.
 
 `structured::Episode::seat(0 or 1)` validates and returns owned same-seat
 transitions/final observations, accumulated intervening rewards, decision/logical

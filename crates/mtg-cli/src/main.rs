@@ -3,6 +3,7 @@ mod commands;
 mod native;
 mod script;
 mod simulate;
+mod trajectories;
 use serde_json::json;
 use std::{
     fs::OpenOptions,
