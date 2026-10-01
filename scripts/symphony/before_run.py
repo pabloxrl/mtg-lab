@@ -1,5 +1,6 @@
-"""Bound retries across Symphony sessions without changing the upstream scheduler."""
+"""Check execution prerequisites and retain diagnostic dispatch history."""
 import json
+import math
 import os
 from pathlib import Path
 import re
@@ -33,18 +34,21 @@ if execution:
             raise SystemExit(f"Execution prerequisite #{prerequisite} is incomplete")
 
 state_path = Path(".symphony-attempts.json")
-state = json.loads(state_path.read_text()) if state_path.exists() else {"started": time.time(), "attempts": 0}
+# Legacy started/attempts fields are telemetry only, never dispatch authority.
+# Reject malformed telemetry visibly without rewriting evidence or labels.
+try:
+    state = json.loads(state_path.read_text()) if state_path.exists() else {
+        "started": time.time(), "attempts": 0}
+    if (not isinstance(state, dict)
+            or type(state.get("attempts")) is not int or state["attempts"] < 0
+            or type(state.get("started")) not in (int, float)
+            or not math.isfinite(state["started"]) or state["started"] < 0):
+        raise ValueError("expected nonnegative attempts and finite started timestamp")
+except (ValueError, OverflowError) as error:
+    raise SystemExit(f"Invalid dispatch diagnostics in {state_path}: {error}") from error
 state["attempts"] += 1
-state_path.write_text(json.dumps(state) + "\n")
-if state["attempts"] > 5 or time.time() - state["started"] > 5400:
-    match = re.fullmatch(r"GH-(\d+)", Path.cwd().name)
-    if not match:
-        raise SystemExit("Retry limit reached; cannot identify issue from workspace name")
-    number = match.group(1)
-    subprocess.run(["gh", "issue", "comment", number, "-R", "pabloxrl/mtg-lab", "--body",
-                    "Symphony paused this issue after 5 dispatch attempts or a 90-minute work window. "
-                    "Evidence and branch are retained. See the operations guide to reset and resume."], check=True)
-    subprocess.run(["gh", "issue", "edit", number, "-R", "pabloxrl/mtg-lab", "--add-label",
-                    "agent-blocked", "--remove-label", "agent-running", "--remove-label", "agent-ready"], check=True)
-    raise SystemExit("Issue paused at retry/time limit")
-print(f"Symphony dispatch attempt {state['attempts']}/5")
+# Avoid leaving truncated diagnostics if the worker stops during the write.
+temporary = state_path.with_suffix(".json.tmp")
+temporary.write_text(json.dumps(state) + "\n")
+temporary.replace(state_path)
+print(f"Symphony dispatch attempt {state['attempts']} (diagnostic only)")

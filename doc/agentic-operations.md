@@ -45,7 +45,7 @@ Adapt the existing workflow for this repository:
 - Let agents create and execute smaller tasks within a submitted objective. Unrelated discoveries go to the backlog.
 - Give each task a persistent work record with its plan, assumptions, evidence, and current obstacle.
 - Configure GitHub required checks and auto-merge without requiring the driver to approve PRs.
-- Define bounded repair attempts, infrastructure retries, task timeouts, and spending limits before enabling unattended execution.
+- Retain per-operation/stall timeouts, bounded retry backoff and one-worker concurrency. Continue authorized delivery across sessions without total elapsed-time or dispatch-count ceilings; diagnose and replan after three repair/review cycles.
 
 These are repository policies to configure and test, not claims that Symphony supplies all of them automatically. Its scheduler runs agents; task updates, review behavior, and delivery depend on workflow instructions and available tools. Consult the [service specification](https://github.com/openai/symphony/blob/main/SPEC.md) and [setup guide](https://github.com/openai/symphony/blob/main/elixir/README.md) for the pinned version.
 
@@ -86,13 +86,13 @@ Keep required acceptance behavior frozen during an implementation attempt. If th
 
 | Situation | Intended response |
 | --- | --- |
-| Build, test, or actionable review failure | Agent investigates and repairs within configured limits |
+| Build, test, or actionable review failure | Agent investigates and repairs within authorized scope |
 | Repeated implementation failure | Replan, split the task, or start a fresh attempt; preserve failed evidence |
 | Transient infrastructure failure | Retry with bounded backoff; keep distinct from an incorrect implementation |
 | Dependency incomplete | Wait for the dependency while unrelated eligible work continues |
 | Required access missing | Request the exact credential or permission action needed |
 | Essential product ambiguity | Ask one concrete outcome question with a recommendation; continue independent work |
-| Budget exhausted or no verified solution | Mark the task unresolved and summarize attempts; never declare success or quietly shrink scope |
+| No viable in-scope remedy, unavailable authorization, or genuine scope change | Record an evidence-based blocker and attempts; never declare success or quietly shrink scope |
 | Post-merge regression | Agent prepares a revert or repair, runs required checks, and restores the last verified behavior; check dependent changes before reverting |
 
 Post-merge recovery is a workflow to configure and demonstrate, not an assumed Symphony feature. The worker needs scoped credentials and a reproducible environment; ordinary code execution must not expose unrelated personal credentials. Use host/service controls and provider limits for resource enforcement where available rather than relying exclusively on prompts.
@@ -158,7 +158,7 @@ Close an issue as not planned to stop further work. Cancellation is observed thr
 
 ### Handle an exception
 
-Answer only when the system names a decision or action it cannot resolve: for example, choosing between incompatible product outcomes, restoring access, or extending an exhausted budget. For implementation failures, you receive a diagnosis and the proposed next attempt rather than a request to debug code or review a PR. You may defer or cancel unresolved work.
+Answer only when the system names a decision or action it cannot resolve: for example, choosing between incompatible product outcomes, restoring access, or resolving a genuine scope change. For implementation failures, you receive a diagnosis and the proposed next attempt rather than a request to debug code or review a PR. You may defer or cancel unresolved work.
 
 ### Receive the result
 

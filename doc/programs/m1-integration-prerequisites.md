@@ -157,7 +157,7 @@ Every new behavior enters ordinary executable test discovery with independent ru
 
 This registration operation #106 must pass separate review, protected merge and exact-main CI before dispatch. The coordinator then preserves old blocked reports, appends the dependency amendment to #18–#21, removes only their resolved scope-block labels and gives each an explicit deferred agent-resume-authorized grant. They remain unready until all newly registered prerequisites have delivered acceptance, review, merge and exact-main CI evidence. Normal handoff consumes the grant atomically when adding ready. No worker is authorized to clear a hold/block or bypass a dependency.
 
-The coordinator records operation completion, closes it only after validation, and queues exactly one eligible child. New children have no previous dispatch counter. The four resumed integration workspaces receive a one-time archived-counter reset while the controller is stopped, preserving files and workpads. Future blocks still require diagnosis; this plan does not authorize automatic retry-limit resets.
+The coordinator records operation completion, closes it only after validation, and queues exactly one eligible child. Preserve all workspaces, workpads and diagnostic attempt history. Continuous-delivery policy requires no counter resets; real blocks still require evidence-based diagnosis and explicit coordinator reactivation.
 
 For the driver: no issue unblocking or PR review is needed. Read the dashboard for current work and parent #7 for evidence. Agents advance through these prerequisites, then rerun the four integration checks and M1 gate. Essential product decisions or missing access remain reasons to ask for input.
 

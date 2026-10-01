@@ -277,8 +277,14 @@ implement it, test it, obtain a separate agent review, merge through protected
 checks, and record evidence in each issue's workpad. Routine PR review and merging
 do not require you. Essential product decisions and unavailable access may still
 need your input. Normal milestone transitions use automatic bounded handoff.
-A failed gate, held task or exhausted retry budget can still need coordinator
-recovery; a healthy idle service does not mean the whole program is finished.
+Authorized work continues across sessions without a total elapsed-time or
+lifetime dispatch-count stop. Three repair/review cycles trigger diagnosis and
+replanning; real blockers and deliberate holds still need resolution. One-worker
+concurrency, per-operation timeouts and bounded retry backoff remain in force.
+A healthy idle service does not mean the whole program is finished. The
+[continuous-delivery checks and deployment limits](doc/evidence/continuous-delivery/README.md)
+distinguish tested controller continuation from coordinator-owned image deployment;
+arbitrary process termination during handoff is not guaranteed to recover.
 
 If you operate the agent service, use the [Symphony runbook](doc/symphony-runbook.md)
 for authenticated setup, start/stop, persistent storage and recovery. From an
