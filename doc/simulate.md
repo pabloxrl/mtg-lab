@@ -154,3 +154,57 @@ qualification is delivered. #120 retains all composed CLI clauses; #21/#22 and
 later requirement owners remain unchanged.
 
 [Native acceptance and independent expectations](evidence/native-cli/README.md).
+
+## Semantic scripts (schema 3)
+
+Schema 3 uses the same owned run loop and `Driver::submit_record`, with capture
+still disabled. Both `policies` must be `semantic-script-v1`; mixing scripts and
+native policies is rejected. Schema 1/pass-v1 and schema 2/native behavior remain.
+The `native` bounds object is still required: work quantum/calls and history
+capacity apply identically. Its policy seed/RNG version retain their validated
+schema-2 representation but no native policy is instantiated in script mode.
+
+Add `script` with `version: 1`, `privacy: "privileged"`, positive `max_bytes`
+(up to 1 MiB), positive `max_records` (up to 100,000), and an ordered `records`
+array. Each entry has:
+
+- `episode`: exact requested episode ordinal, starting at `first_episode`.
+- `decision`: zero-based accepted record position within that episode. Concession
+  occupies the next position but does not increment the owner's decision count.
+- `seat`: `P0` or `P1`, explicitly authorized for this record.
+- `record`: a JSON string containing one existing [semantic v1 action](actions.md).
+
+The byte budget measures UTF-8 compact JSON serialization of the complete entry
+array, including envelopes and escaped record strings. The entire configuration
+also has a 1 MiB read cap. Bounds/version/privacy checks occur before run startup;
+individual records are decoded at their exact action boundary. Missing, stale
+position, wrong episode/seat, malformed, illegal and wrong-incarnation inputs
+stop with a redacted `script_*` caller error and exit 3. No skipping, looping,
+implicit choices, record reuse across episodes or native fallback occurs.
+Live process-local owner tokens are obtained only after the explicit static
+position check; they are not persisted as portable decision identities.
+Concession by either seat uses the owner's out-of-band concession path.
+
+Scripts are privileged replay/debug input containing identities that must not be
+provided to a player policy. Ordinary output omits record payloads (including
+malformed ones), retaining the configuration hash, bounds and privacy declaration.
+The resolved game configuration, exact deck order and seed retain their existing
+privileged run-metadata meaning. This is not a player observation endpoint.
+
+Episode output adds `script_consumed`, `script_status` and `owner_status`; summary
+output adds total `script_consumed` and `script_remaining`. A terminal game with
+extra records retains its genuine completed game/winner accounting but has
+`script_status: "error"`, `caller_error: "script_extra"` and exit 3. Valid full
+consumption requires every requested episode to complete, exit 0 and zero
+remaining records. A decision/deadline stop is truncation. A script work stop is
+also reported as external run truncation, while `owner_status: "incomplete"`
+retains the owner's unchanged status (native work stops remain incomplete).
+Signals remain incomplete, owner capacity failures remain failed. Any nonterminal
+script stop ends the run and accounts for later requested episodes as not started;
+remaining input is never implicitly moved to the next episode.
+
+`fixtures/simulate/script-v3.json` is an original normal-reset ordered-green
+example: land, Cub, Growth target/payment, unblocked combat, then concession.
+[Executable acceptance and independently justified checkpoints](evidence/script-cli/README.md)
+cover both starting seats, multiple episodes, exact records and nonmutation.
+No persistence, replay/validation-command expansion or M1 completion is implied.

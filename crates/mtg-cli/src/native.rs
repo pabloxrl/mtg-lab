@@ -26,10 +26,14 @@ pub struct Config {
     pub max_records: NonZeroUsize,
 }
 impl Config {
-    pub fn validate(&self, policies: &[String; 2]) -> Result<(), String> {
+    pub fn validate_bounds(&self) -> Result<(), String> {
         if self.max_work_calls == 0 || self.rng_version != mtg_policy::RNG_VERSION {
             return Err("unsupported native RNG version or zero work bound".into());
         }
+        Ok(())
+    }
+    pub fn validate(&self, policies: &[String; 2]) -> Result<(), String> {
+        self.validate_bounds()?;
         if policies
             .iter()
             .any(|p| ![mtg_policy::VERSION, mtg_policy::HEURISTIC_VERSION].contains(&p.as_str()))
@@ -92,9 +96,17 @@ pub fn run(
         .native
         .as_ref()
         .ok_or_else(|| io::Error::other("native configuration missing"))?;
+    let mut resolved = serde_json::to_value(c)?;
+    if c.script.is_some() {
+        resolved["script"]
+            .as_object_mut()
+            .unwrap()
+            .remove("records");
+    }
+    let mut cursor = 0;
     emit(
         w,
-        json!({"type":"run","config":c,"config_sha256":hash(&serde_json::to_vec(c)?),"engine_sha256":env!("MTG_ENGINE_SHA256"),"cli_version":env!("CARGO_PKG_VERSION"),"policies":c.policies,"policy_rng_version":n.rng_version,"rules_sha256":hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),"cards_sha256":hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),"workers":1,"instrumentation":"summary-v1","capture":"none","execution":"owned-native-v1"}),
+        json!({"type":"run","config":resolved,"config_sha256":hash(&serde_json::to_vec(c)?),"engine_sha256":env!("MTG_ENGINE_SHA256"),"cli_version":env!("CARGO_PKG_VERSION"),"policies":c.policies,"policy_rng_version":n.rng_version,"rules_sha256":hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),"cards_sha256":hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),"workers":1,"instrumentation":"summary-v1","capture":"none","execution":if c.script.is_some() {"owned-script-v1"} else {"owned-native-v1"},"script_privacy":c.script.as_ref().map(|_|"privileged")}),
     )?;
     let mut counts = Counts {
         requested: c.episodes,
@@ -127,10 +139,13 @@ pub fn run(
             Box::new(Deadline(clock.clone())),
         )
         .map_err(|_| io::Error::other("owner initialization failed"))?;
-        let mut policies = [
-            Policy::new(&c.policies[0], n, episode, 0),
-            Policy::new(&c.policies[1], n, episode, 1),
-        ];
+        let episode_start = cursor;
+        let mut policies = c.script.is_none().then(|| {
+            [
+                Policy::new(&c.policies[0], n, episode, 0),
+                Policy::new(&c.policies[1], n, episode, 1),
+            ]
+        });
         counts.started += 1;
         let mut work_calls = 1;
         let reset = d.reset(&c.game, c.master_seed, episode, n.work_quantum);
@@ -163,6 +178,20 @@ pub fn run(
             work_calls += 1;
             let result = match progress {
                 Progress::InternalYield => d.advance(n.work_quantum),
+                Progress::Ready if c.script.is_some() => {
+                    match crate::script::submit(
+                        c.script.as_ref().unwrap(),
+                        &mut cursor,
+                        episode,
+                        &mut d,
+                    ) {
+                        Ok(()) => Ok(Progress::InternalYield),
+                        Err(e) => {
+                            caller_error = Some(e);
+                            break;
+                        }
+                    }
+                }
                 Progress::Ready => {
                     // Only authorized policy observations cross into a policy.
                     let ready = [Seat::P0, Seat::P1].into_iter().find_map(|seat| {
@@ -174,7 +203,7 @@ pub fn run(
                     match ready {
                         Some((seat, o)) => {
                             let index = usize::from(seat == Seat::P1);
-                            let submission = policies[index]
+                            let submission = policies.as_mut().unwrap()[index]
                                 .as_mut()
                                 .map_err(|_| ())
                                 .and_then(|p| p.choose(&o).map_err(|_| ()));
@@ -203,6 +232,15 @@ pub fn run(
                     break;
                 }
             }
+        }
+        if matches!(d.status(), Some(Status::Completed(_)))
+            && c.script.as_ref().is_some_and(|s| {
+                s.records
+                    .get(cursor)
+                    .is_some_and(|e| e.episode == episode || offset + 1 == c.episodes)
+            })
+        {
+            caller_error = Some("script_extra");
         }
         let result = d.finish();
         let (status, winner) = match result.as_ref().map(|r| r.status()) {
@@ -238,6 +276,12 @@ pub fn run(
                 run_reason = reason;
                 ("failed", None)
             }
+            Ok(Status::Incomplete) if c.script.is_some() && reason == "work_limit" => {
+                // Caller work bounds do not alter the owner's game status. This
+                // run reports its external truncation and retains owner_status.
+                counts.truncated += 1;
+                ("truncated", None)
+            }
             Ok(Status::Incomplete) | Err(_) => {
                 counts.incomplete += 1;
                 if result.is_err() {
@@ -257,14 +301,21 @@ pub fn run(
             .map(|o| &o[0].view);
         emit(
             w,
-            json!({"type":"episode","episode":episode,"status":status,"reason":reason,"winner":winner,"decisions":owned.map(|r|r.accepted_decisions()),"work_calls":work_calls,"life":view.map(|v|v.life),"turn":view.and_then(|v|v.turn.map(|t|t.0)),"turn_position":view.and_then(|v|v.turn),"hand_counts":view.map(|v|v.hand_counts),"library_counts":view.map(|v|v.library_counts),"public_zones":view.map(|v|&v.public_zones),"terminal":view.and_then(|v|v.terminal.as_ref()),"history_sha256":owned.map(|r|hash(&serde_json::to_vec(r.privileged_history()).unwrap())),"caller_error":caller_error}),
+            json!({"type":"episode","episode":episode,"status":status,"reason":reason,"winner":winner,"decisions":owned.map(|r|r.accepted_decisions()),"work_calls":work_calls,"life":view.map(|v|v.life),"turn":view.and_then(|v|v.turn.map(|t|t.0)),"turn_position":view.and_then(|v|v.turn),"hand_counts":view.map(|v|v.hand_counts),"library_counts":view.map(|v|v.library_counts),"public_zones":view.map(|v|&v.public_zones),"terminal":view.and_then(|v|v.terminal.as_ref()),"history_sha256":owned.map(|r|hash(&serde_json::to_vec(r.privileged_history()).unwrap())),"caller_error":caller_error,"owner_status":owned.map(|r| match r.status() {Status::Completed(_)=>"completed",Status::Truncated(_)=>"truncated",Status::Failed(_)=>"failed",Status::Incomplete=>"incomplete"}),"script_consumed":c.script.as_ref().map(|_|cursor-episode_start),"script_status":c.script.as_ref().map(|_|if caller_error.is_some() {"error"} else if status=="completed" {"complete"} else if status=="truncated" {"truncated"} else {"incomplete"})}),
         )?;
-        if exit != 0 {
+        if exit != 0 || (c.script.is_some() && status != "completed") {
+            if exit == 0 && c.script.is_some() {
+                run_reason = reason;
+            }
             break;
         }
     }
     counts.not_started = counts.requested - counts.started;
     let mut summary = serde_json::to_value(counts)?;
+    if let Some(script) = &c.script {
+        summary["script_consumed"] = json!(cursor);
+        summary["script_remaining"] = json!(script.records.len() - cursor);
+    }
     summary["type"] = json!("summary");
     summary["reason"] = json!(run_reason);
     summary["exit_code"] = json!(exit);

@@ -15,6 +15,8 @@ use std::io::{self, Write};
 #[serde(deny_unknown_fields)]
 pub struct Config {
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub script: Option<super::script::Config>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub native: Option<super::native::Config>,
     pub schema_version: u32,
     pub game: mtg_core::opening::Config,
@@ -27,7 +29,7 @@ pub struct Config {
 }
 impl Config {
     pub fn validate(&self) -> Result<(), String> {
-        if ![1, 2].contains(&self.schema_version)
+        if ![1, 2, 3].contains(&self.schema_version)
             || self.episodes == 0
             || self.max_decisions == 0
             || self.deadline_ms == Some(0)
@@ -37,7 +39,21 @@ impl Config {
         self.first_episode
             .checked_add(self.episodes - 1)
             .ok_or("episode ID range overflows")?;
-        if self.schema_version == 2 {
+        if self.schema_version != 3 && self.script.is_some() {
+            return Err("script requires schema version 3".into());
+        }
+        if self.schema_version == 3 {
+            if self.policies.iter().any(|p| p != super::script::POLICY) {
+                return Err(
+                    "both policies must explicitly be semantic-script-v1; no fallback".into(),
+                );
+            }
+            self.script.as_ref().ok_or("script required")?.validate()?;
+            self.native
+                .as_ref()
+                .ok_or("owned execution bounds required")?
+                .validate_bounds()?;
+        } else if self.schema_version == 2 {
             self.native
                 .as_ref()
                 .ok_or("native bounds required")?
@@ -253,6 +269,7 @@ mod tests {
     fn config() -> Config {
         Config {
             native: None,
+            script: None,
             schema_version: 1,
             game: Default::default(),
             policies: ["pass-v1".into(), "pass-v1".into()],

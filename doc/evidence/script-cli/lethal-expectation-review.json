@@ -1,0 +1,11 @@
+{
+  "verdict": "changes_requested",
+  "summary": "434 is independently justified, but the proposed two-assertion correction is incomplete: the test contains three 534 assertions. Approve changing all three count expectations to 434 while preserving every script record and all other assertions. The fixture contains consecutive decisions 0–433. CR103/117/508–510/514 support 101 + 8 + 7×24 + 8×16 + 13 + 16 = 434: full attacking turns have 20 priority passes and four combat records; defending turns have 16 passes; ordinary cleanup adds no priority. Nine unblocked attacks deal 5 + 8×2 = 21, producing life [20,-1] and P0’s win before further priority or cleanup. By turn 21 each player has drawn ten cards after keeping seven, leaving libraries [23,23]. P0’s hand is 7+10−2 lands−2 spells−5 discards=8; P1’s is 7+10−2 lands−8 discards=7. No README change is needed for this expectation-only correction. No files were edited, engine executed, network accessed, or additional reviewer invoked.",
+  "findings": [
+    {
+      "file": "crates/mtg-cli/tests/script_simulate.rs:365",
+      "finding": "The script_consumed assertion also expects 534. Changing only records.len() and decisions leaves an incorrect assertion that must fail when all 434 authored records are consumed. Correct script_consumed to 434 as well; retain the complete status and zero remaining assertions.",
+      "severity": "blocking"
+    }
+  ]
+}
