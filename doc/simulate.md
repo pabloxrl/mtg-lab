@@ -33,9 +33,10 @@ policy consumes no policy RNG and reads no hidden cards. There is no random or
 human fallback. It plays no lands or spells and never creates combat choices;
 an unexpected choice is a failed episode, not an implicit action. Unplayed cards
 retain their real identities. This does not claim complete behavior for either
-frozen deck. Schema 2 native policies are described below; CLI recording, played replay
-routing and composed acceptance remain with #179/#180/#120/#21. No rules are implemented in
-the CLI. No trajectory or performance benchmark is produced.
+frozen deck. Schema 2 native policies and schema 3 scripts support optional canonical capture below.
+Played replay routing is documented in [commands](headless-commands.md); composed acceptance
+remains with #120/#21. No rules are implemented in the CLI. Passive schema 1
+produces no trajectory or performance benchmark.
 
 Every record carries `schema_version: 1`:
 
@@ -114,7 +115,7 @@ and unavailable final views. Work exhaustion abandons the owner and is reported
 as **incomplete**, not a rules result or a bootstrappable truncation. Decision and
 deadline limits use owner **truncated** outcomes. Record exhaustion is **failed**.
 Work/decision limits continue to the next requested episode; a failure stops the
-run. The run retains only one game and its explicitly bounded semantic history.
+run. With capture disabled the run retains only one game and its explicitly bounded semantic history.
 Policy observation capacity is 256 rows/domain entries; an owner capacity error
 fails explicitly rather than clipping legal choices.
 
@@ -145,12 +146,12 @@ ID ranges and no episode-count allocation. Config 1 JSON and existing commands
 remain compatible.
 
 The sole rules owner is `episode::Driver`; policies consume seat-authorized
-observations and submit through its validated boundary. Capture is disabled.
+observations and submit through its validated boundary. Capture defaults to disabled.
 Supported policy actions remain the delivered six-card M1 subset (Forest,
 Mountain, Bear Cub, Swab Goblin, Giant Growth, Bite Down and vanilla combat);
-other fixed-deck cards are uncastable. No new algorithm, semantic script mode,
-persistent capture, second game loop, batching/training, performance or strength
-qualification is delivered. #120 retains all composed CLI clauses; #21/#22 and
+other fixed-deck cards are uncastable. Scripts and optional capture use that same
+loop as described below. No new algorithm, second game loop, batching/training,
+performance or strength qualification is delivered. #120 retains all composed CLI clauses; #21/#22 and
 later requirement owners remain unchanged.
 
 [Native acceptance and independent expectations](evidence/native-cli/README.md).
@@ -158,7 +159,7 @@ later requirement owners remain unchanged.
 ## Semantic scripts (schema 3)
 
 Schema 3 uses the same owned run loop and `Driver::submit_record`, with capture
-still disabled. Both `policies` must be `semantic-script-v1`; mixing scripts and
+disabled unless explicitly configured below. Both `policies` must be `semantic-script-v1`; mixing scripts and
 native policies is rejected. Schema 1/pass-v1 and schema 2/native behavior remain.
 The `native` bounds object is still required: work quantum/calls and history
 capacity apply identically. Its policy seed/RNG version retain their validated
@@ -207,4 +208,95 @@ remaining input is never implicitly moved to the next episode.
 example: land, Cub, Growth target/payment, unblocked combat, then concession.
 [Executable acceptance and independently justified checkpoints](evidence/script-cli/README.md)
 cover both starting seats, multiple episodes, exact records and nonmutation.
-No persistence, replay/validation-command expansion or M1 completion is implied.
+Scripts alone do not imply persistence or M1 completion; capture is separately opt-in.
+
+## Canonical capture (schemas 2 and 3)
+
+Add an optional `capture` object to a native or script configuration. Every field
+is required; unknown fields/versions and schema-1 capture fail explicitly:
+
+```json
+{
+  "dataset_root": "/tmp/mtg-example/datasets",
+  "replay_root": "/tmp/mtg-example/replays",
+  "authorization": "local-owner-v1",
+  "max_episodes": 2,
+  "queue_bytes": 67108864,
+  "max_bytes": 67108864,
+  "backpressure": "fail"
+}
+```
+
+Both roots must already be directories, and their canonical paths must be
+disjoint (neither may contain the other, including aliases). Validation precedes
+output creation and game execution. The CLI neither creates roots nor changes
+their permissions. The trusted local experiment owner must control them; this
+is not protection against a hostile host or concurrent directory substitution.
+Root paths and the authorization declaration are omitted from run output.
+`local-owner-v1` deliberately authorizes this process to publish its own completed
+replays. It creates exact ID/episode grants in memory only. No grant is persisted;
+knowing a run/replay UUID grants no library read access. Privileged local file
+selection remains a separate deliberate access path.
+
+`max_episodes` is a positive ceiling on the requested count and retained results.
+`native.max_records` bounds each episode's semantic history and captured choices.
+`queue_bytes` bounds the existing writer queue; `backpressure` explicitly chooses
+`block` (drain synchronously) or `fail` (reject overflow), never dropping records.
+`max_bytes` bounds each sealed JSONL, manifest, and individual replay artifact.
+These are explicit count/artifact bounds, not a total RSS or total disk quota.
+The current publisher buffers the bounded run and replays in memory; peak use
+includes serialization and verification copies. Final replay encoding is checked
+after creation. Use modest episode/record limits; this is not a batch exporter.
+
+Run and replay IDs come from OS randomness, independent of game/policy RNG. The
+CLI uses `Driver::reset_captured`, `Run::header`, the canonical v2 recorder,
+`Registry` binding, and the existing manifest-last publisher. Completed captures
+produce `dataset_root/RUN/manifest.json`, `episodes.jsonl`, and opaque replay files
+under `replay_root/RUN/REPLAY`. Private run directories are mode 0700 and replay
+files 0600. Dataset readers must still be authorized: both seats' separate
+observations reveal both hands to an offline reader. Policy inputs never gain
+opponent observations or replay access.
+
+After game rows and before the summary, a separate `publication` row reports
+`run_id`, `status` (`published`, `failed`, `uncertain`), a redacted reason, `started`
+and `retained_results`. Summary adds `publication`; game counts and winners keep
+their genuine owner meaning even if storage fails. Publication errors use exit 3
+unless a prior gameplay error/signal/deadline already determines the exit. An
+observed publication stop uses 4/130/143. All requested-but-never-started episodes
+remain in summary `not_started`; the canonical manifest describes started results
+only and is not a replacement for that run summary.
+
+Publication occurs once after the bounded game loop. Valid unfinished results
+can publish diagnostic manifests, rejected by completed-only loaders. Signals or
+deadlines still active at publication abort it explicitly. Control is checked
+before replay registration and at filesystem stages including flush/sync/link;
+withdrawal cleanup remains permitted after a stop. Cancellation is cooperative,
+not preemption of serialization, replay verification or blocking I/O. A committed
+manifest remains successful if a signal arrives after the last observed boundary.
+A crash/SIGKILL/output failure can prevent acknowledgment or the final summary.
+Inspect artifacts through existing validators; never infer failure from a missing
+acknowledgment or silently retry reserved IDs. `uncertain` means a publication
+link could not be durably withdrawn; it is never treated as successful publication.
+See [publisher recovery limitations](collector-publication.md).
+
+Bounded, closed-stdin script quickstart (choose a new local directory):
+
+```sh
+mkdir -p /tmp/mtg-example/datasets /tmp/mtg-example/replays
+python3 - <<'PY'
+import json
+from pathlib import Path
+c = json.loads(Path('fixtures/simulate/script-v3.json').read_text())
+c['capture'] = dict(dataset_root='/tmp/mtg-example/datasets',
+                    replay_root='/tmp/mtg-example/replays',
+                    authorization='local-owner-v1', max_episodes=2,
+                    queue_bytes=67108864, max_bytes=67108864, backpressure='fail')
+Path('/tmp/mtg-example/config.json').write_text(json.dumps(c))
+PY
+env -u DISPLAY -u WAYLAND_DISPLAY cargo run --quiet --locked -p mtg-cli -- simulate --config /tmp/mtg-example/config.json </dev/null
+```
+
+Swap the source fixture for `native-v2.json` to capture native games. No second
+recorder, replay format, persisted access grant, sampling/sharding, new verification
+command, performance claim, or aggregate M1 completion is introduced.
+[Executable component evidence](evidence/captured-cli/README.md).

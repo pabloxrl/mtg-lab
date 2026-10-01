@@ -1,0 +1,49 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-179/crates/mtg-cli)
+warning: function `run` is never used
+  --> crates/mtg-cli/tests/captured_simulate.rs:43:4
+   |
+43 | fn run(value: Value, extra: &[&str]) -> (i32, Vec<Value>, String) {
+   |    ^^^
+   |
+   = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `run_command` is never used
+  --> crates/mtg-cli/tests/captured_simulate.rs:49:4
+   |
+49 | fn run_command(command: Command) -> (i32, Vec<Value>, String) {
+   |    ^^^^^^^^^^^
+
+warning: `mtg-cli` (test "captured_simulate") generated 2 warnings
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.61s
+     Running tests/captured_simulate.rs (target/debug/deps/captured_simulate-4bc41299b11d6d15)
+
+running 2 tests
+test captured_storage_failure_does_not_reclassify_completed_game ... FAILED
+test captured_script_publishes_canonical_manifest_and_independent_ledger ... FAILED
+
+failures:
+
+---- captured_storage_failure_does_not_reclassify_completed_game stdout ----
+
+thread 'captured_storage_failure_does_not_reclassify_completed_game' (120) panicked at crates/mtg-cli/tests/captured_simulate.rs:137:5:
+assertion `left == right` failed
+  left: 2
+ right: 3
+
+---- captured_script_publishes_canonical_manifest_and_independent_ledger stdout ----
+
+thread 'captured_script_publishes_canonical_manifest_and_independent_ledger' (119) panicked at crates/mtg-cli/tests/captured_simulate.rs:113:5:
+assertion `left == right` failed: {"exit_code":2,"message":"invalid simulation configuration","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    captured_script_publishes_canonical_manifest_and_independent_ledger
+    captured_storage_failure_does_not_reclassify_completed_game
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-cli --test captured_simulate`

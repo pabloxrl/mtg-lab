@@ -559,16 +559,17 @@ fn write_file_typed<E: Durable>(
 }
 // Publication fault boundary shared with the existing single-file writer.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum FileStage {
+pub enum FileStage {
     Create,
     Write,
+    Flush,
     Sync,
     Link,
     UnlinkPartial,
     DirectorySync,
     Withdraw,
 }
-pub(crate) type FileHook<'a> = dyn FnMut(&std::path::Path, FileStage) -> std::io::Result<()> + 'a;
+pub type FileHook<'a> = dyn FnMut(&std::path::Path, FileStage) -> std::io::Result<()> + 'a;
 pub(crate) fn write_file_observed<E: Durable>(
     path: &std::path::Path,
     episodes: &[E],
@@ -600,6 +601,7 @@ pub(crate) fn write_file_observed<E: Durable>(
     for episode in episodes {
         writer.append_record(episode)?;
     }
+    hook(path, FileStage::Flush).map_err(Error::Io)?;
     let file = writer.finish()?;
     hook(path, FileStage::Sync).map_err(Error::Io)?;
     file.sync_all().map_err(Error::Io)?;

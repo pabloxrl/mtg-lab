@@ -15,6 +15,8 @@ use std::io::{self, Write};
 #[serde(deny_unknown_fields)]
 pub struct Config {
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub capture: Option<super::capture::Config>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub script: Option<super::script::Config>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub native: Option<super::native::Config>,
@@ -60,6 +62,12 @@ impl Config {
                 .validate(&self.policies)?;
         } else if self.native.is_some() || self.policies.iter().any(|p| p != "pass-v1") {
             return Err("both policies must explicitly be pass-v1; no policy fallback".into());
+        }
+        if let Some(capture) = &self.capture {
+            if self.schema_version == 1 {
+                return Err("capture requires owned execution".into());
+            }
+            capture.validate(self.episodes)?;
         }
         let mut g = Game::new().map_err(debug)?;
         g.reset(&self.game, self.master_seed, self.first_episode)
@@ -268,6 +276,7 @@ mod tests {
     use super::*;
     fn config() -> Config {
         Config {
+            capture: None,
             native: None,
             script: None,
             schema_version: 1,
