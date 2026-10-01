@@ -15,6 +15,7 @@ mtg trajectories validate episodes.jsonl --manifest manifest.json
 mtg trajectories validate episodes.jsonl --manifest manifest.json --diagnostic --max-bytes 16777216
 mtg conformance --suite checkpoints-v1 --fixture fixture.json --actual checkpoints.json --artifacts new-directory
 mtg bench --workload scalar-pass-v1 --config fixtures/simulate/pass-v1.json
+mtg bench --workload native-rollout-v1 --config fixtures/simulate/native-v2.json
 ```
 
 Each command accepts an optional **trailing** `--output NEW_FILE`; then stdout is
@@ -164,7 +165,7 @@ completed. Errors and interrupted/unfinished work retain the simulation accounti
 
 This is an honest command smoke, **not M2 performance qualification**. It does not
 implement the future `foundations_micro_v1` performance workload, warmups/repeated
-windows, hardware qualification, native random/heuristic policies, worker sweeps,
+windows, hardware qualification, worker sweeps,
 profiling or throughput targets. Timing includes summary encoding and is diagnostic
 only. Ordinary file I/O is synchronous; deadlines do not preempt a stalled kernel
 filesystem operation. Use an external job timeout as with existing simulation.
@@ -172,3 +173,42 @@ filesystem operation. Use an external job timeout as with existing simulation.
 Acceptance: `cargo test -p mtg-cli --test headless_commands`, all CLI tests via
 `cargo test -p mtg-cli`, and the full `./scripts/torture.sh`.
 [Delivery evidence](evidence/headless-cli/README.md).
+
+## Initial active-policy benchmark
+
+`native-rollout-v1` runs the same owned native client as `simulate`, with schema 2,
+capture disabled and the configured M1 random/heuristic policy identities. Script,
+passive and captured configurations fail explicitly; no hidden policy substitution.
+Run the release binary for diagnostic measurements. The source's six-card M1
+capability boundary remains unchanged; the frozen decks include uncastable cards.
+
+The single schema-1 result contains resolved `run`, unmodified `episodes` and
+`summary` rows, `elapsed_ns`, `policy_ns`, and `counters.accepted_decisions` and
+`counters.work_calls`. Work calls include reset/submission/resume attempts; they
+are **not** logical actions or core work units. Decisions count accepted choices,
+including continuations, across every outcome. Missing decision counts after an
+unavailable final result are not inferred. Inspect individual rows and failures.
+The timer includes run metadata, owner/policy initialization, reset/shuffle,
+observations, choices, core execution, retained semantic history, finalization,
+episode hashing and summary encoding to memory. It excludes parsing/validating
+the configuration, loading the executable, result aggregation and final output.
+`policy_ns` is the subset spent initializing policies and attempting choices,
+including failed attempts; observation generation and submission are outside
+that subset. Clock instrumentation overhead stays in total time. Normal simulate
+runs do not take these per-choice performance timestamps.
+
+Caps: 100 episodes, 100,000 decisions per episode, and a cooperative 10-second
+command deadline (or shorter configured deadline). Native work quantum, work-call
+and retained-record limits remain explicit in configuration; these are not RSS
+quotas. Requested configuration is retained verbatim; the separate command cap
+is `max_wall_ms`. A command deadline without a configured owner deadline can leave
+an `incomplete` owner result. It still exits 4 and never becomes a rules outcome.
+Signals return 130/143 with all requests accounted when the output succeeds.
+A work stop can exit 0 with incomplete episodes: **exit 0 alone is not completion**.
+Record capacity failure exits 3 and leaves remaining requests not started.
+
+All elapsed work, failures, truncations and unfinished games stay in the
+throughput denominator. Only `summary.completed` belongs in the completed-games
+numerator. This is tagged `initial-baseline-only`, not full-pool or dedicated-host
+qualification. Repeated raw measurements and the complete M1 command acceptance
+crosswalk are in [the integration report](evidence/unattended-integration/README.md).

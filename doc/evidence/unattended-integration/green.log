@@ -1,0 +1,22 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-21/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.26s
+     Running tests/native_simulate.rs (target/debug/deps/native_simulate-c982b881d2b2d6f3)
+
+running 5 tests
+test native_benchmark_rejects_capture_before_creating_artifacts ... ok
+test native_benchmark_rejects_other_workloads_and_excessive_budgets ... ok
+test native_benchmark_work_and_wall_stops_never_become_completed_games ... ok
+test native_benchmark_preserves_production_rows_and_all_failure_denominators ... ok
+test native_benchmark_complete_games_equal_untimed_simulation ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 2.69s
+
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-21/crates/mtg-cli)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.57s
+     Running unittests src/main.rs (target/debug/deps/mtg-4f3895e24be7a75c)
+
+running 1 test
+test commands::benchmark_tests::native_benchmark_preserves_pending_signals_before_first_episode ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.00s
+

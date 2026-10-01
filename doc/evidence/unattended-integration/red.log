@@ -1,0 +1,46 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-21/crates/mtg-core)
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-21/crates/mtg-cli)
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-21/crates/mtg-policy)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-21/crates/mtg-recorder)
+warning: value assigned to `c` is never read
+   --> crates/mtg-cli/tests/native_simulate.rs:505:17
+    |
+505 |     let mut c = command(&input);
+    |                 ^^^^^^^^^^^^^^^ this value is reassigned later and never used
+506 |     // Rebuild arguments: the helper also establishes the headless environment.
+507 |     c = {
+    |     - `c` is overwritten here before the previous value is read
+    |
+    = note: `#[warn(unused_assignments)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-cli` (test "native_simulate") generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.99s
+     Running tests/native_simulate.rs (target/debug/deps/native_simulate-c982b881d2b2d6f3)
+
+running 3 tests
+test native_benchmark_rejects_other_workloads_and_excessive_budgets ... ok
+
+thread 'native_benchmark_preserves_production_rows_and_all_failure_denominators' (730) panicked at crates/mtg-cli/tests/native_simulate.rs:532:13:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test native_benchmark_preserves_production_rows_and_all_failure_denominators ... FAILED
+
+thread 'native_benchmark_complete_games_equal_untimed_simulation' (729) panicked at crates/mtg-cli/tests/native_simulate.rs:561:5:
+assertion `left == right` failed: {"exit_code":2,"message":"usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail","schema_version":1,"type":"error"}
+
+  left: 2
+ right: 0
+test native_benchmark_complete_games_equal_untimed_simulation ... FAILED
+
+failures:
+
+failures:
+    native_benchmark_complete_games_equal_untimed_simulation
+    native_benchmark_preserves_production_rows_and_all_failure_denominators
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 8 filtered out; finished in 1.27s
+
+error: test failed, to rerun pass `-p mtg-cli --test native_simulate`

@@ -499,3 +499,155 @@ fn native_configuration_never_silently_runs_as_passive_benchmark() {
     assert!(r.is_empty());
     assert_eq!(serde_json::from_str::<Value>(&e).unwrap()["type"], "error");
 }
+
+fn native_bench(value: Value) -> (i32, Vec<Value>, String) {
+    let input = Input::new(&value);
+    let c = {
+        let mut c = Command::new(env!("CARGO_BIN_EXE_mtg"));
+        c.args(["bench", "--workload", "native-rollout-v1", "--config"])
+            .arg(&input.0)
+            .stdin(Stdio::null())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped())
+            .env_remove("DISPLAY")
+            .env_remove("WAYLAND_DISPLAY");
+        c
+    };
+    run_command_with_timeout(c, Duration::from_secs(60))
+}
+
+#[test]
+fn native_benchmark_preserves_production_rows_and_all_failure_denominators() {
+    // RFC B020: reset/policy/error work stays inside the denominator. CR103:
+    // one opening decision cannot finish a game. Record bound 1 diagnoses the
+    // second choice as capacity failure; neither path is a win or a draw.
+    for policy in ["heuristic-m1-v1", "legal-random-m1-v1"] {
+        for failure in [false, true] {
+            let mut c = config();
+            c["policies"] = json!([policy, policy]);
+            c["episodes"] = json!(3);
+            c["max_decisions"] = json!(if failure { 10 } else { 1 });
+            if failure {
+                c["native"]["max_records"] = json!(1);
+            }
+            let (expected_code, expected, _) = run(c.clone(), &[]);
+            let (code, rows, error) = native_bench(c);
+            assert_eq!(code, if failure { 3 } else { 0 }, "{error}");
+            assert_eq!(code, expected_code);
+            assert_eq!(rows.len(), 1);
+            let b = &rows[0];
+            assert_eq!(b["workload"], "native-rollout-v1");
+            assert_eq!(b["qualification"], "initial-baseline-only");
+            assert_eq!(b["run"], expected[0]);
+            assert_eq!(b["summary"], *expected.last().unwrap());
+            assert_eq!(b["episodes"], json!(&expected[1..expected.len() - 1]));
+            assert_eq!(b["summary"]["completed"], 0);
+            assert_eq!(b["summary"]["wins"], json!([0, 0]));
+            assert_eq!(b["summary"]["draws"], 0);
+            assert_eq!(
+                b["summary"][if failure { "failed" } else { "truncated" }],
+                if failure { 1 } else { 3 }
+            );
+            assert_eq!(b["summary"]["not_started"], if failure { 2 } else { 0 });
+            assert_eq!(
+                b["counters"]["accepted_decisions"],
+                if failure { 1 } else { 3 }
+            );
+            let total = b["elapsed_ns"].as_u64().unwrap();
+            assert!(total > 0);
+            assert!(b["policy_ns"].as_u64().unwrap() <= total);
+        }
+    }
+}
+
+#[test]
+fn native_benchmark_complete_games_equal_untimed_simulation() {
+    let c = config();
+    let (code, expected, e) = run_game(c.clone());
+    assert_eq!(code, 0, "{e}");
+    assert_eq!(expected.last().unwrap()["completed"], 1);
+    let (code, rows, e) = native_bench(c);
+    assert_eq!(code, 0, "{e}");
+    assert_eq!(rows[0]["episodes"][0], expected[1]);
+    assert_eq!(rows[0]["summary"], *expected.last().unwrap());
+    assert_eq!(
+        rows[0]["counters"]["accepted_decisions"],
+        expected[1]["decisions"]
+    );
+    assert_eq!(rows[0]["counters"]["work_calls"], expected[1]["work_calls"]);
+}
+
+#[test]
+fn native_benchmark_rejects_other_workloads_and_excessive_budgets() {
+    let mut cases = vec![
+        legacy_config(),
+        serde_json::from_slice(include_bytes!("../../../fixtures/simulate/script-v3.json"))
+            .unwrap(),
+    ];
+    let mut c = config();
+    c["episodes"] = json!(101);
+    cases.push(c);
+    let mut c = config();
+    c["max_decisions"] = json!(100001);
+    cases.push(c);
+    for c in cases {
+        let (code, rows, e) = native_bench(c);
+        assert_eq!(code, 2);
+        assert!(rows.is_empty());
+        assert_eq!(serde_json::from_str::<Value>(&e).unwrap()["type"], "error");
+    }
+}
+
+#[test]
+fn native_benchmark_work_and_wall_stops_never_become_completed_games() {
+    for wall in [false, true] {
+        let mut c = config();
+        c["episodes"] = json!(100);
+        if wall {
+            c["deadline_ms"] = json!(1);
+        } else {
+            c["native"]["max_work_calls"] = json!(1);
+        }
+        let (code, rows, e) = native_bench(c);
+        assert_eq!(code, if wall { 4 } else { 0 }, "{e}");
+        let s = &rows[0]["summary"];
+        assert_eq!(s["requested"], 100);
+        let count = |key: &str| s[key].as_u64().unwrap();
+        assert_eq!(count("requested"), count("started") + count("not_started"));
+        assert_eq!(
+            count("started"),
+            count("completed") + count("truncated") + count("failed") + count("incomplete")
+        );
+        assert_eq!(
+            rows[0]["episodes"].as_array().unwrap().len() as u64,
+            count("started")
+        );
+        assert_eq!(s["wins"], json!([0, 0]));
+        assert_eq!(s["draws"], 0);
+        assert_eq!(s["completed"], 0);
+        if !wall {
+            assert_eq!(s["incomplete"], 100);
+            assert_eq!(rows[0]["counters"]["accepted_decisions"], 0);
+            assert_eq!(rows[0]["counters"]["work_calls"], 100);
+        }
+    }
+}
+
+#[test]
+fn native_benchmark_rejects_capture_before_creating_artifacts() {
+    let input = Input::new(&config());
+    let root = input.0.with_extension("capture");
+    let data = root.join("data");
+    let replay = root.join("replay");
+    fs::create_dir_all(&data).unwrap();
+    fs::create_dir_all(&replay).unwrap();
+    let mut c = config();
+    c["capture"] = json!({"dataset_root":data,"replay_root":replay,"authorization":"local-owner-v1","max_episodes":1,"backpressure":"block","queue_bytes":1048576,"max_bytes":16777216});
+    let (code, rows, e) = native_bench(c);
+    assert_eq!(code, 2);
+    assert!(rows.is_empty());
+    assert!(e.contains("capture disabled"));
+    assert_eq!(fs::read_dir(&data).unwrap().count(), 0);
+    assert_eq!(fs::read_dir(&replay).unwrap().count(), 0);
+    fs::remove_dir_all(root).unwrap();
+}
