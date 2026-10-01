@@ -14,7 +14,7 @@ use std::{
 };
 type Error = (i32, String);
 const INPUT_LIMIT: usize = 16 * 1024 * 1024;
-const USAGE: &str = "usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail";
+const USAGE: &str = "usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1|native-rollout-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail";
 fn invalid(message: impl Into<String>) -> Error {
     (2, message.into())
 }
@@ -138,10 +138,10 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
     } else if args.len() == 5
         && is(0, "bench")
         && is(1, "--workload")
-        && is(2, "scalar-pass-v1")
+        && (is(2, "scalar-pass-v1") || is(2, "native-rollout-v1"))
         && is(3, "--config")
     {
-        benchmark(&args[4], signal)?
+        benchmark(&args[4], signal, is(2, "native-rollout-v1"))?
     } else if args.len() == 9
         && is(0, "conformance")
         && is(1, "--suite")
@@ -177,33 +177,53 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
         .map_err(io_error)?;
     Ok(code)
 }
-fn benchmark(path: &std::ffi::OsStr, signal: &AtomicUsize) -> Result<(i32, Value), Error> {
+fn benchmark(
+    path: &std::ffi::OsStr,
+    signal: &AtomicUsize,
+    native: bool,
+) -> Result<(i32, Value), Error> {
     let c: simulate::Config =
         serde_json::from_slice(&read(path, 1_048_576)?).map_err(|e| invalid(e.to_string()))?;
     c.validate().map_err(invalid)?;
-    if c.schema_version != 1 {
+    if native {
+        if c.schema_version != 2 || c.capture.is_some() {
+            return Err(invalid(
+                "native-rollout-v1 requires schema 2 with capture disabled",
+            ));
+        }
+    } else if c.schema_version != 1 {
         return Err(invalid("scalar-pass-v1 requires legacy pass configuration"));
     }
-    if c.episodes > 100 || c.max_decisions > 10_000 {
-        return Err(invalid(
-            "scalar smoke limits: at most 100 episodes and 10000 decisions per episode",
-        ));
+    if c.episodes > 100 || c.max_decisions > if native { 100_000 } else { 10_000 } {
+        return Err(invalid(if native {
+            "native benchmark limits: at most 100 episodes and 100000 decisions per episode"
+        } else {
+            "scalar smoke limits: at most 100 episodes and 10000 decisions per episode"
+        }));
     }
     // Includes reset, policy, game work, observations used by simulation, and
     // summary JSON encoding. No terminal rendering occurs in this window.
     let start = Instant::now();
     let mut bytes = Vec::new();
-    let code = simulate::run(
-        &c,
-        &mut bytes,
-        || {
-            stopped(signal).or_else(|| {
-                let limit = c.deadline_ms.unwrap_or(10_000).min(10_000);
-                (start.elapsed().as_millis() >= limit as u128).then_some(simulate::Stop::Deadline)
-            })
-        },
-        simulate::step,
-    )
+    let control = || {
+        stopped(signal).or_else(|| {
+            let limit = c.deadline_ms.unwrap_or(10_000).min(10_000);
+            (start.elapsed().as_millis() >= limit as u128).then_some(simulate::Stop::Deadline)
+        })
+    };
+    let mut policy_timing = crate::native::PolicyTiming::default();
+    let code = if native {
+        crate::native::run_instrumented(
+            &c,
+            &mut bytes,
+            control,
+            &mut |_, _| Ok(()),
+            &mut |_| {},
+            Some(&mut policy_timing),
+        )
+    } else {
+        simulate::run(&c, &mut bytes, control, simulate::step)
+    }
     .map_err(io_error)?;
     let elapsed = start.elapsed().as_nanos();
     let mut rows = bytes
@@ -218,10 +238,26 @@ fn benchmark(path: &std::ffi::OsStr, signal: &AtomicUsize) -> Result<(i32, Value
         .next_back()
         .ok_or_else(|| io_error("missing summary"))?
         .map_err(io_error)?;
-    Ok((
-        code,
-        json!({"type":"benchmark","workload":"scalar-pass-v1","qualification":"smoke-only","measurement":"reset-policy-core-and-summary-encoding","elapsed_ns":elapsed,"workers":1,"run":run,"summary":summary,"max_wall_ms":10_000,"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"debug_assertions":cfg!(debug_assertions)}),
-    ))
+    let mut value = json!({"type":"benchmark","workload":"scalar-pass-v1","qualification":"smoke-only","measurement":"reset-policy-core-and-summary-encoding","elapsed_ns":elapsed,"workers":1,"run":run,"summary":summary,"max_wall_ms":10_000,"os":std::env::consts::OS,"arch":std::env::consts::ARCH,"debug_assertions":cfg!(debug_assertions)});
+    if native {
+        let episodes = rows.collect::<Result<Vec<_>, _>>().map_err(io_error)?;
+        let decisions: u64 = episodes
+            .iter()
+            .filter_map(|r| r["decisions"].as_u64())
+            .sum();
+        let work: u64 = episodes
+            .iter()
+            .filter_map(|r| r["work_calls"].as_u64())
+            .sum();
+        value["workload"] = json!("native-rollout-v1");
+        value["qualification"] = json!("initial-baseline-only");
+        value["policy_ns"] = json!(policy_timing.elapsed_ns);
+        value["policy_timing"] =
+            json!("initialization-and-choice-attempts-excluding-observation-and-submission");
+        value["counters"] = json!({"accepted_decisions":decisions,"work_calls":work});
+        value["episodes"] = json!(episodes);
+    }
+    Ok((code, value))
 }
 fn conformance(
     fixture: &std::ffi::OsStr,
@@ -308,4 +344,30 @@ fn conformance(
     value["type"] = json!("conformance");
     value["scope"] = json!("supplied-checkpoints-only");
     Ok((code, value))
+}
+
+#[cfg(test)]
+mod benchmark_tests {
+    use super::*;
+
+    #[test]
+    fn native_benchmark_preserves_pending_signals_before_first_episode() {
+        let path =
+            Path::new(env!("CARGO_MANIFEST_DIR")).join("../../fixtures/simulate/native-v2.json");
+        for (signal, code, reason) in [
+            (signal_hook::consts::SIGTERM, 143, "sigterm"),
+            (signal_hook::consts::SIGINT, 130, "sigint"),
+        ] {
+            let (actual, row) =
+                benchmark(path.as_os_str(), &AtomicUsize::new(signal as usize), true).unwrap();
+            assert_eq!(actual, code);
+            assert_eq!(row["summary"]["reason"], reason);
+            assert_eq!(row["summary"]["requested"], 2);
+            assert_eq!(row["summary"]["not_started"], 2);
+            assert_eq!(row["summary"]["started"], 0);
+            assert_eq!(row["summary"]["completed"], 0);
+            assert_eq!(row["episodes"], json!([]));
+            assert_eq!(row["policy_ns"], 0);
+        }
+    }
 }

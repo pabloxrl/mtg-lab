@@ -14,6 +14,7 @@ use std::{
     io::{self, Write},
     num::NonZeroUsize,
     rc::Rc,
+    time::Instant,
 };
 
 #[derive(Serialize, Deserialize)]
@@ -98,9 +99,28 @@ pub fn run(
 pub(crate) fn run_observed(
     c: &simulate::Config,
     w: &mut impl Write,
+    control: impl FnMut() -> Option<Stop>,
+    hook: &mut mtg_recorder::FileHook<'_>,
+    observe: &mut impl FnMut(&mtg_core::episode::EpisodeResult),
+) -> io::Result<i32> {
+    run_instrumented(c, w, control, hook, observe, None)
+}
+
+/// Optional timing for the benchmark client only; ordinary simulation does not
+/// read a performance clock for each choice. Includes policy initialization and
+/// all choose attempts (including failures), excludes observation/submission.
+#[derive(Default)]
+pub(crate) struct PolicyTiming {
+    pub elapsed_ns: u128,
+}
+
+pub(crate) fn run_instrumented(
+    c: &simulate::Config,
+    w: &mut impl Write,
     mut control: impl FnMut() -> Option<Stop>,
     hook: &mut mtg_recorder::FileHook<'_>,
     observe: &mut impl FnMut(&mtg_core::episode::EpisodeResult),
+    mut timing: Option<&mut PolicyTiming>,
 ) -> io::Result<i32> {
     let mut capture = c
         .capture
@@ -159,12 +179,16 @@ pub(crate) fn run_observed(
         )
         .map_err(|_| io::Error::other("owner initialization failed"))?;
         let episode_start = cursor;
+        let policy_start = timing.as_ref().map(|_| Instant::now());
         let mut policies = c.script.is_none().then(|| {
             [
                 Policy::new(&c.policies[0], n, episode, 0),
                 Policy::new(&c.policies[1], n, episode, 1),
             ]
         });
+        if let (Some(timing), Some(start)) = (timing.as_mut(), policy_start) {
+            timing.elapsed_ns += start.elapsed().as_nanos();
+        }
         counts.started += 1;
         let mut work_calls = 1;
         let reset = if let Some(session) = &capture {
@@ -230,10 +254,14 @@ pub(crate) fn run_observed(
                     match ready {
                         Some((seat, o)) => {
                             let index = usize::from(seat == Seat::P1);
+                            let policy_start = timing.as_ref().map(|_| Instant::now());
                             let submission = policies.as_mut().unwrap()[index]
                                 .as_mut()
                                 .map_err(|_| ())
                                 .and_then(|p| p.choose(&o).map_err(|_| ()));
+                            if let (Some(timing), Some(start)) = (timing.as_mut(), policy_start) {
+                                timing.elapsed_ns += start.elapsed().as_nanos();
+                            }
                             match submission {
                                 Ok(s) => d.submit(seat, &s).map(|()| Progress::InternalYield),
                                 Err(()) => {
