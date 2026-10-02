@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-m1-v1";
+pub const VERSION: &str = "legal-random-tokens-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -246,7 +246,13 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
         let (r, supported): (_, &[&str]) = match c {
             Choice::Cast { card } => (
                 card,
-                &["bear-cub", "swab-goblin", "giant-growth", "bite-down"],
+                &[
+                    "bear-cub",
+                    "swab-goblin",
+                    "giant-growth",
+                    "bite-down",
+                    "dragon-fodder",
+                ],
             ),
             Choice::PlayLand { card } | Choice::TapMana { card } => (card, &["forest", "mountain"]),
             _ => continue,

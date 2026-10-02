@@ -181,6 +181,9 @@ impl Game {
                 .objects
                 .get(m.handle)
                 .is_ok_and(|o| o.zone == Zone::Battlefield),
+            Work::CreateGoblins { .. } => {
+                self.turns.position.is_some() && self.turns.decision.is_none()
+            }
             Work::SpellMove {
                 handle,
                 zone,

@@ -1,6 +1,6 @@
 # Vanilla combat
 
-`mtg_core::opening::combat` supports Bear Cub and Swab Goblin, using the existing
+`mtg_core::opening::combat` supports Bear Cub, Swab Goblin and Goblin tokens, using the existing
 opening, turn, casting and cleanup APIs. All inspection remains privileged;
 seat-filtered observations are documented in [player views](views.md). Other
 combat creatures and keywords are explicitly unsupported. [Rules outcomes](terminal.md)

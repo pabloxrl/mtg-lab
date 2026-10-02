@@ -135,6 +135,10 @@ fn reserve<T>(buffer: &mut Vec<T>) -> Result<(), StorageError> {
         .map_err(|_| StorageError::CapacityExceeded)
 }
 impl ObjectStore {
+    #[cfg(test)]
+    pub(crate) fn test_exhaust_births_after_one(&mut self) {
+        self.next_birth = u64::MAX - 1;
+    }
     pub(crate) fn scope(&self) -> u64 {
         self.id
     }
@@ -201,6 +205,44 @@ impl ObjectStore {
         self.zones[zone.index()].push(slot);
         self.record_public(KnownCard { card, owner, zone });
         Ok(self.handle(slot))
+    }
+
+    /// Preflight a whole creation batch; no birth, slot or zone is committed.
+    pub(crate) fn prepare_allocations(
+        &mut self,
+        count: usize,
+        zone: Zone,
+    ) -> Result<(), StorageError> {
+        self.next_birth
+            .checked_add(u64::try_from(count).map_err(|_| StorageError::CapacityExceeded)?)
+            .ok_or(StorageError::IdentityExhausted)?;
+        for &slot in self.free.iter().rev().take(count) {
+            next_identity(self.slots[slot as usize].generation)?;
+        }
+        let extra = count.saturating_sub(self.free.len());
+        let total = self
+            .slots
+            .len()
+            .checked_add(extra)
+            .ok_or(StorageError::CapacityExceeded)?;
+        if total > u32::MAX as usize {
+            return Err(StorageError::CapacityExceeded);
+        }
+        self.slots
+            .try_reserve(extra)
+            .map_err(|_| StorageError::CapacityExceeded)?;
+        self.identities
+            .try_reserve(extra)
+            .map_err(|_| StorageError::CapacityExceeded)?;
+        self.zones[zone.index()]
+            .try_reserve(count)
+            .map_err(|_| StorageError::CapacityExceeded)?;
+        self.reserve_knowledge(zone, count)
+    }
+    pub(crate) fn prepare_removals(&mut self, count: usize) -> Result<(), StorageError> {
+        self.free
+            .try_reserve(count)
+            .map_err(|_| StorageError::CapacityExceeded)
     }
 
     pub fn get(&self, handle: Handle) -> Result<&Object, StorageError> {
@@ -319,7 +361,11 @@ impl ObjectStore {
         Ok(())
     }
 
-    fn reserve_knowledge(&mut self, zone: Zone, count: usize) -> Result<(), StorageError> {
+    pub(crate) fn reserve_knowledge(
+        &mut self,
+        zone: Zone,
+        count: usize,
+    ) -> Result<(), StorageError> {
         if zone.is_public() {
             for knowledge in &mut self.knowledge {
                 knowledge
@@ -401,6 +447,24 @@ mod tests {
 
     // Finite counters may never wrap and make a historical identity valid again.
     // Inject the boundary directly; 2^64 live operations would be impractical.
+    #[test]
+    fn objects_creation_batch_capacity_and_second_birth_reject_before_mutation() {
+        let mut s = ObjectStore::new().unwrap();
+        let before = serde_json::to_vec(&s).unwrap();
+        assert_eq!(
+            s.prepare_allocations(usize::MAX, Zone::Battlefield),
+            Err(StorageError::CapacityExceeded)
+        );
+        assert_eq!(serde_json::to_vec(&s).unwrap(), before);
+        s.next_birth = u64::MAX - 1;
+        let before = serde_json::to_vec(&s).unwrap();
+        assert_eq!(
+            s.prepare_allocations(2, Zone::Battlefield),
+            Err(StorageError::IdentityExhausted)
+        );
+        assert_eq!(serde_json::to_vec(&s).unwrap(), before);
+    }
+
     #[test]
     fn objects_identity_exhaustion_is_atomic() {
         assert_eq!(

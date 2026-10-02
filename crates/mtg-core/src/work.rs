@@ -17,6 +17,9 @@ pub(super) enum Work {
     CombatLife([i64; 2]),
     FinishCombat,
     Modify(targets::Modification),
+    CreateGoblins {
+        controller: Seat,
+    },
     SpellMove {
         handle: Handle,
         zone: Zone,
@@ -114,6 +117,21 @@ impl Game {
                     }
                     true
                 }
+                Work::CreateGoblins { controller } => {
+                    // Fixed two-object effect; all resources reserved before accepting resolution.
+                    for _ in 0..2 {
+                        let h = self
+                            .objects
+                            .allocate(
+                                CardId::from_key("goblin-token").unwrap(),
+                                *controller,
+                                Zone::Battlefield,
+                            )
+                            .expect("preflighted token batch");
+                        self.turns.sick.push(h);
+                    }
+                    true
+                }
                 Work::SpellMove {
                     handle,
                     zone,
@@ -123,6 +141,14 @@ impl Game {
                         .objects
                         .move_to(*handle, *zone)
                         .expect("preflighted spell move");
+                    if self.objects.get(moved).unwrap().card.identity().key == "goblin-token"
+                        && *zone != Zone::Battlefield
+                    {
+                        // CR 704.5d: no priority is exposed between death and cessation.
+                        self.objects
+                            .remove(moved)
+                            .expect("preflighted token cessation");
+                    }
                     if let Some(controller) = controller {
                         self.objects.get_mut(moved).expect("permanent").controller = *controller;
                         self.turns.sick.push(moved);

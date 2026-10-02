@@ -305,3 +305,18 @@ fn heuristic_errors_never_default_to_pass() {
     o.decision = None;
     assert_eq!(p.choose(&o), Err(Error::Unavailable));
 }
+
+#[test]
+fn heuristic_fodder_uses_vanilla_development_priority() {
+    // GH-194 extends the supported domain: Fodder develops two vanilla 1/1s.
+    // The declared strategy ranks this alongside the existing vanilla casts.
+    let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(1) }]);
+    o.view.hand[1].card = "dragon-fodder";
+    assert_eq!(choose(&o), vec![Choice::Cast { card: h(1) }]);
+}
+
+#[test]
+fn token_policy_domain_requires_new_versions() {
+    assert!(Heuristic::new("heuristic-m1-v1", 0).is_err());
+    assert_ne!(mtg_policy::VERSION, "legal-random-m1-v1");
+}

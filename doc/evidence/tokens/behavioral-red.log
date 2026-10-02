@@ -1,0 +1,59 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-194/crates/mtg-core)
+warning: unused import: `TurnKind`
+ --> crates/mtg-core/src/token_tests.rs:6:31
+  |
+6 | use turns::{Step, TurnAction, TurnKind, TurnSelection};
+  |                               ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib test) generated 1 warning (run `cargo fix --lib -p mtg-core --tests` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.69s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+
+thread 'game::token_tests::tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins' (2590) panicked at crates/mtg-core/src/token_tests.rs:29:5:
+CR 307/601: payable Fodder offered in own main
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::token_tests::tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target' (2591) panicked at crates/mtg-core/src/token_tests.rs:29:5:
+CR 307/601: payable Fodder offered in own main
+test game::token_tests::tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target ... FAILED
+test game::token_tests::tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins ... FAILED
+
+thread 'game::token_tests::tokens_sorcery_timing_and_unpaid_rejections_preserve_state' (2592) panicked at crates/mtg-core/src/token_tests.rs:88:40:
+payable Fodder must begin: IllegalSpell
+test game::token_tests::tokens_sorcery_timing_and_unpaid_rejections_preserve_state ... FAILED
+
+failures:
+
+failures:
+    game::token_tests::tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins
+    game::token_tests::tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target
+    game::token_tests::tokens_sorcery_timing_and_unpaid_rejections_preserve_state
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 176 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

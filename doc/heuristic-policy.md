@@ -1,7 +1,7 @@
 # Deterministic M1 heuristic
 
 `mtg_policy::Heuristic::new(HEURISTIC_VERSION, seat)` creates a stateless native
-opponent. `HEURISTIC_VERSION = heuristic-m1-v1` freezes the rules below. Its
+opponent. `HEURISTIC_VERSION = heuristic-tokens-v1` freezes the rules below. Its
 `choose(&policy::Observation)` returns a semantic submission for
 `Game::apply_policy`. Only the authorized observation is accepted; no game,
 private replay, environment seed, RNG or clock is available. Repeated inputs
@@ -15,9 +15,9 @@ there is no random tie breaking. Scores are lexicographic, so priority classes
 always dominate card values. These are strategic preferences, not rules claims.
 
 - Keep seven (never voluntarily mulligan). Bottom/discard lowest retention value
-  first, without replacement: unsupported M1 cards 0, lands 1, Growth 2, Bite 3,
+  first, without replacement: unsupported cards and Dragon Fodder 0, lands 1, Growth 2, Bite 3,
   Bear Cub/Swab Goblin 4. This intentionally simple policy may discard needed lands.
-- Priority: play a land, then cast a creature, then Bite if own and enemy creatures
+- Priority: play a land, then cast a creature or Dragon Fodder, then Bite if own and enemy creatures
   exist, then Growth if an own creature exists and either combat or a committed
   stack is nonempty, then pass. Do not float mana outside a payment. Ineligible
   tactical spells and priority mana actions rank below pass.
@@ -45,7 +45,7 @@ always dominate card values. These are strategic preferences, not rules claims.
 
 Handles every M1 family: opening/bottom, priority, lands, targets, payment,
 attackers, blockers, damage allocation and cleanup discard. Casts are restricted
-to Bear Cub, Swab Goblin, Giant Growth and Bite Down; mana/lands to Forest and
+to Bear Cub, Swab Goblin, Giant Growth, Bite Down and Dragon Fodder; mana/lands to Forest and
 Mountain. Unknown enabled commands, decision kinds or newly enabled card content
 fail explicitly even when pass is legal. Schema/seat/shape errors are explicit.
 The engine remains responsible for legality and stale submission rejection.
@@ -61,3 +61,11 @@ truncations, never terminal draws; engine errors are failures.
 Run `cargo test --locked -p mtg-policy`. Normal discovery and full torture cover
 both native policies. Original integration acceptance remains with #21, M1
 completion with #22, and later milestone obligations are unchanged.
+
+GH-194 extends the accepted content domain to Dragon Fodder at the existing
+vanilla-development score (30). Its legal payment/priority choices use the same
+rules, and token combat uses observed 1/1 characteristics. Existing six-card
+input scores and tie rules are unchanged; the engine fingerprint identifies the
+expanded legal domain. Full-pool strategy and support remain #208 acceptance.
+
+`heuristic-tokens-v1` supersedes `heuristic-m1-v1`; the old ID rejects explicitly.
