@@ -78,3 +78,13 @@ after #179/#180/#181; #21/#22 and later gates remain unchanged. Historical
 prerequisite rows above are retained; the current manifest and this refinement
 supersede the original #120 implementation boundary. Registration delivers no
 new CLI capability and does not complete M1.
+
+## M2 after the verified M1 gate
+
+Operations #80 registers [27 bounded M2 deliveries](m2-atomic-delivery.md), including
+the three existing structural prerequisites #131–#133. The [exact case crosswalk](m2-test-crosswalk.md)
+preserves all catalog assertions and component acceptance owners. #23/#24/#25 become
+bounded full-acceptance audits; #26 remains the M2 gate. Registration is planning,
+not feature implementation or an M2 completion claim. The earlier M1-pending prose
+above records historical planning; the [M1 gate report](../evidence/m1-gate/README.md)
+and root README carry the reviewed delivered verdict. Live queue status stays in #7.
