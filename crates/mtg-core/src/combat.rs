@@ -28,6 +28,7 @@ pub struct CombatDecision {
     pub blockers: Vec<Handle>,
     pub selected: Vec<Handle>,
     pub blocks: Vec<(Handle, Handle)>,
+    pub forbidden_blocks: Vec<(Handle, Handle)>,
     pub damage: Vec<DamageChoice>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -43,6 +44,10 @@ pub enum CombatError {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, Default)]
 pub(super) struct CombatState {
+    // Synthetic keyword fixtures exist only in unit-test builds. A real card
+    // identity (in particular Shivan Dragon) never gains support through this.
+    #[cfg(test)]
+    pub(super) synthetic_flying: Vec<Handle>,
     pub(super) attacks: Vec<Attack>,
     selected: Vec<Handle>,
     blocks: Vec<(Handle, Handle)>,
@@ -52,6 +57,24 @@ fn vanilla(card: CardId) -> bool {
     super::card_definitions::definition(card).vanilla()
 }
 impl Game {
+    fn has_flying(&self, h: Handle) -> bool {
+        #[cfg(test)]
+        if self.turns.combat.synthetic_flying.contains(&h) {
+            return true;
+        }
+        self.objects
+            .get(h)
+            .is_ok_and(|o| super::card_definitions::definition(o.card).flying())
+    }
+    fn block_pair_allowed(&self, blocker: Handle, attacker: Handle) -> bool {
+        !self.has_flying(attacker)
+            || self.has_flying(blocker)
+            || self
+                .objects
+                .get(blocker)
+                .is_ok_and(|o| super::card_definitions::definition(o.card).reach())
+    }
+
     fn combat_live(&self, h: Handle, controller: Seat) -> bool {
         self.objects.get(h).is_ok_and(|o| {
             o.zone == Zone::Battlefield && o.controller == controller && vanilla(o.card)
@@ -150,6 +173,20 @@ impl Game {
         } else {
             vec![]
         };
+        let mut forbidden_blocks = Vec::new();
+        for &b in &blockers {
+            for &a in &attackers {
+                if !self.block_pair_allowed(b, a) {
+                    if forbidden_blocks.len() == capacity {
+                        return Err(CombatError::CapacityExceeded {
+                            needed: capacity.saturating_add(1),
+                            capacity,
+                        });
+                    }
+                    forbidden_blocks.push((b, a));
+                }
+            }
+        }
         let damage = if kind == CombatKind::Damage {
             attacks
                 .iter()
@@ -179,6 +216,7 @@ impl Game {
             selected: self.turns.combat.selected.clone(),
             blocks: self.turns.combat.blocks.clone(),
             damage,
+            forbidden_blocks,
         })
     }
     fn validate_attackers(&self, actor: Seat, cards: &[Handle]) -> Result<(), CombatError> {
@@ -218,6 +256,7 @@ impl Game {
             if !self.combat_live(*b, actor)
                 || self.objects.get(*b).unwrap().tapped
                 || !attacks.iter().any(|x| x.creature == *a)
+                || !self.block_pair_allowed(*b, *a)
             {
                 return Err(CombatError::IllegalBlocker);
             }

@@ -96,6 +96,9 @@ pub struct CombatChoices {
     pub blockers: Vec<VisibleRef>,
     pub selected: Vec<VisibleRef>,
     pub blocks: Vec<(VisibleRef, VisibleRef)>,
+    /// Pairs excluded from the attacker/blocker Cartesian product; not whole maps.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub forbidden_blocks: Vec<(VisibleRef, VisibleRef)>,
     pub damage: Vec<DamageAllocation>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
@@ -419,6 +422,11 @@ impl Game {
                     .into_iter()
                     .map(|(b, a)| (reference(b), reference(a)))
                     .collect(),
+                forbidden_blocks: c
+                    .forbidden_blocks
+                    .into_iter()
+                    .map(|(b, a)| (reference(b), reference(a)))
+                    .collect(),
                 damage,
             });
             (
@@ -497,6 +505,7 @@ impl Game {
                 c.blockers.len(),
                 c.selected.len(),
                 c.blocks.len(),
+                c.forbidden_blocks.len(),
             ] {
                 needed = needed
                     .checked_add(len)
@@ -627,10 +636,11 @@ impl Game {
                         .map_err(combat_error);
                 }
                 Choice::SelectBlockers { blocks } if d.kind == "blockers" => {
-                    if !blocks
-                        .iter()
-                        .all(|(b, a)| c.blockers.contains(b) && c.attackers.contains(a))
-                    {
+                    if !blocks.iter().all(|(b, a)| {
+                        c.blockers.contains(b)
+                            && c.attackers.contains(a)
+                            && !c.forbidden_blocks.contains(&(*b, *a))
+                    }) {
                         return Err(PolicyError::InvalidSelection);
                     }
                     let hs = blocks

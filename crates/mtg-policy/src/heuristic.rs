@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-mana-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-reach-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -54,8 +54,12 @@ impl Heuristic {
                     let blocks = f
                         .blockers
                         .iter()
-                        .zip(remaining)
-                        .map(|(b, (a, _))| (*b, a))
+                        .filter_map(|b| {
+                            let i = remaining
+                                .iter()
+                                .position(|(a, _)| !f.forbidden_blocks.contains(&(*b, *a)))?;
+                            Some((*b, remaining.remove(i).0))
+                        })
                         .collect::<Vec<_>>();
                     if blocks == f.blocks {
                         Choice::FinishCombat
@@ -135,7 +139,7 @@ impl Heuristic {
                     .any(|c| c.controller != self.seat && c.creature.is_some());
                 plain(match card(o, *r)?.card {
                     "bear-cub" | "swab-goblin" | "dragon-fodder" | "llanowar-elves"
-                    | "druid-of-the-cowl" => 30,
+                    | "druid-of-the-cowl" | "magnigoth-sentry" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,

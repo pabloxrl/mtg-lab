@@ -19,8 +19,8 @@
     "shuffle_version": "fisher-yates-rejection-v1"
   },
   "policies": [
-    "heuristic-mana-v1",
-    "legal-random-mana-v1"
+    "heuristic-reach-v1",
+    "legal-random-reach-v1"
   ],
   "master_seed": 42,
   "first_episode": 0,

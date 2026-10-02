@@ -767,3 +767,53 @@ fn structured_native_payment_without_a_spell_preserves_null_pending() {
         serde_json::to_value(r.episode()).unwrap()
     );
 }
+
+#[test]
+fn structured_flying_forbidden_pairs_survive_roundtrip_and_reject_illegal_blocks() {
+    // Synthetic wire contract: B0 cannot block A3, but remains legal against A2.
+    let mut e = fixtures()[4].clone();
+    let r = |row| structured::VisibleRef {
+        zone: structured::VisibleZone::Battlefield,
+        row,
+    };
+    e.decisions[0]
+        .observation
+        .decision
+        .as_mut()
+        .unwrap()
+        .factored
+        .as_mut()
+        .unwrap()
+        .forbidden_blocks = vec![(r(0), r(3))];
+    structured::validate(&e).unwrap();
+    let mut w = Writer::new_v2(Vec::new(), 200_000, Backpressure::Block).unwrap();
+    w.append_v2(&e).unwrap();
+    assert_eq!(
+        read_v2(w.finish().unwrap().as_slice(), 200_000).unwrap(),
+        vec![e.clone()]
+    );
+    let mut invalid = e.clone();
+    invalid.decisions[0]
+        .observation
+        .decision
+        .as_mut()
+        .unwrap()
+        .factored
+        .as_mut()
+        .unwrap()
+        .forbidden_blocks = vec![(r(0), r(2))];
+    assert!(structured::validate(&invalid).is_err());
+    for pairs in [vec![(r(0), r(3)), (r(0), r(3))], vec![(r(9), r(3))]] {
+        let mut invalid = e.clone();
+        invalid.decisions[0]
+            .observation
+            .decision
+            .as_mut()
+            .unwrap()
+            .factored
+            .as_mut()
+            .unwrap()
+            .forbidden_blocks = pairs;
+        assert!(structured::validate(&invalid).is_err());
+    }
+}

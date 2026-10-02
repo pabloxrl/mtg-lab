@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-mana-v1";
+pub const VERSION: &str = "legal-random-reach-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -92,8 +92,13 @@ impl LegalRandom {
                                 .blockers
                                 .iter()
                                 .filter_map(|b| {
-                                    let n = self.below(f.attackers.len() as u64 + 1);
-                                    (n > 0).then(|| (*b, f.attackers[n as usize - 1]))
+                                    let allowed: Vec<_> = f
+                                        .attackers
+                                        .iter()
+                                        .filter(|a| !f.forbidden_blocks.contains(&(*b, **a)))
+                                        .collect();
+                                    let n = self.below(allowed.len() as u64 + 1);
+                                    (n > 0).then(|| (*b, *allowed[n as usize - 1]))
                                 })
                                 .collect(),
                         }
@@ -254,6 +259,7 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "dragon-fodder",
                     "llanowar-elves",
                     "druid-of-the-cowl",
+                    "magnigoth-sentry",
                 ],
             ),
             Choice::PlayLand { card } => (card, &["forest", "mountain"]),

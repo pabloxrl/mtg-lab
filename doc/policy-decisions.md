@@ -176,3 +176,16 @@ commits through the core's existing cleanup and next-turn processing.
 [Combat/discard acceptance](evidence/policy-combat/README.md) covers both-seat
 reachable scripts, independent exhaustive small choices, public relationships,
 privacy, capacity, and atomic rejection.
+
+### Flying/reach pair restrictions
+
+Combat domains optionally include `forbidden_blocks`: blocker/attacker pairs
+excluded from the Cartesian product. An absent/empty list means no pair
+restrictions (the earlier vanilla encoding). It is not a list of whole maps.
+Scalar and policy submission enforce the same rule: a flying attacker requires
+a flying or reach blocker; tapped creatures never enter the blocker domain.
+Reach does not restrict which creatures may block its bearer when it attacks.
+Each excluded pair counts as one capacity row; excess fails explicitly. The
+acting player alone receives this domain. Semantic action kinds are unchanged;
+typed trajectory v2 preserves and validates these optional restrictions. Prior
+engine snapshots/replays remain incompatible by source fingerprint.
