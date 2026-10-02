@@ -1,0 +1,88 @@
+{
+  "status": "agreed",
+  "cases": 6,
+  "repetitions": 2,
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "fixture_sha256": "9ea145dee72f44af8d52895cccc70918e95dcb608ee88684da09f4aa5d1a8964",
+  "expected_sha256": "a1fd2ff2c70948dddc4e0e5894326ef67da0adcb3bc3de02aa77a2875701a98e",
+  "bridge_sha256": "da3c65737056b50a140066374293fe2c4c4bd846465f0866051813a7ed0b5d6b",
+  "runner_sha256": "45e276196e617d30a8a1bccdad14b5f96a1707e8fbf0f7eb2cfccd560bf59fb1",
+  "native_sources": {
+    "crates/mtg-core/src/actions.rs": "e65b5616ee647296b27544f7e71ba7a69b917823a22094b077b714056255745b",
+    "crates/mtg-core/src/actions_tests.rs": "2a9cd364f6b718e175e12ced07ab76c0e28cb4dcb61e32bb6348165579caaedf",
+    "crates/mtg-core/src/card_definition_tests.rs": "3909474d20e56c3a449447132c7c2d50dbef679e9b5f157cdf0abf25c7a644fa",
+    "crates/mtg-core/src/card_definitions.rs": "02218ea35ad6d465d1352363849003d7a4a5e9a641a74152e0809344d8e30b50",
+    "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
+    "crates/mtg-core/src/cast_boundary_tests.rs": "94041e47f036700f465e84c4ca57e4afd3614f80db37fb362c68d516aec418e7",
+    "crates/mtg-core/src/cast_state.rs": "b81e4009089c15895167a97b8e99929feb20f3e19480aeb9cac8536860853a05",
+    "crates/mtg-core/src/casting.rs": "073f25fa8e1633c98fe213ddeee61768ae6342edb0da1523d7d3768123f7256a",
+    "crates/mtg-core/src/casting_tests.rs": "3c7975edbcd2163eb5572b103897ee494f5ff9f49f233055db953399fe21e28b",
+    "crates/mtg-core/src/combat.rs": "708ef84833dcf3b4bb69a424e292a98c7eb71660c12b7657cbb69b0974965906",
+    "crates/mtg-core/src/combat_tests.rs": "434ebd1d627e52fe74bd283af7312c193fbc83cc6bc77ab6d977203da29727ce",
+    "crates/mtg-core/src/creature_mana_reference_tests.rs": "79bac87ae62e5e21a70aae6a1b69fd06028cc47a34464c5d3472f9126edc0230",
+    "crates/mtg-core/src/episode.rs": "d8afd74e94cc9e173d94f6bed84d277ffd6aec0b71e46659849e410dffb25b10",
+    "crates/mtg-core/src/episode_budget_tests.rs": "84b241da7fb178873ea4290e7f3117ea5a4666d341dd4bac22324063b79f85d6",
+    "crates/mtg-core/src/episode_capture_tests.rs": "ca0c3294d350a4ae7f29d4c833dfb0ace857b2f1e88cd0e36f61d3883fc1b52b",
+    "crates/mtg-core/src/episode_replay.rs": "518f455d5b0b57e6c33f25725520444c2de08d25f0e1160c9f7f1d89f8dfcbad",
+    "crates/mtg-core/src/game.rs": "2fdf4caf6935e8cacab788f4ef2af573864f403f9b355f8d78a444b0c9ef4f0f",
+    "crates/mtg-core/src/instant_reference_tests.rs": "8d890847a3217735073aa10d77db82e6588398594fb3ebeba42fc49ecca4ef18",
+    "crates/mtg-core/src/lib.rs": "3effad9e6972bdaebfedae21ec9eeaf561ddb0feba007d38817d1280f23cb770",
+    "crates/mtg-core/src/mana.rs": "3eded0a3c25b0d6c760de34841486749df2517661920d20e393fda257580ba3b",
+    "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
+    "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
+    "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
+    "crates/mtg-core/src/policy.rs": "6dc173922aa274acc67b9b57ae23717dabdcf62f4be01b36299eeceac48e8949",
+    "crates/mtg-core/src/policy_combat_tests.rs": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
+    "crates/mtg-core/src/policy_spell_tests.rs": "8638b1d12770ec9ecddee0df4c0375b23d0a182d60a1770f05a94260d72e3f14",
+    "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
+    "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
+    "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
+    "crates/mtg-core/src/snapshot.rs": "c7f776cde2e7bb714f4a82d20c6a511109f1a1d719c797b0dc713d13a8341587",
+    "crates/mtg-core/src/targets.rs": "fb5b48143ca4b1cacc532302c17f55146cc1fb8dc26d4ce2ea0f2ccfa66c3a5f",
+    "crates/mtg-core/src/targets_tests.rs": "1c1ff1ffcd709f0002cfcc875e2fd403fd85e56eadf319475c713b4a884e5942",
+    "crates/mtg-core/src/terminal.rs": "6ab1af5ac14985b5a20c130e7d1759c11b2043d7c36a1f11f884798d112737c8",
+    "crates/mtg-core/src/terminal_tests.rs": "609dcfde02c26c065821708d681e4794b5361e6e5c9ddd4ec695887b01dcded3",
+    "crates/mtg-core/src/token_tests.rs": "ca599ca31e49e2636a09c971e79955fc730980df51fb539d8b22023fa205cb10",
+    "crates/mtg-core/src/trajectory.rs": "34682ff6f3193c3cae1297c1fb40e9a3f3b7f70837b9c39f30f99349dc735098",
+    "crates/mtg-core/src/trajectory_rules_tests.rs": "163768d38864bf37e4c9bc02a3da83947671e08078bbf01469563325422d38eb",
+    "crates/mtg-core/src/trajectory_tests.rs": "a6f9a2bd6259ad71df327e5b06ec7a4db52904d8bb755b39cd3710780ebb9a61",
+    "crates/mtg-core/src/trajectory_v2_tests.rs": "e98b94ebc35080151b02b8278a4a5b8664627281cdd2c589b8ed5c97b0aee716",
+    "crates/mtg-core/src/turn_quantum_tests.rs": "114126c99635c6ebaa67e6c96b4b66bebbb826554223284398d87b9057245300",
+    "crates/mtg-core/src/turns.rs": "cd0114828a0e1d743ed66ec20219db273b88b78158fa211c2a94e404d24bb183",
+    "crates/mtg-core/src/views.rs": "94bdca625a1e72e040a0c88e974961ac565ac8f0508cc53c96884f47eed31555",
+    "crates/mtg-core/src/views_tests.rs": "08cefc9f947d972448b55042be7c9f25676cc1be375978963e1fa4c69eebf27a",
+    "crates/mtg-core/src/work.rs": "6b1c483f1b527a38545e7d443125000188599d8cd3a98b785c7ff4590d1717a1"
+  },
+  "runs": [
+    {
+      "xmage_log_sha256": "76c1274b4a7d6b195be598b81609c29583072278a6e41180f8d1e2c680d352a7",
+      "native_log_sha256": "d4330f7f9acae8a96cab61533cf4af5acbd0603299583f99493ddd9ee9ec56cb"
+    },
+    {
+      "xmage_log_sha256": "0ff03db6c4463008d1ffcaaf78bcff474532f282dbf642a11c2d8c44cbf494dc",
+      "native_log_sha256": "d4330f7f9acae8a96cab61533cf4af5acbd0603299583f99493ddd9ee9ec56cb"
+    }
+  ],
+  "controls": [
+    {
+      "field": "attacker",
+      "detected": "first divergence: {\"actual\": 99, \"expected\": 5, \"path\": \"$.reach.attacker[0]\"}"
+    },
+    {
+      "field": "blocker",
+      "detected": "first divergence: {\"actual\": [99, 99, 99], \"expected\": null, \"path\": \"$.reach.blocker\"}"
+    },
+    {
+      "field": "life",
+      "detected": "first divergence: {\"actual\": 99, \"expected\": 20, \"path\": \"$.reach.life[0]\"}"
+    },
+    {
+      "field": "legal",
+      "detected": "first divergence: {\"actual\": false, \"expected\": true, \"path\": \"$.reach.legal\"}"
+    }
+  ],
+  "stdin": "closed",
+  "display": "unset",
+  "offline": true,
+  "limitations": "Synthetic 5/5 flying Bear Cub, not Shivan support; no Forge/full-game agreement. Illegal reference blocks use XMage canBlock; raw scalar nonmutation and normal-reset replay/capture are native tests."
+}

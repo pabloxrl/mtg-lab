@@ -104,6 +104,9 @@ pub struct CombatChoices {
     pub blockers: Vec<VisibleRef>,
     pub selected: Vec<VisibleRef>,
     pub blocks: Vec<(VisibleRef, VisibleRef)>,
+    /// Pairs excluded from the attacker/blocker Cartesian product; not whole maps.
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub forbidden_blocks: Vec<(VisibleRef, VisibleRef)>,
     pub damage: Vec<DamageAllocation>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -457,7 +460,12 @@ fn observation_valid(o: &Observation) -> bool {
             return false;
         }
         if let Some(f) = &d.factored
-            && (!unique(&f.attackers)
+            && (!unique(&f.forbidden_blocks)
+                || !f
+                    .forbidden_blocks
+                    .iter()
+                    .all(|(b, a)| f.blockers.contains(b) && f.attackers.contains(a))
+                || !unique(&f.attackers)
                 || !unique(&f.blockers)
                 || !unique(&f.selected)
                 || !f
@@ -468,10 +476,11 @@ fn observation_valid(o: &Observation) -> bool {
                     .all(field)
                 || !f.selected.iter().all(|r| f.attackers.contains(r))
                 || !unique(&f.blocks.iter().map(|(b, _)| b).collect::<Vec<_>>())
-                || !f
-                    .blocks
-                    .iter()
-                    .all(|(b, a)| f.blockers.contains(b) && f.attackers.contains(a))
+                || !f.blocks.iter().all(|(b, a)| {
+                    f.blockers.contains(b)
+                        && f.attackers.contains(a)
+                        && !f.forbidden_blocks.contains(&(*b, *a))
+                })
                 || !unique(&f.damage.iter().map(|d| d.attacker).collect::<Vec<_>>())
                 || !f.damage.iter().all(|d| {
                     field(&d.attacker)
@@ -515,9 +524,11 @@ fn valid_submission(o: &Observation, s: &Submission) -> bool {
             }
             Command::SelectBlockers { blocks } if d.kind == "blockers" => {
                 return unique(&blocks.iter().map(|(b, _)| b).collect::<Vec<_>>())
-                    && blocks
-                        .iter()
-                        .all(|(b, a)| f.blockers.contains(b) && f.attackers.contains(a));
+                    && blocks.iter().all(|(b, a)| {
+                        f.blockers.contains(b)
+                            && f.attackers.contains(a)
+                            && !f.forbidden_blocks.contains(&(*b, *a))
+                    });
             }
             Command::AssignDamage { attacker, amounts } if d.kind == "combat_damage" => {
                 return f

@@ -979,3 +979,303 @@ fn creature_mana_druid_blocks_cub_and_survives_two_damage() {
     assert_eq!((c.power, c.toughness, c.damage), (2, 2, 1));
     assert_eq!(g.life(), [20, 20]);
 }
+
+// GH-196: synthetic flying Cub + Growth-sized boost, not Shivan support.
+// CR 702.9b/702.17: flying restricts blockers, reach does not restrict attackers.
+#[test]
+fn flying_reach_illegal_cub_block_is_atomic() {
+    let mut g = ready();
+    let a = add(&mut g, Seat::P0, "bear-cub");
+    let b = add(&mut g, Seat::P1, "bear-cub");
+    g.turns.combat.synthetic_flying.push(a);
+    pair(&mut g);
+    select_attack(&mut g, &[a]);
+    pair(&mut g);
+    let d = g.turn_decision().unwrap();
+    let before = g.snapshot();
+    assert_eq!(
+        g.select_blockers(d.actor, d.id, &[(b, a)]),
+        Err(CombatError::IllegalBlocker)
+    );
+    assert_eq!(g.snapshot(), before);
+}
+
+#[test]
+fn flying_reach_sentry_blocks_five_five_and_dies() {
+    let mut g = ready();
+    let a = add(&mut g, Seat::P0, "bear-cub");
+    let b = add(&mut g, Seat::P1, "magnigoth-sentry");
+    g.turns.combat.synthetic_flying.push(a);
+    g.turns
+        .modifications
+        .push(super::super::targets::Modification {
+            handle: a,
+            boost: 3,
+            damage: 0,
+        });
+    pair(&mut g);
+    select_attack(&mut g, &[a]);
+    pair(&mut g);
+    select_block(&mut g, &[(b, a)]);
+    pair(&mut g);
+    damage(&mut g);
+    assert!(g.objects.get(b).is_err());
+    let c = g.creature_state(a).unwrap();
+    assert_eq!((c.power, c.toughness, c.damage), (5, 5, 4));
+    assert_eq!(g.life(), [20, 20]);
+}
+
+#[test]
+fn flying_reach_sentry_attacking_is_blockable_by_cub() {
+    let mut g = ready();
+    let a = add(&mut g, Seat::P0, "magnigoth-sentry");
+    let b = add(&mut g, Seat::P1, "bear-cub");
+    pair(&mut g);
+    select_attack(&mut g, &[a]);
+    pair(&mut g);
+    select_block(&mut g, &[(b, a)]);
+    pair(&mut g);
+    damage(&mut g);
+    assert!(g.objects.get(b).is_err());
+    assert_eq!(g.creature_state(a).unwrap().damage, 2);
+    assert_eq!(g.life(), [20, 20]);
+}
+
+#[test]
+fn flying_reach_pair_matrix_policy_actions_snapshot_and_quantum() {
+    use crate::game::actions;
+    use crate::game::policy::{Choice, Submission, VisibleRef, VisibleZone};
+    let bf = |row| VisibleRef {
+        zone: VisibleZone::Battlefield,
+        row,
+    };
+    for active in [Seat::P0, Seat::P1] {
+        let defender = super::super::turns::opponent(active);
+        for (key, flying, tapped, allowed) in [
+            ("bear-cub", false, false, false),
+            ("bear-cub", true, false, true),
+            ("magnigoth-sentry", false, false, true),
+            ("magnigoth-sentry", false, true, false),
+        ] {
+            let mut g = combat_quantum_setup(active);
+            let a = add(&mut g, active, "bear-cub");
+            let ground = add(&mut g, active, "bear-cub");
+            let b = add(&mut g, defender, key);
+            g.turns.combat.synthetic_flying.push(a);
+            if flying {
+                g.turns.combat.synthetic_flying.push(b);
+            }
+            g.objects.get_mut(b).unwrap().tapped = tapped;
+            g.turns.sick.push(b); // Sickness is irrelevant to blocking, CR 302.6.
+            pair(&mut g);
+            select_attack(&mut g, &[a, ground]);
+            pair(&mut g);
+            let d = g.policy_observe(defender, 256).unwrap().decision.unwrap();
+            let f = d.factored.unwrap();
+            assert_eq!(
+                f.forbidden_blocks,
+                if !allowed && !tapped {
+                    vec![(bf(2), bf(0))]
+                } else {
+                    vec![]
+                }
+            );
+            assert_eq!(f.blockers.contains(&bf(2)), !tapped);
+            let sub = Submission {
+                schema_version: 1,
+                revision: d.revision,
+                generation: d.generation,
+                choices: vec![Choice::SelectBlockers {
+                    blocks: vec![(bf(2), bf(0))],
+                }],
+            };
+            let before = g.snapshot();
+            if !allowed {
+                assert!(g.apply_policy(defender, &sub, 256).is_err());
+                assert_eq!(g.snapshot(), before);
+                let d = g.turn_decision().unwrap();
+                assert_eq!(
+                    g.select_blockers(defender, d.id, &[(b, a)]),
+                    Err(CombatError::IllegalBlocker)
+                );
+                assert_eq!(g.snapshot(), before);
+                // The same ground blocker remains legal against the ground attacker.
+                if !tapped {
+                    select_block(&mut g, &[(b, ground)]);
+                }
+            } else {
+                let encoded = actions::encode(&g, defender, &sub, 256).unwrap();
+                let mut restored = Game::new().unwrap();
+                restored.restore(&before).unwrap();
+                actions::apply(&mut restored, &encoded, 256).unwrap();
+                actions::apply(&mut g, &encoded, 256).unwrap();
+                assert_eq!(
+                    g.policy_observe(defender, 256)
+                        .unwrap()
+                        .decision
+                        .unwrap()
+                        .factored,
+                    restored
+                        .policy_observe(defender, 256)
+                        .unwrap()
+                        .decision
+                        .unwrap()
+                        .factored
+                );
+                let d = g.turn_decision().unwrap();
+                g.finish_combat(defender, d.id).unwrap();
+                pair(&mut g);
+                let saved = g.snapshot();
+                let mut expected = None;
+                for budget in [1, 2, 64] {
+                    let mut actual = Game::new().unwrap();
+                    actual.restore(&saved).unwrap();
+                    combat_quantum_finish(&mut actual, budget);
+                    assert_eq!(actual.life()[seat_index(defender)], 18); // Unblocked ground Cub.
+                    assert_eq!(actual.objects.in_zone(Zone::Graveyard(active)).count(), 1);
+                    assert_eq!(
+                        actual.objects.in_zone(Zone::Graveyard(defender)).count(),
+                        usize::from(flying)
+                    );
+                    let state = combat_quantum_state(&actual);
+                    if let Some(ref e) = expected {
+                        assert_eq!(&state, e);
+                    } else {
+                        expected = Some(state);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#[test]
+fn flying_reach_reference_literal_checkpoints() {
+    use serde_json::{Value, json};
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/flying-reach.json"
+    ))
+    .unwrap();
+    let expected: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/flying-reach-expectations.json"
+    ))
+    .unwrap();
+    let mut results = serde_json::Map::new();
+    for case in fixture["cases"].as_array().unwrap() {
+        let mode = case["mode"].as_str().unwrap();
+        let mut g = ready();
+        let mut a = add(
+            &mut g,
+            Seat::P0,
+            if mode == "ground" || mode == "cast" {
+                "magnigoth-sentry"
+            } else {
+                "bear-cub"
+            },
+        );
+        let b = if mode == "cast" {
+            None
+        } else {
+            Some(add(
+                &mut g,
+                Seat::P1,
+                if mode == "ground" || mode == "cub-illegal" {
+                    "bear-cub"
+                } else {
+                    "magnigoth-sentry"
+                },
+            ))
+        };
+        if mode == "cast" {
+            g.turns.position = Some((1, Seat::P0, Step::PrecombatMain));
+            a = g.objects.move_to(a, Zone::Hand(Seat::P0)).unwrap();
+            // 3 generic + G: one green and three red proves it is not 2GG.
+            g.turns.mana[0] = [0, 0, 0, 3, 1, 0];
+            let d = g.turn_decision().unwrap();
+            g.begin_cast(Seat::P0, d.id, a).unwrap();
+            for c in [
+                super::super::mana::Color::Green,
+                super::super::mana::Color::Red,
+                super::super::mana::Color::Red,
+                super::super::mana::Color::Red,
+            ] {
+                let d = g.payment_decision(Seat::P0).unwrap();
+                g.choose_payment(Seat::P0, d.id, c).unwrap();
+            }
+            let d = g.payment_decision(Seat::P0).unwrap();
+            g.finish_cast(Seat::P0, d.id).unwrap();
+            pair(&mut g);
+            a = g.objects.in_zone(Zone::Battlefield).next().unwrap();
+            assert!(g.summoning_sick(a));
+            assert_eq!(g.mana()[0], [0; 6]);
+        } else {
+            if mode != "ground" {
+                g.turns.combat.synthetic_flying.push(a);
+                g.turns
+                    .modifications
+                    .push(super::super::targets::Modification {
+                        handle: a,
+                        boost: 3,
+                        damage: 0,
+                    });
+            }
+            if mode == "tapped" {
+                g.objects.get_mut(b.unwrap()).unwrap().tapped = true;
+            }
+            pair(&mut g);
+            select_attack(&mut g, &[a]);
+            pair(&mut g);
+            let d = g.turn_decision().unwrap();
+            let before = g.snapshot();
+            let legal = g
+                .select_blockers(Seat::P1, d.id, &[(b.unwrap(), a)])
+                .is_ok();
+            assert_eq!(legal, mode != "tapped" && mode != "cub-illegal");
+            if !legal {
+                assert_eq!(g.snapshot(), before);
+            }
+            let d = g.turn_decision().unwrap();
+            g.finish_combat(Seat::P1, d.id).unwrap();
+            if mode == "growth" {
+                // Real Growth response after committed block, CR 509.2/608.
+                pass(&mut g);
+                let spell = g
+                    .objects
+                    .allocate(
+                        CardId::from_key("giant-growth").unwrap(),
+                        Seat::P1,
+                        Zone::Hand(Seat::P1),
+                    )
+                    .unwrap();
+                g.turns.mana[1][4] = 1;
+                let d = g.turn_decision().unwrap();
+                g.begin_targeted_cast(Seat::P1, d.id, spell, 80).unwrap();
+                let d = g.target_decision(Seat::P1).unwrap();
+                g.choose_target(Seat::P1, d.id, b.unwrap()).unwrap();
+                let d = g.target_decision(Seat::P1).unwrap();
+                g.finish_targets(Seat::P1, d.id).unwrap();
+                let d = g.payment_decision(Seat::P1).unwrap();
+                g.choose_payment(Seat::P1, d.id, super::super::mana::Color::Green)
+                    .unwrap();
+                let d = g.payment_decision(Seat::P1).unwrap();
+                g.finish_cast(Seat::P1, d.id).unwrap();
+                pair(&mut g);
+            }
+            pair(&mut g);
+            damage(&mut g);
+        }
+        let state = |h| {
+            g.objects
+                .get(h)
+                .ok()
+                .and_then(|_| g.creature_state(h))
+                .map(|c| [c.power, c.toughness, c.damage])
+        };
+        let result = json!({"attacker":state(a),"blocker":b.and_then(state),"life":g.life(),"legal":mode!="tapped"&&mode!="cub-illegal"});
+        assert_eq!(result, expected[case["id"].as_str().unwrap()]);
+        results.insert(case["id"].as_str().unwrap().into(), result);
+    }
+    if let Ok(path) = std::env::var("MTG_FLYING_REACH_OUTPUT") {
+        std::fs::write(path, serde_json::to_vec_pretty(&results).unwrap()).unwrap();
+    }
+}

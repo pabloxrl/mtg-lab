@@ -102,7 +102,7 @@ fn run_command_with_timeout(mut command: Command, timeout: Duration) -> (i32, Ve
 fn config() -> Value {
     let mut c = legacy_config();
     c["schema_version"] = json!(2);
-    c["policies"] = json!(["heuristic-mana-v1", "heuristic-mana-v1"]);
+    c["policies"] = json!(["heuristic-reach-v1", "heuristic-reach-v1"]);
     c["native"] = json!({"policy_seed":42,"rng_version":"legal-random-rng-v1","work_quantum":64,"max_work_calls":100000,"max_records":10000});
     c["episodes"] = json!(1);
     for i in 0..2 {
@@ -115,7 +115,7 @@ fn native_one_decision_cannot_be_a_rules_outcome() {
     // CR103: one opening choice cannot cause life loss or rules completion.
     // Random may choose keep or mulligan; neither is a win or draw.
     for start in [0, 1] {
-        for policy in ["heuristic-mana-v1", "legal-random-mana-v1"] {
+        for policy in ["heuristic-reach-v1", "legal-random-reach-v1"] {
             let mut c = config();
             c["game"]["starting_seat"] = json!(start);
             c["policies"] = json!([policy, policy]);
@@ -168,7 +168,7 @@ fn native_bad_versions_policies_bounds_and_overflow_fail_without_output() {
         ("schema_version", json!(3)),
         (
             "policies",
-            json!(["missing-private-token", "heuristic-mana-v1"]),
+            json!(["missing-private-token", "heuristic-reach-v1"]),
         ),
         ("episodes", json!(0)),
         ("max_decisions", json!(0)),
@@ -295,9 +295,9 @@ fn direct(c: &Value) -> Value {
 fn native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints() {
     for start in [0, 1] {
         for policies in [
-            ["heuristic-mana-v1", "heuristic-mana-v1"],
-            ["legal-random-mana-v1", "legal-random-mana-v1"],
-            ["heuristic-mana-v1", "legal-random-mana-v1"],
+            ["heuristic-reach-v1", "heuristic-reach-v1"],
+            ["legal-random-reach-v1", "legal-random-reach-v1"],
+            ["heuristic-reach-v1", "legal-random-reach-v1"],
         ] {
             let mut c = config();
             c["policies"] = json!(policies);
@@ -521,7 +521,7 @@ fn native_benchmark_preserves_production_rows_and_all_failure_denominators() {
     // RFC B020: reset/policy/error work stays inside the denominator. CR103:
     // one opening decision cannot finish a game. Record bound 1 diagnoses the
     // second choice as capacity failure; neither path is a win or a draw.
-    for policy in ["heuristic-mana-v1", "legal-random-mana-v1"] {
+    for policy in ["heuristic-reach-v1", "legal-random-reach-v1"] {
         for failure in [false, true] {
             let mut c = config();
             c["policies"] = json!([policy, policy]);

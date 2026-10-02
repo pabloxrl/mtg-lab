@@ -560,7 +560,8 @@ mod tests {
         }
         g.objects
             .allocate(
-                CardId::from_key("magnigoth-sentry").unwrap(),
+                // Sentry is supported by GH-196; Shivan remains unsupported.
+                CardId::from_key("shivan-dragon").unwrap(),
                 Seat::P0,
                 Zone::Battlefield,
             )

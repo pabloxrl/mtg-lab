@@ -1,0 +1,8 @@
+{
+  "reach":{"attacker":[5,5,4],"blocker":null,"life":[20,20],"legal":true},
+  "cub-illegal":{"attacker":[5,5,0],"blocker":[2,2,0],"life":[20,15],"legal":false},
+  "tapped":{"attacker":[5,5,0],"blocker":[4,4,0],"life":[20,15],"legal":false},
+  "ground":{"attacker":[4,4,2],"blocker":null,"life":[20,20],"legal":true},
+  "growth":{"attacker":null,"blocker":[7,7,5],"life":[20,20],"legal":true},
+  "cast":{"attacker":[4,4,0],"blocker":null,"life":[20,20],"legal":true}
+}

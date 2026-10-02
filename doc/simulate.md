@@ -91,8 +91,8 @@ cargo test -p mtg-cli --test native_simulate
 
 The [resolved example](../fixtures/simulate/native-v2.json) keeps the same required
 seed, episode, decision and game fields, sets `schema_version: 2`, and adds a
-required `native` object. Each seat explicitly selects `legal-random-mana-v1` or
-`heuristic-mana-v1`; mixing these two is supported. `pass-v1` remains schema 1 only.
+required `native` object. Each seat explicitly selects `legal-random-reach-v1` or
+`heuristic-reach-v1`; mixing these two is supported. `pass-v1` remains schema 1 only.
 `bench --workload scalar-pass-v1` accepts schema 1 only, never silently substituting
 a passive policy for native configuration. Unknown versions/policies fail before
 output; no human, random, or pass fallback exists.
@@ -147,8 +147,9 @@ remain compatible.
 
 The sole rules owner is `episode::Driver`; policies consume seat-authorized
 observations and submit through its validated boundary. Capture defaults to disabled.
-Supported policy actions remain the delivered six-card M1 subset (Forest,
-Mountain, Bear Cub, Swab Goblin, Giant Growth, Bite Down and vanilla combat);
+Supported policy actions include the delivered ten-card subset (Forest,
+Mountain, Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder,
+Llanowar Elves, Druid of the Cowl and Magnigoth Sentry), token combat and reach;
 other fixed-deck cards are uncastable. Scripts and optional capture use that same
 loop as described below. No new algorithm, second game loop, batching/training,
 performance or strength qualification is delivered. #120 retains all composed CLI clauses; #21/#22 and

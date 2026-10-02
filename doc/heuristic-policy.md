@@ -1,7 +1,7 @@
 # Deterministic native heuristic
 
 `mtg_policy::Heuristic::new(HEURISTIC_VERSION, seat)` creates a stateless native
-opponent. `HEURISTIC_VERSION = heuristic-mana-v1` freezes the rules below. Its
+opponent. `HEURISTIC_VERSION = heuristic-reach-v1` freezes the rules below. Its
 `choose(&policy::Observation)` returns a semantic submission for
 `Game::apply_policy`. Only the authorized observation is accepted; no game,
 private replay, environment seed, RNG or clock is available. Repeated inputs
@@ -33,7 +33,7 @@ always dominate card values. These are strategic preferences, not rules claims.
 - Attack with every legal attacker. Replace a different provisional selection,
   then explicitly finish once it equals the desired selection.
 - Block greedily in blocker domain order. Each blocker chooses the unassigned
-  attacker with greatest power, then remaining toughness, then domain order.
+  legal attacker with greatest power, then remaining toughness, then domain order.
   Assign at most one blocker per attacker; omit surplus blockers. Replace a
   different provisional mapping, then explicitly finish.
 - Allocate the first unassigned attacker's damage in blocker domain order:
@@ -70,3 +70,7 @@ input scores and tie rules are unchanged; the engine fingerprint identifies the
 expanded legal domain. Full-pool strategy and support remain #208 acceptance.
 
 `heuristic-mana-v1` supersedes `heuristic-tokens-v1` and `heuristic-m1-v1`; both old IDs reject explicitly. GH-195 adds Elf/Druid casts at the existing creature score (30) and tap-for-G payment sources. It changes no other score or tie rule. Full-pool qualification remains #208.
+
+GH-196: `heuristic-reach-v1` supersedes `heuristic-mana-v1` (rejected). Sentry
+casts score 30. Block selection excludes observed `forbidden_blocks` pairs before
+choosing the best remaining attacker; reach itself gives attackers no evasion.

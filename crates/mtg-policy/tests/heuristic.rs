@@ -212,6 +212,7 @@ fn heuristic_payment_prefers_progress_and_needed_color() {
 fn combat(kind: &'static str) -> Observation {
     let mut o = obs(kind, vec![Choice::FinishCombat]);
     o.decision.as_mut().unwrap().factored = Some(CombatChoices {
+        forbidden_blocks: vec![],
         attackers: vec![b(0), b(3)],
         blockers: vec![b(1), b(2)],
         selected: vec![],
@@ -348,4 +349,22 @@ fn creature_mana_policy_casts_and_pays_with_both_sources() {
 fn creature_mana_domain_requires_new_policy_versions() {
     assert!(Heuristic::new("heuristic-tokens-v1", 0).is_err());
     assert_ne!(mtg_policy::VERSION, "legal-random-tokens-v1");
+}
+
+#[test]
+fn flying_reach_heuristic_excludes_illegal_pair_before_ranking() {
+    let mut o = combat("blockers");
+    o.decision
+        .as_mut()
+        .unwrap()
+        .factored
+        .as_mut()
+        .unwrap()
+        .forbidden_blocks = vec![(b(1), b(3))];
+    assert_eq!(
+        choose(&o),
+        vec![Choice::SelectBlockers {
+            blocks: vec![(b(1), b(0)), (b(2), b(3))]
+        }]
+    );
 }

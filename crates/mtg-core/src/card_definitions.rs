@@ -31,9 +31,10 @@ pub(super) enum Definition {
         cost: ManaCost,
         effect: InstantEffect,
     },
-    /// Existing synthetic-position characteristics only. No casting, mana or
-    /// combat behavior: Magnigoth's reach is not implemented in the M1 slice.
-    UnsupportedCreature {
+    KeywordCreature {
+        cost: ManaCost,
+        flying: bool,
+        reach: bool,
         power: u32,
         toughness: u32,
     },
@@ -45,6 +46,7 @@ impl Definition {
         match self {
             Self::VanillaCreature { cost, .. }
             | Self::ManaCreature { cost, .. }
+            | Self::KeywordCreature { cost, .. }
             | Self::Instant { cost, .. }
             | Self::TokenSorcery { cost } => Some(cost),
             _ => None,
@@ -71,7 +73,9 @@ impl Definition {
             | Self::ManaCreature {
                 power, toughness, ..
             }
-            | Self::UnsupportedCreature { power, toughness } => Some((power, toughness)),
+            | Self::KeywordCreature {
+                power, toughness, ..
+            } => Some((power, toughness)),
             _ => None,
         }
     }
@@ -81,10 +85,19 @@ impl Definition {
             _ => None,
         }
     }
+    pub(super) fn flying(self) -> bool {
+        matches!(self, Self::KeywordCreature { flying: true, .. })
+    }
+    pub(super) fn reach(self) -> bool {
+        matches!(self, Self::KeywordCreature { reach: true, .. })
+    }
     pub(super) fn vanilla(self) -> bool {
         matches!(
             self,
-            Self::VanillaCreature { .. } | Self::ManaCreature { .. } | Self::Token
+            Self::VanillaCreature { .. }
+                | Self::ManaCreature { .. }
+                | Self::KeywordCreature { .. }
+                | Self::Token
         )
     }
 }
@@ -150,7 +163,13 @@ pub(super) fn definition(card: CardId) -> Definition {
             },
             effect: InstantEffect::Bite,
         },
-        "magnigoth-sentry" => Definition::UnsupportedCreature {
+        "magnigoth-sentry" => Definition::KeywordCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 0, 1, 0],
+                generic: 3,
+            },
+            flying: false,
+            reach: true,
             power: 4,
             toughness: 4,
         },

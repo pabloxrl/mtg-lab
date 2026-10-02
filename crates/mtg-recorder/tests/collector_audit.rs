@@ -191,6 +191,7 @@ impl Ledger {
                         "bite-down",
                         "llanowar-elves",
                         "druid-of-the-cowl",
+                        "magnigoth-sentry",
                     ]
                     .contains(&key.as_str())
                     {

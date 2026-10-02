@@ -295,6 +295,7 @@ fn w_combat_choices(value: &p::CombatChoices) -> w::CombatChoices {
         blockers,
         selected,
         blocks,
+        forbidden_blocks,
         damage,
     } = value;
     w::CombatChoices {
@@ -304,6 +305,10 @@ fn w_combat_choices(value: &p::CombatChoices) -> w::CombatChoices {
         blocks: blocks
             .iter()
             .map(|x| (w_visible_ref(&x.0), w_visible_ref(&x.1)))
+            .collect(),
+        forbidden_blocks: forbidden_blocks
+            .iter()
+            .map(|(b, a)| (w_visible_ref(b), w_visible_ref(a)))
             .collect(),
         damage: damage.iter().map(w_damage_allocation).collect(),
     }
@@ -583,5 +588,33 @@ pub(crate) fn w_episode(value: &v2::Episode) -> w::Episode {
         header: s_header(value.header()),
         decisions: value.decisions().iter().map(w_decision).collect(),
         footer: value.footer().map(w_footer),
+    }
+}
+
+#[cfg(test)]
+mod flying_tests {
+    use super::*;
+    #[test]
+    fn typed_forbidden_block_pairs_are_preserved() {
+        let r = |row| p::VisibleRef {
+            zone: p::VisibleZone::Battlefield,
+            row,
+        };
+        let core = p::CombatChoices {
+            attackers: vec![r(0), r(1)],
+            blockers: vec![r(2)],
+            selected: vec![],
+            blocks: vec![],
+            forbidden_blocks: vec![(r(2), r(0))],
+            damage: vec![],
+        };
+        let wire = w_combat_choices(&core);
+        assert_eq!(
+            serde_json::to_value(&wire).unwrap(),
+            serde_json::to_value(&core).unwrap()
+        );
+        assert_eq!(wire.forbidden_blocks.len(), 1);
+        assert_eq!(wire.forbidden_blocks[0].0.row, 2);
+        assert_eq!(wire.forbidden_blocks[0].1.row, 0);
     }
 }

@@ -182,6 +182,7 @@ fn factored_vectors_have_declared_distribution() {
     d.candidates = vec![Choice::FinishCombat];
     d.legal_mask = vec![true];
     d.factored = Some(CombatChoices {
+        forbidden_blocks: vec![],
         attackers: vec![bf(0), bf(1)],
         blockers: vec![],
         selected: vec![],
@@ -268,6 +269,7 @@ fn three_recipient_distribution_is_sequential_not_uniform_compositions() {
     d.candidates = vec![Choice::FinishCombat];
     d.legal_mask = vec![false];
     d.factored = Some(CombatChoices {
+        forbidden_blocks: vec![],
         attackers: vec![],
         blockers: vec![],
         selected: vec![],
@@ -340,4 +342,30 @@ fn creature_mana_random_accepts_enabled_casts() {
         let expected = d.candidates.clone();
         assert_eq!(policy(0).choose(&o).unwrap().choices, expected);
     }
+}
+
+#[test]
+fn flying_reach_random_samples_only_allowed_pairs() {
+    let mut o = observation(0);
+    let d = o.decision.as_mut().unwrap();
+    d.kind = "blockers";
+    d.candidates = vec![Choice::FinishCombat];
+    d.legal_mask = vec![true];
+    d.factored = Some(CombatChoices {
+        attackers: vec![bf(0), bf(1)],
+        blockers: vec![bf(2), bf(3)],
+        selected: vec![],
+        blocks: vec![],
+        damage: vec![],
+        forbidden_blocks: vec![(bf(2), bf(0)), (bf(3), bf(0)), (bf(3), bf(1))],
+    });
+    let mut p = policy(0);
+    let mut seen = false;
+    for _ in 0..128 {
+        if let Choice::SelectBlockers { blocks } = &p.choose(&o).unwrap().choices[0] {
+            assert!(blocks.iter().all(|pair| *pair == (bf(2), bf(1))));
+            seen |= !blocks.is_empty();
+        }
+    }
+    assert!(seen, "legal ground block remains expressible");
 }

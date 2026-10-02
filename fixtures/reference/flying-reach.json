@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "setup": "synthetic; flyer is an explicitly modified Bear Cub, never supported Shivan",
+  "basis": "Pinned Magnigoth Sentry 3G 4/4 reach; CR 509, 510, 702.9b, 702.17, 601, 608, 514.2",
+  "cases": [
+    {"id":"reach","mode":"reach"},
+    {"id":"cub-illegal","mode":"cub-illegal"},
+    {"id":"tapped","mode":"tapped"},
+    {"id":"ground","mode":"ground"},
+    {"id":"growth","mode":"growth"},
+    {"id":"cast","mode":"cast"}
+  ]
+}

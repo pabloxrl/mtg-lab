@@ -7,7 +7,7 @@ use super::targets::{CreatureState, TargetError};
 use super::turns::Step;
 use super::*;
 
-const SUPPORTED: [&str; 8] = [
+const SUPPORTED: [&str; 9] = [
     "forest",
     "mountain",
     "bear-cub",
@@ -16,6 +16,7 @@ const SUPPORTED: [&str; 8] = [
     "bite-down",
     "llanowar-elves",
     "druid-of-the-cowl",
+    "magnigoth-sentry",
 ];
 
 fn ready() -> Game {
@@ -54,6 +55,7 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
         ("bite-down", "{1}{G}", None, None, true),
         ("llanowar-elves", "{G}", None, Some((1, 1)), false),
         ("druid-of-the-cowl", "{1}{G}", None, Some((1, 3)), false),
+        ("magnigoth-sentry", "{3}{G}", None, Some((4, 4)), false),
     ] {
         let entry = manifest["cards"]
             .as_array()
@@ -163,7 +165,7 @@ fn card_definitions_every_other_frozen_identity_rejects_play_without_mutation() 
 }
 
 #[test]
-fn card_definitions_fixture_characteristics_do_not_enable_sentry() {
+fn card_definitions_sentry_characteristics_and_complete_support() {
     let mut g = ready();
     let card = CardId::from_key("magnigoth-sentry").unwrap();
     let h = g
@@ -178,8 +180,14 @@ fn card_definitions_fixture_characteristics_do_not_enable_sentry() {
             damage: 0
         })
     );
-    assert!(!g.supported_combat());
-    assert_eq!(casting::cost(card), None);
+    assert!(g.supported_combat());
+    assert_eq!(
+        casting::cost(card),
+        Some(ManaCost {
+            colored: [0, 0, 0, 0, 1, 0],
+            generic: 3
+        })
+    );
 }
 
 #[test]
@@ -196,4 +204,30 @@ fn card_definitions_unknown_and_corrupt_identity_rejection() {
             card
         );
     }
+}
+
+#[test]
+fn flying_reach_sentry_pinned_cost_casts_for_three_generic_one_green() {
+    let mut g = ready();
+    let card = CardId::from_key("magnigoth-sentry").unwrap();
+    let h = g
+        .objects
+        .allocate(card, Seat::P0, Zone::Hand(Seat::P0))
+        .unwrap();
+    assert_eq!(
+        casting::cost(card),
+        Some(ManaCost {
+            colored: [0, 0, 0, 0, 1, 0],
+            generic: 3
+        })
+    );
+    let d = g.turn_decision().unwrap();
+    g.begin_cast(Seat::P0, d.id, h).unwrap();
+    for _ in 0..4 {
+        let d = g.payment_decision(Seat::P0).unwrap();
+        g.choose_payment(Seat::P0, d.id, Color::Green).unwrap();
+    }
+    let d = g.payment_decision(Seat::P0).unwrap();
+    g.finish_cast(Seat::P0, d.id).unwrap();
+    assert_eq!(g.objects.in_zone(Zone::Stack).count(), 1);
 }
