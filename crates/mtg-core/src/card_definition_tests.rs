@@ -127,7 +127,11 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
 
 #[test]
 fn card_definitions_every_other_frozen_identity_rejects_play_without_mutation() {
-    for card in CardId::all().filter(|c| !SUPPORTED.contains(&c.identity().key)) {
+    for card in CardId::all().filter(|c| {
+        !SUPPORTED.contains(&c.identity().key)
+            && c.identity().key != "dragon-fodder"
+            && c.identity().key != "goblin-token"
+    }) {
         let mut g = ready();
         let h = g
             .objects

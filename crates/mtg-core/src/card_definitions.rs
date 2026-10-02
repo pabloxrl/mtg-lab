@@ -17,6 +17,10 @@ pub(super) enum Definition {
         power: u32,
         toughness: u32,
     },
+    Token,
+    TokenSorcery {
+        cost: ManaCost,
+    },
     Instant {
         cost: ManaCost,
         effect: InstantEffect,
@@ -33,7 +37,9 @@ pub(super) enum Definition {
 impl Definition {
     pub(super) fn cost(self) -> Option<ManaCost> {
         match self {
-            Self::VanillaCreature { cost, .. } | Self::Instant { cost, .. } => Some(cost),
+            Self::VanillaCreature { cost, .. }
+            | Self::Instant { cost, .. }
+            | Self::TokenSorcery { cost } => Some(cost),
             _ => None,
         }
     }
@@ -45,6 +51,7 @@ impl Definition {
     }
     pub(super) fn creature_base(self) -> Option<(u32, u32)> {
         match self {
+            Self::Token => Some((1, 1)),
             Self::VanillaCreature {
                 power, toughness, ..
             }
@@ -59,7 +66,7 @@ impl Definition {
         }
     }
     pub(super) fn vanilla(self) -> bool {
-        matches!(self, Self::VanillaCreature { .. })
+        matches!(self, Self::VanillaCreature { .. } | Self::Token)
     }
 }
 
@@ -67,6 +74,13 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "goblin-token" => Definition::Token,
+        "dragon-fodder" => Definition::TokenSorcery {
+            cost: ManaCost {
+                colored: [0, 0, 0, 1, 0, 0],
+                generic: 1,
+            },
+        },
         "forest" => Definition::BasicLand(Color::Green),
         "mountain" => Definition::BasicLand(Color::Red),
         "bear-cub" => Definition::VanillaCreature {

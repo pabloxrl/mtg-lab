@@ -1066,3 +1066,171 @@ fn cast_boundary_normal_reset_history_and_capture_fingerprint() {
         Sha256::digest(bytes)
     );
 }
+
+#[test]
+fn fodder_normal_reset_policy_capture_and_semantic_replay() {
+    // A frozen red mirror, with a declared legal post-shuffle order. No fixture
+    // object or mana injection: both lands and both spells are actually played.
+    let manifest: Value = serde_json::from_str(include_str!(
+        "../../../data/cards/foundations_micro_v1.json"
+    ))
+    .unwrap();
+    let mut order: Vec<String> = [
+        "mountain",
+        "mountain",
+        "dragon-fodder",
+        "dragon-fodder",
+        "mountain",
+        "mountain",
+        "mountain",
+    ]
+    .into_iter()
+    .map(String::from)
+    .collect();
+    for item in manifest["decks"][0]["cards"].as_array().unwrap() {
+        let key = item["card_id"].as_str().unwrap();
+        for _ in order.iter().filter(|x| x.as_str() == key).count()
+            ..item["copies"].as_u64().unwrap() as usize
+        {
+            order.push(key.into());
+        }
+    }
+    let cfg = Config {
+        seats: vec![
+            DeckConfig {
+                deck: "red".into(),
+                order: Some(order)
+            };
+            2
+        ],
+        ..Config::default()
+    };
+    let mut s = Script::new(&cfg);
+    s.send(Seat::P0, "keep_or_mulligan", vec![C::Keep], A::Committed);
+    s.send(Seat::P1, "keep_or_mulligan", vec![C::Keep], A::Committed);
+    // Empty attacks/blocks and priority are explicit; cleanup discards choose
+    // observed Mountain rows only, as required by the fixed script below.
+    fn idle(s: &mut Script) {
+        let seat = if s.on.observe(Seat::P0).unwrap().view.acting_seat == Some(0) {
+            Seat::P0
+        } else {
+            Seat::P1
+        };
+        let o = s.on.observe(seat).unwrap();
+        let d = o.decision.unwrap();
+        let choices = match d.kind {
+            "priority" => vec![C::Pass],
+            "attackers" | "blockers" | "combat_damage" => vec![C::FinishCombat],
+            "cleanup_discard" => o
+                .view
+                .hand
+                .iter()
+                .enumerate()
+                .filter(|(_, c)| c.card == "mountain")
+                .take(d.count)
+                .map(|(row, _)| C::Discard { card: hand(row) })
+                .collect(),
+            _ => panic!("unexpected decision {}", d.kind),
+        };
+        s.send(seat, d.kind, choices, A::Committed);
+    }
+    fn until(s: &mut Script, turn: u64) {
+        for _ in 0..160 {
+            if s.on.observe(Seat::P0).unwrap().view.turn == Some((turn, 0, "precombat_main")) {
+                return;
+            }
+            idle(s);
+        }
+        panic!("turn bound");
+    }
+    until(&mut s, 1);
+    let card = s.card(Seat::P0, "mountain");
+    s.send(
+        Seat::P0,
+        "priority",
+        vec![C::PlayLand { card }],
+        A::Committed,
+    );
+    until(&mut s, 3);
+    let card = s.card(Seat::P0, "mountain");
+    s.send(
+        Seat::P0,
+        "priority",
+        vec![C::PlayLand { card }],
+        A::Committed,
+    );
+    for (turn, prior) in [(3, 0), (5, 2)] {
+        until(&mut s, turn);
+        let card = s.card(Seat::P0, "dragon-fodder");
+        s.send(Seat::P0, "priority", vec![C::Cast { card }], A::Continuing);
+        for row in [0, 1] {
+            s.send(
+                Seat::P0,
+                "payment",
+                vec![C::TapMana { card: bf(row) }],
+                A::Continuing,
+            );
+            s.send(
+                Seat::P0,
+                "payment",
+                vec![C::Pay { color: 3 }],
+                A::Continuing,
+            );
+        }
+        s.send(Seat::P0, "payment", vec![C::FinishPayment], A::Committed);
+        let count = |s: &Script| {
+            s.on.observe(Seat::P0)
+                .unwrap()
+                .view
+                .public_zones
+                .iter()
+                .flat_map(|z| &z.cards)
+                .filter(|c| c.card == "goblin-token")
+                .count()
+        };
+        assert_eq!(count(&s), prior);
+        idle(&mut s);
+        assert_eq!(count(&s), prior);
+        idle(&mut s);
+        assert_eq!(count(&s), prior + 2);
+        let o = s.on.observe(Seat::P0).unwrap();
+        for c in o
+            .view
+            .public_zones
+            .iter()
+            .flat_map(|z| &z.cards)
+            .filter(|c| c.card == "goblin-token")
+        {
+            assert_eq!(c.creature, Some([1, 1, 0]));
+            assert!(!c.tapped);
+            assert_eq!((c.owner, c.controller), (0, 0));
+        }
+    }
+    let (result, rows) = s.finish_concession(Seat::P1);
+    check_seats(&result, &rows, [1, -1]);
+    let mut replay = mtg_core::game::Game::new().unwrap();
+    replay.reset(&cfg, 160, 0).unwrap();
+    for action in result.privileged_history() {
+        mtg_core::game::actions::apply(&mut replay, action, CAP).unwrap();
+        if replay.decision().is_none()
+            && replay.turn_position().is_none()
+            && replay.outcome().is_none()
+        {
+            replay.start_turns().unwrap();
+        }
+    }
+    assert_eq!(
+        normalized(&replay.snapshot()),
+        normalized(result.privileged_snapshot())
+    );
+    let mut result = result;
+    let mut registry = mtg_core::episode::replay::Registry::default();
+    let id = "45b374c9-a4db-44fe-a681-603c4055708a";
+    registry.register(id, &mut result).unwrap();
+    let bytes = registry.resolve(id, &result, |_, _| true).unwrap();
+    let verified = mtg_core::opening::replay::played::verify(bytes).unwrap();
+    assert_eq!(
+        normalized(&verified.snapshot()),
+        normalized(result.privileged_snapshot())
+    );
+}

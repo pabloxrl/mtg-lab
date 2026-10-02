@@ -431,6 +431,9 @@ impl Game {
                 .prepare_moves(&dead[i], Zone::Graveyard(seat))
                 .map_err(|e| CombatError::Turn(TurnError::Storage(e)))?;
         }
+        self.objects
+            .prepare_removals(dead[0].len() + dead[1].len())
+            .map_err(|e| CombatError::Turn(TurnError::Storage(e)))?;
         // Numeric bounds and every destination are preflighted before any work
         // is accepted. No command or policy observation is available until the
         // final Priority item; thus all marks are simultaneous in rules time.

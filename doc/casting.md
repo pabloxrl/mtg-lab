@@ -55,3 +55,6 @@ sources and creature candidates are dynamic vectors, never silently truncated.
 Run `cargo test -p mtg-core casting` and `./scripts/torture.sh` inside the managed
 container. [Acceptance evidence](evidence/casting/README.md) distinguishes normal
 reset sequences, synthetic cases, red/green results and reference limitations.
+
+Dragon Fodder also uses this 1R sorcery payment/timing path. It resolves into two
+Goblin tokens and moves to its owner’s graveyard; see [token acceptance](evidence/tokens/README.md).

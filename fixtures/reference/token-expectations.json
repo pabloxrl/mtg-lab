@@ -1,0 +1,57 @@
+{
+  "repeat": {
+    "tokens": 4,
+    "unique_created": 4,
+    "life": [
+      20,
+      20
+    ],
+    "pending_zero": true,
+    "one_one": true,
+    "grave_tokens": 0
+  },
+  "lethal": {
+    "tokens": 1,
+    "unique_created": 2,
+    "life": [
+      20,
+      20
+    ],
+    "pending_zero": true,
+    "one_one": true,
+    "grave_tokens": 0
+  },
+  "stale-growth": {
+    "tokens": 1,
+    "unique_created": 2,
+    "life": [
+      20,
+      20
+    ],
+    "pending_zero": true,
+    "one_one": true,
+    "grave_tokens": 0
+  },
+  "combat": {
+    "tokens": 1,
+    "unique_created": 2,
+    "life": [
+      20,
+      19
+    ],
+    "pending_zero": true,
+    "one_one": true,
+    "grave_tokens": 0
+  },
+  "growth-block": {
+    "tokens": 2,
+    "unique_created": 2,
+    "life": [
+      20,
+      20
+    ],
+    "pending_zero": true,
+    "one_one": true,
+    "grave_tokens": 0
+  }
+}

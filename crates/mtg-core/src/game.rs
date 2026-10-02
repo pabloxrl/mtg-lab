@@ -173,3 +173,7 @@ mod cast_boundary_tests;
 #[cfg(test)]
 #[path = "card_definition_tests.rs"]
 mod card_definition_tests;
+
+#[cfg(test)]
+#[path = "token_tests.rs"]
+mod token_tests;

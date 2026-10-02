@@ -319,6 +319,9 @@ impl Game {
                 .prepare_moves(&moves[i], Zone::Graveyard(seat))
                 .map_err(TurnError::Storage)?;
         }
+        self.objects
+            .prepare_removals(usize::from(dead.is_some()))
+            .map_err(TurnError::Storage)?;
         self.turns
             .modifications
             .try_reserve(1)

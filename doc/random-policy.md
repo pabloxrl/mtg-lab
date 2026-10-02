@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-m1-v1` pins decision sampling and supported content;
+`VERSION = legal-random-tokens-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -67,7 +67,7 @@ passes may delay progress; the caller must impose and account for external limit
 All current M1 decision families are handled: keep/mulligan, ordered bottoming,
 priority, lands and mana, staged target/payment/finish/cancel choices, attacker
 subsets, blocker mappings, modern vanilla damage allocation, and cleanup discard.
-Supported casts are Bear Cub, Swab Goblin, Giant Growth and Bite Down; land/mana
+Supported casts are Bear Cub, Swab Goblin, Giant Growth, Bite Down and Dragon Fodder; land/mana
 sources are Forest and Mountain. A newly enabled cast/land/mana candidate outside
 that list fails with `UnsupportedContent`, including when pass is also legal.
 Unknown decision kinds or enabled unsupported commands fail explicitly.
@@ -93,3 +93,6 @@ regressions are also discovered by `./scripts/torture.sh` in debug and release.
 selection vectors, reachable forced scripts and uninterrupted seeded games.
 Original #21 integration/catalog acceptance remains with its owner; M1 is not
 complete until #22. M2–M5 requirements remain unchanged.
+
+The token-capable version supersedes `legal-random-m1-v1`; the old ID rejects
+explicitly. Sampling rules are unchanged, but the legal content domain expanded.

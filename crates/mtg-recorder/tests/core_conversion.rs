@@ -207,3 +207,134 @@ fn legacy_conversion_preserves_statistics_truncations_and_quarantine() {
         ));
     }
 }
+
+#[test]
+fn played_fodder_tokens_survive_typed_conversion_and_jsonl_roundtrip() {
+    use mtg_core::game::policy::VisibleZone;
+    let run = Run {
+        id: "a34c952c-723c-44ef-95f9-dcdb066db576".into(),
+        config: Config::default(),
+        policies: ["fodder-only".into(), "fodder-only".into()],
+        limits: Limits::default(),
+        first_ordinal: 0,
+        started: 1,
+    };
+    let mut d = Driver::new(256).unwrap();
+    d.reset_captured(
+        &run.config,
+        194,
+        0,
+        NonZeroUsize::MIN,
+        &run.header(0).unwrap(),
+    )
+    .unwrap();
+    let mut seen = false;
+    for _ in 0..800 {
+        while d.advance(NonZeroUsize::MIN).unwrap() == mtg_core::episode::Progress::InternalYield {}
+        let v = d.observe(Seat::P0).unwrap().view;
+        let token_count = v
+            .public_zones
+            .iter()
+            .flat_map(|z| &z.cards)
+            .filter(|c| c.card == "goblin-token")
+            .count();
+        if token_count == 2 {
+            seen = true;
+            break;
+        }
+        assert_eq!(token_count, 0);
+        let seat = if v.acting_seat == Some(0) {
+            Seat::P0
+        } else {
+            Seat::P1
+        };
+        let o = d.observe(seat).unwrap();
+        let decision = o.decision.unwrap();
+        let legal: Vec<_> = decision
+            .candidates
+            .iter()
+            .zip(&decision.legal_mask)
+            .filter(|(_, mask)| **mask)
+            .map(|(c, _)| c.clone())
+            .collect();
+        let choices = match decision.kind {
+            "keep_or_mulligan" => vec![Choice::Keep],
+            "priority" => {
+                let selected=legal.iter().find(|c|matches!(c,Choice::PlayLand{..}))
+                    .or_else(||legal.iter().find(|c|matches!(c,Choice::Cast{card} if o.view.hand[card.row].card=="dragon-fodder")))
+                    .cloned().unwrap_or(Choice::Pass);
+                vec![selected]
+            }
+            "payment" => {
+                let c = legal
+                    .iter()
+                    .find(|c| matches!(c, Choice::FinishPayment))
+                    .or_else(|| legal.iter().find(|c| matches!(c, Choice::Pay { .. })))
+                    .or_else(|| legal.iter().find(|c| matches!(c, Choice::TapMana { .. })))
+                    .unwrap()
+                    .clone();
+                vec![c]
+            }
+            "attackers" | "blockers" | "combat_damage" => vec![Choice::FinishCombat],
+            "cleanup_discard" => o
+                .view
+                .hand
+                .iter()
+                .enumerate()
+                .take(decision.count)
+                .map(|(row, _)| Choice::Discard {
+                    card: mtg_core::game::policy::VisibleRef {
+                        zone: VisibleZone::Hand,
+                        row,
+                    },
+                })
+                .collect(),
+            k => panic!("unscripted {k}"),
+        };
+        d.submit(
+            seat,
+            &Submission {
+                schema_version: 1,
+                revision: decision.revision,
+                generation: decision.generation,
+                choices,
+            },
+        )
+        .unwrap();
+    }
+    assert!(
+        seen,
+        "seed 194 must actually resolve Fodder within the bound"
+    );
+    d.concede(Seat::P1, d.episode_id().unwrap()).unwrap();
+    let result = d.finish().unwrap();
+    let original = result.trajectory().unwrap();
+    let converted = from_core_v2(original).unwrap();
+    // Wire serializers omit absent optionals; compare against the former
+    // serde boundary in its wire type, preserving that documented normalization.
+    let legacy: mtg_recorder::structured::Episode =
+        serde_json::from_value(serde_json::to_value(original).unwrap()).unwrap();
+    assert_eq!(converted, legacy);
+    let mut w = Writer::new_v2(Vec::new(), 2_000_000, Backpressure::Block).unwrap();
+    w.append_v2(&converted).unwrap();
+    let bytes = w.finish().unwrap();
+    let loaded = read_v2(bytes.as_slice(), 2_000_000).unwrap();
+    assert_eq!(loaded[0], converted);
+    let footer = original.footer().unwrap();
+    assert_eq!(footer.returns, [1, -1]);
+    for observation in &footer.final_observations {
+        let tokens: Vec<_> = observation
+            .view
+            .public_zones
+            .iter()
+            .flat_map(|z| &z.cards)
+            .filter(|c| c.card == "goblin-token")
+            .collect();
+        assert_eq!(tokens.len(), 2);
+        for token in tokens {
+            assert_eq!(token.creature, Some([1, 1, 0]));
+            assert!(token.summoning_sick);
+            assert!(!token.tapped);
+        }
+    }
+}
