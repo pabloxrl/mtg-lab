@@ -99,3 +99,14 @@ positive selection tests remain. The reviewer also identified a stale README
 limitation, corrected to reference creature mana support. Both findings are
 retained in the final PR review history; the revised candidate requires a fresh
 review and full torture pass.
+
+The next complete run exposed the collector audit's old literal expectation that
+Elf/Druid have no creature characteristics. Its independent expected-card table
+now uses the pinned 1/1 and 1/3 bodies in hand and public zones, preserving every
+full observation, mask, reward, replay and publication assertion. No output is
+regenerated from the engine. After three integration repair/review cycles, the
+diagnosis is stale explicit supported-content assumptions: policy admission,
+unsupported-card rejection, and collector characteristics. Searches of the
+remaining literal characteristic tables found no other such table. The revised
+plan is to retain these focused reproductions, rerun independent review of the
+expectation correction, and run the complete unchanged torture entry point.

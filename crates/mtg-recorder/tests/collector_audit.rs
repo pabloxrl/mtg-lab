@@ -75,11 +75,12 @@ fn hand(row: usize) -> VisibleRef {
         row,
     }
 }
-// Frozen card manifest: Cub is 2/2 and Sentry is 4/4. The documented M1
-// view exposes these implemented characteristics even outside the battlefield.
+// Frozen card manifest: Cub 2/2, Elf 1/1, Druid 1/3, Sentry 4/4.
+// GH-195 extends implemented characteristics in every visible zone; retain
+// the independent full-field ledger instead of deriving expected views.
 fn card(key: &str, s: usize) -> Value {
     json!({"card":key,"owner":s,"controller":s,"tapped":false,
-        "creature":match key {"bear-cub"=>json!([2,2,0]),"magnigoth-sentry"=>json!([4,4,0]),_=>Value::Null},"summoning_sick":false})
+        "creature":match key {"bear-cub"=>json!([2,2,0]),"llanowar-elves"=>json!([1,1,0]),"druid-of-the-cowl"=>json!([1,3,0]),"magnigoth-sentry"=>json!([4,4,0]),_=>Value::Null},"summoning_sick":false})
 }
 fn normalized(bytes: &[u8]) -> Value {
     fn scrub(v: &mut Value) {
