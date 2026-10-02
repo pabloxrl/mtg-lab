@@ -69,9 +69,7 @@ impl Game {
         self.decision = None;
         self.work.clear();
         self.turns.decision = None;
-        self.turns.payment = None;
-        self.turns.targeting = None;
-        self.turns.casting = None;
+        self.clear_cast_choices();
         result
     }
     /// All simultaneous loss conditions are collected before choosing a winner.

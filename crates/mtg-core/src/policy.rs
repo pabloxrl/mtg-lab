@@ -213,21 +213,22 @@ impl Game {
             .turns
             .targeting
             .as_ref()
-            .filter(|t| t.decision.actor == seat)
+            .filter(|t| t.decision().actor == seat)
         {
-            (t.card, t.selected.clone(), vec![])
+            (t.card(), t.selected().to_vec(), vec![])
         } else {
-            let c = self
-                .turns
-                .casting
-                .as_ref()
-                .filter(|_| self.turns.payment.as_ref().is_some_and(|p| p.actor == seat))?;
-            let targets = match c.effect {
+            let c = self.turns.casting.as_ref().filter(|_| {
+                self.turns
+                    .payment
+                    .as_ref()
+                    .is_some_and(|p| p.actor() == seat)
+            })?;
+            let targets = match c.effect() {
                 Some(targets::Effect::Growth(a)) => vec![a],
                 Some(targets::Effect::Bite(a, b)) => vec![a, b],
                 None => vec![],
             };
-            (c.card, targets, c.sources.clone())
+            (c.card(), targets, c.sources().to_vec())
         };
         Some(PendingSpell {
             card: VisibleRef {
@@ -242,8 +243,8 @@ impl Game {
                 .into_iter()
                 .map(|h| self.policy_battlefield_ref(h))
                 .collect(),
-            pool: self.turns.payment.as_ref().map(|p| p.pool),
-            remaining: self.turns.payment.as_ref().map(|p| p.remaining),
+            pool: self.turns.payment.as_ref().map(|p| p.pool()),
+            remaining: self.turns.payment.as_ref().map(|p| p.remaining()),
         })
     }
 
@@ -260,13 +261,13 @@ impl Game {
                 self.turns
                     .targeting
                     .as_ref()
-                    .map(|t| (t.decision.actor, t.decision.id.generation))
+                    .map(|t| (t.decision().actor, t.decision().id.generation))
             })
             .or_else(|| {
                 self.turns
                     .payment
                     .as_ref()
-                    .map(|p| (p.actor, p.id.generation))
+                    .map(|p| (p.actor(), p.id().generation))
             })
             .or_else(|| self.turn_decision().map(|d| (d.actor, d.id.generation)))
     }
@@ -360,11 +361,8 @@ impl Game {
                     p.choices.contains(&mana::Color::ALL[usize::from(color)]),
                 )?;
             }
-            let remaining = self.turns.payment.as_ref().expect("payment").remaining;
-            push(
-                Choice::FinishPayment,
-                remaining.generic == 0 && remaining.colored == [0; 6],
-            )?;
+            let is_paid = self.turns.payment.as_ref().expect("payment").is_paid();
+            push(Choice::FinishPayment, is_paid)?;
             if self.turns.casting.is_some() {
                 let sources = self.cast_mana_sources(seat);
                 for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {

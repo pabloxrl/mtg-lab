@@ -6,6 +6,8 @@ use crate::objects::{CardId, Handle, ObjectStore, Seat, StorageError, Zone};
 use crate::rng::{EpisodeRng, Stream, VERSION};
 use std::{collections::VecDeque, num::NonZeroUsize};
 
+#[path = "cast_state.rs"]
+mod cast_state;
 #[path = "casting.rs"]
 pub mod casting;
 #[path = "combat.rs"]
@@ -161,3 +163,7 @@ mod trajectory_v2_tests;
 #[cfg(test)]
 #[path = "episode_capture_tests.rs"]
 mod episode_capture_tests;
+
+#[cfg(test)]
+#[path = "cast_boundary_tests.rs"]
+mod cast_boundary_tests;

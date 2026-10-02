@@ -1,7 +1,7 @@
 //! Private factored target selection and the M1 Growth/Bite effects.
-use super::casting::{CastError, PendingCast};
-use super::mana::{Payment, PaymentDecision};
-use super::turns::{TurnDecision, TurnError, TurnKind};
+use super::casting::CastError;
+use super::mana::PaymentDecision;
+use super::turns::{TurnDecision, TurnError};
 use super::*;
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TargetKind {
@@ -26,13 +26,7 @@ pub enum TargetError {
     IllegalTarget,
     CapacityExceeded { needed: usize, capacity: usize },
 }
-#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
-pub(super) struct Targeting {
-    pub(super) card: Handle,
-    pub(super) decision: TargetDecision,
-    pub(super) selected: Vec<Handle>,
-    pub(super) destinations: Vec<Handle>,
-}
+pub(super) use super::cast_state::Targeting;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct CreatureState {
     pub power: u32,
@@ -149,21 +143,15 @@ impl Game {
             },
             choices,
         };
-        self.turns.targeting = Some(Targeting {
-            card,
-            decision: d.clone(),
-            selected: vec![],
-            destinations,
-        });
-        self.generation = generation;
+        self.start_targeting(card, d.clone(), destinations);
         Ok(d)
     }
     pub fn target_decision(&self, actor: Seat) -> Option<TargetDecision> {
         self.turns
             .targeting
             .as_ref()
-            .filter(|t| t.decision.actor == actor)
-            .map(|t| t.decision.clone())
+            .filter(|t| t.decision().actor == actor)
+            .map(|t| t.decision().clone())
     }
     fn validate_targets(&self, actor: Seat, id: DecisionId) -> Result<&Targeting, TargetError> {
         let t = self
@@ -171,10 +159,10 @@ impl Game {
             .targeting
             .as_ref()
             .ok_or(TargetError::NoTargets)?;
-        if actor != t.decision.actor {
+        if actor != t.decision().actor {
             return Err(TargetError::Invalid(ApplyError::WrongActor));
         }
-        if id != t.decision.id {
+        if id != t.decision().id {
             return Err(TargetError::Invalid(ApplyError::StaleDecision));
         }
         Ok(t)
@@ -195,24 +183,13 @@ impl Game {
         h: Handle,
     ) -> Result<TargetDecision, TargetError> {
         let t = self.validate_targets(actor, id)?;
-        if !t.decision.choices.contains(&h) || !self.legal_target(actor, t.decision.kind, h) {
+        if !t.decision().choices.contains(&h) || !self.legal_target(actor, t.decision().kind, h) {
             return Err(TargetError::IllegalTarget);
         }
         let generation = self
             .next_mana_generation()
             .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
-        let t = self.turns.targeting.as_mut().unwrap();
-        t.selected.push(h);
-        if t.decision.kind == TargetKind::BiteSource {
-            t.decision.kind = TargetKind::BiteDestination;
-            t.decision.choices = t.destinations.clone();
-        } else {
-            t.decision.kind = TargetKind::Complete;
-            t.decision.choices.clear();
-        }
-        t.decision.id.generation = generation;
-        self.generation = generation;
-        Ok(t.decision.clone())
+        Ok(self.select_cast_target(h, generation))
     }
     pub fn cancel_targets(
         &mut self,
@@ -223,9 +200,7 @@ impl Game {
         let generation = self
             .next_mana_generation()
             .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
-        self.turns.targeting = None;
-        self.generation = generation;
-        Ok(self.set_turn_decision(actor, TurnKind::Priority))
+        Ok(self.cancel_cast_targets(actor, generation))
     }
     pub fn finish_targets(
         &mut self,
@@ -233,10 +208,10 @@ impl Game {
         id: DecisionId,
     ) -> Result<PaymentDecision, TargetError> {
         let t = self.validate_targets(actor, id)?;
-        if t.decision.kind != TargetKind::Complete {
+        if t.decision().kind != TargetKind::Complete {
             return Err(TargetError::MissingTargets);
         }
-        let card = t.card;
+        let card = t.card();
         let c = self
             .objects
             .get(card)
@@ -244,12 +219,12 @@ impl Game {
         if c.zone != Zone::Hand(actor) {
             return Err(TargetError::IllegalTarget);
         }
-        let effect = match t.selected.as_slice() {
+        let effect = match t.selected() {
             [a] => Effect::Growth(*a),
             [a, b] => Effect::Bite(*a, *b),
             _ => return Err(TargetError::MissingTargets),
         };
-        if self.legal_effect_targets(actor, effect) != t.selected.len() {
+        if self.legal_effect_targets(actor, effect) != t.selected().len() {
             return Err(TargetError::IllegalTarget);
         }
         let remaining =
@@ -257,25 +232,7 @@ impl Game {
         let generation = self
             .next_mana_generation()
             .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
-        let p = Payment {
-            actor,
-            id: DecisionId {
-                scope: self.objects.scope(),
-                generation,
-            },
-            remaining,
-            pool: self.turns.mana[seat_index(actor)],
-        };
-        let d = p.decision();
-        self.turns.payment = Some(p);
-        self.turns.casting = Some(PendingCast {
-            card,
-            sources: vec![],
-            effect: Some(effect),
-        });
-        self.turns.targeting = None;
-        self.generation = generation;
-        Ok(d)
+        Ok(self.start_cast_payment(actor, generation, card, remaining, Some(effect)))
     }
     pub fn stack_targets(&self, h: Handle) -> Option<Vec<Handle>> {
         self.turns

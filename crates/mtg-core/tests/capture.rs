@@ -1045,3 +1045,24 @@ fn check_authorized_replay(mut result: mtg_core::episode::EpisodeResult) {
         Err(Error::Unknown)
     );
 }
+
+#[test]
+fn cast_boundary_normal_reset_history_and_capture_fingerprint() {
+    use sha2::{Digest, Sha256};
+    // Runs the existing literal CR ledger, its rejection/nonmutation checks,
+    // capture on/off equality and semantic replay before recording a comparison
+    // digest. The digest is extraction evidence, never a rules oracle.
+    let result = played_combat(header());
+    let e = result.trajectory().unwrap();
+    let bytes = serde_json::to_vec(&json!({
+        "history": result.privileged_history(),
+        "decisions": e.decisions(),
+        "footer": e.footer(),
+        "state": normalized(result.privileged_snapshot()),
+    }))
+    .unwrap();
+    println!(
+        "cast-boundary played ledger SHA256 {:x}",
+        Sha256::digest(bytes)
+    );
+}

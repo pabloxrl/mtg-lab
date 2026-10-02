@@ -48,38 +48,7 @@ pub enum ManaError {
     NoPayment,
     Overflow,
 }
-#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
-pub(super) struct Payment {
-    pub(super) actor: Seat,
-    pub(super) id: DecisionId,
-    pub(super) remaining: ManaCost,
-    pub(super) pool: [u32; 6],
-}
-impl Payment {
-    fn choices(&self) -> Vec<Color> {
-        if let Some(i) = self.remaining.colored.iter().position(|&n| n > 0) {
-            if self.pool[i] > 0 {
-                vec![Color::ALL[i]]
-            } else {
-                vec![]
-            }
-        } else if self.remaining.generic > 0 {
-            Color::ALL
-                .into_iter()
-                .filter(|c| self.pool[c.index()] > 0)
-                .collect()
-        } else {
-            vec![]
-        }
-    }
-    pub(super) fn decision(&self) -> PaymentDecision {
-        PaymentDecision {
-            id: self.id,
-            actor: self.actor,
-            choices: self.choices(),
-        }
-    }
-}
+pub(super) use super::cast_state::Payment;
 pub(super) fn basic_color(card: CardId) -> Option<Color> {
     match card.identity().key {
         "forest" => Some(Color::Green),
@@ -207,25 +176,13 @@ impl Game {
             return Err(ManaError::InsufficientMana);
         }
         let generation = self.next_mana_generation()?;
-        self.generation = generation;
-        let p = Payment {
-            actor,
-            id: DecisionId {
-                scope: self.objects.scope(),
-                generation,
-            },
-            remaining: cost,
-            pool,
-        };
-        let d = p.decision();
-        self.turns.payment = Some(p);
-        Ok(d)
+        Ok(self.start_payment(actor, generation, cost))
     }
     pub fn payment_decision(&self, actor: Seat) -> Option<PaymentDecision> {
         self.turns
             .payment
             .as_ref()
-            .filter(|p| p.actor == actor)
+            .filter(|p| p.actor() == actor)
             .map(Payment::decision)
     }
     pub(super) fn validate_payment(
@@ -234,10 +191,10 @@ impl Game {
         id: DecisionId,
     ) -> Result<&Payment, ManaError> {
         let p = self.turns.payment.as_ref().ok_or(ManaError::NoPayment)?;
-        if actor != p.actor {
+        if actor != p.actor() {
             return Err(invalid(ApplyError::WrongActor));
         }
-        if id != p.id {
+        if id != p.id() {
             return Err(invalid(ApplyError::StaleDecision));
         }
         Ok(p)
@@ -257,17 +214,7 @@ impl Game {
             return Err(ManaError::IllegalPayment);
         }
         let generation = self.next_mana_generation()?;
-        let p = self.turns.payment.as_mut().unwrap();
-        let i = color.index();
-        p.pool[i] -= 1;
-        if p.remaining.colored[i] > 0 {
-            p.remaining.colored[i] -= 1;
-        } else {
-            p.remaining.generic -= 1;
-        }
-        p.id.generation = generation;
-        self.generation = generation;
-        Ok(p.decision())
+        Ok(self.spend_payment_unit(color, generation))
     }
     /// Discard provisional choices. Previously activated mana abilities remain real.
     pub fn cancel_payment(
@@ -277,10 +224,7 @@ impl Game {
     ) -> Result<TurnDecision, ManaError> {
         self.validate_payment(actor, id)?;
         let generation = self.next_mana_generation()?;
-        self.turns.payment = None;
-        self.turns.casting = None;
-        self.generation = generation;
-        Ok(self.set_turn_decision(actor, TurnKind::Priority))
+        Ok(self.cancel_cast_payment(actor, generation))
     }
     /// Commit the complete payment exactly once. No response window is introduced.
     /// The casting layer must join this with its own preflighted commit, without
@@ -294,23 +238,6 @@ impl Game {
             return Err(ManaError::PaymentPending);
         }
         self.commit_payment(actor, id)
-    }
-    pub(super) fn commit_payment(
-        &mut self,
-        actor: Seat,
-        id: DecisionId,
-    ) -> Result<TurnDecision, ManaError> {
-        let p = self.validate_payment(actor, id)?;
-        if p.remaining.generic > 0 || p.remaining.colored.iter().any(|&n| n > 0) {
-            return Err(ManaError::IllegalPayment);
-        }
-        let pool = p.pool;
-        let generation = self.next_mana_generation()?;
-        self.turns.mana[seat_index(actor)] = pool;
-        self.turns.payment = None;
-        self.turns.passed = false;
-        self.generation = generation;
-        Ok(self.set_turn_decision(actor, TurnKind::Priority))
     }
 }
 
