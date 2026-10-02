@@ -1,0 +1,11 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-133/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-133/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.76s
+     Running tests/core_conversion.rs (target/debug/deps/core_conversion-ad19fadec9065de5)
+
+running 2 tests
+test legacy_conversion_preserves_statistics_truncations_and_quarantine ... ok
+test played_conversion_preserves_bytes_statistics_and_incomplete_error ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+

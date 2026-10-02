@@ -84,7 +84,10 @@ targets, mana and combat. Frozen identities/hashes and unsupported-content error
 remain unchanged; the existing synthetic Sentry characteristics do not grant
 play support. [Compatibility evidence](doc/evidence/card-definitions/README.md)
 covers the manifest, rejection boundaries and unchanged played history/capture.
-Explicit recorder conversion remains a tracked refactor.
+The recorder uses [explicit typed conversions](crates/mtg-recorder/src/conversion.rs)
+from authorized core records into its owned v1/v2 wire contracts. Wire validators
+retain validation ownership; [compatibility evidence](doc/evidence/recorder-conversion/README.md)
+covers canonical bytes, optional statistics and failure handling.
 
 ## Quickstart: run the checks
 

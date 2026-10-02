@@ -364,6 +364,16 @@ impl Recorder {
     }
 }
 impl Episode {
+    /// Immutable serialized convention; storage adapters must preserve it.
+    pub fn reward_convention(&self) -> &RewardConvention {
+        &self.reward_convention
+    }
+    pub fn discount_convention(&self) -> &DiscountConvention {
+        &self.discount_convention
+    }
+    pub fn capture_selection(&self) -> &CaptureSelection {
+        &self.capture_selection
+    }
     pub fn header(&self) -> &Header {
         &self.header
     }
