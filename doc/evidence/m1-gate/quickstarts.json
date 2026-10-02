@@ -1,0 +1,66 @@
+[
+  {
+    "command": [
+      "target/debug/mtg",
+      "simulate",
+      "--config",
+      "fixtures/simulate/pass-v1.json"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.003933629981474951,
+    "stdout": "quickstart-0.jsonl",
+    "stderr": "quickstart-0.stderr"
+  },
+  {
+    "command": [
+      "target/debug/mtg",
+      "simulate",
+      "--config",
+      "fixtures/simulate/script-v3.json"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.5794387289788574,
+    "stdout": "quickstart-1.jsonl",
+    "stderr": "quickstart-1.stderr"
+  },
+  {
+    "command": [
+      "target/debug/mtg",
+      "simulate",
+      "--config",
+      "fixtures/simulate/native-v2.json"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.87660412400146,
+    "stdout": "quickstart-2.jsonl",
+    "stderr": "quickstart-2.stderr"
+  },
+  {
+    "command": [
+      "target/debug/mtg",
+      "bench",
+      "--workload",
+      "native-rollout-v1",
+      "--config",
+      "fixtures/simulate/native-v2.json"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 2.836525802995311,
+    "stdout": "quickstart-3.jsonl",
+    "stderr": "quickstart-3.stderr"
+  },
+  {
+    "command": [
+      "target/debug/mtg",
+      "trajectories",
+      "validate",
+      "crates/mtg-recorder/tests/episode.jsonl",
+      "--manifest",
+      "crates/mtg-recorder/tests/manifest.json"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.001771498005837202,
+    "stdout": "quickstart-4.jsonl",
+    "stderr": "quickstart-4.stderr"
+  }
+]

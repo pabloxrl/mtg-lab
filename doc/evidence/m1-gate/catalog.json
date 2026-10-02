@@ -1,0 +1,1339 @@
+{
+  "note": "Exact stable-ID traceability to unchanged tests and reports, not a standalone execution result. Full torture executes normal-discovery suites; report-only locations map these IDs to named tests. Original expected outcomes retained from the reviewed catalog.",
+  "cases": [
+    {
+      "id": "rules-setup-mulligan-bottom-positive",
+      "owner_issue": 65,
+      "category": "positive",
+      "expected": "P0 has six cards and Mountain is last in library",
+      "independent_basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-mulligan-bottom-negative",
+      "owner_issue": 65,
+      "category": "negative",
+      "expected": "Reject wrong cardinality without changing hand, library or RNG",
+      "independent_basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-mulligan-bottom-interaction",
+      "owner_issue": 65,
+      "category": "interaction",
+      "expected": "P0 has five cards; bottom order preserved; P1 hand unchanged",
+      "independent_basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-mulligan-bottom-regression",
+      "owner_issue": 65,
+      "category": "regression",
+      "expected": "Draw seven and bottom two; never defer all bottoming until final keep",
+      "independent_basis": "CR 103.5: each mulligan redraws seven then bottoms cumulative mulligan count before next declaration. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-first-draw-positive",
+      "owner_issue": 67,
+      "category": "positive",
+      "expected": "P0 still has seven cards before any other draw",
+      "independent_basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-first-draw-negative",
+      "owner_issue": 67,
+      "category": "negative",
+      "expected": "P1 draws one; cannot skip both players first draws",
+      "independent_basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-first-draw-interaction",
+      "owner_issue": 67,
+      "category": "interaction",
+      "expected": "P1 skips; P0 draws known eighth card",
+      "independent_basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-first-draw-regression",
+      "owner_issue": 67,
+      "category": "regression",
+      "expected": "P0 draws exactly one; skip flag does not persist",
+      "independent_basis": "CR 103.8a: in two-player play the starting player skips their first draw step. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-deterministic-reset-positive",
+      "owner_issue": 65,
+      "category": "positive",
+      "expected": "Hands, ordered internal libraries and next decisions match",
+      "independent_basis": "RFC 0001 UC1 and RFC 0002 \u00a74 state/RNG contract: reset is reproducible from configuration and seed. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-deterministic-reset-negative",
+      "owner_issue": 72,
+      "category": "negative",
+      "expected": "Diagnosed invalid configuration; existing game and RNG unchanged",
+      "independent_basis": "RFC 0001 UC1 and RFC 0002 \u00a74 state/RNG contract: reset is reproducible from configuration and seed. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-deterministic-reset-interaction",
+      "owner_issue": 65,
+      "category": "interaction",
+      "expected": "Replacement shuffle and bottomed library match",
+      "independent_basis": "RFC 0001 UC1 and RFC 0002 \u00a74 state/RNG contract: reset is reproducible from configuration and seed. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-deterministic-reset-regression",
+      "owner_issue": 65,
+      "category": "regression",
+      "expected": "Prior RNG consumption cannot alter reset result",
+      "independent_basis": "RFC 0001 UC1 and RFC 0002 \u00a74 state/RNG contract: reset is reproducible from configuration and seed. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-ordered-draw-positive",
+      "owner_issue": 65,
+      "category": "positive",
+      "expected": "Forest enters hand; Bear Cub becomes top",
+      "independent_basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-ordered-draw-negative",
+      "owner_issue": 65,
+      "category": "negative",
+      "expected": "Reject non-choice; top order unchanged",
+      "independent_basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-ordered-draw-regression",
+      "owner_issue": 65,
+      "category": "regression",
+      "expected": "Final draws are Mountain then Swab Goblin",
+      "independent_basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-library-privacy-positive",
+      "owner_issue": 73,
+      "category": "positive",
+      "expected": "Only permitted count is exposed; no library card identities",
+      "independent_basis": "RFC 0001 player-knowledge principle; RFC 0002 \u00a77 privacy metamorphism; CR 401 hidden library. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/views/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-library-privacy-negative",
+      "owner_issue": 73,
+      "category": "negative",
+      "expected": "Byte-equivalent authorized content/order; no identity oracle",
+      "independent_basis": "RFC 0001 player-knowledge principle; RFC 0002 \u00a77 privacy metamorphism; CR 401 hidden library. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/views/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-library-privacy-interaction",
+      "owner_issue": 73,
+      "category": "interaction",
+      "expected": "Same hand/library counts and public state; identities remain hidden",
+      "independent_basis": "RFC 0001 player-knowledge principle; RFC 0002 \u00a77 privacy metamorphism; CR 401 hidden library. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/views/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-library-privacy-regression",
+      "owner_issue": 19,
+      "category": "regression",
+      "expected": "Snapshot private identities do not appear in player-visible logs",
+      "independent_basis": "RFC 0001 player-knowledge principle; RFC 0002 \u00a77 privacy metamorphism; CR 401 hidden library. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-passing-positive",
+      "owner_issue": 67,
+      "category": "positive",
+      "expected": "First pass gives P1 priority; second advances to beginning combat",
+      "independent_basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-passing-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject; pass count and stack unchanged",
+      "independent_basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-passing-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Only Bite Down resolves; Growth remains",
+      "independent_basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-passing-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Growth resolves; old pass before cast did not count",
+      "independent_basis": "CR 117.3d and 117.4: consecutive passes transfer priority and resolve only top stack item or end step. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-post-cast-resolution-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Growth waits on stack; P0 retains priority",
+      "independent_basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-post-cast-resolution-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject wrong actor; no automatic priority transfer",
+      "independent_basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-post-cast-resolution-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "P0 receives priority after resolution",
+      "independent_basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-post-cast-resolution-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Priority belongs to active P0, not last caster",
+      "independent_basis": "CR 117.3b/c: caster keeps priority after casting; active player receives it after resolution. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-response-chain-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "P1 Cub is 5/5 with two damage; P0 Cub undamaged",
+      "independent_basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-response-chain-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject unavailable action; order unchanged",
+      "independent_basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-response-chain-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Both Cubs 5/5 before Bite; P1 Cub dies to five damage",
+      "independent_basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-response-chain-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Remaining stack stays pending until P1 also passes",
+      "independent_basis": "CR 117.4 and 608: stack resolves last-in-first-out, one object per pass round. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-response-window-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Opponent can cast Growth before Bite resolves",
+      "independent_basis": "CR 117 and RFC 0002 \u00a74 atomic choices: retain legal response windows but none inside costs/resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-response-window-regression",
+      "owner_issue": 18,
+      "category": "regression",
+      "expected": "Priority exists after both declarations, never between damage assignment and simultaneous damage",
+      "independent_basis": "CR 117 and RFC 0002 \u00a74 atomic choices: retain legal response windows but none inside costs/resolution. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-mana-rejection-positive",
+      "owner_issue": 69,
+      "category": "positive",
+      "expected": "Cub on stack; both mana spent",
+      "independent_basis": "CR 601.2f-h and 118: pay complete cost with required colors. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-mana-rejection-negative",
+      "owner_issue": 69,
+      "category": "negative",
+      "expected": "Reject missing G; hand/mana/priority unchanged",
+      "independent_basis": "CR 601.2f-h and 118: pay complete cost with required colors. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-generic-payment-positive",
+      "owner_issue": 69,
+      "category": "positive",
+      "expected": "One G remains",
+      "independent_basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-generic-payment-negative",
+      "owner_issue": 69,
+      "category": "negative",
+      "expected": "Reject double-spent resource atomically",
+      "independent_basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-generic-payment-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Only R remains; Growth unavailable",
+      "independent_basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-generic-payment-regression",
+      "owner_issue": 69,
+      "category": "regression",
+      "expected": "Other Forest remains untapped; no automatic substitution",
+      "independent_basis": "CR 107.4b and 601.2h: generic portions accept any mana; chosen resources remain distinguishable. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-atomic-rejection-positive",
+      "owner_issue": 69,
+      "category": "positive",
+      "expected": "One spell committed and exact payment deducted",
+      "independent_basis": "RFC 0001 boundary legality; RFC 0002 \u00a74: invalid actions preserve state, RNG, decisions and privacy. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-atomic-rejection-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Neither resources nor targets mutate",
+      "independent_basis": "RFC 0001 boundary legality; RFC 0002 \u00a74: invalid actions preserve state, RNG, decisions and privacy. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-costs-atomic-rejection-regression",
+      "owner_issue": 69,
+      "category": "regression",
+      "expected": "No stranded tap, discard, RNG advance or stale continuation from rejected cast",
+      "independent_basis": "RFC 0001 boundary legality; RFC 0002 \u00a74: invalid actions preserve state, RNG, decisions and privacy. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-controller-restrictions-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Legal; opposing Cub receives two damage and dies",
+      "independent_basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-controller-restrictions-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject destination controller restriction",
+      "independent_basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-controller-restrictions-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Legal; opponent Cub becomes 5/5",
+      "independent_basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-controller-restrictions-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Reject opposing source even if damage destination is own",
+      "independent_basis": "Bite Down pinned Oracle requires own source and opposing creature destination; Growth has no controller restriction. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-required-targets-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "One target stored on stack",
+      "independent_basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-required-targets-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject missing required target",
+      "independent_basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-required-targets-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Reject incomplete second target instead of inferring opponent",
+      "independent_basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-zone-change-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Cub graveyard new identity; Growth has no legal target and does not resolve",
+      "independent_basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-zone-change-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "No such choice; original target remains invalid",
+      "independent_basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-zone-change-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "New object gets no bonus; never match target by card name",
+      "independent_basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-partial-invalidation-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Spell resolves with source still legal but deals no damage",
+      "independent_basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-partial-invalidation-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "No last-known-power damage from illegal targeted source",
+      "independent_basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-partial-invalidation-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "All targets illegal; spell does not resolve and moves graveyard",
+      "independent_basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-partial-invalidation-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "No redirected five damage to player or replacement creature",
+      "independent_basis": "CR 608.2b: some legal targets allow resolution; illegal target information cannot be used. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-resolution-revalidation-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Cub receives +3/+3",
+      "independent_basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-resolution-revalidation-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "No effect on graveyard object",
+      "independent_basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-targets-resolution-revalidation-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Target remains legal despite P/T change and takes source current power",
+      "independent_basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-attack-block-positive",
+      "owner_issue": 71,
+      "category": "positive",
+      "expected": "Attacker taps; blocker stays untapped; pair recorded",
+      "independent_basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-attack-block-negative",
+      "owner_issue": 71,
+      "category": "negative",
+      "expected": "Reject entire blocker declaration",
+      "independent_basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-attack-block-interaction",
+      "owner_issue": 71,
+      "category": "interaction",
+      "expected": "Both single assignments legal; unblocked Cub deals two to P1",
+      "independent_basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-attack-block-regression",
+      "owner_issue": 71,
+      "category": "regression",
+      "expected": "Reject atomically; old Cub stays untapped",
+      "independent_basis": "CR 508.1/509.1 and 302.6: declare eligible attackers/blockers as legal whole declarations. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-simultaneous-damage-positive",
+      "owner_issue": 71,
+      "category": "positive",
+      "expected": "Both die in same SBA batch",
+      "independent_basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-simultaneous-damage-negative",
+      "owner_issue": 18,
+      "category": "negative",
+      "expected": "No such priority window",
+      "independent_basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-simultaneous-damage-regression",
+      "owner_issue": 71,
+      "category": "regression",
+      "expected": "Defender reaches minus one in one damage event; no early stop at first attacker",
+      "independent_basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-blocked-status-positive",
+      "owner_issue": 71,
+      "category": "positive",
+      "expected": "P1 loses two",
+      "independent_basis": "CR 509.1h/510.1c and 702.19: blocked status persists when blockers leave; trample exception. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-combat-blocked-status-negative",
+      "owner_issue": 18,
+      "category": "negative",
+      "expected": "No damage to player; attacker remains blocked",
+      "independent_basis": "CR 509.1h/510.1c and 702.19: blocked status persists when blockers leave; trample exception. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-continuous-resolution-power-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "No damage based on cached two power",
+      "independent_basis": "Bite Down Oracle and CR 608.2b/h: evaluate required information at resolution; illegal target supplies none. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-continuous-cleanup-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Cub survives as 2/2 with zero damage",
+      "independent_basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-continuous-cleanup-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "It dies now; cannot wait for cleanup healing",
+      "independent_basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-continuous-cleanup-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Survives; no intermediate 2/2-with-four SBA",
+      "independent_basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-objects-zone-identity-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "New zone identity differs from spell; same card ownership retained",
+      "independent_basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-objects-zone-identity-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject obsolete handle",
+      "independent_basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-objects-zone-identity-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "New identity carries no temporary boost or marked damage",
+      "independent_basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-objects-zone-identity-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Correct survivor selected; no name-based aliasing",
+      "independent_basis": "CR 400.7: each zone transition creates a new object except enumerated exceptions irrelevant here. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-objects-bookkeeping-negative",
+      "owner_issue": 72,
+      "category": "negative",
+      "expected": "Reject invalid zone; no phantom battlefield entry",
+      "independent_basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-objects-bookkeeping-regression",
+      "owner_issue": 72,
+      "category": "regression",
+      "expected": "No inherited damage/effects or attachments from old identity",
+      "independent_basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-lethal-positive",
+      "owner_issue": 72,
+      "category": "positive",
+      "expected": "P1 zero, P0 wins at SBA",
+      "independent_basis": "CR 704.5a/g: zero player life loses; lethal creature damage destroys without itself ending game. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-lethal-negative",
+      "owner_issue": 72,
+      "category": "negative",
+      "expected": "P1 one; game continues",
+      "independent_basis": "CR 704.5a/g: zero player life loses; lethal creature damage destroys without itself ending game. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-lethal-regression",
+      "owner_issue": 72,
+      "category": "regression",
+      "expected": "Game continues; losing all creatures is not loss",
+      "independent_basis": "CR 704.5a/g: zero player life loses; lethal creature damage destroys without itself ending game. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-empty-draw-positive",
+      "owner_issue": 72,
+      "category": "positive",
+      "expected": "P0 loses at next SBA",
+      "independent_basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-empty-draw-negative",
+      "owner_issue": 72,
+      "category": "negative",
+      "expected": "No loss solely for empty library",
+      "independent_basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-empty-draw-regression",
+      "owner_issue": 72,
+      "category": "regression",
+      "expected": "No attempted draw; no empty-library loss",
+      "independent_basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-concede-positive",
+      "owner_issue": 72,
+      "category": "positive",
+      "expected": "P1 wins immediately",
+      "independent_basis": "CR 104.3a and RFC \u00a78 outcomes: a player may concede any time and loses immediately. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-concede-negative",
+      "owner_issue": 72,
+      "category": "negative",
+      "expected": "No rewritten result or second outcome",
+      "independent_basis": "CR 104.3a and RFC \u00a78 outcomes: a player may concede any time and loses immediately. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-concede-interaction",
+      "owner_issue": 72,
+      "category": "interaction",
+      "expected": "P1 loses despite not holding priority; unresolved stack not played out",
+      "independent_basis": "CR 104.3a and RFC \u00a78 outcomes: a player may concede any time and loses immediately. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-concede-regression",
+      "owner_issue": 72,
+      "category": "regression",
+      "expected": "Terminal outcome produced once; continuation cannot later commit action",
+      "independent_basis": "CR 104.3a and RFC \u00a78 outcomes: a player may concede any time and loses immediately. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-rewards-once-positive",
+      "owner_issue": 76,
+      "category": "positive",
+      "expected": "P0 +1 and P1 -1 once; terminal true",
+      "independent_basis": "RFC 0002 \u00a78 episode semantics: terminal zero-sum rewards once; terminal not truncation. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/trajectory/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-rewards-once-negative",
+      "owner_issue": 76,
+      "category": "negative",
+      "expected": "No terminal reward; terminal false",
+      "independent_basis": "RFC 0002 \u00a78 episode semantics: terminal zero-sum rewards once; terminal not truncation. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/trajectory/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-rewards-once-interaction",
+      "owner_issue": 76,
+      "category": "interaction",
+      "expected": "Draw rewards zero for each; one terminal boundary",
+      "independent_basis": "RFC 0002 \u00a78 episode semantics: terminal zero-sum rewards once; terminal not truncation. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/trajectory/README.md"
+      ]
+    },
+    {
+      "id": "rules-terminal-rewards-once-regression",
+      "owner_issue": 20,
+      "category": "regression",
+      "expected": "No duplicate terminal reward emission",
+      "independent_basis": "RFC 0002 \u00a78 episode semantics: terminal zero-sum rewards once; terminal not truncation. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "crates/mtg-recorder/tests/collector_audit.rs",
+        "doc/evidence/trajectory-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-all-combinations-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "All four ordered source/destination pairs expressible",
+      "independent_basis": "RFC 0002 \u00a74 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-all-combinations-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Rejected; completeness does not admit illegal combinations",
+      "independent_basis": "RFC 0002 \u00a74 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-masked-rejection-positive",
+      "owner_issue": 69,
+      "category": "positive",
+      "expected": "Action commits once",
+      "independent_basis": "RFC 0001 and RFC 0002 \u00a74: legality boundary rejects masked actions regardless of client mask. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-masked-rejection-negative",
+      "owner_issue": 69,
+      "category": "negative",
+      "expected": "Diagnosed illegal action; state/RNG/decision/private information unchanged",
+      "independent_basis": "RFC 0001 and RFC 0002 \u00a74: legality boundary rejects masked actions regardless of client mask. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-masked-rejection-regression",
+      "owner_issue": 68,
+      "category": "regression",
+      "expected": "Reject through same legality gate; not merely hide it in UI",
+      "independent_basis": "RFC 0001 and RFC 0002 \u00a74: legality boundary rejects masked actions regardless of client mask. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/mana/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-stale-candidates-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Cast accepted",
+      "independent_basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-stale-candidates-negative",
+      "owner_issue": 67,
+      "category": "negative",
+      "expected": "Stale-action rejection; P1 decision unchanged",
+      "independent_basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-stale-candidates-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Reject rather than select replacement object",
+      "independent_basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-stale-candidates-regression",
+      "owner_issue": 65,
+      "category": "regression",
+      "expected": "Generation protects reset boundary; old action rejected",
+      "independent_basis": "RFC 0002 core interface: decision IDs invalidate stale actions after advance. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/core-integration/README.md",
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-capacity-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "All sixteen pairs available through complete choices",
+      "independent_basis": "RFC 0001 faithful choices and RFC 0002 \u00a74: overflow diagnosed; factorization never truncates legal combinations. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-decisions-capacity-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Explicit capacity failure or complete factorization; never partial successful mask",
+      "independent_basis": "RFC 0001 faithful choices and RFC 0002 \u00a74: overflow diagnosed; factorization never truncates legal combinations. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-privacy-side-channels-positive",
+      "owner_issue": 19,
+      "category": "positive",
+      "expected": "Identical authorized observation, masks, candidate order",
+      "independent_basis": "RFC 0001 knowledge contract and RFC 0002 \u00a77/\u00a78: hidden identity cannot affect current observation/candidate ordering/errors. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-privacy-side-channels-negative",
+      "owner_issue": 19,
+      "category": "negative",
+      "expected": "Same nonrevealing error class/detail; no private name or count leak",
+      "independent_basis": "RFC 0001 knowledge contract and RFC 0002 \u00a77/\u00a78: hidden identity cannot affect current observation/candidate ordering/errors. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-privacy-side-channels-interaction",
+      "owner_issue": 19,
+      "category": "interaction",
+      "expected": "Current pre-action observations and authorized errors invariant",
+      "independent_basis": "RFC 0001 knowledge contract and RFC 0002 \u00a77/\u00a78: hidden identity cannot affect current observation/candidate ordering/errors. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-privacy-side-channels-regression",
+      "owner_issue": 19,
+      "category": "regression",
+      "expected": "Debug snapshots/card names never leak into policy-visible stream",
+      "independent_basis": "RFC 0001 knowledge contract and RFC 0002 \u00a77/\u00a78: hidden identity cannot affect current observation/candidate ordering/errors. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-replay-pending-snapshot-positive",
+      "owner_issue": 19,
+      "category": "positive",
+      "expected": "Same cast/stack state as uninterrupted path",
+      "independent_basis": "RFC 0002 \u00a74: snapshots include pending continuations and RNG; semantic replay rejects incompatible versions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-replay-pending-snapshot-negative",
+      "owner_issue": 19,
+      "category": "negative",
+      "expected": "Explicit incompatible-version error; no partial restored game",
+      "independent_basis": "RFC 0002 \u00a74: snapshots include pending continuations and RNG; semantic replay rejects incompatible versions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-replay-pending-snapshot-regression",
+      "owner_issue": 19,
+      "category": "regression",
+      "expected": "Continuation retains all alternatives; no reset to default choice",
+      "independent_basis": "RFC 0002 \u00a74: snapshots include pending continuations and RNG; semantic replay rejects incompatible versions. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/private-replay-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-two-player-opening-positive",
+      "owner_issue": 65,
+      "category": "positive",
+      "expected": "Two seats at 20; seven cards each; 33-card libraries",
+      "independent_basis": "RFC 0002 \u00a73 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/core-integration/README.md",
+        "doc/evidence/mulligan/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-two-player-opening-negative",
+      "owner_issue": 64,
+      "category": "negative",
+      "expected": "Unsupported configuration rejected, no approximate game",
+      "independent_basis": "RFC 0002 \u00a73 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/opening/README.md",
+        "doc/evidence/core-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-two-player-opening-interaction",
+      "owner_issue": 67,
+      "category": "interaction",
+      "expected": "P0 six/P1 seven cards; both 20; P1 starting draw skipped",
+      "independent_basis": "RFC 0002 \u00a73 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-setup-two-player-opening-regression",
+      "owner_issue": 72,
+      "category": "regression",
+      "expected": "No automatic sideboard/match continuation or life reset within same episode",
+      "independent_basis": "RFC 0002 \u00a73 frozen configuration; CR 103: two seats, 20 life, seven-card starting hands, London mulligans. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/terminal/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-turn-structure-positive",
+      "owner_issue": 67,
+      "category": "positive",
+      "expected": "Forest untaps; expected phase sequence and draw occur once",
+      "independent_basis": "CR 500-514 and 117: scoped full turn sequence, no priority in untap, draw as turn-based action. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/turns/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-turn-structure-negative",
+      "owner_issue": 18,
+      "category": "negative",
+      "expected": "No priority window; reject illegal timing",
+      "independent_basis": "CR 500-514 and 117: scoped full turn sequence, no priority in untap, draw as turn-based action. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-priority-turn-structure-regression",
+      "owner_issue": 18,
+      "category": "regression",
+      "expected": "Another cleanup occurs before next turn, not direct untap",
+      "independent_basis": "CR 500-514 and 117: scoped full turn sequence, no priority in untap, draw as turn-based action. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-bear-cub-positive",
+      "owner_issue": 18,
+      "category": "positive",
+      "expected": "2/2 enters; later deals two to P1",
+      "independent_basis": "Pinned Bear Cub characteristics: 1G vanilla 2/2; CR 302.6 and 510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-bear-cub-interaction",
+      "owner_issue": 18,
+      "category": "interaction",
+      "expected": "Both 2/2 creatures die simultaneously",
+      "independent_basis": "Pinned Bear Cub characteristics: 1G vanilla 2/2; CR 302.6 and 510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-bear-cub-regression",
+      "owner_issue": 18,
+      "category": "regression",
+      "expected": "Survives as undamaged 2/2; printed stats restored",
+      "independent_basis": "Pinned Bear Cub characteristics: 1G vanilla 2/2; CR 302.6 and 510. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "traceability_locations": [
+        "doc/evidence/scalar-integration/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-forest-positive",
+      "owner_issue": 68,
+      "category": "positive",
+      "expected": "One G, Forest tapped, no spell on stack",
+      "independent_basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
+      "traceability_locations": [
+        "doc/evidence/mana/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-forest-negative",
+      "owner_issue": 68,
+      "category": "negative",
+      "expected": "Reject; no extra G",
+      "independent_basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
+      "traceability_locations": [
+        "doc/evidence/mana/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-forest-interaction",
+      "owner_issue": 69,
+      "category": "interaction",
+      "expected": "Legal 1G payment; lands unaffected by creature sickness",
+      "independent_basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-forest-regression",
+      "owner_issue": 68,
+      "category": "regression",
+      "expected": "Mana pool empties; no mana burn or carryover",
+      "independent_basis": "Pinned Forest is basic land with G mana ability; CR 305 and 605. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d232fcc2-12f6-401a-b1aa-ddff11cb9378; oracle_text_sha256=6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b.",
+      "traceability_locations": [
+        "doc/evidence/mana/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-giant-growth-positive",
+      "owner_issue": 70,
+      "category": "positive",
+      "expected": "Cub becomes 5/5",
+      "independent_basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-giant-growth-negative",
+      "owner_issue": 70,
+      "category": "negative",
+      "expected": "Reject noncreature target",
+      "independent_basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-giant-growth-interaction",
+      "owner_issue": 70,
+      "category": "interaction",
+      "expected": "Growth resolves first; 5/5 survives two marked damage",
+      "independent_basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-giant-growth-regression",
+      "owner_issue": 70,
+      "category": "regression",
+      "expected": "Survives as undamaged 2/2",
+      "independent_basis": "Pinned Growth: G instant gives target creature +3/+3 until end of turn; CR 608.2b/613.4c/514.2. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/bd0bf74e-14c1-4428-88d8-2181a080b5d0; oracle_text_sha256=94ca5acb80503f883be9d13a1c72ea46980bce37ce99356d6274743f85465925.",
+      "traceability_locations": [
+        "doc/evidence/targets/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-mountain-positive",
+      "owner_issue": 68,
+      "category": "positive",
+      "expected": "Adds R, land tapped, stack empty",
+      "independent_basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
+      "traceability_locations": [
+        "doc/evidence/mana/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-mountain-negative",
+      "owner_issue": 69,
+      "category": "negative",
+      "expected": "Reject missing G; no invented color conversion",
+      "independent_basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-mountain-interaction",
+      "owner_issue": 69,
+      "category": "interaction",
+      "expected": "Swab cast legally",
+      "independent_basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
+      "traceability_locations": [
+        "doc/evidence/casting/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-swab-goblin-positive",
+      "owner_issue": 71,
+      "category": "positive",
+      "expected": "Deals two damage and taps",
+      "independent_basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    },
+    {
+      "id": "rules-foundations_micro_v1-swab-goblin-interaction",
+      "owner_issue": 71,
+      "category": "interaction",
+      "expected": "Both 2/2 creatures die",
+      "independent_basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "traceability_locations": [
+        "doc/evidence/combat/README.md"
+      ]
+    }
+  ]
+}
