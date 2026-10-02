@@ -1,4 +1,5 @@
 //! Private factored target selection and the M1 Growth/Bite effects.
+use super::card_definitions::{InstantEffect, definition};
 use super::casting::CastError;
 use super::mana::PaymentDecision;
 use super::turns::{TurnDecision, TurnError};
@@ -51,15 +52,10 @@ pub(super) struct Modification {
     pub(super) damage: u32,
 }
 pub(super) fn instant(card: CardId) -> bool {
-    matches!(card.identity().key, "giant-growth" | "bite-down")
+    definition(card).instant_effect().is_some()
 }
 fn base(card: CardId) -> Option<(u32, u32)> {
-    // Frozen characteristics only; this does not enable sibling card mechanics.
-    match card.identity().key {
-        "bear-cub" | "swab-goblin" => Some((2, 2)),
-        "magnigoth-sentry" => Some((4, 4)),
-        _ => None,
-    }
+    definition(card).creature_base()
 }
 pub(super) struct PreparedEffect {
     pub change: Option<Modification>,
@@ -92,7 +88,7 @@ impl Game {
             .objects
             .in_zone(Zone::Battlefield)
             .filter(|h| self.creature(*h));
-        if card.identity().key == "giant-growth" {
+        if definition(card).instant_effect() == Some(InstantEffect::Growth) {
             (creatures.collect(), vec![])
         } else {
             creatures.partition(|h| self.objects.get(*h).unwrap().controller == actor)
@@ -100,7 +96,8 @@ impl Game {
     }
     pub(super) fn has_targets(&self, actor: Seat, card: CardId) -> bool {
         let (a, b) = self.target_lists(actor, card);
-        !a.is_empty() && (card.identity().key == "giant-growth" || !b.is_empty())
+        !a.is_empty()
+            && (definition(card).instant_effect() == Some(InstantEffect::Growth) || !b.is_empty())
     }
     pub fn begin_targeted_cast(
         &mut self,
@@ -136,7 +133,7 @@ impl Game {
                 generation,
             },
             actor,
-            kind: if c.identity().key == "giant-growth" {
+            kind: if definition(c).instant_effect() == Some(InstantEffect::Growth) {
                 TargetKind::Growth
             } else {
                 TargetKind::BiteSource

@@ -79,6 +79,7 @@ pub fn engine() -> &'static str {
                 include_str!("views.rs"),
                 include_str!("policy.rs"),
                 include_str!("card_identities.rs"),
+                include_str!("card_definitions.rs"),
                 include_str!("snapshot.rs"),
                 include_str!("replay.rs"),
                 include_str!("played_replay.rs"),

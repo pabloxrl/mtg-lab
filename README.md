@@ -77,8 +77,14 @@ pending target, cast and payment transitions. Rule entry points keep their
 legality checks; policy views read the continuations through immutable accessors.
 [Compatibility evidence](doc/evidence/cast-boundary/README.md) covers restoration,
 cancellation, rejection and unchanged normal-reset history/capture. Other Game
-state remains shared by rule modules; centralized card definitions and explicit
-recorder conversion remain tracked refactors.
+state remains shared by rule modules. The private
+[typed card definitions](crates/mtg-core/src/card_definitions.rs) provide the six
+supported cards’ costs, creature characteristics and behavior tags to casting,
+targets, mana and combat. Frozen identities/hashes and unsupported-content errors
+remain unchanged; the existing synthetic Sentry characteristics do not grant
+play support. [Compatibility evidence](doc/evidence/card-definitions/README.md)
+covers the manifest, rejection boundaries and unchanged played history/capture.
+Explicit recorder conversion remains a tracked refactor.
 
 ## Quickstart: run the checks
 

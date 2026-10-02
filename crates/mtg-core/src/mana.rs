@@ -50,11 +50,7 @@ pub enum ManaError {
 }
 pub(super) use super::cast_state::Payment;
 pub(super) fn basic_color(card: CardId) -> Option<Color> {
-    match card.identity().key {
-        "forest" => Some(Color::Green),
-        "mountain" => Some(Color::Red),
-        _ => None,
-    }
+    super::card_definitions::definition(card).basic_color()
 }
 fn invalid(e: ApplyError) -> ManaError {
     ManaError::Turn(TurnError::Invalid(e))

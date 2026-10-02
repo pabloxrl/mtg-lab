@@ -11,20 +11,7 @@ pub enum CastError {
 }
 pub(super) use super::cast_state::PendingCast;
 pub(super) fn cost(card: CardId) -> Option<ManaCost> {
-    let mut colored = [0; 6];
-    match card.identity().key {
-        "bear-cub" | "giant-growth" | "bite-down" => colored[4] = 1,
-        "swab-goblin" => colored[3] = 1,
-        _ => return None,
-    }
-    Some(ManaCost {
-        colored,
-        generic: if card.identity().key == "giant-growth" {
-            0
-        } else {
-            1
-        },
-    })
+    super::card_definitions::definition(card).cost()
 }
 impl Game {
     /// Legal spell handles for the current priority decision. Timing and total
