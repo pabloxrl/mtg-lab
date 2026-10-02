@@ -91,3 +91,11 @@ The updated native quickstart completed both requested green-mirror games with
 zero failures, truncations or incomplete episodes. Its output includes both
 Elf and Druid in actual play. [Quickstart summary](quickstart.json) records the
 command, policy versions, output checksum and run accounting.
+
+Independent review of candidate `d821c680a1c8756634c0e9c279a639b7a7668373`
+requested correction of an old heuristic assertion that Elf was unsupported.
+The rejection now explicitly uses unimplemented Axgard Cavalry; the new Elf/Druid
+positive selection tests remain. The reviewer also identified a stale README
+limitation, corrected to reference creature mana support. Both findings are
+retained in the final PR review history; the revised candidate requires a fresh
+review and full torture pass.

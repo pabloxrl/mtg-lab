@@ -291,6 +291,8 @@ fn heuristic_errors_never_default_to_pass() {
     o = obs("priority", vec![Choice::Pass, Choice::Spell]);
     assert_eq!(p.choose(&o), Err(Error::UnsupportedDecision));
     o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(4) }]);
+    // GH-195 enables Elf; retain this strict rejection with unimplemented haste.
+    o.view.hand[4].card = "axgard-cavalry";
     assert_eq!(p.choose(&o), Err(Error::UnsupportedContent));
     o = obs("priority", vec![Choice::Pass]);
     o.decision.as_mut().unwrap().legal_mask.clear();
