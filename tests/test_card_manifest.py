@@ -115,6 +115,19 @@ class ManifestTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'digest'):
                 cm.load_manifest(path)
 
+    def test_every_frozen_card_rejects_changed_source_and_content_hashes(self):
+        # GH-132: keeping an identity does not permit stale source pins. Exercise
+        # every record, including all six supported cards and the reserved pool.
+        for index, card in enumerate(self.manifest['cards']):
+            for field in ('content_sha256', 'source_projection_sha256',
+                          'oracle_text_sha256', 'raw_response_sha256'):
+                with self.subTest(card=card['id'], field=field):
+                    changed = copy.deepcopy(self.manifest)
+                    value = card[field]
+                    changed['cards'][index][field] = ('0' if value[0] != '0' else '1') + value[1:]
+                    with self.assertRaisesRegex(ValueError, 'content digest mismatch'):
+                        cm.validate_manifest(changed)
+
     def test_duplicate_json_keys_and_nonfinite(self):
         for raw in [b'{"schema_version":1,"schema_version":1}', b'{"x":NaN}',b'{bad']:
             with tempfile.TemporaryDirectory() as directory:

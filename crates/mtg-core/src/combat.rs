@@ -49,7 +49,7 @@ pub(super) struct CombatState {
     pub(super) assignments: Vec<(Handle, Vec<(Handle, u32)>)>,
 }
 fn vanilla(card: CardId) -> bool {
-    matches!(card.identity().key, "bear-cub" | "swab-goblin")
+    super::card_definitions::definition(card).vanilla()
 }
 impl Game {
     fn combat_live(&self, h: Handle, controller: Seat) -> bool {
