@@ -322,3 +322,22 @@ fn newly_enabled_unsupported_card_is_an_error_not_a_fallback() {
     o.decision.as_mut().unwrap().legal_mask[1] = false;
     assert_eq!(policy(0).choose(&o).unwrap().choices, vec![Choice::Pass]);
 }
+
+#[test]
+fn creature_mana_random_accepts_enabled_casts() {
+    for key in ["llanowar-elves", "druid-of-the-cowl"] {
+        let mut o = observation(0);
+        o.view.hand[0].card = key;
+        let d = o.decision.as_mut().unwrap();
+        d.kind = "priority";
+        d.candidates = vec![Choice::Cast {
+            card: VisibleRef {
+                zone: VisibleZone::Hand,
+                row: 0,
+            },
+        }];
+        d.legal_mask = vec![true];
+        let expected = d.candidates.clone();
+        assert_eq!(policy(0).choose(&o).unwrap().choices, expected);
+    }
+}

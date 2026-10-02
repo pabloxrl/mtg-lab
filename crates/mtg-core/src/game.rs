@@ -177,3 +177,7 @@ mod card_definition_tests;
 #[cfg(test)]
 #[path = "token_tests.rs"]
 mod token_tests;
+
+#[cfg(test)]
+#[path = "creature_mana_reference_tests.rs"]
+mod creature_mana_reference_tests;

@@ -1,0 +1,197 @@
+{
+  "llanowar-elves-priority": {
+    "power": 1,
+    "toughness": 1,
+    "damage": 0,
+    "tapped": true,
+    "green": 1,
+    "stack": 0,
+    "priority": 0,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "llanowar-elves-sick": {
+    "power": 1,
+    "toughness": 1,
+    "damage": 0,
+    "tapped": false,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "llanowar-elves-payment": {
+    "power": 1,
+    "toughness": 1,
+    "damage": 0,
+    "tapped": true,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": true,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "llanowar-elves-floating": {
+    "power": 1,
+    "toughness": 1,
+    "damage": 0,
+    "tapped": true,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": true,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "llanowar-elves-opponent": {
+    "power": 1,
+    "toughness": 1,
+    "damage": 0,
+    "tapped": false,
+    "green": 0,
+    "stack": 0,
+    "priority": 1,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "llanowar-elves-attacked": {
+    "power": 1,
+    "toughness": 1,
+    "damage": 0,
+    "tapped": true,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      19
+    ]
+  },
+  "druid-of-the-cowl-priority": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 0,
+    "tapped": true,
+    "green": 1,
+    "stack": 0,
+    "priority": 0,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "druid-of-the-cowl-sick": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 0,
+    "tapped": false,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "druid-of-the-cowl-payment": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 0,
+    "tapped": true,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": true,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "druid-of-the-cowl-floating": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 0,
+    "tapped": true,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": true,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "druid-of-the-cowl-opponent": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 0,
+    "tapped": false,
+    "green": 0,
+    "stack": 0,
+    "priority": 1,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      20
+    ]
+  },
+  "druid-of-the-cowl-attacked": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 0,
+    "tapped": true,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": false,
+    "cub_damage": null,
+    "life": [
+      20,
+      19
+    ]
+  },
+  "druid-block": {
+    "power": 1,
+    "toughness": 3,
+    "damage": 2,
+    "tapped": false,
+    "green": 0,
+    "stack": 0,
+    "priority": 0,
+    "cub": true,
+    "cub_damage": 1,
+    "life": [
+      20,
+      20
+    ]
+  }
+}

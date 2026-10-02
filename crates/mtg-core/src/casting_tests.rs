@@ -339,7 +339,7 @@ fn casting_fresh_forest_mountain_negative_and_unsupported_cards() {
     assert!(!g.cast_candidates(Seat::P0).contains(&h));
     assert!(g.begin_cast(Seat::P0, d.id, h).is_err());
     assert_eq!(format!("{g:?}"), before);
-    for key in ["giant-growth", "forest", "llanowar-elves"] {
+    for key in ["giant-growth", "forest", "axgard-cavalry"] {
         let (mut g, h) = ready(key, [0, 0, 0, 2, 2, 0]);
         let d = g.turn_decision().unwrap();
         let before = format!("{g:?}");
@@ -397,4 +397,209 @@ fn casting_nested_stale_cancel_reset_and_exhaustion() {
     let before = format!("{g:?}");
     assert!(g.finish_cast(Seat::P0, p.id).is_err());
     assert_eq!(format!("{g:?}"), before);
+}
+
+// GH-195: synthetic old creatures; CR 302.6, 605.1a/605.3b and 601.2.
+// Printed definitions: Llanowar Elves G 1/1; Druid of the Cowl 1G 1/3.
+#[test]
+fn creature_mana_priority_is_immediate_and_rejects_illegal_sources() {
+    for key in ["llanowar-elves", "druid-of-the-cowl"] {
+        let (mut g, _) = ready("bear-cub", [0; 6]);
+        let card = CardId::from_key(key).unwrap();
+        let own = g
+            .objects
+            .allocate(card, Seat::P0, Zone::Battlefield)
+            .unwrap();
+        let enemy = g
+            .objects
+            .allocate(card, Seat::P1, Zone::Battlefield)
+            .unwrap();
+        let sick = g
+            .objects
+            .allocate(card, Seat::P0, Zone::Battlefield)
+            .unwrap();
+        g.turns.sick.push(sick);
+        let stale = g
+            .objects
+            .allocate(card, Seat::P0, Zone::Battlefield)
+            .unwrap();
+        g.objects.move_to(stale, Zone::Graveyard(Seat::P0)).unwrap();
+        let d = g.turn_decision().unwrap();
+        for h in [enemy, sick, stale] {
+            let before = format!("{g:?}");
+            assert!(g.tap_mana(Seat::P0, d.id, h).is_err());
+            assert_eq!(format!("{g:?}"), before);
+        }
+        assert!(
+            g.mana_sources(Seat::P0).contains(&own),
+            "CR 605: old {key} offers G"
+        );
+        let next = g.tap_mana(Seat::P0, d.id, own).unwrap();
+        assert_eq!(g.mana(), [[0, 0, 0, 0, 1, 0], [0; 6]]);
+        assert!(g.objects.get(own).unwrap().tapped);
+        assert_eq!(next.actor, Seat::P0);
+        assert_eq!(g.objects.in_zone(Zone::Stack).count(), 0);
+        let before = format!("{g:?}");
+        assert!(g.tap_mana(Seat::P0, next.id, own).is_err());
+        assert!(g.tap_mana(Seat::P0, d.id, own).is_err());
+        assert_eq!(format!("{g:?}"), before);
+    }
+}
+
+#[test]
+fn creature_mana_staged_cancel_and_commit_are_atomic() {
+    for key in ["llanowar-elves", "druid-of-the-cowl"] {
+        let (mut g, cub) = ready("bear-cub", [0; 6]);
+        let creature = g
+            .objects
+            .allocate(CardId::from_key(key).unwrap(), Seat::P0, Zone::Battlefield)
+            .unwrap();
+        let forest = g
+            .objects
+            .allocate(
+                CardId::from_key("forest").unwrap(),
+                Seat::P0,
+                Zone::Battlefield,
+            )
+            .unwrap();
+        for cancel in [true, false] {
+            start(&mut g, cub);
+            for source in [creature, forest] {
+                let d = g.payment_decision(Seat::P0).unwrap();
+                g.cast_tap_mana(Seat::P0, d.id, source).unwrap();
+                let before = format!("{g:?}");
+                let d = g.payment_decision(Seat::P0).unwrap();
+                assert!(g.cast_tap_mana(Seat::P0, d.id, source).is_err());
+                assert_eq!(format!("{g:?}"), before);
+            }
+            pay(&mut g, Color::Green);
+            pay(&mut g, Color::Green);
+            assert_eq!(g.mana(), [[0; 6]; 2]);
+            assert!(!g.objects.get(creature).unwrap().tapped);
+            assert!(!g.objects.get(forest).unwrap().tapped);
+            assert!(g.turn_decision().is_none());
+            if cancel {
+                let d = g.payment_decision(Seat::P0).unwrap();
+                g.cancel_payment(Seat::P0, d.id).unwrap();
+                assert!(g.objects.get(cub).is_ok());
+                assert!(!g.objects.get(creature).unwrap().tapped);
+                assert!(!g.objects.get(forest).unwrap().tapped);
+                assert_eq!(g.mana(), [[0; 6]; 2]);
+            } else {
+                finish(&mut g);
+                assert!(g.objects.get(creature).unwrap().tapped);
+                assert!(g.objects.get(forest).unwrap().tapped);
+                assert_eq!(g.objects.in_zone(Zone::Stack).count(), 1);
+                assert_eq!(g.mana(), [[0; 6]; 2]);
+                assert_eq!(g.turn_decision().unwrap().actor, Seat::P0);
+            }
+        }
+    }
+}
+
+#[test]
+fn creature_mana_pending_snapshot_and_illegal_payment_sources() {
+    use super::super::policy::{Choice, Submission, VisibleRef, VisibleZone};
+    fn command(g: &mut Game, c: Choice) {
+        let d = g.policy_observe(Seat::P0, 256).unwrap().decision.unwrap();
+        g.apply_policy(
+            Seat::P0,
+            &Submission {
+                schema_version: 1,
+                revision: d.revision,
+                generation: d.generation,
+                choices: vec![c],
+            },
+            256,
+        )
+        .unwrap();
+    }
+    for key in ["llanowar-elves", "druid-of-the-cowl"] {
+        let (mut g, cub) = ready("bear-cub", [0; 6]);
+        let source = g
+            .objects
+            .allocate(CardId::from_key(key).unwrap(), Seat::P0, Zone::Battlefield)
+            .unwrap();
+        let forest = g
+            .objects
+            .allocate(
+                CardId::from_key("forest").unwrap(),
+                Seat::P0,
+                Zone::Battlefield,
+            )
+            .unwrap();
+        let enemy = g
+            .objects
+            .allocate(CardId::from_key(key).unwrap(), Seat::P1, Zone::Battlefield)
+            .unwrap();
+        let sick = g
+            .objects
+            .allocate(CardId::from_key(key).unwrap(), Seat::P0, Zone::Battlefield)
+            .unwrap();
+        g.turns.sick.push(sick);
+        let stale = g
+            .objects
+            .allocate(CardId::from_key(key).unwrap(), Seat::P0, Zone::Battlefield)
+            .unwrap();
+        g.objects.move_to(stale, Zone::Graveyard(Seat::P0)).unwrap();
+        start(&mut g, cub);
+        for h in [enemy, sick, stale] {
+            let d = g.payment_decision(Seat::P0).unwrap();
+            let before = g.snapshot();
+            assert!(g.cast_tap_mana(Seat::P0, d.id, h).is_err());
+            assert_eq!(g.snapshot(), before);
+        }
+        let choices = [
+            Choice::TapMana {
+                card: VisibleRef {
+                    zone: VisibleZone::Battlefield,
+                    row: 0,
+                },
+            },
+            Choice::Pay { color: 4 },
+            Choice::TapMana {
+                card: VisibleRef {
+                    zone: VisibleZone::Battlefield,
+                    row: 1,
+                },
+            },
+            Choice::Pay { color: 4 },
+        ];
+        for stage in 0..=choices.len() {
+            let bytes = g.snapshot();
+            for cancel in [true, false] {
+                let mut restored = Game::new().unwrap();
+                restored.restore(&bytes).unwrap();
+                assert_eq!(restored.mana(), [[0; 6]; 2]);
+                assert!(restored.turn_decision().is_none());
+                if cancel {
+                    command(&mut restored, Choice::CancelPayment);
+                } else {
+                    for c in &choices[stage..] {
+                        command(&mut restored, c.clone());
+                    }
+                    command(&mut restored, Choice::FinishPayment);
+                }
+                let board: Vec<_> = restored.objects.in_zone(Zone::Battlefield).collect();
+                assert_eq!(restored.objects.get(board[0]).unwrap().tapped, !cancel);
+                assert_eq!(restored.objects.get(board[1]).unwrap().tapped, !cancel);
+                assert_eq!(
+                    restored.objects.in_zone(Zone::Stack).count(),
+                    usize::from(!cancel)
+                );
+                assert_eq!(restored.mana(), [[0; 6]; 2]);
+            }
+            if stage < choices.len() {
+                command(&mut g, choices[stage].clone());
+            }
+        }
+        // Commit revalidates sources even if a test-only mutation invalidates a
+        // reservation. Neither payments nor any other reserved source may leak.
+        g.turns.sick.push(source);
+        let d = g.payment_decision(Seat::P0).unwrap();
+        let before = g.snapshot();
+        assert!(g.finish_cast(Seat::P0, d.id).is_err());
+        assert_eq!(g.snapshot(), before);
+        assert!(!g.objects.get(forest).unwrap().tapped);
+    }
 }

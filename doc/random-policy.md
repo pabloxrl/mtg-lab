@@ -1,4 +1,4 @@
-# Native legal random M1 policy
+# Native legal random policy
 
 `mtg-policy::LegalRandom` is a native Rust client of the existing
 [seat-authorized policy interface](policy-decisions.md). It receives only an
@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-tokens-v1` pins decision sampling and supported content;
+`VERSION = legal-random-mana-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -67,8 +67,9 @@ passes may delay progress; the caller must impose and account for external limit
 All current M1 decision families are handled: keep/mulligan, ordered bottoming,
 priority, lands and mana, staged target/payment/finish/cancel choices, attacker
 subsets, blocker mappings, modern vanilla damage allocation, and cleanup discard.
-Supported casts are Bear Cub, Swab Goblin, Giant Growth, Bite Down and Dragon Fodder; land/mana
-sources are Forest and Mountain. A newly enabled cast/land/mana candidate outside
+Supported casts are Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder,
+Llanowar Elves and Druid of the Cowl. Lands are Forest and Mountain; mana sources
+also include legal Elf/Druid tap abilities. A newly enabled cast/land/mana candidate outside
 that list fails with `UnsupportedContent`, including when pass is also legal.
 Unknown decision kinds or enabled unsupported commands fail explicitly.
 Malformed masks/cardinality/factored domains produce `InvalidObservation`;
@@ -77,11 +78,11 @@ These shape checks do not replace the engine's authoritative legality validation
 
 The core still resets only its fixed 40-card red/green deck configurations. Other
 cards remain physically present and can be drawn, bottomed or discarded, but
-cannot be cast through the current M1 interface. This policy does **not** make
-the full frozen card pool playable. No keywords, activated creature abilities,
-triggers, heuristic, production episode runner, CLI selection, trajectory capture,
-policy checkpoint serialization or training integration is added. The existing
-CLI remains `pass-v1`; do not report passive CLI games as this random policy.
+cannot be cast unless their complete abilities are implemented. This policy does
+**not** make the full frozen card pool playable. Haste, nonmana creature abilities
+and triggers remain unsupported. The existing owned runner, native CLI and
+trajectory capture use this policy through the shared decision interface;
+see [simulation](simulate.md). Passive `pass-v1` runs remain a separate baseline.
 
 Caller-limited unfinished games are **truncated**, never terminal/drawn games.
 Engine/capacity errors are failures, not successful truncations. The test harness
@@ -91,8 +92,13 @@ Run `cargo test --locked -p mtg-policy` in the managed toolchain container; all
 regressions are also discovered by `./scripts/torture.sh` in debug and release.
 [Acceptance evidence](evidence/random-policy/README.md) separates synthetic
 selection vectors, reachable forced scripts and uninterrupted seeded games.
-Original #21 integration/catalog acceptance remains with its owner; M1 is not
-complete until #22. M2–M5 requirements remain unchanged.
+The historical M1 audit is linked from the root README. Original component and
+M2–M5 acceptance remain with their owners.
 
 The token-capable version supersedes `legal-random-m1-v1`; the old ID rejects
 explicitly. Sampling rules are unchanged, but the legal content domain expanded.
+
+GH-195 adds Llanowar Elves and Druid of the Cowl casts and tap-for-G sources to
+the accepted domain. Sampling and RNG rules remain unchanged.
+`legal-random-mana-v1` supersedes `legal-random-tokens-v1`; the old policy ID
+rejects explicitly. Full-pool qualification remains #208.

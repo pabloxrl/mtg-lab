@@ -958,3 +958,24 @@ fn integration_growth_windows_end_before_atomic_combat_damage() {
         assert_eq!(g.turn_decision().unwrap().actor, active);
     }
 }
+
+#[test]
+fn creature_mana_druid_blocks_cub_and_survives_two_damage() {
+    // CR 302.6 permits even a sick creature to block; CR 510.1/704.5g.
+    // Pinned Druid is 1/3 and Cub is 2/2, so both survive this exchange.
+    let mut g = ready();
+    let cub = add(&mut g, Seat::P0, "bear-cub");
+    let druid = add(&mut g, Seat::P1, "druid-of-the-cowl");
+    g.turns.sick.push(druid);
+    pair(&mut g);
+    select_attack(&mut g, &[cub]);
+    pair(&mut g);
+    select_block(&mut g, &[(druid, cub)]);
+    pair(&mut g);
+    damage(&mut g);
+    let d = g.creature_state(druid).unwrap();
+    assert_eq!((d.power, d.toughness, d.damage), (1, 3, 2));
+    let c = g.creature_state(cub).unwrap();
+    assert_eq!((c.power, c.toughness, c.damage), (2, 2, 1));
+    assert_eq!(g.life(), [20, 20]);
+}

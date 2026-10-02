@@ -1,0 +1,26 @@
+{
+  "command": "env -u DISPLAY -u WAYLAND_DISPLAY cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/native-v2.json </dev/null",
+  "policies": [
+    "heuristic-mana-v1",
+    "legal-random-mana-v1"
+  ],
+  "output_sha256": "87f7972cd468efaa6d6353aa82a7ba4ea955001631ab225afc7f03e7ba45a92f",
+  "summary": {
+    "completed": 2,
+    "draws": 0,
+    "exit_code": 0,
+    "failed": 0,
+    "incomplete": 0,
+    "not_started": 0,
+    "reason": "budget_complete",
+    "requested": 2,
+    "schema_version": 1,
+    "started": 2,
+    "truncated": 0,
+    "type": "summary",
+    "wins": [
+      2,
+      0
+    ]
+  }
+}

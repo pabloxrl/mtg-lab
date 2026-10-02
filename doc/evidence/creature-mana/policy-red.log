@@ -1,0 +1,55 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-195/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.88s
+     Running unittests src/lib.rs (target/debug/deps/mtg_policy-d213a4af0142c20b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/games.rs (target/debug/deps/games-2dcbf68699cb5073)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/heuristic.rs (target/debug/deps/heuristic-20fb6b02136b30a1)
+
+running 1 test
+test creature_mana_policy_casts_and_pays_with_both_sources ... FAILED
+
+failures:
+
+---- creature_mana_policy_casts_and_pays_with_both_sources stdout ----
+
+thread 'creature_mana_policy_casts_and_pays_with_both_sources' (216) panicked at crates/mtg-policy/tests/heuristic.rs:75:10:
+called `Result::unwrap()` on an `Err` value: UnsupportedContent
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    creature_mana_policy_casts_and_pays_with_both_sources
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test heuristic`
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.01s
+     Running tests/selection.rs (target/debug/deps/selection-389b7fe423d538ab)
+
+running 1 test
+test creature_mana_random_accepts_enabled_casts ... FAILED
+
+failures:
+
+---- creature_mana_random_accepts_enabled_casts stdout ----
+
+thread 'creature_mana_random_accepts_enabled_casts' (11) panicked at crates/mtg-policy/tests/selection.rs:333:41:
+called `Result::unwrap()` on an `Err` value: UnsupportedContent
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    creature_mana_random_accepts_enabled_casts
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test selection`
