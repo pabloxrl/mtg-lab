@@ -72,6 +72,7 @@ pub fn engine() -> &'static str {
                 include_str!("turns.rs"),
                 include_str!("mana.rs"),
                 include_str!("casting.rs"),
+                include_str!("cast_state.rs"),
                 include_str!("targets.rs"),
                 include_str!("combat.rs"),
                 include_str!("terminal.rs"),

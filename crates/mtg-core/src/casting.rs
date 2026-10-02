@@ -1,5 +1,5 @@
 //! Atomic vanilla creature casts. Public inspections here remain privileged.
-use super::mana::{ManaCost, ManaError, Payment, PaymentDecision, basic_color};
+use super::mana::{ManaCost, ManaError, PaymentDecision, basic_color};
 use super::turns::{Step, TurnDecision, TurnError, TurnKind};
 use super::*;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -9,12 +9,7 @@ pub enum CastError {
     NoCast,
     Storage(StorageError),
 }
-#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
-pub(super) struct PendingCast {
-    pub(super) card: Handle,
-    pub(super) sources: Vec<Handle>,
-    pub(super) effect: Option<super::targets::Effect>,
-}
+pub(super) use super::cast_state::PendingCast;
 pub(super) fn cost(card: CardId) -> Option<ManaCost> {
     let mut colored = [0; 6];
     match card.identity().key {
@@ -86,24 +81,13 @@ impl Game {
             return Err(CastError::IllegalSpell);
         }
         let generation = self.next_mana_generation().map_err(CastError::Mana)?;
-        let payment = Payment {
+        Ok(self.start_cast_payment(
             actor,
-            id: DecisionId {
-                scope: self.objects.scope(),
-                generation,
-            },
-            remaining: cost(self.objects.get(card).expect("candidate").card).expect("supported"),
-            pool: self.turns.mana[seat_index(actor)],
-        };
-        let d = payment.decision();
-        self.turns.payment = Some(payment);
-        self.turns.casting = Some(PendingCast {
+            generation,
             card,
-            sources: vec![],
-            effect: None,
-        });
-        self.generation = generation;
-        Ok(d)
+            cost(self.objects.get(card).expect("candidate").card).expect("supported"),
+            None,
+        ))
     }
     /// Available basic mana abilities during a cast. Activations are staged
     /// with the entire logical action, so cancellation/rejection leaks no taps.
@@ -121,7 +105,7 @@ impl Game {
                 o.controller == actor
                     && !o.tapped
                     && basic_color(o.card).is_some()
-                    && !cast.sources.contains(h)
+                    && !cast.sources().contains(h)
             })
             .collect()
     }
@@ -138,36 +122,28 @@ impl Game {
         let i = basic_color(self.objects.get(land).expect("source").card)
             .unwrap()
             .index();
-        let value = self.turns.payment.as_ref().unwrap().pool[i]
+        let value = self.turns.payment.as_ref().unwrap().pool()[i]
             .checked_add(1)
             .ok_or(CastError::Mana(ManaError::Overflow))?;
         let generation = self.next_mana_generation().map_err(CastError::Mana)?;
-        let cast = self.turns.casting.as_mut().expect("cast source");
-        cast.sources
-            .try_reserve(1)
-            .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
-        cast.sources.push(land);
-        let p = self.turns.payment.as_mut().unwrap();
-        p.pool[i] = value;
-        p.id.generation = generation;
-        self.generation = generation;
-        Ok(p.decision())
+        self.stage_cast_mana(land, i, value, generation)
+            .map_err(CastError::Storage)
     }
     /// Commit the paid spell and chosen activations together; never expose the
     /// payment layer's intermediate priority. The caster then retains priority.
     pub fn finish_cast(&mut self, actor: Seat, id: DecisionId) -> Result<TurnDecision, CastError> {
         let p = self.validate_payment(actor, id).map_err(CastError::Mana)?;
         let cast = self.turns.casting.as_ref().ok_or(CastError::NoCast)?;
-        if p.remaining.generic > 0 || p.remaining.colored.iter().any(|n| *n > 0) {
+        if !p.is_paid() {
             return Err(CastError::Mana(ManaError::IllegalPayment));
         }
         self.next_mana_generation().map_err(CastError::Mana)?;
-        let card = cast.card;
+        let card = cast.card();
         if !self
             .objects
             .get(card)
             .is_ok_and(|o| o.zone == Zone::Hand(actor))
-            || cast.effect.is_some_and(|e| {
+            || cast.effect().is_some_and(|e| {
                 self.legal_effect_targets(actor, e)
                     != match e {
                         super::targets::Effect::Growth(_) => 1,
@@ -177,7 +153,7 @@ impl Game {
         {
             return Err(CastError::IllegalSpell);
         }
-        for &source in &cast.sources {
+        for &source in cast.sources() {
             if !self
                 .objects
                 .get(source)
@@ -198,9 +174,8 @@ impl Game {
             .stack
             .try_reserve(1)
             .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
-        let cast = self.turns.casting.take().expect("validated");
-        let d = self.commit_payment(actor, id).expect("preflighted payment");
-        for h in cast.sources {
+        let (cast, d) = self.commit_cast_payment(actor, id);
+        for &h in cast.sources() {
             self.objects.get_mut(h).expect("reserved source").tapped = true;
         }
         let h = self
@@ -208,7 +183,7 @@ impl Game {
             .move_to(card, Zone::Stack)
             .expect("preflighted spell");
         self.turns.stack.push(h);
-        if let Some(effect) = cast.effect {
+        if let Some(effect) = cast.effect() {
             self.turns.effects.push((h, effect));
         }
         Ok(d)

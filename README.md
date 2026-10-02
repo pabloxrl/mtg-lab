@@ -72,9 +72,13 @@ a compatibility re-export of the same types and implementation.
 This extraction does not change rules, serialized field schemas or supported
 cards. The existing conservative engine fingerprint includes the moved sources,
 so snapshots and replays produced before the refactor are explicitly incompatible.
-Rule modules still share private Game state; narrower state transitions,
-centralized card definitions and explicit recorder conversion remain tracked
-refactors, not completed architectural claims.
+The private [cast state boundary](crates/mtg-core/src/cast_state.rs) now owns
+pending target, cast and payment transitions. Rule entry points keep their
+legality checks; policy views read the continuations through immutable accessors.
+[Compatibility evidence](doc/evidence/cast-boundary/README.md) covers restoration,
+cancellation, rejection and unchanged normal-reset history/capture. Other Game
+state remains shared by rule modules; centralized card definitions and explicit
+recorder conversion remain tracked refactors.
 
 ## Quickstart: run the checks
 

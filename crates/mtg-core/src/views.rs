@@ -207,8 +207,8 @@ impl Game {
             acting_seat: self
                 .decision
                 .map(|d| d.actor)
-                .or_else(|| self.turns.targeting.as_ref().map(|t| t.decision.actor))
-                .or_else(|| self.turns.payment.as_ref().map(|p| p.actor))
+                .or_else(|| self.turns.targeting.as_ref().map(|t| t.decision().actor))
+                .or_else(|| self.turns.payment.as_ref().map(|p| p.actor()))
                 .or_else(|| self.turn_decision().map(|d| d.actor))
                 .map(|s| seat_index(s) as u8),
             opening,
