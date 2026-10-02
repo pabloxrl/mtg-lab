@@ -1050,12 +1050,461 @@
       "requirements": []
     },
     {
+      "key": "m2-cast-boundary",
+      "issue": 131,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80
+      ],
+      "requirements": [
+        "R0002-B011",
+        "R0002-B016",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-card-definitions",
+      "issue": 132,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-typed-recorder",
+      "issue": 133,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80
+      ],
+      "requirements": [
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "m2-tokens",
+      "issue": 194,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-creature-mana",
+      "issue": 195,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-flying-reach",
+      "issue": 196,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-haste",
+      "issue": 197,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-trample",
+      "issue": 198,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-deathtouch",
+      "issue": 199,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        196,
+        198
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-shivan",
+      "issue": 200,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        196
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-invoker",
+      "issue": 201,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        198
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-thrill",
+      "issue": 202,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-surprise",
+      "issue": 203,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        194
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-trigger-queue",
+      "issue": 204,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        131,
+        132,
+        133
+      ],
+      "requirements": [
+        "R0002-B011",
+        "R0002-B016",
+        "R0002-B026",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-cast-triggers",
+      "issue": 205,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        204
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-etb-triggers",
+      "issue": 206,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        204
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-cleanup-composition",
+      "issue": 207,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        206,
+        202
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029"
+      ]
+    },
+    {
+      "key": "m2-native-pool",
+      "issue": 208,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        195,
+        197,
+        199,
+        200,
+        201,
+        203,
+        205,
+        207
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B020",
+        "R0002-B029",
+        "R0002-B039"
+      ]
+    },
+    {
+      "key": "m2-reference-costs",
+      "issue": 209,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        195,
+        197,
+        203,
+        202,
+        205
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-reference-combat",
+      "issue": 210,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        199,
+        200,
+        201,
+        197,
+        203
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-reference-triggers",
+      "issue": 211,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        205,
+        207,
+        194
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-reference-foundation",
+      "issue": 212,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        208
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-mutation-m2",
+      "issue": 213,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        208
+      ],
+      "requirements": [
+        "R0002-B026",
+        "R0002-B029",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-counters",
+      "issue": 214,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m2-trace-modes",
+      "issue": 215,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        214
+      ],
+      "requirements": [
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m2-benchmark-contract",
+      "issue": 216,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        214
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B014",
+        "R0002-B019",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m2-scalar-profile",
+      "issue": 217,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        80,
+        208,
+        216,
+        215
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B014",
+        "R0002-B019",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
       "key": "pool",
       "milestone": "M2",
       "kind": "implementation",
       "issue": 23,
       "depends_on": [
-        80
+        208
       ],
       "requirements": [
         "R0002-B010",
@@ -1069,7 +1518,12 @@
       "kind": "implementation",
       "issue": 24,
       "depends_on": [
-        23
+        23,
+        209,
+        210,
+        211,
+        212,
+        213
       ],
       "requirements": [
         "R0002-B010",
@@ -1085,7 +1539,7 @@
       "kind": "implementation",
       "issue": 25,
       "depends_on": [
-        80
+        217
       ],
       "requirements": [
         "R0002-B008",
