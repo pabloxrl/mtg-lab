@@ -12,6 +12,21 @@ A separate [scalar run manifest](run-manifest.md) binds this file to run-level
 provenance, capture declarations and completion, with a completed-run default.
 Bare JSONL validation retains the episode-level behavior below.
 
+## Core-to-wire ownership
+
+Core owns authorized observations and in-memory trajectory production. The
+recorder owns the independent `schema` (v1) and `structured` (v2) wire contracts
+and their validators. Private `conversion` functions copy each field explicitly
+and match every enum variant; they do not serialize intermediate JSON, inspect
+Game state, or manufacture policy statistics. Exhaustive source destructuring
+makes added public fields a compilation obligation. Immutable Episode accessors
+expose its serialized conventions without exposing mutable records.
+
+`from_core` and `from_core_v2` still validate after conversion. Collector header,
+end-reason and final-observation comparisons use the same mappings. The durable
+serializer, schemas, null/omission rules, canonical bytes and error ownership
+remain unchanged. See [compatibility evidence](evidence/recorder-conversion/README.md).
+
 ## Structured v2 compatibility
 
 The same writer, bounded queue, strict reader, inventory and file publisher now

@@ -124,8 +124,7 @@ impl Run {
             return Err(Error::Invalid);
         }
         let h = self.header(self.first_ordinal)?;
-        let header: crate::schema::Header =
-            serde_json::from_slice(&json(&h)?).map_err(|_| Error::Invalid)?;
+        let header = crate::conversion::s_header(&h);
         let mut manifest = Manifest {
             dataset_schema: 2,
             run: self.id.clone(),
@@ -215,20 +214,19 @@ impl Run {
                     let footer = episode.footer.as_ref().ok_or(Error::Incomplete)?;
                     let expected_end = match result.status() {
                         Status::Completed(_) => End::Completed,
-                        Status::Truncated(reason) => serde_json::from_slice(&json(
-                            &mtg_core::trajectory::End::Truncated(reason),
-                        )?)
-                        .map_err(|_| Error::Invalid)?,
+                        Status::Truncated(reason) => {
+                            crate::conversion::s_end(&mtg_core::trajectory::End::Truncated(reason))
+                        }
                         _ => unreachable!(),
                     };
                     if footer.end != expected_end
                         || episode.decisions.len() as u64 != result.accepted_decisions()
-                        || serde_json::to_value(&footer.final_observations)
-                            .map_err(|_| Error::Invalid)?
-                            != serde_json::to_value(
-                                result.final_observations().ok_or(Error::Incomplete)?,
-                            )
-                            .map_err(|_| Error::Invalid)?
+                        || footer.final_observations
+                            != result
+                                .final_observations()
+                                .ok_or(Error::Incomplete)?
+                                .each_ref()
+                                .map(crate::conversion::w_observation)
                     {
                         return Err(Error::Invalid);
                     }

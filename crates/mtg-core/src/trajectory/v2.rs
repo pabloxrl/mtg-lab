@@ -351,6 +351,16 @@ impl Recorder {
     }
 }
 impl Episode {
+    /// Immutable serialized convention; storage adapters must preserve it.
+    pub fn reward_convention(&self) -> &RewardConvention {
+        &self.reward_convention
+    }
+    pub fn discount_convention(&self) -> &DiscountConvention {
+        &self.discount_convention
+    }
+    pub fn capture_selection(&self) -> &CaptureSelection {
+        &self.capture_selection
+    }
     pub(crate) fn bind_replay(&mut self, id: &str) {
         self.header.restricted_replay = Some(id.into());
     }

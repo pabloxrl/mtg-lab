@@ -3,6 +3,7 @@
 //! See `doc/trajectory-jsonl.md`. Publication validates replays through the core;
 //! the recorder does not implement game rules or consume game RNG streams.
 pub mod collector;
+mod conversion;
 pub mod manifest;
 pub mod publication;
 pub mod schema;
@@ -249,8 +250,7 @@ fn canonical(value: &impl Serialize, limit: usize) -> Result<Vec<u8>, Error> {
 }
 /// Copies only the canonical data, never game state, seeds or capability handles.
 pub fn from_core(episode: &mtg_core::trajectory::Episode) -> Result<Episode, Error> {
-    let e = serde_json::from_value(serde_json::to_value(episode).map_err(|_| Error::Invalid)?)
-        .map_err(|_| Error::Invalid)?;
+    let e = conversion::s_episode(episode);
     validate(&e)?;
     Ok(e)
 }
@@ -687,8 +687,7 @@ impl Durable for structured::Episode {
 pub fn from_core_v2(
     episode: &mtg_core::trajectory::v2::Episode,
 ) -> Result<structured::Episode, Error> {
-    let e = serde_json::from_value(serde_json::to_value(episode).map_err(|_| Error::Invalid)?)
-        .map_err(|_| Error::Invalid)?;
+    let e = conversion::w_episode(episode);
     structured::validate(&e)?;
     Ok(e)
 }
