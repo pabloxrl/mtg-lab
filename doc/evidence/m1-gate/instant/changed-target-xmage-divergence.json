@@ -1,0 +1,5 @@
+{
+  "status": "detected",
+  "error": "first divergence: {\"actual\": \"source\", \"expected\": \"destination\", \"path\": \"$.destination.checkpoints[2].state.stack[1].targets[0].id\"}",
+  "log_sha256": "6e61918c5511e6ad3624406187c89e3c639d6677d9e132d5c7f0ab5eeeb61a15"
+}

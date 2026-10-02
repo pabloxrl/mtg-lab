@@ -1,0 +1,361 @@
+{
+  "scenario_version": 1,
+  "fixture_id": "xmage/priority-pass",
+  "description": "Original synthetic upkeep priority handoff; two explicit ordered basic-land libraries. Not normal-reset or full-game evidence.",
+  "rules": {
+    "version": "cr-2026-09-25",
+    "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+  },
+  "cards": {
+    "version": "2026-09-26.1",
+    "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+  },
+  "required_capabilities": [
+    "priority/passing",
+    "foundations_micro_v1/forest",
+    "foundations_micro_v1/mountain"
+  ],
+  "rule_references": [
+    "117.3d"
+  ],
+  "setup": {
+    "kind": "synthetic",
+    "state": {
+      "turn": 1,
+      "active_player": 0,
+      "phase": "beginning",
+      "step": "upkeep",
+      "priority": 0,
+      "players": [
+        {
+          "seat": 0,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [
+              "p0-library-0",
+              "p0-library-1"
+            ],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        },
+        {
+          "seat": 1,
+          "life": 20,
+          "mana": {
+            "W": 0,
+            "U": 0,
+            "B": 0,
+            "R": 0,
+            "G": 0,
+            "C": 0
+          },
+          "zones": {
+            "library": [
+              "p1-library-0",
+              "p1-library-1"
+            ],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "land_plays_used": 0
+        }
+      ],
+      "objects": [
+        {
+          "id": "p0-library-0",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "p0-library-1",
+          "card_id": "mountain",
+          "generation": 0,
+          "owner": 0,
+          "controller": 0,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "p1-library-0",
+          "card_id": "mountain",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        },
+        {
+          "id": "p1-library-1",
+          "card_id": "forest",
+          "generation": 0,
+          "owner": 1,
+          "controller": 1,
+          "status": {
+            "tapped": false,
+            "controlled_since_turn": 0,
+            "damage": 0,
+            "power": null,
+            "toughness": null,
+            "keywords": [],
+            "token": false
+          }
+        }
+      ],
+      "stack": [],
+      "effects": []
+    },
+    "assumptions": [
+      {
+        "description": "Synthetic upkeep, empty hand/battlefield/stack, no draw; libraries ordered top first.",
+        "checks": [
+          {
+            "field": "stack",
+            "path": "/stack",
+            "expected": [],
+            "basis": "pass-rule"
+          }
+        ]
+      }
+    ]
+  },
+  "script": [
+    {
+      "id": "pass-0",
+      "actor": 1,
+      "kind": "pass",
+      "source": null,
+      "choices": [
+        {
+          "id": "pass-choice",
+          "actor": 1,
+          "kind": "pass",
+          "values": []
+        }
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "name": "priority-p1",
+      "after": "pass-0",
+      "kind": "decision",
+      "assertions": [
+        {
+          "field": "priority",
+          "path": "/priority",
+          "expected": 1,
+          "basis": "pass-rule"
+        },
+        {
+          "field": "life",
+          "path": "/players/0/life",
+          "expected": 20,
+          "basis": "pass-rule"
+        },
+        {
+          "field": "life",
+          "path": "/players/1/life",
+          "expected": 20,
+          "basis": "pass-rule"
+        },
+        {
+          "field": "zones",
+          "path": "/players/0/zones",
+          "expected": {
+            "library": [
+              "p0-library-0",
+              "p0-library-1"
+            ],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "basis": "pass-rule"
+        },
+        {
+          "field": "zones",
+          "path": "/players/1/zones",
+          "expected": {
+            "library": [
+              "p1-library-0",
+              "p1-library-1"
+            ],
+            "hand": [],
+            "battlefield": [],
+            "graveyard": [],
+            "exile": []
+          },
+          "basis": "pass-rule"
+        }
+      ]
+    }
+  ],
+  "invalid_actions": [],
+  "provenance": {
+    "provenance_version": 1,
+    "fixture_id": "xmage/priority-pass",
+    "source_kind": "original",
+    "author": "mtg-lab GH-13",
+    "created_at": "2026-09-26",
+    "origins": [
+      {
+        "url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+        "version": "cr-2026-09-25",
+        "retrieved_at": "2026-09-26",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+        "path": "MagicCompRules 20260925.txt",
+        "section": "117.3d"
+      }
+    ],
+    "ancestry": [],
+    "no_upstream_code_adapted": "Original GH-13 neutral smoke fixture; no upstream scenario copied.",
+    "license_review": {
+      "sources": [
+        {
+          "url": "https://github.com/pabloxrl/mtg-lab/blob/0b96846bcc672759e4e51a234a21f548bd3c1da9/doc/provenance-policy.md",
+          "version": "0b96846bcc672759e4e51a234a21f548bd3c1da9",
+          "retrieved_at": "2026-09-26",
+          "sha256": "eb426f061d82ea065a6d81dbb8668d59775f63675e4e10cdc12310524c374ec0",
+          "path": "doc/provenance-policy.md",
+          "section": "Distribution boundary; repository license unselected"
+        }
+      ],
+      "file_notices": [],
+      "retained_notice_paths": [],
+      "full_notice_text": "Original project material; repository license unselected. No upstream code or rules text copied.",
+      "reviewer": "GH-13 bridge author",
+      "date": "2026-09-26",
+      "distribution_decision": "original-metadata-only",
+      "blocker_ids": [
+        "REL-01",
+        "REL-02",
+        "REL-03"
+      ]
+    },
+    "modifications": "Original priority smoke, independent CR 117.3d expectation; no upstream scenario copied.",
+    "rules_basis": {
+      "rules": {
+        "version": "cr-2026-09-25",
+        "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca"
+      },
+      "numbered_rules": [
+        "117.3d"
+      ],
+      "cards": {
+        "version": "2026-09-26.1",
+        "sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+      },
+      "oracle_sources": [
+        {
+          "card_id": "forest",
+          "sha256": "6215eab3372e7128de713b41e7758fc9b179ade5bc47d33a5af8cef9c9c7493b"
+        },
+        {
+          "card_id": "mountain",
+          "sha256": "91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c"
+        }
+      ],
+      "rulings": []
+    },
+    "expected_result_basis": [
+      {
+        "id": "pass-rule",
+        "derivation": "CR 117.3d gives priority to the next player when the priority holder passes. One pass does not advance the step. Passing changes neither life nor library order.",
+        "citations": [
+          "CR 117.3d"
+        ],
+        "reviewer": "GH-13 bridge author",
+        "method": "rules-derived",
+        "observed_engine_output": null
+      },
+      {
+        "id": "boundary-spec",
+        "derivation": "RFC 0001 requires wrong-player input to leave state unchanged; RFC 0002 apply validates before mutation.",
+        "citations": [
+          "RFC 0001 UC8",
+          "RFC 0002 \u00a74"
+        ],
+        "reviewer": "GH-13 bridge author",
+        "method": "independent-specification",
+        "observed_engine_output": null
+      }
+    ],
+    "vintage_audit": {
+      "upstream": "XMage 000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+      "target": "cr-2026-09-25",
+      "differences": "Priority handoff under CR 117.3d only; no combat or card ability resolution. FDN Forest/Mountain identifiers selected, no use of Oracle text.",
+      "adjudication": "No rule difference in the scoped priority transfer; permanent characteristics and legal-choice enumeration remain unsupported.",
+      "reviewer": "GH-13 bridge author",
+      "date": "2026-09-26",
+      "status": "pending"
+    },
+    "reproduction": {
+      "setup_kind": "synthetic",
+      "trace_sha256": "e9dfd941d7811c1fd4ff9f7062c241989461f7532f4b2dfece7e516bdcb494da",
+      "ordered_randomness": "Two distinct basic lands per seat, top first; shuffling disabled.",
+      "complete_choices": "One explicit pass; stop at named priority handoff",
+      "command": "python3 scripts/xmage.py acceptance --cache /tmp/mtg-xmage",
+      "tool_versions": [
+        "neutral-scenario-v1",
+        "xmage-bridge-v1",
+        "Temurin 21.0.9+10",
+        "Maven 3.9.11"
+      ],
+      "failure_artifacts": []
+    },
+    "reference_evidence": [],
+    "review": {
+      "status": "pending",
+      "reviewer": "GH-13 independent review pending",
+      "date": "2026-09-26",
+      "evidence_links": [
+        "https://github.com/pabloxrl/mtg-lab/issues/13"
+      ],
+      "admission_scope": "Pending GH-13 bridge review; no full-game or broad capability claim.",
+      "blocker_ids": []
+    },
+    "regression": null,
+    "differential": null,
+    "fixture_revision": "7dfa507de0d4aa813ff3ba16fd23d7ed4ff40c377e34d57e270cfb56382312a8"
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "bridge_version": 1,
+  "checkpoints": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "active_player": 0,
+        "priority": 0,
+        "phase": "beginning",
+        "step": "upkeep",
+        "players": [
+          {
+            "seat": 0,
+            "life": 20,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "zones": {
+              "library": [
+                "p0-library-0",
+                "p0-library-1"
+              ],
+              "hand": [],
+              "battlefield": [],
+              "graveyard": [],
+              "exile": []
+            }
+          },
+          {
+            "seat": 1,
+            "life": 20,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "zones": {
+              "library": [
+                "p1-library-0",
+                "p1-library-1"
+              ],
+              "hand": [],
+              "battlefield": [],
+              "graveyard": [],
+              "exile": []
+            }
+          }
+        ],
+        "stack": []
+      }
+    },
+    {
+      "name": "priority-p1",
+      "state": {
+        "turn": 1,
+        "active_player": 0,
+        "priority": 1,
+        "phase": "beginning",
+        "step": "upkeep",
+        "players": [
+          {
+            "seat": 0,
+            "life": 20,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "zones": {
+              "library": [
+                "p0-library-0",
+                "p0-library-1"
+              ],
+              "hand": [],
+              "battlefield": [],
+              "graveyard": [],
+              "exile": []
+            }
+          },
+          {
+            "seat": 1,
+            "life": 20,
+            "mana": {
+              "W": 0,
+              "U": 0,
+              "B": 0,
+              "R": 0,
+              "G": 0,
+              "C": 0
+            },
+            "zones": {
+              "library": [
+                "p1-library-0",
+                "p1-library-1"
+              ],
+              "hand": [],
+              "battlefield": [],
+              "graveyard": [],
+              "exile": []
+            }
+          }
+        ],
+        "stack": []
+      }
+    }
+  ],
+  "observed_cards": {
+    "p0-library-0": "forest",
+    "p0-library-1": "mountain",
+    "p1-library-0": "mountain",
+    "p1-library-1": "forest"
+  },
+  "unsupported": {
+    "object_characteristics_status_damage": "Library-only smoke; permanent attributes not exported",
+    "legal_choices": "Only explicit pass; enumeration not exported",
+    "outcome": "Stopped at intermediate priority, not game end",
+    "effects_and_private_views": "Not exported by smoke v1",
+    "land_plays_used": "Not exported by smoke v1"
+  }
+}
