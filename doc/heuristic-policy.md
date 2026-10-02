@@ -45,8 +45,9 @@ always dominate card values. These are strategic preferences, not rules claims.
 
 Handles every M1 family: opening/bottom, priority, lands, targets, payment,
 attackers, blockers, damage allocation and cleanup discard. Casts are restricted
-to Bear Cub, Swab Goblin, Giant Growth, Bite Down and Dragon Fodder; mana/lands to Forest and
-Mountain. Unknown enabled commands, decision kinds or newly enabled card content
+to Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder, Llanowar Elves
+and Druid of the Cowl. Lands are Forest/Mountain; mana sources also include
+legal Elf/Druid tap abilities. Unknown enabled commands, decision kinds or newly enabled card content
 fail explicitly even when pass is legal. Schema/seat/shape errors are explicit.
 The engine remains responsible for legality and stale submission rejection.
 Other fixed-deck cards can be held, bottomed and discarded but remain uncastable.

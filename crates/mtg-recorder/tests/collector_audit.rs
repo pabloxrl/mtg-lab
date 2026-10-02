@@ -183,7 +183,17 @@ impl Ledger {
                     );
                 }
                 for (row, key) in self.hands[s].iter().enumerate() {
-                    if ["bear-cub", "giant-growth", "bite-down"].contains(&key.as_str()) {
+                    // Supported spell rows remain masked: this passive ledger never
+                    // plays a land or produces mana (CR 601.2f-h).
+                    if [
+                        "bear-cub",
+                        "giant-growth",
+                        "bite-down",
+                        "llanowar-elves",
+                        "druid-of-the-cowl",
+                    ]
+                    .contains(&key.as_str())
+                    {
                         candidates.push(json!({"kind":"cast","card":{"zone":"hand","row":row}}));
                         mask.push(false);
                     }

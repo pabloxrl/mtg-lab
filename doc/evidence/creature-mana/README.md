@@ -110,3 +110,11 @@ unsupported-card rejection, and collector characteristics. Searches of the
 remaining literal characteristic tables found no other such table. The revised
 plan is to retain these focused reproductions, rerun independent review of the
 expectation correction, and run the complete unchanged torture entry point.
+
+The collector ledger also explicitly lists supported cast rows. Elf/Druid rows
+are now included with `false` masks because this passive script has no mana;
+CR 601.2f–h still forbids the cast. Full candidate, mask and observation equality
+assertions are unchanged. A further review accepted the characteristic correction
+and requested the same support-list correction in the heuristic documentation.
+The field and candidate-table repairs share the diagnosed support-expansion
+integration boundary; no production rules or expected legal outcome was relaxed.
