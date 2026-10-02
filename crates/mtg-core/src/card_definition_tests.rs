@@ -7,13 +7,15 @@ use super::targets::{CreatureState, TargetError};
 use super::turns::Step;
 use super::*;
 
-const SUPPORTED: [&str; 6] = [
+const SUPPORTED: [&str; 8] = [
     "forest",
     "mountain",
     "bear-cub",
     "swab-goblin",
     "giant-growth",
     "bite-down",
+    "llanowar-elves",
+    "druid-of-the-cowl",
 ];
 
 fn ready() -> Game {
@@ -50,6 +52,8 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
         ("swab-goblin", "{1}{R}", None, Some((2, 2)), false),
         ("giant-growth", "{G}", None, None, true),
         ("bite-down", "{1}{G}", None, None, true),
+        ("llanowar-elves", "{G}", None, Some((1, 1)), false),
+        ("druid-of-the-cowl", "{1}{G}", None, Some((1, 3)), false),
     ] {
         let entry = manifest["cards"]
             .as_array()

@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-tokens-v1";
+pub const VERSION: &str = "legal-random-mana-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -252,9 +252,15 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "giant-growth",
                     "bite-down",
                     "dragon-fodder",
+                    "llanowar-elves",
+                    "druid-of-the-cowl",
                 ],
             ),
-            Choice::PlayLand { card } | Choice::TapMana { card } => (card, &["forest", "mountain"]),
+            Choice::PlayLand { card } => (card, &["forest", "mountain"]),
+            Choice::TapMana { card } => (
+                card,
+                &["forest", "mountain", "llanowar-elves", "druid-of-the-cowl"],
+            ),
             _ => continue,
         };
         let cards = match r.zone {

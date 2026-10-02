@@ -1234,3 +1234,145 @@ fn fodder_normal_reset_policy_capture_and_semantic_replay() {
         normalized(result.privileged_snapshot())
     );
 }
+
+#[test]
+fn creature_mana_normal_reset_capture_cancel_and_replay() {
+    // CR 302.6/601/605; exact frozen green deck with declared post-shuffle order.
+    for key in ["llanowar-elves", "druid-of-the-cowl"] {
+        let mut cfg = config();
+        let order = cfg.seats[0].order.as_mut().unwrap();
+        let index = order.iter().position(|c| c == key).unwrap();
+        order.swap(0, index);
+        cfg.seats[1] = cfg.seats[0].clone();
+        let mut s = Script::new(&cfg);
+        s.send(Seat::P0, "keep_or_mulligan", vec![C::Keep], A::Committed);
+        s.send(Seat::P1, "keep_or_mulligan", vec![C::Keep], A::Committed);
+        s.until(1, "precombat_main");
+        let card = s.card(Seat::P0, "forest");
+        s.send(
+            Seat::P0,
+            "priority",
+            vec![C::PlayLand { card }],
+            A::Committed,
+        );
+        if key == "druid-of-the-cowl" {
+            s.until(3, "precombat_main");
+            let card = s.card(Seat::P0, "forest");
+            s.send(
+                Seat::P0,
+                "priority",
+                vec![C::PlayLand { card }],
+                A::Committed,
+            );
+        }
+        let lands = if key == "llanowar-elves" { 1 } else { 2 };
+        let card = s.card(Seat::P0, key);
+        s.send(Seat::P0, "priority", vec![C::Cast { card }], A::Continuing);
+        for row in 0..lands {
+            s.send(
+                Seat::P0,
+                "payment",
+                vec![C::TapMana { card: bf(row) }],
+                A::Continuing,
+            );
+            s.send(
+                Seat::P0,
+                "payment",
+                vec![C::Pay { color: 4 }],
+                A::Continuing,
+            );
+        }
+        s.send(Seat::P0, "payment", vec![C::FinishPayment], A::Committed);
+        s.idle();
+        s.idle();
+        let creature = bf(lands);
+        // Newly resolved mana creature is sick. Failed submission preserves the
+        // owned history and capture as well as all game state.
+        let o = s.on.observe(Seat::P0).unwrap();
+        let d = o.decision.unwrap();
+        let before = s.on.privileged_snapshot();
+        let count = s.on.privileged_history().len();
+        let captured = s.on.trajectory().cloned();
+        let bad = policy::Submission {
+            schema_version: 1,
+            revision: d.revision,
+            generation: d.generation,
+            choices: vec![C::TapMana { card: creature }],
+        };
+        assert!(s.on.submit(Seat::P0, &bad).is_err());
+        assert_eq!(s.on.privileged_snapshot(), before);
+        assert_eq!(s.on.privileged_history().len(), count);
+        assert_eq!(s.on.trajectory(), captured.as_ref());
+        s.until(if lands == 1 { 3 } else { 5 }, "precombat_main");
+        // One cancelled cast, followed by the same complete payment. The Elf
+        // uses its only Forest; Druid deliberately leaves its other Forest free.
+        for cancel in [true, false] {
+            let card = s.card(Seat::P0, "bear-cub");
+            s.send(Seat::P0, "priority", vec![C::Cast { card }], A::Continuing);
+            for source in [creature, bf(0)] {
+                s.send(
+                    Seat::P0,
+                    "payment",
+                    vec![C::TapMana { card: source }],
+                    A::Continuing,
+                );
+                s.send(
+                    Seat::P0,
+                    "payment",
+                    vec![C::Pay { color: 4 }],
+                    A::Continuing,
+                );
+            }
+            s.send(
+                Seat::P0,
+                "payment",
+                vec![if cancel {
+                    C::CancelPayment
+                } else {
+                    C::FinishPayment
+                }],
+                if cancel { A::Cancelled } else { A::Committed },
+            );
+            let o = s.on.observe(Seat::P0).unwrap();
+            let board = &o
+                .view
+                .public_zones
+                .iter()
+                .find(|z| z.zone == "battlefield")
+                .unwrap()
+                .cards;
+            assert_eq!(board[lands].tapped, !cancel);
+            assert_eq!(board[0].tapped, !cancel);
+            assert_eq!(
+                board[lands].creature,
+                Some([1, if lands == 1 { 1 } else { 3 }, 0])
+            );
+            if lands == 2 {
+                assert!(!board[1].tapped);
+            }
+        }
+        s.idle();
+        s.idle();
+        // Next own turn: priority activation retains the same actor and creates
+        // no stack object. Compare the full owned trajectory with capture off.
+        s.until(if lands == 1 { 5 } else { 7 }, "precombat_main");
+        s.send(
+            Seat::P0,
+            "priority",
+            vec![C::TapMana { card: creature }],
+            A::Committed,
+        );
+        assert_eq!(s.on.observe(Seat::P0).unwrap().view.acting_seat, Some(0));
+        let (mut result, rows) = s.finish_concession(Seat::P1);
+        check_seats(&result, &rows, [1, -1]);
+        let mut registry = mtg_core::episode::replay::Registry::default();
+        let id = "19500000-a4db-44fe-a681-603c4055708a";
+        registry.register(id, &mut result).unwrap();
+        let bytes = registry.resolve(id, &result, |_, _| true).unwrap();
+        let verified = mtg_core::opening::replay::played::verify(bytes).unwrap();
+        assert_eq!(
+            normalized(&verified.snapshot()),
+            normalized(result.privileged_snapshot())
+        );
+    }
+}

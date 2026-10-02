@@ -1,7 +1,7 @@
-# Deterministic M1 heuristic
+# Deterministic native heuristic
 
 `mtg_policy::Heuristic::new(HEURISTIC_VERSION, seat)` creates a stateless native
-opponent. `HEURISTIC_VERSION = heuristic-tokens-v1` freezes the rules below. Its
+opponent. `HEURISTIC_VERSION = heuristic-mana-v1` freezes the rules below. Its
 `choose(&policy::Observation)` returns a semantic submission for
 `Game::apply_policy`. Only the authorized observation is accepted; no game,
 private replay, environment seed, RNG or clock is available. Repeated inputs
@@ -15,7 +15,7 @@ there is no random tie breaking. Scores are lexicographic, so priority classes
 always dominate card values. These are strategic preferences, not rules claims.
 
 - Keep seven (never voluntarily mulligan). Bottom/discard lowest retention value
-  first, without replacement: unsupported cards and Dragon Fodder 0, lands 1, Growth 2, Bite 3,
+  first, without replacement: unsupported cards, Dragon Fodder and Elf/Druid 0, lands 1, Growth 2, Bite 3,
   Bear Cub/Swab Goblin 4. This intentionally simple policy may discard needed lands.
 - Priority: play a land, then cast a creature or Dragon Fodder, then Bite if own and enemy creatures
   exist, then Growth if an own creature exists and either combat or a committed
@@ -28,7 +28,7 @@ always dominate card values. These are strategic preferences, not rules claims.
   a wrong-controller target. Finish complete targets before canceling.
 - Payment: finish when legal, otherwise pay before activating a source. Payment
   color ties use candidate order. Source activation prefers a color still owed
-  (Forest=green, Mountain=red), then candidate order; cancel only when no legal
+  (Forest/Elf/Druid=green, Mountain=red), then candidate order; cancel only when no legal
   progress exists.
 - Attack with every legal attacker. Replace a different provisional selection,
   then explicitly finish once it equals the desired selection.
@@ -54,13 +54,13 @@ This does not support the complete twenty-card pool, keywords or triggers.
 
 The policy does not predict opponent hands, search future states or optimize
 winning chances. It may waste spells or make poor attacks. Strength is not a
-rules oracle. No CLI selection, collector, capture, training integration or
-policy probabilities are supplied; CLI remains pass-v1. External limits are
+rules oracle. The existing owned runner, native CLI and capture use this policy;
+training integration and policy probabilities remain separate obligations. External limits are
 truncations, never terminal draws; engine errors are failures.
 
 Run `cargo test --locked -p mtg-policy`. Normal discovery and full torture cover
-both native policies. Original integration acceptance remains with #21, M1
-completion with #22, and later milestone obligations are unchanged.
+both native policies. Historical M1 integration and gate evidence remain with #21/#22; later milestone
+obligations are unchanged.
 
 GH-194 extends the accepted content domain to Dragon Fodder at the existing
 vanilla-development score (30). Its legal payment/priority choices use the same
@@ -68,4 +68,4 @@ rules, and token combat uses observed 1/1 characteristics. Existing six-card
 input scores and tie rules are unchanged; the engine fingerprint identifies the
 expanded legal domain. Full-pool strategy and support remain #208 acceptance.
 
-`heuristic-tokens-v1` supersedes `heuristic-m1-v1`; the old ID rejects explicitly.
+`heuristic-mana-v1` supersedes `heuristic-tokens-v1` and `heuristic-m1-v1`; both old IDs reject explicitly. GH-195 adds Elf/Druid casts at the existing creature score (30) and tap-for-G payment sources. It changes no other score or tie rule. Full-pool qualification remains #208.

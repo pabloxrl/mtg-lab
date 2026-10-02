@@ -320,3 +320,30 @@ fn token_policy_domain_requires_new_versions() {
     assert!(Heuristic::new("heuristic-m1-v1", 0).is_err());
     assert_ne!(mtg_policy::VERSION, "legal-random-m1-v1");
 }
+
+#[test]
+fn creature_mana_policy_casts_and_pays_with_both_sources() {
+    for key in ["llanowar-elves", "druid-of-the-cowl"] {
+        let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(1) }]);
+        o.view.hand[1].card = key;
+        assert_eq!(choose(&o), vec![Choice::Cast { card: h(1) }]);
+        let mut o = obs(
+            "payment",
+            vec![Choice::CancelPayment, Choice::TapMana { card: b(0) }],
+        );
+        o.view
+            .public_zones
+            .iter_mut()
+            .find(|z| z.zone == "battlefield")
+            .unwrap()
+            .cards[0]
+            .card = key;
+        assert_eq!(choose(&o), vec![Choice::TapMana { card: b(0) }]);
+    }
+}
+
+#[test]
+fn creature_mana_domain_requires_new_policy_versions() {
+    assert!(Heuristic::new("heuristic-tokens-v1", 0).is_err());
+    assert_ne!(mtg_policy::VERSION, "legal-random-tokens-v1");
+}

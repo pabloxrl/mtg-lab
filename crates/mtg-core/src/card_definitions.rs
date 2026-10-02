@@ -17,6 +17,12 @@ pub(super) enum Definition {
         power: u32,
         toughness: u32,
     },
+    ManaCreature {
+        cost: ManaCost,
+        power: u32,
+        toughness: u32,
+        color: Color,
+    },
     Token,
     TokenSorcery {
         cost: ManaCost,
@@ -38,6 +44,7 @@ impl Definition {
     pub(super) fn cost(self) -> Option<ManaCost> {
         match self {
             Self::VanillaCreature { cost, .. }
+            | Self::ManaCreature { cost, .. }
             | Self::Instant { cost, .. }
             | Self::TokenSorcery { cost } => Some(cost),
             _ => None,
@@ -49,10 +56,19 @@ impl Definition {
             _ => None,
         }
     }
+    pub(super) fn mana_color(self) -> Option<Color> {
+        match self {
+            Self::BasicLand(color) | Self::ManaCreature { color, .. } => Some(color),
+            _ => None,
+        }
+    }
     pub(super) fn creature_base(self) -> Option<(u32, u32)> {
         match self {
             Self::Token => Some((1, 1)),
             Self::VanillaCreature {
+                power, toughness, ..
+            }
+            | Self::ManaCreature {
                 power, toughness, ..
             }
             | Self::UnsupportedCreature { power, toughness } => Some((power, toughness)),
@@ -66,7 +82,10 @@ impl Definition {
         }
     }
     pub(super) fn vanilla(self) -> bool {
-        matches!(self, Self::VanillaCreature { .. } | Self::Token)
+        matches!(
+            self,
+            Self::VanillaCreature { .. } | Self::ManaCreature { .. } | Self::Token
+        )
     }
 }
 
@@ -80,6 +99,24 @@ pub(super) fn definition(card: CardId) -> Definition {
                 colored: [0, 0, 0, 1, 0, 0],
                 generic: 1,
             },
+        },
+        "llanowar-elves" => Definition::ManaCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 0, 1, 0],
+                generic: 0,
+            },
+            power: 1,
+            toughness: 1,
+            color: Color::Green,
+        },
+        "druid-of-the-cowl" => Definition::ManaCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 0, 1, 0],
+                generic: 1,
+            },
+            power: 1,
+            toughness: 3,
+            color: Color::Green,
         },
         "forest" => Definition::BasicLand(Color::Green),
         "mountain" => Definition::BasicLand(Color::Red),

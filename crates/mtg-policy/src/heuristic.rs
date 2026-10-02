@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-tokens-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-mana-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -134,7 +134,8 @@ impl Heuristic {
                     .iter()
                     .any(|c| c.controller != self.seat && c.creature.is_some());
                 plain(match card(o, *r)?.card {
-                    "bear-cub" | "swab-goblin" | "dragon-fodder" => 30,
+                    "bear-cub" | "swab-goblin" | "dragon-fodder" | "llanowar-elves"
+                    | "druid-of-the-cowl" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,
@@ -148,7 +149,7 @@ impl Heuristic {
                     return plain(-2);
                 }
                 let color = match card(o, *r)?.card {
-                    "forest" => 4,
+                    "forest" | "llanowar-elves" | "druid-of-the-cowl" => 4,
                     "mountain" => 3,
                     _ => return Err(Error::UnsupportedContent),
                 };

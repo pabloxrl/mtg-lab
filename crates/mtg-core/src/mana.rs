@@ -52,10 +52,22 @@ pub(super) use super::cast_state::Payment;
 pub(super) fn basic_color(card: CardId) -> Option<Color> {
     super::card_definitions::definition(card).basic_color()
 }
+pub(super) fn mana_color(card: CardId) -> Option<Color> {
+    super::card_definitions::definition(card).mana_color()
+}
 fn invalid(e: ApplyError) -> ManaError {
     ManaError::Turn(TurnError::Invalid(e))
 }
 impl Game {
+    pub(super) fn usable_mana_source(&self, actor: Seat, h: Handle) -> bool {
+        self.objects.get(h).is_ok_and(|o| {
+            o.zone == Zone::Battlefield
+                && o.controller == actor
+                && !o.tapped
+                && mana_color(o.card).is_some()
+                && (basic_color(o.card).is_some() || !self.summoning_sick(h))
+        })
+    }
     pub(super) fn mana_priority(&self, actor: Seat, id: DecisionId) -> Result<(), ManaError> {
         if self.turns.payment.is_some() {
             return Err(ManaError::PaymentPending);
@@ -104,10 +116,7 @@ impl Game {
         }
         self.objects
             .in_zone(Zone::Battlefield)
-            .filter(|&h| {
-                let o = self.objects.get(h).expect("live permanent");
-                o.controller == actor && !o.tapped && basic_color(o.card).is_some()
-            })
+            .filter(|&h| self.usable_mana_source(actor, h))
             .collect()
     }
     pub fn play_land(
@@ -139,7 +148,7 @@ impl Game {
         if !self.mana_sources(actor).contains(&land) {
             return Err(ManaError::IllegalSource);
         }
-        let color = basic_color(self.objects.get(land).expect("validated source").card)
+        let color = mana_color(self.objects.get(land).expect("validated source").card)
             .unwrap()
             .index();
         let value = self.turns.mana[seat_index(actor)][color]

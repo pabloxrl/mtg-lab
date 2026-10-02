@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "llanowar-elves-priority",
+      "card": "llanowar-elves",
+      "mode": "priority"
+    },
+    {
+      "id": "llanowar-elves-sick",
+      "card": "llanowar-elves",
+      "mode": "sick"
+    },
+    {
+      "id": "llanowar-elves-payment",
+      "card": "llanowar-elves",
+      "mode": "payment"
+    },
+    {
+      "id": "llanowar-elves-floating",
+      "card": "llanowar-elves",
+      "mode": "floating"
+    },
+    {
+      "id": "llanowar-elves-opponent",
+      "card": "llanowar-elves",
+      "mode": "opponent"
+    },
+    {
+      "id": "llanowar-elves-attacked",
+      "card": "llanowar-elves",
+      "mode": "attacked"
+    },
+    {
+      "id": "druid-of-the-cowl-priority",
+      "card": "druid-of-the-cowl",
+      "mode": "priority"
+    },
+    {
+      "id": "druid-of-the-cowl-sick",
+      "card": "druid-of-the-cowl",
+      "mode": "sick"
+    },
+    {
+      "id": "druid-of-the-cowl-payment",
+      "card": "druid-of-the-cowl",
+      "mode": "payment"
+    },
+    {
+      "id": "druid-of-the-cowl-floating",
+      "card": "druid-of-the-cowl",
+      "mode": "floating"
+    },
+    {
+      "id": "druid-of-the-cowl-opponent",
+      "card": "druid-of-the-cowl",
+      "mode": "opponent"
+    },
+    {
+      "id": "druid-of-the-cowl-attacked",
+      "card": "druid-of-the-cowl",
+      "mode": "attacked"
+    },
+    {
+      "id": "druid-block",
+      "card": "druid-of-the-cowl",
+      "mode": "block"
+    }
+  ]
+}

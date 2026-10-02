@@ -1,5 +1,5 @@
 //! Atomic vanilla creature casts. Public inspections here remain privileged.
-use super::mana::{ManaCost, ManaError, PaymentDecision, basic_color};
+use super::mana::{ManaCost, ManaError, PaymentDecision, mana_color};
 use super::turns::{Step, TurnDecision, TurnError, TurnKind};
 use super::*;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -25,7 +25,7 @@ impl Game {
         }
         let mut available = self.turns.mana[seat_index(actor)].map(u64::from);
         for h in self.mana_sources(actor) {
-            let i = basic_color(self.objects.get(h).expect("source").card)
+            let i = mana_color(self.objects.get(h).expect("source").card)
                 .unwrap()
                 .index();
             available[i] += 1;
@@ -87,13 +87,7 @@ impl Game {
         }
         self.objects
             .in_zone(Zone::Battlefield)
-            .filter(|h| {
-                let o = self.objects.get(*h).expect("battlefield");
-                o.controller == actor
-                    && !o.tapped
-                    && basic_color(o.card).is_some()
-                    && !cast.sources().contains(h)
-            })
+            .filter(|h| self.usable_mana_source(actor, *h) && !cast.sources().contains(h))
             .collect()
     }
     pub fn cast_tap_mana(
@@ -106,7 +100,7 @@ impl Game {
         if !self.cast_mana_sources(actor).contains(&land) {
             return Err(CastError::Mana(ManaError::IllegalSource));
         }
-        let i = basic_color(self.objects.get(land).expect("source").card)
+        let i = mana_color(self.objects.get(land).expect("source").card)
             .unwrap()
             .index();
         let value = self.turns.payment.as_ref().unwrap().pool()[i]
@@ -141,11 +135,7 @@ impl Game {
             return Err(CastError::IllegalSpell);
         }
         for &source in cast.sources() {
-            if !self
-                .objects
-                .get(source)
-                .is_ok_and(|o| o.zone == Zone::Battlefield && o.controller == actor && !o.tapped)
-            {
+            if !self.usable_mana_source(actor, source) {
                 return Err(CastError::Mana(ManaError::IllegalSource));
             }
         }
