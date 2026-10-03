@@ -39,6 +39,9 @@ pub(super) enum Definition {
         toughness: u32,
     },
     Token,
+    ModalInstant {
+        cost: ManaCost,
+    },
     DiscardDraw {
         cost: ManaCost,
     },
@@ -73,9 +76,13 @@ impl Definition {
             | Self::InvokerCreature { cost, .. }
             | Self::Instant { cost, .. }
             | Self::TokenSorcery { cost }
+            | Self::ModalInstant { cost }
             | Self::DiscardDraw { cost } => Some(cost),
             _ => None,
         }
+    }
+    pub(super) fn modal(self) -> bool {
+        matches!(self, Self::ModalInstant { .. })
     }
     pub(super) fn discard_draw(self) -> bool {
         matches!(self, Self::DiscardDraw { .. })
@@ -179,6 +186,12 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "goblin-surprise" => Definition::ModalInstant {
+            cost: ManaCost {
+                colored: [0, 0, 0, 1, 0, 0],
+                generic: 2,
+            },
+        },
         "thrill-of-possibility" => Definition::DiscardDraw {
             cost: ManaCost {
                 colored: [0, 0, 0, 1, 0, 0],

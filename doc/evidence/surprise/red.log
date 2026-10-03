@@ -1,0 +1,72 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-203/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.91s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::casting::tests::surprise_payable_instant_requires_explicit_mode ... FAILED
+
+failures:
+
+---- game::casting::tests::surprise_payable_instant_requires_explicit_mode stdout ----
+
+thread 'game::casting::tests::surprise_payable_instant_requires_explicit_mode' (629) panicked at crates/mtg-core/src/casting_tests.rs:964:5:
+Pinned Surprise must be available at instant speed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::casting::tests::surprise_payable_instant_requires_explicit_mode
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 232 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-203/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.58s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 2 tests
+test game::casting::tests::surprise_payable_instant_requires_explicit_mode ... FAILED
+test game::casting::tests::surprise_modes_literal_affected_set_and_rejection ... FAILED
+
+failures:
+
+---- game::casting::tests::surprise_payable_instant_requires_explicit_mode stdout ----
+
+thread 'game::casting::tests::surprise_payable_instant_requires_explicit_mode' (279) panicked at crates/mtg-core/src/casting_tests.rs:964:5:
+Pinned Surprise must be available at instant speed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- game::casting::tests::surprise_modes_literal_affected_set_and_rejection stdout ----
+
+thread 'game::casting::tests::surprise_modes_literal_affected_set_and_rejection' (278) panicked at crates/mtg-core/src/casting_tests.rs:46:5:
+CR 601: payable vanilla creature must be offered
+
+
+failures:
+    game::casting::tests::surprise_modes_literal_affected_set_and_rejection
+    game::casting::tests::surprise_payable_instant_requires_explicit_mode
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 232 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

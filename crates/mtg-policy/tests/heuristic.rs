@@ -95,6 +95,7 @@ fn heuristic_land_creature_response_and_mask_ties() {
     let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(2) }]);
     assert_eq!(choose(&o), vec![Choice::Pass]);
     o.stack.push(StackSpell {
+        mode: None,
         ability: false,
         row: 0,
         targets: vec![Some(b(0))],
@@ -154,6 +155,7 @@ fn heuristic_target_scores_and_cancellation() {
         ],
     );
     o.pending = Some(PendingSpell {
+        mode: None,
         card: h(3),
         targets: vec![Some(b(0))],
         sources: vec![],
@@ -196,6 +198,7 @@ fn heuristic_payment_prefers_progress_and_needed_color() {
         ],
     );
     o.pending = Some(PendingSpell {
+        mode: None,
         card: h(1),
         targets: vec![],
         sources: vec![],
@@ -571,4 +574,34 @@ fn thrill_policy_cast_discard_payment_and_previous_version_rejection() {
     );
     assert_eq!(choose(&o), vec![Choice::Discard { card: h(0) }]);
     assert!(random.choose(&o).is_ok());
+}
+
+#[test]
+fn surprise_policy_modes_and_previous_version_rejection() {
+    assert!(Heuristic::new("heuristic-thrill-v1", 0).is_err());
+    let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(1) }]);
+    o.view.hand[1].card = "goblin-surprise";
+    assert_eq!(choose(&o), vec![Choice::Cast { card: h(1) }]);
+    let o = obs(
+        "cast_mode",
+        vec![
+            Choice::Mode { mode: 0 },
+            Choice::Mode { mode: 1 },
+            Choice::CancelPayment,
+        ],
+    );
+    assert_eq!(choose(&o), vec![Choice::Mode { mode: 1 }]);
+    let mut random =
+        mtg_policy::LegalRandom::new(mtg_policy::VERSION, mtg_policy::RNG_VERSION, 203, 0, 0)
+            .unwrap();
+    let mut seen = [false; 3];
+    for _ in 0..100 {
+        let c = random.choose(&o).unwrap();
+        match c.choices[0] {
+            Choice::Mode { mode } => seen[mode as usize] = true,
+            Choice::CancelPayment => seen[2] = true,
+            _ => panic!("unexpected"),
+        }
+    }
+    assert_eq!(seen, [true; 3]);
 }

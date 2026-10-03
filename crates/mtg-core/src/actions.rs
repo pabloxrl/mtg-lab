@@ -36,6 +36,9 @@ pub enum Choice {
     Pay {
         color: u8,
     },
+    Mode {
+        mode: u8,
+    },
     FinishPayment {},
     CancelPayment {},
     Cast {
@@ -281,6 +284,7 @@ fn encode_choice(g: &Game, actor: Seat, c: &policy::Choice) -> Result<Choice, Ac
         policy::Choice::TapMana { card } => Choice::TapMana { card: map(card)? },
         policy::Choice::Cast { card } => Choice::Cast { card: map(card)? },
         policy::Choice::Target { card } => Choice::Target { card: map(card)? },
+        policy::Choice::Mode { mode } => Choice::Mode { mode: *mode },
         policy::Choice::Discard { card } => Choice::Discard { card: map(card)? },
         policy::Choice::Pay { color } => Choice::Pay { color: *color },
         policy::Choice::SelectAttackers { cards } => Choice::SelectAttackers {
@@ -322,6 +326,7 @@ fn decode_choice(g: &Game, actor: Seat, c: &Choice) -> Result<policy::Choice, Ac
         Choice::TapMana { card } => policy::Choice::TapMana { card: map(card)? },
         Choice::Cast { card } => policy::Choice::Cast { card: map(card)? },
         Choice::Target { card } => policy::Choice::Target { card: map(card)? },
+        Choice::Mode { mode } => policy::Choice::Mode { mode: *mode },
         Choice::Discard { card } => policy::Choice::Discard { card: map(card)? },
         Choice::Pay { color } => policy::Choice::Pay { color: *color },
         Choice::SelectAttackers { cards } => policy::Choice::SelectAttackers {

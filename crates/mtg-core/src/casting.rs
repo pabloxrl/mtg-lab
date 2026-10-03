@@ -35,7 +35,9 @@ impl Game {
             .filter(|h| {
                 cost(self.objects.get(*h).expect("hand").card).is_some_and(|c| {
                     let card = self.objects.get(*h).unwrap().card;
-                    let timing = if super::card_definitions::definition(card).discard_draw() {
+                    let timing = if super::card_definitions::definition(card).modal() {
+                        true
+                    } else if super::card_definitions::definition(card).discard_draw() {
                         self.objects
                             .in_zone(Zone::Hand(actor))
                             .any(|other| other != *h)
@@ -101,7 +103,7 @@ impl Game {
         land: Handle,
     ) -> Result<PaymentDecision, CastError> {
         self.validate_payment(actor, id).map_err(CastError::Mana)?;
-        if !self.cast_mana_sources(actor).contains(&land) {
+        if self.cast_mode_pending() || !self.cast_mana_sources(actor).contains(&land) {
             return Err(CastError::Mana(ManaError::IllegalSource));
         }
         let i = mana_color(self.objects.get(land).expect("source").card)
@@ -125,7 +127,8 @@ impl Game {
         self.next_mana_generation().map_err(CastError::Mana)?;
         let card = cast.card();
         let discard = cast.discard();
-        if self.cast_discard_pending()
+        if self.cast_mode_pending()
+            || self.cast_discard_pending()
             || discard.is_some_and(|h| {
                 h == card
                     || !self
@@ -157,6 +160,10 @@ impl Game {
         }
         self.turns
             .effects
+            .try_reserve(1)
+            .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
+        self.turns
+            .modes
             .try_reserve(1)
             .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
         // Storage preflight occurs before any spend, tap, generation or move.
@@ -193,10 +200,38 @@ impl Game {
             .move_to(card, Zone::Stack)
             .expect("preflighted spell");
         self.turns.stack.push(h);
+        if let Some(mode) = cast.mode() {
+            self.turns.modes.push((h, mode));
+        }
         if let Some(effect) = cast.effect() {
             self.turns.effects.push((h, effect));
         }
         Ok(d)
+    }
+    /// CR 601.2b / 700.2: choose exactly one mode before spending mana.
+    /// Mode 0 boosts the resolution-time controlled set; mode 1 creates Goblins.
+    pub fn choose_cast_mode(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        modes: &[u8],
+    ) -> Result<PaymentDecision, CastError> {
+        self.validate_payment(actor, id).map_err(CastError::Mana)?;
+        if !self.cast_mode_pending() || modes.len() != 1 || modes[0] > 1 {
+            return Err(CastError::IllegalSpell);
+        }
+        let generation = self.next_mana_generation().map_err(CastError::Mana)?;
+        self.stage_cast_mode(modes[0], generation);
+        Ok(self.payment_decision(actor).expect("pending cast"))
+    }
+    pub(super) fn cast_mode_pending(&self) -> bool {
+        self.turns.casting.as_ref().is_some_and(|c| {
+            c.mode().is_none()
+                && self
+                    .objects
+                    .get(c.card())
+                    .is_ok_and(|o| super::card_definitions::definition(o.card).modal())
+        })
     }
     /// Private additional-cost choice. Nothing changes zones until finish_cast.
     pub fn choose_cast_discard(
@@ -369,6 +404,68 @@ impl Game {
                     legal_targets: usize::from(legal),
                     resolved: a.power || legal,
                 })
+            } else if self
+                .turns
+                .modes
+                .iter()
+                .any(|(spell, mode)| *spell == h && *mode == 0)
+            {
+                let o = *self.objects.get(h).unwrap();
+                let mut changes = Vec::new();
+                for target in self.objects.in_zone(Zone::Battlefield) {
+                    if self.objects.get(target).unwrap().controller != o.controller {
+                        continue;
+                    }
+                    let Some(state) = self.creature_state(target) else {
+                        continue;
+                    };
+                    state
+                        .power
+                        .checked_add(2)
+                        .ok_or(TurnError::EffectOverflow)?;
+                    let old = self
+                        .turns
+                        .modifications
+                        .iter()
+                        .find(|m| m.handle == target)
+                        .copied()
+                        .unwrap_or(super::targets::Modification {
+                            handle: target,
+                            boost: 0,
+                            power_boost: 0,
+                            damage: 0,
+                        });
+                    changes.push(super::targets::Modification {
+                        power_boost: old
+                            .power_boost
+                            .checked_add(2)
+                            .ok_or(TurnError::EffectOverflow)?,
+                        ..old
+                    });
+                }
+                self.work
+                    .try_reserve(changes.len() + 4)
+                    .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                self.turns
+                    .modifications
+                    .try_reserve(changes.len())
+                    .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                self.objects
+                    .prepare_moves(&[h], Zone::Graveyard(o.owner))
+                    .map_err(TurnError::Storage)?;
+                for change in changes {
+                    self.work.push_back(Work::Modify(change));
+                }
+                self.work.push_back(Work::SpellMove {
+                    handle: h,
+                    zone: Zone::Graveyard(o.owner),
+                    controller: None,
+                });
+                Some(super::targets::Resolution {
+                    spell: o.card,
+                    legal_targets: 0,
+                    resolved: true,
+                })
             } else if let Some(effect) = effect {
                 let plan = self.prepare_effect(h, effect)?;
                 if let Some(change) = plan.change {
@@ -423,7 +520,12 @@ impl Game {
             } else if matches!(
                 super::card_definitions::definition(self.objects.get(h).unwrap().card),
                 super::card_definitions::Definition::TokenSorcery { .. }
-            ) {
+            ) || self
+                .turns
+                .modes
+                .iter()
+                .any(|(spell, mode)| *spell == h && *mode == 1)
+            {
                 let o = *self.objects.get(h).unwrap();
                 self.objects
                     .reserve_knowledge(Zone::Battlefield, 3)

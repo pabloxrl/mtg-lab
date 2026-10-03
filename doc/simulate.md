@@ -91,8 +91,8 @@ cargo test -p mtg-cli --test native_simulate
 
 The [resolved example](../fixtures/simulate/native-v2.json) keeps the same required
 seed, episode, decision and game fields, sets `schema_version: 2`, and adds a
-required `native` object. Each seat explicitly selects `legal-random-thrill-v1` or
-`heuristic-thrill-v1`; mixing these two is supported. `pass-v1` remains schema 1 only.
+required `native` object. Each seat explicitly selects `legal-random-surprise-v1` or
+`heuristic-surprise-v1`; mixing these two is supported. `pass-v1` remains schema 1 only.
 `bench --workload scalar-pass-v1` accepts schema 1 only, never silently substituting
 a passive policy for native configuration. Unknown versions/policies fail before
 output; no human, random, or pass fallback exists.

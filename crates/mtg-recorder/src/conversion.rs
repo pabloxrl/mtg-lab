@@ -349,6 +349,7 @@ fn w_combat_attack(value: &p::CombatAttack) -> w::CombatAttack {
 }
 fn w_pending_spell(value: &p::PendingSpell) -> w::PendingSpell {
     let p::PendingSpell {
+        mode,
         card,
         targets,
         sources,
@@ -356,6 +357,7 @@ fn w_pending_spell(value: &p::PendingSpell) -> w::PendingSpell {
         remaining,
     } = value;
     w::PendingSpell {
+        mode: *mode,
         card: w_visible_ref(card),
         targets: targets
             .iter()
@@ -371,11 +373,13 @@ fn w_pending_spell(value: &p::PendingSpell) -> w::PendingSpell {
 }
 fn w_stack_spell(value: &p::StackSpell) -> w::StackSpell {
     let p::StackSpell {
+        mode,
         row,
         targets,
         ability,
     } = value;
     w::StackSpell {
+        mode: *mode,
         row: *row,
         ability: *ability,
         targets: targets
@@ -579,6 +583,7 @@ fn w_command(value: &p::Choice) -> w::Command {
             amounts: amounts.iter().map(|x| (w_visible_ref(&x.0), x.1)).collect(),
         },
         p::Choice::FinishCombat => w::Command::FinishCombat,
+        p::Choice::Mode { mode } => w::Command::Mode { mode: *mode },
         p::Choice::Discard { card } => w::Command::Discard {
             card: w_visible_ref(card),
         },

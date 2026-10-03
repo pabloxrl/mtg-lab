@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-thrill-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-surprise-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -124,6 +124,7 @@ impl Heuristic {
                 -retention(card(o, *r)?.card),
                 0,
             )),
+            Choice::Mode { mode } => plain(if *mode == 1 { 2 } else { 1 }),
             Choice::Pass => plain(0),
             Choice::PlayLand { .. } => plain(40),
             Choice::Cast { card: r } => {
@@ -153,7 +154,8 @@ impl Heuristic {
                     | "thornweald-archer"
                     | "shivan-dragon"
                     | "wildheart-invoker"
-                    | "thrill-of-possibility" => 30,
+                    | "thrill-of-possibility"
+                    | "goblin-surprise" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,

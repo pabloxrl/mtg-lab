@@ -1,0 +1,22 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-203/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.35s
+     Running tests/heuristic.rs (target/debug/deps/heuristic-20fb6b02136b30a1)
+
+running 1 test
+test surprise_policy_modes_and_previous_version_rejection ... FAILED
+
+failures:
+
+---- surprise_policy_modes_and_previous_version_rejection stdout ----
+
+thread 'surprise_policy_modes_and_previous_version_rejection' (66) panicked at crates/mtg-policy/tests/heuristic.rs:578:5:
+assertion failed: Heuristic::new("heuristic-thrill-v1", 0).is_err()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    surprise_policy_modes_and_previous_version_rejection
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test heuristic`
