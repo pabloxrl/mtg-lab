@@ -117,11 +117,30 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                         let stats = dragon.creature.as_ref().unwrap();
                         assert_eq!((stats[0], stats[1]), (9, 8));
                         assert!(dragon.summoning_sick);
+                        for seat in [Seat::P0, Seat::P1] {
+                            let view = serde_json::to_value(d.observe(seat).unwrap()).unwrap();
+                            let creature = view["view"]["public_zones"]
+                                .as_array()
+                                .unwrap()
+                                .iter()
+                                .flat_map(|z| z["cards"].as_array().unwrap())
+                                .find(|c| c["card"] == "wildheart-invoker")
+                                .unwrap();
+                            assert_eq!(
+                                creature["trample"], true,
+                                "CR 611.2: granted trample is public before combat"
+                            );
+                        }
                         boosted = true;
                     }
                     if t.0 == 24 && t.2 == "upkeep" {
                         let stats = dragon.creature.as_ref().unwrap();
                         assert_eq!((stats[0], stats[1]), (4, 3));
+                        let value = serde_json::to_value(dragon).unwrap();
+                        assert!(
+                            !value["trample"].as_bool().unwrap_or(false),
+                            "CR 514.2: cleanup expires granted trample"
+                        );
                         checked = true;
                         break;
                     }
@@ -278,6 +297,34 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                     [20, 20]
                 );
                 let converted = from_core_v2(result.trajectory().unwrap()).unwrap();
+                assert!(converted.decisions.iter().any(|decision| {
+                    decision
+                        .observation
+                        .view
+                        .public_zones
+                        .iter()
+                        .flat_map(|zone| &zone.cards)
+                        .any(|card| {
+                            card.card == "wildheart-invoker"
+                                && card.trample
+                                && card.creature == Some([9, 8, 0])
+                        })
+                }));
+                assert!(
+                    converted
+                        .footer
+                        .as_ref()
+                        .unwrap()
+                        .final_observations
+                        .iter()
+                        .all(|observation| observation
+                            .view
+                            .public_zones
+                            .iter()
+                            .flat_map(|zone| &zone.cards)
+                            .filter(|card| card.card == "wildheart-invoker")
+                            .all(|card| !card.trample))
+                );
                 let mut w = Writer::new_v2(Vec::new(), 4_000_000, Backpressure::Block).unwrap();
                 w.append_v2(&converted).unwrap();
                 let bytes = w.finish().unwrap();

@@ -27,7 +27,10 @@ Normal discovery includes core `invoker_tests`, recorder
 - Normal-reset ordered green decks play twelve Forests, cast Invoker and use its
   ability on its entry turn. Driver/Run proves 9/8 then next-turn 4/3, quantum
   1/unbounded and capture on/off equivalence, semantic replay, typed JSONL
-  round trips and once-only concession rewards. Rejected target changes during
+  round trips and once-only concession rewards. Both seats see effective trample
+  before combat, and typed records preserve the grant and its cleanup expiration.
+  [Observation regression red](view-red.log) reproduces the first independent
+  review finding; the existing played test now checks the field explicitly. Rejected target changes during
   payment preserve the complete Driver state, semantic history and capture.
   These played tests are distinct from focused synthetic positions.
 

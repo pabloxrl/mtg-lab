@@ -28,6 +28,7 @@ fn b(row: usize) -> VisibleRef {
 fn card(name: &'static str, controller: u8, creature: Option<[u32; 3]>) -> VisibleCard {
     VisibleCard {
         haste: false,
+        trample: name == "tajuru-pathwarden",
         card: name,
         owner: controller,
         controller,
