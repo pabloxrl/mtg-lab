@@ -17,6 +17,8 @@ pub(super) enum Work {
     CombatLife([i64; 2]),
     FinishCombat,
     Modify(targets::Modification),
+    GrantHaste(Handle),
+    RemoveAbility(Handle),
     CreateGoblins {
         controller: Seat,
     },
@@ -104,6 +106,16 @@ impl Game {
                     self.turns.combat.assignments.clear();
                     true
                 }
+                Work::GrantHaste(h) => {
+                    self.turns.haste.push(*h);
+                    true
+                }
+                Work::RemoveAbility(h) => {
+                    self.objects
+                        .remove(*h)
+                        .expect("preflighted ability removal");
+                    true
+                }
                 Work::Modify(m) => {
                     if let Some(old) = self
                         .turns
@@ -157,6 +169,7 @@ impl Game {
                 }
                 Work::FinishSpell { spell, resolution } => {
                     assert_eq!(self.turns.stack.pop(), Some(*spell));
+                    self.turns.abilities.retain(|a| a.object != *spell);
                     self.turns.effects.retain(|(h, _)| h != spell);
                     self.turns.modifications.retain(|m| {
                         self.objects

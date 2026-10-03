@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-reach-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-haste-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -139,14 +139,15 @@ impl Heuristic {
                     .any(|c| c.controller != self.seat && c.creature.is_some());
                 plain(match card(o, *r)?.card {
                     "bear-cub" | "swab-goblin" | "dragon-fodder" | "llanowar-elves"
-                    | "druid-of-the-cowl" | "magnigoth-sentry" => 30,
+                    | "druid-of-the-cowl" | "magnigoth-sentry" | "axgard-cavalry" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,
                     _ => return Err(Error::UnsupportedContent),
                 })
             }
-            Choice::FinishPayment | Choice::FinishTargets => plain(30),
+            Choice::Activate { .. } => plain(5),
+            Choice::FinishPayment | Choice::FinishTargets | Choice::FinishActivation => plain(30),
             Choice::Pay { .. } => plain(20),
             Choice::TapMana { card: r } => {
                 if kind == "priority" {
@@ -164,7 +165,7 @@ impl Heuristic {
                     .is_some_and(|r| r.colored[color] > 0);
                 Ok((10, i64::from(owed), 0))
             }
-            Choice::CancelPayment | Choice::CancelTargets => plain(0),
+            Choice::CancelPayment | Choice::CancelTargets | Choice::CancelActivation => plain(0),
             Choice::Target { card: r } => {
                 let target = card(o, *r)?;
                 let (power, toughness) = stats(o, *r)?;

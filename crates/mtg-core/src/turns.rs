@@ -72,6 +72,9 @@ pub(super) struct TurnState {
     pub(super) payment: Option<super::mana::Payment>,
     pub(super) casting: Option<super::casting::PendingCast>,
     pub(super) stack: Vec<Handle>,
+    pub(super) activation: Option<super::activation::PendingActivation>,
+    pub(super) abilities: Vec<super::activation::Ability>,
+    pub(super) haste: Vec<Handle>,
     pub(super) targeting: Option<super::targets::Targeting>,
     pub(super) effects: Vec<(Handle, super::targets::Effect)>,
     pub(super) modifications: Vec<super::targets::Modification>,
@@ -86,6 +89,7 @@ pub(super) enum TurnWork {
     Boundary(u64, Seat, Step),
     Move(Handle, Zone),
     Expire,
+    ExpireHaste,
     Untap(Handle),
     Wake(usize),
     Ready {
@@ -99,7 +103,11 @@ impl Game {
         self.turns.position
     }
     pub fn turn_decision(&self) -> Option<TurnDecision> {
-        if !self.work.is_empty() || self.turns.payment.is_some() || self.turns.targeting.is_some() {
+        if self.turns.activation.is_some()
+            || !self.work.is_empty()
+            || self.turns.payment.is_some()
+            || self.turns.targeting.is_some()
+        {
             None
         } else {
             self.turns.decision
@@ -281,6 +289,9 @@ impl Game {
                 }
                 // CR 514.2: each record contains BOTH boost and marked damage.
                 // No SBA or policy boundary occurs between these removals.
+                for _ in &self.turns.haste {
+                    work.push(TurnWork::ExpireHaste);
+                }
                 for _ in &self.turns.modifications {
                     work.push(TurnWork::Expire);
                 }
@@ -373,6 +384,9 @@ impl Game {
                 self.objects
                     .move_to(h, zone)
                     .expect("preflighted turn move");
+            }
+            TurnWork::ExpireHaste => {
+                self.turns.haste.pop().expect("planned haste expiration");
             }
             TurnWork::Expire => {
                 self.turns.modifications.pop().expect("planned expiration");

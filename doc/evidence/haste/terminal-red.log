@@ -1,0 +1,22 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-197/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.60s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::haste_tests::concession_before_and_after_activation_target_is_final ... FAILED
+
+failures:
+
+---- game::haste_tests::concession_before_and_after_activation_target_is_final stdout ----
+
+thread 'game::haste_tests::concession_before_and_after_activation_target_is_final' (290) panicked at crates/mtg-core/src/haste_tests.rs:503:17:
+terminal games cannot offer activation decisions
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::haste_tests::concession_before_and_after_activation_target_is_final
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 204 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

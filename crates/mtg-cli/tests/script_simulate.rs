@@ -246,7 +246,7 @@ fn script_bounds_and_explicit_mode_validation() {
             1 => c["script"]["max_records"] = json!(101),
             2 => c["script"]["privacy"] = json!("public"),
             3 => c["script"]["version"] = json!(9),
-            4 => c["policies"][1] = json!("heuristic-reach-v1"),
+            4 => c["policies"][1] = json!("heuristic-haste-v1"),
             5 => c["schema_version"] = json!(2),
             _ => {
                 c.as_object_mut().unwrap().remove("script");

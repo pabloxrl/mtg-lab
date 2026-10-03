@@ -1,7 +1,7 @@
 # Deterministic native heuristic
 
 `mtg_policy::Heuristic::new(HEURISTIC_VERSION, seat)` creates a stateless native
-opponent. `HEURISTIC_VERSION = heuristic-reach-v1` freezes the rules below. Its
+opponent. `HEURISTIC_VERSION = heuristic-haste-v1` freezes the rules below. Its
 `choose(&policy::Observation)` returns a semantic submission for
 `Game::apply_policy`. Only the authorized observation is accepted; no game,
 private replay, environment seed, RNG or clock is available. Repeated inputs
@@ -74,3 +74,5 @@ expanded legal domain. Full-pool strategy and support remain #208 acceptance.
 GH-196: `heuristic-reach-v1` supersedes `heuristic-mana-v1` (rejected). Sentry
 casts score 30. Block selection excludes observed `forbidden_blocks` pairs before
 choosing the best remaining attacker; reach itself gives attackers no evasion.
+
+GH-197 adds Cavalry casting and staged targeted tap-cost activation. Current `heuristic-haste-v1` rejects the prior reach policy ID. Cavalry uses creature cast score 30; starting activation scores 5, finishing scores 30 and cancellation 0. Targets use the existing own-creature power/toughness ordering. Full-pool policy qualification remains #208.

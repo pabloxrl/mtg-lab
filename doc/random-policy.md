@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-reach-v1` pins decision sampling and supported content;
+`VERSION = legal-random-haste-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -68,7 +68,7 @@ All current M1 decision families are handled: keep/mulligan, ordered bottoming,
 priority, lands and mana, staged target/payment/finish/cancel choices, attacker
 subsets, blocker mappings, modern vanilla damage allocation, and cleanup discard.
 Supported casts are Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder,
-Llanowar Elves, Druid of the Cowl and Magnigoth Sentry. Lands are Forest and Mountain; mana sources
+Llanowar Elves, Druid of the Cowl, Magnigoth Sentry and Axgard Cavalry. Lands are Forest and Mountain; mana sources
 also include legal Elf/Druid tap abilities. A newly enabled cast/land/mana candidate outside
 that list fails with `UnsupportedContent`, including when pass is also legal.
 Unknown decision kinds or enabled unsupported commands fail explicitly.
@@ -79,8 +79,8 @@ These shape checks do not replace the engine's authoritative legality validation
 The core still resets only its fixed 40-card red/green deck configurations. Other
 cards remain physically present and can be drawn, bottomed or discarded, but
 cannot be cast unless their complete abilities are implemented. This policy does
-**not** make the full frozen card pool playable. Haste, nonmana creature abilities
-and triggers remain unsupported. The existing owned runner, native CLI and
+**not** make the full frozen card pool playable. Cavalry haste activations are
+supported; other nonmana abilities and triggers remain unsupported. The existing owned runner, native CLI and
 trajectory capture use this policy through the shared decision interface;
 see [simulation](simulate.md). Passive `pass-v1` runs remain a separate baseline.
 
@@ -106,3 +106,5 @@ rejects explicitly. Full-pool qualification remains #208.
 GH-196: `legal-random-reach-v1` supersedes `legal-random-mana-v1` (rejected).
 Each blocker samples uniformly among no block and its legal attacker rows,
 excluding `forbidden_blocks`. Sentry casts join the supported content domain.
+
+GH-197 adds Cavalry casting and staged targeted tap-cost activation. Current `legal-random-haste-v1` rejects the prior reach policy ID. Random sampling includes all legal activation targets, finish and cancellation. Full-pool policy qualification remains #208.

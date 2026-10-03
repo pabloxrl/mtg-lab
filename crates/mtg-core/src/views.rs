@@ -11,6 +11,8 @@ pub struct VisibleCard {
     pub tapped: bool,
     pub creature: Option<[u32; 3]>,
     pub summoning_sick: bool,
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub haste: bool,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct PublicZone {
@@ -103,6 +105,7 @@ impl Game {
             creature: self
                 .creature_state(h)
                 .map(|c| [c.power, c.toughness, c.damage]),
+            haste: self.has_haste(h),
             summoning_sick: o.zone == Zone::Battlefield && self.summoning_sick(h),
         }
     }
@@ -114,7 +117,8 @@ impl Game {
         cards
     }
     pub fn observe(&self, seat: Seat) -> Result<PlayerView, ViewError> {
-        if self.turns.payment.is_some()
+        if self.turns.activation.is_some()
+            || self.turns.payment.is_some()
             || self.turns.targeting.is_some()
             || self.turns.casting.is_some()
         {
@@ -207,6 +211,7 @@ impl Game {
             acting_seat: self
                 .decision
                 .map(|d| d.actor)
+                .or_else(|| self.turns.activation.as_ref().map(|p| p.actor))
                 .or_else(|| self.turns.targeting.as_ref().map(|t| t.decision().actor))
                 .or_else(|| self.turns.payment.as_ref().map(|p| p.actor()))
                 .or_else(|| self.turn_decision().map(|d| d.actor))

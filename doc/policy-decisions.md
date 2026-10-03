@@ -189,3 +189,20 @@ Each excluded pair counts as one capacity row; excess fails explicitly. The
 acting player alone receives this domain. Semantic action kinds are unchanged;
 typed trajectory v2 preserves and validates these optional restrictions. Prior
 engine snapshots/replays remain incompatible by source fingerprint.
+
+### Cavalry activation
+
+Priority offers `activate { card }` for Cavalry battlefield rows, masked when
+not controlled by the actor, tapped or affected by summoning sickness. The private
+`activation_target` continuation offers battlefield `target { card }`,
+`finish_activation` and `cancel_activation`; either controller's creature is legal.
+The source stays untapped until finish validates the target and commits the tap
+cost. Finishing retains priority; the independent ability then resolves normally.
+Pending `card` refers to the battlefield source, with that same source in `sources`,
+no mana payment, and actor-only targets. Committed stack rows carry optional
+`ability: true` (absent means spell), and source-card identity in the public stack
+zone. Ability objects have no creature characteristics and disappear on resolution.
+Visible creatures carry optional `haste: true`; absent means false. The existing
+`summoning_sick` flag reports the effective restriction, accounting for haste.
+Generation-tagged targets never bind to a replacement object. Capture v2 preserves
+these typed choices and fields; finish/cancel ends the logical activation.

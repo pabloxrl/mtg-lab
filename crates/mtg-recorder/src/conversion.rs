@@ -14,6 +14,7 @@ fn s_visible_card(value: &v::VisibleCard) -> s::VisibleCard {
         tapped,
         creature,
         summoning_sick,
+        haste,
     } = value;
     s::VisibleCard {
         card: card.to_string(),
@@ -22,6 +23,7 @@ fn s_visible_card(value: &v::VisibleCard) -> s::VisibleCard {
         tapped: *tapped,
         creature: *creature,
         summoning_sick: *summoning_sick,
+        haste: *haste,
     }
 }
 fn s_public_zone(value: &v::PublicZone) -> s::PublicZone {
@@ -364,9 +366,14 @@ fn w_pending_spell(value: &p::PendingSpell) -> w::PendingSpell {
     }
 }
 fn w_stack_spell(value: &p::StackSpell) -> w::StackSpell {
-    let p::StackSpell { row, targets } = value;
+    let p::StackSpell {
+        row,
+        targets,
+        ability,
+    } = value;
     w::StackSpell {
         row: *row,
+        ability: *ability,
         targets: targets
             .iter()
             .map(|x| x.as_ref().map(w_visible_ref))
@@ -535,6 +542,11 @@ fn w_command(value: &p::Choice) -> w::Command {
         p::Choice::PlayLand { card } => w::Command::PlayLand {
             card: w_visible_ref(card),
         },
+        p::Choice::Activate { card } => w::Command::Activate {
+            card: w_visible_ref(card),
+        },
+        p::Choice::FinishActivation => w::Command::FinishActivation,
+        p::Choice::CancelActivation => w::Command::CancelActivation,
         p::Choice::TapMana { card } => w::Command::TapMana {
             card: w_visible_ref(card),
         },

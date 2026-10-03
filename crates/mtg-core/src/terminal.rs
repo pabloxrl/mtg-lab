@@ -37,6 +37,8 @@ impl Game {
                     | Work::CombatLife(_)
                     | Work::FinishCombat
                     | Work::Modify(_)
+                    | Work::GrantHaste(_)
+                    | Work::RemoveAbility(_)
                     | Work::SpellMove { .. }
                     | Work::FinishSpell { .. }
                     | Work::Priority { .. }
@@ -70,6 +72,7 @@ impl Game {
         self.work.clear();
         self.turns.decision = None;
         self.clear_cast_choices();
+        self.turns.activation = None;
         result
     }
     /// All simultaneous loss conditions are collected before choosing a winner.
