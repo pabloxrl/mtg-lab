@@ -42,6 +42,7 @@ pub(super) enum Definition {
         reach: bool,
         vigilance: bool,
         trample: bool,
+        deathtouch: bool,
         power: u32,
         toughness: u32,
     },
@@ -113,6 +114,15 @@ impl Definition {
     }
     pub(super) fn trample(self) -> bool {
         matches!(self, Self::KeywordCreature { trample: true, .. })
+    }
+    pub(super) fn deathtouch(self) -> bool {
+        matches!(
+            self,
+            Self::KeywordCreature {
+                deathtouch: true,
+                ..
+            }
+        )
     }
     pub(super) fn haste_activation(self) -> bool {
         matches!(self, Self::HasteCreature { .. })
@@ -207,8 +217,22 @@ pub(super) fn definition(card: CardId) -> Definition {
             reach: false,
             vigilance: true,
             trample: true,
+            deathtouch: false,
             power: 5,
             toughness: 4,
+        },
+        "thornweald-archer" => Definition::KeywordCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 0, 1, 0],
+                generic: 1,
+            },
+            flying: false,
+            reach: true,
+            vigilance: false,
+            trample: false,
+            deathtouch: true,
+            power: 2,
+            toughness: 1,
         },
         "magnigoth-sentry" => Definition::KeywordCreature {
             cost: ManaCost {
@@ -219,6 +243,7 @@ pub(super) fn definition(card: CardId) -> Definition {
             reach: true,
             vigilance: false,
             trample: false,
+            deathtouch: false,
             power: 4,
             toughness: 4,
         },

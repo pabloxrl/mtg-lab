@@ -91,3 +91,7 @@ seats, all 2/2 two-blocker allocations, departed/reentered blockers, simultaneou
 lethal damage and snapshots at every yield. The same five shared XMage combat
 fixtures run through quantum 1 and larger budgets as well as scalar execution.
 No combat keyword, complete-game, scheduler or M1 gate completion claim is made.
+
+## Thornweald deathtouch
+
+[GH-199 acceptance](evidence/deathtouch/README.md) adds pinned 1G 2/1 Thornweald Archer with reach and deathtouch. Any positive damage it deals to a creature is lethal (CR 702.2/704.5h), including Bite damage. Zero damage does not kill. Combat remains simultaneous; for trample, one damage is lethal for a deathtouch source, but deathtouch alone never permits player damage through a blocker. Existing scalar work, factored choices, semantic actions and typed capture carry this behavior.

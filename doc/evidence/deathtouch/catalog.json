@@ -1,0 +1,200 @@
+[
+  {
+    "id": "rules-priority-response-window-interaction",
+    "capability_id": "priority/response-window",
+    "category": "interaction",
+    "setup": "Wildheart ability targets Thornweald before combat damage",
+    "actions": "Resolve then both players receive blocker-step priority",
+    "expected": "Opponent may respond before damage assignment",
+    "basis": "CR 117 and RFC 0002 \u00a74 atomic choices: retain legal response windows but none inside costs/resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-targets-zone-change-interaction",
+    "capability_id": "targets/zone-change",
+    "category": "interaction",
+    "setup": "Bite source Thornweald and destination Cub; Thornweald dies to opposing Bite",
+    "actions": "Resolve original Bite",
+    "expected": "Legal destination alone cannot supply illegal-source power; no damage",
+    "basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-flying-reach-interaction",
+    "capability_id": "combat/flying-reach",
+    "category": "interaction",
+    "setup": "P0 Shivan attacks; P1 Thornweald",
+    "actions": "Block then deal damage",
+    "expected": "Both die; Dragon receives deathtouch damage",
+    "basis": "CR 702.9b and 702.17: flying requires flying/reach blockers; reach does not grant flying. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-simultaneous-damage-interaction",
+    "capability_id": "combat/simultaneous-damage",
+    "category": "interaction",
+    "setup": "Thornweald blocks 5/5 Dragon",
+    "actions": "Deal two deathtouch and five simultaneously",
+    "expected": "Both die; lethal source still deals its damage",
+    "basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-deathtouch-trample-positive",
+    "capability_id": "combat/deathtouch-trample",
+    "category": "positive",
+    "setup": "Thornweald receives Wildheart +5/+5 and trample; blocked by two Cubs",
+    "actions": "Assign one to each Cub and five to P1",
+    "expected": "Both Cubs die; P1 loses five; Archer survives with four damage",
+    "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-deathtouch-trample-negative",
+    "capability_id": "combat/deathtouch-trample",
+    "category": "negative",
+    "setup": "Thornweald boosted by Wildheart to 7/6 with trample; blocked by two 2/2 Cubs",
+    "actions": "Assign zero to one blocker and six to P1",
+    "expected": "Reject trample without lethal assigned to every blocker",
+    "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-deathtouch-trample-interaction",
+    "capability_id": "combat/deathtouch-trample",
+    "category": "interaction",
+    "setup": "Tajuru 5/4 blocked by Cub already marked one",
+    "actions": "Assign one to Cub and four to P1",
+    "expected": "Legal; marked damage counts toward lethal",
+    "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-deathtouch-trample-regression",
+    "capability_id": "combat/deathtouch-trample",
+    "category": "regression",
+    "setup": "Thornweald with Growth only, no trample, blocked by Cub",
+    "actions": "Attempt one to Cub and four to player",
+    "expected": "Reject player allocation; deathtouch alone does not grant trample",
+    "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-continuous-stacked-boosts-regression",
+    "capability_id": "continuous/stacked-boosts",
+    "category": "regression",
+    "setup": "Thornweald gets two Invoker activations",
+    "actions": "Resolve both",
+    "expected": "Archer 12/11 with trample; duplicate trample not extra damage",
+    "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-continuous-cleanup-interaction",
+    "capability_id": "continuous/cleanup",
+    "category": "interaction",
+    "setup": "Dragon +1/+0 and Thornweald Invoker boost/trample",
+    "actions": "Cleanup",
+    "expected": "Base stats restored; gained trample removed; printed keywords retained",
+    "basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-bite-down-interaction",
+    "capability_id": "foundations_micro_v1/bite-down",
+    "category": "interaction",
+    "setup": "Own Thornweald and opposing Shivan",
+    "actions": "Resolve Bite",
+    "expected": "Dragon destroyed from deathtouch damage; Thornweald survives",
+    "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-shivan-dragon-interaction",
+    "capability_id": "foundations_micro_v1/shivan-dragon",
+    "category": "interaction",
+    "setup": "Dragon attacks; opposing Thornweald blocks",
+    "actions": "Resolve combat",
+    "expected": "Both die from simultaneous five damage and deathtouch two",
+    "basis": "Pinned Dragon: 4RR 5/5 flying, R gives itself +1/+0 until end of turn; CR 602/702.9/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0; oracle_text_sha256=e74575fc5da3990b1a3ad046658d95976f710451bdeb79ad7470464394f5ce04.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+    "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+    "category": "negative",
+    "setup": "Tajuru blocked by undamaged Cub",
+    "actions": "Assign one to Cub and four to player",
+    "expected": "Reject insufficient lethal allocation without deathtouch",
+    "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-thornweald-archer-positive",
+    "capability_id": "foundations_micro_v1/thornweald-archer",
+    "category": "positive",
+    "setup": "Thornweald blocks Shivan",
+    "actions": "Deal simultaneous combat damage",
+    "expected": "Both die; reach permits block and deathtouch kills Dragon",
+    "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-thornweald-archer-negative",
+    "capability_id": "foundations_micro_v1/thornweald-archer",
+    "category": "negative",
+    "setup": "Thornweald attacks into Cub without trample",
+    "actions": "Assign one to Cub and one to P1",
+    "expected": "Reject player damage; deathtouch not trample",
+    "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-thornweald-archer-interaction",
+    "capability_id": "foundations_micro_v1/thornweald-archer",
+    "category": "interaction",
+    "setup": "Thornweald is Bite source against Sentry",
+    "actions": "Resolve Bite",
+    "expected": "Sentry dies from two deathtouch damage; Thornweald unharmed",
+    "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-thornweald-archer-regression",
+    "capability_id": "foundations_micro_v1/thornweald-archer",
+    "category": "regression",
+    "setup": "Thornweald boosted by Invoker to 7/6 trample; two Sentry blockers",
+    "actions": "Assign one each and five to P1",
+    "expected": "Both Sentries die; P1 loses five; Thornweald dies to eight simultaneously",
+    "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-wildheart-invoker-regression",
+    "capability_id": "foundations_micro_v1/wildheart-invoker",
+    "category": "regression",
+    "setup": "Invoker ability targets Thornweald; Invoker killed in response",
+    "actions": "Resolve then cleanup",
+    "expected": "Archer 7/6 trample despite dead source; later returns 2/1 reach/deathtouch",
+    "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  }
+]

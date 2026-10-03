@@ -1,0 +1,184 @@
+{
+  "flyer": {
+    "creatures": [
+      [],
+      []
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  },
+  "bite": {
+    "creatures": [
+      [
+        [
+          2,
+          1,
+          0
+        ]
+      ],
+      []
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  },
+  "source-gone": {
+    "creatures": [
+      [],
+      [
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      2,
+      1
+    ],
+    "legal": true
+  },
+  "no-trample": {
+    "creatures": [
+      [],
+      []
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": false
+  },
+  "growth-no-trample": {
+    "creatures": [
+      [
+        [
+          5,
+          4,
+          2
+        ]
+      ],
+      []
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": false
+  },
+  "trample-sentries": {
+    "creatures": [
+      [],
+      []
+    ],
+    "life": [
+      20,
+      15
+    ],
+    "graveyard": [
+      1,
+      2
+    ],
+    "legal": true
+  },
+  "trample-cubs": {
+    "creatures": [
+      [
+        [
+          7,
+          6,
+          4
+        ]
+      ],
+      []
+    ],
+    "life": [
+      20,
+      15
+    ],
+    "graveyard": [
+      0,
+      2
+    ],
+    "legal": true
+  },
+  "trample-negative": {
+    "creatures": [
+      [
+        [
+          7,
+          6,
+          0
+        ]
+      ],
+      [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      0,
+      0
+    ],
+    "legal": false
+  },
+  "zero-split": {
+    "creatures": [
+      [],
+      [
+        [
+          4,
+          4,
+          0
+        ]
+      ]
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  }
+}

@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-trample-v1` pins decision sampling and supported content;
+`VERSION = legal-random-deathtouch-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -66,9 +66,9 @@ passes may delay progress; the caller must impose and account for external limit
 
 All current M1 decision families are handled: keep/mulligan, ordered bottoming,
 priority, lands and mana, staged target/payment/finish/cancel choices, attacker
-subsets, blocker mappings, modern vanilla damage allocation, and cleanup discard.
+subsets, blocker mappings, modern damage allocation, and cleanup discard.
 Supported casts are Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder,
-Llanowar Elves, Druid of the Cowl, Magnigoth Sentry and Axgard Cavalry. Lands are Forest and Mountain; mana sources
+Llanowar Elves, Druid of the Cowl, Magnigoth Sentry, Axgard Cavalry, Tajuru Pathwarden and Thornweald Archer. Lands are Forest and Mountain; mana sources
 also include legal Elf/Druid tap abilities. A newly enabled cast/land/mana candidate outside
 that list fails with `UnsupportedContent`, including when pass is also legal.
 Unknown decision kinds or enabled unsupported commands fail explicitly.
@@ -109,4 +109,6 @@ excluding `forbidden_blocks`. Sentry casts join the supported content domain.
 
 GH-197 added Cavalry casting and staged targeted tap-cost activation. Random sampling includes all legal activation targets, finish and cancellation. Full-pool policy qualification remains #208.
 
-GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-trample-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
+GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-deathtouch-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
+
+GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `deathtouch-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy qualification remains pending.

@@ -421,3 +421,55 @@ fn random_trample_expresses_every_legal_two_cub_split() {
         .trample_lethal = Some(vec![2]);
     assert_eq!(p.choose(&o), Err(Error::InvalidObservation));
 }
+
+#[test]
+fn random_deathtouch_expresses_every_legal_two_blocker_split() {
+    let mut o = observation(0);
+    let d = o.decision.as_mut().unwrap();
+    d.kind = "combat_damage";
+    d.count = 1;
+    d.candidates = vec![Choice::FinishCombat];
+    d.legal_mask = vec![false];
+    d.factored = Some(CombatChoices {
+        attackers: vec![bf(0)],
+        blockers: vec![],
+        selected: vec![],
+        blocks: vec![],
+        forbidden_blocks: vec![],
+        damage: vec![DamageAllocation {
+            attacker: bf(0),
+            power: 7,
+            blockers: vec![bf(1), bf(2)],
+            amounts: None,
+            trample_lethal: Some(vec![1, 1]),
+        }],
+    });
+    let mut p = policy(0);
+    let mut seen = std::collections::BTreeSet::new();
+    for _ in 0..10000 {
+        let result = p.choose(&o).unwrap();
+        let Choice::AssignDamage { amounts, .. } = &result.choices[0] else {
+            panic!("allocation required")
+        };
+        let (a, b) = (amounts[0].1, amounts[1].1);
+        assert!(a + b == 7 || (a >= 1 && b >= 1 && a + b <= 7));
+        seen.insert((a, b));
+    }
+    assert_eq!(
+        seen,
+        (0..=7)
+            .flat_map(|a| (0..=7).filter_map(move |b| (a + b == 7
+                || (a >= 1 && b >= 1 && a + b <= 7))
+                .then_some((a, b))))
+            .collect()
+    );
+    o.decision
+        .as_mut()
+        .unwrap()
+        .factored
+        .as_mut()
+        .unwrap()
+        .damage[0]
+        .trample_lethal = Some(vec![2]);
+    assert_eq!(p.choose(&o), Err(Error::InvalidObservation));
+}

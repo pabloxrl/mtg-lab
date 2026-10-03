@@ -72,3 +72,7 @@ full-game reference qualification remain outstanding.
 Run `cargo test -p mtg-core targets` and `./scripts/torture.sh` in the managed
 container. [Acceptance evidence](evidence/targets/README.md) maps the exact
 catalog cases and separates normal reset scripts from synthetic positions.
+
+## Thornweald deathtouch
+
+[GH-199 acceptance](evidence/deathtouch/README.md) adds pinned 1G 2/1 Thornweald Archer with reach and deathtouch. Any positive damage it deals to a creature is lethal (CR 702.2/704.5h), including Bite damage. Zero damage does not kill. Combat remains simultaneous; for trample, one damage is lethal for a deathtouch source, but deathtouch alone never permits player damage through a blocker. Existing scalar work, factored choices, semantic actions and typed capture carry this behavior.

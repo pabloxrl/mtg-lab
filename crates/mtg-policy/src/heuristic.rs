@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-trample-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-deathtouch-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -142,7 +142,7 @@ impl Heuristic {
                 plain(match card(o, *r)?.card {
                     "bear-cub" | "swab-goblin" | "dragon-fodder" | "llanowar-elves"
                     | "druid-of-the-cowl" | "magnigoth-sentry" | "axgard-cavalry"
-                    | "tajuru-pathwarden" => 30,
+                    | "tajuru-pathwarden" | "thornweald-archer" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,
