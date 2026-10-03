@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-invoker-v1";
+pub const VERSION: &str = "legal-random-thrill-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -217,6 +217,7 @@ fn validate(d: &Decision) -> Result<(), Error> {
             | "targets_complete"
             | "activation_target"
             | "activation_payment"
+            | "cast_discard"
             | "payment"
             | "cleanup_discard"
     ) {
@@ -235,6 +236,7 @@ fn validate(d: &Decision) -> Result<(), Error> {
         let supported = match d.kind {
             "keep_or_mulligan" => matches!(c, Choice::Keep | Choice::Mulligan),
             "bottom" => matches!(c, Choice::Bottom { .. }),
+            "cast_discard" => matches!(c, Choice::Discard { .. } | Choice::CancelPayment),
             "cleanup_discard" => matches!(c, Choice::Discard { .. }),
             "priority" => matches!(
                 c,
@@ -296,6 +298,7 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "thornweald-archer",
                     "shivan-dragon",
                     "wildheart-invoker",
+                    "thrill-of-possibility",
                 ],
             ),
             Choice::Activate { card } => (

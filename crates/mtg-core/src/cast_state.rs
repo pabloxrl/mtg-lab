@@ -12,6 +12,7 @@ use super::*;
 pub(super) struct PendingCast {
     card: Handle,
     sources: Vec<Handle>,
+    discard: Option<Handle>,
     effect: Option<super::targets::Effect>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
@@ -57,6 +58,9 @@ pub(super) struct Targeting {
 impl PendingCast {
     pub(super) fn card(&self) -> Handle {
         self.card
+    }
+    pub(super) fn discard(&self) -> Option<Handle> {
+        self.discard
     }
     pub(super) fn sources(&self) -> &[Handle] {
         &self.sources
@@ -127,10 +131,21 @@ impl Game {
         self.turns.casting = Some(PendingCast {
             card,
             sources: vec![],
+            discard: None,
             effect,
         });
         self.turns.targeting = None;
         decision
+    }
+    pub(super) fn stage_cast_discard(&mut self, card: Handle, generation: u64) {
+        self.turns.casting.as_mut().expect("validated cast").discard = Some(card);
+        self.turns
+            .payment
+            .as_mut()
+            .expect("validated payment")
+            .id
+            .generation = generation;
+        self.generation = generation;
     }
     pub(super) fn start_targeting(
         &mut self,

@@ -424,6 +424,21 @@ impl Game {
                 },
                 1,
             )
+        } else if self.cast_discard_pending() {
+            let cast = self.turns.casting.as_ref().unwrap();
+            for (row, h) in self.view_hand(seat).iter().enumerate() {
+                push(
+                    Choice::Discard {
+                        card: VisibleRef {
+                            zone: VisibleZone::Hand,
+                            row,
+                        },
+                    },
+                    *h != cast.card(),
+                )?;
+            }
+            push(Choice::CancelPayment, true)?;
+            ("cast_discard", 1)
         } else if let Some(p) = self.payment_decision(seat) {
             for color in 0..6 {
                 push(
@@ -836,6 +851,15 @@ impl Game {
                 .map(|_| ())
                 .map_err(turn_error);
         }
+        if d.kind == "cast_discard"
+            && let Choice::Discard { card } = &submission.choices[0]
+        {
+            let h = self.view_hand(actor)[card.row];
+            return self
+                .choose_cast_discard(actor, id, &[h])
+                .map(|_| ())
+                .map_err(cast_error);
+        }
         match &submission.choices[0] {
             Choice::Activate { card } => {
                 let h = self
@@ -915,7 +939,7 @@ impl Game {
             }
             Choice::Cast { card } => {
                 let h = self.view_hand(actor)[card.row];
-                if targets::instant(self.objects.get(h).expect("hand").card) {
+                if targets::targeted(self.objects.get(h).expect("hand").card) {
                     self.begin_targeted_cast(actor, id, h, capacity)
                         .map(|_| ())
                         .map_err(target_error)

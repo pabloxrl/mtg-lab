@@ -1,0 +1,287 @@
+[
+  {
+    "catalog": {
+      "id": "rules-setup-ordered-draw-interaction",
+      "capability_id": "setup/ordered-draw",
+      "category": "interaction",
+      "setup": "P0 library Forest, Bear Cub, Giant Growth; Thrill and discard in hand",
+      "actions": "Pay Thrill discard then resolve",
+      "expected": "Forest and Bear Cub enter hand in order; Growth remains top",
+      "basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+    "reference_cases": [
+      "ordered"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-priority-response-window-negative",
+      "capability_id": "priority/response-window",
+      "category": "negative",
+      "setup": "Thrill cast awaiting discard-cost commitment",
+      "actions": "Opponent requests Growth now",
+      "expected": "No response window within casting/payment",
+      "basis": "CR 117 and RFC 0002 \u00a74 atomic choices: retain legal response windows but none inside costs/resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_response_window_missing_discard_and_departed_cost_reject_atomically",
+    "reference": "Shared ordered case observes discard and paid mana at completed cast; native test additionally rejects a response during private payment."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-positive",
+      "capability_id": "costs/discard-cost",
+      "category": "positive",
+      "setup": "Thrill, Mountain and sufficient mana in P0 hand",
+      "actions": "Cast Thrill discarding Mountain",
+      "expected": "Mountain in graveyard before priority passes; Thrill on stack",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+    "reference_cases": [
+      "ordered"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-negative",
+      "capability_id": "costs/discard-cost",
+      "category": "negative",
+      "setup": "Thrill is only P0 hand card",
+      "actions": "Attempt Thrill",
+      "expected": "Cannot discard spell itself from hand; reject atomically",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_alone_or_wrong_color_rejects_without_mutation",
+    "reference_cases": [
+      "alone"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-interaction",
+      "capability_id": "costs/discard-cost",
+      "category": "interaction",
+      "setup": "Thrill cast with discard; Firebrand Archer present",
+      "actions": "Place cast trigger then resolve trigger before spell",
+      "expected": "Discard already public; Archer damage precedes two draws",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "requires future mechanic; not executed here",
+    "prerequisite_issue": 205,
+    "composition_issue": 209
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-regression",
+      "capability_id": "costs/discard-cost",
+      "category": "regression",
+      "setup": "Committed Thrill cast; library empty",
+      "actions": "Resolve Thrill",
+      "expected": "Discard remains paid; failed draw loss cannot refund cost",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+    "reference_cases": [
+      "empty"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-atomic-rejection-negative",
+      "capability_id": "costs/atomic-rejection",
+      "category": "negative",
+      "setup": "Thrill and discard choice; only G mana",
+      "actions": "Attempt Thrill selecting valid discard",
+      "expected": "Reject wrong color; selected card stays hand and no trigger",
+      "basis": "RFC 0001 boundary legality; RFC 0002 \u00a74: invalid actions preserve state, RNG, decisions and privacy. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_alone_or_wrong_color_rejects_without_mutation",
+    "reference_cases": [
+      "wrong_color"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-triggers-failed-cast-regression",
+      "capability_id": "triggers/failed-cast",
+      "category": "regression",
+      "setup": "Thrill attempted with no discard card; Archer present",
+      "actions": "Reject repeatedly then inspect stack",
+      "expected": "No phantom Archer triggers accumulate",
+      "basis": "CR 603.2 and 601.2: only a completed casting event triggers cast abilities. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "requires future mechanic; not executed here",
+    "prerequisite_issue": 205,
+    "composition_issue": 209
+  },
+  {
+    "catalog": {
+      "id": "rules-terminal-empty-draw-interaction",
+      "capability_id": "terminal/empty-draw",
+      "category": "interaction",
+      "setup": "P0 Thrill with one library card and paid discard",
+      "actions": "Resolve draw two",
+      "expected": "Draw first card then fail second; P0 loses after resolution",
+      "basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+    "reference_cases": [
+      "one"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-replay-pending-snapshot-interaction",
+      "capability_id": "replay/pending-snapshot",
+      "category": "interaction",
+      "setup": "Pending Thrill discard choice with hand-private candidates",
+      "actions": "Restore then choose same discard",
+      "expected": "Same payment and draw results; no opponent view exposes provisional discard",
+      "basis": "RFC 0002 \u00a74: snapshots include pending continuations and RNG; semantic replay rejects incompatible versions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_private_pending_snapshots_cancel_stale_and_quantum",
+    "reference": "Engine-owned snapshot/privacy contract; native-only. Shared reference ordered case corroborates settled card/mana/zone results."
+  },
+  {
+    "catalog": {
+      "id": "rules-continuous-hand-size-cleanup-regression",
+      "capability_id": "continuous/hand-size-cleanup",
+      "category": "regression",
+      "setup": "Synthetic cleanup exception after initial discard leaves P0 seven cards including Thrill and a discard card",
+      "actions": "During granted priority cast Thrill, discard one, draw two; pass empty stack",
+      "expected": "Hand returns to seven; another cleanup occurs with no redundant discard prompt",
+      "basis": "CR 514.1-3: discard active player excess, simultaneous cleanup, repeat cleanup after exception priority. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "requires future mechanic; not executed here",
+    "prerequisite_issue": 207,
+    "composition_issue": 211
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-crackling-cyclops-regression",
+      "capability_id": "foundations_micro_v1/crackling-cyclops",
+      "category": "regression",
+      "setup": "Cyclops plus attempted invalid Thrill without discard",
+      "actions": "Reject cast",
+      "expected": "Cyclops remains 0/4 and no pending trigger",
+      "basis": "Pinned Cyclops: 0/4, gets +3/+0 until end of turn on own noncreature cast; CR 603 and 514. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/6e5b899a-52f7-471b-ad50-4fa6566758fd; oracle_text_sha256=7e42c7dd89e1eb9c8d77a3e420de8d35e3355ef3058531db0ab360a5fb10377e.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "requires future mechanic; not executed here",
+    "prerequisite_issue": 205,
+    "composition_issue": 209
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-positive",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "positive",
+      "setup": "Thrill plus Mountain in hand; two known library cards; 1R",
+      "actions": "Cast discarding Mountain; resolve",
+      "expected": "Mountain graveyard before response; two top cards drawn",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+    "reference_cases": [
+      "ordered"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-negative",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "negative",
+      "setup": "Thrill only card in hand with sufficient mana",
+      "actions": "Attempt cast",
+      "expected": "Reject unpayable discard; no mana spent",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_alone_or_wrong_color_rejects_without_mutation",
+    "reference_cases": [
+      "alone"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-interaction",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "interaction",
+      "setup": "Archer in play; Thrill legal",
+      "actions": "Cast, resolve Archer then Thrill",
+      "expected": "One opponent damage before draws; discard already committed",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "requires future mechanic; not executed here",
+    "prerequisite_issue": 205,
+    "composition_issue": 209
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-regression",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "regression",
+      "setup": "Only one card in library",
+      "actions": "Resolve paid Thrill",
+      "expected": "First draw succeeds, second fails; loss at SBA; cost not refunded",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed by GH-202; delivery conditional on PR/CI",
+    "normal_reset": "crates/mtg-recorder/tests/thrill.rs::thrill_normal_reset_discard_draw_capture_replay",
+    "native": "crates/mtg-core/src/casting_tests.rs::thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+    "reference_cases": [
+      "one"
+    ]
+  }
+]

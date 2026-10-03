@@ -52,8 +52,11 @@ pub(super) struct Modification {
     pub(super) power_boost: u32,
     pub(super) damage: u32,
 }
-pub(super) fn instant(card: CardId) -> bool {
+pub(super) fn targeted(card: CardId) -> bool {
     definition(card).instant_effect().is_some()
+}
+pub(super) fn instant(card: CardId) -> bool {
+    targeted(card) || definition(card).discard_draw()
 }
 fn base(card: CardId) -> Option<(u32, u32)> {
     definition(card).creature_base()
@@ -113,7 +116,7 @@ impl Game {
         self.mana_priority(actor, id)
             .map_err(|e| TargetError::Cast(CastError::Mana(e)))?;
         if !self.cast_candidates(actor).contains(&card)
-            || !instant(
+            || !targeted(
                 self.objects
                     .get(card)
                     .map_err(|_| TargetError::IllegalTarget)?

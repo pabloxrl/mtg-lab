@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-invoker-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-thrill-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -119,9 +119,11 @@ impl Heuristic {
         match c {
             Choice::Keep => plain(1),
             Choice::Mulligan => plain(0),
-            Choice::Bottom { card: r } | Choice::Discard { card: r } => {
-                plain(-retention(card(o, *r)?.card))
-            }
+            Choice::Bottom { card: r } | Choice::Discard { card: r } => Ok((
+                i64::from(kind == "cast_discard"),
+                -retention(card(o, *r)?.card),
+                0,
+            )),
             Choice::Pass => plain(0),
             Choice::PlayLand { .. } => plain(40),
             Choice::Cast { card: r } => {
@@ -140,10 +142,18 @@ impl Heuristic {
                     .iter()
                     .any(|c| c.controller != self.seat && c.creature.is_some());
                 plain(match card(o, *r)?.card {
-                    "bear-cub" | "swab-goblin" | "dragon-fodder" | "llanowar-elves"
-                    | "druid-of-the-cowl" | "magnigoth-sentry" | "axgard-cavalry"
-                    | "tajuru-pathwarden" | "thornweald-archer" | "shivan-dragon"
-                    | "wildheart-invoker" => 30,
+                    "bear-cub"
+                    | "swab-goblin"
+                    | "dragon-fodder"
+                    | "llanowar-elves"
+                    | "druid-of-the-cowl"
+                    | "magnigoth-sentry"
+                    | "axgard-cavalry"
+                    | "tajuru-pathwarden"
+                    | "thornweald-archer"
+                    | "shivan-dragon"
+                    | "wildheart-invoker"
+                    | "thrill-of-possibility" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,

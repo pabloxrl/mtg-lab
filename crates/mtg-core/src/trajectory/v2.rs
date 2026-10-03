@@ -469,7 +469,9 @@ fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
             | Command::SelectBlockers { .. }
             | Command::AssignDamage { .. },
         ) => ActionStatus::Continuing,
-        Some(Command::TapMana { .. }) if o.pending.is_some() => ActionStatus::Continuing,
+        Some(Command::TapMana { .. } | Command::Discard { .. }) if o.pending.is_some() => {
+            ActionStatus::Continuing
+        }
         _ => ActionStatus::Committed,
     }
 }

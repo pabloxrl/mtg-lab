@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Found one blocking snapshot defect. Reviewed requirements, README, task ownership, and test changes; eight focused tests passed using existing binaries. Full torture and reference engines were not rerun.",
+  "findings": [
+    {
+      "file": "crates/mtg-core/src/casting.rs:406",
+      "finding": "Thrill queues draws as SpellMove to Hand, but snapshot_work_valid in snapshot.rs:192\u2013201 accepts SpellMove only to Battlefield or Graveyard. With at least two library cards, resolve using apply_turn_quantum(..., NonZeroUsize::MIN), then immediately snapshot and restore: the second draw remains queued, so restore returns Corrupt for a valid engine-produced snapshot. Update validation to accept legitimate draw work and add a regression at this first yield. The current test at casting_tests.rs:833 resumes again before snapshotting, skipping the failing boundary.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "449e75a191908bd850f61a4543726e6e46f345ae",
+  "head_sha": "1885a9055a8d223c40ae65ead8b743cd9fa22c01"
+}

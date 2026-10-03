@@ -441,6 +441,7 @@ fn observation_valid(o: &Observation) -> bool {
     if let Some(d) = &o.decision {
         let combat = ["attackers", "blockers", "combat_damage"].contains(&d.kind.as_str());
         let pending = [
+            "cast_discard",
             "activation_target",
             "activation_payment",
             "growth_target",
@@ -460,6 +461,7 @@ fn observation_valid(o: &Observation) -> bool {
                 "bite_source",
                 "bite_destination",
                 "targets_complete",
+                "cast_discard",
                 "payment",
                 "attackers",
                 "blockers",
@@ -600,7 +602,9 @@ fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
             | Command::SelectBlockers { .. }
             | Command::AssignDamage { .. },
         ) => ActionStatus::Continuing,
-        Some(Command::TapMana { .. }) if o.pending.is_some() => ActionStatus::Continuing,
+        Some(Command::TapMana { .. } | Command::Discard { .. }) if o.pending.is_some() => {
+            ActionStatus::Continuing
+        }
         _ => ActionStatus::Committed,
     }
 }
@@ -723,6 +727,10 @@ fn kind_command(kind: &str, command: &Command) -> bool {
         ("keep_or_mulligan", Command::Keep | Command::Mulligan)
             | ("bottom", Command::Bottom { .. })
             | ("cleanup_discard", Command::Discard { .. })
+            | (
+                "cast_discard",
+                Command::Discard { .. } | Command::CancelPayment
+            )
             | (
                 "priority",
                 Command::Pass

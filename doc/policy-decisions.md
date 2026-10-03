@@ -240,3 +240,16 @@ spends nothing. Targets cannot change during payment. The independent stack
 ability grants +5/+5 and trample through cleanup even after its source dies; a
 departed target's new incarnation receives nothing. Existing semantic actions,
 pending snapshots, bounded work and typed trajectory conversion carry both stages.
+
+### Thrill additional discard cost
+
+Thrill is a 1R instant and requires another hand card. Priority `cast` enters
+actor-only `cast_discard`, offering one legal `discard { card: <hand ref> }` or
+`cancel_payment`. Selecting the spell itself, wrong cardinality, wrong seat or
+stale generation rejects without mutation. A selected discard stays in hand and
+is private while the existing `payment` continuation reserves mana and taps.
+`finish_payment` commits discard, mana, taps and stack placement atomically;
+`cancel_payment` spends nothing. Responses begin only after commitment. Resolution
+draws two cards one at a time in library order; a failed draw causes loss at SBA
+after the spell finishes, without refunding costs. Snapshot/replay and typed
+capture preserve both stages through the existing Driver/Run.

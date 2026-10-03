@@ -603,3 +603,354 @@ fn creature_mana_pending_snapshot_and_illegal_payment_sources() {
         assert!(!g.objects.get(forest).unwrap().tapped);
     }
 }
+
+/// Pinned Thrill of Possibility, CR 601.2h / 117: another hand card
+/// and 1R make this instant available at upkeep without any creature targets.
+#[test]
+fn thrill_payable_instant_is_available_without_targets() {
+    let (mut g, h) = ready("thrill-of-possibility", [0, 0, 0, 2, 0, 0]);
+    g.turns.position = Some((1, Seat::P0, Step::Upkeep));
+    assert!(g.objects.in_zone(Zone::Hand(Seat::P0)).count() > 1);
+    assert!(
+        g.cast_candidates(Seat::P0).contains(&h),
+        "Pinned 1R Thrill with another card must be castable at upkeep"
+    );
+}
+
+fn thrill_position(library: &[&str]) -> (Game, Handle, Handle) {
+    let (mut g, _) = ready("thrill-of-possibility", [0, 0, 0, 2, 0, 0]);
+    for zone in [Zone::Hand(Seat::P0), Zone::Library(Seat::P0)] {
+        let old: Vec<_> = g.objects.in_zone(zone).collect();
+        for h in old {
+            g.objects.remove(h).unwrap();
+        }
+    }
+    let spell = g
+        .objects
+        .allocate(
+            CardId::from_key("thrill-of-possibility").unwrap(),
+            Seat::P0,
+            Zone::Hand(Seat::P0),
+        )
+        .unwrap();
+    let discard = g
+        .objects
+        .allocate(
+            CardId::from_key("mountain").unwrap(),
+            Seat::P0,
+            Zone::Hand(Seat::P0),
+        )
+        .unwrap();
+    for key in library {
+        g.objects
+            .allocate(
+                CardId::from_key(key).unwrap(),
+                Seat::P0,
+                Zone::Library(Seat::P0),
+            )
+            .unwrap();
+    }
+    (g, spell, discard)
+}
+fn thrill_select(
+    g: &mut Game,
+    choices: Vec<super::super::policy::Choice>,
+) -> Result<(), super::super::policy::PolicyError> {
+    let o = g.policy_observe(Seat::P0, 256).unwrap();
+    let d = o.decision.unwrap();
+    g.apply_policy(
+        Seat::P0,
+        &super::super::policy::Submission {
+            revision: d.revision,
+            schema_version: 1,
+            generation: d.generation,
+            choices,
+        },
+        256,
+    )
+}
+fn discard_choice(row: usize) -> super::super::policy::Choice {
+    super::super::policy::Choice::Discard {
+        card: super::super::policy::VisibleRef {
+            zone: super::super::policy::VisibleZone::Hand,
+            row,
+        },
+    }
+}
+fn keys(g: &Game, zone: Zone) -> Vec<&'static str> {
+    g.objects
+        .in_zone(zone)
+        .map(|h| g.objects.get(h).unwrap().card.identity().key)
+        .collect()
+}
+#[test]
+fn thrill_discard_atomic_ordered_draw_and_failed_second_draw() {
+    // CR 601.2h, 121.2, 608, 704.5b. Literal decks, never derived expectations.
+    for library in [
+        vec!["forest", "bear-cub", "giant-growth"],
+        vec!["forest"],
+        vec![],
+    ] {
+        let (mut g, spell, discarded) = thrill_position(&library);
+        start(&mut g, spell);
+        let spell_row = g
+            .view_hand(Seat::P0)
+            .iter()
+            .position(|h| *h == spell)
+            .unwrap();
+        let discard_row = g
+            .view_hand(Seat::P0)
+            .iter()
+            .position(|h| *h == discarded)
+            .unwrap();
+        let before = format!("{g:?}");
+        assert!(thrill_select(&mut g, vec![]).is_err());
+        assert!(thrill_select(&mut g, vec![discard_choice(spell_row)]).is_err());
+        assert!(
+            thrill_select(
+                &mut g,
+                vec![discard_choice(discard_row), discard_choice(discard_row)]
+            )
+            .is_err()
+        );
+        assert_eq!(format!("{g:?}"), before);
+        thrill_select(&mut g, vec![discard_choice(discard_row)])
+            .expect("one other hand card is a legal additional cost");
+        assert_eq!(g.objects.get(discarded).unwrap().zone, Zone::Hand(Seat::P0));
+        let before = format!("{g:?}");
+        let d = g.payment_decision(Seat::P0).unwrap();
+        assert!(g.finish_cast(Seat::P0, d.id).is_err());
+        assert!(g.finish_cast(Seat::P1, d.id).is_err());
+        assert_eq!(format!("{g:?}"), before);
+        pay(&mut g, Color::Red);
+        pay(&mut g, Color::Red);
+        finish(&mut g);
+        assert_eq!(keys(&g, Zone::Graveyard(Seat::P0)), ["mountain"]);
+        assert_eq!(keys(&g, Zone::Stack), ["thrill-of-possibility"]);
+        assert_eq!(keys(&g, Zone::Hand(Seat::P0)), Vec::<&str>::new());
+        assert_eq!(g.mana()[0], [0; 6]);
+        pass(&mut g);
+        assert_eq!(keys(&g, Zone::Hand(Seat::P0)), Vec::<&str>::new());
+        pass(&mut g);
+        assert_eq!(
+            keys(&g, Zone::Graveyard(Seat::P0)),
+            ["mountain", "thrill-of-possibility"]
+        );
+        if library.len() == 3 {
+            assert_eq!(keys(&g, Zone::Hand(Seat::P0)), ["forest", "bear-cub"]);
+            assert_eq!(keys(&g, Zone::Library(Seat::P0)), ["giant-growth"]);
+            assert!(g.outcome().is_none());
+        } else {
+            assert_eq!(keys(&g, Zone::Hand(Seat::P0)), library);
+            assert_eq!(
+                g.outcome().unwrap().losses,
+                [Some(super::super::terminal::LossReason::EmptyDraw), None]
+            );
+        }
+    }
+}
+#[test]
+fn thrill_alone_or_wrong_color_rejects_without_mutation() {
+    for alone in [true, false] {
+        let (mut g, spell, discard) = thrill_position(&["forest"]);
+        if alone {
+            g.objects.remove(discard).unwrap();
+        } else {
+            g.turns.mana[0] = [0, 0, 0, 0, 2, 0];
+        }
+        let before = format!("{g:?}");
+        let d = g.turn_decision().unwrap();
+        assert!(!g.cast_candidates(Seat::P0).contains(&spell));
+        assert!(g.begin_cast(Seat::P0, d.id, spell).is_err());
+        assert_eq!(format!("{g:?}"), before);
+    }
+}
+
+#[test]
+fn thrill_private_pending_snapshots_cancel_stale_and_quantum() {
+    use super::super::policy::Choice;
+    let (mut g, spell, discard) = thrill_position(&["forest", "bear-cub", "giant-growth"]);
+    let baseline = g.policy_observe(Seat::P1, 256).unwrap();
+    let start_id = start(&mut g, spell).id;
+    for stage in 0_usize..4 {
+        let bytes = g.snapshot();
+        let p = g.payment_decision(Seat::P0).unwrap();
+        assert!(g.choose_cast_discard(Seat::P1, p.id, &[discard]).is_err());
+        assert!(g.choose_cast_discard(Seat::P0, p.id, &[]).is_err());
+        assert!(
+            g.choose_cast_discard(Seat::P0, p.id, &[discard, discard])
+                .is_err()
+        );
+        if stage > 0 {
+            assert!(
+                g.choose_cast_discard(Seat::P0, start_id, &[discard])
+                    .is_err()
+            );
+        }
+        assert_eq!(g.snapshot(), bytes);
+        let opponent = g.policy_observe(Seat::P1, 256).unwrap();
+        assert!(opponent.pending.is_none() && opponent.decision.is_none());
+        assert_eq!(opponent.view.hand, baseline.view.hand);
+        assert_eq!(opponent.view.public_zones, baseline.view.public_zones);
+        for cancel in [false, true] {
+            let mut restored = Game::new().unwrap();
+            restored.restore(&bytes).unwrap();
+            if cancel {
+                thrill_select(&mut restored, vec![Choice::CancelPayment]).unwrap();
+                assert_eq!(
+                    keys(&restored, Zone::Hand(Seat::P0)),
+                    ["thrill-of-possibility", "mountain"]
+                );
+                assert!(keys(&restored, Zone::Graveyard(Seat::P0)).is_empty());
+                assert_eq!(restored.mana()[0], [0, 0, 0, 2, 0, 0]);
+            } else {
+                if stage == 0 {
+                    let row = restored
+                        .view_hand(Seat::P0)
+                        .iter()
+                        .position(|h| {
+                            restored.objects.get(*h).unwrap().card.identity().key == "mountain"
+                        })
+                        .unwrap();
+                    thrill_select(&mut restored, vec![discard_choice(row)]).unwrap();
+                }
+                for _ in stage.saturating_sub(1)..2 {
+                    pay(&mut restored, Color::Red);
+                }
+                finish(&mut restored);
+                pass(&mut restored);
+                let d = restored.turn_decision().unwrap();
+                let mut progress = restored
+                    .apply_turn_quantum(
+                        d.actor,
+                        &TurnAction {
+                            decision: d.id,
+                            selection: TurnSelection::Pass(d.candidate(0)),
+                        },
+                        NonZeroUsize::MIN,
+                    )
+                    .unwrap();
+                assert_eq!(keys(&restored, Zone::Hand(Seat::P0)), ["forest"]);
+                while progress == Progress::InternalYield {
+                    assert!(restored.turn_decision().is_none());
+                    let b = restored.snapshot();
+                    let mut copy = Game::new().unwrap();
+                    copy.restore(&b).unwrap();
+                    assert_eq!(copy.rng, restored.rng);
+                    assert_eq!(
+                        keys(&copy, Zone::Hand(Seat::P0)),
+                        keys(&restored, Zone::Hand(Seat::P0))
+                    );
+                    restored = copy;
+                    progress = restored.resume(NonZeroUsize::MIN);
+                }
+                assert_eq!(
+                    keys(&restored, Zone::Hand(Seat::P0)),
+                    ["forest", "bear-cub"]
+                );
+            }
+        }
+        if stage == 0 {
+            g.choose_cast_discard(Seat::P0, p.id, &[discard]).unwrap();
+        } else if stage < 3 {
+            pay(&mut g, Color::Red);
+        }
+    }
+}
+
+#[test]
+fn thrill_reference_literal_checkpoints() {
+    use serde_json::{Value, json};
+    fn point(g: &Game) -> Value {
+        json!({"hand":keys(g,Zone::Hand(Seat::P0)),"graveyard":keys(g,Zone::Graveyard(Seat::P0)),"library":keys(g,Zone::Library(Seat::P0)),"stack":keys(g,Zone::Stack),"mana":g.mana()[0].iter().sum::<u32>(),"lost":g.outcome().is_some_and(|o|o.losses[0].is_some())})
+    }
+    let fixture: Value =
+        serde_json::from_str(include_str!("../../../fixtures/reference/thrill.json")).unwrap();
+    let expected: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/thrill-expectations.json"
+    ))
+    .unwrap();
+    let mut actual = serde_json::Map::new();
+    for c in fixture["cases"].as_array().unwrap() {
+        let library: Vec<_> = c["library"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|v| v.as_str().unwrap())
+            .collect();
+        let (mut g, spell, discard) = thrill_position(&library);
+        g.turns.position = Some((1, Seat::P0, Step::Upkeep));
+        if !c["discard"].as_bool().unwrap() {
+            g.objects.remove(discard).unwrap();
+        }
+        g.turns.mana[0] = [0; 6];
+        let color = if c["mana"] == "red" {
+            Color::Red
+        } else {
+            Color::Green
+        };
+        g.turns.mana[0][color.index()] = c["amount"].as_u64().unwrap() as u32;
+        let legal = g.cast_candidates(Seat::P0).contains(&spell);
+        if legal {
+            start(&mut g, spell);
+            let p = g.payment_decision(Seat::P0).unwrap();
+            g.choose_cast_discard(Seat::P0, p.id, &[discard]).unwrap();
+            pay(&mut g, Color::Red);
+            pay(&mut g, color);
+            finish(&mut g);
+        } else {
+            let old = g.snapshot();
+            let d = g.turn_decision().unwrap();
+            assert!(g.begin_cast(Seat::P0, d.id, spell).is_err());
+            assert_eq!(g.snapshot(), old);
+        }
+        let before = point(&g);
+        if legal {
+            pass(&mut g);
+            pass(&mut g);
+        }
+        let result = json!({"legal":legal,"before":before,"after":point(&g)});
+        assert_eq!(result, expected[c["id"].as_str().unwrap()]);
+        actual.insert(c["id"].as_str().unwrap().into(), result);
+    }
+    if let Ok(path) = std::env::var("MTG_THRILL_OUTPUT") {
+        std::fs::write(path, serde_json::to_vec_pretty(&actual).unwrap()).unwrap();
+    }
+}
+
+#[test]
+fn thrill_response_window_missing_discard_and_departed_cost_reject_atomically() {
+    let (mut g, spell, discard) = thrill_position(&["forest", "bear-cub"]);
+    let growth = g
+        .objects
+        .allocate(
+            CardId::from_key("giant-growth").unwrap(),
+            Seat::P1,
+            Zone::Hand(Seat::P1),
+        )
+        .unwrap();
+    let original = g.turn_decision().unwrap();
+    start(&mut g, spell);
+    let before = g.snapshot();
+    assert!(
+        g.begin_targeted_cast(Seat::P1, original.id, growth, 256)
+            .is_err()
+    );
+    assert_eq!(before, g.snapshot());
+    pay(&mut g, Color::Red);
+    pay(&mut g, Color::Red);
+    let p = g.payment_decision(Seat::P0).unwrap();
+    let before = g.snapshot();
+    assert!(g.finish_cast(Seat::P0, p.id).is_err());
+    assert_eq!(before, g.snapshot());
+    g.choose_cast_discard(Seat::P0, p.id, &[discard]).unwrap();
+    // Explicit storage mutation probes the commit revalidation boundary.
+    g.objects
+        .move_to(discard, Zone::Graveyard(Seat::P0))
+        .unwrap();
+    let p = g.payment_decision(Seat::P0).unwrap();
+    let before = g.snapshot();
+    assert!(g.finish_cast(Seat::P0, p.id).is_err());
+    assert_eq!(before, g.snapshot());
+    assert_eq!(g.mana()[0], [0, 0, 0, 2, 0, 0]);
+}
