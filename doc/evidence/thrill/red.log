@@ -1,0 +1,25 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-202/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.55s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+
+thread 'game::casting::tests::thrill_discard_atomic_ordered_draw_and_failed_second_draw' (279) panicked at crates/mtg-core/src/casting_tests.rs:46:5:
+CR 601: payable vanilla creature must be offered
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::casting::tests::thrill_payable_instant_is_available_without_targets' (280) panicked at crates/mtg-core/src/casting_tests.rs:614:5:
+Pinned 1R Thrill with another card must be castable at upkeep
+test game::casting::tests::thrill_payable_instant_is_available_without_targets ... FAILED
+test game::casting::tests::thrill_discard_atomic_ordered_draw_and_failed_second_draw ... FAILED
+test game::casting::tests::thrill_alone_or_wrong_color_rejects_without_mutation ... ok
+
+failures:
+
+failures:
+    game::casting::tests::thrill_discard_atomic_ordered_draw_and_failed_second_draw
+    game::casting::tests::thrill_payable_instant_is_available_without_targets
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 226 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

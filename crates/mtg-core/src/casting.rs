@@ -35,7 +35,11 @@ impl Game {
             .filter(|h| {
                 cost(self.objects.get(*h).expect("hand").card).is_some_and(|c| {
                     let card = self.objects.get(*h).unwrap().card;
-                    let timing = if super::targets::instant(card) {
+                    let timing = if super::card_definitions::definition(card).discard_draw() {
+                        self.objects
+                            .in_zone(Zone::Hand(actor))
+                            .any(|other| other != *h)
+                    } else if super::targets::instant(card) {
                         self.has_targets(actor, card)
                     } else {
                         self.turns.position.is_some_and(|(_, active, step)| {
@@ -63,7 +67,7 @@ impl Game {
             || self
                 .objects
                 .get(card)
-                .is_ok_and(|o| super::targets::instant(o.card))
+                .is_ok_and(|o| super::targets::targeted(o.card))
         {
             return Err(CastError::IllegalSpell);
         }
@@ -120,6 +124,18 @@ impl Game {
         }
         self.next_mana_generation().map_err(CastError::Mana)?;
         let card = cast.card();
+        let discard = cast.discard();
+        if self.cast_discard_pending()
+            || discard.is_some_and(|h| {
+                h == card
+                    || !self
+                        .objects
+                        .get(h)
+                        .is_ok_and(|o| o.zone == Zone::Hand(actor))
+            })
+        {
+            return Err(CastError::IllegalSpell);
+        }
         if !self
             .objects
             .get(card)
@@ -151,7 +167,24 @@ impl Game {
             .stack
             .try_reserve(1)
             .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
+        if let Some(h) = discard {
+            // Both public moves append knowledge. Separate zone preflights
+            // alone would each reserve only one entry at the same old length.
+            self.objects
+                .reserve_knowledge(Zone::Stack, 2)
+                .map_err(CastError::Storage)?;
+            let owner = self.objects.get(h).expect("validated discard").owner;
+            self.objects
+                .prepare_moves(&[h], Zone::Graveyard(owner))
+                .map_err(CastError::Storage)?;
+        }
         let (cast, d) = self.commit_cast_payment(actor, id);
+        if let Some(h) = discard {
+            let owner = self.objects.get(h).unwrap().owner;
+            self.objects
+                .move_to(h, Zone::Graveyard(owner))
+                .expect("preflighted discard");
+        }
         for &h in cast.sources() {
             self.objects.get_mut(h).expect("reserved source").tapped = true;
         }
@@ -164,6 +197,45 @@ impl Game {
             self.turns.effects.push((h, effect));
         }
         Ok(d)
+    }
+    /// Private additional-cost choice. Nothing changes zones until finish_cast.
+    pub fn choose_cast_discard(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        cards: &[Handle],
+    ) -> Result<PaymentDecision, CastError> {
+        self.validate_payment(actor, id).map_err(CastError::Mana)?;
+        let cast = self.turns.casting.as_ref().ok_or(CastError::NoCast)?;
+        if !super::card_definitions::definition(
+            self.objects
+                .get(cast.card())
+                .map_err(CastError::Storage)?
+                .card,
+        )
+        .discard_draw()
+            || cast.discard().is_some()
+            || cards.len() != 1
+            || cards[0] == cast.card()
+            || !self
+                .objects
+                .get(cards[0])
+                .is_ok_and(|o| o.zone == Zone::Hand(actor))
+        {
+            return Err(CastError::IllegalSpell);
+        }
+        let generation = self.next_mana_generation().map_err(CastError::Mana)?;
+        self.stage_cast_discard(cards[0], generation);
+        Ok(self.payment_decision(actor).expect("pending payment"))
+    }
+    pub(super) fn cast_discard_pending(&self) -> bool {
+        self.turns.casting.as_ref().is_some_and(|c| {
+            c.discard().is_none()
+                && self
+                    .objects
+                    .get(c.card())
+                    .is_ok_and(|o| super::card_definitions::definition(o.card).discard_draw())
+        })
     }
     pub fn summoning_sick(&self, h: Handle) -> bool {
         self.objects
@@ -189,9 +261,9 @@ impl Game {
         if cost(self.objects.get(h).map_err(TurnError::Storage)?.card).is_none() {
             return Err(TurnError::UnsupportedStack);
         }
-        // Reserve the maximum five M1 work items before accepting the pass.
+        // Reserve bounded spell work before accepting the pass.
         self.work
-            .try_reserve(5)
+            .try_reserve(6)
             .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
         if !self.turns.passed {
             self.work.push_back(Work::Priority {
@@ -206,6 +278,7 @@ impl Game {
                 .iter()
                 .find(|(spell, _)| *spell == h)
                 .map(|(_, e)| *e);
+            let mut failed_draw = None;
             let resolution = if let Some(a) =
                 self.turns.abilities.iter().find(|a| a.object == h).copied()
             {
@@ -311,6 +384,41 @@ impl Game {
                     }
                 }
                 Some(plan.resolution)
+            } else if super::card_definitions::definition(self.objects.get(h).unwrap().card)
+                .discard_draw()
+            {
+                let o = *self.objects.get(h).unwrap();
+                let draws: Vec<_> = self
+                    .objects
+                    .in_zone(Zone::Library(o.controller))
+                    .take(2)
+                    .collect();
+                self.objects
+                    .prepare_moves(&draws, Zone::Hand(o.controller))
+                    .map_err(TurnError::Storage)?;
+                self.objects
+                    .prepare_moves(&[h], Zone::Graveyard(o.owner))
+                    .map_err(TurnError::Storage)?;
+                if draws.len() < 2 {
+                    failed_draw = Some(o.controller);
+                }
+                for handle in draws {
+                    self.work.push_back(Work::SpellMove {
+                        handle,
+                        zone: Zone::Hand(o.controller),
+                        controller: None,
+                    });
+                }
+                self.work.push_back(Work::SpellMove {
+                    handle: h,
+                    zone: Zone::Graveyard(o.owner),
+                    controller: None,
+                });
+                Some(super::targets::Resolution {
+                    spell: o.card,
+                    legal_targets: 0,
+                    resolved: true,
+                })
             } else if matches!(
                 super::card_definitions::definition(self.objects.get(h).unwrap().card),
                 super::card_definitions::Definition::TokenSorcery { .. }
@@ -365,11 +473,20 @@ impl Game {
                 spell: h,
                 resolution,
             });
-            self.work.push_back(Work::Priority {
-                actor: self.turns.position.expect("turn").1,
-                passed: false,
-                terminal: true,
-            });
+            if failed_draw.is_some() {
+                self.work
+                    .push_back(Work::Turn(super::turns::TurnWork::Ready {
+                        actor: self.turns.position.expect("turn").1,
+                        kind: TurnKind::Priority,
+                        failed_draw,
+                    }));
+            } else {
+                self.work.push_back(Work::Priority {
+                    actor: self.turns.position.expect("turn").1,
+                    passed: false,
+                    terminal: true,
+                });
+            }
         }
         self.turns.decision = None;
         self.generation = generation;

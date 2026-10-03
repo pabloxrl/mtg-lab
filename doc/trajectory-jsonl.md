@@ -189,3 +189,10 @@ power for the defender only when every blocker meets that requirement; a full
 blocker-only split is always allowed. Typed conversion preserves this domain, and
 both canonical and durable validators reject malformed or insufficient allocations.
 Absent fields retain the previous nontrample encoding.
+
+Thrill adds the `cast_discard` decision kind with existing typed `discard` and
+`cancel_payment` commands. Its pending spell is actor-only. A discard choice in
+this continuation has `continuing` status in the same logical cast; a cleanup
+discard remains `committed`. `finish_payment` commits and `cancel_payment`
+cancels the logical action. No new wire command or privileged discard field is
+introduced; engine fingerprints reject incompatible older replay/snapshot inputs.

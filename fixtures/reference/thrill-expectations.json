@@ -1,0 +1,178 @@
+{
+  "ordered": {
+    "legal": true,
+    "before": {
+      "hand": [],
+      "graveyard": [
+        "mountain"
+      ],
+      "library": [
+        "forest",
+        "bear-cub",
+        "giant-growth"
+      ],
+      "stack": [
+        "thrill-of-possibility"
+      ],
+      "mana": 0,
+      "lost": false
+    },
+    "after": {
+      "hand": [
+        "forest",
+        "bear-cub"
+      ],
+      "graveyard": [
+        "mountain",
+        "thrill-of-possibility"
+      ],
+      "library": [
+        "giant-growth"
+      ],
+      "stack": [],
+      "mana": 0,
+      "lost": false
+    }
+  },
+  "one": {
+    "legal": true,
+    "before": {
+      "hand": [],
+      "graveyard": [
+        "mountain"
+      ],
+      "library": [
+        "forest"
+      ],
+      "stack": [
+        "thrill-of-possibility"
+      ],
+      "mana": 0,
+      "lost": false
+    },
+    "after": {
+      "hand": [
+        "forest"
+      ],
+      "graveyard": [
+        "mountain",
+        "thrill-of-possibility"
+      ],
+      "library": [],
+      "stack": [],
+      "mana": 0,
+      "lost": true
+    }
+  },
+  "empty": {
+    "legal": true,
+    "before": {
+      "hand": [],
+      "graveyard": [
+        "mountain"
+      ],
+      "library": [],
+      "stack": [
+        "thrill-of-possibility"
+      ],
+      "mana": 0,
+      "lost": false
+    },
+    "after": {
+      "hand": [],
+      "graveyard": [
+        "mountain",
+        "thrill-of-possibility"
+      ],
+      "library": [],
+      "stack": [],
+      "mana": 0,
+      "lost": true
+    }
+  },
+  "alone": {
+    "legal": false,
+    "before": {
+      "hand": [
+        "thrill-of-possibility"
+      ],
+      "graveyard": [],
+      "library": [
+        "forest"
+      ],
+      "stack": [],
+      "mana": 2,
+      "lost": false
+    },
+    "after": {
+      "hand": [
+        "thrill-of-possibility"
+      ],
+      "graveyard": [],
+      "library": [
+        "forest"
+      ],
+      "stack": [],
+      "mana": 2,
+      "lost": false
+    }
+  },
+  "wrong_color": {
+    "legal": false,
+    "before": {
+      "hand": [
+        "thrill-of-possibility",
+        "mountain"
+      ],
+      "graveyard": [],
+      "library": [
+        "forest"
+      ],
+      "stack": [],
+      "mana": 2,
+      "lost": false
+    },
+    "after": {
+      "hand": [
+        "thrill-of-possibility",
+        "mountain"
+      ],
+      "graveyard": [],
+      "library": [
+        "forest"
+      ],
+      "stack": [],
+      "mana": 2,
+      "lost": false
+    }
+  },
+  "short_mana": {
+    "legal": false,
+    "before": {
+      "hand": [
+        "thrill-of-possibility",
+        "mountain"
+      ],
+      "graveyard": [],
+      "library": [
+        "forest"
+      ],
+      "stack": [],
+      "mana": 1,
+      "lost": false
+    },
+    "after": {
+      "hand": [
+        "thrill-of-possibility",
+        "mountain"
+      ],
+      "graveyard": [],
+      "library": [
+        "forest"
+      ],
+      "stack": [],
+      "mana": 1,
+      "lost": false
+    }
+  }
+}

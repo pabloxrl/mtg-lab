@@ -550,3 +550,25 @@ fn invoker_native_policy_cast_activate_pay_finish_and_version_contract() {
         assert!(random.choose(&o).is_ok());
     }
 }
+
+#[test]
+fn thrill_policy_cast_discard_payment_and_previous_version_rejection() {
+    assert!(Heuristic::new("heuristic-invoker-v1", 0).is_err());
+    assert!(
+        mtg_policy::LegalRandom::new("legal-random-invoker-v1", mtg_policy::RNG_VERSION, 0, 0, 0)
+            .is_err()
+    );
+    let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(1) }]);
+    o.view.hand[1].card = "thrill-of-possibility";
+    assert_eq!(choose(&o), vec![Choice::Cast { card: h(1) }]);
+    let mut random =
+        mtg_policy::LegalRandom::new(mtg_policy::VERSION, mtg_policy::RNG_VERSION, 202, 0, 0)
+            .unwrap();
+    assert!(random.choose(&o).is_ok());
+    let o = obs(
+        "cast_discard",
+        vec![Choice::Discard { card: h(0) }, Choice::CancelPayment],
+    );
+    assert_eq!(choose(&o), vec![Choice::Discard { card: h(0) }]);
+    assert!(random.choose(&o).is_ok());
+}

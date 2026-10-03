@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "ordered",
+      "library": [
+        "forest",
+        "bear-cub",
+        "giant-growth"
+      ],
+      "mana": "red",
+      "amount": 2,
+      "discard": true
+    },
+    {
+      "id": "one",
+      "library": [
+        "forest"
+      ],
+      "mana": "red",
+      "amount": 2,
+      "discard": true
+    },
+    {
+      "id": "empty",
+      "library": [],
+      "mana": "red",
+      "amount": 2,
+      "discard": true
+    },
+    {
+      "id": "alone",
+      "library": [
+        "forest"
+      ],
+      "mana": "red",
+      "amount": 2,
+      "discard": false
+    },
+    {
+      "id": "wrong_color",
+      "library": [
+        "forest"
+      ],
+      "mana": "green",
+      "amount": 2,
+      "discard": true
+    },
+    {
+      "id": "short_mana",
+      "library": [
+        "forest"
+      ],
+      "mana": "red",
+      "amount": 1,
+      "discard": true
+    }
+  ]
+}
