@@ -27,6 +27,7 @@ fn b(row: usize) -> VisibleRef {
 }
 fn card(name: &'static str, controller: u8, creature: Option<[u32; 3]>) -> VisibleCard {
     VisibleCard {
+        haste: false,
         card: name,
         owner: controller,
         controller,
@@ -93,6 +94,7 @@ fn heuristic_land_creature_response_and_mask_ties() {
     let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(2) }]);
     assert_eq!(choose(&o), vec![Choice::Pass]);
     o.stack.push(StackSpell {
+        ability: false,
         row: 0,
         targets: vec![Some(b(0))],
     });
@@ -292,8 +294,8 @@ fn heuristic_errors_never_default_to_pass() {
     o = obs("priority", vec![Choice::Pass, Choice::Spell]);
     assert_eq!(p.choose(&o), Err(Error::UnsupportedDecision));
     o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(4) }]);
-    // GH-195 enables Elf; retain this strict rejection with unimplemented haste.
-    o.view.hand[4].card = "axgard-cavalry";
+    // GH-197 enables Cavalry; retain strict rejection with unimplemented Shivan.
+    o.view.hand[4].card = "shivan-dragon";
     assert_eq!(p.choose(&o), Err(Error::UnsupportedContent));
     o = obs("priority", vec![Choice::Pass]);
     o.decision.as_mut().unwrap().legal_mask.clear();
@@ -366,5 +368,51 @@ fn flying_reach_heuristic_excludes_illegal_pair_before_ranking() {
         vec![Choice::SelectBlockers {
             blocks: vec![(b(1), b(0)), (b(2), b(3))]
         }]
+    );
+}
+
+#[test]
+fn cavalry_policy_cast_activation_target_finish_and_version_contract() {
+    assert!(Heuristic::new("heuristic-reach-v1", 0).is_err());
+    assert!(
+        mtg_policy::LegalRandom::new("legal-random-reach-v1", mtg_policy::RNG_VERSION, 0, 0, 0)
+            .is_err()
+    );
+    let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(1) }]);
+    o.view.hand[1].card = "axgard-cavalry";
+    assert_eq!(choose(&o), vec![Choice::Cast { card: h(1) }]);
+    let mut o = obs(
+        "priority",
+        vec![Choice::Pass, Choice::Activate { card: b(0) }],
+    );
+    o.view
+        .public_zones
+        .iter_mut()
+        .find(|z| z.zone == "battlefield")
+        .unwrap()
+        .cards[0]
+        .card = "axgard-cavalry";
+    assert_eq!(choose(&o), vec![Choice::Activate { card: b(0) }]);
+    let mut random =
+        mtg_policy::LegalRandom::new(mtg_policy::VERSION, mtg_policy::RNG_VERSION, 197, 0, 0)
+            .unwrap();
+    assert!(random.choose(&o).is_ok());
+    expect(
+        "activation_target",
+        vec![
+            Choice::Target { card: b(0) },
+            Choice::Target { card: b(1) },
+            Choice::CancelActivation,
+        ],
+        Choice::Target { card: b(0) },
+    );
+    expect(
+        "activation_target",
+        vec![
+            Choice::Target { card: b(0) },
+            Choice::FinishActivation,
+            Choice::CancelActivation,
+        ],
+        Choice::FinishActivation,
     );
 }

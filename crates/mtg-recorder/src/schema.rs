@@ -10,6 +10,8 @@ pub struct VisibleCard {
     pub tapped: bool,
     pub creature: Option<[u32; 3]>,
     pub summoning_sick: bool,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub haste: bool,
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]

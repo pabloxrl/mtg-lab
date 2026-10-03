@@ -1,0 +1,233 @@
+[
+  {
+    "id": "rules-costs-summoning-sickness-positive",
+    "capability_id": "costs/summoning-sickness",
+    "category": "positive",
+    "setup": "Cub controlled since start of P0 turn",
+    "actions": "Declare it attacker",
+    "expected": "Attack legal and Cub taps",
+    "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-costs-summoning-sickness-negative",
+    "capability_id": "costs/summoning-sickness",
+    "category": "negative",
+    "setup": "Cavalry just entered without haste",
+    "actions": "Activate its tap ability",
+    "expected": "Reject; target not granted haste",
+    "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-costs-summoning-sickness-interaction",
+    "capability_id": "costs/summoning-sickness",
+    "category": "interaction",
+    "setup": "Old Cavalry and newly cast Elf",
+    "actions": "Grant Elf haste then tap Elf for mana",
+    "expected": "Elf produces G this turn",
+    "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-costs-summoning-sickness-regression",
+    "capability_id": "costs/summoning-sickness",
+    "category": "regression",
+    "setup": "New Shivan Dragon with R available",
+    "actions": "Activate +1/+0 ability",
+    "expected": "Legal despite sickness because cost lacks tap symbol",
+    "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-haste-vigilance-positive",
+    "capability_id": "combat/haste-vigilance",
+    "category": "positive",
+    "setup": "Old Cavalry and new Swab Goblin",
+    "actions": "Grant Goblin haste then attack",
+    "expected": "Goblin attacks this turn and taps",
+    "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-haste-vigilance-negative",
+    "capability_id": "combat/haste-vigilance",
+    "category": "negative",
+    "setup": "New Tajuru without haste",
+    "actions": "Declare attack",
+    "expected": "Reject despite vigilance",
+    "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-haste-vigilance-interaction",
+    "capability_id": "combat/haste-vigilance",
+    "category": "interaction",
+    "setup": "Old Tajuru attacks then survives combat",
+    "actions": "Inspect tap state; advance to opponent combat",
+    "expected": "Tajuru remains untapped and can block",
+    "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-haste-vigilance-regression",
+    "capability_id": "combat/haste-vigilance",
+    "category": "regression",
+    "setup": "Cavalry haste effect on new Cub expires in cleanup",
+    "actions": "Inspect keywords next turn",
+    "expected": "Temporary haste absent; no permanent keyword contamination",
+    "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-objects-dead-source-positive",
+    "capability_id": "objects/dead-source",
+    "category": "positive",
+    "setup": "Pyromancer ETB trigger targeting P1; Pyromancer killed by Bite",
+    "actions": "Resolve trigger",
+    "expected": "P1 loses two despite dead source",
+    "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-objects-dead-source-negative",
+    "capability_id": "objects/dead-source",
+    "category": "negative",
+    "setup": "Cavalry dead before activation command",
+    "actions": "Attempt activate old source",
+    "expected": "Reject; independence protects existing abilities only",
+    "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-objects-dead-source-interaction",
+    "capability_id": "objects/dead-source",
+    "category": "interaction",
+    "setup": "Cavalry haste ability targets new Cub; Cavalry killed in response",
+    "actions": "Resolve haste then attack",
+    "expected": "Cub gains haste and may attack",
+    "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-objects-dead-source-regression",
+    "capability_id": "objects/dead-source",
+    "category": "regression",
+    "setup": "Archer cast trigger above spell; Archer killed by responding Bite",
+    "actions": "Resolve trigger",
+    "expected": "Exactly one damage still dealt; not removed with source",
+    "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-creature-abilities-positive",
+    "capability_id": "combat/creature-abilities",
+    "category": "positive",
+    "setup": "P0 main empty stack; Cub hand and 1G",
+    "actions": "Cast then resolve",
+    "expected": "Cub enters untapped but cannot attack this turn",
+    "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-creature-abilities-negative",
+    "capability_id": "combat/creature-abilities",
+    "category": "negative",
+    "setup": "P1 has priority during P0 turn; Cub hand",
+    "actions": "Attempt cast creature without flash",
+    "expected": "Reject instant-speed creature casting",
+    "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-creature-abilities-interaction",
+    "capability_id": "combat/creature-abilities",
+    "category": "interaction",
+    "setup": "New Shivan and R mana",
+    "actions": "Activate power ability then grant haste using old Cavalry",
+    "expected": "Dragon becomes 6/5 and may attack; activation not sickness-limited",
+    "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-creature-abilities-regression",
+    "capability_id": "combat/creature-abilities",
+    "category": "regression",
+    "setup": "Old Cavalry taps for haste ability",
+    "actions": "Try tap again before untap",
+    "expected": "Reject already-tapped cost even though no sickness",
+    "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-axgard-cavalry-positive",
+    "capability_id": "foundations_micro_v1/axgard-cavalry",
+    "category": "positive",
+    "setup": "Old untapped Cavalry and freshly cast Swab Goblin",
+    "actions": "Tap Cavalry targeting Goblin; resolve; attack",
+    "expected": "Cavalry tapped; Goblin may attack immediately",
+    "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-axgard-cavalry-negative",
+    "capability_id": "foundations_micro_v1/axgard-cavalry",
+    "category": "negative",
+    "setup": "Fresh Cavalry without haste; new Goblin",
+    "actions": "Try Cavalry activation",
+    "expected": "Reject sickness; neither tap nor haste applied",
+    "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-axgard-cavalry-interaction",
+    "capability_id": "foundations_micro_v1/axgard-cavalry",
+    "category": "interaction",
+    "setup": "Old Cavalry targets newly cast Llanowar Elves",
+    "actions": "Resolve haste then activate Elf",
+    "expected": "Elf taps to produce G immediately",
+    "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-axgard-cavalry-regression",
+    "capability_id": "foundations_micro_v1/axgard-cavalry",
+    "category": "regression",
+    "setup": "Old Cavalry targets opposing Cub",
+    "actions": "Resolve then cleanup",
+    "expected": "Opposing Cub legally gains temporary haste; target not limited to own creature",
+    "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-druid-of-the-cowl-regression",
+    "capability_id": "foundations_micro_v1/druid-of-the-cowl",
+    "category": "regression",
+    "setup": "New Druid granted haste by Cavalry",
+    "actions": "Activate during Bite payment",
+    "expected": "Produces G legally with no stack entry/response window",
+    "basis": "Pinned Druid: 1G 1/3 with tap add G; CR 302.6 and 605. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  }
+]

@@ -170,6 +170,7 @@ impl Game {
             .get(h)
             .is_ok_and(|o| o.zone == Zone::Battlefield)
             && self.turns.sick.contains(&h)
+            && !self.has_haste(h)
     }
     pub(super) fn queue_stack_pass(
         &mut self,
@@ -205,71 +206,90 @@ impl Game {
                 .iter()
                 .find(|(spell, _)| *spell == h)
                 .map(|(_, e)| *e);
-            let resolution = if let Some(effect) = effect {
-                let plan = self.prepare_effect(h, effect)?;
-                if let Some(change) = plan.change {
-                    self.work.push_back(Work::Modify(change));
-                }
-                for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
-                    for &handle in &plan.moves[i] {
-                        self.work.push_back(Work::SpellMove {
-                            handle,
-                            zone: Zone::Graveyard(seat),
-                            controller: None,
-                        });
+            let resolution =
+                if let Some(a) = self.turns.abilities.iter().find(|a| a.object == h).copied() {
+                    self.objects
+                        .prepare_removals(1)
+                        .map_err(TurnError::Storage)?;
+                    let legal = self.haste_target(a.target);
+                    if legal {
+                        self.turns
+                            .haste
+                            .try_reserve(1)
+                            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                        self.work.push_back(Work::GrantHaste(a.target));
                     }
-                }
-                Some(plan.resolution)
-            } else if matches!(
-                super::card_definitions::definition(self.objects.get(h).unwrap().card),
-                super::card_definitions::Definition::TokenSorcery { .. }
-            ) {
-                let o = *self.objects.get(h).unwrap();
-                self.objects
-                    .reserve_knowledge(Zone::Battlefield, 3)
-                    .map_err(TurnError::Storage)?;
-                self.objects
-                    .prepare_allocations(2, Zone::Battlefield)
-                    .map_err(TurnError::Storage)?;
-                self.objects
-                    .prepare_moves(&[h], Zone::Graveyard(o.owner))
-                    .map_err(TurnError::Storage)?;
-                self.turns
-                    .sick
-                    .try_reserve(2)
-                    .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
-                self.work.push_back(Work::CreateGoblins {
-                    controller: o.controller,
-                });
-                self.work.push_back(Work::SpellMove {
-                    handle: h,
-                    zone: Zone::Graveyard(o.owner),
-                    controller: None,
-                });
-                Some(super::targets::Resolution {
-                    spell: o.card,
-                    legal_targets: 0,
-                    resolved: true,
-                })
-            } else {
-                if super::targets::instant(self.objects.get(h).unwrap().card) {
-                    return Err(TurnError::UnsupportedStack);
-                }
-                self.objects
-                    .prepare_moves(&[h], Zone::Battlefield)
-                    .map_err(TurnError::Storage)?;
-                self.turns
-                    .sick
-                    .try_reserve(1)
-                    .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
-                let controller = self.objects.get(h).expect("spell").controller;
-                self.work.push_back(Work::SpellMove {
-                    handle: h,
-                    zone: Zone::Battlefield,
-                    controller: Some(controller),
-                });
-                None
-            };
+                    self.work.push_back(Work::RemoveAbility(h));
+                    Some(super::targets::Resolution {
+                        spell: self.objects.get(h).unwrap().card,
+                        legal_targets: usize::from(legal),
+                        resolved: legal,
+                    })
+                } else if let Some(effect) = effect {
+                    let plan = self.prepare_effect(h, effect)?;
+                    if let Some(change) = plan.change {
+                        self.work.push_back(Work::Modify(change));
+                    }
+                    for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+                        for &handle in &plan.moves[i] {
+                            self.work.push_back(Work::SpellMove {
+                                handle,
+                                zone: Zone::Graveyard(seat),
+                                controller: None,
+                            });
+                        }
+                    }
+                    Some(plan.resolution)
+                } else if matches!(
+                    super::card_definitions::definition(self.objects.get(h).unwrap().card),
+                    super::card_definitions::Definition::TokenSorcery { .. }
+                ) {
+                    let o = *self.objects.get(h).unwrap();
+                    self.objects
+                        .reserve_knowledge(Zone::Battlefield, 3)
+                        .map_err(TurnError::Storage)?;
+                    self.objects
+                        .prepare_allocations(2, Zone::Battlefield)
+                        .map_err(TurnError::Storage)?;
+                    self.objects
+                        .prepare_moves(&[h], Zone::Graveyard(o.owner))
+                        .map_err(TurnError::Storage)?;
+                    self.turns
+                        .sick
+                        .try_reserve(2)
+                        .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                    self.work.push_back(Work::CreateGoblins {
+                        controller: o.controller,
+                    });
+                    self.work.push_back(Work::SpellMove {
+                        handle: h,
+                        zone: Zone::Graveyard(o.owner),
+                        controller: None,
+                    });
+                    Some(super::targets::Resolution {
+                        spell: o.card,
+                        legal_targets: 0,
+                        resolved: true,
+                    })
+                } else {
+                    if super::targets::instant(self.objects.get(h).unwrap().card) {
+                        return Err(TurnError::UnsupportedStack);
+                    }
+                    self.objects
+                        .prepare_moves(&[h], Zone::Battlefield)
+                        .map_err(TurnError::Storage)?;
+                    self.turns
+                        .sick
+                        .try_reserve(1)
+                        .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                    let controller = self.objects.get(h).expect("spell").controller;
+                    self.work.push_back(Work::SpellMove {
+                        handle: h,
+                        zone: Zone::Battlefield,
+                        controller: Some(controller),
+                    });
+                    None
+                };
             self.work.push_back(Work::FinishSpell {
                 spell: h,
                 resolution,

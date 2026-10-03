@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-reach-v1";
+pub const VERSION: &str = "legal-random-haste-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -195,6 +195,7 @@ fn validate(d: &Decision) -> Result<(), Error> {
             | "bite_source"
             | "bite_destination"
             | "targets_complete"
+            | "activation_target"
             | "payment"
             | "cleanup_discard"
     ) {
@@ -220,6 +221,11 @@ fn validate(d: &Decision) -> Result<(), Error> {
                     | Choice::PlayLand { .. }
                     | Choice::TapMana { .. }
                     | Choice::Cast { .. }
+                    | Choice::Activate { .. }
+            ),
+            "activation_target" => matches!(
+                c,
+                Choice::Target { .. } | Choice::FinishActivation | Choice::CancelActivation
             ),
             "payment" => matches!(
                 c,
@@ -260,8 +266,10 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "llanowar-elves",
                     "druid-of-the-cowl",
                     "magnigoth-sentry",
+                    "axgard-cavalry",
                 ],
             ),
+            Choice::Activate { card } => (card, &["axgard-cavalry"]),
             Choice::PlayLand { card } => (card, &["forest", "mountain"]),
             Choice::TapMana { card } => (
                 card,

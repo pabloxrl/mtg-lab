@@ -23,6 +23,11 @@ pub(super) enum Definition {
         toughness: u32,
         color: Color,
     },
+    HasteCreature {
+        cost: ManaCost,
+        power: u32,
+        toughness: u32,
+    },
     Token,
     TokenSorcery {
         cost: ManaCost,
@@ -47,6 +52,7 @@ impl Definition {
             Self::VanillaCreature { cost, .. }
             | Self::ManaCreature { cost, .. }
             | Self::KeywordCreature { cost, .. }
+            | Self::HasteCreature { cost, .. }
             | Self::Instant { cost, .. }
             | Self::TokenSorcery { cost } => Some(cost),
             _ => None,
@@ -73,6 +79,9 @@ impl Definition {
             | Self::ManaCreature {
                 power, toughness, ..
             }
+            | Self::HasteCreature {
+                power, toughness, ..
+            }
             | Self::KeywordCreature {
                 power, toughness, ..
             } => Some((power, toughness)),
@@ -91,12 +100,16 @@ impl Definition {
     pub(super) fn reach(self) -> bool {
         matches!(self, Self::KeywordCreature { reach: true, .. })
     }
+    pub(super) fn haste_activation(self) -> bool {
+        matches!(self, Self::HasteCreature { .. })
+    }
     pub(super) fn vanilla(self) -> bool {
         matches!(
             self,
             Self::VanillaCreature { .. }
                 | Self::ManaCreature { .. }
                 | Self::KeywordCreature { .. }
+                | Self::HasteCreature { .. }
                 | Self::Token
         )
     }
@@ -106,6 +119,14 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "axgard-cavalry" => Definition::HasteCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 1, 0, 0],
+                generic: 1,
+            },
+            power: 2,
+            toughness: 2,
+        },
         "goblin-token" => Definition::Token,
         "dragon-fodder" => Definition::TokenSorcery {
             cost: ManaCost {

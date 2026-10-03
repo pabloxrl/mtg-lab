@@ -1,0 +1,146 @@
+{
+  "cub": {
+    "source": true,
+    "source_tapped": true,
+    "target": true,
+    "haste": true,
+    "stack": 0,
+    "life": [
+      20,
+      18
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "swab": {
+    "source": true,
+    "source_tapped": true,
+    "target": true,
+    "haste": true,
+    "stack": 0,
+    "life": [
+      20,
+      18
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "opposing": {
+    "source": true,
+    "source_tapped": true,
+    "target": true,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "cleanup": {
+    "source": true,
+    "source_tapped": true,
+    "target": true,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "sick": {
+    "source": true,
+    "source_tapped": false,
+    "target": true,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "tapped": {
+    "source": true,
+    "source_tapped": true,
+    "target": true,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "source_dies": {
+    "source": false,
+    "source_tapped": false,
+    "target": true,
+    "haste": true,
+    "stack": 0,
+    "life": [
+      20,
+      18
+    ],
+    "source_stats": null
+  },
+  "target_dies": {
+    "source": true,
+    "source_tapped": true,
+    "target": false,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  },
+  "dead_before": {
+    "source": false,
+    "source_tapped": false,
+    "target": true,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": null
+  },
+  "cast": {
+    "source": true,
+    "source_tapped": false,
+    "target": true,
+    "haste": false,
+    "stack": 0,
+    "life": [
+      20,
+      20
+    ],
+    "source_stats": [
+      2,
+      2
+    ]
+  }
+}

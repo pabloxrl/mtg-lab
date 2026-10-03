@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "basis": "Pinned Cavalry 1R 2/2; CR 302.6, 602, 702.10, 113.7a, 611.2, 608.2b. Synthetic old source and fresh target; cast case uses actual spell.",
+  "cases": [
+    {
+      "id": "cub",
+      "mode": "cub",
+      "target": "bear-cub"
+    },
+    {
+      "id": "swab",
+      "mode": "swab",
+      "target": "swab-goblin"
+    },
+    {
+      "id": "opposing",
+      "mode": "opposing",
+      "target": "bear-cub"
+    },
+    {
+      "id": "cleanup",
+      "mode": "cleanup",
+      "target": "bear-cub"
+    },
+    {
+      "id": "sick",
+      "mode": "sick",
+      "target": "swab-goblin"
+    },
+    {
+      "id": "tapped",
+      "mode": "tapped",
+      "target": "bear-cub"
+    },
+    {
+      "id": "source_dies",
+      "mode": "source_dies",
+      "target": "bear-cub"
+    },
+    {
+      "id": "target_dies",
+      "mode": "target_dies",
+      "target": "bear-cub"
+    },
+    {
+      "id": "dead_before",
+      "mode": "dead_before",
+      "target": "bear-cub"
+    },
+    {
+      "id": "cast",
+      "mode": "cast",
+      "target": "bear-cub"
+    }
+  ]
+}

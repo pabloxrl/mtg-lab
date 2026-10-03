@@ -72,6 +72,7 @@ pub fn engine() -> &'static str {
                 include_str!("turns.rs"),
                 include_str!("mana.rs"),
                 include_str!("casting.rs"),
+                include_str!("activation.rs"),
                 include_str!("cast_state.rs"),
                 include_str!("targets.rs"),
                 include_str!("combat.rs"),
@@ -167,6 +168,7 @@ impl Game {
                             .get(*h)
                             .is_ok_and(|o| o.zone == Zone::Battlefield),
                         TurnWork::Wake(index) => *index < self.turns.sick.len(),
+                        TurnWork::ExpireHaste => !self.turns.haste.is_empty(),
                         TurnWork::Expire => !self.turns.modifications.is_empty(),
                         TurnWork::Ready { .. } => self.turns.position.is_some(),
                     }
@@ -177,6 +179,8 @@ impl Game {
                     .is_some_and(|(_, _, step)| step == turns::Step::CombatDamage)
                     && self.turns.decision.is_none()
             }
+            Work::GrantHaste(h) => self.haste_target(*h),
+            Work::RemoveAbility(h) => self.turns.abilities.iter().any(|a| a.object == *h),
             Work::Modify(m) => self
                 .objects
                 .get(m.handle)

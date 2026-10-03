@@ -6,6 +6,8 @@ use crate::objects::{CardId, Handle, ObjectStore, Seat, StorageError, Zone};
 use crate::rng::{EpisodeRng, Stream, VERSION};
 use std::{collections::VecDeque, num::NonZeroUsize};
 
+#[path = "activation.rs"]
+pub mod activation;
 #[path = "card_definitions.rs"]
 mod card_definitions;
 #[path = "cast_state.rs"]
@@ -181,3 +183,7 @@ mod token_tests;
 #[cfg(test)]
 #[path = "creature_mana_reference_tests.rs"]
 mod creature_mana_reference_tests;
+
+#[cfg(test)]
+#[path = "haste_tests.rs"]
+mod haste_tests;

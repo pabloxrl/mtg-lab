@@ -1,0 +1,34 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-197/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.21s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 4 tests
+
+thread 'game::haste_tests::cavalry_pinned_cast_and_fresh_activation_rejection' (278) panicked at crates/mtg-core/src/haste_tests.rs:28:5:
+Pinned Cavalry costs 1R and must be castable
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::haste_tests::old_cavalry_offers_targeted_activation' (281) panicked at crates/mtg-core/src/haste_tests.rs:49:5:
+CR 602: old untapped Cavalry must offer its activation
+
+thread 'game::haste_tests::haste_source_independent_target_identity_and_cleanup' (280) panicked at crates/mtg-core/src/haste_tests.rs:54:43:
+supported activation command: Error("unknown variant `activate`, expected one of `keep`, `mulligan`, `bottom`, `pass`, `play_land`, `tap_mana`, `pay`, `finish_payment`, `cancel_payment`, `cast`, `target`, `finish_targets`, `cancel_targets`, `select_attackers`, `select_blockers`, `assign_damage`, `finish_combat`, `discard`, `spell`, `combat`", line: 0, column: 0)
+
+thread 'game::haste_tests::haste_cancel_and_illegal_policy_do_not_pay_cost' (279) panicked at crates/mtg-core/src/haste_tests.rs:54:43:
+supported activation command: Error("unknown variant `activate`, expected one of `keep`, `mulligan`, `bottom`, `pass`, `play_land`, `tap_mana`, `pay`, `finish_payment`, `cancel_payment`, `cast`, `target`, `finish_targets`, `cancel_targets`, `select_attackers`, `select_blockers`, `assign_damage`, `finish_combat`, `discard`, `spell`, `combat`", line: 0, column: 0)
+test game::haste_tests::cavalry_pinned_cast_and_fresh_activation_rejection ... FAILED
+test game::haste_tests::old_cavalry_offers_targeted_activation ... FAILED
+test game::haste_tests::haste_source_independent_target_identity_and_cleanup ... FAILED
+test game::haste_tests::haste_cancel_and_illegal_policy_do_not_pay_cost ... FAILED
+
+failures:
+
+failures:
+    game::haste_tests::cavalry_pinned_cast_and_fresh_activation_rejection
+    game::haste_tests::haste_cancel_and_illegal_policy_do_not_pay_cost
+    game::haste_tests::haste_source_independent_target_identity_and_cleanup
+    game::haste_tests::old_cavalry_offers_targeted_activation
+
+test result: FAILED. 0 passed; 4 failed; 0 ignored; 0 measured; 196 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

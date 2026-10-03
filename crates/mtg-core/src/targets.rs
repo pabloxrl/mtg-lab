@@ -64,6 +64,9 @@ pub(super) struct PreparedEffect {
 }
 impl Game {
     pub fn creature_state(&self, h: Handle) -> Option<CreatureState> {
+        if self.turns.abilities.iter().any(|a| a.object == h) {
+            return None;
+        }
         let o = self.objects.get(h).ok()?;
         let (power, toughness) = base(o.card)?;
         let m = self
@@ -232,6 +235,9 @@ impl Game {
         Ok(self.start_cast_payment(actor, generation, card, remaining, Some(effect)))
     }
     pub fn stack_targets(&self, h: Handle) -> Option<Vec<Handle>> {
+        if let Some(a) = self.turns.abilities.iter().find(|a| a.object == h) {
+            return Some(vec![a.target]);
+        }
         self.turns
             .effects
             .iter()

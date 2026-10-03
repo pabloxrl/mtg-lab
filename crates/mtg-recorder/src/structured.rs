@@ -31,6 +31,11 @@ pub enum Command {
     PlayLand {
         card: VisibleRef,
     },
+    Activate {
+        card: VisibleRef,
+    },
+    FinishActivation,
+    CancelActivation,
     TapMana {
         card: VisibleRef,
     },
@@ -140,6 +145,8 @@ pub struct PendingSpell {
 #[serde(deny_unknown_fields)]
 pub struct StackSpell {
     pub row: usize,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub ability: bool,
     pub targets: Vec<Option<VisibleRef>>,
 }
 
@@ -357,7 +364,9 @@ fn command_valid(o: &Observation, c: &Command) -> bool {
         | Command::Discard { card }
         | Command::Cast { card }
         | Command::PlayLand { card } => hand(card),
-        Command::Target { card } | Command::TapMana { card } => field(card),
+        Command::Activate { card } | Command::Target { card } | Command::TapMana { card } => {
+            field(card)
+        }
         Command::Pay { color } => *color < 6,
         Command::SelectAttackers { cards } => unique(cards) && cards.iter().all(field),
         Command::SelectBlockers { blocks } => {
@@ -390,8 +399,15 @@ fn observation_valid(o: &Observation) -> bool {
         return false;
     }
     if let Some(p) = &o.pending
-        && (!valid_ref(o, &p.card, VisibleZone::Hand)
-            || !p.targets.iter().flatten().all(field)
+        && (!(if o
+            .decision
+            .as_ref()
+            .is_some_and(|d| d.kind == "activation_target")
+        {
+            field(&p.card)
+        } else {
+            valid_ref(o, &p.card, VisibleZone::Hand)
+        }) || !p.targets.iter().flatten().all(field)
             || !p.sources.iter().flatten().all(field)
             || p.pool.is_some() != p.remaining.is_some())
     {
@@ -422,6 +438,7 @@ fn observation_valid(o: &Observation) -> bool {
     if let Some(d) = &o.decision {
         let combat = ["attackers", "blockers", "combat_damage"].contains(&d.kind.as_str());
         let pending = [
+            "activation_target",
             "growth_target",
             "bite_source",
             "bite_destination",
@@ -433,6 +450,7 @@ fn observation_valid(o: &Observation) -> bool {
                 "keep_or_mulligan",
                 "bottom",
                 "priority",
+                "activation_target",
                 "growth_target",
                 "bite_source",
                 "bite_destination",
@@ -550,9 +568,12 @@ fn valid_submission(o: &Observation, s: &Submission) -> bool {
 }
 fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
     match s.choices.first() {
-        Some(Command::CancelPayment | Command::CancelTargets) => ActionStatus::Cancelled,
+        Some(Command::CancelPayment | Command::CancelTargets | Command::CancelActivation) => {
+            ActionStatus::Cancelled
+        }
         Some(
             Command::Cast { .. }
+            | Command::Activate { .. }
             | Command::Target { .. }
             | Command::FinishTargets
             | Command::Pay { .. }
@@ -689,6 +710,11 @@ fn kind_command(kind: &str, command: &Command) -> bool {
                     | Command::PlayLand { .. }
                     | Command::TapMana { .. }
                     | Command::Cast { .. }
+                    | Command::Activate { .. }
+            )
+            | (
+                "activation_target",
+                Command::Target { .. } | Command::FinishActivation | Command::CancelActivation
             )
             | (
                 "growth_target" | "bite_source" | "bite_destination" | "targets_complete",

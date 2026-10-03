@@ -27,6 +27,11 @@ pub enum Choice {
     PlayLand {
         card: VisibleRef,
     },
+    Activate {
+        card: VisibleRef,
+    },
+    FinishActivation,
+    CancelActivation,
     TapMana {
         card: VisibleRef,
     },
@@ -128,6 +133,8 @@ pub struct PendingSpell {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct StackSpell {
     pub row: usize,
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub ability: bool,
     pub targets: Vec<Option<VisibleRef>>,
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize)]
@@ -212,6 +219,19 @@ impl Game {
             })
     }
     fn policy_pending(&self, seat: Seat) -> Option<PendingSpell> {
+        if let Some(p) = self.turns.activation.as_ref().filter(|p| p.actor == seat) {
+            return Some(PendingSpell {
+                card: self.policy_battlefield_ref(p.source)?,
+                targets: p
+                    .target
+                    .into_iter()
+                    .map(|h| self.policy_battlefield_ref(h))
+                    .collect(),
+                sources: vec![self.policy_battlefield_ref(p.source)],
+                pool: None,
+                remaining: None,
+            });
+        }
         let (card, targets, sources) = if let Some(t) = self
             .turns
             .targeting
@@ -258,21 +278,27 @@ impl Game {
         Ok(())
     }
     fn policy_actor_generation(&self) -> Option<(Seat, u64)> {
-        self.decision
-            .map(|d| (d.actor, d.generation))
+        self.turns
+            .activation
+            .as_ref()
+            .map(|p| (p.actor, p.id.generation))
             .or_else(|| {
-                self.turns
-                    .targeting
-                    .as_ref()
-                    .map(|t| (t.decision().actor, t.decision().id.generation))
+                self.decision
+                    .map(|d| (d.actor, d.generation))
+                    .or_else(|| {
+                        self.turns
+                            .targeting
+                            .as_ref()
+                            .map(|t| (t.decision().actor, t.decision().id.generation))
+                    })
+                    .or_else(|| {
+                        self.turns
+                            .payment
+                            .as_ref()
+                            .map(|p| (p.actor(), p.id().generation))
+                    })
+                    .or_else(|| self.turn_decision().map(|d| (d.actor, d.id.generation)))
             })
-            .or_else(|| {
-                self.turns
-                    .payment
-                    .as_ref()
-                    .map(|p| (p.actor(), p.id().generation))
-            })
-            .or_else(|| self.turn_decision().map(|d| (d.actor, d.id.generation)))
     }
     fn policy_decision(
         &self,
@@ -331,6 +357,21 @@ impl Game {
                     ("bottom", count)
                 }
             }
+        } else if let Some(p) = self.turns.activation.as_ref() {
+            for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
+                push(
+                    Choice::Target {
+                        card: VisibleRef {
+                            zone: VisibleZone::Battlefield,
+                            row,
+                        },
+                    },
+                    self.haste_target(h),
+                )?;
+            }
+            push(Choice::FinishActivation, p.target.is_some())?;
+            push(Choice::CancelActivation, true)?;
+            ("activation_target", 1)
         } else if let Some(t) = self.target_decision(seat) {
             for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
                 push(
@@ -482,6 +523,22 @@ impl Game {
                     )?;
                 }
             }
+            let activations = self.activation_candidates(seat);
+            for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
+                if card_definitions::definition(self.objects.get(h).unwrap().card)
+                    .haste_activation()
+                {
+                    push(
+                        Choice::Activate {
+                            card: VisibleRef {
+                                zone: VisibleZone::Battlefield,
+                                row,
+                            },
+                        },
+                        activations.contains(&h),
+                    )?;
+                }
+            }
             let sources = self.mana_sources(seat);
             for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
                 push(
@@ -553,6 +610,7 @@ impl Game {
                 .enumerate()
                 .map(|(row, h)| StackSpell {
                     row,
+                    ability: self.turns.abilities.iter().any(|a| a.object == *h),
                     targets: self
                         .stack_targets(*h)
                         .unwrap_or_default()
@@ -747,6 +805,31 @@ impl Game {
                 .map_err(turn_error);
         }
         match &submission.choices[0] {
+            Choice::Activate { card } => {
+                let h = self
+                    .objects
+                    .in_zone(Zone::Battlefield)
+                    .nth(card.row)
+                    .unwrap();
+                self.begin_activation(actor, id, h).map_err(turn_error)
+            }
+            Choice::FinishActivation => self
+                .finish_activation(actor, id)
+                .map(|_| ())
+                .map_err(turn_error),
+            Choice::CancelActivation => self
+                .cancel_activation(actor, id)
+                .map(|_| ())
+                .map_err(turn_error),
+            Choice::Target { card } if self.turns.activation.is_some() => {
+                let h = self
+                    .objects
+                    .in_zone(Zone::Battlefield)
+                    .nth(card.row)
+                    .unwrap();
+                self.choose_activation_target(actor, id, h)
+                    .map_err(turn_error)
+            }
             Choice::FinishCombat => self
                 .finish_combat(actor, id)
                 .map(|_| ())

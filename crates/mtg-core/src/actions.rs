@@ -25,6 +25,11 @@ pub enum Choice {
     PlayLand {
         card: ObjectRef,
     },
+    Activate {
+        card: ObjectRef,
+    },
+    FinishActivation {},
+    CancelActivation {},
     TapMana {
         card: ObjectRef,
     },
@@ -260,6 +265,9 @@ pub fn apply(g: &mut Game, bytes: &[u8], capacity: usize) -> Result<(), ActionEr
 fn encode_choice(g: &Game, actor: Seat, c: &policy::Choice) -> Result<Choice, ActionError> {
     let map = |r| reference(g, actor, r);
     Ok(match c {
+        policy::Choice::Activate { card } => Choice::Activate { card: map(card)? },
+        policy::Choice::FinishActivation => Choice::FinishActivation {},
+        policy::Choice::CancelActivation => Choice::CancelActivation {},
         policy::Choice::Keep => Choice::Keep {},
         policy::Choice::Mulligan => Choice::Mulligan {},
         policy::Choice::Pass => Choice::Pass {},
@@ -297,6 +305,9 @@ fn encode_choice(g: &Game, actor: Seat, c: &policy::Choice) -> Result<Choice, Ac
 fn decode_choice(g: &Game, actor: Seat, c: &Choice) -> Result<policy::Choice, ActionError> {
     let map = |r| resolve(g, actor, r);
     Ok(match c {
+        Choice::Activate { card } => policy::Choice::Activate { card: map(card)? },
+        Choice::FinishActivation {} => policy::Choice::FinishActivation,
+        Choice::CancelActivation {} => policy::Choice::CancelActivation,
         Choice::Concede {} => return Err(ActionError::WrongKind),
         Choice::Keep {} => policy::Choice::Keep,
         Choice::Mulligan {} => policy::Choice::Mulligan,

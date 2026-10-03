@@ -43,7 +43,9 @@ impl Frame {
     }
     pub(crate) fn status_after(&self, submission: &Submission) -> ActionStatus {
         match submission.choices.first() {
-            Some(Command::CancelPayment | Command::CancelTargets) => ActionStatus::Cancelled,
+            Some(Command::CancelPayment | Command::CancelTargets | Command::CancelActivation) => {
+                ActionStatus::Cancelled
+            }
             _ if self.views.iter().any(|v| v.pending.is_some()) => ActionStatus::Continuing,
             Some(
                 Command::SelectAttackers { .. }
@@ -454,9 +456,12 @@ fn cancellation_count(decisions: &[Decision]) -> usize {
 }
 fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
     match s.choices.first() {
-        Some(Command::CancelPayment | Command::CancelTargets) => ActionStatus::Cancelled,
+        Some(Command::CancelPayment | Command::CancelTargets | Command::CancelActivation) => {
+            ActionStatus::Cancelled
+        }
         Some(
             Command::Cast { .. }
+            | Command::Activate { .. }
             | Command::Target { .. }
             | Command::FinishTargets
             | Command::Pay { .. }
