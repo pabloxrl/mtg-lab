@@ -304,7 +304,7 @@ fn three_recipient_distribution_is_sequential_not_uniform_compositions() {
 #[test]
 fn newly_enabled_unsupported_card_is_an_error_not_a_fallback() {
     let mut o = observation(0);
-    o.view.hand[0].card = "shivan-dragon";
+    o.view.hand[0].card = "wildheart-invoker";
     let d = o.decision.as_mut().unwrap();
     d.kind = "priority";
     d.candidates = vec![

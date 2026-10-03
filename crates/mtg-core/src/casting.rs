@@ -211,19 +211,50 @@ impl Game {
                     self.objects
                         .prepare_removals(1)
                         .map_err(TurnError::Storage)?;
-                    let legal = self.haste_target(a.target);
-                    if legal {
+                    let legal = a.target.is_some_and(|t| self.haste_target(t));
+                    if a.power && self.haste_target(a.source) {
+                        let old = self
+                            .turns
+                            .modifications
+                            .iter()
+                            .find(|m| m.handle == a.source)
+                            .copied()
+                            .unwrap_or(super::targets::Modification {
+                                handle: a.source,
+                                boost: 0,
+                                power_boost: 0,
+                                damage: 0,
+                            });
+                        let power_boost = old
+                            .power_boost
+                            .checked_add(1)
+                            .filter(|b| {
+                                b.checked_add(old.boost)
+                                    .and_then(|b| b.checked_add(5))
+                                    .is_some()
+                            })
+                            .ok_or(TurnError::EffectOverflow)?;
+                        self.turns
+                            .modifications
+                            .try_reserve(1)
+                            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                        self.work
+                            .push_back(Work::Modify(super::targets::Modification {
+                                power_boost,
+                                ..old
+                            }));
+                    } else if legal {
                         self.turns
                             .haste
                             .try_reserve(1)
                             .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
-                        self.work.push_back(Work::GrantHaste(a.target));
+                        self.work.push_back(Work::GrantHaste(a.target.unwrap()));
                     }
                     self.work.push_back(Work::RemoveAbility(h));
                     Some(super::targets::Resolution {
                         spell: self.objects.get(h).unwrap().card,
                         legal_targets: usize::from(legal),
-                        resolved: legal,
+                        resolved: a.power || legal,
                     })
                 } else if let Some(effect) = effect {
                     let plan = self.prepare_effect(h, effect)?;

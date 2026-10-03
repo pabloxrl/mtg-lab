@@ -28,6 +28,11 @@ pub(super) enum Definition {
         power: u32,
         toughness: u32,
     },
+    PowerCreature {
+        cost: ManaCost,
+        power: u32,
+        toughness: u32,
+    },
     Token,
     TokenSorcery {
         cost: ManaCost,
@@ -56,6 +61,7 @@ impl Definition {
             | Self::ManaCreature { cost, .. }
             | Self::KeywordCreature { cost, .. }
             | Self::HasteCreature { cost, .. }
+            | Self::PowerCreature { cost, .. }
             | Self::Instant { cost, .. }
             | Self::TokenSorcery { cost } => Some(cost),
             _ => None,
@@ -82,6 +88,9 @@ impl Definition {
             | Self::ManaCreature {
                 power, toughness, ..
             }
+            | Self::PowerCreature {
+                power, toughness, ..
+            }
             | Self::HasteCreature {
                 power, toughness, ..
             }
@@ -98,7 +107,10 @@ impl Definition {
         }
     }
     pub(super) fn flying(self) -> bool {
-        matches!(self, Self::KeywordCreature { flying: true, .. })
+        matches!(
+            self,
+            Self::KeywordCreature { flying: true, .. } | Self::PowerCreature { .. }
+        )
     }
     pub(super) fn reach(self) -> bool {
         matches!(self, Self::KeywordCreature { reach: true, .. })
@@ -127,6 +139,9 @@ impl Definition {
     pub(super) fn haste_activation(self) -> bool {
         matches!(self, Self::HasteCreature { .. })
     }
+    pub(super) fn power_activation(self) -> bool {
+        matches!(self, Self::PowerCreature { .. })
+    }
     pub(super) fn vanilla(self) -> bool {
         matches!(
             self,
@@ -134,6 +149,7 @@ impl Definition {
                 | Self::ManaCreature { .. }
                 | Self::KeywordCreature { .. }
                 | Self::HasteCreature { .. }
+                | Self::PowerCreature { .. }
                 | Self::Token
         )
     }
@@ -143,6 +159,14 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "shivan-dragon" => Definition::PowerCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 2, 0, 0],
+                generic: 4,
+            },
+            power: 5,
+            toughness: 5,
+        },
         "axgard-cavalry" => Definition::HasteCreature {
             cost: ManaCost {
                 colored: [0, 0, 0, 1, 0, 0],

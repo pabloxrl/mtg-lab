@@ -574,8 +574,8 @@ mod tests {
         }
         g.objects
             .allocate(
-                // Sentry is supported by GH-196; Shivan remains unsupported.
-                CardId::from_key("shivan-dragon").unwrap(),
+                // Sentry is supported by GH-196; Invoker remains unsupported.
+                CardId::from_key("wildheart-invoker").unwrap(),
                 Seat::P0,
                 Zone::Battlefield,
             )

@@ -555,6 +555,7 @@ fn targets_resolution_controller_recheck_and_numeric_overflow() {
         .modifications
         .push(crate::opening::targets::Modification {
             handle: a,
+            power_boost: 0,
             boost: u32::MAX - 4,
             damage: 0,
         });
@@ -815,6 +816,7 @@ fn settlement_quantum_rejections_preserve_exact_state() {
     let (actor, action) = settlement_action(&g);
     g.turns.modifications.push(Modification {
         handle: b,
+        power_boost: 0,
         boost: 0,
         damage: u32::MAX,
     });

@@ -187,3 +187,7 @@ mod creature_mana_reference_tests;
 #[cfg(test)]
 #[path = "haste_tests.rs"]
 mod haste_tests;
+
+#[cfg(test)]
+#[path = "shivan_tests.rs"]
+mod shivan_tests;

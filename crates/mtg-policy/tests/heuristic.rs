@@ -296,7 +296,7 @@ fn heuristic_errors_never_default_to_pass() {
     assert_eq!(p.choose(&o), Err(Error::UnsupportedDecision));
     o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(4) }]);
     // GH-197 enables Cavalry; retain strict rejection with unimplemented Shivan.
-    o.view.hand[4].card = "shivan-dragon";
+    o.view.hand[4].card = "wildheart-invoker";
     assert_eq!(p.choose(&o), Err(Error::UnsupportedContent));
     o = obs("priority", vec![Choice::Pass]);
     o.decision.as_mut().unwrap().legal_mask.clear();
@@ -458,4 +458,52 @@ fn heuristic_deathtouch_assigns_one_each_and_five_to_defender() {
             amounts: vec![(b(2), 1), (b(1), 1)]
         }]
     );
+}
+
+#[test]
+fn shivan_native_policy_cast_activate_pay_finish_and_version_contract() {
+    assert!(Heuristic::new("heuristic-deathtouch-v1", 0).is_err());
+    assert!(
+        mtg_policy::LegalRandom::new(
+            "legal-random-deathtouch-v1",
+            mtg_policy::RNG_VERSION,
+            0,
+            0,
+            0
+        )
+        .is_err()
+    );
+    let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(1) }]);
+    o.view.hand[1].card = "shivan-dragon";
+    assert_eq!(choose(&o), vec![Choice::Cast { card: h(1) }]);
+    let mut o = obs(
+        "priority",
+        vec![Choice::Pass, Choice::Activate { card: b(0) }],
+    );
+    o.view
+        .public_zones
+        .iter_mut()
+        .find(|z| z.zone == "battlefield")
+        .unwrap()
+        .cards[0]
+        .card = "shivan-dragon";
+    assert_eq!(choose(&o), vec![Choice::Activate { card: b(0) }]);
+    let mut random =
+        mtg_policy::LegalRandom::new(mtg_policy::VERSION, mtg_policy::RNG_VERSION, 200, 0, 0)
+            .unwrap();
+    assert!(random.choose(&o).is_ok());
+    for (choices, want) in [
+        (
+            vec![Choice::Pay { color: 3 }, Choice::CancelActivation],
+            Choice::Pay { color: 3 },
+        ),
+        (
+            vec![Choice::FinishActivation, Choice::CancelActivation],
+            Choice::FinishActivation,
+        ),
+    ] {
+        let o = obs("activation_payment", choices);
+        assert_eq!(choose(&o), vec![want]);
+        assert!(random.choose(&o).is_ok());
+    }
 }

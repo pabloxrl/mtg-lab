@@ -49,6 +49,7 @@ pub(super) enum Effect {
 pub(super) struct Modification {
     pub(super) handle: Handle,
     pub(super) boost: u32,
+    pub(super) power_boost: u32,
     pub(super) damage: u32,
 }
 pub(super) fn instant(card: CardId) -> bool {
@@ -76,7 +77,7 @@ impl Game {
             .find(|m| m.handle == h && o.zone == Zone::Battlefield);
         let (boost, damage) = m.map_or((0, 0), |m| (m.boost, m.damage));
         Some(CreatureState {
-            power: power + boost,
+            power: power + boost + m.map_or(0, |m| m.power_boost),
             toughness: toughness + boost,
             damage,
         })
@@ -236,7 +237,7 @@ impl Game {
     }
     pub fn stack_targets(&self, h: Handle) -> Option<Vec<Handle>> {
         if let Some(a) = self.turns.abilities.iter().find(|a| a.object == h) {
-            return Some(vec![a.target]);
+            return Some(a.target.into_iter().collect());
         }
         self.turns
             .effects
@@ -278,13 +279,20 @@ impl Game {
                     .copied()
                     .unwrap_or(Modification {
                         handle: a,
+                        power_boost: 0,
                         boost: 0,
                         damage: 0,
                     });
                 let boost = old
                     .boost
                     .checked_add(3)
-                    .filter(|b| *b <= u32::MAX - 4)
+                    .filter(|b| {
+                        let (power, toughness) = base(self.objects.get(a).unwrap().card).unwrap();
+                        b.checked_add(old.power_boost)
+                            .and_then(|b| b.checked_add(power))
+                            .is_some()
+                            && b.checked_add(toughness).is_some()
+                    })
                     .ok_or(TurnError::EffectOverflow)?;
                 change = Some(Modification { boost, ..old });
             }
@@ -297,6 +305,7 @@ impl Game {
                     .copied()
                     .unwrap_or(Modification {
                         handle: b,
+                        power_boost: 0,
                         boost: 0,
                         damage: 0,
                     });

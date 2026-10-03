@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-deathtouch-v1";
+pub const VERSION: &str = "legal-random-shivan-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -216,6 +216,7 @@ fn validate(d: &Decision) -> Result<(), Error> {
             | "bite_destination"
             | "targets_complete"
             | "activation_target"
+            | "activation_payment"
             | "payment"
             | "cleanup_discard"
     ) {
@@ -242,6 +243,10 @@ fn validate(d: &Decision) -> Result<(), Error> {
                     | Choice::TapMana { .. }
                     | Choice::Cast { .. }
                     | Choice::Activate { .. }
+            ),
+            "activation_payment" => matches!(
+                c,
+                Choice::Pay { .. } | Choice::FinishActivation | Choice::CancelActivation
             ),
             "activation_target" => matches!(
                 c,
@@ -289,9 +294,10 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "axgard-cavalry",
                     "tajuru-pathwarden",
                     "thornweald-archer",
+                    "shivan-dragon",
                 ],
             ),
-            Choice::Activate { card } => (card, &["axgard-cavalry"]),
+            Choice::Activate { card } => (card, &["axgard-cavalry", "shivan-dragon"]),
             Choice::PlayLand { card } => (card, &["forest", "mountain"]),
             Choice::TapMana { card } => (
                 card,

@@ -1,7 +1,7 @@
 # Deterministic native heuristic
 
 `mtg_policy::Heuristic::new(HEURISTIC_VERSION, seat)` creates a stateless native
-opponent. `HEURISTIC_VERSION = heuristic-deathtouch-v1` freezes the rules below. Its
+opponent. `HEURISTIC_VERSION = heuristic-shivan-v1` freezes the rules below. Its
 `choose(&policy::Observation)` returns a semantic submission for
 `Game::apply_policy`. Only the authorized observation is accepted; no game,
 private replay, environment seed, RNG or clock is available. Repeated inputs
@@ -77,6 +77,8 @@ choosing the best remaining attacker; reach itself gives attackers no evasion.
 
 GH-197 added Cavalry casting and staged targeted tap-cost activation. Cavalry uses creature cast score 30; starting activation scores 5, finishing scores 30 and cancellation 0. Targets use the existing own-creature power/toughness ordering. Full-pool policy qualification remains #208.
 
-GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `heuristic-deathtouch-v1` rejects prior policy IDs. For trample, assign up to each blocker’s observed lethal requirement in domain order and send remaining power to the defender. Other allocation behavior is unchanged.
+GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `heuristic-shivan-v1` rejects prior policy IDs. For trample, assign up to each blocker’s observed lethal requirement in domain order and send remaining power to the defender. Other allocation behavior is unchanged.
 
-GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `deathtouch-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy qualification remains pending.
+GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `shivan-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy qualification remains pending.
+
+GH-200 adds Shivan Dragon casting and the nontargeted `activation_payment` continuation. Current IDs end in `shivan-v1`; the prior `deathtouch-v1` IDs reject. Explicit red payment and finish/cancel use the existing candidate sampling/scoring. Float red mana at priority before activating. Full-pool policy qualification remains pending.

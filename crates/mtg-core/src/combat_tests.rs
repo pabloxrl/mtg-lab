@@ -880,6 +880,7 @@ fn combat_quantum_preflight_rejections_preserve_exact_snapshot() {
         .modifications
         .push(super::super::targets::Modification {
             handle: b,
+            power_boost: 0,
             boost: 0,
             damage: u32::MAX,
         });
@@ -1010,6 +1011,7 @@ fn flying_reach_sentry_blocks_five_five_and_dies() {
         .modifications
         .push(super::super::targets::Modification {
             handle: a,
+            power_boost: 0,
             boost: 3,
             damage: 0,
         });
@@ -1215,6 +1217,7 @@ fn flying_reach_reference_literal_checkpoints() {
                     .modifications
                     .push(super::super::targets::Modification {
                         handle: a,
+                        power_boost: 0,
                         boost: 3,
                         damage: 0,
                     });
@@ -1360,6 +1363,7 @@ fn tajuru_departed_blockers_and_single_blocker_marked_lethal() {
                 .modifications
                 .push(super::super::targets::Modification {
                     handle: b,
+                    power_boost: 0,
                     boost: 0,
                     damage: 1,
                 });
@@ -1419,6 +1423,7 @@ fn trample_reference_literal_checkpoints() {
                     .modifications
                     .push(super::super::targets::Modification {
                         handle: bs[0],
+                        power_boost: 0,
                         boost: 0,
                         damage: 1,
                     });
@@ -1576,6 +1581,7 @@ fn deathtouch_thornweald_blocks_five_five_flyer_simultaneously() {
         .modifications
         .push(super::super::targets::Modification {
             handle: a,
+            power_boost: 0,
             boost: 3,
             damage: 0,
         });
@@ -1640,6 +1646,7 @@ fn deathtouch_trample_synthetic_seven_six_both_seats_quantum_and_rejection() {
                 .modifications
                 .push(super::super::targets::Modification {
                     handle: a,
+                    power_boost: 0,
                     boost: 5,
                     damage: 0,
                 });
@@ -1764,6 +1771,7 @@ fn deathtouch_reference_literal_checkpoints() {
             g.turns.combat.synthetic_flying.push(a);
             g.turns.modifications.push(Modification {
                 handle: a,
+                power_boost: 0,
                 boost: 3,
                 damage: 0,
             });
@@ -1772,6 +1780,7 @@ fn deathtouch_reference_literal_checkpoints() {
             g.turns.combat.synthetic_trample.push(a);
             g.turns.modifications.push(Modification {
                 handle: a,
+                power_boost: 0,
                 boost: 5,
                 damage: 0,
             });

@@ -339,7 +339,7 @@ fn casting_fresh_forest_mountain_negative_and_unsupported_cards() {
     assert!(!g.cast_candidates(Seat::P0).contains(&h));
     assert!(g.begin_cast(Seat::P0, d.id, h).is_err());
     assert_eq!(format!("{g:?}"), before);
-    for key in ["giant-growth", "forest", "shivan-dragon"] {
+    for key in ["giant-growth", "forest", "wildheart-invoker"] {
         let (mut g, h) = ready(key, [0, 0, 0, 2, 2, 0]);
         let d = g.turn_decision().unwrap();
         let before = format!("{g:?}");

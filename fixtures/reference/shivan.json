@@ -1,0 +1,131 @@
+{
+  "version": 1,
+  "setup": "Original synthetic positions using real pinned cards. Sickness/departure are explicit test setup; real abilities, spells, combat and cleanup execute in each engine.",
+  "basis": "Pinned Shivan 4RR 5/5 flying, R gives +1/+0; CR 602, 113.7a, 302.6, 400.7, 611.2, 613, 509, 510, 702.2.",
+  "cases": [
+    {
+      "id": "double",
+      "mode": "double"
+    },
+    {
+      "id": "sick",
+      "mode": "sick"
+    },
+    {
+      "id": "cleanup",
+      "mode": "cleanup"
+    },
+    {
+      "id": "no_red",
+      "mode": "no_red"
+    },
+    {
+      "id": "foreign",
+      "mode": "foreign"
+    },
+    {
+      "id": "dead_before",
+      "mode": "dead_before"
+    },
+    {
+      "id": "dead_after",
+      "mode": "dead_after"
+    },
+    {
+      "id": "cast",
+      "mode": "cast"
+    },
+    {
+      "id": "short_cast",
+      "mode": "short_cast"
+    },
+    {
+      "id": "bite",
+      "mode": "bite"
+    },
+    {
+      "id": "haste",
+      "mode": "haste"
+    },
+    {
+      "id": "sentry",
+      "mode": "sentry"
+    },
+    {
+      "id": "cub_illegal",
+      "mode": "cub_illegal"
+    },
+    {
+      "id": "thorn",
+      "mode": "thorn"
+    },
+    {
+      "id": "thorn_bite",
+      "mode": "thorn_bite"
+    },
+    {
+      "id": "split_0",
+      "mode": "split_0",
+      "amounts": [
+        0,
+        5
+      ]
+    },
+    {
+      "id": "split_1",
+      "mode": "split_1",
+      "amounts": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "split_2",
+      "mode": "split_2",
+      "amounts": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "split_3",
+      "mode": "split_3",
+      "amounts": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "split_4",
+      "mode": "split_4",
+      "amounts": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "split_5",
+      "mode": "split_5",
+      "amounts": [
+        5,
+        0
+      ]
+    },
+    {
+      "id": "excess",
+      "mode": "excess",
+      "amounts": [
+        2,
+        4
+      ]
+    },
+    {
+      "id": "grown_split",
+      "mode": "grown_split",
+      "amounts": [
+        0,
+        5
+      ]
+    }
+  ]
+}

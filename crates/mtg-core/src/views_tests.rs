@@ -197,6 +197,7 @@ fn views_public_zones_history_and_turn_boundary() {
         g.objects.get_mut(h).unwrap().tapped = true;
         g.turns.modifications.push(targets::Modification {
             handle: h,
+            power_boost: 0,
             boost: 3,
             damage: 2,
         });
