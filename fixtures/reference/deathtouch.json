@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "setup": "Explicit synthetic positions. Flying 5/5 and 7/6 trample combinations are test-only; no Shivan or Invoker activation.",
+  "basis": "Pinned Thornweald 1G 2/1 reach/deathtouch; CR 702.2/702.19/510/704.5h/608.2b.",
+  "cases": [
+    {
+      "id": "flyer",
+      "mode": "flyer",
+      "blockers": 1,
+      "amounts": []
+    },
+    {
+      "id": "bite",
+      "mode": "bite",
+      "blockers": 1,
+      "amounts": []
+    },
+    {
+      "id": "source-gone",
+      "mode": "source-gone",
+      "blockers": 1,
+      "amounts": []
+    },
+    {
+      "id": "no-trample",
+      "mode": "no-trample",
+      "blockers": 1,
+      "amounts": []
+    },
+    {
+      "id": "growth-no-trample",
+      "mode": "growth-no-trample",
+      "blockers": 1,
+      "amounts": []
+    },
+    {
+      "id": "trample-sentries",
+      "mode": "trample",
+      "blockers": 2,
+      "blocker": "magnigoth-sentry",
+      "amounts": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "trample-cubs",
+      "mode": "trample",
+      "blockers": 2,
+      "blocker": "bear-cub",
+      "amounts": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "trample-negative",
+      "mode": "negative",
+      "blockers": 2,
+      "blocker": "bear-cub",
+      "amounts": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "zero-split",
+      "mode": "zero-split",
+      "blockers": 2,
+      "blocker": "magnigoth-sentry",
+      "amounts": [
+        0,
+        2
+      ]
+    }
+  ]
+}

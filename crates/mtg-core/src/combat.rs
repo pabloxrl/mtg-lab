@@ -49,6 +49,8 @@ pub(super) struct CombatState {
     // identity (in particular Shivan Dragon) never gains support through this.
     #[cfg(test)]
     pub(super) synthetic_flying: Vec<Handle>,
+    #[cfg(test)]
+    pub(super) synthetic_trample: Vec<Handle>,
     pub(super) attacks: Vec<Attack>,
     selected: Vec<Handle>,
     blocks: Vec<(Handle, Handle)>,
@@ -59,9 +61,29 @@ fn vanilla(card: CardId) -> bool {
 }
 impl Game {
     fn has_trample(&self, h: Handle) -> bool {
+        #[cfg(test)]
+        if self.turns.combat.synthetic_trample.contains(&h) {
+            return true;
+        }
         self.objects
             .get(h)
             .is_ok_and(|o| super::card_definitions::definition(o.card).trample())
+    }
+    pub(super) fn has_deathtouch(&self, h: Handle) -> bool {
+        self.objects
+            .get(h)
+            .is_ok_and(|o| super::card_definitions::definition(o.card).deathtouch())
+    }
+    // CR 702.2c/702.19b: any positive deathtouch assignment is lethal;
+    // already marked damage still counts, independently of its source.
+    fn lethal_assignment(&self, attacker: Handle, blocker: Handle) -> u32 {
+        let c = self.creature_state(blocker).unwrap();
+        let remaining = c.toughness.saturating_sub(c.damage);
+        if self.has_deathtouch(attacker) {
+            remaining.min(1)
+        } else {
+            remaining
+        }
     }
     fn needs_damage_choice(&self, a: &Attack) -> bool {
         a.blockers.len() > 1 || (!a.blockers.is_empty() && self.has_trample(a.creature))
@@ -206,10 +228,7 @@ impl Game {
                     trample_lethal: self.has_trample(a.creature).then(|| {
                         a.blockers
                             .iter()
-                            .map(|b| {
-                                let c = self.creature_state(*b).unwrap();
-                                c.toughness.saturating_sub(c.damage)
-                            })
+                            .map(|b| self.lethal_assignment(a.creature, *b))
                             .collect()
                     }),
                     blockers: a.blockers.clone(),
@@ -322,9 +341,8 @@ impl Game {
             || (total < power
                 && (!self.has_trample(attacker)
                     || a.blockers.iter().any(|b| {
-                        let c = self.creature_state(*b).unwrap();
                         let assigned = amounts.iter().find(|(h, _)| h == b).map_or(0, |(_, n)| *n);
-                        assigned < c.toughness.saturating_sub(c.damage)
+                        assigned < self.lethal_assignment(attacker, *b)
                     })))
         {
             return Err(CombatError::IllegalDamage);
@@ -447,7 +465,12 @@ impl Game {
         let active = self.turns.position.unwrap().1;
         let defender = seat_index(super::turns::opponent(active));
         let overflow = CombatError::Turn(TurnError::EffectOverflow);
-        let mut mark = |h: Handle, amount: u32| -> Result<(), CombatError> {
+        let mut touched = Vec::new();
+        let mut mark = |source: Handle, h: Handle, amount: u32| -> Result<(), CombatError> {
+            // CR 702.2b/704.5h: zero damage is not a deathtouch event.
+            if amount > 0 && self.has_deathtouch(source) && !touched.contains(&h) {
+                touched.push(h);
+            }
             if let Some(m) = changes.iter_mut().find(|m| m.handle == h) {
                 m.damage = m.damage.checked_add(amount).ok_or(overflow)?;
             } else {
@@ -481,13 +504,13 @@ impl Game {
                     .checked_sub(i64::from(power - assigned))
                     .ok_or(overflow)?;
                 for (h, n) in amounts {
-                    mark(*h, *n)?;
+                    mark(a.creature, *h, *n)?;
                 }
             } else if a.blockers.len() == 1 {
-                mark(a.blockers[0], power)?;
+                mark(a.creature, a.blockers[0], power)?;
             } // blocked with no remaining blocker deals no damage (510.1c).
             for b in a.blockers {
-                mark(a.creature, self.creature_state(b).unwrap().power)?;
+                mark(b, a.creature, self.creature_state(b).unwrap().power)?;
             }
         }
         let mut dead = [vec![], vec![]];
@@ -496,7 +519,7 @@ impl Game {
                 && o.zone == Zone::Battlefield
                 && self
                     .creature_state(m.handle)
-                    .is_some_and(|c| m.damage >= c.toughness)
+                    .is_some_and(|c| m.damage >= c.toughness || touched.contains(&m.handle))
             {
                 dead[seat_index(o.owner)].push(m.handle);
             }

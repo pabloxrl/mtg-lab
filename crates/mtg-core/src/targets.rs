@@ -267,6 +267,7 @@ impl Game {
         let o = *self.objects.get(h).map_err(TurnError::Storage)?;
         let legal = self.legal_effect_targets(o.controller, e);
         let mut change = None;
+        let mut deathtouch_damage = false;
         match e {
             Effect::Growth(a) if legal == 1 => {
                 let old = self
@@ -299,9 +300,11 @@ impl Game {
                         boost: 0,
                         damage: 0,
                     });
+                let power = self.creature_state(a).unwrap().power;
+                deathtouch_damage = power > 0 && self.has_deathtouch(a);
                 let damage = old
                     .damage
-                    .checked_add(self.creature_state(a).unwrap().power)
+                    .checked_add(power)
                     .ok_or(TurnError::EffectOverflow)?;
                 change = Some(Modification { damage, ..old });
             }
@@ -312,7 +315,7 @@ impl Game {
         let dead = change
             .filter(|m| {
                 let (_, t) = base(self.objects.get(m.handle).unwrap().card).unwrap();
-                m.damage >= t + m.boost
+                m.damage >= t + m.boost || deathtouch_damage
             })
             .map(|m| m.handle);
         let mut moves = [vec![], vec![]];

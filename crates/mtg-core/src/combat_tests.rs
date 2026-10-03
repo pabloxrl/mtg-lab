@@ -1563,3 +1563,282 @@ fn trample_both_seats_quantum_restore_and_atomic_rejections() {
         }
     }
 }
+
+// GH-199 independent oracle: pinned Thornweald 2/1 reach/deathtouch;
+// CR 702.2, 510 and 704.5h. Synthetic flying 5/5 is not Shivan support.
+#[test]
+fn deathtouch_thornweald_blocks_five_five_flyer_simultaneously() {
+    let mut g = ready();
+    let a = add(&mut g, Seat::P0, "bear-cub");
+    let b = add(&mut g, Seat::P1, "thornweald-archer");
+    g.turns.combat.synthetic_flying.push(a);
+    g.turns
+        .modifications
+        .push(super::super::targets::Modification {
+            handle: a,
+            boost: 3,
+            damage: 0,
+        });
+    pair(&mut g);
+    select_attack(&mut g, &[a]);
+    pair(&mut g);
+    select_block(&mut g, &[(b, a)]);
+    pair(&mut g);
+    damage(&mut g);
+    assert!(
+        g.objects.get(a).is_err(),
+        "two deathtouch damage kills the 5/5"
+    );
+    assert!(
+        g.objects.get(b).is_err(),
+        "five simultaneous damage kills Thornweald"
+    );
+    assert_eq!(g.life(), [20, 20]);
+}
+
+#[test]
+fn deathtouch_zero_split_and_no_trample_rejection() {
+    for first in 0..=2 {
+        let mut g = ready();
+        let a = add(&mut g, Seat::P0, "thornweald-archer");
+        let b = add(&mut g, Seat::P1, "magnigoth-sentry");
+        let c = add(&mut g, Seat::P1, "magnigoth-sentry");
+        pair(&mut g);
+        select_attack(&mut g, &[a]);
+        pair(&mut g);
+        select_block(&mut g, &[(b, a), (c, a)]);
+        pair(&mut g);
+        let d = g.turn_decision().unwrap();
+        unchanged(&mut g, Err(CombatError::IllegalDamage), |g| {
+            g.assign_combat_damage(d.actor, d.id, a, &[(b, 1)])
+        });
+        g.assign_combat_damage(d.actor, d.id, a, &[(b, first), (c, 2 - first)])
+            .unwrap();
+        damage(&mut g);
+        assert_eq!(g.objects.get(b).is_err(), first > 0);
+        assert_eq!(g.objects.get(c).is_err(), first < 2);
+        assert!(g.objects.get(a).is_err());
+        assert_eq!(g.life(), [20, 20]);
+    }
+}
+
+#[test]
+fn deathtouch_trample_synthetic_seven_six_both_seats_quantum_and_rejection() {
+    // Explicit test-only +5/+5 and trample, not an Invoker implementation.
+    // CR 702.2c/702.19/510: 1+1+5; eight return damage kills the 7/6.
+    for actor in [Seat::P0, Seat::P1] {
+        for q in [NonZeroUsize::MIN, NonZeroUsize::MAX] {
+            let defender = super::super::turns::opponent(actor);
+            let mut g = ready();
+            g.turns.position = Some((3, actor, Step::BeginningCombat));
+            g.set_turn_decision(actor, TurnKind::Priority);
+            let a = add(&mut g, actor, "thornweald-archer");
+            let b = add(&mut g, defender, "magnigoth-sentry");
+            let c = add(&mut g, defender, "magnigoth-sentry");
+            g.turns.combat.synthetic_trample.push(a);
+            g.turns
+                .modifications
+                .push(super::super::targets::Modification {
+                    handle: a,
+                    boost: 5,
+                    damage: 0,
+                });
+            pair(&mut g);
+            select_attack(&mut g, &[a]);
+            pair(&mut g);
+            select_block(&mut g, &[(b, a), (c, a)]);
+            pair(&mut g);
+            let domain = g.combat_decision(actor, 256).unwrap();
+            assert_eq!(domain.damage[0].trample_lethal, Some(vec![1, 1]));
+            let d = g.turn_decision().unwrap();
+            for amounts in [
+                vec![],
+                vec![(b, 0), (c, 1)],
+                vec![(b, 1), (c, 0)],
+                vec![(b, 8)],
+                vec![(b, 1), (b, 1)],
+                vec![(a, 1)],
+                vec![(b, u32::MAX)],
+            ] {
+                unchanged(&mut g, Err(CombatError::IllegalDamage), |g| {
+                    g.assign_combat_damage(actor, d.id, a, &amounts)
+                });
+            }
+            unchanged(
+                &mut g,
+                Err(CombatError::Invalid(ApplyError::WrongActor)),
+                |g| g.assign_combat_damage(defender, d.id, a, &[(b, 1), (c, 1)]),
+            );
+            let o = g.policy_observe(actor, 256).unwrap();
+            let dec = o.decision.unwrap();
+            let f = &dec.factored.as_ref().unwrap().damage[0];
+            assert_eq!(f.trample_lethal, Some(vec![1, 1]));
+            let req = super::super::policy::Submission {
+                schema_version: 1,
+                revision: dec.revision,
+                generation: dec.generation,
+                choices: vec![super::super::policy::Choice::AssignDamage {
+                    attacker: f.attacker,
+                    amounts: f.blockers.iter().map(|b| (*b, 1)).collect(),
+                }],
+            };
+            let encoded = crate::game::actions::encode(&g, actor, &req, 256).unwrap();
+            crate::game::actions::apply(&mut g, &encoded, 256).unwrap();
+            unchanged(
+                &mut g,
+                Err(CombatError::Invalid(ApplyError::StaleDecision)),
+                |g| g.assign_combat_damage(actor, d.id, a, &[(b, 1), (c, 1)]),
+            );
+            let saved = g.snapshot();
+            g.restore(&saved).unwrap();
+            let d = g.turn_decision().unwrap();
+            let mut p = g.finish_combat_quantum(actor, d.id, q).unwrap();
+            while p == Progress::InternalYield {
+                let saved = g.snapshot();
+                g.restore(&saved).unwrap();
+                assert!(g.policy_observe(actor, 256).is_err());
+                p = g.resume(q);
+            }
+            let mut life = [20, 20];
+            life[seat_index(defender)] = 15;
+            assert_eq!(g.life(), life);
+            assert_eq!(g.objects.in_zone(Zone::Battlefield).count(), 0);
+            assert_eq!(g.objects.in_zone(Zone::Graveyard(actor)).count(), 1);
+            assert_eq!(g.objects.in_zone(Zone::Graveyard(defender)).count(), 2);
+        }
+    }
+}
+
+#[test]
+fn deathtouch_reference_literal_checkpoints() {
+    use crate::game::{mana::Color, targets::Modification};
+    fn cast(g: &mut Game, seat: Seat, key: &str, ts: &[Handle]) {
+        g.turns.mana[seat_index(seat)][4] = 10;
+        let h = g
+            .objects
+            .allocate(CardId::from_key(key).unwrap(), seat, Zone::Hand(seat))
+            .unwrap();
+        let d = g.turn_decision().unwrap();
+        let mut t = g.begin_targeted_cast(seat, d.id, h, 256).unwrap();
+        for h in ts {
+            t = g.choose_target(seat, t.id, *h).unwrap();
+        }
+        let mut p = g.finish_targets(seat, t.id).unwrap();
+        for _ in 0..if key == "bite-down" { 2 } else { 1 } {
+            p = g.choose_payment(seat, p.id, Color::Green).unwrap();
+        }
+        g.finish_cast(seat, p.id).unwrap();
+    }
+    let fixture: serde_json::Value =
+        serde_json::from_str(include_str!("../../../fixtures/reference/deathtouch.json")).unwrap();
+    let expected: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/deathtouch-expectations.json"
+    ))
+    .unwrap();
+    let mut results = serde_json::Map::new();
+    for spec in fixture["cases"].as_array().unwrap() {
+        let id = spec["id"].as_str().unwrap();
+        let mode = spec["mode"].as_str().unwrap();
+        let mut g = ready();
+        let mut legal = true;
+        let a = add(
+            &mut g,
+            Seat::P0,
+            if mode == "flyer" {
+                "bear-cub"
+            } else {
+                "thornweald-archer"
+            },
+        );
+        let key = if mode == "flyer" {
+            "thornweald-archer"
+        } else if mode == "bite" {
+            "magnigoth-sentry"
+        } else {
+            spec["blocker"].as_str().unwrap_or("bear-cub")
+        };
+        let bs: Vec<_> = (0..spec["blockers"].as_u64().unwrap())
+            .map(|_| add(&mut g, Seat::P1, key))
+            .collect();
+        if mode == "flyer" {
+            g.turns.combat.synthetic_flying.push(a);
+            g.turns.modifications.push(Modification {
+                handle: a,
+                boost: 3,
+                damage: 0,
+            });
+        }
+        if mode == "trample" || mode == "negative" {
+            g.turns.combat.synthetic_trample.push(a);
+            g.turns.modifications.push(Modification {
+                handle: a,
+                boost: 5,
+                damage: 0,
+            });
+        }
+        if mode == "bite" || mode == "source-gone" {
+            cast(&mut g, Seat::P0, "bite-down", &[a, bs[0]]);
+            if mode == "source-gone" {
+                pass(&mut g);
+                cast(&mut g, Seat::P1, "bite-down", &[bs[0], a]);
+                pair(&mut g);
+            }
+            pair(&mut g);
+        } else {
+            pair(&mut g);
+            select_attack(&mut g, &[a]);
+            pair(&mut g);
+            select_block(&mut g, &bs.iter().map(|b| (*b, a)).collect::<Vec<_>>());
+            if mode == "growth-no-trample" {
+                cast(&mut g, Seat::P0, "giant-growth", &[a]);
+                pair(&mut g);
+            }
+            pair(&mut g);
+            let d = g.turn_decision().unwrap();
+            if mode == "no-trample" || mode == "growth-no-trample" {
+                let before = g.snapshot();
+                legal = g
+                    .assign_combat_damage(d.actor, d.id, a, &[(bs[0], 1)])
+                    .is_ok();
+                assert!(!legal);
+                assert_eq!(g.snapshot(), before);
+            } else if bs.len() > 1 {
+                let amounts: Vec<_> = bs
+                    .iter()
+                    .zip(spec["amounts"].as_array().unwrap())
+                    .map(|(b, n)| (*b, n.as_u64().unwrap() as u32))
+                    .collect();
+                let before = g.snapshot();
+                legal = g.assign_combat_damage(d.actor, d.id, a, &amounts).is_ok();
+                if mode == "negative" {
+                    assert!(!legal);
+                    assert_eq!(g.snapshot(), before);
+                } else {
+                    assert!(legal);
+                }
+            }
+            if mode != "negative" {
+                damage(&mut g);
+            }
+        }
+        let creatures: Vec<Vec<[u32; 3]>> = [Seat::P0, Seat::P1]
+            .iter()
+            .map(|seat| {
+                g.objects
+                    .in_zone(Zone::Battlefield)
+                    .filter(|h| g.objects.get(*h).unwrap().controller == *seat)
+                    .filter_map(|h| {
+                        g.creature_state(h)
+                            .map(|c| [c.power, c.toughness, c.damage])
+                    })
+                    .collect()
+            })
+            .collect();
+        let point = serde_json::json!({"creatures":creatures,"life":g.life(),"graveyard":[g.objects.in_zone(Zone::Graveyard(Seat::P0)).count(),g.objects.in_zone(Zone::Graveyard(Seat::P1)).count()],"legal":legal});
+        assert_eq!(point, expected[id], "{id}");
+        results.insert(id.into(), point);
+    }
+    if let Ok(path) = std::env::var("MTG_DEATHTOUCH_OUTPUT") {
+        std::fs::write(path, serde_json::to_vec_pretty(&results).unwrap()).unwrap();
+    }
+}

@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-trample-v1";
+pub const VERSION: &str = "legal-random-deathtouch-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -288,6 +288,7 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "magnigoth-sentry",
                     "axgard-cavalry",
                     "tajuru-pathwarden",
+                    "thornweald-archer",
                 ],
             ),
             Choice::Activate { card } => (card, &["axgard-cavalry"]),

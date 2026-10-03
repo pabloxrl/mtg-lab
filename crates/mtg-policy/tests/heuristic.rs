@@ -438,3 +438,24 @@ fn heuristic_trample_assigns_marked_lethal_and_remainder_to_defender() {
         }]
     );
 }
+
+#[test]
+fn heuristic_deathtouch_assigns_one_each_and_five_to_defender() {
+    let mut o = combat("combat_damage");
+    let d = o.decision.as_mut().unwrap();
+    d.legal_mask = vec![false];
+    d.factored.as_mut().unwrap().damage = vec![DamageAllocation {
+        attacker: b(3),
+        power: 7,
+        blockers: vec![b(2), b(1)],
+        amounts: None,
+        trample_lethal: Some(vec![1, 1]),
+    }];
+    assert_eq!(
+        choose(&o),
+        vec![Choice::AssignDamage {
+            attacker: b(3),
+            amounts: vec![(b(2), 1), (b(1), 1)]
+        }]
+    );
+}

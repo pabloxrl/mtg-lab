@@ -1,0 +1,50 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-199/crates/mtg-core)
+warning: method `deathtouch` is never used
+   --> crates/mtg-core/src/card_definitions.rs:118:19
+    |
+ 52 | impl Definition {
+    | --------------- method in this implementation
+...
+118 |     pub(super) fn deathtouch(self) -> bool {
+    |                   ^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `mtg-core` (lib test) generated 1 warning
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.37s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+test game::combat::tests::deathtouch_thornweald_blocks_five_five_flyer_simultaneously ... FAILED
+test game::targets_tests::deathtouch_bite_kills_sentry_without_return_damage ... FAILED
+test game::combat::tests::deathtouch_zero_split_and_no_trample_rejection ... FAILED
+
+failures:
+
+---- game::combat::tests::deathtouch_thornweald_blocks_five_five_flyer_simultaneously stdout ----
+
+thread 'game::combat::tests::deathtouch_thornweald_blocks_five_five_flyer_simultaneously' (278) panicked at crates/mtg-core/src/combat_tests.rs:1582:5:
+two deathtouch damage kills the 5/5
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- game::targets_tests::deathtouch_bite_kills_sentry_without_return_damage stdout ----
+
+thread 'game::targets_tests::deathtouch_bite_kills_sentry_without_return_damage' (280) panicked at crates/mtg-core/src/targets_tests.rs:900:5:
+two damage with deathtouch kills a 4/4
+
+---- game::combat::tests::deathtouch_zero_split_and_no_trample_rejection stdout ----
+
+thread 'game::combat::tests::deathtouch_zero_split_and_no_trample_rejection' (279) panicked at crates/mtg-core/src/combat_tests.rs:1601:9:
+assertion `left == right` failed
+  left: false
+ right: true
+
+
+failures:
+    game::combat::tests::deathtouch_thornweald_blocks_five_five_flyer_simultaneously
+    game::combat::tests::deathtouch_zero_split_and_no_trample_rejection
+    game::targets_tests::deathtouch_bite_kills_sentry_without_return_damage
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 209 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

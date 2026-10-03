@@ -888,3 +888,27 @@ fn settlement_quantum_creature_identity_and_sickness() {
         }
     }
 }
+
+#[test]
+fn deathtouch_bite_kills_sentry_without_return_damage() {
+    // CR 702.2/704.5h and pinned Bite: damage is dealt by the targeted creature.
+    let mut g = ready();
+    let a = add(&mut g, "thornweald-archer", Seat::P0, Zone::Battlefield);
+    let b = add(&mut g, "magnigoth-sentry", Seat::P1, Zone::Battlefield);
+    cast(&mut g, Seat::P0, "bite-down", &[a, b]);
+    pass(&mut g);
+    pass(&mut g);
+    assert!(
+        g.objects.get(b).is_err(),
+        "two damage with deathtouch kills a 4/4"
+    );
+    assert_eq!(
+        g.creature_state(a),
+        Some(CreatureState {
+            power: 2,
+            toughness: 1,
+            damage: 0
+        })
+    );
+    assert_eq!(g.life(), [20, 20]);
+}
