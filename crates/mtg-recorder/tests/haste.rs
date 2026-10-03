@@ -35,6 +35,16 @@ fn reference(zone: VisibleZone, row: usize) -> VisibleRef {
 }
 #[test]
 fn haste_normal_reset_cavalry_activation_capture_replay() {
+    played(None);
+}
+
+#[test]
+fn haste_pending_concession_terminal_capture_and_replay() {
+    played(Some(false));
+    played(Some(true));
+}
+
+fn played(concede_stage: Option<bool>) {
     let mut expected_history = None;
     let mut expected_trajectory = None;
     for captured in [false, true] {
@@ -123,6 +133,10 @@ fn haste_normal_reset_cavalry_activation_capture_replay() {
                     .find(|z| z.zone == "battlefield")
                     .unwrap()
                     .cards;
+                if dec.kind == "activation_target" && concede_stage == Some(selected) {
+                    checked = true;
+                    break;
+                }
                 if t.0 == 6 && t.2 == "upkeep" {
                     assert_eq!(o.view.life, [20, 18]);
                     assert!(!bf.iter().find(|c| c.card == "swab-goblin").unwrap().haste);
@@ -274,9 +288,37 @@ fn haste_normal_reset_cavalry_activation_capture_replay() {
                 }
                 send(&mut d, actor, choice, q);
             }
-            assert!(checked && attacked && activated && selected && cast == [true, true]);
+            assert!(checked && activated && cast == [true, true]);
+            if let Some(stage) = concede_stage {
+                assert_eq!(selected, stage);
+                assert!(!attacked);
+            } else {
+                assert!(attacked && selected);
+            }
             d.concede(Seat::P1, d.episode_id().unwrap()).unwrap();
+            let before = d.privileged_snapshot();
+            let history = d.privileged_history().to_vec();
+            assert!(
+                d.submit(
+                    Seat::P0,
+                    &Submission {
+                        schema_version: 1,
+                        revision: 0,
+                        generation: 0,
+                        choices: vec![C::FinishActivation]
+                    }
+                )
+                .is_err()
+            );
+            assert_eq!(d.privileged_snapshot(), before);
+            assert_eq!(d.privileged_history(), history);
             let mut result = d.finish().unwrap();
+            for o in result.final_observations().unwrap() {
+                assert!(o.decision.is_none());
+                assert!(o.pending.is_none());
+                assert_eq!(o.view.acting_seat, None);
+                assert!(o.view.terminal.is_some());
+            }
             let history = result.privileged_history().to_vec();
             if let Some(ref e) = expected_history {
                 assert_eq!(&history, e);
@@ -290,7 +332,14 @@ fn haste_normal_reset_cavalry_activation_capture_replay() {
                     .resolve("cavalry-private", &result, |_, _| true)
                     .unwrap();
                 let replayed = mtg_core::game::replay::played::verify(bytes).unwrap();
-                assert_eq!(replayed.life(), [20, 18]);
+                assert_eq!(
+                    replayed.life(),
+                    if concede_stage.is_some() {
+                        [20, 20]
+                    } else {
+                        [20, 18]
+                    }
+                );
                 let converted = from_core_v2(result.trajectory().unwrap()).unwrap();
                 let mut w = Writer::new_v2(Vec::new(), 4_000_000, Backpressure::Block).unwrap();
                 w.append_v2(&converted).unwrap();

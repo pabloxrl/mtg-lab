@@ -480,3 +480,44 @@ fn haste_bite_response_kills_source_not_ability() {
     assert!(g.has_haste(target));
     assert!(!g.summoning_sick(target));
 }
+
+#[test]
+fn concession_before_and_after_activation_target_is_final() {
+    // CR 104.3a and the terminal contract: concession is immediate, including
+    // inside a private continuation, and subsequent commands cannot change play.
+    for selected in [false, true] {
+        for loser in [Seat::P0, Seat::P1] {
+            let mut g = ready();
+            let source = add(&mut g, "axgard-cavalry", Seat::P0, Zone::Battlefield);
+            let target = add(&mut g, "bear-cub", Seat::P0, Zone::Battlefield);
+            let d = g.turn_decision().unwrap();
+            g.begin_activation(Seat::P0, d.id, source).unwrap();
+            if selected {
+                let id = g.turns.activation.as_ref().unwrap().id;
+                g.choose_activation_target(Seat::P0, id, target).unwrap();
+            }
+            let id = g.turns.activation.as_ref().unwrap().id;
+            g.concede(loser, g.episode_id().unwrap()).unwrap();
+            for seat in [Seat::P0, Seat::P1] {
+                let o = g.policy_observe(seat, 256).unwrap();
+                assert!(
+                    o.decision.is_none(),
+                    "terminal games cannot offer activation decisions"
+                );
+                assert!(o.pending.is_none());
+                assert_eq!(o.view.acting_seat, None);
+                assert!(o.view.terminal.is_some());
+                assert!(g.observe(seat).unwrap().terminal.is_some());
+            }
+            assert!(!g.objects.get(source).unwrap().tapped);
+            assert!(!g.has_haste(target));
+            assert!(g.turns.stack.is_empty());
+            let before = g.snapshot();
+            assert!(g.finish_activation(Seat::P0, id).is_err());
+            assert!(g.choose_activation_target(Seat::P0, id, target).is_err());
+            assert!(g.cancel_activation(Seat::P0, id).is_err());
+            assert!(g.begin_activation(Seat::P0, id, source).is_err());
+            assert_eq!(g.snapshot(), before);
+        }
+    }
+}

@@ -85,3 +85,20 @@ records eleven Growth/Bite/cleanup cases agreeing twice and strict negative cont
 The updated native quickstart completed both games with zero failures, truncations
 or incomplete episodes. All reference compilation/setup failures were repaired;
 none counted as agreement.
+
+## Independent review correction
+
+Review of initial candidate `b73eaee06806ada71f95dce71e713410e010b3da`
+found that concession left the new activation continuation alive. Both the
+[scalar red](terminal-red.log) and [normal-reset Driver red](terminal-driver-red.log)
+compile and fail terminal-observation assertions before the fix. Termination now
+clears activation alongside casting continuations, and raw activation validation
+rejects terminal state. Tests cover concession before/after target selection,
+both conceding seats, unchanged unpaid tap cost, terminal observations, subsequent
+command nonmutation, capture on/off, quantum equivalence and replay/JSONL.
+
+The lifecycle audit distinguishes reset/termination (clear pending choice) from
+budget truncation (retain the genuine resumable position). Full torture and
+candidate-bound independent re-review are required after this correction; their
+final results are recorded in the PR/workpad. The original review and resolution
+remain preserved there rather than being overwritten by a later pass.

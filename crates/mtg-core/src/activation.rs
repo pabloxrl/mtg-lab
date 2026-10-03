@@ -83,7 +83,7 @@ impl Game {
         actor: Seat,
         id: DecisionId,
     ) -> Result<&PendingActivation, TurnError> {
-        if !self.work.is_empty() {
+        if self.outcome.is_some() || !self.work.is_empty() {
             return Err(TurnError::NotReady);
         }
         let p = self.turns.activation.as_ref().ok_or(TurnError::NotReady)?;

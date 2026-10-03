@@ -1,0 +1,22 @@
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-197/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.60s
+     Running tests/haste.rs (target/debug/deps/haste-2963cb94715cb5a3)
+
+running 1 test
+test haste_pending_concession_terminal_capture_and_replay ... FAILED
+
+failures:
+
+---- haste_pending_concession_terminal_capture_and_replay stdout ----
+
+thread 'haste_pending_concession_terminal_capture_and_replay' (108) panicked at crates/mtg-recorder/tests/haste.rs:317:17:
+assertion failed: o.decision.is_none()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    haste_pending_concession_terminal_capture_and_replay
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.26s
+
+error: test failed, to rerun pass `-p mtg-recorder --test haste`
