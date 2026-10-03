@@ -1,0 +1,207 @@
+{
+  "boost": {
+    "mode": 0,
+    "resolved": {
+      "creatures": [
+        "0:bear-cub:4/2:0",
+        "0:goblin-token:3/1:0",
+        "0:goblin-token:3/1:0",
+        "1:bear-cub:2/2:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "cleanup": {
+      "creatures": [
+        "0:bear-cub:2/2:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "1:bear-cub:2/2:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    }
+  },
+  "tokens": {
+    "mode": 1,
+    "resolved": {
+      "creatures": [
+        "0:bear-cub:2/2:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "1:bear-cub:2/2:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "cleanup": {
+      "creatures": [
+        "0:bear-cub:2/2:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "1:bear-cub:2/2:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    }
+  },
+  "later": {
+    "mode": 0,
+    "resolved": {
+      "creatures": [
+        "0:goblin-token:3/1:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "later": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:3/1:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "cleanup": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    }
+  },
+  "stacked": {
+    "mode": 0,
+    "resolved": {
+      "creatures": [
+        "0:shivan-dragon:11/8:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "cleanup": {
+      "creatures": [
+        "0:shivan-dragon:5/5:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    }
+  },
+  "block": {
+    "mode": 1,
+    "resolved": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0",
+        "1:bear-cub:2/2:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "combat": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "1:bear-cub:2/2:1"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "cleanup": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "1:bear-cub:2/2:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    }
+  },
+  "end": {
+    "mode": 1,
+    "resolved": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "combat": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0"
+      ],
+      "life": [
+        20,
+        18
+      ]
+    },
+    "cleanup": {
+      "creatures": [
+        "0:goblin-token:1/1:0",
+        "0:goblin-token:1/1:0"
+      ],
+      "life": [
+        20,
+        18
+      ]
+    }
+  },
+  "swab": {
+    "mode": 0,
+    "resolved": {
+      "creatures": [
+        "0:swab-goblin:4/2:0",
+        "1:magnigoth-sentry:4/4:0"
+      ],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "combat": {
+      "creatures": [],
+      "life": [
+        20,
+        20
+      ]
+    },
+    "cleanup": {
+      "creatures": [],
+      "life": [
+        20,
+        20
+      ]
+    }
+  }
+}

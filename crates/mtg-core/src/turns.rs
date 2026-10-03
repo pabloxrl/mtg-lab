@@ -77,6 +77,8 @@ pub(super) struct TurnState {
     pub(super) haste: Vec<Handle>,
     pub(super) trample: Vec<Handle>,
     pub(super) targeting: Option<super::targets::Targeting>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub(super) modes: Vec<(Handle, u8)>,
     pub(super) effects: Vec<(Handle, super::targets::Effect)>,
     pub(super) modifications: Vec<super::targets::Modification>,
     pub(super) last_resolution: Option<super::targets::Resolution>,

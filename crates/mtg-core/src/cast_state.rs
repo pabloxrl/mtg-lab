@@ -13,6 +13,7 @@ pub(super) struct PendingCast {
     card: Handle,
     sources: Vec<Handle>,
     discard: Option<Handle>,
+    mode: Option<u8>,
     effect: Option<super::targets::Effect>,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
@@ -58,6 +59,9 @@ pub(super) struct Targeting {
 impl PendingCast {
     pub(super) fn card(&self) -> Handle {
         self.card
+    }
+    pub(super) fn mode(&self) -> Option<u8> {
+        self.mode
     }
     pub(super) fn discard(&self) -> Option<Handle> {
         self.discard
@@ -132,10 +136,21 @@ impl Game {
             card,
             sources: vec![],
             discard: None,
+            mode: None,
             effect,
         });
         self.turns.targeting = None;
         decision
+    }
+    pub(super) fn stage_cast_mode(&mut self, mode: u8, generation: u64) {
+        self.turns.casting.as_mut().expect("validated cast").mode = Some(mode);
+        self.turns
+            .payment
+            .as_mut()
+            .expect("validated payment")
+            .id
+            .generation = generation;
+        self.generation = generation;
     }
     pub(super) fn stage_cast_discard(&mut self, card: Handle, generation: u64) {
         self.turns.casting.as_mut().expect("validated cast").discard = Some(card);

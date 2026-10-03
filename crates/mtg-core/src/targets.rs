@@ -56,7 +56,7 @@ pub(super) fn targeted(card: CardId) -> bool {
     definition(card).instant_effect().is_some()
 }
 pub(super) fn instant(card: CardId) -> bool {
-    targeted(card) || definition(card).discard_draw()
+    targeted(card) || definition(card).discard_draw() || definition(card).modal()
 }
 fn base(card: CardId) -> Option<(u32, u32)> {
     definition(card).creature_base()

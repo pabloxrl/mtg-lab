@@ -176,6 +176,7 @@ impl Game {
                     assert_eq!(self.turns.stack.pop(), Some(*spell));
                     self.turns.abilities.retain(|a| a.object != *spell);
                     self.turns.effects.retain(|(h, _)| h != spell);
+                    self.turns.modes.retain(|(h, _)| h != spell);
                     self.turns.modifications.retain(|m| {
                         self.objects
                             .get(m.handle)

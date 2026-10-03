@@ -215,7 +215,7 @@ impl Game {
         color: Color,
     ) -> Result<PaymentDecision, ManaError> {
         let p = self.validate_payment(actor, id)?;
-        if !p.choices().contains(&color) {
+        if self.cast_mode_pending() || !p.choices().contains(&color) {
             return Err(ManaError::IllegalPayment);
         }
         let generation = self.next_mana_generation()?;

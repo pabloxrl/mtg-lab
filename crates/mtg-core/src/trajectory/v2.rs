@@ -460,7 +460,8 @@ fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
             ActionStatus::Cancelled
         }
         Some(
-            Command::Cast { .. }
+            Command::Mode { .. }
+            | Command::Cast { .. }
             | Command::Activate { .. }
             | Command::Target { .. }
             | Command::FinishTargets

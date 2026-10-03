@@ -38,6 +38,9 @@ pub enum Choice {
     Pay {
         color: u8,
     },
+    Mode {
+        mode: u8,
+    },
     FinishPayment,
     CancelPayment,
     Cast {
@@ -125,6 +128,8 @@ pub struct CombatAttack {
 /// Actor-only provisional state. References use the accompanying visible rows.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct PendingSpell {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mode: Option<u8>,
     pub card: VisibleRef,
     pub targets: Vec<Option<VisibleRef>>,
     pub sources: Vec<Option<VisibleRef>>,
@@ -135,6 +140,8 @@ pub struct PendingSpell {
 /// another object or looked up in a hidden zone.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct StackSpell {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub mode: Option<u8>,
     pub row: usize,
     #[serde(skip_serializing_if = "std::ops::Not::not")]
     pub ability: bool,
@@ -224,6 +231,7 @@ impl Game {
     fn policy_pending(&self, seat: Seat) -> Option<PendingSpell> {
         if let Some(p) = self.turns.activation.as_ref().filter(|p| p.actor == seat) {
             return Some(PendingSpell {
+                mode: None,
                 card: self.policy_battlefield_ref(p.source)?,
                 targets: p
                     .target
@@ -257,6 +265,7 @@ impl Game {
             (c.card(), targets, c.sources().to_vec())
         };
         Some(PendingSpell {
+            mode: self.turns.casting.as_ref().and_then(|c| c.mode()),
             card: VisibleRef {
                 zone: VisibleZone::Hand,
                 row: self.view_hand(seat).iter().position(|h| *h == card)?,
@@ -424,6 +433,11 @@ impl Game {
                 },
                 1,
             )
+        } else if self.cast_mode_pending() {
+            push(Choice::Mode { mode: 0 }, true)?;
+            push(Choice::Mode { mode: 1 }, true)?;
+            push(Choice::CancelPayment, true)?;
+            ("cast_mode", 1)
         } else if self.cast_discard_pending() {
             let cast = self.turns.casting.as_ref().unwrap();
             for (row, h) in self.view_hand(seat).iter().enumerate() {
@@ -656,6 +670,12 @@ impl Game {
                 .iter()
                 .enumerate()
                 .map(|(row, h)| StackSpell {
+                    mode: self
+                        .turns
+                        .modes
+                        .iter()
+                        .find(|(spell, _)| spell == h)
+                        .map(|(_, mode)| *mode),
                     row,
                     ability: self.turns.abilities.iter().any(|a| a.object == *h),
                     targets: self
@@ -850,6 +870,12 @@ impl Game {
                 )
                 .map(|_| ())
                 .map_err(turn_error);
+        }
+        if let Choice::Mode { mode } = &submission.choices[0] {
+            return self
+                .choose_cast_mode(actor, id, &[*mode])
+                .map(|_| ())
+                .map_err(cast_error);
         }
         if d.kind == "cast_discard"
             && let Choice::Discard { card } = &submission.choices[0]

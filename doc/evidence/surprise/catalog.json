@@ -1,0 +1,186 @@
+[
+  {
+    "catalog": {
+      "id": "rules-continuous-stacked-boosts-interaction",
+      "capability_id": "continuous/stacked-boosts",
+      "category": "interaction",
+      "setup": "Shivan receives Growth, Surprise boost, own activated boost",
+      "actions": "Resolve all",
+      "expected": "Dragon 11/8 until cleanup",
+      "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "stacked"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-decisions-all-combinations-regression",
+      "capability_id": "decisions/all-combinations",
+      "category": "regression",
+      "setup": "Goblin Surprise; two possible modes and multiple payment sources",
+      "actions": "Enumerate and submit each mode/payment combination in clones",
+      "expected": "Both modes remain selectable with every legal explicit payment",
+      "basis": "RFC 0002 \u00a74 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "surprise_modes_payments_cancellation_snapshots_and_quantum + surprise_explicit_source_combinations_and_cancel_keep_taps_private",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference": "Native API completeness; both chosen-mode settled outcomes independently checked in XMage."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-land-colored-modal-interaction",
+      "capability_id": "costs/land-colored-modal",
+      "category": "interaction",
+      "setup": "Goblin Surprise and sufficient mana",
+      "actions": "Choose token mode and explicit payment",
+      "expected": "Exactly two tokens; existing creatures receive no boost",
+      "basis": "CR 305.1-3, 601.2b/h and Goblin Surprise Oracle: land timing/limit plus explicit modal/payment choices. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "tokens"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-land-colored-modal-regression",
+      "capability_id": "costs/land-colored-modal",
+      "category": "regression",
+      "setup": "Goblin Surprise with both modes submitted or opponent priority during land play",
+      "actions": "Submit malformed mode count and off-turn land separately",
+      "expected": "Both rejected atomically; no modal default or extra land window",
+      "basis": "CR 305.1-3, 601.2b/h and Goblin Surprise Oracle: land timing/limit plus explicit modal/payment choices. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "surprise_modes_literal_affected_set_and_rejection; existing mana land timing regressions retained",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference": "Native malformed-command/nonmutation contract; XMage executes explicit choose-one casting, no identical invalid-input protocol claim."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-create-interaction",
+      "capability_id": "objects/token-create",
+      "category": "interaction",
+      "setup": "Goblin Surprise token mode cast in opponent end step",
+      "actions": "Resolve then begin own turn",
+      "expected": "Two tokens exist and may attack after continuous control since turn began",
+      "basis": "Dragon Fodder/Goblin Surprise pinned Oracle; CR 111: create two distinct red 1/1 Goblin creature tokens. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "end"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-positive",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "positive",
+      "setup": "P0 Cub and two Goblins; Surprise and 2R",
+      "actions": "Choose boost mode; resolve",
+      "expected": "Cub 4/2; both Goblins 3/1 until cleanup",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "boost"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-negative",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "negative",
+      "setup": "Surprise cast request includes both modes",
+      "actions": "Submit",
+      "expected": "Reject choose-one violation; no mana spent",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "surprise_modes_literal_affected_set_and_rejection; existing mana land timing regressions retained",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference": "Native malformed-command/nonmutation contract; XMage executes explicit choose-one casting, no identical invalid-input protocol claim."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-interaction",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "interaction",
+      "setup": "Surprise boost resolves with one Goblin; later Fodder resolves",
+      "actions": "Inspect all Goblins",
+      "expected": "Existing token 3/1; two later tokens 1/1; affected set fixed at resolution",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "later"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-regression",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "regression",
+      "setup": "Surprise token mode during opponent combat before blockers",
+      "actions": "Resolve and block with new tokens",
+      "expected": "Tokens can block immediately; no boost applied and no haste needed to block",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "block"
+    ]
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-swab-goblin-regression",
+      "capability_id": "foundations_micro_v1/swab-goblin",
+      "category": "regression",
+      "setup": "Swab receives Surprise boost to 4/2; opposing 4/4 Sentry attacks",
+      "actions": "Block with boosted Swab and assign combat damage",
+      "expected": "Swab deals four, not cached printed two; both die",
+      "basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "status": "implemented and executed; delivery conditional on PR/review/CI",
+    "native": "crates/mtg-core/src/casting_tests.rs::surprise_reference_literal_checkpoints",
+    "normal_reset": "crates/mtg-recorder/tests/surprise.rs::surprise_normal_reset_modes_capture_replay",
+    "reference_cases": [
+      "swab"
+    ]
+  }
+]

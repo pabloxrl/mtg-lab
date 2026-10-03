@@ -42,6 +42,9 @@ pub enum Command {
     Pay {
         color: u8,
     },
+    Mode {
+        mode: u8,
+    },
     FinishPayment,
     CancelPayment,
     Cast {
@@ -136,6 +139,8 @@ pub struct CombatAttack {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PendingSpell {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mode: Option<u8>,
     pub card: VisibleRef,
     pub targets: Vec<Option<VisibleRef>>,
     pub sources: Vec<Option<VisibleRef>>,
@@ -147,6 +152,8 @@ pub struct PendingSpell {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct StackSpell {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub mode: Option<u8>,
     pub row: usize,
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub ability: bool,
@@ -370,6 +377,7 @@ fn command_valid(o: &Observation, c: &Command) -> bool {
         Command::Activate { card } | Command::Target { card } | Command::TapMana { card } => {
             field(card)
         }
+        Command::Mode { mode } => *mode <= 1,
         Command::Pay { color } => *color < 6,
         Command::SelectAttackers { cards } => unique(cards) && cards.iter().all(field),
         Command::SelectBlockers { blocks } => {
@@ -412,7 +420,8 @@ fn observation_valid(o: &Observation) -> bool {
             valid_ref(o, &p.card, VisibleZone::Hand)
         }) || !p.targets.iter().flatten().all(field)
             || !p.sources.iter().flatten().all(field)
-            || p.pool.is_some() != p.remaining.is_some())
+            || p.pool.is_some() != p.remaining.is_some()
+            || p.mode.is_some_and(|m| m > 1))
     {
         return false;
     }
@@ -423,11 +432,9 @@ fn observation_valid(o: &Observation) -> bool {
         .find(|z| z.zone == "stack")
         .map_or(0, |z| z.cards.len());
     if o.stack.len() != stack_len
-        || !o
-            .stack
-            .iter()
-            .enumerate()
-            .all(|(i, s)| s.row == i && s.targets.iter().flatten().all(field))
+        || !o.stack.iter().enumerate().all(|(i, s)| {
+            s.row == i && s.mode.is_none_or(|m| m <= 1) && s.targets.iter().flatten().all(field)
+        })
         || !unique(&o.combat.iter().map(|a| a.attacker).collect::<Vec<_>>())
         || !o.combat.iter().all(|a| {
             field(&a.attacker)
@@ -441,6 +448,7 @@ fn observation_valid(o: &Observation) -> bool {
     if let Some(d) = &o.decision {
         let combat = ["attackers", "blockers", "combat_damage"].contains(&d.kind.as_str());
         let pending = [
+            "cast_mode",
             "cast_discard",
             "activation_target",
             "activation_payment",
@@ -461,6 +469,7 @@ fn observation_valid(o: &Observation) -> bool {
                 "bite_source",
                 "bite_destination",
                 "targets_complete",
+                "cast_mode",
                 "cast_discard",
                 "payment",
                 "attackers",
@@ -593,7 +602,8 @@ fn action_status(o: &Observation, s: &Submission) -> ActionStatus {
             ActionStatus::Cancelled
         }
         Some(
-            Command::Cast { .. }
+            Command::Mode { .. }
+            | Command::Cast { .. }
             | Command::Activate { .. }
             | Command::Target { .. }
             | Command::FinishTargets
@@ -726,6 +736,7 @@ fn kind_command(kind: &str, command: &Command) -> bool {
         (kind, command),
         ("keep_or_mulligan", Command::Keep | Command::Mulligan)
             | ("bottom", Command::Bottom { .. })
+            | ("cast_mode", Command::Mode { .. } | Command::CancelPayment)
             | ("cleanup_discard", Command::Discard { .. })
             | (
                 "cast_discard",
