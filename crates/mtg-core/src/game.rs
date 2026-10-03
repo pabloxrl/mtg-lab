@@ -191,3 +191,7 @@ mod haste_tests;
 #[cfg(test)]
 #[path = "shivan_tests.rs"]
 mod shivan_tests;
+
+#[cfg(test)]
+#[path = "invoker_tests.rs"]
+mod invoker_tests;

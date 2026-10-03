@@ -75,6 +75,7 @@ pub(super) struct TurnState {
     pub(super) activation: Option<super::activation::PendingActivation>,
     pub(super) abilities: Vec<super::activation::Ability>,
     pub(super) haste: Vec<Handle>,
+    pub(super) trample: Vec<Handle>,
     pub(super) targeting: Option<super::targets::Targeting>,
     pub(super) effects: Vec<(Handle, super::targets::Effect)>,
     pub(super) modifications: Vec<super::targets::Modification>,
@@ -90,6 +91,7 @@ pub(super) enum TurnWork {
     Move(Handle, Zone),
     Expire,
     ExpireHaste,
+    ExpireTrample,
     Untap(Handle),
     Wake(usize),
     Ready {
@@ -289,6 +291,9 @@ impl Game {
                 }
                 // CR 514.2: each record contains BOTH boost and marked damage.
                 // No SBA or policy boundary occurs between these removals.
+                for _ in &self.turns.trample {
+                    work.push(TurnWork::ExpireTrample);
+                }
                 for _ in &self.turns.haste {
                     work.push(TurnWork::ExpireHaste);
                 }
@@ -384,6 +389,12 @@ impl Game {
                 self.objects
                     .move_to(h, zone)
                     .expect("preflighted turn move");
+            }
+            TurnWork::ExpireTrample => {
+                self.turns
+                    .trample
+                    .pop()
+                    .expect("planned trample expiration");
             }
             TurnWork::ExpireHaste => {
                 self.turns.haste.pop().expect("planned haste expiration");
@@ -574,8 +585,8 @@ mod tests {
         }
         g.objects
             .allocate(
-                // Sentry is supported by GH-196; Invoker remains unsupported.
-                CardId::from_key("wildheart-invoker").unwrap(),
+                // Invoker is supported; Pyromancer remains unsupported.
+                CardId::from_key("viashino-pyromancer").unwrap(),
                 Seat::P0,
                 Zone::Battlefield,
             )

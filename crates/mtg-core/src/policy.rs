@@ -361,7 +361,7 @@ impl Game {
                 }
             }
         } else if let Some(p) = self.turns.activation.as_ref() {
-            if !p.power {
+            if !p.power && !(p.invoker && p.target.is_some()) {
                 for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
                     push(
                         Choice::Target {
@@ -374,15 +374,24 @@ impl Game {
                     )?;
                 }
             } else {
-                push(Choice::Pay { color: 3 }, !p.paid)?;
+                for color in 0..6 {
+                    push(
+                        Choice::Pay { color },
+                        self.activation_payment_allowed(p, color as usize),
+                    )?;
+                }
             }
             push(
                 Choice::FinishActivation,
-                if p.power { p.paid } else { p.target.is_some() },
+                if p.power || p.invoker {
+                    p.paid
+                } else {
+                    p.target.is_some()
+                },
             )?;
             push(Choice::CancelActivation, true)?;
             (
-                if p.power {
+                if p.power || (p.invoker && p.target.is_some()) {
                     "activation_payment"
                 } else {
                     "activation_target"
@@ -547,6 +556,8 @@ impl Game {
                     .haste_activation()
                     || card_definitions::definition(self.objects.get(h).unwrap().card)
                         .power_activation()
+                    || card_definitions::definition(self.objects.get(h).unwrap().card)
+                        .invoker_activation()
                 {
                     push(
                         Choice::Activate {

@@ -228,3 +228,15 @@ Each resolution adds one power to the original battlefield incarnation until
 cleanup. An ability whose source left still resolves, without affecting a returned
 card. The stack target list is empty. Existing semantic actions and typed capture
 preserve all choices; source fingerprints reject older snapshot/replay artifacts.
+
+### Invoker targeted activation
+
+Invoker's priority `activate` requires a controlled live source and eight floated
+mana of any colors. Tapping and summoning sickness do not restrict this ability.
+`activation_target` chooses any battlefield creature, then `activation_payment`
+reserves eight units using existing `pay { color }` choices. Each mask reflects
+the unreserved pool; finish spends the entire reservation atomically. Cancel
+spends nothing. Targets cannot change during payment. The independent stack
+ability grants +5/+5 and trample through cleanup even after its source dies; a
+departed target's new incarnation receives nothing. Existing semantic actions,
+pending snapshots, bounded work and typed trajectory conversion carry both stages.

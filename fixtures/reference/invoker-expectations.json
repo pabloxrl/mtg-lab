@@ -1,0 +1,322 @@
+{
+  "own": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "mixed": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "opposing": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "tapped": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "seven": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 7,
+    "stack": 0,
+    "legal": false,
+    "dragon": null
+  },
+  "missing": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 8,
+    "stack": 0,
+    "legal": false,
+    "dragon": null
+  },
+  "illegal": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 8,
+    "stack": 0,
+    "legal": false,
+    "dragon": null
+  },
+  "dead_source": {
+    "source": null,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "departed": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "cleanup": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "thorn_dead": {
+    "source": null,
+    "target": [
+      7,
+      6,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "thorn_cleanup": {
+    "source": null,
+    "target": [
+      2,
+      1,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": [
+      5,
+      5,
+      0
+    ]
+  },
+  "thorn_double": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      12,
+      11,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "thorn_combat": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": null,
+    "trample": false,
+    "life": [
+      20,
+      15
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "cast": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null
+  },
+  "short_cast": {
+    "source": null,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 3,
+    "stack": 0,
+    "legal": false,
+    "dragon": null
+  }
+}

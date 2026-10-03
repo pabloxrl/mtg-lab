@@ -7,7 +7,7 @@ use super::targets::{CreatureState, TargetError};
 use super::turns::Step;
 use super::*;
 
-const SUPPORTED: [&str; 13] = [
+const SUPPORTED: [&str; 14] = [
     "forest",
     "mountain",
     "bear-cub",
@@ -21,6 +21,7 @@ const SUPPORTED: [&str; 13] = [
     "tajuru-pathwarden",
     "thornweald-archer",
     "shivan-dragon",
+    "wildheart-invoker",
 ];
 
 fn ready() -> Game {
@@ -51,6 +52,7 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
     // Literal support list and behavior expectations come from M1 acceptance,
     // not the implementation's support lookup or reserved manifest behavior flag.
     for (key, mana_text, color, stats, is_instant) in [
+        ("wildheart-invoker", "{2}{G}{G}", None, Some((4, 3)), false),
         ("shivan-dragon", "{4}{R}{R}", None, Some((5, 5)), false),
         ("forest", "", Some(Color::Green), None, false),
         ("mountain", "", Some(Color::Red), None, false),
