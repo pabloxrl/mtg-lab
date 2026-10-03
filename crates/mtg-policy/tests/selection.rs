@@ -216,6 +216,7 @@ fn factored_vectors_have_declared_distribution() {
     d.kind = "combat_damage";
     d.legal_mask = vec![false];
     d.factored.as_mut().unwrap().damage = vec![DamageAllocation {
+        trample_lethal: None,
         attacker: bf(0),
         power: 2,
         blockers: vec![bf(2), bf(3)],
@@ -275,6 +276,7 @@ fn three_recipient_distribution_is_sequential_not_uniform_compositions() {
         selected: vec![],
         blocks: vec![],
         damage: vec![DamageAllocation {
+            trample_lethal: None,
             attacker: bf(0),
             power: 2,
             blockers: vec![bf(1), bf(2), bf(3)],
@@ -368,4 +370,54 @@ fn flying_reach_random_samples_only_allowed_pairs() {
         }
     }
     assert!(seen, "legal ground block remains expressible");
+}
+
+#[test]
+fn random_trample_expresses_every_legal_two_cub_split() {
+    let mut o = observation(0);
+    let d = o.decision.as_mut().unwrap();
+    d.kind = "combat_damage";
+    d.count = 1;
+    d.candidates = vec![Choice::FinishCombat];
+    d.legal_mask = vec![false];
+    d.factored = Some(CombatChoices {
+        attackers: vec![bf(0)],
+        blockers: vec![],
+        selected: vec![],
+        blocks: vec![],
+        forbidden_blocks: vec![],
+        damage: vec![DamageAllocation {
+            attacker: bf(0),
+            power: 5,
+            blockers: vec![bf(1), bf(2)],
+            amounts: None,
+            trample_lethal: Some(vec![2, 2]),
+        }],
+    });
+    let mut p = policy(0);
+    let mut seen = std::collections::BTreeSet::new();
+    for _ in 0..1000 {
+        let result = p.choose(&o).unwrap();
+        let Choice::AssignDamage { amounts, .. } = &result.choices[0] else {
+            panic!("allocation required")
+        };
+        let (a, b) = (amounts[0].1, amounts[1].1);
+        assert!(a + b == 5 || (a == 2 && b == 2));
+        seen.insert((a, b));
+    }
+    assert_eq!(
+        seen,
+        [(0, 5), (1, 4), (2, 3), (3, 2), (4, 1), (5, 0), (2, 2)]
+            .into_iter()
+            .collect()
+    );
+    o.decision
+        .as_mut()
+        .unwrap()
+        .factored
+        .as_mut()
+        .unwrap()
+        .damage[0]
+        .trample_lethal = Some(vec![2]);
+    assert_eq!(p.choose(&o), Err(Error::InvalidObservation));
 }

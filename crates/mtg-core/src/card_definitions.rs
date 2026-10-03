@@ -40,6 +40,8 @@ pub(super) enum Definition {
         cost: ManaCost,
         flying: bool,
         reach: bool,
+        vigilance: bool,
+        trample: bool,
         power: u32,
         toughness: u32,
     },
@@ -99,6 +101,18 @@ impl Definition {
     }
     pub(super) fn reach(self) -> bool {
         matches!(self, Self::KeywordCreature { reach: true, .. })
+    }
+    pub(super) fn vigilance(self) -> bool {
+        matches!(
+            self,
+            Self::KeywordCreature {
+                vigilance: true,
+                ..
+            }
+        )
+    }
+    pub(super) fn trample(self) -> bool {
+        matches!(self, Self::KeywordCreature { trample: true, .. })
     }
     pub(super) fn haste_activation(self) -> bool {
         matches!(self, Self::HasteCreature { .. })
@@ -184,6 +198,18 @@ pub(super) fn definition(card: CardId) -> Definition {
             },
             effect: InstantEffect::Bite,
         },
+        "tajuru-pathwarden" => Definition::KeywordCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 0, 1, 0],
+                generic: 4,
+            },
+            flying: false,
+            reach: false,
+            vigilance: true,
+            trample: true,
+            power: 5,
+            toughness: 4,
+        },
         "magnigoth-sentry" => Definition::KeywordCreature {
             cost: ManaCost {
                 colored: [0, 0, 0, 0, 1, 0],
@@ -191,6 +217,8 @@ pub(super) fn definition(card: CardId) -> Definition {
             },
             flying: false,
             reach: true,
+            vigilance: false,
+            trample: false,
             power: 4,
             toughness: 4,
         },

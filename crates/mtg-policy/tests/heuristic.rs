@@ -260,6 +260,7 @@ fn heuristic_attack_block_allocate_then_finish() {
     let d = o.decision.as_mut().unwrap();
     d.legal_mask = vec![false];
     d.factored.as_mut().unwrap().damage = vec![DamageAllocation {
+        trample_lethal: None,
         attacker: b(3),
         power: 5,
         blockers: vec![b(2), b(1)],
@@ -414,5 +415,26 @@ fn cavalry_policy_cast_activation_target_finish_and_version_contract() {
             Choice::CancelActivation,
         ],
         Choice::FinishActivation,
+    );
+}
+
+#[test]
+fn heuristic_trample_assigns_marked_lethal_and_remainder_to_defender() {
+    let mut o = combat("combat_damage");
+    let d = o.decision.as_mut().unwrap();
+    d.legal_mask = vec![false];
+    d.factored.as_mut().unwrap().damage = vec![DamageAllocation {
+        attacker: b(3),
+        power: 5,
+        blockers: vec![b(2), b(1)],
+        amounts: None,
+        trample_lethal: Some(vec![1, 2]),
+    }];
+    assert_eq!(
+        choose(&o),
+        vec![Choice::AssignDamage {
+            attacker: b(3),
+            amounts: vec![(b(2), 1), (b(1), 2)]
+        }]
     );
 }

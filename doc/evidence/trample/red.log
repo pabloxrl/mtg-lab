@@ -1,0 +1,45 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde v1.0.229
+   Compiling syn v3.0.6
+   Compiling serde_json v1.0.151
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-198/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.16s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 2 tests
+
+thread 'game::combat::tests::tajuru_departed_blockers_and_single_blocker_marked_lethal' (2608) panicked at crates/mtg-core/src/combat_tests.rs:36:6:
+called `Result::unwrap()` on an `Err` value: UnsupportedCombat
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::combat::tests::tajuru_vigilance_trample_and_unordered_blocker_splits' (2609) panicked at crates/mtg-core/src/combat_tests.rs:36:6:
+called `Result::unwrap()` on an `Err` value: UnsupportedCombat
+test game::combat::tests::tajuru_vigilance_trample_and_unordered_blocker_splits ... FAILED
+test game::combat::tests::tajuru_departed_blockers_and_single_blocker_marked_lethal ... FAILED
+
+failures:
+
+failures:
+    game::combat::tests::tajuru_departed_blockers_and_single_blocker_marked_lethal
+    game::combat::tests::tajuru_vigilance_trample_and_unordered_blocker_splits
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 205 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

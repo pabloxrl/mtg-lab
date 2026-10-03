@@ -120,6 +120,9 @@ pub struct DamageAllocation {
     pub attacker: VisibleRef,
     pub power: u32,
     pub blockers: Vec<VisibleRef>,
+    /// Lethal damage needed per blocker; remainder may go to defender only when all are met.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub trample_lethal: Option<Vec<u32>>,
     pub amounts: Option<Vec<(VisibleRef, u32)>>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -504,6 +507,9 @@ fn observation_valid(o: &Observation) -> bool {
                     field(&d.attacker)
                         && unique(&d.blockers)
                         && d.blockers.iter().all(field)
+                        && d.trample_lethal
+                            .as_ref()
+                            .is_none_or(|l| l.len() == d.blockers.len())
                         && d.amounts.as_ref().is_none_or(|a| allocation(d, a))
                 }))
         {
@@ -513,13 +519,24 @@ fn observation_valid(o: &Observation) -> bool {
     true
 }
 fn allocation(d: &DamageAllocation, amounts: &[(VisibleRef, u32)]) -> bool {
+    let Some(total) = amounts
+        .iter()
+        .try_fold(0u32, |sum, (_, n)| sum.checked_add(*n))
+    else {
+        return false;
+    };
     unique(&amounts.iter().map(|(b, _)| b).collect::<Vec<_>>())
         && amounts.iter().all(|(b, _)| d.blockers.contains(b))
-        && amounts
-            .iter()
-            .try_fold(0u32, |sum, (_, n)| sum.checked_add(*n))
-            == Some(d.power)
+        && total <= d.power
+        && (total == d.power
+            || d.trample_lethal.as_ref().is_some_and(|lethal| {
+                lethal.len() == d.blockers.len()
+                    && d.blockers.iter().zip(lethal).all(|(b, need)| {
+                        amounts.iter().find(|(h, _)| h == b).map_or(0, |(_, n)| *n) >= *need
+                    })
+            }))
 }
+
 fn valid_submission(o: &Observation, s: &Submission) -> bool {
     let Some(d) = &o.decision else {
         return false;

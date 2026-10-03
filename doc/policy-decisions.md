@@ -124,8 +124,8 @@ normal-reset and explicitly synthetic response tests.
 
 ## Factored combat and cleanup
 
-Combat supports the core's Bear Cub/Swab Goblin and existing Growth modifications;
-no flying, trample, deathtouch or other combat keywords are added. `combat` is a
+Combat supports the delivered creature subset, Growth modifications, flying/reach,
+haste, vigilance and trample. Deathtouch remains unimplemented. `combat` is a
 public list of `{ attacker, blocked, blockers }` using current battlefield rows.
 Departed creatures are removed from those relationships; remembered `blocked`
 remains true when all blockers leave. A returning object is not the old blocker.
@@ -139,7 +139,7 @@ not masked illegal rows or an exponential list of combined actions:
 
 - `attackers`: submit one `select_attackers { cards: [VisibleRef, ...] }` with any
   distinct subset of the attacker domain, including empty. This replaces the
-  provisional selection. `finish_combat` commits it and taps attackers.
+  provisional selection. `finish_combat` commits it and taps attackers without vigilance.
 - `blockers`: submit one `select_blockers { blocks: [[blocker, attacker], ...] }`.
   Every reference must belong to its domain. Each blocker appears at most once;
   multiple blockers can choose the same attacker. Empty clears the provisional map.
@@ -147,11 +147,16 @@ not masked illegal rows or an exponential list of combined actions:
 - `combat_damage`: each `damage` entry identifies an attacker, current `power`,
   legal `blockers`, and actor-only `amounts` (null until assigned). Submit one
   `assign_damage { attacker, amounts: [[blocker, nonnegative_u32], ...] }` for a
-  multiply blocked attacker. Recipients must be distinct and amounts sum to its
-  full power; omitted blockers get zero. Repeating this command replaces that
+  multiply blocked attacker or a trampler with any surviving blocker. Recipients
+  must be distinct; omitted blockers get zero. Nontrample amounts sum to full power.
+  Optional `trample_lethal: [u32, ...]` gives required lethal damage per blocker
+  in the same domain order, accounting for damage already marked. With trample,
+  amounts may sum to less than power only when each blocker receives at least
+  its lethal amount; the remainder goes to the defender. The player may assign
+  all damage to blockers in any nonnegative split, even without lethal on each. Repeating this command replaces that
   attacker's allocation. Any division is legal, including 1+1 for a 2/2 against
   two 2/2 blockers. `finish_combat` is masked until all required allocations exist;
-  the existing rules validate and commit simultaneous damage. Single/unblocked
+  the existing rules validate and commit simultaneous damage. Single nontrample/unblocked
   assignments are determined by the rules, without a discretionary default.
 
 Every command carries the current revision/generation and exactly one structured
@@ -161,7 +166,7 @@ No opponent sees provisional changes, including replacements with empty choices.
 
 Capacity counts flat candidates plus each attacker/blocker/selected reference,
 each provisional block pair, and for each damage entry one header plus each
-blocker reference and each assigned amount pair. The whole current decision must
+blocker reference, each assigned amount pair and each trample-lethal entry. The whole current decision must
 fit, including on submission; no list is clipped. A later decision can require
 more space and fail observation explicitly, so callers must handle capacity errors
 at every boundary. Capacity does not bound public observation size or allocator

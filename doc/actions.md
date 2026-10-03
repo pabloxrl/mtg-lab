@@ -76,3 +76,9 @@ rewrite it or extend the opening CLI to played games.
 
 Run `cargo test -p mtg-core --lib opening::actions::tests`, then the full
 `./scripts/torture.sh` in the managed container. See [acceptance evidence](evidence/actions/README.md).
+
+Tajuru trample uses the existing `AssignDamage` record: amounts name blockers,
+and the unassigned remainder of attacker power goes to the defender only when
+trample legality is satisfied. No player handle or alternate action is encoded.
+Pending allocations and their replay use the same engine validation; old-engine
+artifacts remain subject to the existing source-fingerprint incompatibility rule.

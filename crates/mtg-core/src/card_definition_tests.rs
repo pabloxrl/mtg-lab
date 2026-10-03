@@ -7,7 +7,7 @@ use super::targets::{CreatureState, TargetError};
 use super::turns::Step;
 use super::*;
 
-const SUPPORTED: [&str; 10] = [
+const SUPPORTED: [&str; 11] = [
     "forest",
     "mountain",
     "bear-cub",
@@ -18,6 +18,7 @@ const SUPPORTED: [&str; 10] = [
     "druid-of-the-cowl",
     "magnigoth-sentry",
     "axgard-cavalry",
+    "tajuru-pathwarden",
 ];
 
 fn ready() -> Game {
@@ -56,6 +57,7 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
         ("bite-down", "{1}{G}", None, None, true),
         ("llanowar-elves", "{G}", None, Some((1, 1)), false),
         ("druid-of-the-cowl", "{1}{G}", None, Some((1, 3)), false),
+        ("tajuru-pathwarden", "{4}{G}", None, Some((5, 4)), false),
         ("axgard-cavalry", "{1}{R}", None, Some((2, 2)), false),
         ("magnigoth-sentry", "{3}{G}", None, Some((4, 4)), false),
     ] {

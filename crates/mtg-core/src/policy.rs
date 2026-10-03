@@ -111,6 +111,9 @@ pub struct DamageAllocation {
     pub attacker: VisibleRef,
     pub power: u32,
     pub blockers: Vec<VisibleRef>,
+    /// Lethal damage needed per blocker; remainder may go to defender only when all are met.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub trample_lethal: Option<Vec<u32>>,
     pub amounts: Option<Vec<(VisibleRef, u32)>>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
@@ -438,6 +441,7 @@ impl Game {
                 .map(|a| DamageAllocation {
                     attacker: reference(a.attacker),
                     power: a.power,
+                    trample_lethal: a.trample_lethal.clone(),
                     blockers: a.blockers.iter().map(|h| reference(*h)).collect(),
                     amounts: self
                         .turns
@@ -573,6 +577,7 @@ impl Game {
                     .checked_add(1)
                     .and_then(|n| n.checked_add(d.blockers.len()))
                     .and_then(|n| n.checked_add(d.amounts.as_ref().map_or(0, Vec::len)))
+                    .and_then(|n| n.checked_add(d.trample_lethal.as_ref().map_or(0, Vec::len)))
                     .ok_or(PolicyError::CapacityExceeded)?;
             }
         }

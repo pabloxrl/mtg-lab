@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-haste-v1";
+pub const VERSION: &str = "legal-random-trample-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -107,19 +107,32 @@ impl LegalRandom {
                 "combat_damage" => {
                     if let Some(a) = f.damage.iter().find(|a| a.amounts.is_none()) {
                         let mut remaining = a.power;
+                        // Mixture preserves every blocker-only split and every
+                        // legal trample split, including withholding all excess.
+                        let trample = a
+                            .trample_lethal
+                            .as_ref()
+                            .filter(|lethal| {
+                                lethal.iter().map(|n| u64::from(*n)).sum::<u64>()
+                                    <= u64::from(a.power)
+                            })
+                            .filter(|_| self.below(2) == 1);
+                        if let Some(lethal) = trample {
+                            remaining -= lethal.iter().sum::<u32>();
+                        }
                         let last = a.blockers.len() - 1;
                         let amounts = a
                             .blockers
                             .iter()
                             .enumerate()
                             .map(|(i, b)| {
-                                let n = if i == last {
+                                let n = if i == last && trample.is_none() {
                                     remaining
                                 } else {
                                     self.below(u64::from(remaining) + 1) as u32
                                 };
                                 remaining -= n;
-                                (*b, n)
+                                (*b, n + trample.map_or(0, |lethal| lethal[i]))
                             })
                             .collect();
                         Choice::AssignDamage {
@@ -181,7 +194,14 @@ fn validate(d: &Decision) -> Result<(), Error> {
             return Err(Error::InvalidObservation);
         }
         let can_finish = d.kind != "combat_damage" || f.damage.iter().all(|a| a.amounts.is_some());
-        if d.legal_mask != [can_finish] || f.damage.iter().any(|a| a.blockers.is_empty()) {
+        if d.legal_mask != [can_finish]
+            || f.damage.iter().any(|a| {
+                a.blockers.is_empty()
+                    || a.trample_lethal
+                        .as_ref()
+                        .is_some_and(|l| l.len() != a.blockers.len())
+            })
+        {
             return Err(Error::InvalidObservation);
         }
         return Ok(());
@@ -267,6 +287,7 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "druid-of-the-cowl",
                     "magnigoth-sentry",
                     "axgard-cavalry",
+                    "tajuru-pathwarden",
                 ],
             ),
             Choice::Activate { card } => (card, &["axgard-cavalry"]),

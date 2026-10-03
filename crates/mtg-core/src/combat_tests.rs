@@ -1279,3 +1279,287 @@ fn flying_reach_reference_literal_checkpoints() {
         std::fs::write(path, serde_json::to_vec_pretty(&results).unwrap()).unwrap();
     }
 }
+
+// GH-198: original synthetic positions. Pinned Tajuru is 4G, 5/4,
+// vigilance/trample. CR 702.20b, 702.19b/c and 510 (post-Foundations).
+#[test]
+fn tajuru_vigilance_trample_and_unordered_blocker_splits() {
+    for (left, right, life) in [
+        (2, 2, 19),
+        (0, 5, 20),
+        (1, 4, 20),
+        (2, 3, 20),
+        (3, 2, 20),
+        (4, 1, 20),
+        (5, 0, 20),
+    ] {
+        let mut g = ready();
+        let a = add(&mut g, Seat::P0, "tajuru-pathwarden");
+        let b = add(&mut g, Seat::P1, "bear-cub");
+        let c = add(&mut g, Seat::P1, "bear-cub");
+        pair(&mut g);
+        assert!(
+            g.combat_decision(Seat::P0, 80)
+                .unwrap()
+                .attackers
+                .contains(&a),
+            "Tajuru must be a supported attacker"
+        );
+        select_attack(&mut g, &[a]);
+        assert!(
+            !g.objects.get(a).unwrap().tapped,
+            "vigilance does not tap to attack"
+        );
+        pair(&mut g);
+        select_block(&mut g, &[(b, a), (c, a)]);
+        pair(&mut g);
+        let d = g.turn_decision().unwrap();
+        unchanged(&mut g, Err(CombatError::IllegalDamage), |g| {
+            g.assign_combat_damage(d.actor, d.id, a, &[(b, 1), (c, 0)])
+        });
+        // Total lethal alone is insufficient: EACH blocker must receive lethal.
+        for bad in [vec![(b, 1), (c, 3)], vec![(b, 3), (c, 1)]] {
+            unchanged(&mut g, Err(CombatError::IllegalDamage), |g| {
+                g.assign_combat_damage(d.actor, d.id, a, &bad)
+            });
+        }
+        // The unassigned remainder goes to the defender only with trample.
+        g.assign_combat_damage(d.actor, d.id, a, &[(b, left), (c, right)])
+            .unwrap();
+        let snapshot = g.snapshot();
+        g.restore(&snapshot).unwrap();
+        damage(&mut g);
+        assert_eq!(g.life(), [20, life]);
+        assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P0)).count(), 1);
+        assert_eq!(
+            g.objects.in_zone(Zone::Graveyard(Seat::P1)).count(),
+            usize::from(left >= 2) + usize::from(right >= 2)
+        );
+    }
+}
+#[test]
+fn tajuru_departed_blockers_and_single_blocker_marked_lethal() {
+    for departed in [false, true] {
+        let mut g = ready();
+        let a = add(&mut g, Seat::P0, "tajuru-pathwarden");
+        let b = add(&mut g, Seat::P1, "bear-cub");
+        pair(&mut g);
+        assert!(
+            g.combat_decision(Seat::P0, 80)
+                .unwrap()
+                .attackers
+                .contains(&a)
+        );
+        select_attack(&mut g, &[a]);
+        pair(&mut g);
+        select_block(&mut g, &[(b, a)]);
+        if departed {
+            g.objects.move_to(b, Zone::Graveyard(Seat::P1)).unwrap();
+        } else {
+            g.turns
+                .modifications
+                .push(super::super::targets::Modification {
+                    handle: b,
+                    boost: 0,
+                    damage: 1,
+                });
+        }
+        pair(&mut g);
+        if !departed {
+            let d = g.turn_decision().unwrap();
+            assert_eq!(g.combat_decision(d.actor, 80).unwrap().damage.len(), 1);
+            g.assign_combat_damage(d.actor, d.id, a, &[(b, 1)]).unwrap();
+        }
+        damage(&mut g);
+        assert_eq!(g.life(), [20, if departed { 15 } else { 16 }]);
+        assert_eq!(
+            g.creature_state(a).unwrap().damage,
+            if departed { 0 } else { 2 }
+        );
+    }
+}
+
+#[test]
+fn trample_reference_literal_checkpoints() {
+    let fixture: serde_json::Value =
+        serde_json::from_str(include_str!("../../../fixtures/reference/trample.json")).unwrap();
+    let expected: serde_json::Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/trample-expectations.json"
+    ))
+    .unwrap();
+    let mut actual = serde_json::Map::new();
+    for spec in fixture["cases"].as_array().unwrap() {
+        let mode = spec["id"].as_str().unwrap();
+        let mut g = ready();
+        let a = add(&mut g, Seat::P0, "tajuru-pathwarden");
+        let bs = (0..spec["blockers"].as_u64().unwrap())
+            .map(|_| add(&mut g, Seat::P1, "bear-cub"))
+            .collect::<Vec<_>>();
+        if mode == "sick" {
+            g.turns.sick.push(a);
+        }
+        pair(&mut g);
+        let mut legal = true;
+        if mode == "sick" {
+            let d = g.turn_decision().unwrap();
+            unchanged(&mut g, Err(CombatError::IllegalAttacker), |g| {
+                g.select_attackers(d.actor, d.id, &[a])
+            });
+            legal = false;
+        } else {
+            select_attack(&mut g, &[a]);
+            assert!(!g.objects.get(a).unwrap().tapped);
+            pair(&mut g);
+            select_block(&mut g, &bs.iter().map(|b| (*b, a)).collect::<Vec<_>>());
+            if mode == "departed" {
+                g.objects.move_to(bs[0], Zone::Graveyard(Seat::P1)).unwrap();
+            }
+            if mode == "marked" {
+                g.turns
+                    .modifications
+                    .push(super::super::targets::Modification {
+                        handle: bs[0],
+                        boost: 0,
+                        damage: 1,
+                    });
+            }
+            pair(&mut g);
+            let d = g.turn_decision().unwrap();
+            let amounts = bs
+                .iter()
+                .zip(spec["amounts"].as_array().unwrap())
+                .map(|(b, n)| (*b, n.as_u64().unwrap() as u32))
+                .collect::<Vec<_>>();
+            if mode == "negative" {
+                unchanged(&mut g, Err(CombatError::IllegalDamage), |g| {
+                    g.assign_combat_damage(d.actor, d.id, a, &amounts)
+                });
+                legal = false;
+            } else {
+                if !amounts.is_empty() {
+                    g.assign_combat_damage(d.actor, d.id, a, &amounts).unwrap();
+                }
+                damage(&mut g);
+            }
+            if mode == "next-block" {
+                // Continue real turn progression; the vigilance attacker can block next turn.
+                let b = add(&mut g, Seat::P1, "bear-cub");
+                for _ in 0..40 {
+                    if g.turn_position() == Some((4, Seat::P1, Step::DeclareAttackers)) {
+                        break;
+                    }
+                    let d = g.turn_decision().unwrap();
+                    if let TurnKind::Discard { count } = d.kind {
+                        g.apply_turn(
+                            d.actor,
+                            &TurnAction {
+                                decision: d.id,
+                                selection: TurnSelection::Discard(
+                                    (0..count).map(|i| d.candidate(i)).collect(),
+                                ),
+                            },
+                        )
+                        .unwrap();
+                    } else {
+                        pass(&mut g);
+                    }
+                }
+                select_attack(&mut g, &[b]);
+                pair(&mut g);
+                assert!(
+                    g.combat_decision(Seat::P0, 80)
+                        .unwrap()
+                        .blockers
+                        .contains(&a)
+                );
+                select_block(&mut g, &[(a, b)]);
+                // Remove the explicit next-turn test attacker from the checkpoint counts.
+                g.objects.move_to(b, Zone::Hand(Seat::P1)).unwrap();
+            }
+        }
+        let attacker = g
+            .creature_state(a)
+            .map(|c| [c.power, c.toughness, c.damage]);
+        let point = serde_json::json!({"life":g.life(),"attacker":attacker,"untapped":g.objects.get(a).is_ok_and(|o|!o.tapped) || attacker.is_none(),"blockers":g.objects.in_zone(Zone::Battlefield).filter(|h|g.objects.get(*h).unwrap().controller==Seat::P1).count(),"graveyard":[g.objects.in_zone(Zone::Graveyard(Seat::P0)).count(),g.objects.in_zone(Zone::Graveyard(Seat::P1)).count()],"legal":legal});
+        assert_eq!(point, expected[mode], "{mode}");
+        actual.insert(mode.into(), point);
+    }
+    if let Ok(path) = std::env::var("MTG_TRAMPLE_OUTPUT") {
+        std::fs::write(path, serde_json::to_vec_pretty(&actual).unwrap()).unwrap();
+    }
+}
+
+#[test]
+fn trample_both_seats_quantum_restore_and_atomic_rejections() {
+    for actor in [Seat::P0, Seat::P1] {
+        let defender = super::super::turns::opponent(actor);
+        let mut g = ready();
+        g.turns.position = Some((3, actor, Step::BeginningCombat));
+        g.set_turn_decision(actor, TurnKind::Priority);
+        let a = add(&mut g, actor, "tajuru-pathwarden");
+        let b = add(&mut g, defender, "bear-cub");
+        pair(&mut g);
+        select_attack(&mut g, &[a]);
+        pair(&mut g);
+        select_block(&mut g, &[(b, a)]);
+        pair(&mut g);
+        let d = g.turn_decision().unwrap();
+        for amounts in [
+            vec![(b, 1)],
+            vec![(b, 6)],
+            vec![(b, u32::MAX)],
+            vec![(b, 2), (b, 3)],
+            vec![(a, 5)],
+            vec![],
+        ] {
+            unchanged(&mut g, Err(CombatError::IllegalDamage), |g| {
+                g.assign_combat_damage(actor, d.id, a, &amounts)
+            });
+        }
+        unchanged(
+            &mut g,
+            Err(CombatError::Invalid(ApplyError::WrongActor)),
+            |g| g.assign_combat_damage(defender, d.id, a, &[(b, 2)]),
+        );
+        let before_other = serde_json::to_value(g.policy_observe(defender, 256).unwrap()).unwrap();
+        g.assign_combat_damage(actor, d.id, a, &[(b, 2)]).unwrap();
+        unchanged(
+            &mut g,
+            Err(CombatError::Invalid(ApplyError::StaleDecision)),
+            |g| g.assign_combat_damage(actor, d.id, a, &[(b, 2)]),
+        );
+        assert_eq!(
+            serde_json::to_value(g.policy_observe(defender, 256).unwrap()).unwrap(),
+            before_other
+        );
+        let snap = g.snapshot();
+        let mut scalar = Game::new().unwrap();
+        scalar.restore(&snap).unwrap();
+        damage(&mut scalar);
+        let d = g.turn_decision().unwrap();
+        let mut progress = g
+            .finish_combat_quantum(actor, d.id, NonZeroUsize::MIN)
+            .unwrap();
+        while progress == Progress::InternalYield {
+            let saved = g.snapshot();
+            g.restore(&saved).unwrap();
+            assert!(g.policy_observe(actor, 256).is_err());
+            progress = g.resume(NonZeroUsize::MIN);
+        }
+        let mut expected = [20, 20];
+        expected[seat_index(defender)] = 17;
+        assert_eq!(g.life(), expected);
+        assert_eq!(scalar.life(), expected);
+        let restored_a = g
+            .objects
+            .in_zone(Zone::Battlefield)
+            .find(|h| g.objects.get(*h).unwrap().card.identity().key == "tajuru-pathwarden")
+            .unwrap();
+        assert_eq!(g.creature_state(restored_a).unwrap().damage, 2);
+        for seat in [actor, defender] {
+            let left = g.policy_observe(seat, 256).unwrap();
+            let right = scalar.policy_observe(seat, 256).unwrap();
+            assert_eq!(left.view.public_zones, right.view.public_zones);
+        }
+    }
+}

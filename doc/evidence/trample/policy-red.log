@@ -1,0 +1,34 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-198/crates/mtg-core)
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-198/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.66s
+     Running unittests src/lib.rs (target/debug/deps/mtg_policy-d213a4af0142c20b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/games.rs (target/debug/deps/games-2dcbf68699cb5073)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/heuristic.rs (target/debug/deps/heuristic-20fb6b02136b30a1)
+
+running 1 test
+
+thread 'heuristic_trample_assigns_marked_lethal_and_remainder_to_defender' (624) panicked at crates/mtg-policy/tests/heuristic.rs:430:5:
+assertion `left == right` failed
+  left: [AssignDamage { attacker: VisibleRef { zone: Battlefield, row: 3 }, amounts: [(VisibleRef { zone: Battlefield, row: 2 }, 1), (VisibleRef { zone: Battlefield, row: 1 }, 4)] }]
+ right: [AssignDamage { attacker: VisibleRef { zone: Battlefield, row: 3 }, amounts: [(VisibleRef { zone: Battlefield, row: 2 }, 1), (VisibleRef { zone: Battlefield, row: 1 }, 2)] }]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test heuristic_trample_assigns_marked_lethal_and_remainder_to_defender ... FAILED
+
+failures:
+
+failures:
+    heuristic_trample_assigns_marked_lethal_and_remainder_to_defender
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test heuristic`

@@ -182,3 +182,10 @@ Run in the managed toolchain container:
 cargo test -p mtg-recorder jsonl_contract
 ./scripts/torture.sh
 ```
+
+Trample factored damage entries optionally carry `trample_lethal`, one unsigned
+requirement per blocker in domain order. A recorded `assign_damage` may leave
+power for the defender only when every blocker meets that requirement; a full
+blocker-only split is always allowed. Typed conversion preserves this domain, and
+both canonical and durable validators reject malformed or insufficient allocations.
+Absent fields retain the previous nontrample encoding.

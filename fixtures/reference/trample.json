@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "setup": "Explicit synthetic combat positions; marked damage, sickness and departed blocker hooks are test-only.",
+  "basis": "Pinned Tajuru 4G 5/4 vigilance/trample; CR 510, 702.19, 702.20, Foundations unordered assignment.",
+  "cases": [
+    {
+      "id": "unblocked",
+      "blockers": 0,
+      "amounts": []
+    },
+    {
+      "id": "two",
+      "blockers": 2,
+      "amounts": [
+        2,
+        2
+      ]
+    },
+    {
+      "id": "one",
+      "blockers": 1,
+      "amounts": [
+        2
+      ]
+    },
+    {
+      "id": "marked",
+      "blockers": 1,
+      "amounts": [
+        1
+      ]
+    },
+    {
+      "id": "departed",
+      "blockers": 1,
+      "amounts": []
+    },
+    {
+      "id": "sick",
+      "blockers": 0,
+      "amounts": []
+    },
+    {
+      "id": "negative",
+      "blockers": 1,
+      "amounts": [
+        1
+      ]
+    },
+    {
+      "id": "next-block",
+      "blockers": 0,
+      "amounts": []
+    },
+    {
+      "id": "split-0",
+      "blockers": 2,
+      "amounts": [
+        0,
+        5
+      ]
+    },
+    {
+      "id": "split-1",
+      "blockers": 2,
+      "amounts": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": "split-2",
+      "blockers": 2,
+      "amounts": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": "split-3",
+      "blockers": 2,
+      "amounts": [
+        3,
+        2
+      ]
+    },
+    {
+      "id": "split-4",
+      "blockers": 2,
+      "amounts": [
+        4,
+        1
+      ]
+    },
+    {
+      "id": "split-5",
+      "blockers": 2,
+      "amounts": [
+        5,
+        0
+      ]
+    }
+  ]
+}

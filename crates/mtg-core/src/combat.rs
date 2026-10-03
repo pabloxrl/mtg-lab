@@ -17,6 +17,7 @@ pub struct Attack {
 pub struct DamageChoice {
     pub attacker: Handle,
     pub power: u32,
+    pub trample_lethal: Option<Vec<u32>>,
     pub blockers: Vec<Handle>,
 }
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -57,6 +58,14 @@ fn vanilla(card: CardId) -> bool {
     super::card_definitions::definition(card).vanilla()
 }
 impl Game {
+    fn has_trample(&self, h: Handle) -> bool {
+        self.objects
+            .get(h)
+            .is_ok_and(|o| super::card_definitions::definition(o.card).trample())
+    }
+    fn needs_damage_choice(&self, a: &Attack) -> bool {
+        a.blockers.len() > 1 || (!a.blockers.is_empty() && self.has_trample(a.creature))
+    }
     fn has_flying(&self, h: Handle) -> bool {
         #[cfg(test)]
         if self.turns.combat.synthetic_flying.contains(&h) {
@@ -190,10 +199,19 @@ impl Game {
         let damage = if kind == CombatKind::Damage {
             attacks
                 .iter()
-                .filter(|a| a.blockers.len() > 1)
+                .filter(|a| self.needs_damage_choice(a))
                 .map(|a| DamageChoice {
                     attacker: a.creature,
                     power: self.creature_state(a.creature).unwrap().power,
+                    trample_lethal: self.has_trample(a.creature).then(|| {
+                        a.blockers
+                            .iter()
+                            .map(|b| {
+                                let c = self.creature_state(*b).unwrap();
+                                c.toughness.saturating_sub(c.damage)
+                            })
+                            .collect()
+                    }),
                     blockers: a.blockers.clone(),
                 })
                 .collect::<Vec<_>>()
@@ -287,7 +305,7 @@ impl Game {
             .iter()
             .find(|a| a.creature == attacker)
             .ok_or(CombatError::IllegalDamage)?;
-        if a.blockers.len() < 2 {
+        if !self.needs_damage_choice(a) {
             return Err(CombatError::IllegalDamage);
         }
         let mut total = 0u64;
@@ -299,13 +317,23 @@ impl Game {
                 .checked_add(u64::from(*n))
                 .ok_or(CombatError::IllegalDamage)?;
         }
-        if total != u64::from(self.creature_state(attacker).unwrap().power) {
+        let power = u64::from(self.creature_state(attacker).unwrap().power);
+        if total > power
+            || (total < power
+                && (!self.has_trample(attacker)
+                    || a.blockers.iter().any(|b| {
+                        let c = self.creature_state(*b).unwrap();
+                        let assigned = amounts.iter().find(|(h, _)| h == b).map_or(0, |(_, n)| *n);
+                        assigned < c.toughness.saturating_sub(c.damage)
+                    })))
+        {
             return Err(CombatError::IllegalDamage);
         }
         Ok(())
     }
-    /// Assign one multiply-blocked attacker's entire power. Omitted recipients
-    /// get zero; any division is legal, with no obsolete lethal-first ordering.
+    /// Assign damage to blockers, with omitted blockers receiving zero. For
+    /// trample, the unassigned remainder goes to the defender, requiring lethal
+    /// damage on every remaining blocker. Blocker-only splits have no ordering.
     pub fn assign_combat_damage(
         &mut self,
         actor: Seat,
@@ -375,7 +403,11 @@ impl Game {
                     })
                     .collect();
                 for h in &self.turns.combat.selected {
-                    self.objects.get_mut(*h).unwrap().tapped = true;
+                    if !super::card_definitions::definition(self.objects.get(*h).unwrap().card)
+                        .vigilance()
+                    {
+                        self.objects.get_mut(*h).unwrap().tapped = true;
+                    }
                 }
                 self.turns.combat.attacks = attacks;
                 self.turns.combat.selected.clear();
@@ -430,13 +462,11 @@ impl Game {
         // Gather every assignment and all damage before any SBA or mutation.
         for a in self.combat() {
             let power = self.creature_state(a.creature).unwrap().power;
-            if !a.blocked {
+            if !a.blocked || (a.blockers.is_empty() && self.has_trample(a.creature)) {
                 life[defender] = life[defender]
                     .checked_sub(i64::from(power))
                     .ok_or(overflow)?;
-            } else if a.blockers.len() == 1 {
-                mark(a.blockers[0], power)?;
-            } else if a.blockers.len() > 1 {
+            } else if self.needs_damage_choice(&a) {
                 let amounts = &self
                     .turns
                     .combat
@@ -446,9 +476,15 @@ impl Game {
                     .ok_or(CombatError::MissingDamage)?
                     .1;
                 self.validate_damage(a.creature, amounts)?;
+                let assigned: u32 = amounts.iter().map(|(_, n)| *n).sum();
+                life[defender] = life[defender]
+                    .checked_sub(i64::from(power - assigned))
+                    .ok_or(overflow)?;
                 for (h, n) in amounts {
                     mark(*h, *n)?;
                 }
+            } else if a.blockers.len() == 1 {
+                mark(a.blockers[0], power)?;
             } // blocked with no remaining blocker deals no damage (510.1c).
             for b in a.blockers {
                 mark(a.creature, self.creature_state(b).unwrap().power)?;
