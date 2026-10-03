@@ -1,4 +1,4 @@
-//! Nonmana tap-cost activations. The stack owns an independent ability object;
+//! Nonmana activations. The stack owns an independent ability object;
 //! source and target handles identify incarnations, never replacement cards.
 use super::turns::{TurnDecision, TurnError, TurnKind};
 use super::*;
@@ -7,13 +7,16 @@ pub(super) struct PendingActivation {
     pub source: Handle,
     pub actor: Seat,
     pub target: Option<Handle>,
+    pub paid: bool,
+    pub power: bool,
     pub id: DecisionId,
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug)]
 pub(super) struct Ability {
     pub object: Handle,
     pub source: Handle,
-    pub target: Handle,
+    pub target: Option<Handle>,
+    pub power: bool,
 }
 impl Game {
     pub fn has_haste(&self, h: Handle) -> bool {
@@ -34,9 +37,12 @@ impl Game {
         self.objects.get(h).is_ok_and(|o| {
             o.zone == Zone::Battlefield
                 && o.controller == actor
-                && !o.tapped
-                && card_definitions::definition(o.card).haste_activation()
-        }) && !self.summoning_sick(h)
+                && ((card_definitions::definition(o.card).haste_activation()
+                    && !o.tapped
+                    && !self.summoning_sick(h))
+                    || (card_definitions::definition(o.card).power_activation()
+                        && self.turns.mana[seat_index(actor)][3] > 0))
+        })
     }
     pub fn activation_candidates(&self, actor: Seat) -> Vec<Handle> {
         if !self
@@ -69,6 +75,9 @@ impl Game {
             source,
             actor,
             target: None,
+            paid: false,
+            power: card_definitions::definition(self.objects.get(source).unwrap().card)
+                .power_activation(),
             id: DecisionId {
                 scope: self.objects.scope(),
                 generation,
@@ -101,8 +110,8 @@ impl Game {
         id: DecisionId,
         target: Handle,
     ) -> Result<(), TurnError> {
-        self.validate_activation(actor, id)?;
-        if !self.haste_target(target) {
+        let p = self.validate_activation(actor, id)?;
+        if p.power || !self.haste_target(target) {
             return Err(TurnError::Invalid(ApplyError::IllegalCandidate));
         }
         let generation = self
@@ -111,6 +120,30 @@ impl Game {
             .ok_or(TurnError::Invalid(ApplyError::DecisionExhausted))?;
         let p = self.turns.activation.as_mut().unwrap();
         p.target = Some(target);
+        p.id.generation = generation;
+        self.generation = generation;
+        Ok(())
+    }
+    pub fn pay_activation(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        color: mana::Color,
+    ) -> Result<(), TurnError> {
+        let p = self.validate_activation(actor, id)?;
+        if !p.power
+            || p.paid
+            || color != mana::Color::Red
+            || self.turns.mana[seat_index(actor)][3] == 0
+        {
+            return Err(TurnError::Invalid(ApplyError::IllegalCandidate));
+        }
+        let generation = self
+            .generation
+            .checked_add(1)
+            .ok_or(TurnError::Invalid(ApplyError::DecisionExhausted))?;
+        let p = self.turns.activation.as_mut().unwrap();
+        p.paid = true;
         p.id.generation = generation;
         self.generation = generation;
         Ok(())
@@ -136,10 +169,14 @@ impl Game {
     ) -> Result<TurnDecision, TurnError> {
         let p = self.validate_activation(actor, id)?;
         let source = p.source;
-        let target = p
-            .target
-            .ok_or(TurnError::Invalid(ApplyError::WrongCardinality))?;
-        if !self.usable_activation_source(actor, source) || !self.haste_target(target) {
+        let target = p.target;
+        let power = p.power;
+        if (power && (!p.paid || target.is_some())) || (!power && target.is_none()) {
+            return Err(TurnError::Invalid(ApplyError::WrongCardinality));
+        }
+        if !self.usable_activation_source(actor, source)
+            || target.is_some_and(|h| !self.haste_target(h))
+        {
             return Err(TurnError::Invalid(ApplyError::IllegalCandidate));
         }
         let generation = self
@@ -162,12 +199,17 @@ impl Game {
             .objects
             .allocate(card, actor, Zone::Stack)
             .map_err(TurnError::Storage)?;
-        self.objects.get_mut(source).unwrap().tapped = true;
+        if power {
+            self.turns.mana[seat_index(actor)][3] -= 1;
+        } else {
+            self.objects.get_mut(source).unwrap().tapped = true;
+        }
         self.turns.stack.push(object);
         self.turns.abilities.push(Ability {
             object,
             source,
             target,
+            power,
         });
         self.turns.activation = None;
         self.turns.passed = false;

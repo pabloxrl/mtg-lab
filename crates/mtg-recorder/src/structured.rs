@@ -405,7 +405,7 @@ fn observation_valid(o: &Observation) -> bool {
         && (!(if o
             .decision
             .as_ref()
-            .is_some_and(|d| d.kind == "activation_target")
+            .is_some_and(|d| matches!(d.kind.as_str(), "activation_target" | "activation_payment"))
         {
             field(&p.card)
         } else {
@@ -442,6 +442,7 @@ fn observation_valid(o: &Observation) -> bool {
         let combat = ["attackers", "blockers", "combat_damage"].contains(&d.kind.as_str());
         let pending = [
             "activation_target",
+            "activation_payment",
             "growth_target",
             "bite_source",
             "bite_destination",
@@ -454,6 +455,7 @@ fn observation_valid(o: &Observation) -> bool {
                 "bottom",
                 "priority",
                 "activation_target",
+                "activation_payment",
                 "growth_target",
                 "bite_source",
                 "bite_destination",
@@ -736,6 +738,10 @@ fn kind_command(kind: &str, command: &Command) -> bool {
             | (
                 "growth_target" | "bite_source" | "bite_destination" | "targets_complete",
                 Command::Target { .. } | Command::FinishTargets | Command::CancelTargets
+            )
+            | (
+                "activation_payment",
+                Command::Pay { .. } | Command::FinishActivation | Command::CancelActivation
             )
             | (
                 "payment",

@@ -211,3 +211,20 @@ Visible creatures carry optional `haste: true`; absent means false. The existing
 `summoning_sick` flag reports the effective restriction, accounting for haste.
 Generation-tagged targets never bind to a replacement object. Capture v2 preserves
 these typed choices and fields; finish/cancel ends the logical activation.
+
+### Shivan power activation
+
+Shivan's priority `activate` choice requires a live controlled source and floated
+red mana. Tapping and summoning sickness do not restrict this non-tap ability.
+The actor-only `activation_payment` continuation offers `pay { color: 3 }`,
+`finish_activation` and `cancel_activation`. Selecting red reserves the payment;
+finish atomically spends one red and creates a nontargeted stack ability. Cancel
+spends nothing. A supplied target, repeated payment, wrong color or stale decision
+rejects without mutation. The pending battlefield source uses the same fields as
+Cavalry; targets stay empty. There is no payment-time mana activation in this
+continuation: float mana at priority first, as for standalone mana payments.
+
+Each resolution adds one power to the original battlefield incarnation until
+cleanup. An ability whose source left still resolves, without affecting a returned
+card. The stack target list is empty. Existing semantic actions and typed capture
+preserve all choices; source fingerprints reject older snapshot/replay artifacts.

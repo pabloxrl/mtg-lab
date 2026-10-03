@@ -361,20 +361,34 @@ impl Game {
                 }
             }
         } else if let Some(p) = self.turns.activation.as_ref() {
-            for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
-                push(
-                    Choice::Target {
-                        card: VisibleRef {
-                            zone: VisibleZone::Battlefield,
-                            row,
+            if !p.power {
+                for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
+                    push(
+                        Choice::Target {
+                            card: VisibleRef {
+                                zone: VisibleZone::Battlefield,
+                                row,
+                            },
                         },
-                    },
-                    self.haste_target(h),
-                )?;
+                        self.haste_target(h),
+                    )?;
+                }
+            } else {
+                push(Choice::Pay { color: 3 }, !p.paid)?;
             }
-            push(Choice::FinishActivation, p.target.is_some())?;
+            push(
+                Choice::FinishActivation,
+                if p.power { p.paid } else { p.target.is_some() },
+            )?;
             push(Choice::CancelActivation, true)?;
-            ("activation_target", 1)
+            (
+                if p.power {
+                    "activation_payment"
+                } else {
+                    "activation_target"
+                },
+                1,
+            )
         } else if let Some(t) = self.target_decision(seat) {
             for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
                 push(
@@ -531,6 +545,8 @@ impl Game {
             for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
                 if card_definitions::definition(self.objects.get(h).unwrap().card)
                     .haste_activation()
+                    || card_definitions::definition(self.objects.get(h).unwrap().card)
+                        .power_activation()
                 {
                     push(
                         Choice::Activate {
@@ -870,6 +886,9 @@ impl Game {
                     self.tap_mana(actor, id, h).map(|_| ()).map_err(mana_error)
                 }
             }
+            Choice::Pay { color } if self.turns.activation.is_some() => self
+                .pay_activation(actor, id, mana::Color::ALL[usize::from(*color)])
+                .map_err(turn_error),
             Choice::Pay { color } => self
                 .choose_payment(actor, id, mana::Color::ALL[usize::from(*color)])
                 .map(|_| ())

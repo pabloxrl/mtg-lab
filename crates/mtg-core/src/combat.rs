@@ -476,6 +476,7 @@ impl Game {
             } else {
                 changes.push(Modification {
                     handle: h,
+                    power_boost: 0,
                     boost: 0,
                     damage: amount,
                 });

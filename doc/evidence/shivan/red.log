@@ -1,0 +1,57 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling typenum v1.20.1
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling serde_core v1.0.229
+   Compiling libc v0.2.189
+   Compiling zmij v1.0.23
+   Compiling block-buffer v0.10.4
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling memchr v2.8.3
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-200/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.29s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+test game::shivan_tests::shivan_stacked_source_return_cannot_receive_boost ... FAILED
+test game::shivan_tests::shivan_sick_repeated_paid_boost_cleanup ... FAILED
+test game::shivan_tests::shivan_invalid_sources_and_foreign_target_atomic ... FAILED
+
+failures:
+
+---- game::shivan_tests::shivan_stacked_source_return_cannot_receive_boost stdout ----
+
+thread 'game::shivan_tests::shivan_stacked_source_return_cannot_receive_boost' (632) panicked at crates/mtg-core/src/shivan_tests.rs:56:5:
+assertion failed: g.activation_candidates(Seat::P0).contains(&h)
+
+---- game::shivan_tests::shivan_sick_repeated_paid_boost_cleanup stdout ----
+
+thread 'game::shivan_tests::shivan_sick_repeated_paid_boost_cleanup' (631) panicked at crates/mtg-core/src/shivan_tests.rs:34:5:
+CR 302.6: nontap activation ignores sickness
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- game::shivan_tests::shivan_invalid_sources_and_foreign_target_atomic stdout ----
+
+thread 'game::shivan_tests::shivan_invalid_sources_and_foreign_target_atomic' (630) panicked at crates/mtg-core/src/shivan_tests.rs:48:62:
+paid Shivan activation available: Invalid(IllegalCandidate)
+
+
+failures:
+    game::shivan_tests::shivan_invalid_sources_and_foreign_target_atomic
+    game::shivan_tests::shivan_sick_repeated_paid_boost_cleanup
+    game::shivan_tests::shivan_stacked_source_return_cannot_receive_boost
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 214 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

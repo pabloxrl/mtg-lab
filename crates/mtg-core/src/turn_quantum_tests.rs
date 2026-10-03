@@ -206,6 +206,7 @@ fn turn_quantum_cleanup_discard_and_simultaneous_expiration() {
                 g.turns.sick.push(h);
                 g.turns.modifications.push(Modification {
                     handle: h,
+                    power_boost: 0,
                     boost: 3,
                     damage: 4,
                 });
@@ -284,6 +285,7 @@ fn turn_quantum_priority_in_cleanup_repeats_discard_before_next_turn() {
                 .unwrap();
             g.turns.modifications.push(Modification {
                 handle: h,
+                power_boost: 0,
                 boost: 3,
                 damage: 4,
             });
@@ -370,6 +372,7 @@ fn turn_quantum_literal_intermediate_cleanup_and_draw_units() {
             .unwrap();
         g.turns.modifications.push(Modification {
             handle: h,
+            power_boost: 0,
             boost: 3,
             damage: 4,
         });
