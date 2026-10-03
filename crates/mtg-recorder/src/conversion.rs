@@ -320,12 +320,14 @@ fn w_damage_allocation(value: &p::DamageAllocation) -> w::DamageAllocation {
         attacker,
         power,
         blockers,
+        trample_lethal,
         amounts,
     } = value;
     w::DamageAllocation {
         attacker: w_visible_ref(attacker),
         power: *power,
         blockers: blockers.iter().map(w_visible_ref).collect(),
+        trample_lethal: trample_lethal.clone(),
         amounts: amounts
             .as_ref()
             .map(|x| x.iter().map(|x| (w_visible_ref(&x.0), x.1)).collect()),

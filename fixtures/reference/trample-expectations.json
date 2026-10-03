@@ -1,0 +1,226 @@
+{
+  "unblocked": {
+    "life": [
+      20,
+      15
+    ],
+    "attacker": [
+      5,
+      4,
+      0
+    ],
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      0,
+      0
+    ],
+    "legal": true
+  },
+  "two": {
+    "life": [
+      20,
+      19
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      1,
+      2
+    ],
+    "legal": true
+  },
+  "one": {
+    "life": [
+      20,
+      17
+    ],
+    "attacker": [
+      5,
+      4,
+      2
+    ],
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      0,
+      1
+    ],
+    "legal": true
+  },
+  "marked": {
+    "life": [
+      20,
+      16
+    ],
+    "attacker": [
+      5,
+      4,
+      2
+    ],
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      0,
+      1
+    ],
+    "legal": true
+  },
+  "departed": {
+    "life": [
+      20,
+      15
+    ],
+    "attacker": [
+      5,
+      4,
+      0
+    ],
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      0,
+      1
+    ],
+    "legal": true
+  },
+  "sick": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": [
+      5,
+      4,
+      0
+    ],
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      0,
+      0
+    ],
+    "legal": false
+  },
+  "negative": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": [
+      5,
+      4,
+      0
+    ],
+    "untapped": true,
+    "blockers": 1,
+    "graveyard": [
+      0,
+      0
+    ],
+    "legal": false
+  },
+  "next-block": {
+    "life": [
+      20,
+      15
+    ],
+    "attacker": [
+      5,
+      4,
+      0
+    ],
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      0,
+      0
+    ],
+    "legal": true
+  },
+  "split-0": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 1,
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  },
+  "split-1": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 1,
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  },
+  "split-2": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      1,
+      2
+    ],
+    "legal": true
+  },
+  "split-3": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 0,
+    "graveyard": [
+      1,
+      2
+    ],
+    "legal": true
+  },
+  "split-4": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 1,
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  },
+  "split-5": {
+    "life": [
+      20,
+      20
+    ],
+    "attacker": null,
+    "untapped": true,
+    "blockers": 1,
+    "graveyard": [
+      1,
+      1
+    ],
+    "legal": true
+  }
+}

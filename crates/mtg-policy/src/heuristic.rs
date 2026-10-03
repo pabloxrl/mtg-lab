@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-haste-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-trample-v1";
 pub struct Heuristic {
     seat: u8,
 }
@@ -72,7 +72,9 @@ impl Heuristic {
                         let mut left = a.power;
                         let mut amounts = Vec::with_capacity(a.blockers.len());
                         for (i, b) in a.blockers.iter().enumerate() {
-                            let n = if i + 1 == a.blockers.len() {
+                            let n = if let Some(lethal) = &a.trample_lethal {
+                                left.min(lethal[i])
+                            } else if i + 1 == a.blockers.len() {
                                 left
                             } else {
                                 left.min(stats(o, *b)?.1)
@@ -139,7 +141,8 @@ impl Heuristic {
                     .any(|c| c.controller != self.seat && c.creature.is_some());
                 plain(match card(o, *r)?.card {
                     "bear-cub" | "swab-goblin" | "dragon-fodder" | "llanowar-elves"
-                    | "druid-of-the-cowl" | "magnigoth-sentry" | "axgard-cavalry" => 30,
+                    | "druid-of-the-cowl" | "magnigoth-sentry" | "axgard-cavalry"
+                    | "tajuru-pathwarden" => 30,
                     "bite-down" if own && enemy => 20,
                     "giant-growth" if own && (!o.stack.is_empty() || !o.combat.is_empty()) => 10,
                     "bite-down" | "giant-growth" => -1,

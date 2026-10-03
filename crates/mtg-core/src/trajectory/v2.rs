@@ -507,12 +507,23 @@ fn valid_submission(o: &Observation, s: &Submission) -> bool {
                 let Some(a) = f.damage.iter().find(|a| a.attacker == *attacker) else {
                     return false;
                 };
+                let Some(total) = amounts
+                    .iter()
+                    .try_fold(0u32, |sum, (_, n)| sum.checked_add(*n))
+                else {
+                    return false;
+                };
                 return unique(&amounts.iter().map(|(b, _)| b).collect::<Vec<_>>())
                     && amounts.iter().all(|(b, _)| a.blockers.contains(b))
-                    && amounts
-                        .iter()
-                        .try_fold(0u32, |sum, (_, n)| sum.checked_add(*n))
-                        == Some(a.power);
+                    && total <= a.power
+                    && (total == a.power
+                        || a.trample_lethal.as_ref().is_some_and(|lethal| {
+                            lethal.len() == a.blockers.len()
+                                && a.blockers.iter().zip(lethal).all(|(b, need)| {
+                                    amounts.iter().find(|(h, _)| h == b).map_or(0, |(_, n)| *n)
+                                        >= *need
+                                })
+                        }));
             }
             _ => (),
         }

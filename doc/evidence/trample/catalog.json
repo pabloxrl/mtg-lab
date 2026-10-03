@@ -1,0 +1,90 @@
+[
+  {
+    "id": "rules-combat-haste-vigilance-negative",
+    "capability_id": "combat/haste-vigilance",
+    "category": "negative",
+    "setup": "New Tajuru without haste",
+    "actions": "Declare attack",
+    "expected": "Reject despite vigilance",
+    "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-haste-vigilance-interaction",
+    "capability_id": "combat/haste-vigilance",
+    "category": "interaction",
+    "setup": "Old Tajuru attacks then survives combat",
+    "actions": "Inspect tap state; advance to opponent combat",
+    "expected": "Tajuru remains untapped and can block",
+    "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-deathtouch-trample-interaction",
+    "capability_id": "combat/deathtouch-trample",
+    "category": "interaction",
+    "setup": "Tajuru 5/4 blocked by Cub already marked one",
+    "actions": "Assign one to Cub and four to P1",
+    "expected": "Legal; marked damage counts toward lethal",
+    "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-combat-blocked-status-interaction",
+    "capability_id": "combat/blocked-status",
+    "category": "interaction",
+    "setup": "Tajuru blocked by Cub then Cub killed before damage",
+    "actions": "Assign Tajuru five to P1",
+    "expected": "Legal through trample with no remaining blockers",
+    "basis": "CR 509.1h/510.1c and 702.19: blocked status persists when blockers leave; trample exception. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-tajuru-pathwarden-positive",
+    "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+    "category": "positive",
+    "setup": "Old Tajuru attacks unblocked",
+    "actions": "Declare attack and damage",
+    "expected": "Stays untapped; P1 loses five",
+    "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+    "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+    "category": "negative",
+    "setup": "Tajuru blocked by undamaged Cub",
+    "actions": "Assign one to Cub and four to player",
+    "expected": "Reject insufficient lethal allocation without deathtouch",
+    "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-tajuru-pathwarden-interaction",
+    "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+    "category": "interaction",
+    "setup": "Tajuru blocked by two Cubs",
+    "actions": "Assign two each and one to P1",
+    "expected": "P1 loses one; both Cubs and Tajuru die simultaneously",
+    "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  },
+  {
+    "id": "rules-foundations_micro_v1-tajuru-pathwarden-regression",
+    "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+    "category": "regression",
+    "setup": "Tajuru blocked; blocker killed before damage",
+    "actions": "Assign all five to P1",
+    "expected": "Legal trample through absent blocker; vigilance persists",
+    "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+    "owner_issue": 23,
+    "milestone": "M2"
+  }
+]

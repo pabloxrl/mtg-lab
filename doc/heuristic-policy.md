@@ -1,7 +1,7 @@
 # Deterministic native heuristic
 
 `mtg_policy::Heuristic::new(HEURISTIC_VERSION, seat)` creates a stateless native
-opponent. `HEURISTIC_VERSION = heuristic-haste-v1` freezes the rules below. Its
+opponent. `HEURISTIC_VERSION = heuristic-trample-v1` freezes the rules below. Its
 `choose(&policy::Observation)` returns a semantic submission for
 `Game::apply_policy`. Only the authorized observation is accepted; no game,
 private replay, environment seed, RNG or clock is available. Repeated inputs
@@ -39,19 +39,19 @@ always dominate card values. These are strategic preferences, not rules claims.
 - Allocate the first unassigned attacker's damage in blocker domain order:
   give each except the last up to its remaining toughness, then give the last
   all remaining power. Include zero amounts. Finish after all allocations.
-  This is modern vanilla allocation, with no obsolete blocker-order choice.
+  For trample use the lethal-requirement rule below; no obsolete blocker-order choice is introduced.
 
 ## Supported behavior and limits
 
 Handles every M1 family: opening/bottom, priority, lands, targets, payment,
 attackers, blockers, damage allocation and cleanup discard. Casts are restricted
 to Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder, Llanowar Elves
-and Druid of the Cowl. Lands are Forest/Mountain; mana sources also include
+Druid of the Cowl, Magnigoth Sentry, Axgard Cavalry and Tajuru Pathwarden. Lands are Forest/Mountain; mana sources also include
 legal Elf/Druid tap abilities. Unknown enabled commands, decision kinds or newly enabled card content
 fail explicitly even when pass is legal. Schema/seat/shape errors are explicit.
 The engine remains responsible for legality and stale submission rejection.
 Other fixed-deck cards can be held, bottomed and discarded but remain uncastable.
-This does not support the complete twenty-card pool, keywords or triggers.
+This does not support the complete twenty-card pool, deathtouch or cast/ETB triggers.
 
 The policy does not predict opponent hands, search future states or optimize
 winning chances. It may waste spells or make poor attacks. Strength is not a
@@ -75,4 +75,6 @@ GH-196: `heuristic-reach-v1` supersedes `heuristic-mana-v1` (rejected). Sentry
 casts score 30. Block selection excludes observed `forbidden_blocks` pairs before
 choosing the best remaining attacker; reach itself gives attackers no evasion.
 
-GH-197 adds Cavalry casting and staged targeted tap-cost activation. Current `heuristic-haste-v1` rejects the prior reach policy ID. Cavalry uses creature cast score 30; starting activation scores 5, finishing scores 30 and cancellation 0. Targets use the existing own-creature power/toughness ordering. Full-pool policy qualification remains #208.
+GH-197 added Cavalry casting and staged targeted tap-cost activation. Cavalry uses creature cast score 30; starting activation scores 5, finishing scores 30 and cancellation 0. Targets use the existing own-creature power/toughness ordering. Full-pool policy qualification remains #208.
+
+GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `heuristic-trample-v1` rejects prior policy IDs. For trample, assign up to each blocker’s observed lethal requirement in domain order and send remaining power to the defender. Other allocation behavior is unchanged.

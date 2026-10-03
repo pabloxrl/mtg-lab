@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-haste-v1` pins decision sampling and supported content;
+`VERSION = legal-random-trample-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -107,4 +107,6 @@ GH-196: `legal-random-reach-v1` supersedes `legal-random-mana-v1` (rejected).
 Each blocker samples uniformly among no block and its legal attacker rows,
 excluding `forbidden_blocks`. Sentry casts join the supported content domain.
 
-GH-197 adds Cavalry casting and staged targeted tap-cost activation. Current `legal-random-haste-v1` rejects the prior reach policy ID. Random sampling includes all legal activation targets, finish and cancellation. Full-pool policy qualification remains #208.
+GH-197 added Cavalry casting and staged targeted tap-cost activation. Random sampling includes all legal activation targets, finish and cancellation. Full-pool policy qualification remains #208.
+
+GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-trample-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
