@@ -820,7 +820,7 @@ fn thrill_private_pending_snapshots_cancel_stale_and_quantum() {
                 finish(&mut restored);
                 pass(&mut restored);
                 let d = restored.turn_decision().unwrap();
-                restored
+                let mut progress = restored
                     .apply_turn_quantum(
                         d.actor,
                         &TurnAction {
@@ -830,7 +830,8 @@ fn thrill_private_pending_snapshots_cancel_stale_and_quantum() {
                         NonZeroUsize::MIN,
                     )
                     .unwrap();
-                while restored.resume(NonZeroUsize::MIN) == Progress::InternalYield {
+                assert_eq!(keys(&restored, Zone::Hand(Seat::P0)), ["forest"]);
+                while progress == Progress::InternalYield {
                     assert!(restored.turn_decision().is_none());
                     let b = restored.snapshot();
                     let mut copy = Game::new().unwrap();
@@ -841,6 +842,7 @@ fn thrill_private_pending_snapshots_cancel_stale_and_quantum() {
                         keys(&restored, Zone::Hand(Seat::P0))
                     );
                     restored = copy;
+                    progress = restored.resume(NonZeroUsize::MIN);
                 }
                 assert_eq!(
                     keys(&restored, Zone::Hand(Seat::P0)),

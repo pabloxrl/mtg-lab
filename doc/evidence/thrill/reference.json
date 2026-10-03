@@ -16,8 +16,8 @@
     "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
     "crates/mtg-core/src/cast_boundary_tests.rs": "94041e47f036700f465e84c4ca57e4afd3614f80db37fb362c68d516aec418e7",
     "crates/mtg-core/src/cast_state.rs": "40058df070b099f0c48912d8e12db93ef2d47299e76fbb94c85f678d91be4537",
-    "crates/mtg-core/src/casting.rs": "df8d5e35a179c345b682030911f524c4a018f3cf9b964af46ecf698ed9450e9f",
-    "crates/mtg-core/src/casting_tests.rs": "65af27e976f15c966fd5e468811699df1cab2b104e935a08d0804f8487bcd08f",
+    "crates/mtg-core/src/casting.rs": "f3536e16620860356d0c1086152e8bc0c049c9b2564157266bf9d381bd5f450c",
+    "crates/mtg-core/src/casting_tests.rs": "8267efb5372444a3e59cce51ac8dceb9291d0096dcaefd464d2365dccc1f6af8",
     "crates/mtg-core/src/combat.rs": "48e5cb493f4225b3d9c9d9d2c323b2661df0021e9a1e03a6a0fc8a139bce2c46",
     "crates/mtg-core/src/combat_tests.rs": "3114ea5bb48dcd7d841242fce6739fc43c30f0227a89c5b44120e3c7584d9268",
     "crates/mtg-core/src/creature_mana_reference_tests.rs": "79bac87ae62e5e21a70aae6a1b69fd06028cc47a34464c5d3472f9126edc0230",
@@ -59,11 +59,11 @@
   },
   "runs": [
     {
-      "xmage_log_sha256": "74d040e320e55d10aaae85a2413f72cd003574618266018c5d7625697c2e409c",
-      "native_log_sha256": "7a2fbc21183673a63ef85c93393e9bb0253bde013da8cb4c4a9ea6d462bd43b3"
+      "xmage_log_sha256": "9bcddefe6d34cfb3bf8e78ff741fcb3936c0d9ab5816a8795ff30d31d94a0929",
+      "native_log_sha256": "0fa4e14453c06c2126df972ed666da1b2a0066e4a0182e2a4a3bb521babbb78e"
     },
     {
-      "xmage_log_sha256": "bc3640738c7d934e4613cf34781e13b294e2a72700096eb54c70be3a854e1205",
+      "xmage_log_sha256": "0b40d10f8b2f7b813ab445e5f77ce37f1faee3bff87f26141db207b69017fff5",
       "native_log_sha256": "0fa4e14453c06c2126df972ed666da1b2a0066e4a0182e2a4a3bb521babbb78e"
     }
   ],

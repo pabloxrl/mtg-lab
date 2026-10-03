@@ -76,3 +76,18 @@ PASS, 168 Python tests and 1152 Rust debug/release executions, zero failed or
 ignored. The [updated native quickstart](quickstart.json) completes both games
 with zero failed, incomplete or truncated episodes. Independent review and
 protected delivery receipts remain recorded in the linked issue workpad/PR.
+
+## Independent review correction
+
+The [initial review](review-initial.json) found that snapshots immediately after
+the first draw rejected the still-queued second draw. The original test resumed
+once more before taking its first resolution snapshot and missed that boundary.
+[Compiled regression red](snapshot-red.log) reproduces `RestoreError::Corrupt`
+on the engine-produced snapshot before the fix. The strengthened test snapshots
+and restores the immediate first yield and every following yield.
+
+Draws now reuse the existing turn-draw `TurnWork::Move` representation, whose
+snapshot validation already permits hand destinations. No validator is weakened
+or replaced. Full torture, both pinned reference suites and the documented native quickstart
+passed again on the corrected source. A new independent review is required on
+the corrected candidate; the linked issue and PR preserve both review outcomes.

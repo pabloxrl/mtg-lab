@@ -403,11 +403,12 @@ impl Game {
                     failed_draw = Some(o.controller);
                 }
                 for handle in draws {
-                    self.work.push_back(Work::SpellMove {
+                    // Reuse the draw move used by turn draws, including its
+                    // existing snapshot validator, at every quantum boundary.
+                    self.work.push_back(Work::Turn(super::turns::TurnWork::Move(
                         handle,
-                        zone: Zone::Hand(o.controller),
-                        controller: None,
-                    });
+                        Zone::Hand(o.controller),
+                    )));
                 }
                 self.work.push_back(Work::SpellMove {
                     handle: h,
