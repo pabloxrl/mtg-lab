@@ -28,6 +28,11 @@ pub(super) enum Definition {
         power: u32,
         toughness: u32,
     },
+    InvokerCreature {
+        cost: ManaCost,
+        power: u32,
+        toughness: u32,
+    },
     PowerCreature {
         cost: ManaCost,
         power: u32,
@@ -62,6 +67,7 @@ impl Definition {
             | Self::KeywordCreature { cost, .. }
             | Self::HasteCreature { cost, .. }
             | Self::PowerCreature { cost, .. }
+            | Self::InvokerCreature { cost, .. }
             | Self::Instant { cost, .. }
             | Self::TokenSorcery { cost } => Some(cost),
             _ => None,
@@ -86,6 +92,9 @@ impl Definition {
                 power, toughness, ..
             }
             | Self::ManaCreature {
+                power, toughness, ..
+            }
+            | Self::InvokerCreature {
                 power, toughness, ..
             }
             | Self::PowerCreature {
@@ -139,6 +148,9 @@ impl Definition {
     pub(super) fn haste_activation(self) -> bool {
         matches!(self, Self::HasteCreature { .. })
     }
+    pub(super) fn invoker_activation(self) -> bool {
+        matches!(self, Self::InvokerCreature { .. })
+    }
     pub(super) fn power_activation(self) -> bool {
         matches!(self, Self::PowerCreature { .. })
     }
@@ -150,6 +162,7 @@ impl Definition {
                 | Self::KeywordCreature { .. }
                 | Self::HasteCreature { .. }
                 | Self::PowerCreature { .. }
+                | Self::InvokerCreature { .. }
                 | Self::Token
         )
     }
@@ -159,6 +172,14 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "wildheart-invoker" => Definition::InvokerCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 0, 2, 0],
+                generic: 2,
+            },
+            power: 4,
+            toughness: 3,
+        },
         "shivan-dragon" => Definition::PowerCreature {
             cost: ManaCost {
                 colored: [0, 0, 0, 2, 0, 0],

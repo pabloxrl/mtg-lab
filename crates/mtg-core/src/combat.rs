@@ -60,7 +60,10 @@ fn vanilla(card: CardId) -> bool {
     super::card_definitions::definition(card).vanilla()
 }
 impl Game {
-    fn has_trample(&self, h: Handle) -> bool {
+    pub(super) fn has_trample(&self, h: Handle) -> bool {
+        if self.turns.trample.contains(&h) && self.haste_target(h) {
+            return true;
+        }
         #[cfg(test)]
         if self.turns.combat.synthetic_trample.contains(&h) {
             return true;

@@ -84,3 +84,9 @@ set for a later turn.
 Run `cargo test -p mtg-core views` inside the managed toolchain, then the complete
 `./scripts/torture.sh`. [Acceptance and red/green evidence](evidence/views/README.md)
 map the exact assigned cases and distinguish synthetic from normal-reset tests.
+
+Visible cards expose effective `trample` (true for printed or currently granted
+trample, omitted when false). Invoker grants it publicly to both seats on
+resolution and cleanup removes the grant. The typed recorder preserves this
+additive Boolean; absent legacy fields deserialize as false. New engine
+fingerprints distinguish new captures/replays from earlier artifacts.

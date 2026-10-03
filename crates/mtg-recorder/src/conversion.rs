@@ -15,6 +15,7 @@ fn s_visible_card(value: &v::VisibleCard) -> s::VisibleCard {
         creature,
         summoning_sick,
         haste,
+        trample,
     } = value;
     s::VisibleCard {
         card: card.to_string(),
@@ -24,6 +25,7 @@ fn s_visible_card(value: &v::VisibleCard) -> s::VisibleCard {
         creature: *creature,
         summoning_sick: *summoning_sick,
         haste: *haste,
+        trample: *trample,
     }
 }
 fn s_public_zone(value: &v::PublicZone) -> s::PublicZone {

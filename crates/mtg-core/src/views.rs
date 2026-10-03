@@ -13,6 +13,8 @@ pub struct VisibleCard {
     pub summoning_sick: bool,
     #[serde(skip_serializing_if = "std::ops::Not::not")]
     pub haste: bool,
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub trample: bool,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct PublicZone {
@@ -106,6 +108,7 @@ impl Game {
                 .creature_state(h)
                 .map(|c| [c.power, c.toughness, c.damage]),
             haste: self.has_haste(h),
+            trample: self.has_trample(h),
             summoning_sick: o.zone == Zone::Battlefield && self.summoning_sick(h),
         }
     }

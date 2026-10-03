@@ -1,0 +1,50 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling unicode-ident v1.0.26
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-201/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.13s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 3 tests
+
+thread 'game::invoker_tests::invoker_sick_tapped_source_own_opposing_boost_and_cleanup' (2610) panicked at crates/mtg-core/src/invoker_tests.rs:61:9:
+eight generic, no tap or sickness restriction
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::invoker_tests::invoker_departed_target_does_not_boost_returned_incarnation' (2608) panicked at crates/mtg-core/src/invoker_tests.rs:42:47:
+called `Result::unwrap()` on an `Err` value: Invalid(IllegalCandidate)
+test game::invoker_tests::invoker_departed_target_does_not_boost_returned_incarnation ... FAILED
+test game::invoker_tests::invoker_sick_tapped_source_own_opposing_boost_and_cleanup ... FAILED
+
+thread 'game::invoker_tests::invoker_payment_target_stale_cancel_reject_without_spending' (2609) panicked at crates/mtg-core/src/invoker_tests.rs:83:46:
+Invoker has enough generic mana: Invalid(IllegalCandidate)
+test game::invoker_tests::invoker_payment_target_stale_cancel_reject_without_spending ... FAILED
+
+failures:
+
+failures:
+    game::invoker_tests::invoker_departed_target_does_not_boost_returned_incarnation
+    game::invoker_tests::invoker_payment_target_stale_cancel_reject_without_spending
+    game::invoker_tests::invoker_sick_tapped_source_own_opposing_boost_and_cleanup
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 220 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

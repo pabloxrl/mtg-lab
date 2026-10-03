@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "setup": "Original synthetic positions, real pinned abilities and costs; explicit control-age/departure hooks.",
+  "basis": "Pinned Invoker 2GG 4/3 and eight generic +5/+5/trample; CR 602, 608.2b, 113.7a, 400.7, 611.2, 514.2, 702.19, 702.2.",
+  "cases": [
+    {
+      "id": "own"
+    },
+    {
+      "id": "mixed"
+    },
+    {
+      "id": "opposing"
+    },
+    {
+      "id": "tapped"
+    },
+    {
+      "id": "seven"
+    },
+    {
+      "id": "missing"
+    },
+    {
+      "id": "illegal"
+    },
+    {
+      "id": "dead_source"
+    },
+    {
+      "id": "departed"
+    },
+    {
+      "id": "cleanup"
+    },
+    {
+      "id": "thorn_dead"
+    },
+    {
+      "id": "thorn_cleanup"
+    },
+    {
+      "id": "thorn_double"
+    },
+    {
+      "id": "thorn_combat"
+    },
+    {
+      "id": "cast"
+    },
+    {
+      "id": "short_cast"
+    }
+  ]
+}

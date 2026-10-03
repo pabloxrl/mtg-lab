@@ -18,6 +18,7 @@ pub(super) enum Work {
     FinishCombat,
     Modify(targets::Modification),
     GrantHaste(Handle),
+    GrantTrample(Handle),
     RemoveAbility(Handle),
     CreateGoblins {
         controller: Seat,
@@ -104,6 +105,10 @@ impl Game {
                             .is_ok_and(|o| o.zone == Zone::Battlefield)
                     });
                     self.turns.combat.assignments.clear();
+                    true
+                }
+                Work::GrantTrample(h) => {
+                    self.turns.trample.push(*h);
                     true
                 }
                 Work::GrantHaste(h) => {

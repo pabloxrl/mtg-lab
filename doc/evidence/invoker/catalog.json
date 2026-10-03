@@ -1,0 +1,126 @@
+{
+  "issue": 201,
+  "scope": "Unchanged catalog expectations; partial mechanic delivery, original owners retained.",
+  "cases": [
+    {
+      "catalog": {
+        "id": "rules-continuous-stacked-boosts-regression",
+        "capability_id": "continuous/stacked-boosts",
+        "category": "regression",
+        "setup": "Thornweald gets two Invoker activations",
+        "actions": "Resolve both",
+        "expected": "Archer 12/11 with trample; duplicate trample not extra damage",
+        "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "thorn_double"
+      ]
+    },
+    {
+      "catalog": {
+        "id": "rules-continuous-cleanup-interaction",
+        "capability_id": "continuous/cleanup",
+        "category": "interaction",
+        "setup": "Dragon +1/+0 and Thornweald Invoker boost/trample",
+        "actions": "Cleanup",
+        "expected": "Base stats restored; gained trample removed; printed keywords retained",
+        "basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "thorn_cleanup"
+      ]
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-thornweald-archer-regression",
+        "capability_id": "foundations_micro_v1/thornweald-archer",
+        "category": "regression",
+        "setup": "Thornweald boosted by Invoker to 7/6 trample; two Sentry blockers",
+        "actions": "Assign one each and five to P1",
+        "expected": "Both Sentries die; P1 loses five; Thornweald dies to eight simultaneously",
+        "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "thorn_combat"
+      ]
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-positive",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "positive",
+        "setup": "Invoker, own Cub, eight mixed mana",
+        "actions": "Activate targeting Cub and resolve",
+        "expected": "Cub 7/7 with trample; eight mana consumed",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "mixed"
+      ]
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-negative",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "negative",
+        "setup": "Invoker and seven mana",
+        "actions": "Attempt activation",
+        "expected": "Reject insufficient generic cost without partial payment",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "seven"
+      ]
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-interaction",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "interaction",
+        "setup": "New Invoker; eight mana; opposing Cub",
+        "actions": "Activate targeting opposing Cub",
+        "expected": "Legal without tap/sickness restriction; opponent Cub gets +5/+5/trample",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "opposing"
+      ]
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-regression",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "regression",
+        "setup": "Invoker ability targets Thornweald; Invoker killed in response",
+        "actions": "Resolve then cleanup",
+        "expected": "Archer 7/6 trample despite dead source; later returns 2/1 reach/deathtouch",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "native_test": "game::invoker_tests::invoker_reference_literal_checkpoints",
+      "reference_cases": [
+        "thorn_dead",
+        "thorn_cleanup"
+      ]
+    }
+  ]
+}

@@ -79,8 +79,13 @@ fn hand(row: usize) -> VisibleRef {
 // GH-195 extends implemented characteristics in every visible zone; retain
 // the independent full-field ledger instead of deriving expected views.
 fn card(key: &str, s: usize) -> Value {
-    json!({"card":key,"owner":s,"controller":s,"tapped":false,
-        "creature":match key {"bear-cub"=>json!([2,2,0]),"llanowar-elves"=>json!([1,1,0]),"druid-of-the-cowl"=>json!([1,3,0]),"magnigoth-sentry"=>json!([4,4,0]),"tajuru-pathwarden"=>json!([5,4,0]),"thornweald-archer"=>json!([2,1,0]),_=>Value::Null},"summoning_sick":false})
+    let mut value = json!({"card":key,"owner":s,"controller":s,"tapped":false,
+        "creature":match key {"bear-cub"=>json!([2,2,0]),"llanowar-elves"=>json!([1,1,0]),"druid-of-the-cowl"=>json!([1,3,0]),"magnigoth-sentry"=>json!([4,4,0]),"tajuru-pathwarden"=>json!([5,4,0]),"thornweald-archer"=>json!([2,1,0]),"wildheart-invoker"=>json!([4,3,0]),_=>Value::Null},"summoning_sick":false});
+    // Pinned Tajuru has printed trample in every zone (CR 702.19).
+    if key == "tajuru-pathwarden" {
+        value["trample"] = json!(true);
+    }
+    value
 }
 fn normalized(bytes: &[u8]) -> Value {
     fn scrub(v: &mut Value) {
@@ -193,6 +198,7 @@ impl Ledger {
                         "druid-of-the-cowl",
                         "magnigoth-sentry",
                         "tajuru-pathwarden",
+                        "wildheart-invoker",
                         "thornweald-archer",
                     ]
                     .contains(&key.as_str())

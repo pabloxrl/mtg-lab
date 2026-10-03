@@ -168,6 +168,7 @@ impl Game {
                             .get(*h)
                             .is_ok_and(|o| o.zone == Zone::Battlefield),
                         TurnWork::Wake(index) => *index < self.turns.sick.len(),
+                        TurnWork::ExpireTrample => !self.turns.trample.is_empty(),
                         TurnWork::ExpireHaste => !self.turns.haste.is_empty(),
                         TurnWork::Expire => !self.turns.modifications.is_empty(),
                         TurnWork::Ready { .. } => self.turns.position.is_some(),
@@ -179,7 +180,7 @@ impl Game {
                     .is_some_and(|(_, _, step)| step == turns::Step::CombatDamage)
                     && self.turns.decision.is_none()
             }
-            Work::GrantHaste(h) => self.haste_target(*h),
+            Work::GrantHaste(h) | Work::GrantTrample(h) => self.haste_target(*h),
             Work::RemoveAbility(h) => self.turns.abilities.iter().any(|a| a.object == *h),
             Work::Modify(m) => self
                 .objects
