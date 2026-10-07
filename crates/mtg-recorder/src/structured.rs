@@ -28,6 +28,9 @@ pub enum Command {
         card: VisibleRef,
     },
     Pass,
+    OrderTrigger {
+        trigger: usize,
+    },
     PlayLand {
         card: VisibleRef,
     },
@@ -476,10 +479,14 @@ fn observation_valid(o: &Observation) -> bool {
                 "blockers",
                 "combat_damage",
                 "cleanup_discard",
+                "trigger_order",
             ]
             .contains(&d.kind.as_str())
             || d.count == 0
-            || (!matches!(d.kind.as_str(), "bottom" | "cleanup_discard") && d.count != 1)
+            || (!matches!(
+                d.kind.as_str(),
+                "bottom" | "cleanup_discard" | "trigger_order"
+            ) && d.count != 1)
             || d.candidates.is_empty()
             || d.legal_mask.len() != d.candidates.len()
             || !unique(&d.candidates)
@@ -738,6 +745,7 @@ fn kind_command(kind: &str, command: &Command) -> bool {
             | ("bottom", Command::Bottom { .. })
             | ("cast_mode", Command::Mode { .. } | Command::CancelPayment)
             | ("cleanup_discard", Command::Discard { .. })
+            | ("trigger_order", Command::OrderTrigger { .. })
             | (
                 "cast_discard",
                 Command::Discard { .. } | Command::CancelPayment

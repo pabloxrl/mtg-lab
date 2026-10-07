@@ -26,6 +26,8 @@ pub mod policy;
 pub mod targets;
 #[path = "terminal.rs"]
 pub mod terminal;
+#[path = "triggers.rs"]
+pub mod triggers;
 #[path = "turns.rs"]
 pub mod turns;
 #[path = "views.rs"]
@@ -195,3 +197,7 @@ mod shivan_tests;
 #[cfg(test)]
 #[path = "invoker_tests.rs"]
 mod invoker_tests;
+
+#[cfg(test)]
+#[path = "trigger_tests.rs"]
+mod trigger_tests;

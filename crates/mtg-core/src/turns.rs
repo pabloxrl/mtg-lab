@@ -18,6 +18,7 @@ pub enum Step {
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TurnKind {
     Priority,
+    TriggerOrder,
     Combat(super::combat::CombatKind),
     Discard { count: usize },
 }
@@ -64,6 +65,9 @@ pub enum TurnError {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, Default)]
 pub(super) struct TurnState {
+    pub(super) trigger_return: Option<(Seat, bool)>,
+    pub(super) triggered: Vec<super::triggers::TriggeredAbility>,
+    pub(super) pending_triggers: Vec<Option<super::triggers::PendingTrigger>>,
     pub(super) decision: Option<TurnDecision>,
     pub(super) position: Option<(u64, Seat, Step)>,
     pub(super) passed: bool,
@@ -422,6 +426,10 @@ impl Game {
         }
     }
     pub(super) fn set_turn_decision(&mut self, actor: Seat, kind: TurnKind) -> TurnDecision {
+        if kind == TurnKind::Priority && self.turns.pending_triggers.iter().any(Option::is_some) {
+            self.turns.trigger_return = Some((actor, self.turns.passed));
+            return self.trigger_boundary();
+        }
         let d = TurnDecision {
             id: DecisionId {
                 scope: self.objects.scope(),

@@ -817,3 +817,40 @@ fn structured_flying_forbidden_pairs_survive_roundtrip_and_reject_illegal_blocks
         assert!(structured::validate(&invalid).is_err());
     }
 }
+
+#[test]
+fn synthetic_trigger_order_roundtrip_and_invalid_permutations() {
+    // Literal storage contract, not production trigger detection evidence.
+    let mut e = fixtures()[2].clone();
+    let commands = vec![
+        structured::Command::OrderTrigger { trigger: 0 },
+        structured::Command::OrderTrigger { trigger: 1 },
+    ];
+    let row = &mut e.decisions[0];
+    let decision = row.observation.decision.as_mut().unwrap();
+    decision.kind = "trigger_order".into();
+    decision.count = 2;
+    decision.candidates = commands.clone();
+    decision.legal_mask = vec![true, true];
+    row.choice.submission.choices = commands.into_iter().rev().collect();
+    structured::validate(&e).unwrap();
+    let mut w = Writer::new_v2(Vec::new(), 200_000, Backpressure::Block).unwrap();
+    w.append_v2(&e).unwrap();
+    assert_eq!(
+        read_v2(w.finish().unwrap().as_slice(), 200_000).unwrap(),
+        vec![e.clone()]
+    );
+    for choices in [
+        vec![],
+        vec![structured::Command::OrderTrigger { trigger: 0 }],
+        vec![structured::Command::OrderTrigger { trigger: 0 }; 2],
+        vec![
+            structured::Command::OrderTrigger { trigger: 0 },
+            structured::Command::OrderTrigger { trigger: 2 },
+        ],
+    ] {
+        let mut bad = e.clone();
+        bad.decisions[0].choice.submission.choices = choices;
+        assert!(structured::validate(&bad).is_err());
+    }
+}

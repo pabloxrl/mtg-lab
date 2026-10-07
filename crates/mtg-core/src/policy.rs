@@ -24,6 +24,10 @@ pub enum Choice {
         card: VisibleRef,
     },
     Pass,
+    /// Stable row in the pending batch; submit the complete bottom-to-top permutation.
+    OrderTrigger {
+        trigger: usize,
+    },
     PlayLand {
         card: VisibleRef,
     },
@@ -534,6 +538,15 @@ impl Game {
                 },
                 1,
             )
+        } else if self
+            .turn_decision()
+            .is_some_and(|d| d.kind == turns::TurnKind::TriggerOrder)
+        {
+            let rows = self.trigger_candidates(seat);
+            for &trigger in &rows {
+                push(Choice::OrderTrigger { trigger }, true)?;
+            }
+            ("trigger_order", rows.len())
         } else if let Some(turns::TurnDecision {
             kind: turns::TurnKind::Discard { count },
             ..
@@ -677,7 +690,8 @@ impl Game {
                         .find(|(spell, _)| spell == h)
                         .map(|(_, mode)| *mode),
                     row,
-                    ability: self.turns.abilities.iter().any(|a| a.object == *h),
+                    ability: self.turns.abilities.iter().any(|a| a.object == *h)
+                        || self.turns.triggered.iter().any(|a| a.object == *h),
                     targets: self
                         .stack_targets(*h)
                         .unwrap_or_default()
@@ -846,6 +860,20 @@ impl Game {
             scope: self.objects.scope(),
             generation,
         };
+        if d.kind == "trigger_order" {
+            let order = submission
+                .choices
+                .iter()
+                .map(|c| match c {
+                    Choice::OrderTrigger { trigger } => *trigger,
+                    _ => unreachable!("validated trigger choices"),
+                })
+                .collect::<Vec<_>>();
+            self.order_triggers_quantum(actor, id, &order, NonZeroUsize::MAX)
+                .map_err(turn_error)?;
+            self.finish_work();
+            return Ok(());
+        }
         if d.kind == "cleanup_discard" {
             let hand = self.view_hand(actor);
             let original = self.discard_cards().expect("discard decision");
@@ -887,6 +915,7 @@ impl Game {
                 .map_err(cast_error);
         }
         match &submission.choices[0] {
+            Choice::OrderTrigger { .. } => Err(PolicyError::InvalidSelection),
             Choice::Activate { card } => {
                 let h = self
                     .objects

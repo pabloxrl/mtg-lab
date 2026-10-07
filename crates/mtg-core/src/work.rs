@@ -14,6 +14,8 @@ pub enum Progress {
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub(super) enum Work {
     Turn(turns::TurnWork),
+    PlaceTrigger(usize),
+    TriggerBoundary,
     CombatLife([i64; 2]),
     FinishCombat,
     Modify(targets::Modification),
@@ -90,6 +92,14 @@ impl Game {
                 break;
             };
             let done = match &mut work {
+                Work::PlaceTrigger(row) => {
+                    self.place_trigger(*row);
+                    true
+                }
+                Work::TriggerBoundary => {
+                    self.trigger_boundary();
+                    true
+                }
                 Work::Turn(w) => {
                     self.run_turn_work(w);
                     true
@@ -175,6 +185,7 @@ impl Game {
                 Work::FinishSpell { spell, resolution } => {
                     assert_eq!(self.turns.stack.pop(), Some(*spell));
                     self.turns.abilities.retain(|a| a.object != *spell);
+                    self.turns.triggered.retain(|a| a.object != *spell);
                     self.turns.effects.retain(|(h, _)| h != spell);
                     self.turns.modes.retain(|(h, _)| h != spell);
                     self.turns.modifications.retain(|m| {

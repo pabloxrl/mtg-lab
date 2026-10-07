@@ -22,6 +22,9 @@ pub enum Choice {
         card: ObjectRef,
     },
     Pass {},
+    OrderTrigger {
+        trigger: usize,
+    },
     PlayLand {
         card: ObjectRef,
     },
@@ -268,6 +271,7 @@ pub fn apply(g: &mut Game, bytes: &[u8], capacity: usize) -> Result<(), ActionEr
 fn encode_choice(g: &Game, actor: Seat, c: &policy::Choice) -> Result<Choice, ActionError> {
     let map = |r| reference(g, actor, r);
     Ok(match c {
+        policy::Choice::OrderTrigger { trigger } => Choice::OrderTrigger { trigger: *trigger },
         policy::Choice::Activate { card } => Choice::Activate { card: map(card)? },
         policy::Choice::FinishActivation => Choice::FinishActivation {},
         policy::Choice::CancelActivation => Choice::CancelActivation {},
@@ -309,6 +313,7 @@ fn encode_choice(g: &Game, actor: Seat, c: &policy::Choice) -> Result<Choice, Ac
 fn decode_choice(g: &Game, actor: Seat, c: &Choice) -> Result<policy::Choice, ActionError> {
     let map = |r| resolve(g, actor, r);
     Ok(match c {
+        Choice::OrderTrigger { trigger } => policy::Choice::OrderTrigger { trigger: *trigger },
         Choice::Activate { card } => policy::Choice::Activate { card: map(card)? },
         Choice::FinishActivation {} => policy::Choice::FinishActivation,
         Choice::CancelActivation {} => policy::Choice::CancelActivation,
