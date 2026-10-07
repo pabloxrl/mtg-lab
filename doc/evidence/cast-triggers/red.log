@@ -1,0 +1,54 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde_json v1.0.151
+   Compiling syn v3.0.6
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-205/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.22s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 2 tests
+test game::cast_trigger_tests::cyclops_trigger_then_growth_literal_stat_ledger ... FAILED
+test game::cast_trigger_tests::archer_committed_cast_waits_for_resolution_and_survives_source_death ... FAILED
+
+failures:
+
+---- game::cast_trigger_tests::cyclops_trigger_then_growth_literal_stat_ledger stdout ----
+
+thread 'game::cast_trigger_tests::cyclops_trigger_then_growth_literal_stat_ledger' (628) panicked at crates/mtg-core/src/cast_trigger_tests.rs:60:5:
+assertion `left == right` failed: Pinned Cyclops is 0/4
+  left: None
+ right: Some((0, 4))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- game::cast_trigger_tests::archer_committed_cast_waits_for_resolution_and_survives_source_death stdout ----
+
+thread 'game::cast_trigger_tests::archer_committed_cast_waits_for_resolution_and_survives_source_death' (627) panicked at crates/mtg-core/src/cast_trigger_tests.rs:46:5:
+assertion `left == right` failed: CR 601.2i/603: committed noncreature cast triggers Archer
+  left: 0
+ right: 1
+
+
+failures:
+    game::cast_trigger_tests::archer_committed_cast_waits_for_resolution_and_survives_source_death
+    game::cast_trigger_tests::cyclops_trigger_then_growth_literal_stat_ledger
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 248 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -7,7 +7,9 @@ use super::targets::{CreatureState, TargetError};
 use super::turns::Step;
 use super::*;
 
-const SUPPORTED: [&str; 16] = [
+const SUPPORTED: [&str; 18] = [
+    "firebrand-archer",
+    "crackling-cyclops",
     "forest",
     "mountain",
     "bear-cub",
@@ -54,6 +56,8 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
     // Literal support list and behavior expectations come from M1 acceptance,
     // not the implementation's support lookup or reserved manifest behavior flag.
     for (key, mana_text, color, stats, is_instant) in [
+        ("firebrand-archer", "{1}{R}", None, Some((2, 1)), false),
+        ("crackling-cyclops", "{2}{R}", None, Some((0, 4)), false),
         ("goblin-surprise", "{2}{R}", None, None, true),
         ("thrill-of-possibility", "{1}{R}", None, None, true),
         ("wildheart-invoker", "{2}{G}{G}", None, Some((4, 3)), false),

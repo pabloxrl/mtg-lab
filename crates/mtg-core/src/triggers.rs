@@ -1,11 +1,15 @@
 //! Pending abilities are owned independently of their source incarnation.
 use super::*;
 
-/// No production trigger detection is enabled by the placement contract.
+/// The scoped noncreature-cast abilities; source handles retain incarnation.
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TriggerKind {
+    Archer,
+    Cyclops,
     #[cfg(test)]
-    Synthetic { tag: u32 },
+    Synthetic {
+        tag: u32,
+    },
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug)]
 pub(super) struct PendingTrigger {
@@ -22,6 +26,92 @@ pub(super) struct TriggeredAbility {
 }
 
 impl Game {
+    pub(super) fn cast_triggers(&self, actor: Seat, card: CardId) -> Vec<PendingTrigger> {
+        if super::card_definitions::definition(card)
+            .creature_base()
+            .is_some()
+        {
+            return vec![];
+        }
+        self.objects
+            .in_zone(Zone::Battlefield)
+            .filter_map(|source| {
+                let o = self.objects.get(source).expect("battlefield");
+                if o.controller != actor {
+                    return None;
+                }
+                let kind = super::card_definitions::definition(o.card).cast_trigger()?;
+                Some(PendingTrigger {
+                    source,
+                    card: o.card,
+                    controller: actor,
+                    kind,
+                })
+            })
+            .collect()
+    }
+
+    pub(super) fn prepare_trigger_resolution(
+        &mut self,
+        a: TriggeredAbility,
+    ) -> Result<(), turns::TurnError> {
+        use turns::TurnError;
+        let mut change = None;
+        let mut life = None;
+        match a.declaration.kind {
+            TriggerKind::Archer => {
+                let mut next = self.life;
+                let i = seat_index(turns::opponent(a.declaration.controller));
+                next[i] = next[i].checked_sub(1).ok_or(TurnError::EffectOverflow)?;
+                life = Some(next);
+            }
+            TriggerKind::Cyclops => {
+                let h = a.declaration.source;
+                if let Some(state) = self.creature_state(h).filter(|_| self.haste_target(h)) {
+                    state
+                        .power
+                        .checked_add(3)
+                        .ok_or(TurnError::EffectOverflow)?;
+                    let old = self
+                        .turns
+                        .modifications
+                        .iter()
+                        .find(|m| m.handle == h)
+                        .copied()
+                        .unwrap_or(targets::Modification {
+                            handle: h,
+                            boost: 0,
+                            power_boost: 0,
+                            damage: 0,
+                        });
+                    change = Some(targets::Modification {
+                        power_boost: old
+                            .power_boost
+                            .checked_add(3)
+                            .ok_or(TurnError::EffectOverflow)?,
+                        ..old
+                    });
+                    self.turns
+                        .modifications
+                        .try_reserve(1)
+                        .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                }
+            }
+            #[cfg(test)]
+            TriggerKind::Synthetic { .. } => {}
+        }
+        self.objects
+            .prepare_removals(1)
+            .map_err(TurnError::Storage)?;
+        if let Some(life) = life {
+            self.work.push_back(Work::TriggerLife(life));
+        }
+        if let Some(change) = change {
+            self.work.push_back(Work::Modify(change));
+        }
+        self.work.push_back(Work::RemoveAbility(a.object));
+        Ok(())
+    }
     pub(super) fn trigger_candidates(&self, actor: Seat) -> Vec<usize> {
         self.turns
             .pending_triggers
@@ -90,9 +180,6 @@ impl Game {
         Ok(self.resume(quantum))
     }
 
-    // TriggerKind is deliberately uninhabited outside tests until a real trigger
-    // source is delivered. Keep the shared placement algorithm compiled here.
-    #[allow(unreachable_code, unused_variables)]
     pub(super) fn place_trigger(&mut self, row: usize) {
         let declaration = self.turns.pending_triggers[row]
             .take()

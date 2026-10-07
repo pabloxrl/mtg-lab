@@ -11,6 +11,12 @@ pub(super) enum InstantEffect {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Definition {
+    CastTriggerCreature {
+        cost: ManaCost,
+        power: u32,
+        toughness: u32,
+        trigger: super::triggers::TriggerKind,
+    },
     BasicLand(Color),
     VanillaCreature {
         cost: ManaCost,
@@ -68,7 +74,8 @@ pub(super) enum Definition {
 impl Definition {
     pub(super) fn cost(self) -> Option<ManaCost> {
         match self {
-            Self::VanillaCreature { cost, .. }
+            Self::CastTriggerCreature { cost, .. }
+            | Self::VanillaCreature { cost, .. }
             | Self::ManaCreature { cost, .. }
             | Self::KeywordCreature { cost, .. }
             | Self::HasteCreature { cost, .. }
@@ -83,6 +90,12 @@ impl Definition {
     }
     pub(super) fn modal(self) -> bool {
         matches!(self, Self::ModalInstant { .. })
+    }
+    pub(super) fn cast_trigger(self) -> Option<super::triggers::TriggerKind> {
+        match self {
+            Self::CastTriggerCreature { trigger, .. } => Some(trigger),
+            _ => None,
+        }
     }
     pub(super) fn discard_draw(self) -> bool {
         matches!(self, Self::DiscardDraw { .. })
@@ -102,7 +115,10 @@ impl Definition {
     pub(super) fn creature_base(self) -> Option<(u32, u32)> {
         match self {
             Self::Token => Some((1, 1)),
-            Self::VanillaCreature {
+            Self::CastTriggerCreature {
+                power, toughness, ..
+            }
+            | Self::VanillaCreature {
                 power, toughness, ..
             }
             | Self::ManaCreature {
@@ -171,7 +187,8 @@ impl Definition {
     pub(super) fn vanilla(self) -> bool {
         matches!(
             self,
-            Self::VanillaCreature { .. }
+            Self::CastTriggerCreature { .. }
+                | Self::VanillaCreature { .. }
                 | Self::ManaCreature { .. }
                 | Self::KeywordCreature { .. }
                 | Self::HasteCreature { .. }
@@ -186,6 +203,24 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "firebrand-archer" => Definition::CastTriggerCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 1, 0, 0],
+                generic: 1,
+            },
+            power: 2,
+            toughness: 1,
+            trigger: super::triggers::TriggerKind::Archer,
+        },
+        "crackling-cyclops" => Definition::CastTriggerCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 1, 0, 0],
+                generic: 2,
+            },
+            power: 0,
+            toughness: 4,
+            trigger: super::triggers::TriggerKind::Cyclops,
+        },
         "goblin-surprise" => Definition::ModalInstant {
             cost: ManaCost {
                 colored: [0, 0, 0, 1, 0, 0],

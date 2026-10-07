@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "basis": "Original pinned Archer/Cyclops; CR 601.2i,603.3b,113.7a,611.2a. points: [P0,P1] life, Cyclops [power,toughness] (null absent), stack size, Goblin tokens. Synthetic positions; real rules execution.",
+  "cases": [
+    {
+      "id": "archer_growth",
+      "archers": 1,
+      "cyclops": false,
+      "spell": "giant-growth",
+      "order": [
+        0
+      ]
+    },
+    {
+      "id": "cyclops_growth",
+      "archers": 0,
+      "cyclops": true,
+      "spell": "giant-growth",
+      "order": [
+        0
+      ],
+      "cleanup": true
+    },
+    {
+      "id": "mixed_growth",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "giant-growth",
+      "order": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "two_growth",
+      "archers": 2,
+      "cyclops": false,
+      "spell": "giant-growth",
+      "order": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "dead_source",
+      "archers": 1,
+      "cyclops": false,
+      "spell": "giant-growth",
+      "order": [
+        0
+      ],
+      "death": "archer"
+    },
+    {
+      "id": "dead_target",
+      "archers": 1,
+      "cyclops": false,
+      "spell": "giant-growth",
+      "order": [
+        0
+      ],
+      "death": "target"
+    },
+    {
+      "id": "archer_fodder",
+      "archers": 1,
+      "cyclops": false,
+      "spell": "dragon-fodder",
+      "order": [
+        0
+      ]
+    },
+    {
+      "id": "cyclops_fodder",
+      "archers": 0,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        0
+      ]
+    },
+    {
+      "id": "creature",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "swab-goblin",
+      "order": []
+    },
+    {
+      "id": "no_mana",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "giant-growth",
+      "order": []
+    },
+    {
+      "id": "cancel",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "giant-growth",
+      "order": []
+    },
+    {
+      "id": "thrill_fail",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "thrill-of-possibility",
+      "order": []
+    },
+    {
+      "id": "land",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "mountain",
+      "order": []
+    },
+    {
+      "id": "mana",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "mountain",
+      "order": []
+    },
+    {
+      "id": "bite_reject",
+      "archers": 1,
+      "cyclops": true,
+      "spell": "bite-down",
+      "order": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "order_012",
+      "archers": 2,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "order_021",
+      "archers": 2,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        0,
+        2,
+        1
+      ]
+    },
+    {
+      "id": "order_102",
+      "archers": 2,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "order_120",
+      "archers": 2,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        1,
+        2,
+        0
+      ]
+    },
+    {
+      "id": "order_201",
+      "archers": 2,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        2,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "order_210",
+      "archers": 2,
+      "cyclops": true,
+      "spell": "dragon-fodder",
+      "order": [
+        2,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "apnap",
+      "archers": 1,
+      "cyclops": false,
+      "spell": "mountain",
+      "order": []
+    }
+  ]
+}

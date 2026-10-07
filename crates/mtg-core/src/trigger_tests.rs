@@ -81,7 +81,9 @@ fn tags(g: &Game) -> Vec<u32> {
         .iter()
         .map(|h| {
             let a = g.turns.triggered.iter().find(|a| a.object == *h).unwrap();
-            let triggers::TriggerKind::Synthetic { tag } = a.declaration.kind;
+            let triggers::TriggerKind::Synthetic { tag } = a.declaration.kind else {
+                panic!("synthetic fixture")
+            };
             tag
         })
         .collect()

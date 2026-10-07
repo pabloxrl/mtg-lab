@@ -17,6 +17,7 @@ pub(super) enum Work {
     PlaceTrigger(usize),
     TriggerBoundary,
     CombatLife([i64; 2]),
+    TriggerLife([i64; 2]),
     FinishCombat,
     Modify(targets::Modification),
     GrantHaste(Handle),
@@ -104,7 +105,7 @@ impl Game {
                     self.run_turn_work(w);
                     true
                 }
-                Work::CombatLife(life) => {
+                Work::CombatLife(life) | Work::TriggerLife(life) => {
                     self.life = *life;
                     true
                 }
