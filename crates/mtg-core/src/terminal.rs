@@ -33,7 +33,9 @@ impl Game {
         if self.work.iter().any(|w| {
             matches!(
                 w,
-                Work::Turn(_)
+                Work::PlaceTrigger(_)
+                    | Work::TriggerBoundary
+                    | Work::Turn(_)
                     | Work::CombatLife(_)
                     | Work::FinishCombat
                     | Work::Modify(_)

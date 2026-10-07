@@ -547,6 +547,7 @@ fn w_command(value: &p::Choice) -> w::Command {
             card: w_visible_ref(card),
         },
         p::Choice::Pass => w::Command::Pass,
+        p::Choice::OrderTrigger { trigger } => w::Command::OrderTrigger { trigger: *trigger },
         p::Choice::PlayLand { card } => w::Command::PlayLand {
             card: w_visible_ref(card),
         },
@@ -637,5 +638,28 @@ mod flying_tests {
         assert_eq!(wire.forbidden_blocks.len(), 1);
         assert_eq!(wire.forbidden_blocks[0].0.row, 2);
         assert_eq!(wire.forbidden_blocks[0].1.row, 0);
+    }
+}
+
+#[cfg(test)]
+mod trigger_tests {
+    use super::*;
+    #[test]
+    fn typed_trigger_order_preserves_identity_and_order() {
+        let commands = [
+            p::Choice::OrderTrigger { trigger: 1 },
+            p::Choice::OrderTrigger { trigger: 0 },
+        ];
+        let wire = commands.iter().map(w_command).collect::<Vec<_>>();
+        assert_eq!(
+            serde_json::to_value(&wire).unwrap(),
+            serde_json::json!([
+                {"kind":"order_trigger", "trigger":1}, {"kind":"order_trigger", "trigger":0}
+            ])
+        );
+        assert_eq!(
+            serde_json::from_slice::<Vec<w::Command>>(&serde_json::to_vec(&wire).unwrap()).unwrap(),
+            wire
+        );
     }
 }

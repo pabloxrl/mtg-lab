@@ -314,9 +314,18 @@ impl Game {
                 .find(|(spell, _)| *spell == h)
                 .map(|(_, e)| *e);
             let mut failed_draw = None;
-            let resolution = if let Some(a) =
-                self.turns.abilities.iter().find(|a| a.object == h).copied()
-            {
+            let resolution = if let Some(a) = self.turns.triggered.iter().find(|a| a.object == h) {
+                match a.declaration.kind {
+                    #[cfg(test)]
+                    super::triggers::TriggerKind::Synthetic { .. } => {
+                        self.objects
+                            .prepare_removals(1)
+                            .map_err(TurnError::Storage)?;
+                        self.work.push_back(Work::RemoveAbility(h));
+                        None
+                    }
+                }
+            } else if let Some(a) = self.turns.abilities.iter().find(|a| a.object == h).copied() {
                 self.objects
                     .prepare_removals(1)
                     .map_err(TurnError::Storage)?;

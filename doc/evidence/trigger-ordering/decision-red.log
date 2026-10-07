@@ -1,0 +1,21 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-204/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.75s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+
+thread 'game::trigger_tests::malformed_trigger_decision_cannot_restore_without_pending_owner_or_return' (278) panicked at crates/mtg-core/src/trigger_tests.rs:362:9:
+assertion `left == right` failed
+  left: Ok(())
+ right: Err(Corrupt)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test game::trigger_tests::malformed_trigger_decision_cannot_restore_without_pending_owner_or_return ... FAILED
+
+failures:
+
+failures:
+    game::trigger_tests::malformed_trigger_decision_cannot_restore_without_pending_owner_or_return
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 246 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

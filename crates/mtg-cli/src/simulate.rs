@@ -145,6 +145,7 @@ pub fn step(g: &mut Game) -> Result<(), String> {
     }
     let d = g.turn_decision().ok_or("missing decision")?;
     let selection = match d.kind {
+        TurnKind::TriggerOrder => return Err("unexpected trigger ordering for pass-v1".into()),
         TurnKind::Priority => TurnSelection::Pass(d.candidate(0)),
         TurnKind::Discard { count } => {
             TurnSelection::Discard((0..count).map(|i| d.candidate(i)).collect())

@@ -61,6 +61,11 @@ fn vanilla(card: CardId) -> bool {
 }
 impl Game {
     pub(super) fn has_trample(&self, h: Handle) -> bool {
+        if self.turns.abilities.iter().any(|a| a.object == h)
+            || self.turns.triggered.iter().any(|a| a.object == h)
+        {
+            return false;
+        }
         if self.turns.trample.contains(&h) && self.haste_target(h) {
             return true;
         }

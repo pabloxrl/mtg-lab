@@ -102,6 +102,7 @@ impl Script {
     fn idle(&mut self) {
         let d = self.g.turn_decision().unwrap();
         match d.kind {
+            TurnKind::TriggerOrder => panic!("no trigger sources in this script"),
             TurnKind::Priority => self.pass(),
             TurnKind::Combat(_) => self.one(
                 d.actor,

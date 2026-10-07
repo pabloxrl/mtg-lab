@@ -70,6 +70,7 @@ pub fn engine() -> &'static str {
                 include_str!("objects.rs"),
                 include_str!("rng.rs"),
                 include_str!("turns.rs"),
+                include_str!("triggers.rs"),
                 include_str!("mana.rs"),
                 include_str!("casting.rs"),
                 include_str!("activation.rs"),
@@ -153,7 +154,72 @@ impl Game {
         {
             return false;
         }
+        if let Some(d) = self
+            .turns
+            .decision
+            .filter(|d| d.kind == turns::TurnKind::TriggerOrder)
+        {
+            let Some((_, active, _)) = self.turns.position else {
+                return false;
+            };
+            let actor = [active, turns::opponent(active)]
+                .into_iter()
+                .find(|&actor| !self.trigger_candidates(actor).is_empty());
+            if actor != Some(d.actor) || self.turns.trigger_return.is_none() {
+                return false;
+            }
+        }
+        let mut placement_rows = Vec::new();
+        let mut boundary = false;
+        for w in &self.work {
+            match w {
+                Work::PlaceTrigger(row) => {
+                    if boundary || placement_rows.contains(row) {
+                        return false;
+                    }
+                    placement_rows.push(*row);
+                }
+                Work::TriggerBoundary => {
+                    if boundary {
+                        return false;
+                    }
+                    boundary = true;
+                }
+                _ if boundary || !placement_rows.is_empty() => return false,
+                _ => {}
+            }
+        }
+        if !placement_rows.is_empty() && !boundary {
+            return false;
+        }
+        if boundary && self.work.len() != placement_rows.len() + 1 {
+            return false;
+        }
+        if let Some(first) = placement_rows.first() {
+            let Some(Some(p)) = self.turns.pending_triggers.get(*first) else {
+                return false;
+            };
+            let controller = p.controller;
+            let expected = self.trigger_candidates(controller);
+            if expected.len() != placement_rows.len()
+                || !placement_rows.iter().all(|r| expected.contains(r))
+            {
+                return false;
+            }
+        }
         self.work.iter().all(|w| match w {
+            Work::PlaceTrigger(row) => {
+                self.turns.decision.is_none()
+                    && self.turns.trigger_return.is_some()
+                    && self
+                        .turns
+                        .pending_triggers
+                        .get(*row)
+                        .is_some_and(Option::is_some)
+            }
+            Work::TriggerBoundary => {
+                self.turns.decision.is_none() && self.turns.trigger_return.is_some()
+            }
             Work::Turn(w) => {
                 use turns::TurnWork;
                 self.turns.decision.is_none()
