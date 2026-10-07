@@ -345,3 +345,29 @@ fn mandatory_source_death_and_terminal_settlement_precede_placement() {
     assert!(lost.turn_decision().is_none());
     assert!(lost.turns.stack.is_empty());
 }
+
+#[test]
+fn malformed_trigger_decision_cannot_restore_without_pending_owner_or_return() {
+    use sha2::{Digest, Sha256};
+    let mut g = pending();
+    g.finish_work();
+    let original = g.snapshot();
+    for field in ["pending_triggers", "trigger_return"] {
+        let mut envelope: serde_json::Value = serde_json::from_slice(&original).unwrap();
+        let mut payload: serde_json::Value =
+            serde_json::from_str(envelope["payload"].as_str().unwrap()).unwrap();
+        payload["turns"][field] = if field == "pending_triggers" {
+            serde_json::json!([])
+        } else {
+            serde_json::Value::Null
+        };
+        let payload = serde_json::to_string(&payload).unwrap();
+        envelope["sha256"] = format!("{:x}", Sha256::digest(payload.as_bytes())).into();
+        envelope["payload"] = payload.into();
+        assert_eq!(
+            g.restore(&serde_json::to_vec(&envelope).unwrap()),
+            Err(snapshot::RestoreError::Corrupt)
+        );
+        assert_eq!(g.snapshot(), original);
+    }
+}

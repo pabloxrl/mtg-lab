@@ -34,7 +34,9 @@ Normal discovery runs `game::trigger_tests`, recorder
 - Typed recorder conversion preserves trigger row identity and order; JSONL
   round trips and malformed permutations are checked against literal commands.
 - Restore rejects duplicated placement work with a valid recomputed envelope
-  checksum, without replacing the original state.
+  checksum, without replacing the original state. Trigger-order decisions also
+  require their pending controller and saved return boundary; malformed decisions
+  reject before restore (see [behavioral red](decision-red.log)).
 
 The resumed checkout's original two tests already passed. Added tests exposed
 behavioral failures before repairs: synthetic resolution increased battlefield

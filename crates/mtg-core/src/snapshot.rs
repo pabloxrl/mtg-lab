@@ -154,6 +154,21 @@ impl Game {
         {
             return false;
         }
+        if let Some(d) = self
+            .turns
+            .decision
+            .filter(|d| d.kind == turns::TurnKind::TriggerOrder)
+        {
+            let Some((_, active, _)) = self.turns.position else {
+                return false;
+            };
+            let actor = [active, turns::opponent(active)]
+                .into_iter()
+                .find(|&actor| !self.trigger_candidates(actor).is_empty());
+            if actor != Some(d.actor) || self.turns.trigger_return.is_none() {
+                return false;
+            }
+        }
         let mut placement_rows = Vec::new();
         let mut boundary = false;
         for w in &self.work {
