@@ -68,7 +68,9 @@ pub(super) struct PreparedEffect {
 }
 impl Game {
     pub fn creature_state(&self, h: Handle) -> Option<CreatureState> {
-        if self.turns.abilities.iter().any(|a| a.object == h) {
+        if self.turns.abilities.iter().any(|a| a.object == h)
+            || self.turns.triggered.iter().any(|a| a.object == h)
+        {
             return None;
         }
         let o = self.objects.get(h).ok()?;

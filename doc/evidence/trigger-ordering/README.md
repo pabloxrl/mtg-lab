@@ -27,6 +27,9 @@ Normal discovery runs `game::trigger_tests`, recorder
 - Explicit synthetic source-death work runs before placement; a terminal loss
   settles before any trigger choice or priority. Synthetic resolution removes
   the ability rather than moving its source-card representation to battlefield.
+  Public observations and captured records give abilities no source creature
+  characteristics or printed trample; [review regression red](observation-red.log)
+  and [keyword red](keyword-red.log) precede the fixes.
 - Existing Driver captures both ordered submissions, rejects wrong-seat/stale
   submissions, retains semantic history, and delivers concession rewards once.
   Reapplying history from the declared initial synthetic snapshot preserves order.

@@ -258,6 +258,14 @@ fn trigger_driver_capture_and_semantic_replay_from_declared_snapshot() {
     let mut driver = Driver::synthetic_capture_test(g, h);
     for (seat, order) in [(Seat::P0, [1, 0]), (Seat::P1, [2, 3])] {
         let o = driver.observe(seat).unwrap();
+        for zone in &o.view.public_zones {
+            if zone.zone == "stack" {
+                assert!(
+                    zone.cards.iter().all(|c| c.creature.is_none()),
+                    "CR 113.7: abilities have no source creature characteristics"
+                );
+            }
+        }
         let d = o.decision.as_ref().unwrap();
         let s = policy::Submission {
             schema_version: 1,
@@ -370,4 +378,22 @@ fn malformed_trigger_decision_cannot_restore_without_pending_owner_or_return() {
         );
         assert_eq!(g.snapshot(), original);
     }
+}
+
+#[test]
+fn trigger_does_not_inherit_source_trample() {
+    let mut g = pending();
+    // Synthetic ability whose source-card metadata has printed trample.
+    g.turns.pending_triggers[0].as_mut().unwrap().card =
+        CardId::from_key("tajuru-pathwarden").unwrap();
+    g.finish_work();
+    order(&mut g, &[0, 1], NonZeroUsize::MAX);
+    let o = g.observe(Seat::P0).unwrap();
+    let stack = o.public_zones.iter().find(|z| z.zone == "stack").unwrap();
+    assert!(
+        stack
+            .cards
+            .iter()
+            .all(|c| !c.trample && c.creature.is_none())
+    );
 }
