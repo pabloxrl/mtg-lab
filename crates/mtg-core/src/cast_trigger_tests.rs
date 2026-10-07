@@ -503,3 +503,35 @@ fn cast_trigger_completed_growth_on_cub_detects_each_source_once() {
     pair(&mut g);
     assert_eq!(g.creature_state(cub).unwrap().power, 5);
 }
+
+#[test]
+fn cast_trigger_policy_identifies_pending_and_stacked_sources() {
+    let mut g = ready();
+    let a = add(&mut g, "firebrand-archer", Seat::P0, Zone::Battlefield);
+    let c = add(&mut g, "crackling-cyclops", Seat::P0, Zone::Battlefield);
+    growth(&mut g, c);
+    let o = serde_json::to_value(g.policy_observe(Seat::P0, 256).unwrap()).unwrap();
+    assert_eq!(
+        o["pending_triggers"][0]["ability"]["card"], "firebrand-archer",
+        "policy must identify each ordering candidate's source"
+    );
+    assert_eq!(
+        o["pending_triggers"][1]["ability"]["source"],
+        serde_json::json!({"zone":"battlefield","row":1})
+    );
+    assert_eq!(
+        o["pending_triggers"][1]["ability"]["effect"],
+        "cyclops_boost"
+    );
+    order(&mut g, &[1, 0]);
+    let o = serde_json::to_value(g.policy_observe(Seat::P0, 256).unwrap()).unwrap();
+    assert_eq!(o["stack"][1]["trigger"]["card"], "crackling-cyclops");
+    assert_eq!(
+        o["stack"][2]["trigger"]["source"],
+        serde_json::json!({"zone":"battlefield","row":0})
+    );
+    g.objects.move_to(a, Zone::Graveyard(Seat::P0)).unwrap();
+    let o = serde_json::to_value(g.policy_observe(Seat::P1, 256).unwrap()).unwrap();
+    assert_eq!(o["stack"][2]["trigger"]["card"], "firebrand-archer");
+    assert!(o["stack"][2]["trigger"]["source"].is_null());
+}

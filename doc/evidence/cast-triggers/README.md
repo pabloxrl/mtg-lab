@@ -134,3 +134,16 @@ first repetition. These are observations compared against the independently
 written fixture, not replacement expectations. The unchanged green-mirror
 README native quickstart also completed both requested games successfully.
 Full torture/review/merge receipts remain in the issue/PR until final delivery.
+
+A follow-up [compiled observation red](observation-red.log) exposed missing
+policy source descriptions. `pending_triggers` now maps each ordering row to
+public card/controller/effect and an optional live battlefield source;
+`StackSpell.trigger` preserves that description after placement. Dead sources
+retain the public card/effect while their live reference is null. The normal
+Driver test chooses its order using these features, not the queue's layout.
+Typed conversion preserves these fields; [wire red](wire-red.log) preceded
+validation rejecting inconsistent controllers, wrong source references and
+unknown effects. Empty/absent new fields retain legacy fixture bytes; current
+snapshot compatibility remains fingerprinted. The prior independent review
+of `87d8125` passed, but cannot authorize these later edits: final delivery
+requires a fresh candidate-bound review and full suite.

@@ -16,7 +16,7 @@
     "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
     "crates/mtg-core/src/cast_boundary_tests.rs": "94041e47f036700f465e84c4ca57e4afd3614f80db37fb362c68d516aec418e7",
     "crates/mtg-core/src/cast_state.rs": "e984600db093c9f50250182fcf1815dd158f1bea13a1e3a0d820070952c41f4b",
-    "crates/mtg-core/src/cast_trigger_tests.rs": "95ae6bad75babfbc3bcc317d1040d836238d08ccbf65d2995c802525dede61ce",
+    "crates/mtg-core/src/cast_trigger_tests.rs": "a262b3ee54c402c59e51fbbadd4252c5f22821c29de97b8474f3f1eaa63dc2d8",
     "crates/mtg-core/src/casting.rs": "a696d4a1f445d48a49674035ac233335f84d2f6feef2421dc33fad1f65b79069",
     "crates/mtg-core/src/casting_tests.rs": "4d7c49a2b4d7488660e803e531335fa41345d4f2736f498daf653e80cb97b5f0",
     "crates/mtg-core/src/combat.rs": "bb645cd831ab205864e17b486f8a064c564f51d5b80c5e2cdf4c6d66903cf41b",
@@ -35,7 +35,7 @@
     "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
     "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
     "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
-    "crates/mtg-core/src/policy.rs": "add4d42dd5e6eb4322ddb532d5aa397638878931cef9965be1b0d7ac95ab224d",
+    "crates/mtg-core/src/policy.rs": "8723627e9697d1d3dd842c83dbd8102e3fab024d8e7fe7562ab3ce3de65b447e",
     "crates/mtg-core/src/policy_combat_tests.rs": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
     "crates/mtg-core/src/policy_spell_tests.rs": "8638b1d12770ec9ecddee0df4c0375b23d0a182d60a1770f05a94260d72e3f14",
     "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
@@ -62,12 +62,12 @@
   },
   "runs": [
     {
-      "xmage_log_sha256": "27ca944101b87f4605986e8f1294fce140aea348c814d401f70b663a2bb79864",
-      "native_log_sha256": "1f6908d45f1686285a4694d45a8b9caa02bd1eadcfb9a0545a281338f72526f8"
+      "xmage_log_sha256": "29f0137070bea6196140536cffcaa9d943bc4fecb7852040bc0bef3825c3dd7b",
+      "native_log_sha256": "fa940903f769b9e4dda900c85e8f3fbfab142761a49aea23b88c71798475956e"
     },
     {
-      "xmage_log_sha256": "e6b13e064abf4575acc62e22d4981a87ac4d4478f475170962563d9943023ac8",
-      "native_log_sha256": "1f6908d45f1686285a4694d45a8b9caa02bd1eadcfb9a0545a281338f72526f8"
+      "xmage_log_sha256": "ff59f8c9160606dd1ec7fa4f2cb4cf0718b571c0dd0b8b3e132b7bfbc1cfcb29",
+      "native_log_sha256": "aaaea2c20d8a217767e2e310aa085a590a85322c60b7c7a9efc5d6ee1569128f"
     }
   ],
   "controls": [

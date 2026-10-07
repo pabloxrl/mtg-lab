@@ -165,11 +165,18 @@ fn cast_triggers_normal_reset_typed_capture_replay_quantum() {
                         assert_eq!(cyclops.unwrap().creature.unwrap()[0], 0);
                         assert_eq!(dec.count, 3);
                         ordered = true;
-                        vec![
-                            C::OrderTrigger { trigger: 2 },
-                            C::OrderTrigger { trigger: 0 },
-                            C::OrderTrigger { trigger: 1 },
-                        ]
+                        let mut sources = o.pending_triggers.clone();
+                        // Choose from source features, not knowledge of queue layout.
+                        sources.sort_by_key(|p| {
+                            (
+                                p.ability.effect == "cyclops_boost",
+                                std::cmp::Reverse(p.row),
+                            )
+                        });
+                        sources
+                            .iter()
+                            .map(|p| C::OrderTrigger { trigger: p.row })
+                            .collect()
                     }
                     "priority" if actor == Seat::P0 && t.1 == 0 && t.2 == "precombat_main" => {
                         if landed != t.0 {
@@ -258,6 +265,41 @@ fn cast_triggers_normal_reset_typed_capture_replay_quantum() {
                     [20, 18]
                 );
                 let converted = from_core_v2(result.trajectory().unwrap()).unwrap();
+                let ordering = converted
+                    .decisions
+                    .iter()
+                    .position(|r| !r.observation.pending_triggers.is_empty())
+                    .unwrap();
+                assert_eq!(
+                    converted.decisions[ordering].observation.pending_triggers[1]
+                        .ability
+                        .card,
+                    "crackling-cyclops"
+                );
+                let mut corrupt = converted.clone();
+                corrupt.decisions[ordering].observation.pending_triggers[1]
+                    .ability
+                    .controller = 1;
+                assert!(
+                    mtg_recorder::structured::validate(&corrupt).is_err(),
+                    "source features must agree with the public object"
+                );
+                let mut corrupt = converted.clone();
+                corrupt.decisions[ordering].observation.pending_triggers[1]
+                    .ability
+                    .source = corrupt.decisions[ordering].observation.pending_triggers[0]
+                    .ability
+                    .source;
+                assert!(mtg_recorder::structured::validate(&corrupt).is_err());
+                let mut corrupt = converted.clone();
+                let trigger = corrupt
+                    .decisions
+                    .iter_mut()
+                    .flat_map(|r| &mut r.observation.stack)
+                    .find_map(|s| s.trigger.as_mut())
+                    .unwrap();
+                trigger.effect = "unimplemented".into();
+                assert!(mtg_recorder::structured::validate(&corrupt).is_err());
                 let mut w = Writer::new_v2(Vec::new(), 4_000_000, Backpressure::Block).unwrap();
                 w.append_v2(&converted).unwrap();
                 let bytes = w.finish().unwrap();
