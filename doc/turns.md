@@ -51,8 +51,11 @@ starter, including P1. Turn/step semantics use pinned CR 103.8a, 106.4, 117 and
 
 The cleanup discard prefix is necessary for pass-only opening-to-second-turn
 acceptance: the nonstarter has eight cards at their first cleanup. [Targeted instants](targets.md) now add simultaneous damage removal and Growth
-expiration after discard. Cleanup triggers remain with later abilities and
-integration acceptance.
+expiration after discard. [Exceptional cleanup](evidence/cleanup/README.md) checks
+terminal outcomes and waiting triggers after expiration, before any next-turn
+untap. Pending triggers use the existing ordering/target choices and stack.
+Once the stack is empty and both players pass, cleanup repeats its hand-size
+check. Ordinary cleanup grants no priority; only the active hand is constrained.
 
 Storage records now retain controller and tapped status. New identities from
 allocation/zone changes default to owner control and untapped; same-zone moves
@@ -107,9 +110,11 @@ CR 514.1 discard precedes CR 514.2 expiration. Each modifier record holds both
 boost and damage, removed together; no state-based check or player boundary can
 observe only one removed. All expiration precedes next turn's untap. If priority
 was granted during cleanup (CR 514.3a), two empty-stack passes repeat cleanup,
-including a new hand-size check. M1's positive vanilla boosts have no expiration
-SBA/trigger that opens such a window; the repeated-window regression explicitly
-uses a synthetic cleanup priority position. Trigger creation remains later scope.
+including a new hand-size check. The scoped pool has positive printed toughness
+and only positive temporary boosts; simultaneous expiration cannot kill a
+creature. Cleanup checks terminal losses and pending triggers before executing
+next-turn work. The pending-Pyromancer entry is explicitly synthetic; no new
+cleanup trigger source or public state-injection API is introduced.
 
 While work is pending, views, decisions and outcomes are unavailable and commands
 including concession reject unchanged. Only privileged inspection sees partial
