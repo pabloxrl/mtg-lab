@@ -580,6 +580,14 @@ impl Game {
                     .sick
                     .try_reserve(1)
                     .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                if super::card_definitions::definition(self.objects.get(h).expect("spell").card)
+                    .etb_trigger()
+                {
+                    self.turns
+                        .pending_triggers
+                        .try_reserve(1)
+                        .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+                }
                 let controller = self.objects.get(h).expect("spell").controller;
                 self.work.push_back(Work::SpellMove {
                     handle: h,

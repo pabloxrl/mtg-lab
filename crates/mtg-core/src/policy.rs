@@ -25,6 +25,9 @@ pub enum Choice {
     },
     Pass,
     /// Stable row in the pending batch; submit the complete bottom-to-top permutation.
+    TargetPlayer {
+        seat: u8,
+    },
     OrderTrigger {
         trigger: usize,
     },
@@ -109,10 +112,14 @@ pub struct TriggerSource {
     pub card: &'static str,
     pub controller: u8,
     pub effect: &'static str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_player: Option<u8>,
     pub source: Option<VisibleRef>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct PendingTriggerView {
+    #[serde(skip_serializing_if = "std::ops::Not::not")]
+    pub selecting_target: bool,
     pub row: usize,
     pub ability: TriggerSource,
 }
@@ -245,7 +252,14 @@ impl Game {
         TriggerSource {
             card: p.card.identity().key,
             controller: seat_index(p.controller) as u8,
+            target_player: match p.kind {
+                super::triggers::TriggerKind::Pyromancer { target } => {
+                    target.map(|s| seat_index(s) as u8)
+                }
+                _ => None,
+            },
             effect: match p.kind {
+                super::triggers::TriggerKind::Pyromancer { .. } => "pyromancer_damage",
                 super::triggers::TriggerKind::Archer => "archer_damage",
                 super::triggers::TriggerKind::Cyclops => "cyclops_boost",
                 #[cfg(test)]
@@ -571,6 +585,13 @@ impl Game {
             )
         } else if self
             .turn_decision()
+            .is_some_and(|d| d.kind == turns::TurnKind::TriggerTarget)
+        {
+            push(Choice::TargetPlayer { seat: 0 }, true)?;
+            push(Choice::TargetPlayer { seat: 1 }, true)?;
+            ("trigger_target", 1)
+        } else if self
+            .turn_decision()
             .is_some_and(|d| d.kind == turns::TurnKind::TriggerOrder)
         {
             let rows = self.trigger_candidates(seat);
@@ -715,6 +736,7 @@ impl Game {
                 .enumerate()
                 .filter_map(|(row, p)| {
                     p.as_ref().map(|p| PendingTriggerView {
+                        selecting_target: self.turns.trigger_placement.first() == Some(&row),
                         row,
                         ability: self.policy_trigger_source(p),
                     })
@@ -964,6 +986,17 @@ impl Game {
                 .map_err(cast_error);
         }
         match &submission.choices[0] {
+            Choice::TargetPlayer { seat } => {
+                let target = match seat {
+                    0 => Seat::P0,
+                    1 => Seat::P1,
+                    _ => return Err(PolicyError::InvalidSelection),
+                };
+                self.target_trigger_quantum(actor, id, target, NonZeroUsize::MAX)
+                    .map_err(turn_error)?;
+                self.finish_work();
+                Ok(())
+            }
             Choice::OrderTrigger { .. } => Err(PolicyError::InvalidSelection),
             Choice::Activate { card } => {
                 let h = self

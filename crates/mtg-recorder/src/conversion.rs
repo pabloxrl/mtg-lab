@@ -292,6 +292,7 @@ pub(crate) fn w_observation(value: &p::Observation) -> w::Observation {
         pending_triggers: pending_triggers
             .iter()
             .map(|p| w::PendingTriggerView {
+                selecting_target: p.selecting_target,
                 row: p.row,
                 ability: w_trigger_source(&p.ability),
             })
@@ -403,12 +404,14 @@ fn w_trigger_source(value: &p::TriggerSource) -> w::TriggerSource {
         card,
         controller,
         effect,
+        target_player,
         source,
     } = value;
     w::TriggerSource {
         card: (*card).into(),
         controller: *controller,
         effect: (*effect).into(),
+        target_player: *target_player,
         source: source.as_ref().map(w_visible_ref),
     }
 }
@@ -571,6 +574,7 @@ fn w_command(value: &p::Choice) -> w::Command {
             card: w_visible_ref(card),
         },
         p::Choice::Pass => w::Command::Pass,
+        p::Choice::TargetPlayer { seat } => w::Command::TargetPlayer { seat: *seat },
         p::Choice::OrderTrigger { trigger } => w::Command::OrderTrigger { trigger: *trigger },
         p::Choice::PlayLand { card } => w::Command::PlayLand {
             card: w_visible_ref(card),

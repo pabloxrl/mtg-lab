@@ -28,6 +28,9 @@ pub enum Command {
         card: VisibleRef,
     },
     Pass,
+    TargetPlayer {
+        seat: u8,
+    },
     OrderTrigger {
         trigger: usize,
     },
@@ -114,11 +117,15 @@ pub struct TriggerSource {
     pub card: String,
     pub controller: u8,
     pub effect: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub target_player: Option<u8>,
     pub source: Option<VisibleRef>,
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct PendingTriggerView {
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub selecting_target: bool,
     pub row: usize,
     pub ability: TriggerSource,
 }
@@ -415,9 +422,13 @@ fn command_valid(o: &Observation, c: &Command) -> bool {
 }
 fn trigger_source_valid(o: &Observation, t: &TriggerSource) -> bool {
     t.controller < 2
+        && t.target_player
+            .is_none_or(|s| s < 2 && t.effect == "pyromancer_damage")
         && matches!(
             (t.card.as_str(), t.effect.as_str()),
-            ("firebrand-archer", "archer_damage") | ("crackling-cyclops", "cyclops_boost")
+            ("firebrand-archer", "archer_damage")
+                | ("crackling-cyclops", "cyclops_boost")
+                | ("viashino-pyromancer", "pyromancer_damage")
         )
         && t.source.as_ref().is_none_or(|r| {
             valid_ref(o, r, VisibleZone::Battlefield)
@@ -473,6 +484,35 @@ fn observation_valid(o: &Observation) -> bool {
             return false;
         }
     }
+    let targeting: Vec<_> = o
+        .pending_triggers
+        .iter()
+        .filter(|p| p.selecting_target)
+        .collect();
+    if targeting.len() > 1
+        || targeting
+            .iter()
+            .any(|p| p.ability.effect != "pyromancer_damage" || p.ability.target_player.is_some())
+    {
+        return false;
+    }
+    if let Some(d) = &o.decision {
+        if (d.kind == "trigger_target")
+            != (!targeting.is_empty() && targeting[0].ability.controller == d.actor)
+        {
+            return false;
+        }
+        if d.kind == "trigger_target"
+            && (d.candidates
+                != vec![
+                    Command::TargetPlayer { seat: 0 },
+                    Command::TargetPlayer { seat: 1 },
+                ]
+                || d.legal_mask != vec![true, true])
+        {
+            return false;
+        }
+    }
     if let Some(p) = &o.pending
         && (!(if o
             .decision
@@ -503,6 +543,7 @@ fn observation_valid(o: &Observation) -> bool {
                 && s.trigger.as_ref().is_none_or(|t| {
                     s.ability
                         && trigger_source_valid(o, t)
+                        && (t.effect != "pyromancer_damage" || t.target_player.is_some())
                         && o.view
                             .public_zones
                             .iter()
@@ -553,6 +594,7 @@ fn observation_valid(o: &Observation) -> bool {
                 "combat_damage",
                 "cleanup_discard",
                 "trigger_order",
+                "trigger_target",
             ]
             .contains(&d.kind.as_str())
             || d.count == 0
@@ -819,6 +861,7 @@ fn kind_command(kind: &str, command: &Command) -> bool {
             | ("cast_mode", Command::Mode { .. } | Command::CancelPayment)
             | ("cleanup_discard", Command::Discard { .. })
             | ("trigger_order", Command::OrderTrigger { .. })
+            | ("trigger_target", Command::TargetPlayer { seat: 0 | 1 })
             | (
                 "cast_discard",
                 Command::Discard { .. } | Command::CancelPayment

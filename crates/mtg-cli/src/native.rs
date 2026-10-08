@@ -429,6 +429,10 @@ mod tests {
                 let mut output = vec![];
                 let mut polls = 0;
                 let mut c = config();
+                // Exercise stop accounting inside the versioned policy's supported
+                // pool. Red now exposes Pyromancer targets, owned by scripted play
+                // until full-pool native policy delivery (#208).
+                c.game.seats = vec![mtg_core::game::DeckConfig::new("green"); 2];
                 // Inject expiry of an explicitly configured deadline. Production
                 // control cannot produce Deadline when the config disables it.
                 if matches!(stop, Stop::Deadline) {

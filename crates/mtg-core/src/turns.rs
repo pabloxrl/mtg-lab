@@ -19,6 +19,7 @@ pub enum Step {
 pub enum TurnKind {
     Priority,
     TriggerOrder,
+    TriggerTarget,
     Combat(super::combat::CombatKind),
     Discard { count: usize },
 }
@@ -65,6 +66,7 @@ pub enum TurnError {
 }
 #[derive(serde::Serialize, serde::Deserialize, Clone, Debug, Default)]
 pub(super) struct TurnState {
+    pub(super) trigger_placement: Vec<usize>,
     pub(super) trigger_return: Option<(Seat, bool)>,
     pub(super) triggered: Vec<super::triggers::TriggeredAbility>,
     pub(super) pending_triggers: Vec<Option<super::triggers::PendingTrigger>>,
@@ -595,8 +597,8 @@ mod tests {
         }
         g.objects
             .allocate(
-                // Invoker is supported; Pyromancer remains unsupported.
-                CardId::from_key("viashino-pyromancer").unwrap(),
+                // Synthetic invalid permanent: a sorcery cannot participate in combat.
+                CardId::from_key("dragon-fodder").unwrap(),
                 Seat::P0,
                 Zone::Battlefield,
             )

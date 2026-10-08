@@ -154,6 +154,53 @@ impl Game {
         {
             return false;
         }
+        let target_decision = self
+            .turns
+            .decision
+            .filter(|d| d.kind == turns::TurnKind::TriggerTarget);
+        if target_decision.is_some() != !self.turns.trigger_placement.is_empty() {
+            return false;
+        }
+        if let Some(d) = target_decision {
+            let rows = &self.turns.trigger_placement;
+            let Some(Some(p)) = self.turns.pending_triggers.get(rows[0]) else {
+                return false;
+            };
+            let Some((_, active, _)) = self.turns.position else {
+                return false;
+            };
+            let next_actor = [active, turns::opponent(active)]
+                .into_iter()
+                .find(|&s| !self.trigger_candidates(s).is_empty());
+            if !self.work.is_empty()
+                || self.turns.trigger_return.is_none()
+                || next_actor != Some(d.actor)
+                || p.controller != d.actor
+                || !matches!(
+                    p.kind,
+                    super::triggers::TriggerKind::Pyromancer { target: None }
+                )
+                || rows.len() != self.trigger_candidates(d.actor).len()
+                || rows.iter().enumerate().any(|(i, r)| {
+                    rows[..i].contains(r)
+                        || !self
+                            .turns
+                            .pending_triggers
+                            .get(*r)
+                            .is_some_and(|p| p.as_ref().is_some_and(|p| p.controller == d.actor))
+                })
+            {
+                return false;
+            }
+        }
+        if self.turns.triggered.iter().any(|a| {
+            matches!(
+                a.declaration.kind,
+                super::triggers::TriggerKind::Pyromancer { target: None }
+            )
+        }) {
+            return false;
+        }
         if let Some(d) = self
             .turns
             .decision

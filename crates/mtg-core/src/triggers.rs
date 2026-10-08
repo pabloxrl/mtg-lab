@@ -1,9 +1,12 @@
 //! Pending abilities are owned independently of their source incarnation.
 use super::*;
 
-/// The scoped noncreature-cast abilities; source handles retain incarnation.
+/// The scoped cast and ETB abilities; source handles retain incarnation.
 #[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
 pub enum TriggerKind {
+    Pyromancer {
+        target: Option<Seat>,
+    },
     Archer,
     Cyclops,
     #[cfg(test)]
@@ -59,6 +62,13 @@ impl Game {
         let mut change = None;
         let mut life = None;
         match a.declaration.kind {
+            TriggerKind::Pyromancer { target } => {
+                let target = target.ok_or(TurnError::UnsupportedStack)?;
+                let mut next = self.life;
+                let i = seat_index(target);
+                next[i] = next[i].checked_sub(2).ok_or(TurnError::EffectOverflow)?;
+                life = Some(next);
+            }
             TriggerKind::Archer => {
                 let mut next = self.life;
                 let i = seat_index(turns::opponent(a.declaration.controller));
@@ -172,6 +182,10 @@ impl Game {
         self.work
             .try_reserve(order.len() + 1)
             .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+        self.turns
+            .trigger_placement
+            .try_reserve(order.len())
+            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
         self.generation = generation;
         self.turns.decision = None;
         self.work
@@ -180,7 +194,68 @@ impl Game {
         Ok(self.resume(quantum))
     }
 
+    /// Required CR 603.3d target; no pass/cancel or absent target is legal.
+    pub fn target_trigger_quantum(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        target: Seat,
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, turns::TurnError> {
+        use turns::TurnError;
+        let d = self.turn_decision().ok_or(TurnError::NotReady)?;
+        if d.actor != actor {
+            return Err(TurnError::Invalid(ApplyError::WrongActor));
+        }
+        if d.id != id {
+            return Err(TurnError::Invalid(ApplyError::StaleDecision));
+        }
+        if d.kind != turns::TurnKind::TriggerTarget {
+            return Err(TurnError::Invalid(ApplyError::WrongKind));
+        }
+        let generation = self
+            .generation
+            .checked_add(1)
+            .ok_or(TurnError::Invalid(ApplyError::DecisionExhausted))?;
+        self.work
+            .try_reserve(self.turns.trigger_placement.len() + 1)
+            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+        let row = self.turns.trigger_placement[0];
+        self.turns.pending_triggers[row]
+            .as_mut()
+            .expect("targeted trigger")
+            .kind = TriggerKind::Pyromancer {
+            target: Some(target),
+        };
+        self.generation = generation;
+        self.turns.decision = None;
+        self.work.extend(
+            self.turns
+                .trigger_placement
+                .drain(..)
+                .map(Work::PlaceTrigger),
+        );
+        self.work.push_back(Work::TriggerBoundary);
+        Ok(self.resume(quantum))
+    }
+
     pub(super) fn place_trigger(&mut self, row: usize) {
+        let pending = self.turns.pending_triggers[row]
+            .as_ref()
+            .expect("reserved trigger");
+        if matches!(pending.kind, TriggerKind::Pyromancer { target: None }) {
+            let controller = pending.controller;
+            self.turns.trigger_placement.push(row);
+            while let Some(work) = self.work.pop_front() {
+                match work {
+                    Work::PlaceTrigger(row) => self.turns.trigger_placement.push(row),
+                    Work::TriggerBoundary => {}
+                    _ => unreachable!("placement batch"),
+                }
+            }
+            self.set_turn_decision(controller, turns::TurnKind::TriggerTarget);
+            return;
+        }
         let declaration = self.turns.pending_triggers[row]
             .take()
             .expect("reserved trigger");
