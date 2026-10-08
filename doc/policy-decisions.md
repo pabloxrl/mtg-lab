@@ -253,3 +253,12 @@ is private while the existing `payment` continuation reserves mana and taps.
 draws two cards one at a time in library order; a failed draw causes loss at SBA
 after the spell finishes, without refunding costs. Snapshot/replay and typed
 capture preserve both stages through the existing Driver/Run.
+
+## Pyromancer required player target
+
+After controller trigger ordering, `trigger_target` requires exactly one
+`TargetPlayer { seat: 0 | 1 }` (semantic JSON `target_player`). No pass, cancel,
+creature or absent target is legal. Pending source `selecting_target` identifies
+the ability; stacked source `target_player` preserves the selection independently
+of the source lifetime. See [ETB acceptance](evidence/etb-triggers/README.md) for
+normal-reset replay, recording, rejection and reference evidence.

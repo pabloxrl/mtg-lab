@@ -1,0 +1,78 @@
+Local documentation links passed.
+RFC 0002 program coverage and dependency gates passed.
+{"capabilities": 80, "designed_slots": 320, "execution_evidence_added": 0, "related_authored_fixtures": 6}
+......................................................................unavailable pinned reference
+.....................................................................................................
+----------------------------------------------------------------------
+Ran 171 tests in 19.857s
+
+OK
+    Checking libc v0.2.189
+    Checking serde_core v1.0.229
+    Checking typenum v1.20.1
+    Checking zmij v1.0.23
+    Checking memchr v2.8.3
+    Checking generic-array v0.14.7
+    Checking itoa v1.0.18
+    Checking cfg-if v1.0.5
+    Checking cpufeatures v0.2.17
+    Checking errno v0.3.14
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking signal-hook-registry v1.4.8
+    Checking digest v0.10.7
+    Checking signal-hook v0.3.18
+    Checking sha2 v0.10.9
+    Checking serde v1.0.229
+    Checking serde_json v1.0.151
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-cli)
+    Checking mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-core)
+    Checking mtg-fixture v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-fixture)
+    Checking mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-recorder)
+    Checking mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-policy)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.41s
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-core)
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-cli)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-recorder)
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-policy)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 19.92s
+     Running unittests src/main.rs (target/debug/deps/mtg-4f3895e24be7a75c)
+
+running 19 tests
+test capture::tests::consecutive_captured_episodes_keep_distinct_opaque_ids_and_exact_counts ... ok
+test capture::tests::captured_limits_and_game_stops_preserve_diagnostics_and_not_started ... ok
+test capture::tests::publication_flush_failure_reaches_cli_accounting ... ok
+test capture::tests::published_limits_match_explicit_configuration_not_internal_clock_signals ... ok
+test capture::tests::queue_overflow_and_existing_file_conflicts_do_not_clobber_or_claim_publication ... ok
+test commands::benchmark_tests::native_benchmark_preserves_pending_signals_before_first_episode ... ok
+test capture::tests::publication_fault_boundaries_keep_game_outcome_and_uncertainty_separate ... ok
+test native::tests::native_maximum_episode_count_prestart_stop_does_not_allocate_or_overflow ... ok
+test native::tests::native_deterministic_prestart_and_midgame_stop_deadline_accounting ... FAILED
+test native::tests::native_synthetic_policy_failure_is_incomplete_caller_error_not_rules_failure ... ok
+test native::tests::native_output_failure_at_header_episode_and_summary_never_returns_success ... ok
+test script::tests::script_control_stops_account_remaining_input_and_never_start_next_episode ... ok
+test simulate::tests::simulate_active_interruption_and_deadline_have_distinct_accounting ... ok
+test simulate::tests::simulate_engine_failure_is_quarantined_and_stops_run ... ok
+test simulate::tests::simulate_seed_extremes_preserve_rules_derived_passive_outcome ... ok
+test simulate::tests::simulate_writer_failure_propagates_instead_of_success ... ok
+test capture::tests::publication_deadline_and_interrupt_before_during_and_after_commit ... ok
+test script::tests::routing_rejects_preserve_full_owner_and_capture_then_valid_script_recovers ... ok
+test capture::tests::exact_owned_rows_replay_authority_and_capture_on_off_full_state_rng ... ok
+
+failures:
+
+---- native::tests::native_deterministic_prestart_and_midgame_stop_deadline_accounting stdout ----
+
+thread 'native::tests::native_deterministic_prestart_and_midgame_stop_deadline_accounting' (6956) panicked at crates/mtg-cli/src/native.rs:437:17:
+assertion `left == right` failed
+  left: 3
+ right: 143
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    native::tests::native_deterministic_prestart_and_midgame_stop_deadline_accounting
+
+test result: FAILED. 18 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 46.18s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

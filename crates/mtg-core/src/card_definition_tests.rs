@@ -7,7 +7,8 @@ use super::targets::{CreatureState, TargetError};
 use super::turns::Step;
 use super::*;
 
-const SUPPORTED: [&str; 18] = [
+const SUPPORTED: [&str; 19] = [
+    "viashino-pyromancer",
     "firebrand-archer",
     "crackling-cyclops",
     "forest",
@@ -56,6 +57,7 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
     // Literal support list and behavior expectations come from M1 acceptance,
     // not the implementation's support lookup or reserved manifest behavior flag.
     for (key, mana_text, color, stats, is_instant) in [
+        ("viashino-pyromancer", "{1}{R}", None, Some((2, 1)), false),
         ("firebrand-archer", "{1}{R}", None, Some((2, 1)), false),
         ("crackling-cyclops", "{2}{R}", None, Some((0, 4)), false),
         ("goblin-surprise", "{2}{R}", None, None, true),
@@ -151,6 +153,16 @@ fn card_definitions_six_card_manifest_and_public_candidates() {
 
 #[test]
 fn card_definitions_every_other_frozen_identity_rejects_play_without_mutation() {
+    // GH-206 completes the last frozen card. Unsupported content still rejects
+    // at identity ingestion; the independently enumerated manifest table above
+    // now checks Pyromancer's complete behavior instead of expecting rejection.
+    for key in [
+        "unknown-card",
+        "lightning-bolt",
+        "viashino-pyromancer-unknown",
+    ] {
+        assert!(CardId::from_key(key).is_none());
+    }
     for card in CardId::all().filter(|c| {
         !SUPPORTED.contains(&c.identity().key)
             && c.identity().key != "dragon-fodder"

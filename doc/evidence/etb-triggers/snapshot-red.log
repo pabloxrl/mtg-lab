@@ -1,0 +1,24 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.47s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::etb_trigger_tests::pyromancer_corrupt_target_continuation_rejects_restore ... FAILED
+
+failures:
+
+---- game::etb_trigger_tests::pyromancer_corrupt_target_continuation_rejects_restore stdout ----
+
+thread 'game::etb_trigger_tests::pyromancer_corrupt_target_continuation_rejects_restore' (279) panicked at crates/mtg-core/src/etb_trigger_tests.rs:98:9:
+assertion `left == right` failed: mode 0
+  left: Ok(())
+ right: Err(Corrupt)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::etb_trigger_tests::pyromancer_corrupt_target_continuation_rejects_restore
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 260 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

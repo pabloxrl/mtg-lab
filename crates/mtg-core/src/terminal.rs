@@ -73,6 +73,7 @@ impl Game {
         self.decision = None;
         self.work.clear();
         self.turns.decision = None;
+        self.turns.trigger_placement.clear();
         self.clear_cast_choices();
         self.turns.activation = None;
         result

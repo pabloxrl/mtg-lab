@@ -1,0 +1,118 @@
+{
+  "version": 1,
+  "provenance": "Original pinned Pyromancer and CR 603.2/603.3d/115/113.7a/704; synthetic positions, real casts. End-step case explicitly injects pending ability. No upstream test adapted.",
+  "cases": [
+    {
+      "id": "rules-targets-required-targets-interaction",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-targets-resolution-revalidation-regression",
+      "target": 0,
+      "life": 20,
+      "death": "hook",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-triggers-etb-target-positive",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-triggers-etb-target-negative",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": true
+    },
+    {
+      "id": "rules-triggers-etb-target-interaction",
+      "target": 0,
+      "life": 2,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-triggers-etb-target-regression",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-objects-dead-source-positive",
+      "target": 1,
+      "life": 20,
+      "death": "bite",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-priority-turn-structure-interaction",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": true,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-foundations_micro_v1-viashino-pyromancer-positive",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-foundations_micro_v1-viashino-pyromancer-negative",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": true
+    },
+    {
+      "id": "rules-foundations_micro_v1-viashino-pyromancer-interaction",
+      "target": 0,
+      "life": 2,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "rules-foundations_micro_v1-viashino-pyromancer-regression",
+      "target": 1,
+      "life": 20,
+      "death": "bite",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "self_nonlethal",
+      "target": 0,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    },
+    {
+      "id": "required_target",
+      "target": 1,
+      "life": 20,
+      "death": "none",
+      "end_step": false,
+      "reject_creature": false
+    }
+  ]
+}

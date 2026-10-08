@@ -82,3 +82,12 @@ and the unassigned remainder of attacker power goes to the defender only when
 trample legality is satisfied. No player handle or alternate action is encoded.
 Pending allocations and their replay use the same engine validation; old-engine
 artifacts remain subject to the existing source-fingerprint incompatibility rule.
+
+## Pyromancer required player target
+
+After controller trigger ordering, `trigger_target` requires exactly one
+`TargetPlayer { seat: 0 | 1 }` (semantic JSON `target_player`). No pass, cancel,
+creature or absent target is legal. Pending source `selecting_target` identifies
+the ability; stacked source `target_player` preserves the selection independently
+of the source lifetime. See [ETB acceptance](evidence/etb-triggers/README.md) for
+normal-reset replay, recording, rejection and reference evidence.

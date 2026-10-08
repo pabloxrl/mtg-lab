@@ -11,6 +11,11 @@ pub(super) enum InstantEffect {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Definition {
+    EtbCreature {
+        cost: ManaCost,
+        power: u32,
+        toughness: u32,
+    },
     CastTriggerCreature {
         cost: ManaCost,
         power: u32,
@@ -74,7 +79,8 @@ pub(super) enum Definition {
 impl Definition {
     pub(super) fn cost(self) -> Option<ManaCost> {
         match self {
-            Self::CastTriggerCreature { cost, .. }
+            Self::EtbCreature { cost, .. }
+            | Self::CastTriggerCreature { cost, .. }
             | Self::VanillaCreature { cost, .. }
             | Self::ManaCreature { cost, .. }
             | Self::KeywordCreature { cost, .. }
@@ -87,6 +93,9 @@ impl Definition {
             | Self::DiscardDraw { cost } => Some(cost),
             _ => None,
         }
+    }
+    pub(super) fn etb_trigger(self) -> bool {
+        matches!(self, Self::EtbCreature { .. })
     }
     pub(super) fn modal(self) -> bool {
         matches!(self, Self::ModalInstant { .. })
@@ -115,7 +124,10 @@ impl Definition {
     pub(super) fn creature_base(self) -> Option<(u32, u32)> {
         match self {
             Self::Token => Some((1, 1)),
-            Self::CastTriggerCreature {
+            Self::EtbCreature {
+                power, toughness, ..
+            }
+            | Self::CastTriggerCreature {
                 power, toughness, ..
             }
             | Self::VanillaCreature {
@@ -187,7 +199,8 @@ impl Definition {
     pub(super) fn vanilla(self) -> bool {
         matches!(
             self,
-            Self::CastTriggerCreature { .. }
+            Self::EtbCreature { .. }
+                | Self::CastTriggerCreature { .. }
                 | Self::VanillaCreature { .. }
                 | Self::ManaCreature { .. }
                 | Self::KeywordCreature { .. }
@@ -203,6 +216,14 @@ pub(super) fn definition(card: CardId) -> Definition {
     // Only these explicit entries enable rules. Never infer support from a
     // frozen identity, a mana cost, or fixture-only creature characteristics.
     match card.identity().key {
+        "viashino-pyromancer" => Definition::EtbCreature {
+            cost: ManaCost {
+                colored: [0, 0, 0, 1, 0, 0],
+                generic: 1,
+            },
+            power: 2,
+            toughness: 1,
+        },
         "firebrand-archer" => Definition::CastTriggerCreature {
             cost: ManaCost {
                 colored: [0, 0, 0, 1, 0, 0],

@@ -1,0 +1,24 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-206/crates/mtg-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.54s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-6a433e9b4f35bac6)
+
+running 1 test
+test game::etb_trigger_tests::pyromancer_concession_during_target_clears_choice_and_restores_terminal ... FAILED
+
+failures:
+
+---- game::etb_trigger_tests::pyromancer_concession_during_target_clears_choice_and_restores_terminal stdout ----
+
+thread 'game::etb_trigger_tests::pyromancer_concession_during_target_clears_choice_and_restores_terminal' (278) panicked at crates/mtg-core/src/etb_trigger_tests.rs:502:5:
+assertion `left == right` failed: Conceding during a required target must leave a restorable terminal snapshot
+  left: Err(Corrupt)
+ right: Ok(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::etb_trigger_tests::pyromancer_concession_during_target_clears_choice_and_restores_terminal
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 264 filtered out; finished in 0.02s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -180,6 +180,17 @@ impl Game {
                     if let Some(controller) = controller {
                         self.objects.get_mut(moved).expect("permanent").controller = *controller;
                         self.turns.sick.push(moved);
+                        let card = self.objects.get(moved).expect("permanent").card;
+                        if super::card_definitions::definition(card).etb_trigger() {
+                            self.turns.pending_triggers.push(Some(
+                                super::triggers::PendingTrigger {
+                                    source: moved,
+                                    card,
+                                    controller: *controller,
+                                    kind: super::triggers::TriggerKind::Pyromancer { target: None },
+                                },
+                            ));
+                        }
                     }
                     true
                 }
