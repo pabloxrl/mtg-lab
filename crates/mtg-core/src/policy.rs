@@ -96,9 +96,25 @@ pub struct Observation {
     pub view: views::PlayerView,
     pub decision: Option<Decision>,
     pub pending: Option<PendingSpell>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub pending_triggers: Vec<PendingTriggerView>,
     pub stack: Vec<StackSpell>,
     pub combat: Vec<CombatAttack>,
     pub unsupported_families: [&'static str; 0],
+}
+/// Public source description; departed incarnations retain card/effect identity
+/// but never resolve their handle into a hidden zone or a replacement object.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct TriggerSource {
+    pub card: &'static str,
+    pub controller: u8,
+    pub effect: &'static str,
+    pub source: Option<VisibleRef>,
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct PendingTriggerView {
+    pub row: usize,
+    pub ability: TriggerSource,
 }
 /// Factored domains, not a table of every subset/map/integer composition.
 /// Present only for the actor at a combat decision. All rows use the current view.
@@ -144,6 +160,8 @@ pub struct PendingSpell {
 /// another object or looked up in a hidden zone.
 #[derive(Clone, Debug, PartialEq, Eq, Serialize)]
 pub struct StackSpell {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<TriggerSource>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub mode: Option<u8>,
     pub row: usize,
@@ -223,6 +241,19 @@ fn combat_error(error: combat::CombatError) -> PolicyError {
     }
 }
 impl Game {
+    fn policy_trigger_source(&self, p: &super::triggers::PendingTrigger) -> TriggerSource {
+        TriggerSource {
+            card: p.card.identity().key,
+            controller: seat_index(p.controller) as u8,
+            effect: match p.kind {
+                super::triggers::TriggerKind::Archer => "archer_damage",
+                super::triggers::TriggerKind::Cyclops => "cyclops_boost",
+                #[cfg(test)]
+                super::triggers::TriggerKind::Synthetic { .. } => "synthetic",
+            },
+            source: self.policy_battlefield_ref(p.source),
+        }
+    }
     fn policy_battlefield_ref(&self, h: Handle) -> Option<VisibleRef> {
         self.objects
             .in_zone(Zone::Battlefield)
@@ -677,12 +708,30 @@ impl Game {
             view,
             decision,
             pending: self.policy_pending(seat),
+            pending_triggers: self
+                .turns
+                .pending_triggers
+                .iter()
+                .enumerate()
+                .filter_map(|(row, p)| {
+                    p.as_ref().map(|p| PendingTriggerView {
+                        row,
+                        ability: self.policy_trigger_source(p),
+                    })
+                })
+                .collect(),
             stack: self
                 .turns
                 .stack
                 .iter()
                 .enumerate()
                 .map(|(row, h)| StackSpell {
+                    trigger: self
+                        .turns
+                        .triggered
+                        .iter()
+                        .find(|a| a.object == *h)
+                        .map(|a| self.policy_trigger_source(&a.declaration)),
                     mode: self
                         .turns
                         .modes

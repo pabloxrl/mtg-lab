@@ -247,7 +247,18 @@ impl Game {
                     && self.turns.decision.is_none()
             }
             Work::GrantHaste(h) | Work::GrantTrample(h) => self.haste_target(*h),
-            Work::RemoveAbility(h) => self.turns.abilities.iter().any(|a| a.object == *h),
+            Work::RemoveAbility(h) => {
+                self.turns.abilities.iter().any(|a| a.object == *h)
+                    || self.turns.triggered.iter().any(|a| a.object == *h)
+            }
+            Work::TriggerLife(_) => {
+                self.turns.decision.is_none()
+                    && self
+                        .turns
+                        .triggered
+                        .iter()
+                        .any(|a| matches!(a.declaration.kind, triggers::TriggerKind::Archer))
+            }
             Work::Modify(m) => self
                 .objects
                 .get(m.handle)

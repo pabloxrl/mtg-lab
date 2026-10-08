@@ -279,6 +279,7 @@ pub(crate) fn w_observation(value: &p::Observation) -> w::Observation {
         view,
         decision,
         pending,
+        pending_triggers,
         stack,
         combat,
         unsupported_families,
@@ -288,6 +289,13 @@ pub(crate) fn w_observation(value: &p::Observation) -> w::Observation {
         view: s_player_view(view),
         decision: decision.as_ref().map(w_domain),
         pending: pending.as_ref().map(w_pending_spell),
+        pending_triggers: pending_triggers
+            .iter()
+            .map(|p| w::PendingTriggerView {
+                row: p.row,
+                ability: w_trigger_source(&p.ability),
+            })
+            .collect(),
         stack: stack.iter().map(w_stack_spell).collect(),
         combat: combat.iter().map(w_combat_attack).collect(),
         unsupported_families: std::array::from_fn(|i| unsupported_families[i].to_string()),
@@ -373,12 +381,14 @@ fn w_pending_spell(value: &p::PendingSpell) -> w::PendingSpell {
 }
 fn w_stack_spell(value: &p::StackSpell) -> w::StackSpell {
     let p::StackSpell {
+        trigger,
         mode,
         row,
         targets,
         ability,
     } = value;
     w::StackSpell {
+        trigger: trigger.as_ref().map(w_trigger_source),
         mode: *mode,
         row: *row,
         ability: *ability,
@@ -386,6 +396,20 @@ fn w_stack_spell(value: &p::StackSpell) -> w::StackSpell {
             .iter()
             .map(|x| x.as_ref().map(w_visible_ref))
             .collect(),
+    }
+}
+fn w_trigger_source(value: &p::TriggerSource) -> w::TriggerSource {
+    let p::TriggerSource {
+        card,
+        controller,
+        effect,
+        source,
+    } = value;
+    w::TriggerSource {
+        card: (*card).into(),
+        controller: *controller,
+        effect: (*effect).into(),
+        source: source.as_ref().map(w_visible_ref),
     }
 }
 fn w_mana_cost(value: &mana::ManaCost) -> w::ManaCost {

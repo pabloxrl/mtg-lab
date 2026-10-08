@@ -1,0 +1,23 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-205/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-205/crates/mtg-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 17.52s
+     Running tests/cast_triggers.rs (target/debug/deps/cast_triggers-db86d241067e3550)
+
+running 1 test
+test cast_triggers_normal_reset_typed_capture_replay_quantum ... FAILED
+
+failures:
+
+---- cast_triggers_normal_reset_typed_capture_replay_quantum stdout ----
+
+thread 'cast_triggers_normal_reset_typed_capture_replay_quantum' (444) panicked at crates/mtg-recorder/tests/cast_triggers.rs:265:17:
+source features must agree with the public object
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    cast_triggers_normal_reset_typed_capture_replay_quantum
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 16.71s
+
+error: test failed, to rerun pass `-p mtg-recorder --test cast_triggers`

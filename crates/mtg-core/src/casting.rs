@@ -185,6 +185,12 @@ impl Game {
                 .prepare_moves(&[h], Zone::Graveyard(owner))
                 .map_err(CastError::Storage)?;
         }
+        let triggers =
+            self.cast_triggers(actor, self.objects.get(card).expect("validated spell").card);
+        self.turns
+            .pending_triggers
+            .try_reserve(triggers.len())
+            .map_err(|_| CastError::Storage(StorageError::CapacityExceeded))?;
         let (cast, d) = self.commit_cast_payment(actor, id);
         if let Some(h) = discard {
             let owner = self.objects.get(h).unwrap().owner;
@@ -206,7 +212,14 @@ impl Game {
         if let Some(effect) = cast.effect() {
             self.turns.effects.push((h, effect));
         }
-        Ok(d)
+        if triggers.is_empty() {
+            return Ok(d);
+        }
+        // CR 601.2i: detection only after the whole cast commits. No effect yet.
+        self.turns
+            .pending_triggers
+            .extend(triggers.into_iter().map(Some));
+        Ok(self.set_turn_decision(actor, TurnKind::Priority))
     }
     /// CR 601.2b / 700.2: choose exactly one mode before spending mana.
     /// Mode 0 boosts the resolution-time controlled set; mode 1 creates Goblins.
@@ -314,17 +327,11 @@ impl Game {
                 .find(|(spell, _)| *spell == h)
                 .map(|(_, e)| *e);
             let mut failed_draw = None;
-            let resolution = if let Some(a) = self.turns.triggered.iter().find(|a| a.object == h) {
-                match a.declaration.kind {
-                    #[cfg(test)]
-                    super::triggers::TriggerKind::Synthetic { .. } => {
-                        self.objects
-                            .prepare_removals(1)
-                            .map_err(TurnError::Storage)?;
-                        self.work.push_back(Work::RemoveAbility(h));
-                        None
-                    }
-                }
+            let resolution = if let Some(a) =
+                self.turns.triggered.iter().find(|a| a.object == h).copied()
+            {
+                self.prepare_trigger_resolution(a)?;
+                None
             } else if let Some(a) = self.turns.abilities.iter().find(|a| a.object == h).copied() {
                 self.objects
                     .prepare_removals(1)

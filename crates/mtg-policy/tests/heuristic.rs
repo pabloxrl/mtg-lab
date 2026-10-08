@@ -95,6 +95,7 @@ fn heuristic_land_creature_response_and_mask_ties() {
     let mut o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(2) }]);
     assert_eq!(choose(&o), vec![Choice::Pass]);
     o.stack.push(StackSpell {
+        trigger: None,
         mode: None,
         ability: false,
         row: 0,

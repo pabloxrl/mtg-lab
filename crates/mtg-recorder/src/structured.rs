@@ -102,9 +102,25 @@ pub struct Observation {
     pub view: PlayerView,
     pub decision: Option<Domain>,
     pub pending: Option<PendingSpell>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub pending_triggers: Vec<PendingTriggerView>,
     pub stack: Vec<StackSpell>,
     pub combat: Vec<CombatAttack>,
     pub unsupported_families: [String; 0],
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TriggerSource {
+    pub card: String,
+    pub controller: u8,
+    pub effect: String,
+    pub source: Option<VisibleRef>,
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PendingTriggerView {
+    pub row: usize,
+    pub ability: TriggerSource,
 }
 /// Factored domains, not a table of every subset/map/integer composition.
 /// Present only for the actor at a combat decision. All rows use the current view.
@@ -155,6 +171,8 @@ pub struct PendingSpell {
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct StackSpell {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub trigger: Option<TriggerSource>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub mode: Option<u8>,
     pub row: usize,
@@ -395,6 +413,22 @@ fn command_valid(o: &Observation, c: &Command) -> bool {
         _ => true,
     }
 }
+fn trigger_source_valid(o: &Observation, t: &TriggerSource) -> bool {
+    t.controller < 2
+        && matches!(
+            (t.card.as_str(), t.effect.as_str()),
+            ("firebrand-archer", "archer_damage") | ("crackling-cyclops", "cyclops_boost")
+        )
+        && t.source.as_ref().is_none_or(|r| {
+            valid_ref(o, r, VisibleZone::Battlefield)
+                && o.view
+                    .public_zones
+                    .iter()
+                    .find(|z| z.zone == "battlefield")
+                    .and_then(|z| z.cards.get(r.row))
+                    .is_some_and(|c| c.card == t.card && c.controller == t.controller)
+        })
+}
 fn observation_valid(o: &Observation) -> bool {
     let field = |r| valid_ref(o, r, VisibleZone::Battlefield);
     let actor = o.view.acting_seat == Some(o.view.seat);
@@ -411,6 +445,33 @@ fn observation_valid(o: &Observation) -> bool {
         )
     {
         return false;
+    }
+    if !unique(&o.pending_triggers.iter().map(|p| p.row).collect::<Vec<_>>())
+        || !o
+            .pending_triggers
+            .iter()
+            .all(|p| trigger_source_valid(o, &p.ability))
+    {
+        return false;
+    }
+    if !o.pending_triggers.is_empty()
+        && let Some(d) = o.decision.as_ref().filter(|d| d.kind == "trigger_order")
+    {
+        let rows: Vec<_> = o
+            .pending_triggers
+            .iter()
+            .filter(|p| p.ability.controller == d.actor)
+            .map(|p| p.row)
+            .collect();
+        if d.count != rows.len()
+            || d.candidates.len() != rows.len()
+            || !d
+                .candidates
+                .iter()
+                .all(|c| matches!(c, Command::OrderTrigger { trigger } if rows.contains(trigger)))
+        {
+            return false;
+        }
     }
     if let Some(p) = &o.pending
         && (!(if o
@@ -436,7 +497,19 @@ fn observation_valid(o: &Observation) -> bool {
         .map_or(0, |z| z.cards.len());
     if o.stack.len() != stack_len
         || !o.stack.iter().enumerate().all(|(i, s)| {
-            s.row == i && s.mode.is_none_or(|m| m <= 1) && s.targets.iter().flatten().all(field)
+            s.row == i
+                && s.mode.is_none_or(|m| m <= 1)
+                && s.targets.iter().flatten().all(field)
+                && s.trigger.as_ref().is_none_or(|t| {
+                    s.ability
+                        && trigger_source_valid(o, t)
+                        && o.view
+                            .public_zones
+                            .iter()
+                            .find(|z| z.zone == "stack")
+                            .and_then(|z| z.cards.get(i))
+                            .is_some_and(|c| c.card == t.card && c.controller == t.controller)
+                })
         })
         || !unique(&o.combat.iter().map(|a| a.attacker).collect::<Vec<_>>())
         || !o.combat.iter().all(|a| {

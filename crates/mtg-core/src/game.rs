@@ -199,5 +199,8 @@ mod shivan_tests;
 mod invoker_tests;
 
 #[cfg(test)]
+#[path = "cast_trigger_tests.rs"]
+mod cast_trigger_tests;
+#[cfg(test)]
 #[path = "trigger_tests.rs"]
 mod trigger_tests;
