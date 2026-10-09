@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "setup": "Synthetic main-phase positions with actual pinned card definitions. No normal-reset or full-game claim.",
+  "basis": "Pinned CR 601/602/509/510/611.2/613/702.2/702.19/704/514; literal independent arithmetic, never engine-generated expectations.",
+  "cases": [
+    {
+      "id": "invoker-cubs",
+      "target": "thornweald-archer",
+      "boosts": 1,
+      "growths": 0,
+      "blocker": "bear-cub",
+      "blockers": 2,
+      "departure": false,
+      "holdout": false
+    },
+    {
+      "id": "invoker-cubs-reject",
+      "target": "thornweald-archer",
+      "boosts": 1,
+      "growths": 0,
+      "blocker": "bear-cub",
+      "blockers": 2,
+      "departure": false,
+      "holdout": false
+    },
+    {
+      "id": "double-growth",
+      "target": "bear-cub",
+      "boosts": 0,
+      "growths": 2,
+      "blocker": "bear-cub",
+      "blockers": 0,
+      "departure": false,
+      "holdout": false
+    },
+    {
+      "id": "blocked-growth",
+      "target": "bear-cub",
+      "boosts": 0,
+      "growths": 1,
+      "blocker": "bear-cub",
+      "blockers": 1,
+      "departure": true,
+      "holdout": false
+    },
+    {
+      "id": "holdout-invoker-growth",
+      "target": "thornweald-archer",
+      "boosts": 2,
+      "growths": 1,
+      "blocker": "magnigoth-sentry",
+      "blockers": 2,
+      "departure": false,
+      "holdout": true
+    },
+    {
+      "id": "cleanup-shivan-thorn",
+      "target": "thornweald-archer",
+      "boosts": 1,
+      "growths": 0,
+      "blocker": "bear-cub",
+      "blockers": 0,
+      "departure": false,
+      "holdout": false
+    }
+  ]
+}

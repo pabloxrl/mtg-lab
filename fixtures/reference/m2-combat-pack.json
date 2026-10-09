@@ -1,0 +1,1122 @@
+{
+  "issue": 210,
+  "cases": [
+    {
+      "catalog": {
+        "id": "rules-costs-mana-rejection-regression",
+        "capability_id": "costs/mana-rejection",
+        "category": "regression",
+        "setup": "P0 has Shivan Dragon and five mana including RR",
+        "actions": "Attempt six-mana spell",
+        "expected": "Reject shortage despite correct colored symbols",
+        "basis": "CR 601.2f-h and 118: pay complete cost with required colors. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "short_cast"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-costs-summoning-sickness-regression",
+        "capability_id": "costs/summoning-sickness",
+        "category": "regression",
+        "setup": "New Shivan Dragon with R available",
+        "actions": "Activate +1/+0 ability",
+        "expected": "Legal despite sickness because cost lacks tap symbol",
+        "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "sick"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-flying-reach-positive",
+        "capability_id": "combat/flying-reach",
+        "category": "positive",
+        "setup": "P0 Shivan attacks; P1 Magnigoth untapped",
+        "actions": "Block Dragon with Sentry",
+        "expected": "Legal block",
+        "basis": "CR 702.9b and 702.17: flying requires flying/reach blockers; reach does not grant flying. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "sentry"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-flying-reach-negative",
+        "capability_id": "combat/flying-reach",
+        "category": "negative",
+        "setup": "P0 Shivan attacks; P1 Bear Cub",
+        "actions": "Block Dragon with Cub",
+        "expected": "Reject no flying/reach",
+        "basis": "CR 702.9b and 702.17: flying requires flying/reach blockers; reach does not grant flying. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "exact_single_cub_illegal_0",
+            "exact_single_cub_illegal_1"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-flying-reach-interaction",
+        "capability_id": "combat/flying-reach",
+        "category": "interaction",
+        "setup": "P0 Shivan attacks; P1 Thornweald",
+        "actions": "Block then deal damage",
+        "expected": "Both die; Dragon receives deathtouch damage",
+        "basis": "CR 702.9b and 702.17: flying requires flying/reach blockers; reach does not grant flying. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "thorn"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-flying-reach-regression",
+        "capability_id": "combat/flying-reach",
+        "category": "regression",
+        "setup": "P0 Magnigoth attacks; P1 Cub",
+        "actions": "Block Sentry with Cub",
+        "expected": "Legal; reach does not make attacker evasive",
+        "basis": "CR 702.9b and 702.17: flying requires flying/reach blockers; reach does not grant flying. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "flying_reach",
+          "cases": [
+            "ground"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-haste-vigilance-positive",
+        "capability_id": "combat/haste-vigilance",
+        "category": "positive",
+        "setup": "Old Cavalry and new Swab Goblin",
+        "actions": "Grant Goblin haste then attack",
+        "expected": "Goblin attacks this turn and taps",
+        "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "haste",
+          "cases": [
+            "swab"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-haste-vigilance-negative",
+        "capability_id": "combat/haste-vigilance",
+        "category": "negative",
+        "setup": "New Tajuru without haste",
+        "actions": "Declare attack",
+        "expected": "Reject despite vigilance",
+        "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "sick"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-haste-vigilance-interaction",
+        "capability_id": "combat/haste-vigilance",
+        "category": "interaction",
+        "setup": "Old Tajuru attacks then survives combat",
+        "actions": "Inspect tap state; advance to opponent combat",
+        "expected": "Tajuru remains untapped and can block",
+        "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "next-block"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-haste-vigilance-regression",
+        "capability_id": "combat/haste-vigilance",
+        "category": "regression",
+        "setup": "Cavalry haste effect on new Cub expires in cleanup",
+        "actions": "Inspect keywords next turn",
+        "expected": "Temporary haste absent; no permanent keyword contamination",
+        "basis": "CR 702.10/702.20: haste removes sickness restrictions; vigilance avoids tapping to attack. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "haste",
+          "cases": [
+            "cleanup"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-multiple-blockers-positive",
+        "capability_id": "combat/multiple-blockers",
+        "category": "positive",
+        "setup": "5/5 Shivan blocked by two 4/4 Magnigoth Sentries",
+        "actions": "Assign 1 to A and 4 to B",
+        "expected": "Legal allocation; B dies, A survives with one; Shivan takes eight and dies",
+        "basis": "CR 510.1c current revision: distribute freely among multiple blockers; no damage-assignment order. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "split_1"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-multiple-blockers-negative",
+        "capability_id": "combat/multiple-blockers",
+        "category": "negative",
+        "setup": "5/5 Shivan blocked by two 4/4 Magnigoth Sentries",
+        "actions": "Assign total six damage",
+        "expected": "Reject excess assignment; combat state unchanged",
+        "basis": "CR 510.1c current revision: distribute freely among multiple blockers; no damage-assignment order. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "excess"
+          ]
+        }
+      ],
+      "boundary": "Native explicitly rejects six assigned damage and preserves snapshot. XMage exposes max=5 through its constrained split callback; raw rejected-command rollback is not exported by that API."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-multiple-blockers-interaction",
+        "capability_id": "combat/multiple-blockers",
+        "category": "interaction",
+        "setup": "Shivan blocked by two Magnigoth Sentries; Growth on A before damage",
+        "actions": "Choose 0 to grown A and 5 to B",
+        "expected": "Legal despite no ordered blocker list",
+        "basis": "CR 510.1c current revision: distribute freely among multiple blockers; no damage-assignment order. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "grown_split"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-multiple-blockers-regression",
+        "capability_id": "combat/multiple-blockers",
+        "category": "regression",
+        "setup": "Two blockers declared against Shivan",
+        "actions": "Inspect following decisions",
+        "expected": "No legacy order_blockers action or response window after damage assignment",
+        "basis": "CR 510.1c current revision: distribute freely among multiple blockers; no damage-assignment order. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "split_0",
+            "split_1",
+            "split_2",
+            "split_3",
+            "split_4",
+            "split_5"
+          ]
+        }
+      ],
+      "boundary": "All six unrestricted splits execute directly at damage with no legacy order-blockers callback. Native decision protocol and strict XMage callback assert the boundary; no independent full priority trace is claimed."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-simultaneous-damage-interaction",
+        "capability_id": "combat/simultaneous-damage",
+        "category": "interaction",
+        "setup": "Thornweald blocks 5/5 Dragon",
+        "actions": "Deal two deathtouch and five simultaneously",
+        "expected": "Both die; lethal source still deals its damage",
+        "basis": "CR 510.2 and 704.5g/h: assigned combat damage dealt simultaneously before SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "thorn"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-deathtouch-trample-positive",
+        "capability_id": "combat/deathtouch-trample",
+        "category": "positive",
+        "setup": "Thornweald receives Wildheart +5/+5 and trample; blocked by two Cubs",
+        "actions": "Assign one to each Cub and five to P1",
+        "expected": "Both Cubs die; P1 loses five; Archer survives with four damage",
+        "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "m2_combat",
+          "cases": [
+            "invoker-cubs"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-deathtouch-trample-negative",
+        "capability_id": "combat/deathtouch-trample",
+        "category": "negative",
+        "setup": "Thornweald boosted by Wildheart to 7/6 with trample; blocked by two 2/2 Cubs",
+        "actions": "Assign zero to one blocker and six to P1",
+        "expected": "Reject trample without lethal assigned to every blocker",
+        "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "m2_combat",
+          "cases": [
+            "invoker-cubs-reject"
+          ]
+        }
+      ],
+      "boundary": "Native attempts 0+1 with six overflowing to player and rejects without snapshot mutation. XMage callback minimum lethal sum=2 excludes this allocation; then both execute 1+1 with five to player. No XMage raw illegal-command rollback claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-deathtouch-trample-interaction",
+        "capability_id": "combat/deathtouch-trample",
+        "category": "interaction",
+        "setup": "Tajuru 5/4 blocked by Cub already marked one",
+        "actions": "Assign one to Cub and four to P1",
+        "expected": "Legal; marked damage counts toward lethal",
+        "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "marked"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-deathtouch-trample-regression",
+        "capability_id": "combat/deathtouch-trample",
+        "category": "regression",
+        "setup": "Thornweald with Growth only, no trample, blocked by Cub",
+        "actions": "Attempt one to Cub and four to player",
+        "expected": "Reject player allocation; deathtouch alone does not grant trample",
+        "basis": "CR 702.2c and 702.19b: deathtouch makes nonzero assignment lethal for trample. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "deathtouch",
+          "cases": [
+            "growth-no-trample"
+          ]
+        }
+      ],
+      "boundary": "Growth resolves on real Thornweald. Native rejects player overflow; XMage has no player damage allocation without trample. Damage/zone/life checkpoints agree; no raw XMage rejection claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-blocked-status-interaction",
+        "capability_id": "combat/blocked-status",
+        "category": "interaction",
+        "setup": "Tajuru blocked by Cub then Cub killed before damage",
+        "actions": "Assign Tajuru five to P1",
+        "expected": "Legal through trample with no remaining blockers",
+        "basis": "CR 509.1h/510.1c and 702.19: blocked status persists when blockers leave; trample exception. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "departed"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-blocked-status-regression",
+        "capability_id": "combat/blocked-status",
+        "category": "regression",
+        "setup": "Blocker leaves then attacker receives Growth",
+        "actions": "Deal combat damage",
+        "expected": "Grown nontrampler still assigns no damage to player",
+        "basis": "CR 509.1h/510.1c and 702.19: blocked status persists when blockers leave; trample exception. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "m2_combat",
+          "cases": [
+            "blocked-growth"
+          ]
+        }
+      ],
+      "boundary": "Blocker departure is explicitly synthetic; Growth resolves through real rules afterward. Both engines retain blocked status and deal zero to player."
+    },
+    {
+      "catalog": {
+        "id": "rules-continuous-stacked-boosts-positive",
+        "capability_id": "continuous/stacked-boosts",
+        "category": "positive",
+        "setup": "Cub with two Growth spells",
+        "actions": "Resolve both",
+        "expected": "Cub 8/8 until cleanup",
+        "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "m2_combat",
+          "cases": [
+            "double-growth"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-continuous-stacked-boosts-negative",
+        "capability_id": "continuous/stacked-boosts",
+        "category": "negative",
+        "setup": "Cub receives Growth then cleanup occurs",
+        "actions": "Inspect next turn",
+        "expected": "No retained +3/+3 counters or base-stat mutation",
+        "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "m2_combat",
+          "cases": [
+            "double-growth"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-continuous-stacked-boosts-interaction",
+        "capability_id": "continuous/stacked-boosts",
+        "category": "interaction",
+        "setup": "Shivan receives Growth, Surprise boost, own activated boost",
+        "actions": "Resolve all",
+        "expected": "Dragon 11/8 until cleanup",
+        "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "surprise",
+          "cases": [
+            "stacked"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-continuous-stacked-boosts-regression",
+        "capability_id": "continuous/stacked-boosts",
+        "category": "regression",
+        "setup": "Thornweald gets two Invoker activations",
+        "actions": "Resolve both",
+        "expected": "Archer 12/11 with trample; duplicate trample not extra damage",
+        "basis": "CR 613.4c; pinned Growth +3/+3, Surprise +2/+0, Dragon +1/+0, Invoker +5/+5. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "invoker",
+          "cases": [
+            "thorn_double"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-continuous-cleanup-interaction",
+        "capability_id": "continuous/cleanup",
+        "category": "interaction",
+        "setup": "Dragon +1/+0 and Thornweald Invoker boost/trample",
+        "actions": "Cleanup",
+        "expected": "Base stats restored; gained trample removed; printed keywords retained",
+        "basis": "CR 514.2: damage removal and until-end-of-turn expiration simultaneous. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "m2_combat",
+          "cases": [
+            "cleanup-shivan-thorn"
+          ]
+        },
+        {
+          "pack": "invoker",
+          "cases": [
+            "thorn_cleanup"
+          ]
+        }
+      ],
+      "boundary": "Existing thorn_cleanup combines Dragon, boosted Thornweald and dead Invoker source through cleanup. New composition adds named activation-stack/resolution points on one battlefield; compare base stats and retained printed flying/reach/deathtouch while temporary trample expires."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-creature-abilities-positive",
+        "capability_id": "combat/creature-abilities",
+        "category": "positive",
+        "setup": "P0 main empty stack; Cub hand and 1G",
+        "actions": "Cast then resolve",
+        "expected": "Cub enters untapped but cannot attack this turn",
+        "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "exact_cub_cast_0",
+            "exact_cub_cast_1"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-creature-abilities-negative",
+        "capability_id": "combat/creature-abilities",
+        "category": "negative",
+        "setup": "P1 has priority during P0 turn; Cub hand",
+        "actions": "Attempt cast creature without flash",
+        "expected": "Reject instant-speed creature casting",
+        "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "exact_cub_reject_0",
+            "exact_cub_reject_1"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-creature-abilities-interaction",
+        "capability_id": "combat/creature-abilities",
+        "category": "interaction",
+        "setup": "New Shivan and R mana",
+        "actions": "Activate power ability then grant haste using old Cavalry",
+        "expected": "Dragon becomes 6/5 and may attack; activation not sickness-limited",
+        "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "haste"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-combat-creature-abilities-regression",
+        "capability_id": "combat/creature-abilities",
+        "category": "regression",
+        "setup": "Old Cavalry taps for haste ability",
+        "actions": "Try tap again before untap",
+        "expected": "Reject already-tapped cost even though no sickness",
+        "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "haste",
+          "cases": [
+            "tapped"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-magnigoth-sentry-positive",
+        "capability_id": "foundations_micro_v1/magnigoth-sentry",
+        "category": "positive",
+        "setup": "Old untapped Sentry faces Shivan attack",
+        "actions": "Block Dragon",
+        "expected": "Block legal; Sentry dies to five, Dragon survives with four damage",
+        "basis": "Pinned Sentry: 3G 4/4 reach; CR 702.9/702.17/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a; oracle_text_sha256=0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "sentry"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-magnigoth-sentry-negative",
+        "capability_id": "foundations_micro_v1/magnigoth-sentry",
+        "category": "negative",
+        "setup": "Sentry tapped from prior attack",
+        "actions": "Attempt block Dragon",
+        "expected": "Reject tapped blocker despite reach",
+        "basis": "Pinned Sentry: 3G 4/4 reach; CR 702.9/702.17/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a; oracle_text_sha256=0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "flying_reach",
+          "cases": [
+            "tapped"
+          ]
+        }
+      ],
+      "boundary": "Real tapped Sentry cannot block; attacker is the prerequisite explicitly synthetic 5/5 flying Cub. This slot specifies Sentry tap legality, not an attacker card identity."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-magnigoth-sentry-interaction",
+        "capability_id": "foundations_micro_v1/magnigoth-sentry",
+        "category": "interaction",
+        "setup": "Sentry blocks Dragon then gets Growth",
+        "actions": "Resolve Growth; combat",
+        "expected": "7/7 Sentry survives five and kills Dragon with seven",
+        "basis": "Pinned Sentry: 3G 4/4 reach; CR 702.9/702.17/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a; oracle_text_sha256=0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "exact_single_sentry_0",
+            "exact_single_sentry_1"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-magnigoth-sentry-regression",
+        "capability_id": "foundations_micro_v1/magnigoth-sentry",
+        "category": "regression",
+        "setup": "Sentry attacks into Cub",
+        "actions": "Block with Cub",
+        "expected": "Legal; reach is not flying/evasion",
+        "basis": "Pinned Sentry: 3G 4/4 reach; CR 702.9/702.17/510. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a; oracle_text_sha256=0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "flying_reach",
+          "cases": [
+            "ground"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-shivan-dragon-positive",
+        "capability_id": "foundations_micro_v1/shivan-dragon",
+        "category": "positive",
+        "setup": "Dragon and two R floating",
+        "actions": "Activate boost twice; resolve",
+        "expected": "Dragon 7/5; both R spent",
+        "basis": "Pinned Dragon: 4RR 5/5 flying, R gives itself +1/+0 until end of turn; CR 602/702.9/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0; oracle_text_sha256=e74575fc5da3990b1a3ad046658d95976f710451bdeb79ad7470464394f5ce04.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "double"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-shivan-dragon-negative",
+        "capability_id": "foundations_micro_v1/shivan-dragon",
+        "category": "negative",
+        "setup": "Dragon ability command supplies another creature as effect target",
+        "actions": "Submit",
+        "expected": "Reject malformed target choice; ability does not target another creature",
+        "basis": "Pinned Dragon: 4RR 5/5 flying, R gives itself +1/+0 until end of turn; CR 602/702.9/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0; oracle_text_sha256=e74575fc5da3990b1a3ad046658d95976f710451bdeb79ad7470464394f5ce04.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "foreign"
+          ]
+        }
+      ],
+      "boundary": "Native rejects a supplied foreign target and preserves state. XMage exposes a nontargeted ability with an empty target set; no unsupported target callback or raw rejection claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-shivan-dragon-interaction",
+        "capability_id": "foundations_micro_v1/shivan-dragon",
+        "category": "interaction",
+        "setup": "Dragon attacks; opposing Thornweald blocks",
+        "actions": "Resolve combat",
+        "expected": "Both die from simultaneous five damage and deathtouch two",
+        "basis": "Pinned Dragon: 4RR 5/5 flying, R gives itself +1/+0 until end of turn; CR 602/702.9/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0; oracle_text_sha256=e74575fc5da3990b1a3ad046658d95976f710451bdeb79ad7470464394f5ce04.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "thorn"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-shivan-dragon-regression",
+        "capability_id": "foundations_micro_v1/shivan-dragon",
+        "category": "regression",
+        "setup": "Newly resolved Dragon; one R remains",
+        "actions": "Activate then cleanup",
+        "expected": "Legal despite sickness; 6/5 then base 5/5, flying retained",
+        "basis": "Pinned Dragon: 4RR 5/5 flying, R gives itself +1/+0 until end of turn; CR 602/702.9/514. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/702c4781-670b-49ae-b511-90ed119841b0; oracle_text_sha256=e74575fc5da3990b1a3ad046658d95976f710451bdeb79ad7470464394f5ce04.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "sick",
+            "cleanup"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-tajuru-pathwarden-positive",
+        "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+        "category": "positive",
+        "setup": "Old Tajuru attacks unblocked",
+        "actions": "Declare attack and damage",
+        "expected": "Stays untapped; P1 loses five",
+        "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "unblocked"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+        "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+        "category": "negative",
+        "setup": "Tajuru blocked by undamaged Cub",
+        "actions": "Assign one to Cub and four to player",
+        "expected": "Reject insufficient lethal allocation without deathtouch",
+        "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "negative"
+          ]
+        }
+      ],
+      "boundary": "Native rejects insufficient lethal without mutation. XMage constrained callback requires two damage to undamaged Cub; literal legal recovery checkpoints agree."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-tajuru-pathwarden-interaction",
+        "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+        "category": "interaction",
+        "setup": "Tajuru blocked by two Cubs",
+        "actions": "Assign two each and one to P1",
+        "expected": "P1 loses one; both Cubs and Tajuru die simultaneously",
+        "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "two"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-tajuru-pathwarden-regression",
+        "capability_id": "foundations_micro_v1/tajuru-pathwarden",
+        "category": "regression",
+        "setup": "Tajuru blocked; blocker killed before damage",
+        "actions": "Assign all five to P1",
+        "expected": "Legal trample through absent blocker; vigilance persists",
+        "basis": "Pinned Tajuru: 4G 5/4 vigilance and trample; CR 702.19/702.20. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/da20a0d3-2022-4dea-84c8-85adc5a974f8; oracle_text_sha256=e5ce26740a0cda934aa26522367252302e43b949d2b5626db2f66210862794db.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "trample",
+          "cases": [
+            "departed"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-thornweald-archer-positive",
+        "capability_id": "foundations_micro_v1/thornweald-archer",
+        "category": "positive",
+        "setup": "Thornweald blocks Shivan",
+        "actions": "Deal simultaneous combat damage",
+        "expected": "Both die; reach permits block and deathtouch kills Dragon",
+        "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "thorn"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-thornweald-archer-negative",
+        "capability_id": "foundations_micro_v1/thornweald-archer",
+        "category": "negative",
+        "setup": "Thornweald attacks into Cub without trample",
+        "actions": "Assign one to Cub and one to P1",
+        "expected": "Reject player damage; deathtouch not trample",
+        "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "deathtouch",
+          "cases": [
+            "no-trample"
+          ]
+        }
+      ],
+      "boundary": "Native rejects player overflow; XMage damage choice does not include player without trample. Both observe no player damage; raw rejection is native only."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-thornweald-archer-interaction",
+        "capability_id": "foundations_micro_v1/thornweald-archer",
+        "category": "interaction",
+        "setup": "Thornweald is Bite source against Sentry",
+        "actions": "Resolve Bite",
+        "expected": "Sentry dies from two deathtouch damage; Thornweald unharmed",
+        "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "shivan",
+          "cases": [
+            "thorn_bite"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-thornweald-archer-regression",
+        "capability_id": "foundations_micro_v1/thornweald-archer",
+        "category": "regression",
+        "setup": "Thornweald boosted by Invoker to 7/6 trample; two Sentry blockers",
+        "actions": "Assign one each and five to P1",
+        "expected": "Both Sentries die; P1 loses five; Thornweald dies to eight simultaneously",
+        "basis": "Pinned Thornweald: 1G 2/1 reach/deathtouch; CR 702.2/702.17. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/189f6199-f2fe-49a5-89ca-3c4cb39fbf2b; oracle_text_sha256=37c215ecee9970d5b798af2ae9189bbd26cf6246c56594bb985028725c01a2e4.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "invoker",
+          "cases": [
+            "thorn_combat"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-positive",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "positive",
+        "setup": "Invoker, own Cub, eight mixed mana",
+        "actions": "Activate targeting Cub and resolve",
+        "expected": "Cub 7/7 with trample; eight mana consumed",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "invoker",
+          "cases": [
+            "mixed"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-negative",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "negative",
+        "setup": "Invoker and seven mana",
+        "actions": "Attempt activation",
+        "expected": "Reject insufficient generic cost without partial payment",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "invoker",
+          "cases": [
+            "seven"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-interaction",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "interaction",
+        "setup": "New Invoker; eight mana; opposing Cub",
+        "actions": "Activate targeting opposing Cub",
+        "expected": "Legal without tap/sickness restriction; opponent Cub gets +5/+5/trample",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "invoker",
+          "cases": [
+            "opposing"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    },
+    {
+      "catalog": {
+        "id": "rules-foundations_micro_v1-wildheart-invoker-regression",
+        "capability_id": "foundations_micro_v1/wildheart-invoker",
+        "category": "regression",
+        "setup": "Invoker ability targets Thornweald; Invoker killed in response",
+        "actions": "Resolve then cleanup",
+        "expected": "Archer 7/6 trample despite dead source; later returns 2/1 reach/deathtouch",
+        "basis": "Pinned Invoker: 2GG 4/3; eight generic mana gives target creature +5/+5 and trample until end of turn; CR 602/613/514. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/60f42969-bb5c-4183-8bd3-ba87f008391d; oracle_text_sha256=35b68d304b98604088745245bb02f20e1ae262e2c243939450aea189dff568c2.",
+        "owner_issue": 23,
+        "milestone": "M2"
+      },
+      "executions": [
+        {
+          "pack": "invoker",
+          "cases": [
+            "thorn_dead",
+            "thorn_cleanup"
+          ]
+        }
+      ],
+      "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+    }
+  ]
+}

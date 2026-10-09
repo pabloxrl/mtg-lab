@@ -1,0 +1,799 @@
+{
+  "invoker-cubs": {
+    "initial": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 8,
+      "stack": 0
+    },
+    "activation-1-stack": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 1
+    },
+    "activation-1-resolved": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "before-damage": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-damage": {
+      "target": [
+        7,
+        6,
+        4
+      ],
+      "blockers": [
+        null,
+        null
+      ],
+      "trample": true,
+      "life": [
+        20,
+        15
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-cleanup": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        null,
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        15
+      ],
+      "mana": 0,
+      "stack": 0
+    }
+  },
+  "invoker-cubs-reject": {
+    "initial": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 8,
+      "stack": 0
+    },
+    "activation-1-stack": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 1
+    },
+    "activation-1-resolved": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "before-damage": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-damage": {
+      "target": [
+        7,
+        6,
+        4
+      ],
+      "blockers": [
+        null,
+        null
+      ],
+      "trample": true,
+      "life": [
+        20,
+        15
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-cleanup": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        null,
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        15
+      ],
+      "mana": 0,
+      "stack": 0
+    }
+  },
+  "double-growth": {
+    "initial": {
+      "target": [
+        2,
+        2,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 2,
+      "stack": 0
+    },
+    "growth-1": {
+      "target": [
+        5,
+        5,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 1,
+      "stack": 0
+    },
+    "growth-2": {
+      "target": [
+        8,
+        8,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-cleanup": {
+      "target": [
+        2,
+        2,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    }
+  },
+  "blocked-growth": {
+    "initial": {
+      "target": [
+        2,
+        2,
+        0
+      ],
+      "blockers": [
+        [
+          2,
+          2,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 1,
+      "stack": 0
+    },
+    "growth-1": {
+      "target": [
+        5,
+        5,
+        0
+      ],
+      "blockers": [
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "before-damage": {
+      "target": [
+        5,
+        5,
+        0
+      ],
+      "blockers": [
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-damage": {
+      "target": [
+        5,
+        5,
+        0
+      ],
+      "blockers": [
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-cleanup": {
+      "target": [
+        2,
+        2,
+        0
+      ],
+      "blockers": [
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    }
+  },
+  "holdout-invoker-growth": {
+    "initial": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 17,
+      "stack": 0
+    },
+    "activation-1-stack": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 9,
+      "stack": 1
+    },
+    "activation-1-resolved": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 9,
+      "stack": 0
+    },
+    "activation-2-stack": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 1,
+      "stack": 1
+    },
+    "activation-2-resolved": {
+      "target": [
+        12,
+        11,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 1,
+      "stack": 0
+    },
+    "growth-1": {
+      "target": [
+        15,
+        14,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "before-damage": {
+      "target": [
+        15,
+        14,
+        0
+      ],
+      "blockers": [
+        [
+          4,
+          4,
+          0
+        ],
+        [
+          4,
+          4,
+          0
+        ]
+      ],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-damage": {
+      "target": [
+        15,
+        14,
+        8
+      ],
+      "blockers": [
+        null,
+        null
+      ],
+      "trample": true,
+      "life": [
+        20,
+        7
+      ],
+      "mana": 0,
+      "stack": 0
+    },
+    "after-cleanup": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [
+        null,
+        null
+      ],
+      "trample": false,
+      "life": [
+        20,
+        7
+      ],
+      "mana": 0,
+      "stack": 0
+    }
+  },
+  "cleanup-shivan-thorn": {
+    "initial": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 9,
+      "stack": 0,
+      "dragon": [
+        5,
+        5,
+        0
+      ],
+      "flying": true,
+      "reach": true,
+      "deathtouch": true
+    },
+    "activation-1-stack": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 1,
+      "stack": 1,
+      "dragon": [
+        5,
+        5,
+        0
+      ],
+      "flying": true,
+      "reach": true,
+      "deathtouch": true
+    },
+    "activation-1-resolved": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 1,
+      "stack": 0,
+      "dragon": [
+        5,
+        5,
+        0
+      ],
+      "flying": true,
+      "reach": true,
+      "deathtouch": true
+    },
+    "dragon-stack": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 1,
+      "dragon": [
+        5,
+        5,
+        0
+      ],
+      "flying": true,
+      "reach": true,
+      "deathtouch": true
+    },
+    "dragon-resolved": {
+      "target": [
+        7,
+        6,
+        0
+      ],
+      "blockers": [],
+      "trample": true,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0,
+      "dragon": [
+        6,
+        5,
+        0
+      ],
+      "flying": true,
+      "reach": true,
+      "deathtouch": true
+    },
+    "after-cleanup": {
+      "target": [
+        2,
+        1,
+        0
+      ],
+      "blockers": [],
+      "trample": false,
+      "life": [
+        20,
+        20
+      ],
+      "mana": 0,
+      "stack": 0,
+      "dragon": [
+        5,
+        5,
+        0
+      ],
+      "flying": true,
+      "reach": true,
+      "deathtouch": true
+    }
+  }
+}
