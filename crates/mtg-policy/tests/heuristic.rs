@@ -606,3 +606,34 @@ fn surprise_policy_modes_and_previous_version_rejection() {
     }
     assert_eq!(seen, [true; 3]);
 }
+
+#[test]
+fn activation_mana_both_policies_represent_payment_sources() {
+    // Synthetic adapter observation. CR 602.2b/601.2g/605.3a permits a mana
+    // ability inside activation payment; no priority or default tap is needed.
+    let tap = Choice::TapMana { card: b(4) };
+    let o = obs("activation_payment", vec![tap.clone()]);
+    assert_eq!(choose(&o), vec![tap.clone()]);
+    let mut random =
+        mtg_policy::LegalRandom::new(mtg_policy::VERSION, mtg_policy::RNG_VERSION, 254, 0, 0)
+            .unwrap();
+    assert_eq!(random.choose(&o).unwrap().choices, vec![tap]);
+}
+
+#[test]
+fn activation_mana_rejects_old_policy_versions() {
+    assert!(matches!(
+        Heuristic::new("heuristic-full-pool-v1", 0),
+        Err(Error::UnsupportedVersion)
+    ));
+    assert!(matches!(
+        mtg_policy::LegalRandom::new(
+            "legal-random-full-pool-v1",
+            mtg_policy::RNG_VERSION,
+            0,
+            0,
+            0
+        ),
+        Err(Error::UnsupportedVersion)
+    ));
+}

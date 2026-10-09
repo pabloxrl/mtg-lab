@@ -1,0 +1,35 @@
+{
+  "dragon": [
+    6,
+    5,
+    0
+  ],
+  "others": [],
+  "life": [
+    20,
+    20
+  ],
+  "mana": 0,
+  "stack": 0,
+  "legal": true,
+  "payment": [
+    {
+      "stage": "mana",
+      "source": "pay1",
+      "target": null,
+      "pool": 1,
+      "tapped": 1,
+      "announced_stack": 1,
+      "priority_calls": 0
+    },
+    {
+      "stage": "committed",
+      "source": null,
+      "target": null,
+      "pool": 0,
+      "tapped": 1,
+      "announced_stack": 1,
+      "priority_calls": 0
+    }
+  ]
+}

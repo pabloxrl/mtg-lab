@@ -22,6 +22,9 @@ new cards reuse supported mechanics through definitions, without engine changes.
   frozen pool, plus explicit scripted play.
 - Seat-filtered observations and validated choices that preserve private information.
 - Versioned snapshots, semantic replay, JSONL trajectories and dataset validation.
+- Explicit land/Elf/Druid mana choices during Shivan/Invoker activation payment,
+  with private cancellation and recorded replay; see the [payment contract and
+  compatibility notes](doc/evidence/activation-mana/README.md).
 - Optional [scalar instrumentation](doc/scalar-metrics.md): off, counters,
   bounded sampled diagnostics and complete replay export;
   capture remains independent and performance qualification is still pending.

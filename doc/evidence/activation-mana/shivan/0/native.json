@@ -1,0 +1,415 @@
+{
+  "bite": {
+    "dragon": [
+      7,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        8,
+        8,
+        7
+      ]
+    ],
+    "stack": 0
+  },
+  "cast": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "cleanup": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "cub_illegal": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": false,
+    "life": [
+      20,
+      15
+    ],
+    "mana": 0,
+    "others": [
+      [
+        2,
+        2,
+        0
+      ]
+    ],
+    "stack": 0
+  },
+  "dead_after": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "dead_before": {
+    "dragon": null,
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 1,
+    "others": [],
+    "stack": 0
+  },
+  "double": {
+    "dragon": [
+      7,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "excess": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        0
+      ],
+      [
+        4,
+        4,
+        0
+      ]
+    ],
+    "stack": 0
+  },
+  "foreign": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 1,
+    "others": [],
+    "stack": 0
+  },
+  "grown_split": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        7,
+        7,
+        0
+      ]
+    ],
+    "stack": 0
+  },
+  "haste": {
+    "dragon": [
+      6,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      14
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "no_red": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "payment_sources": {
+    "dragon": [
+      6,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "payment": [
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay1",
+        "stage": "mana",
+        "tapped": 1,
+        "target": null
+      },
+      {
+        "announced_stack": 1,
+        "pool": 0,
+        "priority_calls": 0,
+        "source": null,
+        "stage": "committed",
+        "tapped": 1,
+        "target": null
+      }
+    ],
+    "stack": 0
+  },
+  "sentry": {
+    "dragon": [
+      5,
+      5,
+      4
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "short_cast": {
+    "dragon": null,
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 5,
+    "others": [],
+    "stack": 0
+  },
+  "sick": {
+    "dragon": [
+      6,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "split_0": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        0
+      ]
+    ],
+    "stack": 0
+  },
+  "split_1": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        1
+      ]
+    ],
+    "stack": 0
+  },
+  "split_2": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        2
+      ],
+      [
+        4,
+        4,
+        3
+      ]
+    ],
+    "stack": 0
+  },
+  "split_3": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        3
+      ],
+      [
+        4,
+        4,
+        2
+      ]
+    ],
+    "stack": 0
+  },
+  "split_4": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        1
+      ]
+    ],
+    "stack": 0
+  },
+  "split_5": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        4,
+        4,
+        0
+      ]
+    ],
+    "stack": 0
+  },
+  "thorn": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [],
+    "stack": 0
+  },
+  "thorn_bite": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "others": [
+      [
+        2,
+        1,
+        0
+      ]
+    ],
+    "stack": 0
+  }
+}

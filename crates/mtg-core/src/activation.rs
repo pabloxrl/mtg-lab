@@ -9,6 +9,7 @@ pub(super) struct PendingActivation {
     pub target: Option<Handle>,
     pub paid: bool,
     pub reserved: [u32; 6],
+    pub sources: Vec<Handle>,
     pub power: bool,
     pub invoker: bool,
     pub id: DecisionId,
@@ -43,14 +44,8 @@ impl Game {
                 && ((card_definitions::definition(o.card).haste_activation()
                     && !o.tapped
                     && !self.summoning_sick(h))
-                    || (card_definitions::definition(o.card).power_activation()
-                        && self.turns.mana[seat_index(actor)][3] > 0)
-                    || (card_definitions::definition(o.card).invoker_activation()
-                        && self.turns.mana[seat_index(actor)]
-                            .iter()
-                            .map(|n| u64::from(*n))
-                            .sum::<u64>()
-                            >= 8))
+                    || card_definitions::definition(o.card).power_activation()
+                    || card_definitions::definition(o.card).invoker_activation())
         })
     }
     pub fn activation_candidates(&self, actor: Seat) -> Vec<Handle> {
@@ -60,9 +55,19 @@ impl Game {
         {
             return vec![];
         }
+        let mut available = self.turns.mana[seat_index(actor)].map(u64::from);
+        for h in self.mana_sources(actor) {
+            let color = mana::mana_color(self.objects.get(h).unwrap().card).unwrap();
+            available[color.index()] += 1;
+        }
         self.objects
             .in_zone(Zone::Battlefield)
-            .filter(|h| self.usable_activation_source(actor, *h))
+            .filter(|h| {
+                let definition = card_definitions::definition(self.objects.get(*h).unwrap().card);
+                self.usable_activation_source(actor, *h)
+                    && (!definition.power_activation() || available[3] > 0)
+                    && (!definition.invoker_activation() || available.iter().sum::<u64>() >= 8)
+            })
             .collect()
     }
     pub fn begin_activation(
@@ -86,6 +91,7 @@ impl Game {
             target: None,
             paid: false,
             reserved: [0; 6],
+            sources: vec![],
             invoker: card_definitions::definition(self.objects.get(source).unwrap().card)
                 .invoker_activation(),
             power: card_definitions::definition(self.objects.get(source).unwrap().card)
@@ -151,24 +157,86 @@ impl Game {
             .checked_add(1)
             .ok_or(TurnError::Invalid(ApplyError::DecisionExhausted))?;
         let p = self.turns.activation.as_mut().unwrap();
-        if p.invoker {
-            p.reserved[color as usize] += 1;
-            p.paid = p.reserved.iter().sum::<u32>() == 8;
-        } else {
-            p.paid = true;
-        }
+        p.reserved[color as usize] += 1;
+        p.paid = p.reserved.iter().sum::<u32>() == if p.invoker { 8 } else { 1 };
         p.id.generation = generation;
         self.generation = generation;
         Ok(())
     }
+    /// Mana abilities resolve immediately within the private transaction. The
+    /// resulting mana and tap costs become public together with the activation.
+    pub fn activation_mana_sources(&self, actor: Seat) -> Vec<Handle> {
+        let Some(p) = self
+            .turns
+            .activation
+            .as_ref()
+            .filter(|p| p.actor == actor && (p.power || (p.invoker && p.target.is_some())))
+        else {
+            return vec![];
+        };
+        self.objects
+            .in_zone(Zone::Battlefield)
+            .filter(|h| self.usable_mana_source(actor, *h) && !p.sources.contains(h))
+            .collect()
+    }
+    pub fn activation_tap_mana(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        source: Handle,
+    ) -> Result<(), TurnError> {
+        let p = self.validate_activation(actor, id)?;
+        if !self.activation_mana_sources(actor).contains(&source) {
+            return Err(TurnError::Invalid(ApplyError::IllegalCandidate));
+        }
+        let color = mana::mana_color(self.objects.get(source).unwrap().card)
+            .unwrap()
+            .index();
+        self.activation_pool(p)?[color]
+            .checked_add(1)
+            .ok_or(TurnError::EffectOverflow)?;
+        let generation = self
+            .generation
+            .checked_add(1)
+            .ok_or(TurnError::Invalid(ApplyError::DecisionExhausted))?;
+        let p = self.turns.activation.as_mut().unwrap();
+        p.sources
+            .try_reserve(1)
+            .map_err(|_| TurnError::Storage(StorageError::CapacityExceeded))?;
+        p.sources.push(source);
+        p.id.generation = generation;
+        self.generation = generation;
+        Ok(())
+    }
+    /// Recompute against live public resources to revalidate every reserved
+    /// incarnation. Wider arithmetic permits spending before generating mana at
+    /// the pool limit, while the resulting pool itself must fit its contract.
+    pub(super) fn activation_pool(&self, p: &PendingActivation) -> Result<[u32; 6], TurnError> {
+        let mut pool = self.turns.mana[seat_index(p.actor)].map(u64::from);
+        for (i, h) in p.sources.iter().enumerate() {
+            if p.sources[..i].contains(h) || !self.usable_mana_source(p.actor, *h) {
+                return Err(TurnError::Invalid(ApplyError::IllegalCandidate));
+            }
+            let color = mana::mana_color(self.objects.get(*h).unwrap().card)
+                .unwrap()
+                .index();
+            pool[color] += 1;
+        }
+        let mut remaining = [0; 6];
+        for i in 0..6 {
+            remaining[i] = u32::try_from(
+                pool[i]
+                    .checked_sub(u64::from(p.reserved[i]))
+                    .ok_or(TurnError::Invalid(ApplyError::IllegalCandidate))?,
+            )
+            .map_err(|_| TurnError::EffectOverflow)?;
+        }
+        Ok(remaining)
+    }
     pub(super) fn activation_payment_allowed(&self, p: &PendingActivation, color: usize) -> bool {
         !p.paid
-            && if p.invoker {
-                p.target.is_some()
-                    && self.turns.mana[seat_index(p.actor)][color] > p.reserved[color]
-            } else {
-                p.power && color == 3 && self.turns.mana[seat_index(p.actor)][3] > 0
-            }
+            && (p.power && color == 3 || p.invoker && p.target.is_some())
+            && self.activation_pool(p).is_ok_and(|pool| pool[color] > 0)
     }
     pub fn cancel_activation(
         &mut self,
@@ -194,19 +262,14 @@ impl Game {
         let target = p.target;
         let power = p.power;
         let invoker = p.invoker;
-        let reserved = p.reserved;
+        let pool = self.activation_pool(p)?;
         if (power && (!p.paid || target.is_some()))
             || (!power && target.is_none())
             || (invoker && !p.paid)
         {
             return Err(TurnError::Invalid(ApplyError::WrongCardinality));
         }
-        if (invoker
-            && reserved
-                .iter()
-                .zip(self.turns.mana[seat_index(actor)])
-                .any(|(r, m)| *r > m))
-            || !self.usable_activation_source(actor, source)
+        if !self.usable_activation_source(actor, source)
             || target.is_some_and(|h| !self.haste_target(h))
         {
             return Err(TurnError::Invalid(ApplyError::IllegalCandidate));
@@ -231,13 +294,12 @@ impl Game {
             .objects
             .allocate(card, actor, Zone::Stack)
             .map_err(TurnError::Storage)?;
-        if invoker {
-            for (m, r) in self.turns.mana[seat_index(actor)].iter_mut().zip(reserved) {
-                *m -= r;
-            }
-        } else if power {
-            self.turns.mana[seat_index(actor)][3] -= 1;
-        } else {
+        let pending = self.turns.activation.take().unwrap();
+        for h in pending.sources {
+            self.objects.get_mut(h).unwrap().tapped = true;
+        }
+        self.turns.mana[seat_index(actor)] = pool;
+        if !power && !invoker {
             self.objects.get_mut(source).unwrap().tapped = true;
         }
         self.turns.stack.push(object);

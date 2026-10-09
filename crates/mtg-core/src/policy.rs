@@ -287,9 +287,23 @@ impl Game {
                     .into_iter()
                     .map(|h| self.policy_battlefield_ref(h))
                     .collect(),
-                sources: vec![self.policy_battlefield_ref(p.source)],
-                pool: None,
-                remaining: None,
+                sources: std::iter::once(p.source)
+                    .chain(p.sources.iter().copied())
+                    .map(|h| self.policy_battlefield_ref(h))
+                    .collect(),
+                pool: (p.power || p.invoker)
+                    .then(|| self.activation_pool(p).ok())
+                    .flatten(),
+                remaining: (p.power || p.invoker)
+                    .then(|| mana::ManaCost {
+                        colored: [0, 0, 0, u32::from(p.power && !p.paid), 0, 0],
+                        generic: if p.invoker {
+                            8 - p.reserved.iter().sum::<u32>()
+                        } else {
+                            0
+                        },
+                    })
+                    .filter(|_| self.activation_pool(p).is_ok()),
             });
         }
         let (card, targets, sources) = if let Some(t) = self
@@ -432,6 +446,20 @@ impl Game {
                     )?;
                 }
             } else {
+                let sources = self.activation_mana_sources(seat);
+                for (row, h) in self.objects.in_zone(Zone::Battlefield).enumerate() {
+                    if mana::mana_color(self.objects.get(h).unwrap().card).is_some() {
+                        push(
+                            Choice::TapMana {
+                                card: VisibleRef {
+                                    zone: VisibleZone::Battlefield,
+                                    row,
+                                },
+                            },
+                            sources.contains(&h),
+                        )?;
+                    }
+                }
                 for color in 0..6 {
                     push(
                         Choice::Pay { color },
@@ -1050,7 +1078,9 @@ impl Game {
                     .in_zone(Zone::Battlefield)
                     .nth(card.row)
                     .expect("validated visible row");
-                if self.turns.casting.is_some() {
+                if self.turns.activation.is_some() {
+                    self.activation_tap_mana(actor, id, h).map_err(turn_error)
+                } else if self.turns.casting.is_some() {
                     self.cast_tap_mana(actor, id, h)
                         .map(|_| ())
                         .map_err(cast_error)

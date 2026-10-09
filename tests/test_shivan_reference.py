@@ -13,8 +13,9 @@ class ShivanReference(unittest.TestCase):
     def test_case_inventory_and_mutations(self):
         fixture = json.loads(reference.FIXTURE.read_text())
         expected = json.loads(reference.EXPECTED.read_text())
-        self.assertEqual(len([c for c in fixture['cases'] if not c['id'].startswith('exact_')]), 23)
+        self.assertEqual(len([c for c in fixture['cases'] if not c['id'].startswith('exact_')]), 24)
         self.assertEqual(len([c for c in fixture['cases'] if c['id'].startswith('exact_')]), 8)
+        self.assertEqual(len(fixture['cases']), 32)
         self.assertEqual(set(expected), {c['id'] for c in fixture['cases']})
         reference.compare(expected)
         for name, point in expected.items():

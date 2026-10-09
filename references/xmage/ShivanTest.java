@@ -26,6 +26,17 @@ import static org.junit.Assert.*;
 public class ShivanTest extends CardTestPlayerBase {
  private final JsonObject spec;private final String mode;private final Exact exact;
  private boolean initialized,started,captured,legal=true;private int boosts;private int manaCalls;private int priorityCalls;private JsonObject result;
+ private int activationPriority, sourceChoices; private final JsonArray payment=new JsonArray();
+ private void paymentPoint(Game g, Ability ability, String stage, String source){
+  assertEquals("no priority inside payment",activationPriority,priorityCalls);
+  assertEquals("only the announced nonmana ability uses the stack",1,g.getStack().size());
+  JsonObject point=new JsonObject();point.addProperty("stage",stage);
+  if(source==null)point.add("source",JsonNull.INSTANCE);else point.addProperty("source",source);
+  assertTrue(ability.getTargets().isEmpty());point.add("target",JsonNull.INSTANCE);
+  point.addProperty("pool",g.getPlayer(playerA.getId()).getManaPool().getRed()+g.getPlayer(playerA.getId()).getManaPool().getGreen());
+  int tapped=0;for(Permanent p:g.getBattlefield().getAllActivePermanents())if(p.isLand(g)&&p.isTapped())tapped++;
+  point.addProperty("tapped",tapped);point.addProperty("announced_stack",g.getStack().size());point.addProperty("priority_calls",priorityCalls-activationPriority);payment.add(point);
+ }
  @Parameterized.Parameters(name="{0}") public static Collection<Object[]> cases() throws Exception {
   JsonObject f=JsonParser.parseString(new String(Files.readAllBytes(Paths.get(System.getProperty("mtglab.fixture"))),StandardCharsets.UTF_8)).getAsJsonObject();assertEquals(1,f.get("version").getAsInt());List<Object[]> out=new ArrayList<>();for(JsonElement c:f.getAsJsonArray("cases"))out.add(new Object[]{c.getAsJsonObject()});return out;
  }
@@ -36,7 +47,7 @@ public class ShivanTest extends CardTestPlayerBase {
  private ActivatedAbility boost(Permanent p){return p.getAbilities().getActivatedAbilities(Zone.BATTLEFIELD).stream().filter(a->a.getRule().contains("+1/+0")).findFirst().get();}
  private JsonElement stats(Permanent p){if(p==null)return JsonNull.INSTANCE;JsonArray a=new JsonArray();a.add(p.getPower().getValue());a.add(p.getToughness().getValue());a.add(p.getDamage());return a;}
  private void sick(Permanent p){try{java.lang.reflect.Field f=PermanentImpl.class.getDeclaredField("controlledFromStartOfControllerTurn");f.setAccessible(true);f.setBoolean(p,false);}catch(Exception e){throw new AssertionError(e);}}
- private void capture(Game g){result=new JsonObject();Permanent d=dragon(g);if(d!=null)assertTrue(d.getAbilities().containsKey(FlyingAbility.getInstance().getId()));result.add("dragon",stats(d));JsonArray others=new JsonArray();for(Permanent p:creatures(g,1))others.add(stats(p));result.add("others",others);JsonArray life=new JsonArray();life.add(g.getPlayer(playerA.getId()).getLife());life.add(g.getPlayer(playerB.getId()).getLife());result.add("life",life);result.addProperty("mana",g.getPlayer(playerA.getId()).getManaPool().getRed());result.addProperty("stack",g.getStack().size());result.addProperty("legal",legal);captured=true;g.pause();}
+ private void capture(Game g){result=new JsonObject();Permanent d=dragon(g);if(d!=null)assertTrue(d.getAbilities().containsKey(FlyingAbility.getInstance().getId()));result.add("dragon",stats(d));JsonArray others=new JsonArray();for(Permanent p:creatures(g,1))others.add(stats(p));result.add("others",others);JsonArray life=new JsonArray();life.add(g.getPlayer(playerA.getId()).getLife());life.add(g.getPlayer(playerB.getId()).getLife());result.add("life",life);result.addProperty("mana",g.getPlayer(playerA.getId()).getManaPool().getRed());result.addProperty("stack",g.getStack().size());result.addProperty("legal",legal);if(mode.equals("payment_sources")){assertEquals(2,payment.size());result.add("payment",payment);}captured=true;g.pause();}
  @Override protected TestPlayer createPlayer(String n,RangeOfInfluence r){return new TestPlayer(new TestComputerPlayer(n,r)){
   @Override public boolean priority(Game g){
    if(exact!=null)return exact.priority(this,g);
@@ -46,7 +57,7 @@ public class ShivanTest extends CardTestPlayerBase {
    if(g.getTurnNum()==1&&g.getTurnStepType()==PhaseStep.PRECOMBAT_MAIN){
     // Float exact scripted lands before spells/targets. No AI mana decisions.
     Permanent land=g.getBattlefield().getAllActivePermanents().stream().filter(p->p.getControllerId().equals(getId())&&p.isLand(g)&&!p.isTapped()&&(!mode.equals("bite")||!p.getName().equals("Mountain")||!g.getStack().isEmpty()&&g.getStack().getFirst().getName().equals("Bite Down"))).findFirst().orElse(null);
-    if(land!=null&&!mode.equals("grown_split")){assertTrue(activateAbility(land.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD).get(0),g));return true;}
+    if(land!=null&&!mode.equals("grown_split")&&!mode.equals("payment_sources")){assertTrue(activateAbility(land.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD).get(0),g));return true;}
     if(getId().equals(playerA.getId())){
      if(!initialized){initialized=true;if(Arrays.asList("sick","cleanup","haste").contains(mode))sick(d);}
      if(mode.equals("cast")){if(d!=null&&g.getStack().isEmpty()){capture(g);return false;}}
@@ -60,7 +71,7 @@ public class ShivanTest extends CardTestPlayerBase {
        if(mode.equals("bite")&&boosts==0&&!g.getStack().isEmpty()&&g.getStack().getFirst().getName().equals("Giant Growth")){pass(g);return false;}
        boolean ready=!mode.equals("bite") || boosts>0 || g.getStack().size()>0 && g.getStack().getFirst().getName().equals("Bite Down");
        int count=mode.equals("double")||mode.equals("bite")?2:1;
-       if(ready&&boosts<count){assertNotNull(d);assertEquals(5,d.getPower().getValue());assertTrue(boost(d).getTargets().isEmpty());assertTrue(activateAbility(boost(d),g));boosts++;if(mode.equals("dead_after")){assertTrue(d.destroy(null,g));assertEquals(1,g.getStack().size());}return true;}
+       if(ready&&boosts<count){assertNotNull(d);assertEquals(5,d.getPower().getValue());assertTrue(boost(d).getTargets().isEmpty());activationPriority=priorityCalls;assertTrue(activateAbility(boost(d),g));if(mode.equals("payment_sources"))paymentPoint(g,g.getStack().getFirst().getStackAbility(),"committed",null);boosts++;if(mode.equals("dead_after")){assertTrue(d.destroy(null,g));assertEquals(1,g.getStack().size());}return true;}
        if(boosts==count&&g.getStack().isEmpty()){
         if(mode.equals("haste")&&!started){started=true;Permanent cav=creatures(g,0).stream().filter(p->p.getName().equals("Axgard Cavalry")).findFirst().get();ActivatedAbility a=cav.getAbilities().getActivatedAbilities(Zone.BATTLEFIELD).stream().filter(x->x.getRule().contains("haste")).findFirst().get();addTarget("Shivan Dragon");assertTrue(activateAbility(a,g));return true;}
         if(!mode.equals("cleanup")&&!mode.equals("haste")){capture(g);return false;}
@@ -76,6 +87,14 @@ public class ShivanTest extends CardTestPlayerBase {
   }
   @Override public boolean playMana(Ability a,ManaCost unpaid,String prompt,Game g){
    if(exact!=null)return exact.mana(this,g);
+   if(mode.equals("payment_sources")){
+    assertEquals(activationPriority,priorityCalls);assertTrue(sourceChoices<1);
+    String alias="pay"+(++sourceChoices);Permanent land=g.getPermanent(playerA.getAliasByName(alias));
+    assertNotNull(land);assertFalse(land.isTapped());
+    assertTrue(activateAbility(land.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD).get(0),g));
+    paymentPoint(g,a,"mana",alias);
+   }
+
    assertTrue("bounded explicit payment: "+unpaid+" red="+getManaPool().getRed()+" green="+getManaPool().getGreen(),++manaCalls<32);assertTrue(getManaPool().getRed()>0||getManaPool().getGreen()>0);if(getManaPool().getRed()>0)getManaPool().unlockManaType(ManaType.RED);if(getManaPool().getGreen()>0)getManaPool().unlockManaType(ManaType.GREEN);return true;
   }
   @Override public void selectAttackers(Game g,UUID active){if(exact!=null){exact.attackers(this,g);return;}assertTrue(combat());Permanent d=dragon(g);assertTrue(d.canAttack(playerB.getId(),g));declareAttacker(d.getId(),playerB.getId(),g,false);}
@@ -91,7 +110,7 @@ public class ShivanTest extends CardTestPlayerBase {
   if(exact!=null){exact.setup();setStopAt(1,PhaseStep.END_TURN);execute();assertTrue("checkpoint not reached",captured);Files.write(Paths.get(System.getProperty("mtglab.output"),spec.get("id").getAsString()+".json"),new GsonBuilder().serializeNulls().setPrettyPrinting().create().toJson(result).getBytes(StandardCharsets.UTF_8));return;}
   boolean casting=mode.equals("cast")||mode.equals("short_cast");addCard(casting?Zone.HAND:Zone.BATTLEFIELD,playerA,"FDN-Shivan Dragon@own",1);
   int red=casting?(mode.equals("cast")?6:5):Arrays.asList("double","bite").contains(mode)?2:combat()&&!mode.equals("haste")||mode.equals("no_red")||mode.equals("thorn_bite")?0:1;
-  if(red>0)addCard(Zone.BATTLEFIELD,playerA,"FDN-Mountain",red);
+  if(mode.equals("payment_sources"))addCard(Zone.BATTLEFIELD,playerA,"FDN-Mountain@pay1",1);else if(red>0)addCard(Zone.BATTLEFIELD,playerA,"FDN-Mountain",red);
   if(mode.equals("cast"))castSpell(1,PhaseStep.PRECOMBAT_MAIN,playerA,"Shivan Dragon");
   if(mode.equals("bite")){addCard(Zone.BATTLEFIELD,playerB,"FDN-Shivan Dragon@enemy",1);addCard(Zone.BATTLEFIELD,playerA,"FDN-Forest",3);addCard(Zone.HAND,playerA,"FDN-Giant Growth",1);addCard(Zone.HAND,playerA,"FDN-Bite Down",1);castSpell(1,PhaseStep.PRECOMBAT_MAIN,playerA,"Giant Growth","@enemy");castSpell(1,PhaseStep.PRECOMBAT_MAIN,playerA,"Bite Down","@own^@enemy");}
   if(mode.equals("thorn_bite")){addCard(Zone.BATTLEFIELD,playerB,"FDN-Thornweald Archer",1);addCard(Zone.BATTLEFIELD,playerB,"FDN-Forest",2);addCard(Zone.HAND,playerB,"FDN-Bite Down",1);castSpell(1,PhaseStep.PRECOMBAT_MAIN,playerB,"Bite Down","Thornweald Archer^Shivan Dragon");}

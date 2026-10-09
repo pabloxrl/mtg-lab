@@ -83,7 +83,7 @@ Run two bounded native games (green mirror, heuristic versus legal-random):
 env -u DISPLAY -u WAYLAND_DISPLAY cargo run --quiet --locked -p mtg-cli -- simulate --config fixtures/simulate/native-v2.json </dev/null
 ```
 
-This uses `heuristic-full-pool-v1` and `legal-random-full-pool-v1`; prior M1 policy IDs
+This uses `heuristic-activation-mana-v1` and `legal-random-activation-mana-v1`; prior M1 policy IDs
 reject explicitly. It uses the owned Driver and all twenty frozen cards, including
 Archer/Cyclops/Pyromancer casts, trigger ordering and player targets. The same
 policies support red/green and red mirrors by changing the deck IDs in the config;

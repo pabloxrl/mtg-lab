@@ -35,6 +35,15 @@ fn send(d: &mut Driver, seat: Seat, c: C, q: NonZeroUsize) {
 }
 #[test]
 fn shivan_normal_reset_paid_activation_capture_replay() {
+    played_activation(false);
+}
+
+#[test]
+fn activation_mana_shivan_normal_reset_payment_sources_capture_replay() {
+    played_activation(true);
+}
+
+fn played_activation(during_payment: bool) {
     let mut history = None;
     let mut trajectory = None;
     for captured in [false, true] {
@@ -105,6 +114,32 @@ fn shivan_normal_reset_paid_activation_capture_replay() {
                 let o = d.observe(actor).unwrap();
                 let t = o.view.turn.unwrap();
                 let dec = o.decision.as_ref().unwrap();
+                if during_payment && matches!(dec.kind, "activation_target" | "activation_payment")
+                {
+                    for random in [false, true] {
+                        let mut probe = mtg_core::game::Game::new().unwrap();
+                        probe.restore(&d.privileged_snapshot()).unwrap();
+                        let input = probe.policy_observe(actor, 256).unwrap();
+                        let proposed = if random {
+                            mtg_policy::LegalRandom::new(
+                                mtg_policy::VERSION,
+                                mtg_policy::RNG_VERSION,
+                                254,
+                                0,
+                                0,
+                            )
+                            .unwrap()
+                            .choose(&input)
+                            .unwrap()
+                        } else {
+                            mtg_policy::Heuristic::new(mtg_policy::HEURISTIC_VERSION, 0)
+                                .unwrap()
+                                .choose(&input)
+                                .unwrap()
+                        };
+                        probe.apply_policy(actor, &proposed, 256).unwrap();
+                    }
+                }
                 let bf = &o
                     .view
                     .public_zones
@@ -156,7 +191,7 @@ fn shivan_normal_reset_paid_activation_capture_replay() {
                             && bf.iter().any(|c| c.card == "shivan-dragon")
                             && activations < 2
                         {
-                            if o.view.mana[0][3] == 0 {
+                            if !during_payment && o.view.mana[0][3] == 0 {
                                 C::TapMana {
                                     card: r(
                                         VisibleZone::Battlefield,
@@ -203,7 +238,26 @@ fn shivan_normal_reset_paid_activation_capture_replay() {
                         assert_eq!(before, d.privileged_snapshot());
                         assert_eq!(h, d.privileged_history());
                         assert_eq!(tr, serde_json::to_value(d.trajectory()).unwrap());
-                        if paid {
+                        if during_payment
+                            && !dec
+                                .candidates
+                                .iter()
+                                .zip(&dec.legal_mask)
+                                .any(|(c, legal)| {
+                                    *legal
+                                        && (*c == C::Pay { color: 3 } || *c == C::FinishActivation)
+                                })
+                        {
+                            assert_eq!(o.stack.len(), activations);
+                            assert_eq!(o.view.mana[0][3], 0);
+                            dec.candidates
+                                .iter()
+                                .zip(&dec.legal_mask)
+                                .find_map(|(c, legal)| {
+                                    (*legal && matches!(c, C::TapMana { .. })).then(|| c.clone())
+                                })
+                                .expect("explicit payment source")
+                        } else if paid {
                             activations += 1;
                             C::FinishActivation
                         } else {
@@ -278,6 +332,28 @@ fn shivan_normal_reset_paid_activation_capture_replay() {
                     [20, 20]
                 );
                 let converted = from_core_v2(result.trajectory().unwrap()).unwrap();
+                if during_payment {
+                    let taps: Vec<_> = converted
+                        .decisions
+                        .iter()
+                        .filter(|decision| {
+                            decision
+                                .observation
+                                .decision
+                                .as_ref()
+                                .is_some_and(|d| d.kind == "activation_payment")
+                                && decision.choice.submission.choices.iter().any(|c| {
+                                    matches!(c, mtg_recorder::structured::Command::TapMana { .. })
+                                })
+                        })
+                        .collect();
+                    assert_eq!(taps.len(), 2);
+                    assert!(
+                        taps.iter().all(|d| d.choice.status
+                            == mtg_recorder::structured::ActionStatus::Continuing)
+                    );
+                }
+
                 let mut w = Writer::new_v2(Vec::new(), 4_000_000, Backpressure::Block).unwrap();
                 w.append_v2(&converted).unwrap();
                 let bytes = w.finish().unwrap();
