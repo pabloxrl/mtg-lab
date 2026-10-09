@@ -21,3 +21,6 @@
 .operator-task[data-state=blocked], .operator-task[data-state=retrying], .operator-task[data-freshness=stale] { border-left-color: #b7791f; }
 .operator-task[data-state=queued], .operator-task[data-state=ready] { border-left-color: #6e6e80; }
 @media (max-width: 600px) { #operator-summary { width: calc(100% - 24px); padding: 20px; margin-top: 12px; } #operator-current { font-size: 17px; } }
+#operator-tracker, .operator-task-controls { font-size: 13px; font-weight: 600; color: #854d0e; }
+.operator-task-previous, .operator-task-previousBlocker { font-size: 14px; color: #525260; }
+.operator-task[data-state=controlled] { border-left-color: #b7791f; }

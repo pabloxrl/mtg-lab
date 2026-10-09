@@ -131,6 +131,10 @@ class ReportFileTests(unittest.TestCase):
         from unittest.mock import patch
         queue = patch('scripts.symphony.operator_summary.fetch_queue',
                       return_value=dict(status='available', issues=[], truncated=False))
+        labels = patch('scripts.symphony.operator_summary.fetch_label',
+                       return_value=dict(status='available', issues=[], truncated=False))
+        self.labels = labels.start()
+        self.addCleanup(labels.stop)
         self.queue = queue.start()
         self.addCleanup(queue.stop)
 
@@ -276,3 +280,117 @@ class QueueTests(unittest.TestCase):
             with self.subTest(value=type(value)), patch('scripts.symphony.operator_summary.subprocess.run', **options):
                 result = fetch_queue()
             self.assertEqual(result, dict(status='unavailable', issues=[], truncated=False))
+
+
+class GithubControlTests(unittest.TestCase):
+    """GH-253 requires controls independent of controller activity/readiness."""
+    def test_idle_with_blocked_issues_and_no_note(self):
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import collect
+        with patch('scripts.symphony.operator_summary.bounded_json', side_effect=OSError), \
+             patch('scripts.symphony.operator_summary.urllib.request.urlopen', side_effect=OSError), \
+             patch('scripts.symphony.operator_summary.fetch_queue', return_value=dict(status='available', issues=[])), \
+             patch('scripts.symphony.operator_summary.subprocess.run') as run:
+            import subprocess
+            run.return_value = subprocess.CompletedProcess([], 0, stdout=b'[{"number":23}]')
+            result = collect()
+        self.assertEqual([t['issue'] for t in result['tasks']], [23])
+
+    def test_overlap_preserves_worker_and_both_controls(self):
+        result = summarize(dict(running=[dict(issue_identifier='GH-70')], retrying=[], blocked=[]),
+            queue=dict(status='available', issues=[70, 71]),
+            controls={'blocked': dict(status='available', issues=[70, 72]),
+                      'held': dict(status='available', issues=[70, 71])})
+        self.assertEqual([(t['issue'], t['state']) for t in result['tasks']],
+                         [(70, 'running'), (71, 'controlled'), (72, 'controlled')])
+        self.assertEqual(result['tasks'][0]['github_controls'], ['blocked', 'held'])
+        self.assertEqual(result['queue']['count'], 2)
+        self.assertEqual(result['tracker']['blocked']['count'], 2)
+        self.assertEqual(result['tasks'][2]['freshness'], 'missing')
+        self.assertIn('reason', result['tasks'][2]['current'])
+
+    def test_idle_controls_keep_ready_count_separate_and_missing_reason_explicit(self):
+        result = summarize(dict(running=[], retrying=[], blocked=[]),
+            queue=dict(status='available', issues=[]),
+            controls={'blocked': dict(status='available', issues=[23, 210]),
+                      'held': dict(status='available', issues=[])})
+        self.assertEqual(result['state'], 'idle')
+        self.assertEqual(result['queue']['count'], 0)
+        self.assertEqual(result['tracker']['blocked']['count'], 2)
+        self.assertEqual([t['issue'] for t in result['tasks']], [23, 210])
+        self.assertTrue(all(t['freshness'] == 'missing' and 'reason' in t['current'] for t in result['tasks']))
+
+    def test_partial_tracker_failure_truncation_and_numeric_filter(self):
+        result = summarize(None, controls={
+            'blocked': dict(status='unavailable', issues=[], error='private'),
+            'held': dict(status='available', issues=[71, 71, True, '../private', -1], truncated=True)})
+        self.assertEqual(result['tracker']['blocked'], dict(status='unavailable', count=None))
+        self.assertEqual(result['tracker']['held'], dict(status='truncated', count=1))
+        self.assertEqual([t['issue'] for t in result['tasks']], [71])
+        self.assertFalse(result['tasks'][0]['github_controls_complete'])
+        self.assertNotIn('private', str(result))
+
+    def test_old_note_is_historical_and_foreign_future_invalid_notes_are_rejected(self):
+        now = datetime(2026, 10, 9, 14, tzinfo=timezone.utc)
+        note = dict(version=1, issue=23, updated_at='2026-10-09T13:00:00Z',
+                    current='Checking tests.', why='Trustworthy games.', next='Run checks.', blocker=None)
+        for report, expected in ((note, 'stale'), (dict(note, issue=24), 'missing'),
+                                 (dict(note, updated_at='2026-10-10T00:00:00Z'), 'missing'),
+                                 (dict(note, extra='private'), 'missing')):
+            with self.subTest(expected=expected, report=report):
+                task = summarize(None, now=now, reports={23: report}, controls={
+                    'blocked': dict(status='available', issues=[23])})['tasks'][0]
+                self.assertEqual(task['freshness'], expected)
+                self.assertIn('blocked or held', task['current'])
+                self.assertIsNone(task['blocker'])
+                if expected == 'stale':
+                    self.assertEqual(task['previous_note']['current'], note['current'])
+                    self.assertIn('predate', task['current'])
+                else:
+                    self.assertNotIn('previous_note', task)
+
+    def test_control_fetch_is_bounded_read_only_and_timeout_is_unknown(self):
+        import json
+        import subprocess
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import fetch_label, MAX_QUEUE_ISSUES
+        for label in ('agent-blocked', 'agent-held'):
+            with patch('scripts.symphony.operator_summary.subprocess.run', return_value=
+                       subprocess.CompletedProcess([], 0, stdout=json.dumps(
+                           [{'number': n} for n in range(1, MAX_QUEUE_ISSUES + 2)]).encode())) as run:
+                result = fetch_label(label)
+            self.assertTrue(result['truncated'])
+            self.assertEqual(len(result['issues']), MAX_QUEUE_ISSUES)
+            self.assertEqual(run.call_args.args[0], ['gh', 'issue', 'list', '--repo', 'pabloxrl/mtg-lab',
+                '--state', 'open', '--label', label, '--limit', '201', '--json', 'number'])
+            self.assertEqual(run.call_args.kwargs['timeout'], 3)
+            with patch('scripts.symphony.operator_summary.subprocess.run',
+                       side_effect=subprocess.TimeoutExpired('private command', 3)):
+                self.assertEqual(fetch_label(label), dict(status='unavailable', issues=[], truncated=False))
+
+    def test_collection_retains_only_each_controlled_issues_safe_note(self):
+        import io
+        import json
+        import tempfile
+        from pathlib import Path
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import collect
+        from scripts.symphony.report_progress import write_report
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            for number in (23, 24):
+                workspace = root / f'GH-{number}'
+                workspace.mkdir()
+                write_report(workspace, number, f'Checking task {number}.', 'Trustworthy games.', 'Run checks.')
+            state = dict(running=[], retrying=[], blocked=[])
+            with patch('scripts.symphony.operator_summary.urllib.request.urlopen',
+                       return_value=io.BytesIO(json.dumps(state).encode())), \
+                 patch('scripts.symphony.operator_summary.fetch_queue',
+                       return_value=dict(status='available', issues=[])), \
+                 patch('scripts.symphony.operator_summary.fetch_label',
+                       side_effect=lambda label: dict(status='available', issues=[23] if label == 'agent-blocked' else [24])):
+                result = collect(root, root / 'unused')
+            self.assertEqual([t['previous_note']['current'] for t in result['tasks']],
+                             ['Checking task 23.', 'Checking task 24.'])
+            self.assertEqual([t['github_controls'] for t in result['tasks']], [['blocked'], ['held']])
+            self.assertEqual(result['queue']['count'], 0)

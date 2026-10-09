@@ -1,4 +1,5 @@
 """Read-only, bounded operator summaries. Never read transcripts or command output."""
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
@@ -102,7 +103,7 @@ def _summarize_one(state, report=None, milestone=None, now=None):
     return result
 
 
-def summarize(state, report=None, milestone=None, now=None, *, reports=None, milestones=None, queue=None):
+def summarize(state, report=None, milestone=None, now=None, *, reports=None, milestones=None, queue=None, controls=None):
     """Keep the first-worker contract, plus an isolated summary for every task.
 
     Running takes precedence over retrying, blocked and the ready queue during
@@ -151,6 +152,52 @@ def summarize(state, report=None, milestone=None, now=None, *, reports=None, mil
                         milestone=milestones.get(issue) if milestones.get(issue) in MILESTONES else None,
                         milestone_goal=MILESTONES.get(milestones.get(issue)))
             tasks.append(task)
+    tracker = {}
+    controlled = {}
+    for kind in ('blocked', 'held'):
+        source = (controls or {}).get(kind)
+        ok = (isinstance(source, dict) and source.get('status') == 'available'
+              and isinstance(source.get('issues'), list))
+        numbers = list(dict.fromkeys(n for n in source['issues']
+                       if type(n) is int and 0 < n <= 999999999))[:MAX_QUEUE_ISSUES] if ok else []
+        truncated = bool(source.get('truncated')) if ok else False
+        tracker[kind] = dict(status=('truncated' if truncated else 'available') if ok else 'unavailable',
+                             count=len(numbers) if ok else None)
+        for number in numbers:
+            controlled.setdefault(number, []).append(kind)
+    by_issue = {task['issue']: task for task in tasks}
+    for number in sorted(controlled):
+        if number not in by_issue:
+            task = _summarize_one(None, now=now)
+            task.update(issue=number, state='controlled',
+                        milestone=milestones.get(number) if milestones.get(number) in MILESTONES else None,
+                        milestone_goal=MILESTONES.get(milestones.get(number)))
+            tasks.append(task)
+            by_issue[number] = task
+    for task in tasks:
+        number = task['issue']
+        task['controller_state'] = (task['state'] if task['state'] in ('running', 'retrying', 'blocked')
+                                    else 'none' if valid else 'unavailable')
+        task['github_controls'] = controlled.get(number, [])
+        task['github_controls_complete'] = all(s['status'] == 'available' for s in tracker.values())
+        if not task['github_controls'] or task['state'] in ('running', 'retrying', 'blocked'):
+            continue
+        task.update(state='controlled', freshness='missing',
+                    current='GitHub marks this task blocked or held. No operator note explains the reason here.',
+                    next='Open the task for its recorded reason and latest plan.')
+        try:
+            note = validate_report(reports.get(number))
+            updated = timestamp(note['updated_at'])
+            if note['issue'] != number or updated > now:
+                continue
+        except (ValueError, TypeError, KeyError):
+            continue
+        # Historical prose never replaces the current GitHub control state.
+        task['previous_note'] = {k: note[k] for k in ('current', 'why', 'next', 'blocker')}
+        task.update(current='GitHub marks this task blocked or held. The last operator note is shown below; it may predate this control.',
+                    report_updated_at=updated.isoformat(),
+                    freshness='stale' if (now - updated).total_seconds() > REFRESH_SECONDS else 'fresh')
+    result['tracker'] = tracker
     result['tasks'] = tasks
     result['queue'] = dict(status='available' if available else 'unavailable',
                            count=len(ready) if available else None,
@@ -159,11 +206,18 @@ def summarize(state, report=None, milestone=None, now=None, *, reports=None, mil
 
 
 def fetch_queue():
-    """Read this repository's ready issue numbers; never expose gh output/errors."""
+    """Compatibility entry point for the ready-label source."""
+    return fetch_label('agent-ready')
+
+
+def fetch_label(label):
+    """Read only bounded numeric identities for an allowlisted task control."""
+    if label not in ('agent-ready', 'agent-blocked', 'agent-held'):
+        raise ValueError('unsupported task control')
     try:
         process = subprocess.run(
             ['gh', 'issue', 'list', '--repo', 'pabloxrl/mtg-lab', '--state', 'open',
-             '--label', 'agent-ready', '--limit', str(MAX_QUEUE_ISSUES + 1), '--json', 'number'],
+             '--label', label, '--limit', str(MAX_QUEUE_ISSUES + 1), '--json', 'number'],
             stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
             timeout=3, check=False)
         if process.returncode or len(process.stdout) > MAX_REPORT_BYTES:
@@ -207,8 +261,15 @@ def collect(workspaces=None, control=None):
             raise ValueError('invalid state')
     except (OSError, ValueError, TypeError):
         state = None
-    queue = fetch_queue()
-    reports, milestones, issues, running = {}, {}, set(queue['issues']), set()
+    # Parallel bounded reads preserve the existing endpoint/browser time budget.
+    with ThreadPoolExecutor(max_workers=3) as pool:
+        ready_fetch = pool.submit(fetch_queue)
+        blocked_fetch = pool.submit(fetch_label, 'agent-blocked')
+        held_fetch = pool.submit(fetch_label, 'agent-held')
+        queue = ready_fetch.result()
+        controls = dict(blocked=blocked_fetch.result(), held=held_fetch.result())
+    controlled = set(n for source in controls.values() for n in source['issues'])
+    reports, milestones, issues, running = {}, {}, set(queue['issues']) | controlled, set()
     if isinstance(state, dict):
         for kind in ('running', 'retrying', 'blocked'):
             rows = state.get(kind)
@@ -221,7 +282,7 @@ def collect(workspaces=None, control=None):
                             running.add(issue)
     for issue in sorted(issues):
         workspace = workspaces / f'GH-{issue}'
-        if issue in running:
+        if issue in running or issue in controlled:
             try:
                 reports[issue] = bounded_json(workspace / '.agent-artifacts/operator-summary.json', MAX_REPORT_BYTES)
             except (OSError, ValueError):
@@ -236,7 +297,7 @@ def collect(workspaces=None, control=None):
                 break
             except (OSError, ValueError, KeyError, TypeError, StopIteration):
                 pass
-    return summarize(state, reports=reports, milestones=milestones, queue=queue)
+    return summarize(state, reports=reports, milestones=milestones, queue=queue, controls=controls)
 
 
 class Handler(BaseHTTPRequestHandler):

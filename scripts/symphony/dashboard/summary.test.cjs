@@ -136,3 +136,28 @@ test('queue truncation and unknown worker state stay visible', async () => {
   assert.match(page.nodes.get('operator-queue').textContent, /partially shown/);
   assert.match(page.nodes.get('operator-notice').textContent, /Worker status is unavailable/);
 });
+
+test('idle ready queue coexists with GitHub controls and historical safe notes', async () => {
+  const page = setup(); await flush();
+  page.set({...page.get(), state: 'idle', tasks: [
+    {issue: 23, state: 'controlled', github_controls: ['blocked', 'held'], github_controls_complete: true,
+      freshness: 'stale', report_updated_at: '2026-09-27T12:00:00Z',
+      previous_note: {current: '<script>attack()</script>', why: 'Games.', next: 'Checks.', blocker: null}}
+  ], queue: {status: 'available', count: 0},
+    tracker: {blocked: {status: 'available', count: 1}, held: {status: 'available', count: 1}}});
+  await page.timers[0].fn();
+  assert.match(page.nodes.get('operator-queue').textContent, /^0 open tasks/);
+  assert.match(page.nodes.get('operator-tracker').textContent, /blocked tasks: 1/);
+  assert.match(page.nodes.get('operator-task-0-controls').textContent, /blocked and held/);
+  assert.match(page.nodes.get('operator-task-0-previous').textContent, /<script>attack\(\)<\/script>/);
+  assert.match(page.nodes.get('operator-task-0-freshness').textContent, /more than five minutes old/);
+  assert.equal(page.nodes.get('operator-task-0-issue').href, 'https://github.com/pabloxrl/mtg-lab/issues/23');
+  page.set({...page.get(), tracker: {blocked: {status: 'unavailable', count: null}, held: {status: 'truncated', count: 200}},
+    tasks: [{issue: 9999999999, state: 'running', github_controls: ['held'], freshness: 'missing'}]});
+  await page.timers[0].fn();
+  assert.match(page.nodes.get('operator-tracker').textContent, /count is unknown/);
+  assert.match(page.nodes.get('operator-tracker').textContent, /at least 200/);
+  assert.match(page.nodes.get('operator-task-0-freshness').textContent, /Open the task for the reason/);
+  assert.equal(page.nodes.get('operator-task-0-state').textContent, 'Running');
+  assert.equal(page.nodes.get('operator-task-0-issue').href, undefined);
+});
