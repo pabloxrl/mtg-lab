@@ -118,9 +118,41 @@ pub(crate) fn run_observed(
 /// Optional timing for the benchmark client only; ordinary simulation does not
 /// read a performance clock for each choice. Includes policy initialization and
 /// all choose attempts (including failures), excludes observation/submission.
-#[derive(Default)]
 pub(crate) struct PolicyTiming {
     pub elapsed_ns: u128,
+    pub phases: Phases,
+    pub detailed: bool,
+    pub encode: bool,
+    pub clock: Rc<dyn Fn() -> u128>,
+}
+#[derive(Default, Clone, Debug, Serialize)]
+pub(crate) struct Phases {
+    pub reset_ns: u128,
+    pub transition_ns: u128,
+    pub legality_and_view_ns: u128,
+    pub encoding_ns: u128,
+    pub finalization_ns: u128,
+    pub encoded_bytes: u64,
+}
+impl Default for PolicyTiming {
+    fn default() -> Self {
+        let start = Instant::now();
+        Self {
+            elapsed_ns: 0,
+            phases: Phases::default(),
+            detailed: false,
+            encode: false,
+            clock: Rc::new(move || start.elapsed().as_nanos()),
+        }
+    }
+}
+fn stamp(t: &Option<&mut PolicyTiming>, detailed: bool) -> Option<u128> {
+    t.as_ref()
+        .filter(|t| !detailed || t.detailed)
+        .map(|t| (t.clock)())
+}
+fn elapsed(t: &Option<&mut PolicyTiming>, start: Option<u128>) -> u128 {
+    start.map_or(0, |start| (t.as_ref().unwrap().clock)() - start)
 }
 
 pub(crate) fn run_instrumented(
@@ -195,18 +227,20 @@ pub(crate) fn run_instrumented(
                 .map_err(|_| io::Error::other("invalid trace configuration"))?;
         }
         let episode_start = cursor;
-        let policy_start = timing.as_ref().map(|_| Instant::now());
+        let policy_start = stamp(&timing, false);
         let mut policies = c.script.is_none().then(|| {
             [
                 Policy::new(&c.policies[0], n, episode, 0),
                 Policy::new(&c.policies[1], n, episode, 1),
             ]
         });
-        if let (Some(timing), Some(start)) = (timing.as_mut(), policy_start) {
-            timing.elapsed_ns += start.elapsed().as_nanos();
+        let duration = elapsed(&timing, policy_start);
+        if let Some(timing) = timing.as_mut() {
+            timing.elapsed_ns += duration;
         }
         counts.started += 1;
         let mut work_calls = 1;
+        let reset_start = stamp(&timing, true);
         let reset = if let Some(session) = &capture {
             let header = session
                 .run
@@ -216,6 +250,10 @@ pub(crate) fn run_instrumented(
         } else {
             d.reset(&c.game, c.master_seed, episode, n.work_quantum)
         };
+        let duration = elapsed(&timing, reset_start);
+        if let Some(timing) = timing.as_mut() {
+            timing.phases.reset_ns += duration;
+        }
         let mut caller_error = None;
         let mut reason = "abandoned";
         let mut progress = match reset {
@@ -244,7 +282,15 @@ pub(crate) fn run_instrumented(
             }
             work_calls += 1;
             let result = match progress {
-                Progress::InternalYield => d.advance(n.work_quantum),
+                Progress::InternalYield => {
+                    let start = stamp(&timing, true);
+                    let result = d.advance(n.work_quantum);
+                    let duration = elapsed(&timing, start);
+                    if let Some(t) = timing.as_mut() {
+                        t.phases.transition_ns += duration;
+                    }
+                    result
+                }
                 Progress::Ready if c.script.is_some() => {
                     match crate::script::submit(
                         c.script.as_ref().unwrap(),
@@ -261,25 +307,48 @@ pub(crate) fn run_instrumented(
                 }
                 Progress::Ready => {
                     // Only authorized policy observations cross into a policy.
+                    let start = stamp(&timing, true);
                     let ready = [Seat::P0, Seat::P1].into_iter().find_map(|seat| {
                         d.observe(seat)
                             .ok()
                             .filter(|o| o.decision.is_some())
                             .map(|o| (seat, o))
                     });
+                    let duration = elapsed(&timing, start);
+                    if let Some(t) = timing.as_mut() {
+                        t.phases.legality_and_view_ns += duration;
+                    }
                     match ready {
                         Some((seat, o)) => {
                             let index = usize::from(seat == Seat::P1);
-                            let policy_start = timing.as_ref().map(|_| Instant::now());
+                            if timing.as_ref().is_some_and(|t| t.encode) {
+                                let start = stamp(&timing, true);
+                                let bytes = serde_json::to_vec(&o);
+                                let duration = elapsed(&timing, start);
+                                let t = timing.as_mut().unwrap();
+                                t.phases.encoding_ns += duration;
+                                t.phases.encoded_bytes += std::hint::black_box(bytes?).len() as u64;
+                            }
+                            let policy_start = stamp(&timing, false);
                             let submission = policies.as_mut().unwrap()[index]
                                 .as_mut()
                                 .map_err(|_| ())
                                 .and_then(|p| p.choose(&o).map_err(|_| ()));
-                            if let (Some(timing), Some(start)) = (timing.as_mut(), policy_start) {
-                                timing.elapsed_ns += start.elapsed().as_nanos();
+                            let duration = elapsed(&timing, policy_start);
+                            if let Some(timing) = timing.as_mut() {
+                                timing.elapsed_ns += duration;
                             }
                             match submission {
-                                Ok(s) => d.submit(seat, &s).map(|()| Progress::InternalYield),
+                                Ok(s) => {
+                                    let start = stamp(&timing, true);
+                                    let result =
+                                        d.submit(seat, &s).map(|()| Progress::InternalYield);
+                                    let duration = elapsed(&timing, start);
+                                    if let Some(t) = timing.as_mut() {
+                                        t.phases.transition_ns += duration;
+                                    }
+                                    result
+                                }
                                 Err(()) => {
                                     caller_error = Some("policy_error");
                                     break;
@@ -313,7 +382,12 @@ pub(crate) fn run_instrumented(
         {
             caller_error = Some("script_extra");
         }
+        let start = stamp(&timing, true);
         let result = d.finish();
+        let duration = elapsed(&timing, start);
+        if let Some(t) = timing.as_mut() {
+            t.phases.finalization_ns += duration;
+        }
         // Replay bytes are privileged. Validate complete export here but never
         // send it to public JSONL; durable publication uses the existing capture path.
         let replay_status = if n.instrumentation == mtg_core::metrics::Mode::FullReplay {

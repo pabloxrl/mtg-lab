@@ -14,7 +14,7 @@ use std::{
 };
 type Error = (i32, String);
 const INPUT_LIMIT: usize = 16 * 1024 * 1024;
-const USAGE: &str = "usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1|native-rollout-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail";
+const USAGE: &str = "usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1|native-rollout-v1|scalar-windows-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail";
 fn invalid(message: impl Into<String>) -> Error {
     (2, message.into())
 }
@@ -135,6 +135,13 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
         (0, value)
     } else if is(0, "trajectories") && is(1, "validate") {
         (0, crate::trajectories::validate(&args[2..])?)
+    } else if args.len() == 5
+        && is(0, "bench")
+        && is(1, "--workload")
+        && is(2, "scalar-windows-v1")
+        && is(3, "--config")
+    {
+        crate::benchmark::run(&read(&args[4], 1_048_576)?, signal)?
     } else if args.len() == 5
         && is(0, "bench")
         && is(1, "--workload")

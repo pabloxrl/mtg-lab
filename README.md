@@ -25,6 +25,8 @@ new cards reuse supported mechanics through definitions, without engine changes.
 - Optional [scalar instrumentation](doc/scalar-metrics.md): off, counters,
   bounded sampled diagnostics and complete replay export;
   capture remains independent and performance qualification is still pending.
+- [Versioned scalar benchmarks](doc/scalar-benchmark.md) retain repeated windows,
+  separate measured costs and explicit unfinished-game accounting.
 - Automated regression tests and scoped comparisons against pinned XMage and
   Forge reference engines.
 
