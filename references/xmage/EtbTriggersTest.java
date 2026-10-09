@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
  * positions with real casts; explicitly synthetic end-step queue only. */
 @RunWith(Parameterized.class)
 public class EtbTriggersTest extends CardTestPlayerBase {
- private final JsonObject spec; private JsonArray points=new JsonArray(); private boolean captured; private int calls, targetCalls,manaCalls;
+ private final JsonObject spec; private JsonArray points=new JsonArray(); private boolean captured, resolvedEndStep; private int calls, targetCalls,manaCalls;
  @Parameterized.Parameters(name="{0}") public static Collection<Object[]> cases() throws Exception {
   JsonObject f=JsonParser.parseString(new String(Files.readAllBytes(Paths.get(System.getProperty("mtglab.fixture"))),StandardCharsets.UTF_8)).getAsJsonObject();assertEquals(1,f.get("version").getAsInt());List<Object[]> out=new ArrayList<>();for(JsonElement c:f.getAsJsonArray("cases"))out.add(new Object[]{c.getAsJsonObject()});return out;
  }
@@ -32,6 +32,10 @@ public class EtbTriggersTest extends CardTestPlayerBase {
  @Override protected TestPlayer createPlayer(String n,RangeOfInfluence r){return new TestPlayer(new TestComputerPlayer(n,r)){
   @Override public boolean priority(Game g){
    assertTrue("bounded scripted priority",++calls<150);if(captured)return false;
+   if(resolvedEndStep){
+    if(g.getTurnNum()==2){assertEquals(PhaseStep.UPKEEP,g.getTurnStepType());assertEquals(playerB.getId(),getId());assertTrue(g.getStack().isEmpty());assertEquals(18,g.getPlayer(playerB.getId()).getLife());captured=true;g.pause();return false;}
+    assertEquals(PhaseStep.END_TURN,g.getTurnStepType());pass(g);return false;
+   }
    PhaseStep step=spec.get("end_step").getAsBoolean()?PhaseStep.END_TURN:PhaseStep.PRECOMBAT_MAIN;
    if(g.getTurnNum()!=1||g.getTurnStepType()!=step||!getId().equals(playerA.getId())){pass(g);return false;}
    if(spec.get("end_step").getAsBoolean()){
@@ -46,7 +50,8 @@ public class EtbTriggersTest extends CardTestPlayerBase {
     for(Permanent land:g.getBattlefield().getAllActivePermanents())if(land.isLand(g)&&land.getControllerId().equals(playerB.getId()))assertTrue(playerB.activateAbility(land.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD).get(0),g));
     Card c=playerB.getHand().getCards(g).stream().filter(x->x.getName().equals("Bite Down")).findFirst().get();assertTrue(playerB.cast(c.getSpellAbility(),g,false,null));g.getStack().resolve(g);g.checkStateAndTriggered();points.add(point(g));
    }else if(death.equals("hook")){assertTrue(pyro(g).destroy(null,g));g.checkStateAndTriggered();points.add(point(g));}
-   g.getStack().resolve(g);g.checkStateAndTriggered();points.add(point(g));captured=true;g.pause();return false;
+   g.getStack().resolve(g);g.checkStateAndTriggered();points.add(point(g));
+   if(spec.get("end_step").getAsBoolean()){resolvedEndStep=true;pass(g);}else{captured=true;g.pause();}return false;
   }
   @Override public boolean chooseTarget(Outcome outcome,Target t,Ability a,Game g){
    assertTrue(++targetCalls<4);
@@ -58,6 +63,7 @@ public class EtbTriggersTest extends CardTestPlayerBase {
    assertTrue(t.canTarget(selected,a,g));t.addTarget(selected,a,g);return true;
   }
   @Override public boolean playMana(Ability a,ManaCost unpaid,String prompt,Game g){assertTrue(++manaCalls<10);assertTrue(getManaPool().getRed()>0||getManaPool().getGreen()>0);if(getManaPool().getRed()>0)getManaPool().unlockManaType(ManaType.RED);if(getManaPool().getGreen()>0)getManaPool().unlockManaType(ManaType.GREEN);return true;}
+  @Override public void selectAttackers(Game g,UUID actor){assertEquals(getId(),actor);}
  };}
  @Test public void executeCase() throws Exception {
   setStrictChooseMode(true);currentGame.setStartingPlayerId(playerA.getId());gameOptions.skipInitShuffling=true;

@@ -216,3 +216,7 @@ mod cleanup_trigger_tests;
 #[cfg(test)]
 #[path = "m2_cost_reference_tests.rs"]
 mod m2_cost_reference_tests;
+
+#[cfg(test)]
+#[path = "m2_trigger_reference_tests.rs"]
+mod m2_trigger_reference_tests;

@@ -1,0 +1,399 @@
+{
+  "status": "executed",
+  "assigned_catalog_cases": 38,
+  "assignments": {
+    "rules-triggers-cast-resolution-positive": {
+      "pack": "cast",
+      "cases": [
+        "archer_fodder"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-cast-resolution-negative": {
+      "pack": "cast",
+      "cases": [
+        "creature"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-cast-resolution-interaction": {
+      "pack": "cast",
+      "cases": [
+        "mixed_growth"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-cast-resolution-regression": {
+      "pack": "cast",
+      "cases": [
+        "dead_target"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-failed-cast-positive": {
+      "pack": "composition",
+      "cases": [
+        "growth_cub"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-failed-cast-negative": {
+      "pack": "cast",
+      "cases": [
+        "no_mana"
+      ],
+      "boundary": "Native failed transaction is nonmutating; XMage repeatedly rejects Growth through getPlayable without G."
+    },
+    "rules-triggers-failed-cast-interaction": {
+      "pack": "cast",
+      "cases": [
+        "bite_reject"
+      ],
+      "boundary": "Native rejects illegal destination without mutation; XMage canTarget rejects the friendly destination before the legal cast."
+    },
+    "rules-triggers-failed-cast-regression": {
+      "pack": "cast",
+      "cases": [
+        "thrill_fail"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-etb-target-positive": {
+      "pack": "etb",
+      "cases": [
+        "rules-triggers-etb-target-positive"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-etb-target-negative": {
+      "pack": "etb",
+      "cases": [
+        "rules-triggers-etb-target-negative"
+      ],
+      "boundary": "Native raw creature target rejects without mutation; XMage canTarget rejects creature and verifies required player target cardinality."
+    },
+    "rules-triggers-etb-target-interaction": {
+      "pack": "etb",
+      "cases": [
+        "rules-triggers-etb-target-interaction"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-etb-target-regression": {
+      "pack": "etb",
+      "cases": [
+        "rules-triggers-etb-target-regression"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-ordering-positive": {
+      "pack": "cast",
+      "cases": [
+        "mixed_growth"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-ordering-negative": {
+      "pack": "cast",
+      "cases": [
+        "mixed_growth"
+      ],
+      "boundary": "Incomplete permutation rejection/nonmutation is native trigger_tests::incomplete_trigger_permutation_rejects_without_mutation; XMage consumes controller-local choices, not raw permutations."
+    },
+    "rules-triggers-ordering-interaction": {
+      "pack": "cast",
+      "cases": [
+        "order_012",
+        "order_021",
+        "order_102",
+        "order_120",
+        "order_201",
+        "order_210"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-ordering-regression": {
+      "pack": "cast",
+      "cases": [
+        "mixed_growth"
+      ],
+      "boundary": "Native snapshots before every resolution and all placement yields; XMage independently executes the same chosen order, without native snapshot format."
+    },
+    "rules-terminal-lethal-interaction": {
+      "pack": "composition",
+      "cases": [
+        "lethal_fodder"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-priority-turn-structure-interaction": {
+      "pack": "etb",
+      "cases": [
+        "rules-priority-turn-structure-interaction"
+      ],
+      "boundary": "Synthetic pending ETB in end step. Both bridges assert next upkeep after exported resolution checkpoint."
+    },
+    "rules-triggers-apnap-positive": {
+      "pack": "composition",
+      "cases": [
+        "apnap_single"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-apnap-negative": {
+      "pack": "cast",
+      "cases": [
+        "apnap"
+      ],
+      "boundary": "Combined foreign-controller permutation rejection/nonmutation is native m2_trigger_reference_tests; XMage enforces controller-local ordering and cannot accept this raw native command."
+    },
+    "rules-triggers-apnap-interaction": {
+      "pack": "composition",
+      "cases": [
+        "apnap_p1"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-triggers-apnap-regression": {
+      "pack": "composition",
+      "cases": [
+        "apnap_dead"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-continuous-hand-size-cleanup-positive": {
+      "pack": "cleanup",
+      "cases": [
+        "rules-continuous-hand-size-cleanup-positive"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-continuous-hand-size-cleanup-negative": {
+      "pack": "cleanup",
+      "cases": [
+        "rules-continuous-hand-size-cleanup-negative"
+      ],
+      "boundary": "Native submits wrong discard counts atomically; XMage asserts exact target cardinality."
+    },
+    "rules-continuous-hand-size-cleanup-interaction": {
+      "pack": "cleanup",
+      "cases": [
+        "rules-continuous-hand-size-cleanup-interaction"
+      ],
+      "boundary": "Synthetic pending ETB at cleanup. Native and XMage assert repeated cleanup; JSON compares hand/graveyard/life/stack/stats, not repetition count."
+    },
+    "rules-continuous-hand-size-cleanup-regression": {
+      "pack": "cleanup",
+      "cases": [
+        "rules-continuous-hand-size-cleanup-regression"
+      ],
+      "boundary": "Synthetic pending ETB at cleanup. Thrill cost/draw and no redundant discard; repeated cleanup asserted internally in both bridges."
+    },
+    "rules-foundations_micro_v1-crackling-cyclops-positive": {
+      "pack": "cast",
+      "cases": [
+        "cyclops_fodder"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-crackling-cyclops-negative": {
+      "pack": "cast",
+      "cases": [
+        "creature"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-crackling-cyclops-interaction": {
+      "pack": "cast",
+      "cases": [
+        "cyclops_growth"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-crackling-cyclops-regression": {
+      "pack": "cast",
+      "cases": [
+        "thrill_fail"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-firebrand-archer-positive": {
+      "pack": "cast",
+      "cases": [
+        "archer_fodder"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-firebrand-archer-negative": {
+      "pack": "cast",
+      "cases": [
+        "land"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-firebrand-archer-interaction": {
+      "pack": "cast",
+      "cases": [
+        "two_growth"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-firebrand-archer-regression": {
+      "pack": "cast",
+      "cases": [
+        "dead_source"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-viashino-pyromancer-positive": {
+      "pack": "etb",
+      "cases": [
+        "rules-foundations_micro_v1-viashino-pyromancer-positive"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-viashino-pyromancer-negative": {
+      "pack": "etb",
+      "cases": [
+        "rules-foundations_micro_v1-viashino-pyromancer-negative"
+      ],
+      "boundary": "Native raw creature target rejects without mutation; XMage canTarget rejects creature and verifies required player target cardinality."
+    },
+    "rules-foundations_micro_v1-viashino-pyromancer-interaction": {
+      "pack": "etb",
+      "cases": [
+        "rules-foundations_micro_v1-viashino-pyromancer-interaction"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    },
+    "rules-foundations_micro_v1-viashino-pyromancer-regression": {
+      "pack": "etb",
+      "cases": [
+        "rules-foundations_micro_v1-viashino-pyromancer-regression"
+      ],
+      "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+    }
+  },
+  "packs": {
+    "cast": {
+      "path": "cast/receipt.json",
+      "sha256": "5fbb8a3f32b6a5db3eebb155729a84b1af481420c94382478d93bebacb893b14",
+      "cases": 22
+    },
+    "etb": {
+      "path": "etb/receipt.json",
+      "sha256": "9b3039ed61fdbafc12be51aced05b8e3dfafa1909b2bc5ba1e2118315f57d2c5",
+      "cases": 14
+    },
+    "cleanup": {
+      "path": "cleanup/receipt.json",
+      "sha256": "a2a96ffa1311ba6acc9a8c431e44cfb12d1968adcbedef3356d343779e6ab8fb",
+      "cases": 4
+    },
+    "composition": {
+      "path": "composition/receipt.json",
+      "sha256": "13a5c74adbc9ce0310639e6ec2dc1a0c15004f869ecf9e7708be665eeed220b2",
+      "cases": 9
+    }
+  },
+  "controls": [
+    {
+      "name": "source-order",
+      "artifact": "source-order-minimized.json",
+      "sha256": "91c01521bcb995694773f8107cd3e1544e0e6638d64abc67ae3cf6399d942b70"
+    },
+    {
+      "name": "skipped-cleanup",
+      "artifact": "skipped-cleanup-minimized.json",
+      "sha256": "d8b4df25a8153718d174388f3f7e904150001cf8ea0b53248832a35d76091d4b"
+    }
+  ],
+  "by_capability": {
+    "triggers/cast-resolution": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "triggers/failed-cast": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "triggers/etb-target": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "triggers/ordering": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "terminal/lethal": {
+      "planned": 1,
+      "executed": 1,
+      "bounded_observations_agreed": 1,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "priority/turn-structure": {
+      "planned": 1,
+      "executed": 1,
+      "bounded_observations_agreed": 1,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "triggers/apnap": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "continuous/hand-size-cleanup": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "foundations_micro_v1/crackling-cyclops": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "foundations_micro_v1/firebrand-archer": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    },
+    "foundations_micro_v1/viashino-pyromancer": {
+      "planned": 4,
+      "executed": 4,
+      "bounded_observations_agreed": 4,
+      "disputed": 0,
+      "unavailable": 0
+    }
+  },
+  "engines": [
+    "native",
+    "xmage"
+  ],
+  "count_basis": "Assigned case mappings, not distinct scenarios or full API parity; bounded observations only. See every assignment boundary.",
+  "assignment_sha256": "05cb82f70be924a15288b43f7c7dc5ec6a13d19f6414f1a2a7186b846ce25b5a",
+  "catalog_sha256": "794f782d4dad77117bd05a900655196bfecfa8800bc02977ed151b9d8fb916fe",
+  "runner_sha256": "0855ed76b43ea4b29843fb5984f8a8ff8f0ab08e18481e946df4886781d27817",
+  "limitations": "Assignment counts are not distinct scenario counts. Raw negative command/snapshot guarantees are native where each boundary says so; no full-state, normal-reset or Forge reference claim. Original owners and M2 gate retain acceptance."
+}
