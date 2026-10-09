@@ -1,0 +1,32 @@
+2026-10-09, managed Linux, base 0f46ba11c1c8902ac7337af3377b132ee361c1ea.
+Shared heavy lock: cargo test -p mtg-core --test metrics
+Compiled successfully (24.63s). 8 tests: 1 passed, 7 failed, 0 ignored.
+API scaffold returns default counters and does not aggregate.
+Behavioral failures:
+- aggregation decisions: 0 instead of 3
+- lifecycle: (0,0,0,0,0) instead of (1,0,0,1,1)
+- invalid/stale/boundary/accepted: (0,0,0,0) instead of (2,1,3,1)
+- resets/started/completed: (0,0,0) instead of (1,1,1)
+- off: metrics unexpectedly Some
+- natural empty-draw completed/rules-completed: (0,0,0,0,0) instead of (1,1,0,0,0)
+Privacy shape control passed with the empty counters.
+The preserved quantum/capture trace failed on an invalid test input: color 5
+(Colorless) was submitted for Llanowar Elves' G cost. This is NOT behavioral red
+for instrumentation. Corrected the new draft input to color 4 (Green), per the
+public Color::ALL mapping and pinned mana cost, without changing expectations.
+
+Native boundary baseline: cargo test -p mtg-cli --test native_simulate
+optional_public_counters -- --nocapture (shared heavy lock).
+Compiled successfully (19.89s). The existing off run succeeds; requesting
+native.instrumentation=counters returns exit 2 (invalid simulation configuration)
+instead of expected successful exit 0. 1 test failed, none ignored.
+
+First wired candidate: focused metrics suite compiled and ran 10 tests;
+9 passed, 1 failed. The remaining preserved trace still used library-order
+indices for the sorted public hand. Diagnostic: Cast(hand row 0) rejected at
+precombat_main. Per the existing public hand contract, six Forests sort before
+Llanowar Elves; after playing one Forest, the Elf is row 5. Added explicit
+card-identity assertions and corrected both cast inputs to row 5. No counter,
+trajectory, quantum or rules expectation was changed. The queued corrected
+trace ran against the candidate, not the original stub; it is not additional
+missing-instrumentation red evidence.

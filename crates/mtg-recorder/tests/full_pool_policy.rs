@@ -22,7 +22,15 @@ fn play(
     q: NonZeroUsize,
     seen: &mut BTreeSet<String>,
 ) -> EpisodeResult {
-    let mut d = Driver::new(1024).unwrap();
+    let mut d = Driver::instrumented(
+        1024,
+        if capture {
+            mtg_core::metrics::Mode::Counters
+        } else {
+            mtg_core::metrics::Mode::Off
+        },
+    )
+    .unwrap();
     if capture {
         d.reset_captured(&run.config, 42, 7, q, &run.header(7).unwrap())
             .unwrap();
@@ -108,6 +116,30 @@ fn play(
         "{:?}",
         run.config
     );
+    if capture {
+        // Complement the independently hand-counted tiny traces with the full
+        // existing normal-game matrix; retain all replay and rules assertions.
+        let c = d.metrics().unwrap();
+        let trajectory = result.trajectory().unwrap();
+        let footer = trajectory.footer().unwrap();
+        assert_eq!(c.decisions, footer.decisions as u64);
+        assert_eq!(c.logical_actions, footer.logical_actions as u64);
+        assert_eq!(c.cancelled_actions, footer.cancelled_actions as u64);
+        assert_eq!(
+            c.committed_actions,
+            trajectory
+                .decisions()
+                .iter()
+                .filter(|d| d.choice.status == mtg_core::trajectory::v2::ActionStatus::Committed)
+                .count() as u64
+        );
+        assert_eq!(
+            (c.completed, c.rules_completed, c.failed, c.truncated),
+            (1, 1, 0, 0)
+        );
+    } else {
+        assert!(d.metrics().is_none());
+    }
     let view = &result.final_observations().unwrap()[0].view;
     let v = serde_json::to_value(view).unwrap();
     let mut losses = 0;

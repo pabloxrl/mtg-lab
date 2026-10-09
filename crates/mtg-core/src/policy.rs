@@ -1115,3 +1115,31 @@ impl Game {
 #[cfg(test)]
 #[path = "policy_tests.rs"]
 mod tests;
+
+impl Game {
+    pub(crate) fn metric_completion(&self, submission: &Submission) -> crate::metrics::Completion {
+        use crate::metrics::Completion;
+        match submission.choices.first() {
+            Some(Choice::CancelPayment | Choice::CancelTargets | Choice::CancelActivation) => {
+                Completion::Cancelled
+            }
+            _ if self.turns.casting.is_some()
+                || self.turns.targeting.is_some()
+                || self.turns.activation.is_some() =>
+            {
+                Completion::Continuing
+            }
+            Some(
+                Choice::SelectAttackers { .. }
+                | Choice::SelectBlockers { .. }
+                | Choice::AssignDamage { .. },
+            ) if self
+                .turn_decision()
+                .is_some_and(|d| matches!(d.kind, turns::TurnKind::Combat(_))) =>
+            {
+                Completion::Continuing
+            }
+            _ => Completion::Committed,
+        }
+    }
+}

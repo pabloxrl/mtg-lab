@@ -677,3 +677,30 @@ fn full_pool_cli_all_matchups_both_policies_and_starting_seats() {
         }
     }
 }
+
+#[test]
+fn optional_public_counters_are_bounded_and_do_not_change_native_play() {
+    let mut config: Value =
+        serde_json::from_str(include_str!("../../../fixtures/simulate/native-v2.json")).unwrap();
+    config["episodes"] = json!(2);
+    config["max_decisions"] = json!(4);
+    let (code, off, _) = run(config.clone(), &[]);
+    assert_eq!(code, 0);
+    assert!(off.last().unwrap().get("metrics").is_none());
+    config["native"]["instrumentation"] = json!("counters");
+    let (code, on, err) = run(config, &[]);
+    assert_eq!(code, 0, "{err}");
+    let a: Vec<_> = off.iter().filter(|r| r["type"] == "episode").collect();
+    let b: Vec<_> = on.iter().filter(|r| r["type"] == "episode").collect();
+    assert_eq!(a, b);
+    let m = &on.last().unwrap()["metrics"];
+    assert_eq!(m["schema_version"], 1);
+    assert_eq!(m["counters"]["started"], 2);
+    assert_eq!(m["counters"]["truncated"], 2);
+    assert_eq!(m["counters"]["decisions"], 8);
+    assert_eq!(m["availability"]["batch_fill"], "not_applicable");
+    let text = serde_json::to_string(m).unwrap();
+    for forbidden in ["seed", "forest", "mountain", "episode", "error:"] {
+        assert!(!text.contains(forbidden));
+    }
+}

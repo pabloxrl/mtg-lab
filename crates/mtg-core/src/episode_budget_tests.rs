@@ -187,3 +187,76 @@ fn unbounded_capture_failure_still_has_exactly_one_owned_failed_result() {
     assert_eq!(d.accounting().completed, 0);
     assert!(d.finish().is_err());
 }
+
+#[test]
+fn metric_modes_do_not_materialize_extra_capture_frames() {
+    let header = driver(false).capture_header.unwrap();
+    for mode in [Mode::Off, Mode::Counters] {
+        for capture in [false, true] {
+            CAPTURE_FRAMES.with(|n| n.set(0));
+            let mut d = Driver::instrumented(256, mode).unwrap();
+            if capture {
+                d.reset_captured(&Config::default(), 214, 0, NonZeroUsize::MAX, &header)
+                    .unwrap();
+            } else {
+                d.reset(&Config::default(), 214, 0, NonZeroUsize::MAX)
+                    .unwrap();
+            }
+            let v = d.observe(Seat::P0).unwrap().decision.unwrap();
+            d.submit(
+                Seat::P0,
+                &policy::Submission {
+                    schema_version: 1,
+                    revision: v.revision,
+                    generation: v.generation,
+                    choices: vec![policy::Choice::Keep],
+                },
+            )
+            .unwrap();
+            d.concede(Seat::P1, d.episode_id().unwrap()).unwrap();
+            d.finish().unwrap();
+            let frames = CAPTURE_FRAMES.with(|n| n.get());
+            assert_eq!(frames > 0, capture);
+            assert_eq!(d.metrics().is_some(), mode == Mode::Counters);
+        }
+    }
+}
+
+#[test]
+fn metric_recording_failure_outranks_concession_completion() {
+    // Test-only fault injection at the real recorder boundary, not a substitute
+    // for normal-reset played acceptance. RFC B021/B037 require quarantine.
+    let header = driver(false).capture_header.unwrap();
+    let mut d = Driver::instrumented(256, Mode::Counters).unwrap();
+    d.reset_captured(&Config::default(), 214, 0, NonZeroUsize::MAX, &header)
+        .unwrap();
+    let frame = d.frame().unwrap();
+    d.recorder
+        .as_mut()
+        .unwrap()
+        .finish(
+            &frame,
+            trajectory::End::Failed("PRIVATE_RECORDING_SENTINEL".into()),
+        )
+        .unwrap();
+    assert!(d.concede(Seat::P1, d.episode_id().unwrap()).is_err());
+    d.finish().unwrap();
+    let c = d.metrics().unwrap();
+    assert_eq!(
+        (
+            c.started,
+            c.failed,
+            c.completed,
+            c.rules_completed,
+            c.recording_failures
+        ),
+        (1, 1, 0, 0, 1)
+    );
+    assert!(
+        !serde_json::to_string(&c.report())
+            .unwrap()
+            .contains("PRIVATE_RECORDING_SENTINEL")
+    );
+    assert!(d.finish().is_err());
+    assert_eq!(d.metrics().unwrap().failed, 1);
+}

@@ -302,3 +302,30 @@ Swap the source fixture for `native-v2.json` to capture native games. No second
 recorder, replay format, persisted access grant, sampling/sharding, new verification
 command, performance claim, or aggregate M1 completion is introduced.
 [Executable component evidence](evidence/captured-cli/README.md).
+
+
+## Optional scalar counters
+
+For native (schema 2) or semantic-script (schema 3) runs, set
+`native.instrumentation` to `"counters"`. Omit it or use `"off"` for the default.
+The final summary then contains a versioned `metrics` object with bounded fields;
+existing episode output and independently requested capture retain their contracts.
+Unknown instrumentation modes fail configuration validation. See
+[scalar metric definitions and limitations](scalar-metrics.md).
+
+Create a short runnable example in the managed toolchain environment:
+
+```sh
+python3 - <<'PYTHON'
+import json
+from pathlib import Path
+c = json.loads(Path("fixtures/simulate/native-v2.json").read_text())
+c["native"]["instrumentation"] = "counters"
+c["max_decisions"] = 4
+Path("/tmp/mtg-counters.json").write_text(json.dumps(c))
+PYTHON
+cargo run --quiet --locked -p mtg-cli -- simulate --config /tmp/mtg-counters.json
+```
+
+This deliberately short run demonstrates decision-limit truncation, not completed-game throughput. The summary separates truncations from natural rules endings;
+it makes no measured performance claim.

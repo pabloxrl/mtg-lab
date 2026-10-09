@@ -1,10 +1,11 @@
 //! Owned scalar execution; privileged history is separate from policy views.
+use crate::metrics::{self, Completion, Counters, Mode};
 use crate::trajectory::{self, Header, PolicyInfo, v2};
 use crate::{
     game::{self, Config, Game, Progress as CoreProgress, actions, policy, terminal},
     objects::{Seat, StorageError},
 };
-use std::num::NonZeroUsize;
+use std::{cell::RefCell, num::NonZeroUsize};
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum Error {
@@ -145,8 +146,98 @@ pub struct Driver {
     decisions: u64,
     status: Option<Status>,
     accounting: Accounting,
+    metrics: Option<RefCell<Counters>>,
+    continuing_action: bool,
 }
 impl Driver {
+    /// Select immutable instrumentation mode for this owner's lifetime.
+    pub fn instrumented(capacity: usize, mode: Mode) -> Result<Self, StorageError> {
+        let mut driver = Self::new(capacity)?;
+        if mode == Mode::Counters {
+            driver.metrics = Some(RefCell::new(Counters::default()));
+        }
+        Ok(driver)
+    }
+    /// Cumulative owner-local counts across resets, absent in off mode.
+    pub fn metrics(&self) -> Option<Counters> {
+        self.metrics.as_ref().map(|cell| {
+            let mut c = cell.borrow().clone();
+            if let Some((n, overflowed)) = self.game.metric_work {
+                metrics::add(&mut c.rules_work_units, n, &mut c.overflowed);
+                c.overflowed |= overflowed;
+            }
+            c
+        })
+    }
+    pub fn bounded_instrumented(
+        capacity: usize,
+        budget: Budget,
+        clock: Box<dyn Clock>,
+        mode: Mode,
+    ) -> Result<Self, Error> {
+        let mut driver = Self::bounded(capacity, budget, clock)?;
+        if mode == Mode::Counters {
+            driver.metrics = Some(RefCell::new(Counters::default()));
+        }
+        Ok(driver)
+    }
+    fn count(&self, f: impl FnOnce(&mut Counters)) {
+        if let Some(c) = &self.metrics {
+            f(&mut c.borrow_mut());
+        }
+    }
+    fn metric_result<T>(&self, result: &Result<T, Error>, input: bool, rejected_reset: bool) {
+        let Err(error) = result else {
+            return;
+        };
+        self.count(|c| {
+            metrics::add(&mut c.boundary_errors, 1, &mut c.overflowed);
+            if rejected_reset {
+                metrics::add(&mut c.rejected_resets, 1, &mut c.overflowed);
+            }
+            let stale = matches!(
+                error,
+                Error::Policy(policy::PolicyError::StaleDecision)
+                    | Error::Action(actions::ActionError::Policy(
+                        policy::PolicyError::StaleDecision
+                    ))
+                    | Error::Concede(terminal::ConcedeError::StaleEpisode)
+                    | Error::Action(actions::ActionError::Concession(
+                        terminal::ConcedeError::StaleEpisode
+                    ))
+            );
+            let capacity = matches!(
+                error,
+                Error::RecordCapacity
+                    | Error::RevisionExhausted
+                    | Error::Policy(policy::PolicyError::CapacityExceeded)
+                    | Error::Action(actions::ActionError::Policy(
+                        policy::PolicyError::CapacityExceeded
+                    ))
+                    | Error::Storage(
+                        StorageError::CapacityExceeded | StorageError::IdentityExhausted
+                    )
+                    | Error::Reset(game::ResetError::Storage(
+                        StorageError::CapacityExceeded | StorageError::IdentityExhausted
+                    ))
+            );
+            if capacity
+                && !matches!(
+                    self.status,
+                    Some(Status::Failed(Failure::Capacity | Failure::RecordCapacity))
+                )
+            {
+                metrics::add(&mut c.capacity_overflows, 1, &mut c.overflowed);
+            }
+            if input && !capacity && !matches!(error, Error::Stopped | Error::Capture(_)) {
+                if stale {
+                    metrics::add(&mut c.stale_actions, 1, &mut c.overflowed);
+                } else {
+                    metrics::add(&mut c.invalid_actions, 1, &mut c.overflowed);
+                }
+            }
+        });
+    }
     pub fn bounded(capacity: usize, budget: Budget, clock: Box<dyn Clock>) -> Result<Self, Error> {
         if capacity == 0
             || [
@@ -179,6 +270,34 @@ impl Driver {
             return;
         }
         self.status = Some(status);
+        self.count(|c| {
+            let field = match status {
+                Status::Completed(outcome) => {
+                    if !outcome
+                        .losses
+                        .contains(&Some(terminal::LossReason::Concession))
+                    {
+                        metrics::add(&mut c.rules_completed, 1, &mut c.overflowed);
+                    }
+                    &mut c.completed
+                }
+                Status::Truncated(_) => &mut c.truncated,
+                Status::Incomplete => &mut c.incomplete,
+                Status::Failed(failure) => {
+                    match failure {
+                        Failure::Capacity | Failure::RecordCapacity => {
+                            metrics::add(&mut c.capacity_overflows, 1, &mut c.overflowed)
+                        }
+                        Failure::Clock => metrics::add(&mut c.clock_failures, 1, &mut c.overflowed),
+                        Failure::Recording => {
+                            metrics::add(&mut c.recording_failures, 1, &mut c.overflowed)
+                        }
+                    }
+                    &mut c.failed
+                }
+            };
+            metrics::add(field, 1, &mut c.overflowed);
+        });
         match status {
             Status::Completed(_) => self.accounting.completed += 1,
             Status::Truncated(_) => self.accounting.truncated += 1,
@@ -298,11 +417,26 @@ impl Driver {
             decisions: 0,
             status: None,
             accounting: Accounting::default(),
+            metrics: None,
+            continuing_action: false,
         })
     }
     /// Enable complete in-memory capture for this reset. Header provenance and
     /// policy identity are caller declarations; run provenance is a separate layer.
     pub fn reset_captured(
+        &mut self,
+        config: &Config,
+        master: u64,
+        ordinal: u64,
+        quantum: NonZeroUsize,
+        header: &Header,
+    ) -> Result<Progress, Error> {
+        let revision = self.revision;
+        let result = self.reset_captured_inner(config, master, ordinal, quantum, header);
+        self.metric_result(&result, false, self.revision == revision);
+        result
+    }
+    fn reset_captured_inner(
         &mut self,
         config: &Config,
         master: u64,
@@ -349,6 +483,16 @@ impl Driver {
         Ok(())
     }
     pub fn submit_with_policy(
+        &mut self,
+        seat: Seat,
+        submission: &policy::Submission,
+        info: &PolicyInfo,
+    ) -> Result<(), Error> {
+        let result = self.submit_with_policy_inner(seat, submission, info);
+        self.metric_result(&result, true, false);
+        result
+    }
+    fn submit_with_policy_inner(
         &mut self,
         seat: Seat,
         submission: &policy::Submission,
@@ -428,6 +572,18 @@ impl Driver {
         ordinal: u64,
         quantum: NonZeroUsize,
     ) -> Result<Progress, Error> {
+        let revision = self.revision;
+        let result = self.reset_inner(config, master, ordinal, quantum);
+        self.metric_result(&result, false, self.revision == revision);
+        result
+    }
+    fn reset_inner(
+        &mut self,
+        config: &Config,
+        master: u64,
+        ordinal: u64,
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, Error> {
         self.reset_owned(config, master, ordinal, quantum, None)
     }
     fn reset_owned(
@@ -448,11 +604,23 @@ impl Driver {
         // A new owner also permits explicit abandonment during an internal yield;
         // the saved incomplete result keeps the exact unfinished state.
         let mut game = Game::new().map_err(Error::Storage)?;
+        game.metric_work = self.metrics.as_ref().map(|_| (0, false));
         let started_ms = self.clock.as_ref().map_or(0, |c| c.now_ms());
         let progress = game
             .reset_quantum(config, master, ordinal, self.quantum(quantum))
             .map_err(Error::Reset)?;
+        if let Some((n, overflowed)) = self.game.metric_work {
+            self.count(|c| {
+                metrics::add(&mut c.rules_work_units, n, &mut c.overflowed);
+                c.overflowed |= overflowed;
+            });
+        }
         self.game = game;
+        self.continuing_action = false;
+        self.count(|c| {
+            metrics::add(&mut c.resets, 1, &mut c.overflowed);
+            metrics::add(&mut c.started, 1, &mut c.overflowed);
+        });
         self.inputs = Some(Inputs {
             config: config.clone(),
             master,
@@ -510,6 +678,11 @@ impl Driver {
     /// Perform at most one core work quantum. OpeningComplete is an internal
     /// boundary; the next advance starts turns. Submission itself is synchronous.
     pub fn advance(&mut self, quantum: NonZeroUsize) -> Result<Progress, Error> {
+        let result = self.advance_inner(quantum);
+        self.metric_result(&result, false, false);
+        result
+    }
+    fn advance_inner(&mut self, quantum: NonZeroUsize) -> Result<Progress, Error> {
         self.active()?;
         self.check_boundary()?;
         if self.status.is_some() {
@@ -539,6 +712,11 @@ impl Driver {
     /// Caller supplies its authorized seat; transport authentication is external.
     /// Revisions are driver-local and reject delayed submissions across reset.
     pub fn observe(&self, seat: Seat) -> Result<policy::Observation, Error> {
+        let result = self.observe_inner(seat);
+        self.metric_result(&result, false, false);
+        result
+    }
+    fn observe_inner(&self, seat: Seat) -> Result<policy::Observation, Error> {
         let mut observation = self
             .game
             .policy_observe(seat, self.capacity)
@@ -558,6 +736,16 @@ impl Driver {
     /// Accepted records use the same canonical history/capture as `submit` and
     /// `concede`; policy statistics are absent. No implicit advancement occurs.
     pub fn submit_record(
+        &mut self,
+        seat: Seat,
+        context: RecordContext,
+        bytes: &[u8],
+    ) -> Result<(), Error> {
+        let result = self.submit_record_inner(seat, context, bytes);
+        self.metric_result(&result, true, false);
+        result
+    }
+    fn submit_record_inner(
         &mut self,
         seat: Seat,
         context: RecordContext,
@@ -588,7 +776,7 @@ impl Driver {
                 // decode returns core-local tokens. submit owns translation back
                 // to the core and all accepted-action accounting/capture.
                 submission.revision = revision;
-                self.submit(seat, &submission)
+                self.submit_with_policy_inner(seat, &submission, &PolicyInfo::default())
             }
             actions::Decoded::Concession { actor, .. } => {
                 if actor != seat {
@@ -597,7 +785,7 @@ impl Driver {
                 let RecordContext::Concession { episode } = context else {
                     return Err(Error::Action(actions::ActionError::WrongKind));
                 };
-                self.concede(seat, episode)
+                self.concede_inner(seat, episode)
             }
         }
     }
@@ -624,11 +812,21 @@ impl Driver {
             .apply_policy(seat, &core, self.capacity)
             .map_err(Error::Policy)?;
         self.history.push(record);
+        if self.metrics.is_some() {
+            let completion = self.game.metric_completion(submission);
+            self.count(|c| c.decision(d.kind, !self.continuing_action, completion));
+            self.continuing_action = completion == Completion::Continuing;
+        }
         // apply_policy drains its work synchronously; this only inspects the boundary.
         self.progress = self.game.resume(NonZeroUsize::MIN);
         Ok(())
     }
     pub fn concede(&mut self, seat: Seat, episode: terminal::EpisodeId) -> Result<(), Error> {
+        let result = self.concede_inner(seat, episode);
+        self.metric_result(&result, true, false);
+        result
+    }
+    fn concede_inner(&mut self, seat: Seat, episode: terminal::EpisodeId) -> Result<(), Error> {
         self.before_input()?;
         if self.game.episode_id() != Some(episode) {
             return Err(Error::Concede(terminal::ConcedeError::StaleEpisode));
@@ -643,6 +841,7 @@ impl Driver {
         let outcome = self.game.concede(seat, episode).map_err(Error::Concede)?;
         self.history.push(record);
         self.progress = CoreProgress::Terminal(outcome);
+        self.count(|c| metrics::add(&mut c.concessions, 1, &mut c.overflowed));
         let captured = (|| {
             if self.capture_header.is_some() {
                 let frame = self.frame()?;
@@ -672,6 +871,11 @@ impl Driver {
     /// Seal exactly once without inventing a rules result for unfinished work.
     /// The returned buffers and actual reset inputs survive every subsequent reset.
     pub fn finish(&mut self) -> Result<EpisodeResult, Error> {
+        let result = self.finish_inner();
+        self.metric_result(&result, false, false);
+        result
+    }
+    fn finish_inner(&mut self) -> Result<EpisodeResult, Error> {
         let inputs = self.inputs.clone().ok_or(Error::NotStarted)?;
         if self.finalized {
             return Err(Error::Finalized);
@@ -738,6 +942,8 @@ impl Driver {
             decisions: 0,
             status: None,
             accounting: Accounting::default(),
+            metrics: None,
+            continuing_action: false,
         };
         d.refresh_capture().unwrap();
         d
