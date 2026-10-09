@@ -1,0 +1,20 @@
+
+running 1 test
+test game::m2_mutation_tests::boost_expiry ... FAILED
+
+failures:
+
+---- game::m2_mutation_tests::boost_expiry stdout ----
+
+thread 'game::m2_mutation_tests::boost_expiry' (158692) panicked at crates/mtg-core/src/m2_mutation_tests.rs:115:5:
+assertion `left == right` failed: M2-MUT boost_expiry: Cub returns to printed 2/2
+  left: Some((5, 5))
+ right: Some((2, 2))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::m2_mutation_tests::boost_expiry
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 283 filtered out; finished in 0.00s
+

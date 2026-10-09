@@ -679,6 +679,25 @@ fn full_pool_cli_all_matchups_both_policies_and_starting_seats() {
 }
 
 #[test]
+fn m2_failed_denominator() {
+    // RFC B008/B019, SYS-CLI-002/PERF-001: even an entirely failed run consumes
+    // measured time. One allowed record forces failure on the second choice.
+    let mut c = config();
+    c["episodes"] = json!(1);
+    c["max_decisions"] = json!(10);
+    c["native"]["max_records"] = json!(1);
+    let (code, rows, error) = native_bench(c);
+    assert_eq!(code, 3, "{error}");
+    assert_eq!(rows[0]["summary"]["failed"], 1);
+    assert_eq!(rows[0]["summary"]["completed"], 0);
+    assert_ne!(
+        rows[0]["elapsed_ns"].as_u64().unwrap(),
+        0,
+        "M2-MUT failed_denominator: failed attempt time stays in denominator"
+    );
+}
+
+#[test]
 fn optional_public_counters_are_bounded_and_do_not_change_native_play() {
     let mut config: Value =
         serde_json::from_str(include_str!("../../../fixtures/simulate/native-v2.json")).unwrap();

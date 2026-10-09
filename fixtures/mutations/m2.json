@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "priority",
+      "path": "crates/mtg-core/src/turns.rs",
+      "old": "if d.kind == TurnKind::Priority && !self.turns.passed {",
+      "new": "if d.kind == TurnKind::Priority && false {",
+      "oracle": "CR 117.3d, 117.4",
+      "input": "seed 213; normal reset, both keep, start upkeep, one pass",
+      "test": "game::m2_mutation_tests::priority",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT priority: opponent receives priority in the same step"
+    },
+    {
+      "id": "mana_stack",
+      "path": "crates/mtg-core/src/mana.rs",
+      "old": "self.turns.mana[seat_index(actor)][color] = value;",
+      "new": "let _ = value;\n        let card = self.objects.get(land).unwrap().card;\n        let object = self.objects.allocate(card, actor, Zone::Stack).unwrap();\n        self.turns.stack.push(object);\n        self.turns.abilities.push(super::activation::Ability {\n            object, source: land, target: None, power: false, invoker: false,\n        });",
+      "oracle": "CR 605.3b",
+      "input": "seed 213; synthetic controlled nonsick Elf; one tap; inspect immediately before any pass",
+      "test": "game::m2_mutation_tests::mana_stack",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT mana_stack: immediate green mana and empty stack"
+    },
+    {
+      "id": "sick_tap",
+      "path": "crates/mtg-core/src/mana.rs",
+      "old": "&& (basic_color(o.card).is_some() || !self.summoning_sick(h))",
+      "new": "&& (basic_color(o.card).is_some() || true)",
+      "oracle": "CR 302.6",
+      "input": "seed 213; one synthetic newly controlled Elf, one illegal tap",
+      "test": "game::m2_mutation_tests::sick_tap",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT sick_tap: sick Elf tap is rejected"
+    },
+    {
+      "id": "cast_trigger",
+      "path": "crates/mtg-core/src/casting.rs",
+      "old": "self.cast_triggers(actor, self.objects.get(card).expect(\"validated spell\").card);",
+      "new": "self.cast_triggers(actor, self.objects.get(card).expect(\"validated spell\").card)\n                .into_iter().take(0).collect::<Vec<_>>();",
+      "oracle": "CR 601.2i, 603.2; pinned Firebrand Archer Oracle",
+      "input": "seed 213; one synthetic Archer; actual Growth cast targeting it, one green payment",
+      "test": "game::m2_mutation_tests::cast_trigger",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT cast_trigger: committed Growth creates one Archer trigger"
+    },
+    {
+      "id": "boost_expiry",
+      "path": "crates/mtg-core/src/turns.rs",
+      "old": "self.turns.modifications.pop().expect(\"planned expiration\");",
+      "new": "let _ = self.turns.modifications.last().expect(\"planned expiration\");",
+      "oracle": "CR 514.2, 611.2a; pinned Bear Cub and Giant Growth",
+      "input": "seed 213; synthetic Cub; resolve Growth; end-step passes to cleanup",
+      "test": "game::m2_mutation_tests::boost_expiry",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT boost_expiry: Cub returns to printed 2/2"
+    },
+    {
+      "id": "cleanup_damage",
+      "path": "crates/mtg-core/src/turns.rs",
+      "old": "self.turns.modifications.pop().expect(\"planned expiration\");",
+      "new": "let m = self.turns.modifications.last().copied().expect(\"planned expiration\");\n                let toughness = self.creature_state(m.handle).unwrap().toughness - m.boost;\n                // Wrong ordering: SBA after boost expiration, before damage removal.\n                if m.damage >= toughness {\n                    let owner = self.objects.get(m.handle).unwrap().owner;\n                    self.objects.move_to(m.handle, Zone::Graveyard(owner)).unwrap();\n                }\n                self.turns.modifications.pop();",
+      "oracle": "CR 514.2, 704.5g; RFC B026 cleanup example",
+      "input": "seed 213; synthetic Cub with +3/+3 and 2 marked damage; end-step passes",
+      "test": "game::m2_mutation_tests::cleanup_damage",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT cleanup_damage: damaged grown Cub survives cleanup as clean 2/2"
+    },
+    {
+      "id": "stale_action",
+      "path": "crates/mtg-core/src/policy.rs",
+      "old": "if submission.revision != self.policy_revision || submission.generation != generation {",
+      "new": "if false && (submission.revision != self.policy_revision || submission.generation != generation) {",
+      "oracle": "SYS-CORE-003; RFC B016/B033",
+      "input": "seed 213; save P0 pass, pass both seats, submit saved pass at next P0 boundary",
+      "test": "game::m2_mutation_tests::stale_action",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT stale_action: old generation is rejected"
+    },
+    {
+      "id": "private_hand",
+      "path": "crates/mtg-core/src/views.rs",
+      "old": "let hand = self.view_hand(seat);",
+      "new": "let hand = self.view_hand(turns::opponent(seat));",
+      "oracle": "SYS-PRIV-001; RFC B033",
+      "input": "seed 213; swap one hidden P1 hand card with a distinct hidden P1 library card; compare current P0 policy inputs",
+      "test": "game::m2_mutation_tests::private_hand",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT private_hand: hidden swap preserves policy observation and choices"
+    },
+    {
+      "id": "clipped_choices",
+      "path": "crates/mtg-core/src/policy.rs",
+      "old": "if candidates.len() >= capacity {\n                return Err(PolicyError::CapacityExceeded);\n            }",
+      "new": "if candidates.len() >= capacity {\n                return Ok(());\n            }",
+      "oracle": "SYS-CORE-007; RFC B016/B033",
+      "input": "seed 213; normal opening keep/mulligan decision with capacity one",
+      "test": "game::m2_mutation_tests::clipped_choices",
+      "test_path": "crates/mtg-core/src/m2_mutation_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT clipped_choices: keep and mulligan cannot fit in one row"
+    },
+    {
+      "id": "terminal_reward",
+      "path": "crates/mtg-core/src/trajectory/v2.rs",
+      "old": "Some(0) => [1, -1],",
+      "new": "Some(0) => [-1, 1],",
+      "oracle": "RFC B035/B036 sparse zero-sum terminal reward",
+      "input": "seed 42; synthetic unblocked Cub attacks P1 at 2 life; actual combat damage and trajectory append through policy choices and typed v2 capture",
+      "test": "game::trajectory_v2_tests::m2_terminal_reward",
+      "test_path": "crates/mtg-core/src/trajectory_v2_tests.rs",
+      "package": "mtg-core",
+      "target": [
+        "--lib"
+      ],
+      "assertion": "M2-MUT terminal_reward: winner plus one loser minus one"
+    },
+    {
+      "id": "truncation",
+      "path": "crates/mtg-core/src/episode.rs",
+      "old": "self.account(Status::Truncated(limit));",
+      "new": "self.account(Status::Completed(terminal::Outcome { winner: None, losses: [None, None] }));",
+      "oracle": "RFC B035; SYS-CORE-008: external limits are truncations, not draws",
+      "input": "seed 213; real Driver reset, manual clock zero, budget one accepted keep; inspect stopped result",
+      "test": "m2_truncation_is_not_draw",
+      "test_path": "crates/mtg-core/tests/budgets.rs",
+      "package": "mtg-core",
+      "target": [
+        "--test",
+        "budgets"
+      ],
+      "assertion": "M2-MUT truncation: one keep is a truncation not a rules draw"
+    },
+    {
+      "id": "failed_denominator",
+      "path": "crates/mtg-cli/src/commands.rs",
+      "old": "let elapsed = start.elapsed().as_nanos();",
+      "new": "let elapsed = if code == 0 { start.elapsed().as_nanos() } else { 0 };",
+      "oracle": "RFC B008/B019; SYS-CLI-002/PERF-001",
+      "input": "native-v2 config; one requested episode, max_records one, max_decisions ten; genuine owned Driver capacity failure",
+      "test": "m2_failed_denominator",
+      "test_path": "crates/mtg-cli/tests/native_simulate.rs",
+      "package": "mtg-cli",
+      "target": [
+        "--test",
+        "native_simulate"
+      ],
+      "assertion": "M2-MUT failed_denominator: failed attempt time stays in denominator"
+    }
+  ]
+}

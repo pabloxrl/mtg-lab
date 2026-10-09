@@ -1,0 +1,20 @@
+
+running 1 test
+test game::m2_mutation_tests::clipped_choices ... FAILED
+
+failures:
+
+---- game::m2_mutation_tests::clipped_choices stdout ----
+
+thread 'game::m2_mutation_tests::clipped_choices' (160445) panicked at crates/mtg-core/src/m2_mutation_tests.rs:189:5:
+assertion `left == right` failed: M2-MUT clipped_choices: keep and mulligan cannot fit in one row
+  left: Ok(Observation { schema_version: 1, view: PlayerView { schema_version: 1, seat: 0, life: [20, 20], hand_counts: [7, 7], library_counts: [33, 33], hand: [VisibleCard { card: "crackling-cyclops", owner: 0, controller: 0, tapped: false, creature: Some([0, 4, 0]), summoning_sick: false, haste: false, trample: false }, VisibleCard { card: "dragon-fodder", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false, haste: false, trample: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false, haste: false, trample: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false, haste: false, trample: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false, haste: false, trample: false }, VisibleCard { card: "mountain", owner: 0, controller: 0, tapped: false, creature: None, summoning_sick: false, haste: false, trample: false }, VisibleCard { card: "shivan-dragon", owner: 0, controller: 0, tapped: false, creature: Some([5, 5, 0]), summoning_sick: false, haste: false, trample: false }], public_zones: [PublicZone { zone: "graveyard_0", cards: [] }, PublicZone { zone: "graveyard_1", cards: [] }, PublicZone { zone: "battlefield", cards: [] }, PublicZone { zone: "stack", cards: [] }, PublicZone { zone: "exile", cards: [] }], remembered: [], starting_seat: 0, turn: None, mana: [[0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0]], acting_seat: Some(0), opening: Some(OpeningView { generation: 1, kind: "keep_or_mulligan", count: 1, candidates: ["keep", "mulligan"] }), terminal: None }, decision: Some(Decision { revision: 0, generation: 1, actor: 0, kind: "keep_or_mulligan", count: 1, candidates: [Keep], legal_mask: [true], factored: None }), pending: None, pending_triggers: [], stack: [], combat: [], unsupported_families: [] })
+ right: Err(CapacityExceeded)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::m2_mutation_tests::clipped_choices
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 283 filtered out; finished in 0.00s
+
