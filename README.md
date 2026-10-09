@@ -93,7 +93,10 @@ runtime check in parallel partitions; see [verification and caching](doc/testing
 Work is tracked in [GitHub issues](https://github.com/pabloxrl/mtg-lab/issues).
 The [implementation program](https://github.com/pabloxrl/mtg-lab/issues/7) records
 current progress and blockers. For the automated development service, see the
-[Symphony runbook](doc/symphony-runbook.md). Symphony runs up to three independent
+[Symphony runbook](doc/symphony-runbook.md). The dashboard separately shows
+controller activity and open GitHub blocked/held tasks, including those no longer
+ready; unknown or partial tracker results and old notes are explicit. Symphony
+runs up to three independent
 issue workers, shows each task and queued work at <http://localhost:4318>, and
 serializes heavy verification to fit the shared container. Required checks,
 independent review and protected integration still apply to every task.
