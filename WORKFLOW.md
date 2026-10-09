@@ -197,6 +197,11 @@ Standalone issues keep the ordinary delivery process.
 Operations #61 registers atomic M1 children and stage-planning operations
 #80–#83. Only those explicitly scoped coordinator operations may register new
 children within their assigned stage through reviewed manifest/ledger changes.
+Coordinator operation #252 is additionally authorized only to register the four
+bounded M2 repairs documented in doc/programs/m2-repair-prerequisites.md, preserve
+all original acceptance/gates, and perform its explicit dependency-gated audit
+reactivation after protected registration merge and exact-main CI. This specific
+amendment does not grant feature workers task-registration or scope authority.
 They preserve original requirements, test expectations and milestone gates;
 feature workers may not register tasks. After such an operations merge, fetch
 current main again before selecting a newly registered successor.

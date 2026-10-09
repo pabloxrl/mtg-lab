@@ -81,6 +81,16 @@ new CLI capability and does not complete M1.
 
 ## M2 after the verified M1 gate
 
+Coordinator operations #252 adds the [bounded M2 repair prerequisites](m2-repair-prerequisites.md)
+to #80's registration authority solely for #23/#210/#212's documented gaps.
+It may register #254–#257, additive owners and real native/executable dependencies,
+then record dependency-gated reactivation after verified registration delivery.
+The specific coordinator amendment also includes #217's evidenced #254 prerequisite
+for correctness-gated measurements and its deferred reactivation; no measurement
+implementation is absorbed into registration and #216's receipt remains valid.
+Feature workers remain prohibited from registering tasks or widening scope.
+No original case/requirement, stage gate or #241 transition ownership changes.
+
 Operations #80 registers [27 bounded M2 deliveries](m2-atomic-delivery.md), including
 the three existing structural prerequisites #131–#133. The [exact case crosswalk](m2-test-crosswalk.md)
 preserves all catalog assertions and component acceptance owners. #23/#24/#25 become
