@@ -115,9 +115,23 @@ fn sweep_controlled(
             point["restore_elapsed_ns"] = json!(start.elapsed().as_nanos());
             samples.push(point);
         }
+        let mut settle_calls = 0u64;
         for (ordinal, game) in states.iter_mut().enumerate() {
             if signal.load(Ordering::Relaxed) != 0 {
                 return Err("reset probe interrupted".into());
+            }
+            let mut settled = false;
+            for _ in 0..100_000 {
+                settle_calls += 1;
+                if game.resume(std::num::NonZeroUsize::new(64).unwrap())
+                    != mtg_core::game::Progress::InternalYield
+                {
+                    settled = true;
+                    break;
+                }
+            }
+            if !settled {
+                return Err("reset churn settling exceeded work bound".into());
             }
             game.reset(&mtg_core::game::Config::default(), 42, ordinal as u64)
                 .map_err(|e| format!("reset churn failed: {e:?}"))?;
@@ -125,6 +139,7 @@ fn sweep_controlled(
         let mut reset = memory()?;
         reset["cycle"] = json!(cycle);
         reset["resident"] = json!(states.len());
+        reset["settle_work_calls"] = json!(settle_calls);
         reset_churn.push(reset);
         drop(states);
         let mut point = memory()?;

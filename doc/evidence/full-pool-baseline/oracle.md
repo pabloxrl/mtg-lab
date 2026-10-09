@@ -55,3 +55,16 @@ time and ordinal, and still requires started = terminal + failed + unfinished +
 truncated + conceded. `artifact-not-started-red.log` preserves the initially too
 strict validator rejection; a new literal regression retains the unstarted case
 and rejects fewer attempts than started games. No old test was removed or changed.
+
+`pending-reset-red.log` records the reset-churn probe rejecting a valid snapshot
+with internal work still pending. The existing core correctly rejects such a
+reset. The diagnostic now drains bounded work through `Game::resume` before
+resetting, reports those settling calls, and retains the original pending-state
+test and its corruption check. This does not invent a policy choice or complete
+a game; settling/reset are separate from the resident-position measurement.
+
+Repair diagnosis: the failures involved diagnostic client assumptions (request
+strictness, deadline-before-reset accounting, and reset timing), not new Magic
+semantics. Keep all assertions, use the existing Driver/work boundaries, and
+validate the six focused contracts before full torture and any measurements.
+No scope expansion, test waiver or rules workaround is justified by these failures.
