@@ -1,0 +1,14 @@
+{
+  "status": "built",
+  "command": "python3 scripts/xmage.py build --cache \"$MTG_REFERENCE_CACHE\" (shared heavy lock)",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "build_log_sha256": "9240c4080095cb14beeedb155f9dbd56fdb3dec5115c2c4c1397a13658d51903",
+  "smoke_sha256": "4332776f10e7676561e5ebe736176de585427ea5b973708ef487956febbd89d8",
+  "cold_attempt": {
+    "status": "failed",
+    "exit": -9,
+    "log_sha256": "9bb2cc5b453b9f0954998b07dc386b60e2bd38e57922c683fcf592487758e321",
+    "observation": "Container memory.events reported oom_kill=1; build log stopped at smoke startup after compilation."
+  },
+  "recovery": "Unchanged build retried using completed compilation. Same toolchain, source, dependency lock, heap settings and tests; no failure counted as agreement."
+}

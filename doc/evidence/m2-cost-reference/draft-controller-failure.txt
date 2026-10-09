@@ -1,0 +1,19 @@
+Focused imported-draft check, managed checkout (before controller corrections):
+Command: cargo test -p mtg-core --locked --lib game::m2_cost_reference_tests::cost_compositions_match_independent_literal_checkpoints -- --exact
+Executed under Symphony shared heavy lock.
+
+Finished test profile [optimized + debuginfo]; running 1 test.
+test game::m2_cost_reference_tests::cost_compositions_match_independent_literal_checkpoints ... FAILED
+
+Initial failure: called Result::unwrap() on Err InvalidSelection.
+Diagnostic rerun after deriving battlefield rows:
+choice {"card":{"row":1,"zone":"hand"},"kind":"discard"}: InvalidSelection;
+decision kind: cast_discard; candidates: Discard hand row 0, Discard hand row 1, CancelPayment;
+legal_mask: [true, false, true].
+Result: 0 passed; 1 failed; 0 ignored; 270 filtered out; exit 101.
+
+Diagnosis: the imported fixture controller used storage order for a private hand
+whose policy rows are sorted by card key. Correcting selection uses the existing
+Game::view_hand boundary; literal expected outcomes and production rules unchanged.
+This is retained draft-controller failure evidence, not a new engine-rule red/green
+claim. The task composes already delivered mechanics and implements no rules.
