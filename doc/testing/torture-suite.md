@@ -9,7 +9,7 @@ Tests are the repository's delivery foundation. From the host run:
 The Docker toolchain runs `./scripts/torture.sh`: documentation, lossless program
 and design validation, all discovered Python `unittest` tests, Rust formatting,
 Clippy and all Rust workspace tests in debug **and release**. The host wrapper
-also runs the isolated runtime smoke. Required PR/main CI uses this same wrapper.
+also runs the isolated runtime smoke. Required PR/main CI uses the same wrapper in four parallel partitions.
 Agents already inside the managed container run `./scripts/torture.sh` directly.
 `verify.sh` is the constituent debug/general check, not the full delivery command.
 Python discovery rejects empty execution, skips and expected failures as success.
@@ -57,3 +57,33 @@ jobs when their capabilities land; this baseline does not claim their coverage.
 integration checks without requiring a foundational task to implement its own
 future dependents. The driver gives desired outcomes; agents retain the tests,
 review and merge changes, and report only essential decisions or missing access.
+
+## Parallel CI and caches
+
+Operations #237 partitions the existing checks into `checks`, `debug`, `release`
+and `runtime` jobs. Run a partition using `./scripts/verify-docker.sh debug` (or
+one of the other names); omit the argument to run the complete local contract.
+Every PR and main commit still runs all four partitions. Debug and release remain
+unchanged Cargo profiles; no test, assertion, fixture, or reference requirement
+is removed. Matrix fail-fast is disabled so one failure does not cancel the other
+coverage. The required `verify` job succeeds only when the entire matrix succeeds;
+a failed, cancelled, skipped or missing matrix result fails the aggregate gate.
+
+CI caches only Cargo registry sources, Git dependency sources and compiled target
+artifacts under the runner's temporary directory. Keys separate OS, architecture,
+verification partition and pinned toolchain/dependency inputs. Commit-specific
+entries restore from the compatible prefix; tests execute on every run, including
+cache hits. No credentials, agent home, workpads or prior test results are cached.
+Cold-cache runs execute the same checks. GitHub caches are an optimization, not
+verification evidence.
+
+For local reuse, set `MTG_VERIFY_CACHE` to an absolute dedicated cache directory.
+The wrapper prepares its ownership for the container's UID 1001; do not point it
+at another application's data. Without this variable, the original disposable
+build behavior is retained. Source is still mounted read-only.
+
+The 30-minute limit applies independently to each partition, including runtime
+smoke checks. Parallelism removes serial waiting but does not reduce the total
+number of checks. Debug game/replay tests may still dominate elapsed time; further
+speed claims require measured runs. Full default verification remains mandatory
+for delivery. The runtime image and smoke contract are unchanged.

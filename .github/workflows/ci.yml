@@ -10,13 +10,44 @@ concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
-  verify:
-    name: verify
+  verification:
+    name: verify-${{ matrix.phase }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        phase: [checks, debug, release, runtime]
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 0 # Validate the RFC against its pinned source commit.
           persist-credentials: false
-      - run: ./scripts/verify-docker.sh
+      - name: Cache Rust dependencies and build artifacts
+        if: matrix.phase != 'runtime'
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ runner.temp }}/mtg-verify-cache
+          key: mtg-${{ runner.os }}-${{ runner.arch }}-${{ matrix.phase }}-v1-${{ hashFiles('Cargo.lock', 'docker/Dockerfile', 'docker/install-tools.sh') }}-${{ github.sha }}
+          restore-keys: |
+            mtg-${{ runner.os }}-${{ runner.arch }}-${{ matrix.phase }}-v1-${{ hashFiles('Cargo.lock', 'docker/Dockerfile', 'docker/install-tools.sh') }}-
+      - name: Run complete verification partition
+        env:
+          MTG_VERIFY_CACHE: ${{ runner.temp }}/mtg-verify-cache
+          VERIFY_PHASE: ${{ matrix.phase }}
+        run: ./scripts/verify-docker.sh "$VERIFY_PHASE"
+  verify:
+    name: verify
+    needs: [verification]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Require every verification partition to pass
+        env:
+          VERIFICATION_RESULT: ${{ needs.verification.result }}
+        run: |
+          if [ "$VERIFICATION_RESULT" != success ]; then
+            echo "Verification did not complete successfully: $VERIFICATION_RESULT" >&2
+            exit 1
+          fi
