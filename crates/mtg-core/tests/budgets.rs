@@ -879,3 +879,18 @@ fn submission_during_internal_work_is_rejected_without_poisoning_either_capture_
         }
     }
 }
+
+#[test]
+fn m2_truncation_is_not_draw() {
+    // RFC B035: stopping after the first keep does not finish the Magic game.
+    let mut d = Driver::bounded(256, budget(1), Box::new(Manual(Rc::new(Cell::new(0))))).unwrap();
+    d.reset(&config(), 213, 0, NonZeroUsize::MAX).unwrap();
+    ready(&mut d);
+    send(&mut d, Seat::P0, C::Keep).unwrap();
+    // The accepted keep itself reaches the configured external limit.
+    assert_eq!(
+        d.finish().unwrap().status(),
+        Status::Truncated(mtg_core::trajectory::Limit::Decisions),
+        "M2-MUT truncation: one keep is a truncation not a rules draw"
+    );
+}

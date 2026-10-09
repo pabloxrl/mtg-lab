@@ -1,0 +1,20 @@
+
+running 1 test
+test game::m2_mutation_tests::sick_tap ... FAILED
+
+failures:
+
+---- game::m2_mutation_tests::sick_tap stdout ----
+
+thread 'game::m2_mutation_tests::sick_tap' (157827) panicked at crates/mtg-core/src/m2_mutation_tests.rs:84:5:
+assertion `left == right` failed: M2-MUT sick_tap: sick Elf tap is rejected
+  left: Ok(TurnDecision { id: DecisionId { scope: 0, generation: 5 }, actor: P0, kind: Priority })
+ right: Err(IllegalSource)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::m2_mutation_tests::sick_tap
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 283 filtered out; finished in 0.00s
+

@@ -1085,3 +1085,37 @@ fn trajectory_v2_invalid_maps_allocations_and_target_cancellation() {
     assert_eq!(r.episode().footer().unwrap().cancelled_actions, 2);
     assert_eq!(r.episode().footer().unwrap().logical_actions, 2);
 }
+
+#[test]
+fn m2_terminal_reward() {
+    let mut g = combat_position();
+    g.life = [20, 2];
+    send(
+        &mut g,
+        Seat::P0,
+        vec![Command::SelectAttackers { cards: vec![bf(0)] }],
+    );
+    send(&mut g, Seat::P0, vec![Command::FinishCombat]);
+    send(&mut g, Seat::P0, vec![Command::Pass]);
+    send(&mut g, Seat::P1, vec![Command::Pass]);
+    send(&mut g, Seat::P1, vec![Command::FinishCombat]);
+    send(&mut g, Seat::P0, vec![Command::Pass]);
+    send(&mut g, Seat::P1, vec![Command::Pass]);
+    let before = frame(&g);
+    let mut r = Recorder::new(&header(), &before).unwrap();
+    record(
+        &mut g,
+        &mut r,
+        Seat::P0,
+        vec![Command::FinishCombat],
+        0,
+        0,
+        ActionStatus::Committed,
+    );
+    // RFC B035/B036: the unblocked Cub's two damage wins for P0.
+    assert_eq!(
+        r.episode().decisions()[0].reward,
+        [1, -1],
+        "M2-MUT terminal_reward: winner plus one loser minus one"
+    );
+}
