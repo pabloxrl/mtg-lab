@@ -76,6 +76,9 @@ pub struct Game {
     // Destination-local policy timeline; never loaded from a snapshot.
     #[serde(skip)]
     policy_revision: u64,
+    // Optional execution receipt; never serialized or consulted by rules.
+    #[serde(skip)]
+    pub(crate) metric_work: Option<(u64, bool)>,
     outcome: Option<terminal::Outcome>,
     episode: Option<terminal::EpisodeId>,
     turns: turns::TurnState,
@@ -96,6 +99,7 @@ impl Game {
     pub fn new() -> Result<Self, StorageError> {
         Ok(Self {
             policy_revision: 0,
+            metric_work: None,
             outcome: None,
             episode: None,
             turns: turns::TurnState::default(),

@@ -92,6 +92,9 @@ impl Game {
             let Some(mut work) = self.work.pop_front() else {
                 break;
             };
+            if let Some((count, overflowed)) = &mut self.metric_work {
+                crate::metrics::add(count, 1, overflowed);
+            }
             let done = match &mut work {
                 Work::PlaceTrigger(row) => {
                     self.place_trigger(*row);

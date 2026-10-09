@@ -20,6 +20,8 @@ use std::{
 #[derive(Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Config {
+    #[serde(default, skip_serializing_if = "mtg_core::metrics::Mode::is_off")]
+    pub instrumentation: mtg_core::metrics::Mode,
     pub policy_seed: u64,
     pub rng_version: String,
     pub work_quantum: NonZeroUsize,
@@ -145,12 +147,14 @@ pub(crate) fn run_instrumented(
     let mut cursor = 0;
     emit(
         w,
-        json!({"type":"run","config":resolved,"config_sha256":hash(&serde_json::to_vec(c)?),"engine_sha256":env!("MTG_ENGINE_SHA256"),"cli_version":env!("CARGO_PKG_VERSION"),"policies":c.policies,"policy_rng_version":n.rng_version,"rules_sha256":hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),"cards_sha256":hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),"workers":1,"instrumentation":"summary-v1","capture":if capture.is_some() {"canonical-v2"} else {"none"},"execution":if c.script.is_some() {"owned-script-v1"} else {"owned-native-v1"},"script_privacy":c.script.as_ref().map(|_|"privileged")}),
+        json!({"type":"run","config":resolved,"config_sha256":hash(&serde_json::to_vec(c)?),"engine_sha256":env!("MTG_ENGINE_SHA256"),"cli_version":env!("CARGO_PKG_VERSION"),"policies":c.policies,"policy_rng_version":n.rng_version,"rules_sha256":hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),"cards_sha256":hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),"workers":1,"instrumentation":n.instrumentation,"capture":if capture.is_some() {"canonical-v2"} else {"none"},"execution":if c.script.is_some() {"owned-script-v1"} else {"owned-native-v1"},"script_privacy":c.script.as_ref().map(|_|"privileged")}),
     )?;
     let mut counts = Counts {
         requested: c.episodes,
         ..Counts::default()
     };
+    let mut metrics = (n.instrumentation == mtg_core::metrics::Mode::Counters)
+        .then(mtg_core::metrics::Counters::default);
     let mut exit = 0;
     let mut run_reason = "budget_complete";
     for offset in 0..c.episodes {
@@ -164,7 +168,7 @@ pub(crate) fn run_instrumented(
             .checked_add(offset)
             .ok_or_else(|| io::Error::other("episode overflow"))?;
         let clock = Rc::new(Cell::new(0));
-        let mut d = Driver::bounded(
+        let mut d = Driver::bounded_instrumented(
             256,
             Budget {
                 limits: Limits {
@@ -176,6 +180,7 @@ pub(crate) fn run_instrumented(
                 records: n.max_records,
             },
             Box::new(Deadline(clock.clone())),
+            n.instrumentation,
         )
         .map_err(|_| io::Error::other("owner initialization failed"))?;
         let episode_start = cursor;
@@ -350,6 +355,21 @@ pub(crate) fn run_instrumented(
             run_reason = error;
             reason = error;
         }
+        if let (Some(total), Some(mut local)) = (&mut metrics, d.metrics()) {
+            // A caller/script failure invalidates this run attempt even when
+            // the rules owner reached its own terminal boundary.
+            if caller_error.is_some() && local.failed == 0 {
+                local.completed = 0;
+                local.rules_completed = 0;
+                local.truncated = 0;
+                local.incomplete = 0;
+                local.failed = 1;
+            } else if status == "truncated" && local.incomplete == 1 {
+                local.incomplete = 0;
+                local.truncated = 1;
+            }
+            total.merge(&local);
+        }
         let owned = result.as_ref().ok();
         let view = owned
             .and_then(|r| r.final_observations())
@@ -397,6 +417,9 @@ pub(crate) fn run_instrumented(
     }
     if let Some(status) = publication {
         summary["publication"] = status;
+    }
+    if let Some(metrics) = &metrics {
+        summary["metrics"] = serde_json::to_value(metrics.report())?;
     }
     summary["type"] = json!("summary");
     summary["reason"] = json!(run_reason);
