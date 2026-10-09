@@ -1,0 +1,51 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling typenum v1.20.1
+   Compiling unicode-ident v1.0.26
+   Compiling quote v1.0.47
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling cfg-if v1.0.5
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-254/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 38.51s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 3 tests
+
+thread 'game::shivan_tests::activation_mana_invoker_can_announce_with_eight_untapped_forests' (286287) panicked at crates/mtg-core/src/shivan_tests.rs:101:5:
+assertion failed: g.activation_candidates(Seat::P0).contains(&invoker)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::shivan_tests::activation_mana_payment_offers_untapped_sources_even_with_floating_mana' (286288) panicked at crates/mtg-core/src/shivan_tests.rs:85:5:
+assertion failed: d.candidates.iter().zip(&d.legal_mask).any(|(c, legal)|
+        { *legal && matches!(c, policy::Choice::TapMana { .. }) })
+
+thread 'game::shivan_tests::activation_mana_shivan_can_announce_with_untapped_mountain' (286289) panicked at crates/mtg-core/src/shivan_tests.rs:70:5:
+assertion failed: g.activation_candidates(Seat::P0).contains(&dragon)
+test game::shivan_tests::activation_mana_payment_offers_untapped_sources_even_with_floating_mana ... FAILED
+test game::shivan_tests::activation_mana_invoker_can_announce_with_eight_untapped_forests ... FAILED
+test game::shivan_tests::activation_mana_shivan_can_announce_with_untapped_mountain ... FAILED
+
+failures:
+
+failures:
+    game::shivan_tests::activation_mana_invoker_can_announce_with_eight_untapped_forests
+    game::shivan_tests::activation_mana_payment_offers_untapped_sources_even_with_floating_mana
+    game::shivan_tests::activation_mana_shivan_can_announce_with_untapped_mountain
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 284 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-full-pool-v1` pins decision sampling and supported content;
+`VERSION = legal-random-activation-mana-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -112,27 +112,34 @@ excluding `forbidden_blocks`. Sentry casts join the supported content domain.
 
 GH-197 added Cavalry casting and staged targeted tap-cost activation. Random sampling includes all legal activation targets, finish and cancellation. Full-pool policy qualification remains #208.
 
-GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-full-pool-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
+GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-activation-mana-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
 
-GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `full-pool-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy evidence is linked above; M2 qualification remains pending.
+GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `activation-mana-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy evidence is linked above; M2 qualification remains pending.
 
-GH-200 adds Shivan Dragon casting and the nontargeted `activation_payment` continuation. Current IDs end in `full-pool-v1`; the prior `deathtouch-v1` IDs reject. Explicit red payment and finish/cancel use the existing candidate sampling/scoring. Float red mana at priority before activating. Full-pool policy evidence is linked above; M2 qualification remains pending.
+GH-200 adds Shivan Dragon casting and the nontargeted `activation_payment` continuation. Current IDs end in `activation-mana-v1`; the prior `deathtouch-v1` IDs reject. Explicit red payment and finish/cancel use the existing candidate sampling/scoring. Choose eligible mana sources during payment, or use already floated mana. Full-pool policy evidence is linked above; M2 qualification remains pending.
 
 GH-201 enables Wildheart Invoker casting and targeted activation. Current IDs end
-in `full-pool-v1`; previous IDs reject. Select a creature target, then reserve eight
-units of any floated mana through `activation_payment`. Finish commits all eight
+in `activation-mana-v1`; previous IDs reject. Select a creature target, then reserve eight
+units through `activation_payment`, choosing land/Elf/Druid mana abilities there
+or using floated mana. Finish commits all eight
 atomically; cancellation spends nothing. Full-pool qualification remains #208.
 
 GH-202 adds Thrill of Possibility and `cast_discard`: choose one other hand card
 or cancel payment. Discard selection stays private until the cast commits;
 then the existing explicit mana choices finish payment. Current IDs end in
-`full-pool-v1`; prior IDs reject. The heuristic scores Thrill as 30 and selects a
+`activation-mana-v1`; prior IDs reject. The heuristic scores Thrill as 30 and selects a
 lowest-retention discard; random samples the legal candidates. Full-pool
 qualification remains with #208.
 
 GH-203 adds Goblin Surprise and the explicit `cast_mode` continuation. Mode 0
 boosts creatures controlled at resolution; mode 1 creates two Goblins. Current
-IDs end in `full-pool-v1`; prior IDs reject. Legal-random samples both modes and
+IDs end in `activation-mana-v1`; prior IDs reject. Legal-random samples both modes and
 cancellation. The heuristic scores the cast as 30 and prefers token mode (2)
 over boost mode (1), with cancellation retaining its existing lower score.
 This small deterministic preference is not a strength or full-pool qualification.
+
+GH-254 extends payment-stage TapMana choices using the existing sampling/scoring.
+The heuristic pays available mana before generating more, prefers a required
+color when choosing sources, and finishes paid activations before extra taps.
+The random policy retains every eligible source choice, including surplus mana.
+See the [payment repair and version inventory](evidence/activation-mana/README.md).

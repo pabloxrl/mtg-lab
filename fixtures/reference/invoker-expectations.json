@@ -318,5 +318,109 @@
     "stack": 0,
     "legal": false,
     "dragon": null
+  },
+  "payment_sources": {
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "dragon": null,
+    "payment": [
+      {
+        "stage": "mana",
+        "source": "pay1",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 1,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay2",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 2,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay3",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 3,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay4",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 4,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay5",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 5,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay6",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 6,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay7",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 7,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "mana",
+        "source": "pay8",
+        "target": "bear-cub",
+        "pool": 1,
+        "tapped": 8,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "committed",
+        "source": null,
+        "target": "bear-cub",
+        "pool": 0,
+        "tapped": 8,
+        "announced_stack": 1,
+        "priority_calls": 0
+      }
+    ]
   }
 }

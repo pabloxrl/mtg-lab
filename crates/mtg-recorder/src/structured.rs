@@ -884,7 +884,10 @@ fn kind_command(kind: &str, command: &Command) -> bool {
             )
             | (
                 "activation_payment",
-                Command::Pay { .. } | Command::FinishActivation | Command::CancelActivation
+                Command::TapMana { .. }
+                    | Command::Pay { .. }
+                    | Command::FinishActivation
+                    | Command::CancelActivation
             )
             | (
                 "payment",
@@ -906,4 +909,20 @@ fn kind_command(kind: &str, command: &Command) -> bool {
                 Command::AssignDamage { .. } | Command::FinishCombat
             )
     )
+}
+
+#[cfg(test)]
+mod activation_mana_contract_tests {
+    use super::*;
+    #[test]
+    fn activation_mana_typed_payment_command_has_no_default() {
+        // CR 602.2b/601.2g/605.3a: explicitly recorded source choice belongs
+        // to payment, and must not be reclassified as priority or target choice.
+        let tap: Command = serde_json::from_value(serde_json::json!({
+            "kind":"tap_mana", "card":{"zone":"battlefield", "row":1}
+        }))
+        .unwrap();
+        assert!(kind_command("activation_payment", &tap));
+        assert!(!kind_command("activation_target", &tap));
+    }
 }

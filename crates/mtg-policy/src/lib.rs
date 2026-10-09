@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-full-pool-v1";
+pub const VERSION: &str = "legal-random-activation-mana-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -270,7 +270,10 @@ fn validate(d: &Decision) -> Result<(), Error> {
             ),
             "activation_payment" => matches!(
                 c,
-                Choice::Pay { .. } | Choice::FinishActivation | Choice::CancelActivation
+                Choice::TapMana { .. }
+                    | Choice::Pay { .. }
+                    | Choice::FinishActivation
+                    | Choice::CancelActivation
             ),
             "activation_target" => matches!(
                 c,
