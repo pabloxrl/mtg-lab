@@ -1,7 +1,8 @@
 # Frozen-pool mechanics integration audit — GH-23
 
 Audit base: `17aeefe91c9a23bd91854a8e8c3d7960a06b6be4`.
-**Verification in progress; no component or M2 pass yet.** This bounded audit
+**PASS for the scoped mechanics integration audit, conditional on protected
+delivery and exact-main CI. This is not the M2 gate.** This bounded audit
 owns the M2 aspects of R0002-B010, B011 and B029. It retains every original
 clause, twenty card definitions and the Goblin token. The current
 [engine-validation plan](../../programs/engine-validation.md) governs scope.
@@ -26,7 +27,8 @@ production rules, expectations, fixture inputs, source pins, compatibility
 versions, policy, CI or workflow change is made. There is no invented behavioral
 red for the matrix expansion. Original rules-derived reds remain in the child
 reports; the [earlier audit](historical-audit.md), [red log](torture-red.log),
-[patch](activation-mana-red.patch) and [original source receipt](audit.json)
+[patch](activation-mana-red.patch), [historical handoff](historical-handoff.json)
+and [original source receipt](audit.json)
 preserve this audit's actual three compiled activation failures.
 
 Those failures were repaired by [GH-254 / PR #260](https://github.com/pabloxrl/mtg-lab/pull/260),
@@ -44,7 +46,7 @@ The original failed audit is historical, not an unresolved current defect.
 [The executable index](executable-index.json) pins source bytes and exact test
 entry points by the groups used below. [The card index](cards.json) enumerates
 all twenty cards plus the token. [The reference index](reference-index.json)
-pins eighteen concrete inherited receipt files and the commits that introduced
+pins nineteen concrete inherited receipt files and the commits that introduced
 their current bytes. It reports current-source mismatches explicitly. These
 indices are traceability records, not generated expectations or test results.
 Every listed Rust test uses ordinary test discovery; no ignored replacement suite
@@ -136,7 +138,21 @@ python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- ./sc
 
 This includes `./scripts/verify.sh`. No Docker invocation or host installation is
 needed from a worker. The full suite remains mandatory; the new rows do not
-replace any prior test. Verification results will be recorded here after completion.
+replace any prior test. The [verification receipt](verification.json) and [complete compressed log](torture.log.gz)
+record exit 0: **244 Python tests and 1,394 Rust test executions** across debug
+and release, zero failed/ignored Rust tests. Both expanded matchup tests passed
+in both profiles; every one of the 263 indexed native test names appears in the
+passing log. Formatting, lint, documentation, program and catalog checks passed.
+The run acquired the shared lock after approximately one hour queued. Fresh main
+remained the audited base after execution. Runtime and test sources are unchanged
+from `a0306530998d9bfddb1c71d0ecfb75a9e70e7084`; only final evidence/documentation
+is added afterward. Full-log SHA-256:
+`1dc568572dd2433617be69f3a49b874035ce5a40f6c9b41d62063c04d8a8b517`.
+
+The preliminary prescribed read-only review passed with no findings on that
+source candidate, checking retained assertions, README scope and all indexed
+test names/hashes. Final clean-candidate review, PR and exact-main CI receipts
+are recorded in the linked workpad; they are not inferred from a local test pass.
 
 README impact: add this durable component evidence link and its limits. Setup,
 commands and supported behavior do not change. M2 remains incomplete until #26;

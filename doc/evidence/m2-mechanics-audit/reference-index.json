@@ -21,6 +21,17 @@
     "source_mismatches": [],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
+  "combat_composition": {
+    "path": "doc/evidence/m2-reference-combat/m2_combat-receipt.json",
+    "sha256": "b7c6aa8f6d65d981a6f4aee2eeb867f749a0807bd4cfb540f457841c8457f648",
+    "receipt_commit": "17aeefe91c9a23bd91854a8e8c3d7960a06b6be4",
+    "status": "agreed",
+    "cases": 6,
+    "repetitions": 2,
+    "source_hashes_checked": 60,
+    "source_mismatches": [],
+    "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
+  },
   "shivan": {
     "path": "doc/evidence/m2-reference-combat/shivan-receipt.json",
     "sha256": "67f9091e1c8e8fac4292aa88ef2ce49d3bc6a5d5e21d7ed47dbd822f39a0f43a",
