@@ -46,7 +46,8 @@ This is continuation/retry {{ attempt }}. Resume existing work and PR; do not
 repeat completed work or create duplicate branches, comments, or PRs.
 {% endif %}
 
-This is unattended delivery. Read AGENTS.md and the two RFCs before changing code.
+This is unattended delivery. Read AGENTS.md, doc/programs/engine-validation.md and the two RFCs before changing code.
+The current engine-validation plan supersedes older release scope: no new RL work.
 Work only in this checkout, inside the managed Linux container. Use the image's
 Rust/Java/Maven/Python tools. Never install host software, mount host paths,
 access a Docker socket, or invoke Docker from the worker. Missing toolchain
@@ -92,12 +93,10 @@ five minutes, the dashboard marks the note old; do not pretend it was refreshed.
 Write for the person funding and steering the project. Use first person, plain
 sentences and concrete behavior: what you are doing now, what you have actually
 learned, and what you will check next. In `--why`, explain how this task helps its
-milestone and the goal of trustworthy, reproducible AI-played Magic games and
-training data. Do not paste the issue title or a checklist, repeat ticket IDs,
+milestone and the goal of trustworthy toy-deck games and independently verified replays. Do not paste the issue title or a checklist, repeat ticket IDs,
 recite implementation jargon, or say “leveraging”, “seamless” or “progressing”.
 Example: “I’m checking that a spell does nothing if its target has already died.”
-Why: “AI matches need to handle responses correctly; otherwise we would train on
-results that could never happen in a real game.” Next: “I’ll test both spells
+Why: “Games need to handle responses correctly so recorded tests reflect legal play.” Next: “I’ll test both spells
 played in response to each other, then run the existing regression suite.”
 
 Keep each field to one or two short sentences (maximum 700 characters). Say
@@ -177,9 +176,10 @@ requirement ownership; they do not waive any product requirement.
    dependency targets, no self-dependencies or cycles, and no parent among the
    tasks. Gates must depend on every implementation and operations task of their milestone.
    Missing/malformed metadata blocks program dispatch; never guess or silently
-   omit a dependency. Read authorized_milestones from current main. Operations #59
-   authorizes the
-   existing M0–M5 program under the operator's full-program mandate. This does
+   omit a dependency. Read authorized_milestones from current main. The 2026-10-09 operator amendment in doc/programs/engine-validation.md
+   supersedes operations #59: only M0–M2 are authorized in the legacy program.
+   M3–M5 and operations #81–#83 remain deferred. After M2, stop legacy handoff;
+   coordinator operations #241 owns registration of the reference-corpus program. This does
    not satisfy dependencies: each next stage still requires its preceding gate
    and exact-main completion evidence. Successful gates use the same bounded
    handoff to the next eligible registered task, without a new activation request.

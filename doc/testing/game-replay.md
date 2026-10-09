@@ -2,6 +2,18 @@
 
 Status: planning only, 2026-09-27. No game execution, build, implementation, or qualification is claimed. Read independently from AGENTS.md, RFC 0001/0002, the frozen card manifest, the program task manifest, neutral-scenario/comparator documentation, and both committed smoke bridge sources/pins. No other planning drafts were consulted.
 
+## Current scope amendment (2026-10-09)
+
+The accepted [engine-validation plan](../programs/engine-validation.md) supersedes
+this historical design's native-first generation order, 24-game pilot, 240-attempt
+campaign, LLM suggestions and old milestone authorization. Use existing Forge and
+XMage AIs, first qualifying 10 complete games and measuring 100 attempts in each
+reference, then admitting at least 1,000 complete games (at least 500 per source).
+No RL or LLM implementation is in scope. The technical identity, capture,
+normal-reset, strict-controller, comparator and adjudication contracts below
+remain design inputs. Historical evidence snapshots are dated, not live status;
+see the [capability reference](../capabilities.md) for delivered coverage.
+
 ## Recommendation
 
 Build a **generate once, freeze semantic choices and chance outcomes, replay three times** pipeline. AI supplies candidate decisions during generation; strict controllers execute the resulting immutable transcript in mtg-lab, XMage, and Forge. Do not ask each engine's own AI to play a supposedly equivalent game. Policies may disagree and their decisions depend on their own observations, candidate ordering, heuristics, random-number consumption, and rules implementation. A common seed neither aligns different RNG algorithms and shuffle implementations nor aligns later draws after different mulligans/decisions. Even identical RNG algorithms may consume numbers differently. Record actual shuffle permutations and decisions, rather than treating seeds as a cross-engine protocol.
@@ -63,7 +75,7 @@ Full-state replay data are privileged. Separately compare authorized views, mask
 
 ## Phases, stable test IDs and ownership
 
-Existing issue owners below come from `doc/programs/rfc-0002.json`. These are planned assignments, not execution evidence. Operations #59 now authorizes the registered stages; dependency gates and dispatch labels still control when each issue can run. Execute only once the relevant issue is open and agent-ready under WORKFLOW.md.
+Existing issue owners below come from `doc/programs/rfc-0002.json`. These are planned assignments, not execution evidence. The current amendment limits the legacy manifest to M0–M2; later owners below are historical and deferred. New corpus work requires the reviewed task registration owned by operations #241. Execute only once the relevant issue is open and agent-ready under WORKFLOW.md.
 
 | Phase / stable IDs | Acceptance and outstanding work | Owning issues |
 | --- | --- | --- |
