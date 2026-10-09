@@ -1,11 +1,12 @@
 # Exact Cub casting and single-Sentry reference checks
 
 This bounded adapter delivery fills exactly three unchanged GH-210 catalog slots.
-The existing 23 Shivan cases remain unchanged; eight additional cases exercise
+The original 23 Shivan cases remain unchanged; eight additional cases exercise
 legal Cub casting, opponent-turn casting rejection, a single grown Sentry blocking
 Shivan, and illegal Cub blocking, each with seats reversed. GH-210 still owns its
 50 assigned cases, compositions, holdout and re-execution acceptance. This is not
-an M2 gate, full-game or Forge verification claim.
+an M2 gate, full-game or Forge verification claim. The integrated pack also retains
+#254’s independently delivered activation-payment case, for 32 cases total.
 
 ## Independent expectations and regression
 
@@ -47,7 +48,7 @@ python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- ./sc
 ```
 
 The reference command checks the pinned source/toolchain/dependency inventory,
-runs all 31 cases twice in native and XMage, and executes omitted, extra and
+runs all 32 cases twice in native and XMage, and executes omitted, extra and
 wrong-actor scripts in both actual adapters. It retains input copies, authored
 expectations, actual checkpoints, consumed choices, logs, hashes and named first
 divergences. Missing observations, build failures and unrelated control failures
@@ -77,9 +78,51 @@ XMage damage events: Dragon receives seven and Sentry five. Settled checkpoints
 then require Dragon in graveyard and a surviving 7/7 Sentry with five damage,
 with unchanged life. No Shivan activation or two-blocker substitution occurs.
 
-## Validation and delivery
+## Integrated validation and delivery
 
-The [final reference receipt](reference/receipt.json) records all 31 cases agreeing
+Main advanced during delivery: [PR #260](https://github.com/pabloxrl/mtg-lab/pull/260)
+merged as `9a4e8812ecf9fc019cb2c76812058840da89a543`. Shared bridge/native/fixture/runner
+conflicts were resolved additively. [Preservation checks](preservation-integrated.json)
+verify all 24 current-main inputs and literal expectations are retained, plus the
+eight exact cases. The inventory assertions now require 24 + 8 = 32; no behavior
+expectation or regression was removed or weakened. Both payment and exact-case
+control families and observations remain. This issue adds no activation-payment
+behavior; that implementation and its acceptance belong to #254.
+
+The [integrated reference receipt](reference-integrated/receipt.json) records
+**32 cases agreeing twice**, with **369 detected controls**, on the integrated
+source. All 58 native source hashes and every fixture/runner/bridge/log/observation
+hash were verified. Adjacent `0/` and `1/` directories retain actual observations
+and consumed choices; the three altered-choice directories retain actual failed
+scripts and logs from both engines.
+
+Full shared-lock torture after integration passed: **224 Python tests and 1,380
+Rust debug/release executions, zero failed or ignored**. The [integrated record](validation-integrated.json)
+hashes the [full log](torture-integrated.log). Existing [six flying/reach](related-integrated/flying_reach/receipt.json),
+[thirteen creature-mana](related-integrated/creature_mana/receipt.json) and
+[eleven instant-response](related-integrated/instant/acceptance.json) cases also
+agree twice on this source. All their native source hashes and 102 instant
+artifact hashes were verified. The [complete integrated related archive](integrated-related-artifacts.tar.gz)
+retains every raw input/output/log under `related-integrated/`; extract with
+`tar -xzf integrated-related-artifacts.tar.gz` to audit receipts.
+
+The documented reference command was exercised; other root quickstart commands
+are unchanged by this issue. README adds this scoped capability/evidence link and
+preserves #254’s independently reviewed payment-support documentation. A fresh
+independent review of the integrated candidate, protected PR verification and
+successful exact-main CI remain required before delivery. Their final receipts
+are in the [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/255#issuecomment-6083474442).
+
+## Historical pre-integration validation
+
+The following records concern candidate `38fac67218621028411db92761c5e9f1b4580a6f`
+on base `5aeab2f10e3aa91a88ac1792fd1f50a1fa744419`; their source hashes describe
+that historical tree. [Initial independent review](review-initial.json) passed;
+the integrated candidate requires a new review. These records do not substitute
+for the integrated validation above.
+
+
+The [initial reference receipt](reference/receipt.json) records all 31 cases agreeing
 twice in native Rust and pinned XMage, including all eight new exact cases.
 Its source, fixture, bridge, runner, log and observation hashes were verified.
 The adjacent `0/` and `1/` directories retain actual checkpoints and consumed

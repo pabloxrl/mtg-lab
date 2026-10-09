@@ -1,0 +1,1929 @@
+{
+  "double": {
+    "dragon": [
+      7,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "sick": {
+    "dragon": [
+      6,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "cleanup": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "no_red": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": false,
+    "others": []
+  },
+  "foreign": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 1,
+    "stack": 0,
+    "legal": false,
+    "others": []
+  },
+  "dead_before": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 1,
+    "stack": 0,
+    "legal": false,
+    "others": []
+  },
+  "dead_after": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "cast": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "short_cast": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 5,
+    "stack": 0,
+    "legal": false,
+    "others": []
+  },
+  "bite": {
+    "dragon": [
+      7,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        8,
+        8,
+        7
+      ]
+    ]
+  },
+  "haste": {
+    "dragon": [
+      6,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      14
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "sentry": {
+    "dragon": [
+      5,
+      5,
+      4
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "cub_illegal": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      15
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": false,
+    "others": [
+      [
+        2,
+        2,
+        0
+      ]
+    ]
+  },
+  "thorn": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": []
+  },
+  "thorn_bite": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        2,
+        1,
+        0
+      ]
+    ]
+  },
+  "split_0": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        4,
+        4,
+        0
+      ]
+    ]
+  },
+  "split_1": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        4,
+        4,
+        1
+      ]
+    ]
+  },
+  "split_2": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        4,
+        4,
+        2
+      ],
+      [
+        4,
+        4,
+        3
+      ]
+    ]
+  },
+  "split_3": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        4,
+        4,
+        3
+      ],
+      [
+        4,
+        4,
+        2
+      ]
+    ]
+  },
+  "split_4": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        4,
+        4,
+        1
+      ]
+    ]
+  },
+  "split_5": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        4,
+        4,
+        0
+      ]
+    ]
+  },
+  "excess": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": false,
+    "others": [
+      [
+        4,
+        4,
+        0
+      ],
+      [
+        4,
+        4,
+        0
+      ]
+    ]
+  },
+  "grown_split": {
+    "dragon": null,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "others": [
+      [
+        7,
+        7,
+        0
+      ]
+    ]
+  },
+  "payment_sources": {
+    "dragon": [
+      6,
+      5,
+      0
+    ],
+    "others": [],
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "stack": 0,
+    "legal": true,
+    "payment": [
+      {
+        "stage": "mana",
+        "source": "pay1",
+        "target": null,
+        "pool": 1,
+        "tapped": 1,
+        "announced_stack": 1,
+        "priority_calls": 0
+      },
+      {
+        "stage": "committed",
+        "source": null,
+        "target": null,
+        "pool": 0,
+        "tapped": 1,
+        "announced_stack": 1,
+        "priority_calls": 0
+      }
+    ]
+  },
+  "exact_cub_cast_0": {
+    "points": {
+      "initial": {
+        "active": 0,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "cast": {
+        "active": 0,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "stack",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [
+          "bear-cub"
+        ],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "resolved": {
+        "active": 0,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            true
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "attack_rejected": {
+        "active": 0,
+        "priority": 0,
+        "step": "attackers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            true
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "cast_cub",
+        "actor": 0
+      },
+      {
+        "kind": "pay_green",
+        "actor": 0
+      },
+      {
+        "kind": "pay_red",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "reject_attack",
+        "actor": 0
+      }
+    ],
+    "attempts": [
+      {
+        "kind": "reject_attack",
+        "accepted": false,
+        "unchanged": true
+      }
+    ],
+    "combat_damage": {}
+  },
+  "exact_cub_cast_1": {
+    "points": {
+      "initial": {
+        "active": 1,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "cast": {
+        "active": 1,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "stack",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [
+          "bear-cub"
+        ],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "resolved": {
+        "active": 1,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            true
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "attack_rejected": {
+        "active": 1,
+        "priority": 1,
+        "step": "attackers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            true
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "cast_cub",
+        "actor": 1
+      },
+      {
+        "kind": "pay_green",
+        "actor": 1
+      },
+      {
+        "kind": "pay_red",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "reject_attack",
+        "actor": 1
+      }
+    ],
+    "attempts": [
+      {
+        "kind": "reject_attack",
+        "accepted": false,
+        "unchanged": true
+      }
+    ],
+    "combat_damage": {}
+  },
+  "exact_cub_reject_0": {
+    "points": {
+      "initial": {
+        "active": 0,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "before_rejection": {
+        "active": 0,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "cast_rejected": {
+        "active": 0,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "reject_cub",
+        "actor": 1
+      }
+    ],
+    "attempts": [
+      {
+        "kind": "reject_cub",
+        "accepted": false,
+        "unchanged": true
+      }
+    ],
+    "combat_damage": {}
+  },
+  "exact_cub_reject_1": {
+    "points": {
+      "initial": {
+        "active": 1,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "before_rejection": {
+        "active": 1,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "cast_rejected": {
+        "active": 1,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "cub": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "reject_cub",
+        "actor": 0
+      }
+    ],
+    "attempts": [
+      {
+        "kind": "reject_cub",
+        "accepted": false,
+        "unchanged": true
+      }
+    ],
+    "combat_damage": {}
+  },
+  "exact_single_sentry_0": {
+    "points": {
+      "initial": {
+        "active": 0,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            false,
+            false
+          ],
+          "sentry": [
+            "battlefield",
+            4,
+            4,
+            0,
+            false,
+            false
+          ],
+          "growth": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "growth_cast": {
+        "active": 0,
+        "priority": 1,
+        "step": "blockers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "sentry": [
+            "battlefield",
+            4,
+            4,
+            0,
+            false,
+            false
+          ],
+          "growth": [
+            "stack",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            true,
+            false
+          ]
+        },
+        "stack": [
+          "giant-growth"
+        ],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "grown": {
+        "active": 0,
+        "priority": 0,
+        "step": "blockers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "sentry": [
+            "battlefield",
+            7,
+            7,
+            0,
+            false,
+            false
+          ],
+          "growth": [
+            "graveyard",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            true,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "damage": {
+        "active": 0,
+        "priority": 0,
+        "step": "damage",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "graveyard",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "sentry": [
+            "battlefield",
+            7,
+            7,
+            5,
+            false,
+            false
+          ],
+          "growth": [
+            "graveyard",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            true,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "attack",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "block",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "tap_forest",
+        "actor": 1
+      },
+      {
+        "kind": "cast_growth",
+        "actor": 1
+      },
+      {
+        "kind": "pay_green",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "damage",
+        "actor": 0
+      }
+    ],
+    "attempts": [],
+    "combat_damage": {
+      "dragon": 7,
+      "sentry": 5
+    }
+  },
+  "exact_single_sentry_1": {
+    "points": {
+      "initial": {
+        "active": 1,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            false,
+            false
+          ],
+          "sentry": [
+            "battlefield",
+            4,
+            4,
+            0,
+            false,
+            false
+          ],
+          "growth": [
+            "hand",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "growth_cast": {
+        "active": 1,
+        "priority": 0,
+        "step": "blockers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "sentry": [
+            "battlefield",
+            4,
+            4,
+            0,
+            false,
+            false
+          ],
+          "growth": [
+            "stack",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            true,
+            false
+          ]
+        },
+        "stack": [
+          "giant-growth"
+        ],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "grown": {
+        "active": 1,
+        "priority": 1,
+        "step": "blockers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "sentry": [
+            "battlefield",
+            7,
+            7,
+            0,
+            false,
+            false
+          ],
+          "growth": [
+            "graveyard",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            true,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "damage": {
+        "active": 1,
+        "priority": 1,
+        "step": "damage",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "graveyard",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "sentry": [
+            "battlefield",
+            7,
+            7,
+            5,
+            false,
+            false
+          ],
+          "growth": [
+            "graveyard",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "forest": [
+            "battlefield",
+            null,
+            null,
+            null,
+            true,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "attack",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "block",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "tap_forest",
+        "actor": 0
+      },
+      {
+        "kind": "cast_growth",
+        "actor": 0
+      },
+      {
+        "kind": "pay_green",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "damage",
+        "actor": 1
+      }
+    ],
+    "attempts": [],
+    "combat_damage": {
+      "dragon": 7,
+      "sentry": 5
+    }
+  },
+  "exact_single_cub_illegal_0": {
+    "points": {
+      "initial": {
+        "active": 0,
+        "priority": 0,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            false,
+            false
+          ],
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "block_rejected": {
+        "active": 0,
+        "priority": 1,
+        "step": "blockers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "damage": {
+        "active": 0,
+        "priority": 0,
+        "step": "damage",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          15
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "attack",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "reject_block",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "damage",
+        "actor": 0
+      }
+    ],
+    "attempts": [
+      {
+        "kind": "reject_block",
+        "accepted": false,
+        "unchanged": true
+      }
+    ],
+    "combat_damage": {}
+  },
+  "exact_single_cub_illegal_1": {
+    "points": {
+      "initial": {
+        "active": 1,
+        "priority": 1,
+        "step": "main",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            false,
+            false
+          ],
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "block_rejected": {
+        "active": 1,
+        "priority": 0,
+        "step": "blockers",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          20,
+          20
+        ]
+      },
+      "damage": {
+        "active": 1,
+        "priority": 1,
+        "step": "damage",
+        "mana": [
+          [
+            0,
+            0
+          ],
+          [
+            0,
+            0
+          ]
+        ],
+        "objects": {
+          "dragon": [
+            "battlefield",
+            5,
+            5,
+            0,
+            true,
+            false
+          ],
+          "cub": [
+            "battlefield",
+            2,
+            2,
+            0,
+            false,
+            false
+          ]
+        },
+        "stack": [],
+        "life": [
+          15,
+          20
+        ]
+      }
+    },
+    "consumed": [
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "attack",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "reject_block",
+        "actor": 0
+      },
+      {
+        "kind": "pass",
+        "actor": 1
+      },
+      {
+        "kind": "pass",
+        "actor": 0
+      },
+      {
+        "kind": "damage",
+        "actor": 1
+      }
+    ],
+    "attempts": [
+      {
+        "kind": "reject_block",
+        "accepted": false,
+        "unchanged": true
+      }
+    ],
+    "combat_damage": {}
+  }
+}

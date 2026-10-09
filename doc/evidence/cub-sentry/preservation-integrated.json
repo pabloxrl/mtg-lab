@@ -1,0 +1,18 @@
+{
+  "base": "9a4e8812ecf9fc019cb2c76812058840da89a543",
+  "retained_main_cases": 24,
+  "exact_cases": 8,
+  "total": 32,
+  "files": {
+    "fixtures/reference/shivan.json": {
+      "base_sha256": "452c52b56c8b350a87e5988d333eb642462e85ca67d4ab24ef466502c4d20c69",
+      "candidate_sha256": "649edc7403f10a2b12a1b63752e11ab13f9a88ed4adaf3d99bcb8a2c54781a24",
+      "all_current_main_rows_preserved": true
+    },
+    "fixtures/reference/shivan-expectations.json": {
+      "base_sha256": "5df7ce6022bc27076c1198c01c7cf2cd363eadcdc429edd1541110eee6f4e4da",
+      "candidate_sha256": "2008b31938e62011bd918c0faf513dfe5daac1e43258d3fe3543308203312da6",
+      "all_current_main_rows_preserved": true
+    }
+  }
+}

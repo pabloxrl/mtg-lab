@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "setup": "Original synthetic positions using real pinned cards. Sickness/departure are explicit test setup; real abilities, spells, combat and cleanup execute in each engine.",
+  "basis": "Pinned Shivan 4RR 5/5 flying, R gives +1/+0; CR 602, 113.7a, 302.6, 400.7, 611.2, 613, 509, 510, 702.2.",
+  "cases": [
+    {
+      "id": "exact_single_sentry_0",
+      "mode": "single_sentry",
+      "active": 0,
+      "choices": [
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attack",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "block",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "tap_forest",
+          "actor": 1
+        },
+        {
+          "kind": "cast_growth",
+          "actor": 1
+        },
+        {
+          "kind": "pay_green",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "damage",
+          "actor": 0
+        }
+      ]
+    }
+  ]
+}
