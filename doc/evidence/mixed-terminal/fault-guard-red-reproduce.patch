@@ -1,0 +1,36 @@
+--- a/scripts/terminal_reference.py
++++ b/scripts/terminal_reference.py
+@@ -141,28 +141,11 @@
+ 
+ 
+ def detect_fault(fixture, actual, fault):
+-    wanted = expected_results(fixture)
+-    def structure(value):
+-        if isinstance(value, dict):
+-            return {key: structure(child) for key, child in value.items()}
+-        if isinstance(value, list):
+-            return [structure(child) for child in value]
+-        return None
+-    if difference(structure(wanted), structure(actual)):
+-        raise ValueError('missing or malformed fault observations: ' + fault)
+-    diff = difference(wanted, actual)
+-    if not diff:
+-        raise ValueError('missed actual-engine fault: ' + fault)
+-    if len(wanted) != 1 or fault not in ('wrong_draw_seat', 'premature_settlement'):
+-        raise ValueError('unsupported fault control')
+-    checkpoint, seat, expected, observed = (
+-        ('settled', 1, True, False) if fault == 'wrong_draw_seat'
+-        else ('pending', 0, False, True))
+-    required = {'path': f'$.{next(iter(wanted))}.{checkpoint}.lost[{seat}]',
+-                'expected': expected, 'actual': observed}
+-    if difference(required, diff):
+-        raise ValueError('unexpected fault divergence: ' + json.dumps(diff, sort_keys=True))
+-    return 'terminal checkpoint mismatch; first divergence: ' + json.dumps(diff, sort_keys=True)
++    try:
++        compare(fixture, actual)
++    except ValueError as error:
++        return str(error)
++    raise ValueError('missed actual-engine fault: ' + fault)
+ 
+ 
+ def main():

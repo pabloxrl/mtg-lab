@@ -1,0 +1,128 @@
+{
+  "empty-draw": {
+    "hand": [
+      0,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "lost": [
+      true,
+      false
+    ]
+  },
+  "empty-no-draw": {
+    "hand": [
+      0,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "lost": [
+      false,
+      false
+    ]
+  },
+  "last-card-draw": {
+    "hand": [
+      1,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "lost": [
+      false,
+      false
+    ]
+  },
+  "negative-life": {
+    "hand": [
+      0,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      20,
+      -1
+    ],
+    "lost": [
+      false,
+      true
+    ]
+  },
+  "nonacting-concession": {
+    "hand": [
+      0,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "lost": [
+      false,
+      true
+    ]
+  },
+  "simultaneous-life": {
+    "hand": [
+      0,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      0,
+      0
+    ],
+    "lost": [
+      true,
+      true
+    ]
+  },
+  "zero-life": {
+    "hand": [
+      0,
+      0
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "life": [
+      20,
+      0
+    ],
+    "lost": [
+      false,
+      true
+    ]
+  }
+}

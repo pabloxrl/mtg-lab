@@ -1,0 +1,13 @@
+.F......
+======================================================================
+FAIL: test_conflicting_duplicate_json_fields_rejected (test_terminal_reference.TerminalReferenceTests.test_conflicting_duplicate_json_fields_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 131, in test_conflicting_duplicate_json_fields_rejected
+    with self.assertRaisesRegex(ValueError, 'duplicate'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 8 tests in 2.610s
+
+FAILED (failures=1)

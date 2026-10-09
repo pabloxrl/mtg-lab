@@ -1,0 +1,67 @@
+{
+  "mixed-life-p0-draw-p1-life_then_draw": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  }
+}

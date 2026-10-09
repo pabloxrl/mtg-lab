@@ -1,0 +1,35 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 40.99s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 27 tests
+test game::policy::tests::policy_wire_contract_owned_records_and_terminal_boundary ... ok
+test episode::budget_tests::injected_append_and_terminal_finish_failures_account_once_and_quarantine ... ok
+test game::terminal::tests::reference::terminal_actual_faults_change_outcome_or_pending_boundary ... ok
+test game::cleanup_trigger_tests::cleanup_ordinary_has_no_priority_and_terminal_stops_before_untap ... ok
+test game::terminal::tests::terminal_concede_nonacting_seat_and_finality ... ok
+test game::terminal::tests::terminal_concession_cancels_payment_without_commit ... ok
+test game::terminal::tests::reference::terminal_strict_input_corpus ... ok
+test game::terminal::tests::terminal_concession_preserves_stack_and_invalidates_target_and_cast_choices ... ok
+test game::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip ... ok
+test game::terminal::tests::terminal_export_observations ... ok
+test game::terminal::tests::terminal_grown_dead_cub_then_real_cast_has_fresh_bookkeeping ... ok
+test game::terminal::tests::terminal_hand_cub_cannot_block ... ok
+test game::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss ... ok
+test game::terminal::tests::terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal ... ok
+test game::terminal::tests::terminal_per_seat_reference_behavior ... ok
+test game::terminal::tests::terminal_reference_explicit_outcome ... ok
+test game::terminal::tests::terminal_same_neutral_boundaries_as_xmage ... ok
+test game::terminal::tests::terminal_simultaneous_losses_and_external_work_limits ... ok
+test game::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_negative ... ok
+test game::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_positive ... ok
+test game::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_interaction ... ok
+test game::trajectory_v2_tests::m2_terminal_reward ... ok
+test game::trajectory_v2_tests::trajectory_v2_terminal_action_rewards_once_and_truncation_pending ... ok
+test game::turns::tests::turns_empty_library_terminal_and_unsupported_combat_preserve_boundary ... ok
+test game::trigger_tests::mandatory_source_death_and_terminal_settlement_precede_placement ... ok
+test game::targets_tests::settlement_quantum_bite_uses_grown_source_and_terminal_boundary ... ok
+test game::combat::tests::combat_quantum_terminal_after_all_damage_and_deaths ... ok
+
+test result: ok. 27 passed; 0 failed; 0 ignored; 0 measured; 274 filtered out; finished in 0.05s
+

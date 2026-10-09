@@ -1,0 +1,21 @@
+F.F
+======================================================================
+FAIL: test_boolean_is_not_integer_observation (test_terminal_reference.TerminalReferenceTests.test_boolean_is_not_integer_observation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 45, in test_boolean_is_not_integer_observation
+    with self.assertRaisesRegex(ValueError, 'checkpoint mismatch'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_unknown_input_cannot_be_ignored (test_terminal_reference.TerminalReferenceTests.test_unknown_input_cannot_be_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 37, in test_unknown_input_cannot_be_ignored
+    with self.assertRaisesRegex(ValueError, 'unknown'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=2)

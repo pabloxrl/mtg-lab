@@ -353,44 +353,7 @@ fn terminal_same_neutral_boundaries_as_xmage() {
     let fixture: serde_json::Value =
         serde_json::from_str(include_str!("../../../fixtures/reference/terminal.json")).unwrap();
     for c in fixture["cases"].as_array().unwrap() {
-        let mut g = ready();
-        g.objects.reset().unwrap();
-        g.life = [
-            c["life"][0].as_i64().unwrap(),
-            c["life"][1].as_i64().unwrap(),
-        ];
-        if c.get("library_card").is_some() {
-            add(&mut g, "forest", Seat::P0, Zone::Library(Seat::P0));
-        }
-        match c["action"].as_str().unwrap() {
-            "settle" => {
-                g.settle_terminal(None);
-            }
-            "draw" => {
-                let r = g.draw_top(Seat::P0);
-                if c.get("library_card").is_some() {
-                    r.unwrap();
-                } else {
-                    assert_eq!(r, Err(DrawError::EmptyLibrary));
-                }
-            }
-            "concede" => {
-                g.concede(Seat::P1, g.episode_id().unwrap()).unwrap();
-            }
-            _ => panic!("unknown neutral action"),
-        }
-        let lost = g
-            .outcome()
-            .map(|o| o.losses.map(|l| l.is_some()))
-            .unwrap_or([false; 2]);
-        let library = [Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Library(s)).count());
-        let hand = [Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Hand(s)).count());
-        assert_eq!(
-            serde_json::json!({"life":g.life(),"lost":lost,"library":library,"hand":hand}),
-            c["expected"],
-            "{}",
-            c["id"]
-        );
+        assert_eq!(legacy_terminal_observation(c), c["expected"], "{}", c["id"]);
     }
 }
 #[test]
@@ -422,4 +385,69 @@ fn terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal() 
     assert!(g.land_candidates(d.actor).is_empty());
     assert!(g.mana_sources(d.actor).is_empty());
     assert_eq!(format!("{g:?}"), before);
+}
+
+fn legacy_terminal_observation(c: &serde_json::Value) -> serde_json::Value {
+    let mut g = ready();
+    g.objects.reset().unwrap();
+    g.life = [
+        c["life"][0].as_i64().unwrap(),
+        c["life"][1].as_i64().unwrap(),
+    ];
+    if c.get("library_card").is_some() {
+        add(&mut g, "forest", Seat::P0, Zone::Library(Seat::P0));
+    }
+    match c["action"].as_str().unwrap() {
+        "settle" => {
+            g.settle_terminal(None);
+        }
+        "draw" => {
+            let r = g.draw_top(Seat::P0);
+            if c.get("library_card").is_some() {
+                r.unwrap();
+            } else {
+                assert_eq!(r, Err(DrawError::EmptyLibrary));
+            }
+        }
+        "concede" => {
+            g.concede(Seat::P1, g.episode_id().unwrap()).unwrap();
+        }
+        _ => panic!("unknown neutral action"),
+    }
+    let lost = g
+        .outcome()
+        .map(|o| o.losses.map(|l| l.is_some()))
+        .unwrap_or([false; 2]);
+    let library = [Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Library(s)).count());
+    let hand = [Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Hand(s)).count());
+    serde_json::json!({"life":g.life(),"lost":lost,"library":library,"hand":hand})
+}
+
+#[test]
+fn terminal_per_seat_reference_behavior() {
+    // CR 104.4a and 704.5a/b: different pending reasons share one SBA batch.
+    let c = serde_json::json!({"life":[0,20], "action":"draw", "draw_seat":1, "life_order":[0,1], "injection_order":"life_then_draw"});
+    let actual = reference::observe(&c, "none")["settled"].clone();
+    assert_eq!(
+        actual["lost"],
+        serde_json::json!([true, true]),
+        "mixed pending reasons must both lose"
+    );
+}
+#[test]
+fn terminal_reference_explicit_outcome() {
+    let c = serde_json::json!({"life":[0,0], "action":"settle", "life_order":[0,1], "injection_order":"life_then_draw"});
+    let actual = reference::observe(&c, "none")["settled"].clone();
+    assert_eq!(
+        actual["outcome"], "draw",
+        "CR 104.4a explicit draw observation required"
+    );
+}
+
+#[path = "terminal_reference_tests.rs"]
+mod reference;
+
+#[test]
+fn terminal_export_observations() {
+    reference::export();
 }
