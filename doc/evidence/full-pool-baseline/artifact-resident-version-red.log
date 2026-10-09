@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_resident_version_rejected (tests.test_scalar_artifact.ResidentArtifactTests.test_resident_version_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 164, in test_resident_version_rejected
+    with self.assertRaises(ValueError):validate_resident(v)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)

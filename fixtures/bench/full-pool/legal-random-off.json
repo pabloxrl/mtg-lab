@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "workload": "scalar-full-pool-v1",
+  "warmup_seconds": 10,
+  "window_seconds": 30,
+  "windows": 5,
+  "policies": [
+    "legal-random-activation-mana-v1",
+    "legal-random-activation-mana-v1"
+  ],
+  "master_seed": 42,
+  "policy_seed": 42,
+  "instrumentation": "off",
+  "encoding": false
+}

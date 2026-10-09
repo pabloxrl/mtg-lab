@@ -1,0 +1,62 @@
+{
+  "stack-heavy": {
+    "first_cycle_bytes_per_state": 7261.3888,
+    "provisional_64kib_met": true,
+    "total_rss_at_10000": [
+      80027648,
+      80461824,
+      80461824
+    ],
+    "released_rss": [
+      63815680,
+      80461824,
+      80461824
+    ],
+    "limitation": "three cycles expose allocator retention; not a proof of no long-running leak"
+  },
+  "target-rich": {
+    "first_cycle_bytes_per_state": 5216.6656,
+    "provisional_64kib_met": true,
+    "total_rss_at_10000": [
+      63766528,
+      63856640,
+      73162752
+    ],
+    "released_rss": [
+      47603712,
+      73162752,
+      73162752
+    ],
+    "limitation": "three cycles expose allocator retention; not a proof of no long-running leak"
+  },
+  "token-heavy": {
+    "first_cycle_bytes_per_state": 5675.4176,
+    "provisional_64kib_met": true,
+    "total_rss_at_10000": [
+      68927488,
+      68931584,
+      75878400
+    ],
+    "released_rss": [
+      52809728,
+      75878400,
+      75878400
+    ],
+    "limitation": "three cycles expose allocator retention; not a proof of no long-running leak"
+  },
+  "typical": {
+    "first_cycle_bytes_per_state": 4902.0928,
+    "provisional_64kib_met": true,
+    "total_rss_at_10000": [
+      54394880,
+      54358016,
+      66285568
+    ],
+    "released_rss": [
+      38236160,
+      66285568,
+      66678784
+    ],
+    "limitation": "three cycles expose allocator retention; not a proof of no long-running leak"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "binary_sha256": "db8a96e08e14be53347bee590cbe24a581b6e0e2ed878cf1e1290522dba6aeac",
+  "system": {
+    "cpu_quota": "400000 100000",
+    "memory_limit": "7516192768",
+    "cpu_usage": "usage_usec 39788899513\nuser_usec 37787289532\nsystem_usec 2001609981\ncore_sched.force_idle_usec 0\nnr_periods 184403\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+    "memory_current": "4659286016",
+    "loadavg": "1.41 2.32 2.65 1/417 239985",
+    "affinity": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "runs": {
+    "stack-heavy": {
+      "specimen_sha256": "d1957cca3b5ec91824e4d52f7fe51fcb69fc01c5df9d207fd18925863b4caf56",
+      "report_sha256": "2f8fe6d3882aafad872636723396689b1e96adcab8a19d57e03d98f8c7b31779"
+    },
+    "target-rich": {
+      "specimen_sha256": "f8753824054fd482c1fdb08e058e98a575fe88db49af8afb57a5805394bba8e8",
+      "report_sha256": "eb224bd63f1287aa1a9ab26532f63307de52d1fdb09c86f9083859d7448f0b43"
+    },
+    "token-heavy": {
+      "specimen_sha256": "86e8a278b9c060849c1796cc42868fa4509171d6ddc30a082daa1f46387f9030",
+      "report_sha256": "3bdadc6d30d1709729b2538104e5c57dfe5ced4bd6cc4728e87e04bd0201a29a"
+    },
+    "typical": {
+      "specimen_sha256": "0c2740f9c43b031df0651bfc53e627ea1c2168ea6b0cdfc9c099ca7f4900cb16",
+      "report_sha256": "cb162b18f45bbcc544535af35a5e2648d14be2b4194a3cf7501180c29c78447d"
+    }
+  },
+  "capture_sha256": "1e9420005e63c8ce4d490531e91a59e9ddafff2b29ad5c4ab8ca7ec96b74402d",
+  "source_sha256": "052f657b724a6ab05287cd7ff94c6e4dbc733cfa95849c5ac300382094d796b5"
+}

@@ -1,0 +1,36 @@
+Experiment: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/cpu-legal-random.er
+        Aggregated statistics for selected samples
+
+                                       Start Label: Total
+                                         End Label: Total
+                                 Start Time (sec.):   0.000
+                                   End Time (sec.): 160.045
+                                   Duration (sec.): 160.045
+                          Total Thread Time (sec.): 160.045
+                         Average number of Threads:   1.000
+
+                              Process Times (sec.):
+                                          User CPU: 160.033 (100.0%)
+                                        System CPU:   0.007 (  0.0%)
+                                          Trap CPU:   0.    (  0. %)
+                                         User Lock:   0.    (  0. %)
+                                   Data Page Fault:   0.    (  0. %)
+                                   Text Page Fault:   0.    (  0. %)
+                                 Kernel Page Fault:   0.    (  0. %)
+                                           Stopped:   0.    (  0. %)
+                                          Wait CPU:   0.    (  0. %)
+                                             Sleep:   0.005 (  0.0%)
+
+                                 Minor Page Faults:    2648
+                                 Major Page Faults:       5
+                                     Process swaps:       0
+                                      Input blocks:       8
+                                     Output blocks:     888
+                                     Messages sent:       0
+                                 Messages received:       0
+                                   Signals handled:       0
+                        Voluntary context switches:       1
+                      Involuntary context switches:     456
+                                      System calls:       0
+                                 Characters of I/O:       0
+

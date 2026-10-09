@@ -1,0 +1,21 @@
+Experiment(s):
+
+Experiment      :/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/stack-heavy.er
+  Target        : '/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg simulate --config /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/stack-heavy.config.json --output /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/stack-heavy.game.jsonl'
+  Host          : c08b2a1801ca (aarch64, Linux 6.8.0-64-generic)
+  Start Time    : Fri Oct  9 20:43:24 2026
+  Duration      : 2.679 Seconds
+
+Metrics:
+
+  Experiment Duration (Seconds): [2.679]
+  Heap Tracing
+    [X]Bytes Allocated - heapallocbytes: [*490083886]
+    [X]Allocations - heapalloccnt: [2017846]
+    [X]Bytes Leaked - heapleakbytes: [*101123675]
+    [X]Leaks - heapleakcnt: [103921]
+  Clock Profiling
+    [X]Total CPU Time - totalcpu (Seconds): [*0.260]
+
+Notes: '*' indicates hot metrics, '[X]' indicates currently enabled metrics.
+       The metrics command can be used to change selections. The metric_list command lists all available metrics.

@@ -1,0 +1,17 @@
+Current metrics: i+heapleakbytes:i+heapleakcnt:i+heapallocbytes:i+heapalloccnt:e.%totalcpu:i.%totalcpu:name
+Current Sort Metric: Exclusive Total CPU Time ( e.%totalcpu )
+Available metrics:
+Exclusive Bytes Allocated: e+%heapallocbytes
+Inclusive Bytes Allocated: i+%heapallocbytes
+    Exclusive Allocations: e+%heapalloccnt
+    Inclusive Allocations: i+%heapalloccnt
+   Exclusive Bytes Leaked: e+%heapleakbytes
+   Inclusive Bytes Leaked: i+%heapleakbytes
+          Exclusive Leaks: e+%heapleakcnt
+          Inclusive Leaks: i+%heapleakcnt
+ Exclusive Total CPU Time: e.%totalcpu
+ Inclusive Total CPU Time: i.%totalcpu
+                     Size: size
+               PC Address: address
+                     Name: name
+

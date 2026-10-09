@@ -1,0 +1,87 @@
+Symphony resource lock: waiting for heavy (1112s elapsed)
+Symphony resource lock: acquired heavy after waiting
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/crates/mtg-cli)
+warning: field `sample` is never read
+   --> crates/mtg-cli/src/native.rs:123:9
+    |
+122 | pub(crate) struct PolicyTiming {
+    |                   ------------ field in this struct
+123 |     pub sample: Option<Box<StateProbe>>,
+    |         ^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: function `scores` is never used
+ --> crates/mtg-cli/src/resident.rs:4:4
+  |
+4 | fn scores(o: &mtg_core::game::policy::Observation) -> [usize; 4] {
+  |    ^^^^^^
+
+warning: function `proc_kib` is never used
+ --> crates/mtg-cli/src/resident.rs:8:4
+  |
+8 | fn proc_kib(text: &str, key: &str) -> Result<u64, String> {
+  |    ^^^^^^^^
+
+warning: function `sweep` is never used
+  --> crates/mtg-cli/src/resident.rs:24:4
+   |
+24 | fn sweep(_snapshot: &[u8], _counts: &[usize], _cycles: usize) -> Result<Value, String> {
+   |    ^^^^^
+
+warning: function `run` is never used
+  --> crates/mtg-cli/src/resident.rs:28:15
+   |
+28 | pub(crate) fn run(_bytes: &[u8]) -> Result<(i32, Value), (i32, String)> {
+   |               ^^^
+
+warning: function `measured_window` is never used
+   --> crates/mtg-cli/src/benchmark.rs:324:4
+    |
+324 | fn measured_window(
+    |    ^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `sample` is never read
+   --> crates/mtg-cli/src/native.rs:123:9
+    |
+122 | pub(crate) struct PolicyTiming {
+    |                   ------------ field in this struct
+123 |     pub sample: Option<Box<StateProbe>>,
+    |         ^^^^^^
+
+warning: `mtg-cli` (bin "mtg") generated 5 warnings
+warning: `mtg-cli` (bin "mtg" test) generated 3 warnings (1 duplicate)
+    Finished `test` profile [optimized + debuginfo] target(s) in 18.94s
+     Running unittests src/main.rs (target/debug/deps/mtg-634074455f05cda9)
+
+running 3 tests
+
+thread 'resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position' (178281) panicked at crates/mtg-cli/src/resident.rs:70:9:
+assertion `left == right` failed
+  left: 0
+ right: 4
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position ... FAILED
+
+thread 'resident::tests::full_pool_contract_resident_stress_sweep_retains_every_point_and_rejects_corruption' (178282) panicked at crates/mtg-cli/src/resident.rs:119:9:
+assertion `left == right` failed
+  left: 0
+ right: 6
+test resident::tests::full_pool_contract_resident_stress_sweep_retains_every_point_and_rejects_corruption ... FAILED
+
+thread 'resident::tests::full_pool_contract_resident_stress_probe_preserves_native_output' (178280) panicked at crates/mtg-cli/src/resident.rs:105:9:
+diagnostic state probe must execute
+test resident::tests::full_pool_contract_resident_stress_probe_preserves_native_output ... FAILED
+
+failures:
+
+failures:
+    resident::tests::full_pool_contract_resident_stress_probe_preserves_native_output
+    resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position
+    resident::tests::full_pool_contract_resident_stress_sweep_retains_every_point_and_rejects_corruption
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 32 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

@@ -1,0 +1,378 @@
+{
+  "schema_version": 1,
+  "plan": "doc/evidence/full-pool-baseline/plan.md",
+  "plan_sha256": "55b4a15c79a361e1b86c605c81e9c44dea2d7e5824c6c7f434e95af9298ab833",
+  "binary_sha256": "db8a96e08e14be53347bee590cbe24a581b6e0e2ed878cf1e1290522dba6aeac",
+  "started_utc": "2026-10-09T20:27:34Z",
+  "context": "shared Linux container; one logical CPU; no physical-core reservation or designated-host qualification",
+  "runs": [
+    {
+      "name": "heuristic-off",
+      "returncode": 0,
+      "receipt": {
+        "returncode": 0,
+        "timed_out": false,
+        "wall_seconds": 160.0473995450011,
+        "process_user_seconds": 159.758497,
+        "process_system_seconds": 0.174989,
+        "peak_rss_bytes": 24248320,
+        "minor_faults": 2331,
+        "major_faults": 0,
+        "voluntary_switches": 1,
+        "involuntary_switches": 7519,
+        "oracle": "Linux wait4 rusage; ru_maxrss KiB converted to bytes",
+        "contaminated": false,
+        "profiler": false,
+        "heavy_lock": true,
+        "before": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 39863445161\nuser_usec 37860773476\nsystem_usec 2002671684\ncore_sched.force_idle_usec 0\nnr_periods 185132\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4666880000",
+          "loadavg": "1.19 2.05 2.53 1/420 240084",
+          "affinity": [
+            0
+          ]
+        },
+        "after": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40027487553\nuser_usec 38023316989\nsystem_usec 2004170564\ncore_sched.force_idle_usec 0\nnr_periods 186733\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4659310592",
+          "loadavg": "1.23 1.73 2.33 1/405 240378",
+          "affinity": [
+            0
+          ]
+        },
+        "command": [
+          "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+          "bench",
+          "--workload",
+          "scalar-full-pool-v1",
+          "--config",
+          "doc/evidence/full-pool-baseline/throughput/heuristic-off.config.json",
+          "--output",
+          "doc/evidence/full-pool-baseline/throughput/heuristic-off.raw.json"
+        ]
+      },
+      "raw_sha256": "52867e847f026b2a48e6efde0988c429677c91e1087418c0ec12a34057cda37d",
+      "report_sha256": "c11d2d3202f395a48a5ec9570f63aab68a5c1e944856510119c0c841a34b5a35",
+      "summary": {
+        "completed": 785,
+        "started": 790,
+        "failed": 0,
+        "truncated": 0,
+        "unfinished": 5,
+        "decisions": 475862,
+        "elapsed_ns": 150003428928,
+        "not_started": 0,
+        "completed_games_per_second": 5.233213704579989,
+        "decisions_per_second": 3172.3408151450226
+      },
+      "window_cv": 0.02314170051671915
+    },
+    {
+      "name": "legal-random-counters",
+      "returncode": 0,
+      "receipt": {
+        "returncode": 0,
+        "timed_out": false,
+        "wall_seconds": 160.0397849370056,
+        "process_user_seconds": 159.771263,
+        "process_system_seconds": 0.16799599999999998,
+        "peak_rss_bytes": 24371200,
+        "minor_faults": 2665,
+        "major_faults": 0,
+        "voluntary_switches": 1,
+        "involuntary_switches": 6946,
+        "oracle": "Linux wait4 rusage; ru_maxrss KiB converted to bytes",
+        "contaminated": false,
+        "profiler": false,
+        "heavy_lock": true,
+        "before": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40027494804\nuser_usec 38023321209\nsystem_usec 2004173595\ncore_sched.force_idle_usec 0\nnr_periods 186733\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4666122240",
+          "loadavg": "1.23 1.73 2.33 1/405 240378",
+          "affinity": [
+            0
+          ]
+        },
+        "after": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40191355035\nuser_usec 38185786348\nsystem_usec 2005568686\ncore_sched.force_idle_usec 0\nnr_periods 188333\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4671397888",
+          "loadavg": "1.33 1.55 2.16 2/410 240646",
+          "affinity": [
+            0
+          ]
+        },
+        "command": [
+          "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+          "bench",
+          "--workload",
+          "scalar-full-pool-v1",
+          "--config",
+          "doc/evidence/full-pool-baseline/throughput/legal-random-counters.config.json",
+          "--output",
+          "doc/evidence/full-pool-baseline/throughput/legal-random-counters.raw.json"
+        ]
+      },
+      "raw_sha256": "b1071edbdc5fd37c052327c0effc7bf592557d19111e0d47262ed34928f7ea07",
+      "report_sha256": "58aadb2b5eab773e27fe62ab11d5b655d66f6552d2dee9e59a8f7167a9adfd5e",
+      "summary": {
+        "completed": 181,
+        "started": 185,
+        "failed": 0,
+        "truncated": 0,
+        "unfinished": 4,
+        "decisions": 448497,
+        "elapsed_ns": 150010058513,
+        "not_started": 1,
+        "completed_games_per_second": 1.2065857569431877,
+        "decisions_per_second": 2989.7795150925353
+      },
+      "window_cv": 0.03665121728439239
+    },
+    {
+      "name": "legal-random-off",
+      "returncode": 0,
+      "receipt": {
+        "returncode": 0,
+        "timed_out": false,
+        "wall_seconds": 160.0869367710111,
+        "process_user_seconds": 159.797469,
+        "process_system_seconds": 0.149976,
+        "peak_rss_bytes": 24502272,
+        "minor_faults": 2656,
+        "major_faults": 0,
+        "voluntary_switches": 1,
+        "involuntary_switches": 7237,
+        "oracle": "Linux wait4 rusage; ru_maxrss KiB converted to bytes",
+        "contaminated": false,
+        "profiler": false,
+        "heavy_lock": true,
+        "before": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40191365350\nuser_usec 38185792675\nsystem_usec 2005572675\ncore_sched.force_idle_usec 0\nnr_periods 188333\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4671758336",
+          "loadavg": "1.33 1.55 2.16 5/416 240646",
+          "affinity": [
+            0
+          ]
+        },
+        "after": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40354539238\nuser_usec 38347907445\nsystem_usec 2006631793\ncore_sched.force_idle_usec 0\nnr_periods 189934\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4674465792",
+          "loadavg": "1.12 1.37 1.99 1/402 240854",
+          "affinity": [
+            0
+          ]
+        },
+        "command": [
+          "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+          "bench",
+          "--workload",
+          "scalar-full-pool-v1",
+          "--config",
+          "doc/evidence/full-pool-baseline/throughput/legal-random-off.config.json",
+          "--output",
+          "doc/evidence/full-pool-baseline/throughput/legal-random-off.raw.json"
+        ]
+      },
+      "raw_sha256": "61abcb7ba9307d47f01e75cea77ebb8bc1244c024741ab2bfd8d0443e17cd04a",
+      "report_sha256": "3c7fe7421e9d091f4bdbc9a82079cd02aa902455e24860e2d76cc1606a716a54",
+      "summary": {
+        "completed": 184,
+        "started": 189,
+        "failed": 0,
+        "truncated": 0,
+        "unfinished": 5,
+        "decisions": 455445,
+        "elapsed_ns": 150008912538,
+        "not_started": 0,
+        "completed_games_per_second": 1.226593786241797,
+        "decisions_per_second": 3036.119603124431
+      },
+      "window_cv": 0.046743087065101135
+    },
+    {
+      "name": "heuristic-counters",
+      "returncode": 0,
+      "receipt": {
+        "returncode": 0,
+        "timed_out": false,
+        "wall_seconds": 160.06671300499875,
+        "process_user_seconds": 159.576797,
+        "process_system_seconds": 0.316936,
+        "peak_rss_bytes": 24502272,
+        "minor_faults": 2334,
+        "major_faults": 0,
+        "voluntary_switches": 1,
+        "involuntary_switches": 7089,
+        "oracle": "Linux wait4 rusage; ru_maxrss KiB converted to bytes",
+        "contaminated": false,
+        "profiler": false,
+        "heavy_lock": true,
+        "before": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40354545580\nuser_usec 38347910752\nsystem_usec 2006634828\ncore_sched.force_idle_usec 0\nnr_periods 189934\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4674719744",
+          "loadavg": "1.12 1.37 1.99 1/402 240854",
+          "affinity": [
+            0
+          ]
+        },
+        "after": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40517786015\nuser_usec 38509896588\nsystem_usec 2007889426\ncore_sched.force_idle_usec 0\nnr_periods 191535\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4674633728",
+          "loadavg": "1.04 1.24 1.84 1/417 241024",
+          "affinity": [
+            0
+          ]
+        },
+        "command": [
+          "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+          "bench",
+          "--workload",
+          "scalar-full-pool-v1",
+          "--config",
+          "doc/evidence/full-pool-baseline/throughput/heuristic-counters.config.json",
+          "--output",
+          "doc/evidence/full-pool-baseline/throughput/heuristic-counters.raw.json"
+        ]
+      },
+      "raw_sha256": "e34b56ed5a4df017727c6a048d14ca6068f15d7f1ee2f1d7c26b907ba3c97b42",
+      "report_sha256": "cb7d9412584dc8be7591826232bb1e826409be0437e0d26dcbf71a165bbc8ce6",
+      "summary": {
+        "completed": 729,
+        "started": 734,
+        "failed": 0,
+        "truncated": 0,
+        "unfinished": 5,
+        "decisions": 441460,
+        "elapsed_ns": 150003766962,
+        "not_started": 0,
+        "completed_games_per_second": 4.859877953496164,
+        "decisions_per_second": 2942.992759054069
+      },
+      "window_cv": 0.10743503535286225
+    },
+    {
+      "name": "heuristic-counters-extended",
+      "returncode": 0,
+      "receipt": {
+        "returncode": 0,
+        "timed_out": false,
+        "wall_seconds": 310.0414747379982,
+        "process_user_seconds": 309.563973,
+        "process_system_seconds": 0.31599499999999997,
+        "peak_rss_bytes": 24502272,
+        "minor_faults": 2337,
+        "major_faults": 0,
+        "voluntary_switches": 1,
+        "involuntary_switches": 15052,
+        "oracle": "Linux wait4 rusage; ru_maxrss KiB converted to bytes",
+        "contaminated": false,
+        "profiler": false,
+        "heavy_lock": true,
+        "before": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40517803014\nuser_usec 38509901511\nsystem_usec 2007901502\ncore_sched.force_idle_usec 0\nnr_periods 191535\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4674617344",
+          "loadavg": "1.04 1.24 1.84 1/417 241024",
+          "affinity": [
+            0
+          ]
+        },
+        "after": {
+          "cpu_quota": "400000 100000",
+          "memory_limit": "7516192768",
+          "cpu_usage": "usage_usec 40833604490\nuser_usec 38823661840\nsystem_usec 2009942650\ncore_sched.force_idle_usec 0\nnr_periods 194635\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+          "memory_current": "4669353984",
+          "loadavg": "1.21 1.21 1.65 1/403 241390",
+          "affinity": [
+            0
+          ]
+        },
+        "command": [
+          "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+          "bench",
+          "--workload",
+          "scalar-full-pool-v1",
+          "--config",
+          "doc/evidence/full-pool-baseline/throughput/heuristic-counters-extended.config.json",
+          "--output",
+          "doc/evidence/full-pool-baseline/throughput/heuristic-counters-extended.raw.json"
+        ]
+      },
+      "raw_sha256": "061a0822a4fe1ace2455b8d88d1cc8e4fa9ec1d456c6d0dfb96e1db440d91a87",
+      "report_sha256": "f4640cf4b160797d4a419641ea7e16704ab65f8ce932dbaf32a15a9ef519ed26",
+      "summary": {
+        "completed": 1247,
+        "started": 1257,
+        "failed": 0,
+        "truncated": 0,
+        "unfinished": 10,
+        "decisions": 762501,
+        "elapsed_ns": 300008868257,
+        "not_started": 0,
+        "completed_games_per_second": 4.156543795671294,
+        "decisions_per_second": 2541.594868278394
+      },
+      "window_cv": 0.03514956452491815
+    }
+  ],
+  "system": {
+    "cpu_quota": "400000 100000",
+    "memory_limit": "7516192768",
+    "cpu_usage": "usage_usec 39863444542\nuser_usec 37860772857\nsystem_usec 2002671684\ncore_sched.force_idle_usec 0\nnr_periods 185132\nnr_throttled 2371\nthrottled_usec 5811602\nnr_bursts 0\nburst_usec 0",
+    "memory_current": "4666880000",
+    "loadavg": "1.19 2.05 2.53 1/420 240084",
+    "affinity": [
+      0
+    ]
+  },
+  "comparison": {
+    "heuristic-activation-mana-v1": {
+      "rates": {
+        "off": {
+          "decisions": 3172.3408151450226,
+          "completed": 5.233213704579989
+        },
+        "counters": {
+          "decisions": 2675.3937684751645,
+          "completed": 4.390987819793935
+        }
+      },
+      "counters_overhead_percent": 15.664995523097359,
+      "provisional_5_percent_overhead_met": false,
+      "provisional_100k_decisions_per_second_met": false
+    },
+    "legal-random-activation-mana-v1": {
+      "rates": {
+        "off": {
+          "decisions": 3036.119603124431,
+          "completed": 1.226593786241797
+        },
+        "counters": {
+          "decisions": 2989.7795150925353,
+          "completed": 1.2065857569431877
+        }
+      },
+      "counters_overhead_percent": 1.5262932324605183,
+      "provisional_5_percent_overhead_met": true,
+      "provisional_100k_decisions_per_second_met": false
+    }
+  },
+  "status": "collected-needs-correctness-review"
+}
