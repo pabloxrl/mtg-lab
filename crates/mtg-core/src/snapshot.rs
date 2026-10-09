@@ -272,6 +272,13 @@ impl Game {
                 self.turns.decision.is_none()
                     && match w {
                         TurnWork::Boundary(turn, _, _) => *turn > 0,
+                        TurnWork::CleanupEnd { next_turn, active } => {
+                            self.turns.position.is_some_and(|(turn, seat, step)| {
+                                turn.checked_add(1) == Some(*next_turn)
+                                    && seat == *active
+                                    && matches!(step, turns::Step::End | turns::Step::Cleanup)
+                            })
+                        }
                         TurnWork::Move(h, zone) => {
                             self.objects.get(*h).is_ok()
                                 && matches!(zone, Zone::Hand(_) | Zone::Graveyard(_))

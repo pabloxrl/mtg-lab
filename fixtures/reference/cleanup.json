@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "cases": [
+    {"id": "rules-continuous-hand-size-cleanup-positive", "hand": 9, "trigger": false, "thrill": false},
+    {"id": "rules-continuous-hand-size-cleanup-negative", "hand": 9, "trigger": false, "thrill": false},
+    {"id": "rules-continuous-hand-size-cleanup-interaction", "hand": 8, "trigger": true, "thrill": false},
+    {"id": "rules-continuous-hand-size-cleanup-regression", "hand": 8, "trigger": true, "thrill": true}
+  ]
+}
