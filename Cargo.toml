@@ -6,3 +6,11 @@ resolver = "3"
 edition = "2024"
 rust-version = "1.98"
 publish = false
+
+# Keep checked/debug test behavior while avoiding interpreter-like overhead in
+# full-game snapshot, JSON and replay integration tests. Release is tested too.
+[profile.test]
+opt-level = 1
+debug = true
+debug-assertions = true
+overflow-checks = true

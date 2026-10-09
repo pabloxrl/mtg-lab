@@ -253,6 +253,10 @@ These are delivery commitments; the table above identifies what currently exists
 
 ## Tests govern delivery
 
+CI runs the complete suite in parallel partitions with reusable build caches;
+all partitions must pass the required `verify` gate. The local full-suite command
+is unchanged. See [verification execution and caching](doc/testing/torture-suite.md#parallel-ci-and-caches).
+
 The [executable torture baseline](doc/testing/torture-suite.md) runs through the
 Docker quickstart above and required CI. Agents must retain coded regressions,
 add independently justified tests with each behavior, run the complete suite and
