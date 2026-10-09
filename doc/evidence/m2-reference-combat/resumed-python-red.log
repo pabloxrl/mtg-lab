@@ -1,0 +1,45 @@
+FFFFF
+======================================================================
+FAIL: test_missing_catalog_slots_are_failure (test_m2_combat_reference.M2CombatReference.test_missing_catalog_slots_are_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-210/tests/test_m2_combat_reference.py", line 14, in test_missing_catalog_slots_are_failure
+    with self.assertRaisesRegex(ValueError, '50|catalog|manifest'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_stale_or_unexecuted_receipts_are_failure (test_m2_combat_reference.M2CombatReference.test_stale_or_unexecuted_receipts_are_failure) (receipt={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-210/tests/test_m2_combat_reference.py", line 22, in test_stale_or_unexecuted_receipts_are_failure
+    with self.subTest(receipt=receipt), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_stale_or_unexecuted_receipts_are_failure (test_m2_combat_reference.M2CombatReference.test_stale_or_unexecuted_receipts_are_failure) (receipt={'status': 'unsupported'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-210/tests/test_m2_combat_reference.py", line 22, in test_stale_or_unexecuted_receipts_are_failure
+    with self.subTest(receipt=receipt), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_stale_or_unexecuted_receipts_are_failure (test_m2_combat_reference.M2CombatReference.test_stale_or_unexecuted_receipts_are_failure) (receipt={'status': 'agreed', 'runner_sha256': 'cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc'})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-210/tests/test_m2_combat_reference.py", line 22, in test_stale_or_unexecuted_receipts_are_failure
+    with self.subTest(receipt=receipt), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_stale_or_unexecuted_receipts_are_failure (test_m2_combat_reference.M2CombatReference.test_stale_or_unexecuted_receipts_are_failure) (receipt={'status': 'agreed', 'runner_sha256': 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'bridge_sha256': 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb', 'repetitions': 0})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-210/tests/test_m2_combat_reference.py", line 22, in test_stale_or_unexecuted_receipts_are_failure
+    with self.subTest(receipt=receipt), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.003s
+
+FAILED (failures=5)
