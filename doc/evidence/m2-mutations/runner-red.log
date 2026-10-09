@@ -1,0 +1,104 @@
+FFFFFFFFF.
+======================================================================
+FAIL: test_exact_behavioral_assertion_detects_mutant (test_m2_mutations.MutationVerdicts.test_exact_behavioral_assertion_detects_mutant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 18, in test_exact_behavioral_assertion_detects_mutant
+    self.assertEqual(verdict(TEST, MARKER, 101, output()), "detected")
+AssertionError: 'survived' != 'detected'
+- survived
++ detected
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=101, text='error[E0308]: mismatched types')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=101, text="running 1 test\nthread 'different_scenario' panicked at src/check.rs:1:1:\nassertion `left == right` failed: M2-MUT priority: opponent receives priority\n  left: 0\n right: 1\ntest different_scenario ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=101, text="running 1 test\nthread 'game::m2_mutation_tests::priority' panicked at src/check.rs:1:1:\nassertion `left == right` failed: unrelated assertion\n  left: 0\n right: 1\ntest game::m2_mutation_tests::priority ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=101, text="running 1 test\nthread 'game::m2_mutation_tests::priority' panicked at src/check.rs:1:1:\nunwrap failed: M2-MUT priority: opponent receives priority\n  left: 0\n right: 1\ntest game::m2_mutation_tests::priority ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=101, text="running 0 tests\nthread 'game::m2_mutation_tests::priority' panicked at src/check.rs:1:1:\nassertion `left == right` failed: M2-MUT priority: opponent receives priority\n  left: 0\n right: 1\ntest game::m2_mutation_tests::priority ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=1, text="running 1 test\nthread 'game::m2_mutation_tests::priority' panicked at src/check.rs:1:1:\nassertion `left == right` failed: M2-MUT priority: opponent receives priority\n  left: 0\n right: 1\ntest game::m2_mutation_tests::priority ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=-9, text="running 1 test\nthread 'game::m2_mutation_tests::priority' panicked at src/check.rs:1:1:\nassertion `left == right` failed: M2-MUT priority: opponent receives priority\n  left: 0\n right: 1\ntest game::m2_mutation_tests::priority ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+======================================================================
+FAIL: test_missing_test_build_failure_wrong_scenario_and_panic_fail (test_m2_mutations.MutationVerdicts.test_missing_test_build_failure_wrong_scenario_and_panic_fail) (code=101, text="running 1 test\nthread 'game::m2_mutation_tests::priority' panicked at src/check.rs:1:1:\nassertion `left == right` failed: M2-MUT priority: opponent receives priority\n  left: 0\n right: 1\ntest game::m2_mutation_tests::priority ... FAILED\ntest result: FAILED. 0 passed; 1 failed; 1 ignored; 0 measured; 10 filtered out; finished in 0.00s\n")
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-213/tests/test_m2_mutations.py", line 35, in test_missing_test_build_failure_wrong_scenario_and_panic_fail
+    self.assertEqual(verdict(TEST, MARKER, code, text), "invalid")
+AssertionError: 'survived' != 'invalid'
+- survived
++ invalid
+
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (failures=9)

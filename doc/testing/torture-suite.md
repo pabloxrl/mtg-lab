@@ -98,3 +98,7 @@ specified explicitly in the workspace manifest; see the
 
 [Verification speed evidence](../evidence/verification-speed/README.md) records
 local timings, exact test-inventory comparison and cache limitations.
+
+The [designated M2 mutation command](m2-mutations.md) separately rebuilds twelve
+semantic mutants and requires their exact named assertions to fail. Its baseline
+assertions and runner negative controls are part of normal test discovery.

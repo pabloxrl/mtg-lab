@@ -70,6 +70,7 @@ and [simulation guide](doc/simulate.md).
 | [Architecture](doc/architecture.md) | Core module responsibilities, compatibility boundaries and repository layout. |
 | [Scope and roadmap](doc/roadmap.md) | Toy decks, reference-game pilots and the 1,000-game torture corpus. |
 | [Testing](doc/testing/README.md) | Test designs, independent reference checks and delivery gates. |
+| [M2 mutation checks](doc/testing/m2-mutations.md) | Twelve named semantic mutants and strict behavioral detection. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |
 
 ## Contributing
