@@ -1,7 +1,7 @@
 # Full-pool legacy and decision coverage
 
 Status: bounded native/reference acceptance and full torture PASS after integration
-of main `17aeefe91c9a23bd91854a8e8c3d7960a06b6be4`. Independent review and protected
+of main `71776215b7c2372757b37c4113ac1c0a28bb1362`. Independent review and protected
 delivery are tracked in the issue/PR workpad; no M2 gate verdict.
 The earlier prerequisite audit in this directory is historical. Repairs #256 and
 #257 are verified on main `362aad0eeb5c7ab38d4b710de3f63c266ec48a52` and supply
@@ -99,29 +99,29 @@ verified bounded coverage; the milestone remains incomplete.
 
 ## Executed bounded reference receipt
 
-The [integrated joined receipt](integrated/reference-receipt.json) records all 31
+The [integrated joined receipt](final-integration/reference-receipt.json) records all 31
 assigned native cases, 29 bounded XMage case mappings (capacity encoding is
 native-only), twelve prerequisite packs and the frozen holdout. Every mapped
 native test passed in normal core discovery. The holdout agreed twice per engine
 and its corrupted damage-event checkpoint failed comparison. Twenty focused
 native M2 tests passed; these do not replace full torture.
 
-The [compressed raw evidence](integrated/reference-artifacts.tar.gz) retains all
+The [compressed raw evidence](final-integration/reference-artifacts.tar.gz) retains all
 760 files: inputs, observations, consumed choices, positive/negative execution
 logs, source pins, child receipts and comparator controls. The
-[archive inventory](integrated/reference-archive.json) records its SHA-256; all
+[archive inventory](final-integration/reference-archive.json) records its SHA-256; all
 759 nested receipt artifact hashes and 611 child native source fingerprints were
 checked against the integrated candidate. Extract with
 `tar -xzf reference-artifacts.tar.gz`; paths in the joined receipt are relative to
 the resulting `references/` directory. Earlier M1 receipts have their original
 hashes in the joined report and remain unchanged in the repository.
 
-Full torture passed **246 Python tests and 1,408 Rust debug/release executions,
+Full torture passed **263 Python tests and 1,420 Rust debug/release executions,
 zero failed/ignored**, after integration of current main; see the
-[validation receipt](integrated/validation.json) and [full log](integrated/torture.log).
-The tested source head is `118c56cf5d7546366bf47d462c5583eb0a7458c6`; subsequent
+[validation receipt](final-integration/validation.json) and [full log](final-integration/torture.log).
+The tested source head is `d5b77522b5363d71de970120557f903cefdd3333`; subsequent
 evidence packaging changes only this documentation and retained artifacts.
-Reference execution took 596.909 seconds and full torture 857.299 seconds in the
+Reference execution took 632.552 seconds and full torture 637.686 seconds in the
 managed container. These are verification runtimes, not throughput claims.
 
 The earlier [receipt](pre-integration/reference-receipt.json),
@@ -134,3 +134,14 @@ run; it was integrated with both independent test modules and README links
 preserved, and the complete reference/torture sequence was repeated above.
 Independent review, protected integration and exact-main CI remain separate
 requirements whose final evidence belongs in the delivery workpad/PR.
+
+The intermediate main-`17aeefe9` [validation](integrated/validation.json),
+[reference receipt](integrated/reference-receipt.json),
+[archive inventory](integrated/reference-archive.json),
+[raw archive](integrated/reference-artifacts.tar.gz) and
+[full log](integrated/torture.log) are also retained: 246 Python tests and 1,408
+Rust executions passed. That candidate passed independent review and required PR
+CI. Before merge, main advanced through scalar-baseline PR #267. Integration was
+conflict-free and retained both README additions; the complete reference and
+torture sequence was repeated on the final source above. Prior receipts are not
+relabeled as later-head acceptance.
