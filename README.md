@@ -39,6 +39,11 @@ The [Cub casting and single-Sentry checks](doc/evidence/cub-sentry/README.md)
 extend the Shivan reference pack with explicit illegal-action attempts,
 payment/zone transitions and combat-damage checkpoints in both seats.
 
+The [terminal reference contract](doc/evidence/mixed-terminal/README.md) checks
+per-seat failed draws and mixed simultaneous losses at explicit synthetic SBA
+boundaries, with versioned pending/final outcome observations and retained legacy
+fixtures. It does not establish normal-game reachability or complete M2 acceptance.
+
 ## Getting started
 
 Install Git, Python 3, Docker Engine and Docker Compose v2, and start Docker.

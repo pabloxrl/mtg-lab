@@ -1,0 +1,60 @@
+{
+  "version": 2,
+  "pending": {
+    "life": [
+      1,
+      0
+    ],
+    "lost": [
+      false,
+      false
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "hand": [
+      0,
+      0
+    ],
+    "outcome": "ongoing",
+    "draw": false,
+    "winner": null
+  },
+  "settled": {
+    "life": [
+      1,
+      0
+    ],
+    "lost": [
+      false,
+      true
+    ],
+    "library": [
+      0,
+      0
+    ],
+    "hand": [
+      0,
+      0
+    ],
+    "outcome": "win",
+    "draw": false,
+    "winner": 0
+  },
+  "consumed": [
+    {
+      "action": "life",
+      "seat": 1,
+      "value": 0
+    },
+    {
+      "action": "life",
+      "seat": 0,
+      "value": 1
+    },
+    {
+      "action": "settle"
+    }
+  ]
+}

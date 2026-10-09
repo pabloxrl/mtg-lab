@@ -1,0 +1,1545 @@
+[
+  {
+    "id": "seat-negative",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": -1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "seat-two",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 2,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "seat-bool",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": true,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "seat-string",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": "1",
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "seat-null",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": null,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "unknown-field",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0,
+          "draw_seet": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "unknown-action",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "oops",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "malformed-action",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": [
+            "draw"
+          ],
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "conflicting-settle",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "settle",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "conflicting-concede",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0,
+          "concede_seat": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "malformed-life",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "duplicate-life-seat",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            0
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "premature-input",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "settle_between",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "unknown-card",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0,
+          "library_card": "Island"
+        }
+      ]
+    }
+  },
+  {
+    "id": "missing-draw_seat",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "missing-life_order",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "missing-expected_pending",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "missing-expected_drawn",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          }
+        }
+      ]
+    }
+  },
+  {
+    "id": "version-0",
+    "fixture": {
+      "version": 0,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "version-3",
+    "fixture": {
+      "version": 3,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "version-True",
+    "fixture": {
+      "version": true,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "version-2",
+    "fixture": {
+      "version": "2",
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "legacy-cannot-add-seat",
+    "fixture": {
+      "version": 1,
+      "basis": "Original synthetic settled-boundary cases, CR 104.3a/104.4a/704.5a/704.5b. Empty libraries except last-card-draw, with one Forest. Life is injected before the SBA check; no production engine supplies expectations.",
+      "cases": [
+        {
+          "id": "empty-draw",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              true,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ]
+          },
+          "draw_seat": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "duplicate-seat-json",
+    "text": "{\"version\": 2, \"basis\": \"Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.\", \"cases\": [{\"id\": \"empty-draw-p1\", \"life\": [20, 20], \"action\": \"draw\", \"life_order\": [0, 1], \"injection_order\": \"life_then_draw\", \"draw_seat\": 0, \"draw_seat\": 1, \"expected\": {\"life\": [20, 20], \"lost\": [false, true], \"library\": [0, 0], \"hand\": [0, 0], \"outcome\": \"win\", \"winner\": 0, \"draw\": false}, \"expected_pending\": {\"life\": [20, 20], \"lost\": [false, false], \"library\": [0, 0], \"hand\": [0, 0], \"outcome\": \"ongoing\", \"winner\": null, \"draw\": false}, \"expected_drawn\": 0}]}"
+  },
+  {
+    "id": "duplicate-action-json",
+    "text": "{\"version\": 2, \"basis\": \"Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.\", \"cases\": [{\"id\": \"empty-draw-p1\", \"life\": [20, 20], \"action\": \"settle\", \"action\": \"draw\", \"life_order\": [0, 1], \"injection_order\": \"life_then_draw\", \"draw_seat\": 1, \"expected\": {\"life\": [20, 20], \"lost\": [false, true], \"library\": [0, 0], \"hand\": [0, 0], \"outcome\": \"win\", \"winner\": 0, \"draw\": false}, \"expected_pending\": {\"life\": [20, 20], \"lost\": [false, false], \"library\": [0, 0], \"hand\": [0, 0], \"outcome\": \"ongoing\", \"winner\": null, \"draw\": false}, \"expected_drawn\": 0}]}"
+  },
+  {
+    "id": "truncated-json",
+    "text": "{\"version\": 2, \"basis\": \"Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.\", \"cases\": [{\"id\": \"empty-draw-p1\", \"life\": [20, 20], \"action\": \"draw\", \"life_order\": [0, 1], \"injection_order\": \"life_then_draw\", \"draw_seat\": 1, \"expected\": {\"life\": [20, 20], \"lost\": [false, true], \"library\": [0, 0], \"hand\": [0, 0], \"outcome\": \"win\", \"winner\": 0, \"draw\": false}, \"expected_pending\": {\"life\": [20, 20], \"lost\": [false, false], \"library\": [0, 0], \"hand\": [0, 0], \"outcome\": \"ongoing\", \"winner\": null, \"draw\": false}, \"expected_drawn\": 0}]"
+  },
+  {
+    "id": "seat-float",
+    "fixture": {
+      "version": 2,
+      "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+      "cases": [
+        {
+          "id": "empty-draw-p1",
+          "life": [
+            20,
+            20
+          ],
+          "action": "draw",
+          "life_order": [
+            0,
+            1
+          ],
+          "injection_order": "life_then_draw",
+          "draw_seat": 1.0,
+          "expected": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              true
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "win",
+            "winner": 0,
+            "draw": false
+          },
+          "expected_pending": {
+            "life": [
+              20,
+              20
+            ],
+            "lost": [
+              false,
+              false
+            ],
+            "library": [
+              0,
+              0
+            ],
+            "hand": [
+              0,
+              0
+            ],
+            "outcome": "ongoing",
+            "winner": null,
+            "draw": false
+          },
+          "expected_drawn": 0
+        }
+      ]
+    }
+  }
+]

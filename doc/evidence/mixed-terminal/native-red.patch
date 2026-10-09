@@ -1,0 +1,101 @@
+diff --git a/crates/mtg-core/src/terminal_tests.rs b/crates/mtg-core/src/terminal_tests.rs
+index e6c7fa2..6d1a21d 100644
+--- a/crates/mtg-core/src/terminal_tests.rs
++++ b/crates/mtg-core/src/terminal_tests.rs
+@@ -353,6 +353,41 @@ fn terminal_same_neutral_boundaries_as_xmage() {
+     let fixture: serde_json::Value =
+         serde_json::from_str(include_str!("../../../fixtures/reference/terminal.json")).unwrap();
+     for c in fixture["cases"].as_array().unwrap() {
++        assert_eq!(legacy_terminal_observation(c), c["expected"], "{}", c["id"]);
++    }
++}
++#[test]
++fn terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal() {
++    for seat in [Seat::P0, Seat::P1] {
++        let mut g = ready();
++        g.turns.position = Some((3, seat, Step::PrecombatMain));
++        g.set_turn_decision(seat, crate::opening::turns::TurnKind::Priority);
++        let r = g.concede(seat, g.episode_id().unwrap()).unwrap();
++        assert_eq!(r.winner, Some(crate::opening::turns::opponent(seat)));
++        assert_eq!(r.losses[seat_index(seat)], Some(LossReason::Concession));
++        assert!(g.turn_decision().is_none());
++    }
++    let (mut g, a) = damage_position(2, false);
++    let d = g.turn_decision().unwrap();
++    let progress = g.finish_combat(d.actor, d.id).unwrap();
++    assert_eq!(
++        progress,
++        crate::opening::turns::TurnProgress::Terminal(g.outcome().unwrap())
++    );
++    let before = format!("{g:?}");
++    assert!(g.finish_combat(d.actor, d.id).is_err());
++    assert!(g.select_attackers(d.actor, d.id, &[a]).is_err());
++    assert!(g.select_blockers(Seat::P1, d.id, &[]).is_err());
++    assert!(g.begin_cast(d.actor, d.id, a).is_err());
++    assert!(g.play_land(d.actor, d.id, a).is_err());
++    assert!(g.tap_mana(d.actor, d.id, a).is_err());
++    assert!(g.cast_candidates(d.actor).is_empty());
++    assert!(g.land_candidates(d.actor).is_empty());
++    assert!(g.mana_sources(d.actor).is_empty());
++    assert_eq!(format!("{g:?}"), before);
++}
++
++fn legacy_terminal_observation(c: &serde_json::Value) -> serde_json::Value {
+         let mut g = ready();
+         g.objects.reset().unwrap();
+         g.life = [
+@@ -385,41 +420,19 @@ fn terminal_same_neutral_boundaries_as_xmage() {
+             .unwrap_or([false; 2]);
+         let library = [Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Library(s)).count());
+         let hand = [Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Hand(s)).count());
+-        assert_eq!(
+-            serde_json::json!({"life":g.life(),"lost":lost,"library":library,"hand":hand}),
+-            c["expected"],
+-            "{}",
+-            c["id"]
+-        );
+-    }
++serde_json::json!({"life":g.life(),"lost":lost,"library":library,"hand":hand})
+ }
++
+ #[test]
+-fn terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal() {
+-    for seat in [Seat::P0, Seat::P1] {
+-        let mut g = ready();
+-        g.turns.position = Some((3, seat, Step::PrecombatMain));
+-        g.set_turn_decision(seat, crate::opening::turns::TurnKind::Priority);
+-        let r = g.concede(seat, g.episode_id().unwrap()).unwrap();
+-        assert_eq!(r.winner, Some(crate::opening::turns::opponent(seat)));
+-        assert_eq!(r.losses[seat_index(seat)], Some(LossReason::Concession));
+-        assert!(g.turn_decision().is_none());
+-    }
+-    let (mut g, a) = damage_position(2, false);
+-    let d = g.turn_decision().unwrap();
+-    let progress = g.finish_combat(d.actor, d.id).unwrap();
+-    assert_eq!(
+-        progress,
+-        crate::opening::turns::TurnProgress::Terminal(g.outcome().unwrap())
+-    );
+-    let before = format!("{g:?}");
+-    assert!(g.finish_combat(d.actor, d.id).is_err());
+-    assert!(g.select_attackers(d.actor, d.id, &[a]).is_err());
+-    assert!(g.select_blockers(Seat::P1, d.id, &[]).is_err());
+-    assert!(g.begin_cast(d.actor, d.id, a).is_err());
+-    assert!(g.play_land(d.actor, d.id, a).is_err());
+-    assert!(g.tap_mana(d.actor, d.id, a).is_err());
+-    assert!(g.cast_candidates(d.actor).is_empty());
+-    assert!(g.land_candidates(d.actor).is_empty());
+-    assert!(g.mana_sources(d.actor).is_empty());
+-    assert_eq!(format!("{g:?}"), before);
++fn terminal_per_seat_reference_behavior_red() {
++    // CR 104.4a and 704.5a/b: different pending reasons share one SBA batch.
++    let c = serde_json::json!({"life":[0,20], "action":"draw", "draw_seat":1});
++    let actual = legacy_terminal_observation(&c);
++    assert_eq!(actual["lost"], serde_json::json!([true,true]), "mixed pending reasons must both lose");
++}
++#[test]
++fn terminal_reference_explicit_outcome_red() {
++    let c = serde_json::json!({"life":[0,0], "action":"settle"});
++    let actual = legacy_terminal_observation(&c);
++    assert_eq!(actual["outcome"], "draw", "CR 104.4a explicit draw observation required");
+ }

@@ -1,0 +1,1946 @@
+{
+  "empty-draw": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  },
+  "empty-draw-p1": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "empty-draw-p1-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "empty-draw-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  },
+  "empty-no-draw": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "version": 2
+  },
+  "empty-no-draw-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "version": 2
+  },
+  "last-card-draw": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 1,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        1,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        1,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "version": 2
+  },
+  "last-card-draw-p1": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 1,
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        1
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        1
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "version": 2
+  },
+  "last-card-draw-p1-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 1,
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        1
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        1
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "version": 2
+  },
+  "last-card-draw-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 1,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        1,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        1,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p0-draw-p1-draw_then_life": {
+    "consumed": [
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 1
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p0-draw-p1-draw_then_life-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 1
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p0-draw-p1-life_then_draw": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p0-draw-p1-life_then_draw-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p1-draw-p0-draw_then_life": {
+    "consumed": [
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p1-draw-p0-draw_then_life-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p1-draw-p0-life_then_draw": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "mixed-life-p1-draw-p0-life_then_draw-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "draw",
+        "drawn": 0,
+        "seat": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "negative-life": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": -1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        -1
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        -1
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "negative-life-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": -1
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        -1
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        -1
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "nonacting-concession": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "concede",
+        "seat": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "one-life-survivor-p0": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 1
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        1,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        1,
+        0
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "one-life-survivor-p0-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        1,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        1,
+        0
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "one-life-survivor-p1": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 1
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        1
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        1
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  },
+  "one-life-survivor-p1-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 1
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        1
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        1
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  },
+  "simultaneous-life": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "simultaneous-life-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": true,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        0
+      ],
+      "lost": [
+        true,
+        true
+      ],
+      "outcome": "draw",
+      "winner": null
+    },
+    "version": 2
+  },
+  "zero-life": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  },
+  "zero-life-p0": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  },
+  "zero-life-p0-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 20
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 0
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        0,
+        20
+      ],
+      "lost": [
+        true,
+        false
+      ],
+      "outcome": "win",
+      "winner": 1
+    },
+    "version": 2
+  },
+  "zero-life-reverse-life-order": {
+    "consumed": [
+      {
+        "action": "life",
+        "seat": 1,
+        "value": 0
+      },
+      {
+        "action": "life",
+        "seat": 0,
+        "value": 20
+      },
+      {
+        "action": "settle"
+      }
+    ],
+    "pending": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        false
+      ],
+      "outcome": "ongoing",
+      "winner": null
+    },
+    "settled": {
+      "draw": false,
+      "hand": [
+        0,
+        0
+      ],
+      "library": [
+        0,
+        0
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "lost": [
+        false,
+        true
+      ],
+      "outcome": "win",
+      "winner": 0
+    },
+    "version": 2
+  }
+}
