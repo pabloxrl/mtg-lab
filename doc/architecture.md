@@ -1,5 +1,14 @@
 # Architecture
 
+## Planned card model
+
+[RFC 0003](rfcs/0003-data-driven-cards.md) defines the target: a versioned runtime
+card catalog compiled into typed ability programs for the shared Rust rules engine.
+Adding a card made entirely of supported mechanics must require only definitions
+and deck/pool data, not an engine or player-code change. The current implementation
+below is still a hybrid with compiled identities and specialized ability paths;
+the RFC includes their staged migration and an unchanged-binary acceptance test.
+
 ## Core module responsibilities
 
 The canonical rules API is now rooted at [mtg_core::game](../crates/mtg-core/src/game.rs).
@@ -45,7 +54,7 @@ covers canonical bytes, optional statistics and failure handling.
 | [doc/](README.md) | RFCs, test plans, operating guides and audit evidence. |
 
 Start with the [project charter](rfcs/0001-project-charter.md) for purpose,
-[RFC 0002](rfcs/0002-first-mvp.md) for delivery scope, and
+the [current plan](programs/engine-validation.md) for delivery scope, and
 [AGENTS.md](../AGENTS.md) for contribution rules. Repository licensing and exact
 release/data redistribution decisions remain open release prerequisites, recorded
 in the [provenance policy](provenance-policy.md); M0 is not release clearance.

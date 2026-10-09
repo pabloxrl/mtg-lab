@@ -61,6 +61,7 @@ and seeds add diversity; they do not establish coverage on their own.
 | Existing M0 | Scope and verifier foundations | Complete; [passing audit](evidence/m0-reaudit/README.md). |
 | Existing M1 | First scalar slice and unattended games | PASS for the six-card slice; [gate audit](evidence/m1-gate/README.md) and linked delivery receipts. |
 | E1 / existing M2 | Complete frozen toy decks and playable games | In progress; existing full-pool gate #26, reference coverage and scalar baseline remain required. |
+| E1a | Scalable data-driven card model | Planned: runtime definitions and reusable mechanics; unchanged-binary tests prove new supported-mechanic cards need no engine or player-code changes. [Design](rfcs/0003-data-driven-cards.md). |
 | E2 | First reference capture/replay pilot | Planned: 10 complete games, all eight matchup rows, repeated mtg-lab replay and intermediate checks. |
 | E3 | Measured generation and replay cost | Planned: 100 attempts with complete accounting; startup, capture, conversion, replay, latency and memory measured separately. |
 | E4 | Both references and frozen torture corpus | Planned: qualify the second reference through the same 10/100 gates; admit at least 1,000 distinct complete games, at least 500 from each source, balanced over deck/starting-seat rows, replayed in all three engines. |

@@ -10,6 +10,8 @@
 
 - [Current engine-validation plan](programs/engine-validation.md) — accepted scope, 10-game pilots, 100-attempt benchmarks, 1,000-game reference corpus and deferred work.
 
+- [RFC 0003: Data-driven cards](rfcs/0003-data-driven-cards.md) — runtime catalog, reusable ability programs, migration and proof of data-only card admission; designed, not implemented.
+
 ## Research and operations
 
 - [MVP test strategy](testing/README.md) — concrete capability designs, AI-played game replay across three engines, component tests and delivery gates.
