@@ -1,0 +1,10 @@
+{
+  "base": "522b7da8b86cd412c03c709bf88d8540c0385e16",
+  "status": "correctness-reproduction-pending",
+  "files": {
+    "crates/mtg-core/src/activation.rs": "d2f739b743d2619e72e224cad7548763cd2b99f039931a705d1978949d78523d",
+    "crates/mtg-core/src/policy.rs": "325898f8793d60e86070406d8f188e1832bb067822b8a56732b52ec8b9df153a",
+    "crates/mtg-core/src/shivan_tests.rs": "821533707d7abc61eb91293722dcfa6d2e679b7b303170676dc9aee227e77ce2",
+    "doc/evidence/full-pool-baseline/activation-mana-red.patch": "ca894843252e041aa6a61e24779adad64b486582962e9fc48bb5adb23b50bdf1"
+  }
+}

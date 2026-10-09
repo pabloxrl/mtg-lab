@@ -118,7 +118,9 @@ pub(crate) fn run_observed(
 /// Optional timing for the benchmark client only; ordinary simulation does not
 /// read a performance clock for each choice. Includes policy initialization and
 /// all choose attempts (including failures), excludes observation/submission.
+type StateProbe = dyn FnMut(&Driver, &Observation);
 pub(crate) struct PolicyTiming {
+    pub sample: Option<Box<StateProbe>>,
     pub elapsed_ns: u128,
     pub phases: Phases,
     pub detailed: bool,
@@ -138,6 +140,7 @@ impl Default for PolicyTiming {
     fn default() -> Self {
         let start = Instant::now();
         Self {
+            sample: None,
             elapsed_ns: 0,
             phases: Phases::default(),
             detailed: false,
@@ -320,6 +323,9 @@ pub(crate) fn run_instrumented(
                     }
                     match ready {
                         Some((seat, o)) => {
+                            if let Some(probe) = timing.as_mut().and_then(|t| t.sample.as_mut()) {
+                                probe(&d, &o);
+                            }
                             let index = usize::from(seat == Seat::P1);
                             if timing.as_ref().is_some_and(|t| t.encode) {
                                 let start = stamp(&timing, true);

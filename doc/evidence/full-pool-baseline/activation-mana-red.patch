@@ -1,0 +1,54 @@
+diff --git a/crates/mtg-core/src/shivan_tests.rs b/crates/mtg-core/src/shivan_tests.rs
+index 8943585..52b21a3 100644
+--- a/crates/mtg-core/src/shivan_tests.rs
++++ b/crates/mtg-core/src/shivan_tests.rs
+@@ -59,6 +59,49 @@ fn activate(g: &mut Game) {
+     command(g, serde_json::json!({"kind":"pay","color":3}));
+     command(g, serde_json::json!({"kind":"finish_activation"}));
+ }
++// CR 602.2b applies 601.2g to activation: mana abilities may be activated
++// during payment (also 605.3a), not only by floating mana before announcement.
++#[test]
++fn activation_mana_shivan_can_announce_with_untapped_mountain() {
++    let mut g = ready();
++    let dragon = add(&mut g, "shivan-dragon");
++    add(&mut g, "mountain");
++    assert_eq!(g.mana()[0][3], 0);
++    assert!(g.activation_candidates(Seat::P0).contains(&dragon));
++    let d = g.turn_decision().unwrap();
++    g.begin_activation(Seat::P0, d.id, dragon).unwrap();
++}
++
++#[test]
++fn activation_mana_payment_offers_untapped_sources_even_with_floating_mana() {
++    let mut g = ready();
++    let dragon = add(&mut g, "shivan-dragon");
++    add(&mut g, "mountain");
++    g.turns.mana[0][3] = 1;
++    let d = g.turn_decision().unwrap();
++    g.begin_activation(Seat::P0, d.id, dragon).unwrap();
++    let d = g.policy_observe(Seat::P0, 256).unwrap().decision.unwrap();
++    assert_eq!(d.kind, "activation_payment");
++    assert!(
++        d.candidates
++            .iter()
++            .zip(&d.legal_mask)
++            .any(|(c, legal)| { *legal && matches!(c, policy::Choice::TapMana { .. }) })
++    );
++}
++
++#[test]
++fn activation_mana_invoker_can_announce_with_eight_untapped_forests() {
++    let mut g = ready();
++    let invoker = add(&mut g, "wildheart-invoker");
++    for _ in 0..8 {
++        add(&mut g, "forest");
++    }
++    assert_eq!(g.mana()[0], [0; 6]);
++    assert!(g.activation_candidates(Seat::P0).contains(&invoker));
++    let d = g.turn_decision().unwrap();
++    g.begin_activation(Seat::P0, d.id, invoker).unwrap();
++}
+ #[test]
+ fn shivan_sick_repeated_paid_boost_cleanup() {
+     let mut g = ready();

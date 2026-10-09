@@ -1,0 +1,32 @@
+warning: `mtg-cli` (bin "mtg") generated 4 warnings
+warning: `mtg-cli` (bin "mtg" test) generated 1 warning
+    Finished `test` profile [optimized + debuginfo] target(s) in 43.43s
+     Running unittests src/main.rs (target/debug/deps/mtg-634074455f05cda9)
+
+running 3 tests
+test resident::tests::full_pool_contract_resident_os_units_are_bytes_not_serialized_size ... FAILED
+test benchmark::tests::full_pool_contract_accepts_all_eight_rows_without_shorter_horizon ... FAILED
+test resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position ... FAILED
+
+failures:
+
+failures:
+    benchmark::tests::full_pool_contract_accepts_all_eight_rows_without_shorter_horizon
+    resident::tests::full_pool_contract_resident_os_units_are_bytes_not_serialized_size
+    resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 30 filtered out; finished in 0.00s
+
+
+thread 'resident::tests::full_pool_contract_resident_os_units_are_bytes_not_serialized_size' (161919) panicked at crates/mtg-cli/src/resident.rs:22:9:
+assertion `left == right` failed
+  left: 0
+ right: 125952
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'benchmark::tests::full_pool_contract_accepts_all_eight_rows_without_shorter_horizon' (161918) panicked at crates/mtg-cli/src/benchmark.rs:469:9:
+full-pool scalar workload must be supported
+
+thread 'resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position' (161920) panicked at crates/mtg-cli/src/resident.rs:32:39:
+called `Result::unwrap()` on an `Err` value: Policy(Unavailable)
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

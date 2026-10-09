@@ -1,0 +1,342 @@
+{
+  "stack-heavy": {
+    "command": [
+      "timeout",
+      "--kill-after=5s",
+      "180s",
+      "gprofng",
+      "collect",
+      "app",
+      "-p",
+      "on",
+      "-H",
+      "on",
+      "-a",
+      "off",
+      "-o",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/stack-heavy.er",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+      "simulate",
+      "--config",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/stack-heavy.config.json",
+      "--output",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/stack-heavy.game.jsonl"
+    ],
+    "returncode": 0,
+    "ordinal": 21,
+    "shape": [
+      1,
+      0,
+      0,
+      10
+    ],
+    "interpretation": "diagnostic whole normal game containing the selected stress prefix; profiling overhead excluded from throughput artifacts",
+    "metric_list_returncode": 0,
+    "functions_returncode": 0,
+    "heap_returncode": 0,
+    "statistics_returncode": 0,
+    "overview_returncode": 0,
+    "raw_files": {
+      "overview": {
+        "bytes": 2016,
+        "sha256": "8d1c487d0cfaca522d8f07363f8aab1f6e60c94a7208cb27af9ff0da30a891fb"
+      },
+      "profile": {
+        "bytes": 65536,
+        "sha256": "a479ed8bc20d30543db43492b6c69ee2fc5cdfc24468807f310a34cbdc5b9205"
+      },
+      "dyntext": {
+        "bytes": 1632,
+        "sha256": "4d17ff87346fc23a68b0159062c25760fb34eb2ce1b4e1fd45f06eec7af9e946"
+      },
+      "map.xml": {
+        "bytes": 65536,
+        "sha256": "63be9a8bb7c864730ee89db0d8ec6a4d1d4ad052c93ca921952c3e9be12086d2"
+      },
+      "log.xml": {
+        "bytes": 65536,
+        "sha256": "8fc463f03cd1ebd0ab5c68217318c9b56aa9eec064d1b08c88a9a58650629a58"
+      },
+      "heaptrace": {
+        "bytes": 314638336,
+        "sha256": "d65476ec983cb90cb65b5cff43d6e648f0faf0d376f8b275a8841d86b0e3649b"
+      },
+      "data.frameinfo": {
+        "bytes": 655360,
+        "sha256": "454d1e2630b3be138e705a35cc6c93b34ada8b83a761b034085b003758399b71"
+      }
+    }
+  },
+  "target-rich": {
+    "command": [
+      "timeout",
+      "--kill-after=5s",
+      "180s",
+      "gprofng",
+      "collect",
+      "app",
+      "-p",
+      "on",
+      "-H",
+      "on",
+      "-a",
+      "off",
+      "-o",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/target-rich.er",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+      "simulate",
+      "--config",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/target-rich.config.json",
+      "--output",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/target-rich.game.jsonl"
+    ],
+    "returncode": 0,
+    "ordinal": 24,
+    "shape": [
+      1,
+      2,
+      15,
+      0
+    ],
+    "interpretation": "diagnostic whole normal game containing the selected stress prefix; profiling overhead excluded from throughput artifacts",
+    "metric_list_returncode": 0,
+    "functions_returncode": 0,
+    "heap_returncode": 0,
+    "statistics_returncode": 0,
+    "overview_returncode": 0,
+    "raw_files": {
+      "overview": {
+        "bytes": 5040,
+        "sha256": "d93dc79f5cfd50e337ad315e9b389350f5102e3ca55afb4676f817b3305241f3"
+      },
+      "profile": {
+        "bytes": 65536,
+        "sha256": "88d12fee3659488159a356173f46029a5f18cd13bb43423e397a660c774a63ea"
+      },
+      "dyntext": {
+        "bytes": 1632,
+        "sha256": "f5b0bf65438ad9d9b8974171deb1000fee0ff3a995485024a46fc0f8c8711e4c"
+      },
+      "map.xml": {
+        "bytes": 65536,
+        "sha256": "a39b62bf4b0110e9df1af7c80fc3adf6eef1766ff312495278384425d9b4f558"
+      },
+      "log.xml": {
+        "bytes": 65536,
+        "sha256": "d78bc4ae4ff01765cfdc332c4f62c7e2c93172af73409ca74063949c62386e88"
+      },
+      "heaptrace": {
+        "bytes": 1096417280,
+        "sha256": "6e38501231a57eb942fd267fac046178011012ed3a53a239683ba969bc11a371"
+      },
+      "data.frameinfo": {
+        "bytes": 786432,
+        "sha256": "9569eedfdc12cf7454d3d80c04aa130ec0335ae497eb66f40ba68be6d47dd1fe"
+      }
+    }
+  },
+  "token-heavy": {
+    "command": [
+      "timeout",
+      "--kill-after=5s",
+      "180s",
+      "gprofng",
+      "collect",
+      "app",
+      "-p",
+      "on",
+      "-H",
+      "on",
+      "-a",
+      "off",
+      "-o",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/token-heavy.er",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+      "simulate",
+      "--config",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/token-heavy.config.json",
+      "--output",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/token-heavy.game.jsonl"
+    ],
+    "returncode": 0,
+    "ordinal": 29,
+    "shape": [
+      1,
+      9,
+      0,
+      0
+    ],
+    "interpretation": "diagnostic whole normal game containing the selected stress prefix; profiling overhead excluded from throughput artifacts",
+    "metric_list_returncode": 0,
+    "functions_returncode": 0,
+    "heap_returncode": 0,
+    "statistics_returncode": 0,
+    "overview_returncode": 0,
+    "raw_files": {
+      "overview": {
+        "bytes": 6048,
+        "sha256": "91234d449d7181d549dcf3337bc723022be0ebf57833d1b9651a7d767bc08a48"
+      },
+      "profile": {
+        "bytes": 65536,
+        "sha256": "538fb8435a33fcd68682d12263b15de713ba4298edcd2f6e0470c2d0165ae72a"
+      },
+      "dyntext": {
+        "bytes": 1632,
+        "sha256": "c742a73e88071e2f0d5ad30e3d1abee187d12563a7068ee8733fd1bce9a11ec7"
+      },
+      "map.xml": {
+        "bytes": 65536,
+        "sha256": "bfca75b190de235fa2901c43ccac74208403089a50605460e637519f1762ecac"
+      },
+      "log.xml": {
+        "bytes": 65536,
+        "sha256": "9ebab9327b9bed697fc1b9a2d7c3916cceefa1653853548890a88386e29b072f"
+      },
+      "heaptrace": {
+        "bytes": 1201537024,
+        "sha256": "bef0e27b3e92dd52fa40c818f792d4d8dcf2d760f9655307737c3b694ff593a4"
+      },
+      "data.frameinfo": {
+        "bytes": 655360,
+        "sha256": "b374b2e6950b7e87800d473bb70a0ba5d328fcb1385ee0a0739e4fbda32ec45a"
+      }
+    }
+  },
+  "typical": {
+    "command": [
+      "timeout",
+      "--kill-after=5s",
+      "180s",
+      "gprofng",
+      "collect",
+      "app",
+      "-p",
+      "on",
+      "-H",
+      "on",
+      "-a",
+      "off",
+      "-o",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/typical.er",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+      "simulate",
+      "--config",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/typical.config.json",
+      "--output",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/typical.game.jsonl"
+    ],
+    "returncode": 0,
+    "ordinal": 0,
+    "shape": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "interpretation": "diagnostic whole normal game containing the selected stress prefix; profiling overhead excluded from throughput artifacts",
+    "metric_list_returncode": 0,
+    "functions_returncode": 0,
+    "heap_returncode": 0,
+    "statistics_returncode": 0,
+    "overview_returncode": 0,
+    "raw_files": {
+      "overview": {
+        "bytes": 1512,
+        "sha256": "d6ae0b9bfd676257e207ccbcdec73becbe74caf0e7b5239505ad26b6f4df69d9"
+      },
+      "profile": {
+        "bytes": 65536,
+        "sha256": "b6d25d920f19873c4a05f202c2037305818a7c2fb42a48a51bd8b4d63c203cc2"
+      },
+      "dyntext": {
+        "bytes": 1632,
+        "sha256": "f9d862026b39f1c47ca9fda59eb6456d3bd213a317316b977219fa378769118a"
+      },
+      "map.xml": {
+        "bytes": 65536,
+        "sha256": "54cdf9fb611a7be1618d3ec6efaf6daf365afca05a2965b67569b5293abbaf4f"
+      },
+      "log.xml": {
+        "bytes": 65536,
+        "sha256": "ac347d7e6e93076eba93d49b1c7a2e584b111b9ad5c075ba9554e053d5bca61f"
+      },
+      "heaptrace": {
+        "bytes": 213843968,
+        "sha256": "88444269c36dcbdd722206b61a3b59484c4176517989540d127894a59a79ff43"
+      },
+      "data.frameinfo": {
+        "bytes": 589824,
+        "sha256": "210ff433ad847505525bcab0b594d5a73835d9e61b69a92ac012bc89deb25419"
+      }
+    }
+  },
+  "cpu-heuristic": {
+    "command": [
+      "timeout",
+      "--kill-after=5s",
+      "360s",
+      "gprofng",
+      "collect",
+      "app",
+      "-p",
+      "on",
+      "-H",
+      "off",
+      "-a",
+      "off",
+      "-o",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/cpu-heuristic.er",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+      "bench",
+      "--workload",
+      "scalar-full-pool-v1",
+      "--config",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/fixtures/bench/full-pool/heuristic-off.json",
+      "--output",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/cpu-heuristic.benchmark.json"
+    ],
+    "returncode": 0,
+    "profiler": true,
+    "heap_tracing": false,
+    "interpretation": "CPU-only software sampling; full repeated windows retained, never admitted to the off/counters throughput comparison",
+    "metric_list_returncode": 0,
+    "functions_returncode": 0,
+    "statistics_returncode": 0,
+    "overview_returncode": 0
+  },
+  "cpu-legal-random": {
+    "command": [
+      "timeout",
+      "--kill-after=5s",
+      "360s",
+      "gprofng",
+      "collect",
+      "app",
+      "-p",
+      "on",
+      "-H",
+      "off",
+      "-a",
+      "off",
+      "-o",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/cpu-legal-random.er",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg",
+      "bench",
+      "--workload",
+      "scalar-full-pool-v1",
+      "--config",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/fixtures/bench/full-pool/legal-random-off.json",
+      "--output",
+      "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/cpu-legal-random.benchmark.json"
+    ],
+    "returncode": 0,
+    "profiler": true,
+    "heap_tracing": false,
+    "interpretation": "CPU-only software sampling; full repeated windows retained, never admitted to the off/counters throughput comparison",
+    "metric_list_returncode": 0,
+    "functions_returncode": 0,
+    "statistics_returncode": 0,
+    "overview_returncode": 0
+  }
+}

@@ -1,0 +1,16 @@
+Experiment(s):
+
+Experiment      :/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/.agent-artifacts/profiles/cpu-heuristic.er
+  Target        : '/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/target/release/mtg bench --workload scalar-full-pool-v1 --config /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/fixtures/bench/full-pool/heuristic-off.json --output /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/doc/evidence/full-pool-baseline/profiles/cpu-heuristic.benchmark.json'
+  Host          : c08b2a1801ca (aarch64, Linux 6.8.0-64-generic)
+  Start Time    : Fri Oct  9 20:45:31 2026
+  Duration      : 160.032 Seconds
+
+Metrics:
+
+  Experiment Duration (Seconds): [160.032]
+  Clock Profiling
+    [X]Total CPU Time - totalcpu (Seconds): [*16.011]
+
+Notes: '*' indicates hot metrics, '[X]' indicates currently enabled metrics.
+       The metrics command can be used to change selections. The metric_list command lists all available metrics.

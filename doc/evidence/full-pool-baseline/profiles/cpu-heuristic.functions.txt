@@ -1,0 +1,224 @@
+Functions sorted by metric: Exclusive Total CPU Time
+
+Excl. Total    Incl. Total     Name
+CPU            CPU
+  sec.      %    sec.      %
+16.011 100.00  16.011 100.00   <Total>
+ 4.233  26.44   4.233  26.44   sha2::sha256::compress256
+ 1.631  10.19   2.712  16.94   <static>@0x93a70 (<libc.so.6>)
+ 1.061   6.62   1.061   6.62   <static>@0xa13a8 (<libc.so.6>)
+ 0.951   5.94   1.101   6.88   serde_json::ser::format_escaped_str::<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter>
+ 0.781   4.88   0.781   4.88   <serde_json::read::SliceRead>::skip_to_escape
+ 0.741   4.63   0.741   4.63   <static>@0x91cb8 (<libc.so.6>)
+ 0.470   2.94   1.051   6.56   <serde_json::read::SliceRead as serde_json::read::Read>::parse_str
+ 0.440   2.75   2.452  15.31   <serde_json::value::Value as serde_core::de::Deserialize>::deserialize::<&mut serde_json::de::Deserializer<serde_json::read::StrRead>>
+ 0.380   2.38   0.380   2.38   serde_json::read::parse_escape::<serde_json::read::SliceRead>
+ 0.300   1.88   0.300   1.88   mtg_core::game::snapshot::rebase
+ 0.280   1.75   0.811   5.06   free
+ 0.250   1.56   1.891  11.81   malloc
+ 0.240   1.50   0.370   2.31   <alloc::collections::btree::map::IntoIter<alloc::string::String, serde_json::value::Value>>::dying_next
+ 0.210   1.31   0.640   4.00   <alloc::collections::btree::map::entry::VacantEntry<alloc::string::String, serde_json::value::Value>>::insert_entry
+ 0.200   1.25   2.222  13.88   <<serde_json::value::Value as serde_core::de::Deserialize>::deserialize::ValueVisitor as serde_core::de::Visitor>::visit_map::<serde_json::de::MapAccess<serde_json::read::StrRead>>
+ 0.200   1.25   0.620   3.88   <alloc::collections::btree::map::BTreeMap<alloc::string::String, serde_json::value::Value>>::insert
+ 0.160   1.00   0.160   1.00   <serde_json::de::MapAccess<_> as serde_core::de::MapAccess>::next_key_seed::has_next_key::<serde_json::read::StrRead>
+ 0.150   0.94   0.731   4.56   <serde_json::de::MapAccess<serde_json::read::StrRead> as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<alloc::string::String>>
+ 0.150   0.94   0.150   0.94   mtg_core::game::card_definitions::definition
+ 0.110   0.69   0.110   0.69   <serde_json::de::Deserializer<serde_json::read::StrRead>>::parse_integer
+ 0.110   0.69   0.110   0.69   __rustc::__rdl_alloc
+ 0.100   0.63   0.600   3.75   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::Object as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.100   0.63   0.340   2.12   <serde_json::read::StrRead as serde_json::read::Read>::parse_str
+ 0.090   0.56   0.280   1.75   <serde_json::value::de::EnumDeserializer as serde_core::de::EnumAccess>::variant_seed::<core::marker::PhantomData<<mtg_core::objects::Seat as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.070   0.44   0.070   0.44   <mtg_core::game::Game>::has_trample
+ 0.070   0.44   0.350   2.19   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::objects::Object as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.070   0.44   0.070   0.44   bcmp
+ 0.060   0.38   0.060   0.38   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::Object as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.060   0.38   0.450   2.81   <mtg_core::game::Game>::policy_decision
+ 0.060   0.38   0.060   0.38   <mtg_core::game::Game>::visible_card
+ 0.060   0.38   0.060   0.38   <u64 as itoa::Unsigned>::fmt
+ 0.050   0.31   0.050   0.31   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::KnownCard as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.050   0.31   0.050   0.31   <&serde_json::value::Value as serde_core::de::Deserializer>::deserialize_enum::<<mtg_core::objects::Seat as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.050   0.31   0.110   0.69   <<mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::__Visitor as serde_core::de::Visitor>::visit_enum::<serde_json::value::de::EnumDeserializer>
+ 0.050   0.31   0.150   0.94   <alloc::vec::Vec<mtg_core::game::views::Revelation> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::game::views::Revelation, core::iter::adapters::map::Map<core::slice::iter::Iter<mtg_core::objects::KnownCard>, <mtg_core::game::Game>::observe_visible_state::{closure#4}>>>::from_iter
+ 0.050   0.31   0.070   0.44   <alloc::vec::Vec<mtg_core::objects::Handle> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::objects::Handle, core::iter::adapters::filter::Filter<core::iter::adapters::map::Map<core::slice::iter::Iter<u32>, <mtg_core::objects::ObjectStore>::in_zone::{closure#0}>, <mtg_core::game::Game>::mana_sources::{closure#0}>>>::from_iter
+ 0.040   0.25   0.040   0.25   <<mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::__Visitor as serde_core::de::Visitor>::visit_enum::<serde_json::value::de::EnumRefDeserializer>
+ 0.040   0.25   0.040   0.25   <core::marker::PhantomData<<mtg_core::objects::KnownCard as serde_core::de::Deserialize>::deserialize::__Field> as serde_core::de::DeserializeSeed>::deserialize::<serde_json::value::de::MapKeyDeserializer>
+ 0.040   0.25   0.050   0.31   <mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::<serde_json::value::Value>
+ 0.040   0.25   0.040   0.25   <serde_json::de::Deserializer<serde_json::read::StrRead>>::parse_number
+ 0.040   0.25   0.240   1.50   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::KnownCard as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.040   0.25   0.050   0.31   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, mtg_core::objects::CardId>
+ 0.040   0.25   0.040   0.25   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, mtg_core::objects::Seat>
+ 0.040   0.25   0.100   0.63   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, u64>
+ 0.040   0.25   0.040   0.25   <serde_json::value::Value as serde_core::de::Deserializer>::deserialize_u64::<<u64 as serde_core::de::Deserialize>::deserialize::PrimitiveVisitor>
+ 0.040   0.25   0.110   0.69   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::objects::Slot as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.040   0.25   0.040   0.25   __rustc::__rust_no_alloc_shim_is_unstable_v2
+ 0.040   0.25   0.080   0.50   core::slice::sort::shared::smallsort::insertion_sort_shift_left::<mtg_core::objects::Handle, <[mtg_core::objects::Handle]>::sort_by_key<&str, <mtg_core::game::Game>::view_hand::{closure#0}>::{closure#0}>
+ 0.030   0.19   0.821   5.12   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::Slot> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqDeserializer>
+ 0.030   0.19   0.030   0.19   <<mtg_core::objects::Object as serde_core::de::Deserialize>::deserialize::__FieldVisitor as serde_core::de::Visitor>::visit_str::<serde_json::error::Error>
+ 0.030   0.19   0.030   0.19   <<mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::__FieldVisitor as serde_core::de::Visitor>::visit_str::<serde_json::error::Error>
+ 0.030   0.19   5.304  33.12   <Unknown>
+ 0.030   0.19   0.040   0.25   <core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::array::iter::IntoIter<mtg_core::objects::Zone, 9>, <mtg_core::game::Game>::observe_visible_state::{closure#2}>, <mtg_core::game::Game>::observe_visible_state::{closure#3}> as core::iter::traits::iterator::Iterator>::next
+ 0.030   0.19   0.030   0.19   <mtg_core::game::Game>::usable_mana_source
+ 0.030   0.19   0.220   1.38   <mtg_core::objects::Seat as serde_core::de::Deserialize>::deserialize::<serde_json::value::Value>
+ 0.030   0.19   0.090   0.56   <mtg_core::objects::Slot as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.030   0.19   0.030   0.19   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, mtg_core::objects::Zone>
+ 0.030   0.19   0.580   3.63   <serde_json::value::de::KeyClassifier as serde_core::de::DeserializeSeed>::deserialize::<serde_json::de::MapKey<serde_json::read::StrRead>>
+ 0.030   0.19   0.130   0.81   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::objects::KnownCard as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.030   0.19   0.710   4.44   realloc
+ 0.020   0.12   0.020   0.12   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::turns::TurnState as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.020   0.12   0.020   0.12   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::SemanticIdentity as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.020   0.12   0.110   0.69   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::SemanticIdentity> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqDeserializer>
+ 0.020   0.12   0.200   1.25   <alloc::raw_vec::RawVecInner>::finish_grow
+ 0.020   0.12   0.020   0.12   <alloc::vec::Vec<mtg_core::game::policy::Choice> as core::ops::drop::Drop>::drop
+ 0.020   0.12   0.020   0.12   <alloc::vec::Vec<mtg_core::objects::Handle> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::objects::Handle, core::iter::adapters::map::Map<core::slice::iter::Iter<u32>, <mtg_core::objects::ObjectStore>::in_zone::{closure#0}>>>::from_iter
+ 0.020   0.12   0.610   3.81   <mtg_core::game::Game>::policy_observe
+ 0.020   0.12   0.020   0.12   <mtg_core::game::Game>::summoning_sick
+ 0.020   0.12   0.020   0.12   <mtg_core::objects::CardId as serde_core::de::Deserialize>::deserialize::<serde_json::value::Value>
+ 0.020   0.12   0.060   0.38   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::turns::TurnState as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.020   0.12   0.110   0.69   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::SemanticIdentity as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.020   0.12   0.140   0.88   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_enum::<<mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.020   0.12   0.160   1.00   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, core::option::Option<mtg_core::objects::Object>>
+ 0.020   0.12   0.110   0.69   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::objects::SemanticIdentity as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.020   0.12   0.020   0.12   <static>@0x14069c (<libc.so.6>)
+ 0.020   0.12   0.020   0.12   core::str::converts::from_utf8
+ 0.020   0.12   0.811   5.06   serde_json::value::de::visit_array::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::Slot>>
+ 0.020   0.12   0.310   1.94   serde_json::value::de::visit_array_ref::<serde_core::de::impls::ArrayVisitor<[alloc::vec::Vec<u32>; 9]>>
+ 0.010   0.06   0.010   0.06   <&mut <mtg_core::game::Game>::activation_candidates::{closure#1} as core::ops::function::FnMut<(&mtg_core::objects::Handle,)>>::call_mut
+ 0.010   0.06   0.010   0.06   <&mut serde_json::value::de::SeqDeserializer as serde_core::de::SeqAccess>::next_element::<alloc::vec::Vec<u32>>
+ 0.010   0.06   0.010   0.06   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::turns::TurnDecision as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.010   0.06   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::Slot as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.010   0.06   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_enum::<<mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.010   0.06   <&serde_json::number::Number as serde_core::de::Deserializer>::deserialize_any::<<u32 as serde_core::de::Deserialize>::deserialize::PrimitiveVisitor>
+ 0.010   0.06   0.010   0.06   <&serde_json::number::Number as serde_core::de::Deserializer>::deserialize_any::<<u8 as serde_core::de::Deserialize>::deserialize::PrimitiveVisitor>
+ 0.010   0.06   0.010   0.06   <&serde_json::value::Value as serde_core::de::Deserializer>::deserialize_seq::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<(mtg_core::objects::Handle, alloc::vec::Vec<(mtg_core::objects::Handle, u32)>)>>
+ 0.010   0.06   0.010   0.06   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::Slot> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqRefDeserializer>
+ 0.010   0.06   0.020   0.12   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<u32> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqDeserializer>
+ 0.010   0.06   0.020   0.12   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<u32> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqRefDeserializer>
+ 0.010   0.06   0.010   0.06   <<mtg_core::game::turns::TurnState as serde_core::de::Deserialize>::deserialize::__FieldVisitor as serde_core::de::Visitor>::visit_str::<serde_json::error::Error>
+ 0.010   0.06   0.010   0.06   <[mtg_core::objects::Handle]>::sort_by_key::<&str, <mtg_core::game::Game>::view_hand::{closure#0}>::{closure#0}
+ 0.010   0.06   0.040   0.25   <alloc::collections::btree::map::IntoIter<alloc::string::String, serde_json::value::Value> as core::ops::drop::Drop>::drop
+ 0.010   0.06   0.550   3.44   <alloc::raw_vec::RawVecInner>::finish_grow
+ 0.010   0.06   0.010   0.06   <alloc::vec::Vec<mtg_core::game::policy::StackSpell> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::game::policy::StackSpell, core::iter::adapters::map::Map<core::iter::adapters::enumerate::Enumerate<core::slice::iter::Iter<mtg_core::objects::Handle>>, <mtg_core::game::Game>::policy_observe::{closure#2}>>>::from_iter
+ 0.010   0.06   0.010   0.06   <alloc::vec::Vec<mtg_core::game::views::VisibleCard> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::game::views::VisibleCard, core::iter::adapters::map::Map<alloc::vec::into_iter::IntoIter<mtg_core::objects::Handle>, <mtg_core::game::Game>::observe_visible_state::{closure#8}>>>::from_iter
+ 0.010   0.06   0.010   0.06   <alloc::vec::Vec<mtg_core::objects::Handle> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::objects::Handle, core::iter::adapters::filter::Filter<core::iter::adapters::map::Map<core::slice::iter::Iter<u32>, <mtg_core::objects::ObjectStore>::in_zone::{closure#0}>, <mtg_core::game::Game>::activation_candidates::{closure#1}>>>::from_iter
+ 0.010   0.06   0.010   0.06   <alloc::vec::Vec<mtg_core::objects::Handle> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::objects::Handle, core::iter::adapters::filter::Filter<core::iter::adapters::map::Map<core::slice::iter::Iter<u32>, <mtg_core::objects::ObjectStore>::in_zone::{closure#0}>, <mtg_core::game::Game>::combat_decision::{closure#2}>>>::from_iter
+ 0.010   0.06   0.010   0.06   <alloc::vec::Vec<u8>>::extend_from_slice
+ 0.010   0.06   0.010   0.06   <alloc::vec::into_iter::IntoIter<mtg_core::game::combat::Attack> as core::iter::traits::iterator::Iterator>::try_fold::<alloc::vec::in_place_drop::InPlaceDrop<mtg_core::game::policy::CombatAttack>, core::iter::adapters::map::map_try_fold<mtg_core::game::combat::Attack, mtg_core::game::policy::CombatAttack, alloc::vec::in_place_drop::InPlaceDrop<mtg_core::game::policy::CombatAttack>, core::result::Result<alloc::vec::in_place_drop::InPlaceDrop<mtg_core::game::policy::CombatAttack>, !>, <mtg_core::game::Game>::policy_observe::{closure#3}, alloc::vec::in_place_collect::write_in_place_with_drop<mtg_core::game::policy::CombatAttack>::{closure#0}>::{closure#0}, core::result::Result<alloc::vec::in_place_drop::InPlaceDrop<mtg_core::game::policy::CombatAttack>, !>>
+ 0.010   0.06   0.010   0.06   <core::iter::adapters::enumerate::Enumerate<core::iter::adapters::map::Map<core::slice::iter::Iter<u32>, <mtg_core::objects::ObjectStore>::in_zone::{closure#0}>> as core::iter::traits::iterator::Iterator>::next
+ 0.010   0.06   0.010   0.06   <core::marker::PhantomData<<mtg_core::game::combat::CombatState as serde_core::de::Deserialize>::deserialize::__Field> as serde_core::de::DeserializeSeed>::deserialize::<serde_json::value::de::MapKeyDeserializer>
+ 0.010   0.06   0.170   1.06   <mtg_core::episode::Driver>::check_boundary
+ 0.010   0.06   0.020   0.12   <mtg_core::game::Game>::activation_candidates
+ 0.010   0.06   0.010   0.06   <mtg_core::game::Game>::cast_candidates
+ 0.010   0.06   0.010   0.06   <mtg_core::game::Game>::creature_state
+ 0.010   0.06   0.010   0.06   <mtg_core::game::Game>::land_candidates
+ 0.010   0.06   0.230   1.44   <mtg_core::game::Game>::observe_visible_state
+ 0.010   0.06   0.350   2.19   <mtg_core::game::Game>::policy_decision::{closure#0}
+ 0.010   0.06   0.010   0.06   <mtg_core::game::Game>::usable_activation_source
+ 0.010   0.06   0.030   0.19   <mtg_core::objects::KnownCard as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.010   0.06   0.010   0.06   <mtg_core::objects::ObjectStore>::snapshot_valid
+ 0.010   0.06   0.050   0.31   <mtg_core::objects::Zone as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.010   0.06   0.040   0.25   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::Handle as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.620   3.88   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::Slot as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.070   0.44   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, alloc::vec::Vec<mtg_core::objects::Slot>>
+ 0.010   0.06   0.010   0.06   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, alloc::vec::Vec<usize>>
+ 0.010   0.06   0.010   0.06   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, bool>
+ 0.010   0.06   0.010   0.06   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, core::option::Option<mtg_core::game::terminal::Outcome>>
+ 0.010   0.06   0.010   0.06   <serde_json::value::Value as serde_core::de::Deserializer>::deserialize_struct::<<mtg_core::objects::Object as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.010   0.06   <serde_json::value::Value as serde_core::de::Deserializer>::deserialize_struct::<<mtg_core::objects::Slot as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.010   0.06   0.030   0.19   <serde_json::value::de::EnumDeserializer as serde_core::de::EnumAccess>::variant_seed::<core::marker::PhantomData<<mtg_core::objects::Zone as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.010   0.06   0.010   0.06   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<[[u32; 6]; 2]>>
+ 0.010   0.06   0.010   0.06   <serde_json::value::de::MapRefDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<u64>>
+ 0.010   0.06   0.010   0.06   <serde_json::value::de::SeqDeserializer as serde_core::de::SeqAccess>::size_hint
+ 0.010   0.06   0.010   0.06   <serde_json::value::de::VariantDeserializer as serde_core::de::VariantAccess>::unit_variant
+ 0.010   0.06   0.010   0.06   <serde_json::value::de::VariantRefDeserializer as serde_core::de::VariantAccess>::unit_variant
+ 0.010   0.06   0.010   0.06   <u32 as itoa::Unsigned>::fmt
+ 0.010   0.06   0.010   0.06   __rustc::__rdl_realloc
+ 0.010   0.06   0.010   0.06   serde_json::value::de::visit_array_ref::<serde_core::de::impls::ArrayVisitor<[core::option::Option<alloc::vec::Vec<mtg_core::objects::Handle>>; 2]>>
+ 0.      0.     0.580   3.63   <&mut serde_json::de::Deserializer<serde_json::read::SliceRead> as serde_core::de::Deserializer>::deserialize_string::<serde_core::de::impls::StringVisitor>
+ 0.      0.     0.580   3.63   <&mut serde_json::de::Deserializer<serde_json::read::SliceRead> as serde_core::de::Deserializer>::deserialize_struct::<<mtg_core::game::snapshot::Envelope as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.      0.     0.020   0.12   <&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>> as serde_core::ser::Serializer>::serialize_newtype_variant::<mtg_core::objects::Seat>
+ 0.      0.     0.010   0.06   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::snapshot::GameWire>::deserialize::__Visitor>
+ 0.      0.     0.010   0.06   <&serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::StoreWire>::deserialize::__Visitor>
+ 0.      0.     0.010   0.06   <&serde_json::value::Value as serde_core::de::Deserializer>::deserialize_seq::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<u32>>
+ 0.      0.     0.010   0.06   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::game::combat::Attack> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqDeserializer>
+ 0.      0.     0.020   0.12   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::Handle> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqDeserializer>
+ 0.      0.     0.200   1.25   <<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::KnownCard> as serde_core::de::Visitor>::visit_seq::<&mut serde_json::value::de::SeqDeserializer>
+ 0.      0.     0.010   0.06   <alloc::collections::vec_deque::VecDeque<mtg_core::game::work::Work> as alloc::collections::vec_deque::spec_extend::SpecExtend<mtg_core::game::work::Work, core::iter::adapters::map::Map<alloc::vec::into_iter::IntoIter<mtg_core::game::turns::TurnWork>, mtg_core::game::work::Work::Turn>>>::spec_extend
+ 0.      0.     0.130   0.81   <alloc::raw_vec::RawVec<serde_json::value::Value>>::grow_one
+ 0.      0.     0.210   1.31   <alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+ 0.      0.     0.060   0.38   <alloc::raw_vec::RawVecInner<_>>::reserve::do_reserve_and_handle::<alloc::alloc::Global>
+ 0.      0.     0.030   0.19   <alloc::vec::Vec<mtg_core::game::views::PublicZone> as alloc::vec::spec_from_iter_nested::SpecFromIterNested<mtg_core::game::views::PublicZone, core::iter::adapters::map::Map<core::iter::adapters::filter::Filter<core::array::iter::IntoIter<mtg_core::objects::Zone, 9>, <mtg_core::game::Game>::observe_visible_state::{closure#2}>, <mtg_core::game::Game>::observe_visible_state::{closure#3}>>>::from_iter
+ 0.      0.     0.010   0.06   <alloc::vec::Vec<u32> as serde_core::de::Deserialize>::deserialize::<serde_json::value::Value>
+ 0.      0.     0.030   0.19   <mtg_core::episode::Driver>::advance
+ 0.      0.     0.030   0.19   <mtg_core::episode::Driver>::observe
+ 0.      0.     5.024  31.37   <mtg_core::episode::Driver>::submit
+ 0.      0.     5.024  31.37   <mtg_core::episode::Driver>::submit_with_policy_inner
+ 0.      0.     0.010   0.06   <mtg_core::game::Game>::accept_turn_work
+ 0.      0.     0.050   0.31   <mtg_core::game::Game>::apply_policy
+ 0.      0.     0.010   0.06   <mtg_core::game::Game>::apply_turn
+ 0.      0.     0.010   0.06   <mtg_core::game::Game>::apply_turn_quantum
+ 0.      0.     0.010   0.06   <mtg_core::game::Game>::mana_sources
+ 0.      0.     4.093  25.56   <mtg_core::game::Game>::restore
+ 0.      0.     0.250   1.56   <mtg_core::game::Game>::snapshot
+ 0.      0.     0.060   0.38   <mtg_core::game::Game>::view_hand
+ 0.      0.     0.020   0.12   <mtg_core::game::cast_state::PendingCast as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.010   0.06   <mtg_core::game::cast_state::Targeting as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.050   0.31   <mtg_core::game::snapshot::Envelope as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.030   0.19   <mtg_core::game::targets::Modification as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.100   0.63   <mtg_core::game::turns::TurnState as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.060   0.38   <mtg_core::objects::Handle as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.050   0.31   <mtg_core::objects::Object as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.090   0.56   <mtg_core::objects::ObjectStore as serde_core::ser::Serialize>::serialize::<&mut serde_json::ser::Serializer<&mut alloc::vec::Vec<u8>>>
+ 0.      0.     0.010   0.06   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::combat::Attack as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.      0.     0.010   0.06   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::combat::CombatState as serde_core::de::Deserialize>::deserialize::__Visitor>
+ 0.      0.     1.161   7.25   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::game::snapshot::GameWire>::deserialize::__Visitor>
+ 0.      0.     1.111   6.94   <serde_json::map::Map<alloc::string::String, serde_json::value::Value> as serde_core::de::Deserializer>::deserialize_any::<<mtg_core::objects::StoreWire>::deserialize::__Visitor>
+ 0.      0.     0.020   0.12   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, [alloc::vec::Vec<mtg_core::objects::KnownCard>; 2]>
+ 0.      0.     0.040   0.25   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, alloc::string::String>
+ 0.      0.     0.020   0.12   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, alloc::vec::Vec<(mtg_core::objects::Handle, mtg_core::game::targets::Effect)>>
+ 0.      0.     0.030   0.19   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, alloc::vec::Vec<mtg_core::game::targets::Modification>>
+ 0.      0.     0.010   0.06   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, alloc::vec::Vec<mtg_core::objects::Handle>>
+ 0.      0.     0.020   0.12   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, core::option::Option<mtg_core::game::cast_state::PendingCast>>
+ 0.      0.     0.010   0.06   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, core::option::Option<mtg_core::game::cast_state::Targeting>>
+ 0.      0.     0.010   0.06   <serde_json::ser::Compound<&mut alloc::vec::Vec<u8>, serde_json::ser::CompactFormatter> as serde_core::ser::SerializeMap>::serialize_entry::<str, core::option::Option<mtg_core::game::targets::Resolution>>
+ 0.      0.     0.010   0.06   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::game::snapshot::GameWire>::deserialize::__Field>>
+ 0.      0.     0.010   0.06   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::game::turns::TurnState as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.      0.     0.020   0.12   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_key_seed::<core::marker::PhantomData<<mtg_core::objects::Handle as serde_core::de::Deserialize>::deserialize::__Field>>
+ 0.      0.     0.200   1.25   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<[alloc::vec::Vec<mtg_core::objects::KnownCard>; 2]>>
+ 0.      0.     0.020   0.12   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<[alloc::vec::Vec<u32>; 9]>>
+ 0.      0.     0.010   0.06   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<alloc::vec::Vec<mtg_core::game::combat::Attack>>>
+ 0.      0.     0.020   0.12   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<alloc::vec::Vec<mtg_core::objects::Handle>>>
+ 0.      0.     0.090   0.56   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<alloc::vec::Vec<mtg_core::objects::SemanticIdentity>>>
+ 0.      0.     0.791   4.94   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<alloc::vec::Vec<mtg_core::objects::Slot>>>
+ 0.      0.     0.010   0.06   <serde_json::value::de::MapDeserializer as serde_core::de::MapAccess>::next_value_seed::<core::marker::PhantomData<alloc::vec::Vec<u32>>>
+ 0.      0.     5.084  31.75   <static>@0x28450 (<libc.so.6>)
+ 0.      0.     0.010   0.06   <static>@0x309774 (<mtg>)
+ 0.      0.     5.084  31.75   __libc_start_main
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::game::Game>
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::game::policy::Decision>
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::game::policy::Decision>
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::game::policy::Decision>
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::game::policy::Observation>
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::game::snapshot::Envelope>
+ 0.      0.     0.010   0.06   core::ptr::drop_glue::<mtg_core::objects::ObjectStore>
+ 0.      0.     5.084  31.75   main
+ 0.      0.     5.084  31.75   mtg::benchmark::measured_matrix_window
+ 0.      0.     5.084  31.75   mtg::benchmark::run_with_clock
+ 0.      0.     5.084  31.75   mtg::commands::execute
+ 0.      0.     5.084  31.75   mtg::main
+ 0.      0.     5.084  31.75   mtg::native::run_instrumented::<alloc::vec::Vec<u8>, mtg::benchmark::attempt::{closure#0}, mtg::benchmark::attempt::{closure#2}>
+ 0.      0.     0.400   2.50   mtg_core::game::actions::decision
+ 0.      0.     4.873  30.44   mtg_core::game::actions::encode
+ 0.      0.     4.823  30.12   mtg_core::game::actions::validate
+ 0.      0.     0.580   3.63   serde_json::de::from_trait::<serde_json::read::SliceRead, mtg_core::game::snapshot::Envelope>
+ 0.      0.     2.011  12.56   serde_json::de::from_trait::<serde_json::read::StrRead, serde_json::value::Value>
+ 0.      0.     0.010   0.06   serde_json::value::de::visit_array::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::game::combat::Attack>>
+ 0.      0.     0.020   0.12   serde_json::value::de::visit_array::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::Handle>>
+ 0.      0.     0.200   1.25   serde_json::value::de::visit_array::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::KnownCard>>
+ 0.      0.     0.090   0.56   serde_json::value::de::visit_array::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<mtg_core::objects::SemanticIdentity>>
+ 0.      0.     0.020   0.12   serde_json::value::de::visit_array::<<alloc::vec::Vec<_> as serde_core::de::Deserialize>::deserialize::VecVisitor<u32>>
+ 0.      0.     0.200   1.25   serde_json::value::de::visit_array::<serde_core::de::impls::ArrayVisitor<[alloc::vec::Vec<mtg_core::objects::KnownCard>; 2]>>
+ 0.      0.     0.020   0.12   serde_json::value::de::visit_array::<serde_core::de::impls::ArrayVisitor<[alloc::vec::Vec<u32>; 9]>>
+ 0.      0.     5.084  31.75   std::rt::lang_start::<()>::{closure#0}
+ 0.      0.     5.084  31.75   std::rt::lang_start_internal
+ 0.      0.     5.084  31.75   std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()>
+
