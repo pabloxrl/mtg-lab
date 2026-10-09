@@ -1,0 +1,44 @@
+{
+  "expected": {
+    "stack": [
+      "trigger:p0-archer-1",
+      "trigger:p0-archer-0",
+      "trigger:p1-archer-0",
+      "trigger:p1-archer-1"
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "creatures": {},
+    "goblins": 0,
+    "lost": [
+      false,
+      false
+    ]
+  },
+  "actual": {
+    "stack": [
+      "trigger:p0-archer-0",
+      "trigger:p0-archer-1",
+      "trigger:p1-archer-0",
+      "trigger:p1-archer-1"
+    ],
+    "life": [
+      20,
+      20
+    ],
+    "creatures": {},
+    "goblins": 0,
+    "lost": [
+      false,
+      false
+    ]
+  },
+  "first_divergence": {
+    "path": "$.stack[0]",
+    "expected": "trigger:p0-archer-1",
+    "actual": "trigger:p0-archer-0"
+  },
+  "basis": "APNAP source order at placement; equal life/count is insufficient."
+}

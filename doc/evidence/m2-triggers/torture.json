@@ -1,0 +1,12 @@
+{
+  "command": "./scripts/torture.sh",
+  "base": "0f46ba11c1c8902ac7337af3377b132ee361c1ea",
+  "exit_code": 0,
+  "log_sha256": "5a742c71affefacc17d091da8e907d90edcc89586c0b992a147d8ffb6413164c",
+  "python_tests": [
+    203
+  ],
+  "rust_passed": 1260,
+  "rust_failed": 0,
+  "rust_ignored": 0
+}

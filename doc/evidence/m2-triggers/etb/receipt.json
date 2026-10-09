@@ -1,0 +1,102 @@
+{
+  "status": "agreed",
+  "cases": 14,
+  "repetitions": 2,
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "fixture_sha256": "45957af8b4a02e7b8a45ba782bc7b24ebd904a16871801a3fbf70665345c7488",
+  "expected_sha256": "3f6e697d95629507b6a1cc5237efa062ce9e021a228d598fdfd077a748b604f7",
+  "bridge_sha256": "525efb1f45008eb15a590184c52d8648cc14cfe0134bb5eb85cd2d2e88bf24f3",
+  "runner_sha256": "c6fb05f211d96d21f5adbcfb38e60948bb848baee30eff7f7f50200701fbde7c",
+  "native_sources": {
+    "crates/mtg-core/src/actions.rs": "0109ffb12a716d31db69303902b57f09773c1548faaecc4c5d0eaa6c3c90eba2",
+    "crates/mtg-core/src/actions_tests.rs": "2a9cd364f6b718e175e12ced07ab76c0e28cb4dcb61e32bb6348165579caaedf",
+    "crates/mtg-core/src/activation.rs": "d2f739b743d2619e72e224cad7548763cd2b99f039931a705d1978949d78523d",
+    "crates/mtg-core/src/card_definition_tests.rs": "a21396a68a10d2927cbdd10ba9194ba90259f36da657dabe4e75a7dfee29207f",
+    "crates/mtg-core/src/card_definitions.rs": "298fcf1ea00e7bfb0b26bd2c1343e0f6bafd99d638751cfad9300ff628444bad",
+    "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
+    "crates/mtg-core/src/cast_boundary_tests.rs": "94041e47f036700f465e84c4ca57e4afd3614f80db37fb362c68d516aec418e7",
+    "crates/mtg-core/src/cast_state.rs": "e984600db093c9f50250182fcf1815dd158f1bea13a1e3a0d820070952c41f4b",
+    "crates/mtg-core/src/cast_trigger_tests.rs": "a262b3ee54c402c59e51fbbadd4252c5f22821c29de97b8474f3f1eaa63dc2d8",
+    "crates/mtg-core/src/casting.rs": "48eba78168526d1d526260ef9666ac9133051b0a50aa1b8040f9605e730210d1",
+    "crates/mtg-core/src/casting_tests.rs": "b76aab139fad5e3c5e6e373f8cee5fa5d4364fc96ec1ceb1c159ef1826cefbc0",
+    "crates/mtg-core/src/cleanup_trigger_tests.rs": "34aa72cab09415e6bb6995669626c674c3fd2cc92b6510e1713830c010d4a78e",
+    "crates/mtg-core/src/combat.rs": "bb645cd831ab205864e17b486f8a064c564f51d5b80c5e2cdf4c6d66903cf41b",
+    "crates/mtg-core/src/combat_tests.rs": "3114ea5bb48dcd7d841242fce6739fc43c30f0227a89c5b44120e3c7584d9268",
+    "crates/mtg-core/src/creature_mana_reference_tests.rs": "79bac87ae62e5e21a70aae6a1b69fd06028cc47a34464c5d3472f9126edc0230",
+    "crates/mtg-core/src/episode.rs": "d8afd74e94cc9e173d94f6bed84d277ffd6aec0b71e46659849e410dffb25b10",
+    "crates/mtg-core/src/episode_budget_tests.rs": "84b241da7fb178873ea4290e7f3117ea5a4666d341dd4bac22324063b79f85d6",
+    "crates/mtg-core/src/episode_capture_tests.rs": "ca0c3294d350a4ae7f29d4c833dfb0ace857b2f1e88cd0e36f61d3883fc1b52b",
+    "crates/mtg-core/src/episode_replay.rs": "518f455d5b0b57e6c33f25725520444c2de08d25f0e1160c9f7f1d89f8dfcbad",
+    "crates/mtg-core/src/etb_trigger_tests.rs": "d6f1624ee6634e24031dce74ee13b8de4b59eda6a96322766a021cce6d4cd939",
+    "crates/mtg-core/src/game.rs": "9d7834c1f2b5e5c6e5eb872a8e8d7dea93a41fd84461f422f506256870b59ab9",
+    "crates/mtg-core/src/haste_tests.rs": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
+    "crates/mtg-core/src/instant_reference_tests.rs": "8d890847a3217735073aa10d77db82e6588398594fb3ebeba42fc49ecca4ef18",
+    "crates/mtg-core/src/invoker_tests.rs": "d8613df5f49f4340bc05291be0234cf207adcdafc4f37930d454a0ad61745d22",
+    "crates/mtg-core/src/lib.rs": "3effad9e6972bdaebfedae21ec9eeaf561ddb0feba007d38817d1280f23cb770",
+    "crates/mtg-core/src/m2_trigger_reference_tests.rs": "87778bbefc03ada8f77e786a7a0e925282130e5dd662ca6d2ad92a659a83c6a0",
+    "crates/mtg-core/src/mana.rs": "0a88ecfff656665e10c0e3995fa54fff066084c7c5147a15e22996cdcdb55969",
+    "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
+    "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
+    "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
+    "crates/mtg-core/src/policy.rs": "dc80bf785b92f72d7249b76df60bf863b7ae109210a01cc1ae353805949798f2",
+    "crates/mtg-core/src/policy_combat_tests.rs": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
+    "crates/mtg-core/src/policy_spell_tests.rs": "8638b1d12770ec9ecddee0df4c0375b23d0a182d60a1770f05a94260d72e3f14",
+    "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
+    "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
+    "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
+    "crates/mtg-core/src/shivan_tests.rs": "0b175b3d53542a27700a0c822b538afc6a7363b110b6dfbf27118fe5bd82ff06",
+    "crates/mtg-core/src/snapshot.rs": "4394577b8dd398bc6293c1877ad20b720e152e3e821e6d89ead211207da7f445",
+    "crates/mtg-core/src/targets.rs": "b657a310c77028daa7e69fb249f8861c07c511e1b2d08381d0ea9e2b34ce61da",
+    "crates/mtg-core/src/targets_tests.rs": "67ae6fada2b2e0ee28926139fb89b9daffc9dfd6d23593f69bec541109627fab",
+    "crates/mtg-core/src/terminal.rs": "0ed0cba11dc5a98a08e32b93ecc5fd4b9a730c85e360a4d0e1a462abb9e99ebe",
+    "crates/mtg-core/src/terminal_tests.rs": "609dcfde02c26c065821708d681e4794b5361e6e5c9ddd4ec695887b01dcded3",
+    "crates/mtg-core/src/token_tests.rs": "ca599ca31e49e2636a09c971e79955fc730980df51fb539d8b22023fa205cb10",
+    "crates/mtg-core/src/trajectory.rs": "34682ff6f3193c3cae1297c1fb40e9a3f3b7f70837b9c39f30f99349dc735098",
+    "crates/mtg-core/src/trajectory_rules_tests.rs": "163768d38864bf37e4c9bc02a3da83947671e08078bbf01469563325422d38eb",
+    "crates/mtg-core/src/trajectory_tests.rs": "a6f9a2bd6259ad71df327e5b06ec7a4db52904d8bb755b39cd3710780ebb9a61",
+    "crates/mtg-core/src/trajectory_v2_tests.rs": "e98b94ebc35080151b02b8278a4a5b8664627281cdd2c589b8ed5c97b0aee716",
+    "crates/mtg-core/src/trigger_tests.rs": "a07ee94274de5fcdc5f2e15c1836d97aee4bad709a680375db715887d03db736",
+    "crates/mtg-core/src/triggers.rs": "ca62cab36ecb0afc94122e2e1b9487e1cfdfec4201f6f616ae77d664fef9f8a2",
+    "crates/mtg-core/src/turn_quantum_tests.rs": "27ce1fa9d58e1219043d5e511076e3f2a5aa1d9e76ff7b323de4c77744dbf9ef",
+    "crates/mtg-core/src/turns.rs": "4afc9ea6b150bf2639f7069abae6919a6a9608746bc638a218037680307a028f",
+    "crates/mtg-core/src/views.rs": "8f0bb89f4bff40f384f68d9f98e0c26ddc45c1f74fcbb69d16e982b71931c0ef",
+    "crates/mtg-core/src/views_tests.rs": "1b0d1d30ab560d903eebcd1b2295f55a57126789f8655e1e73f64522da9a1c40",
+    "crates/mtg-core/src/work.rs": "ab1325fb7c128be69a62473cfc217a1bb7f8d21699fb960922c495520d6f300f"
+  },
+  "runs": [
+    {
+      "xmage_log_sha256": "c29d2bd44565f3fb6e3cd1ce0c0256b47fb6b2cf2f8f8375fd35384b92b2b6e8",
+      "native_log_sha256": "c25a41827680f09f6fb520f33308582c0345b2347ff825a96d795fc068525617"
+    },
+    {
+      "xmage_log_sha256": "a7047273f8c04aa3a3d22ff208f870f8d8ccab2e834c0d0cb30866b6ea64da12",
+      "native_log_sha256": "c25a41827680f09f6fb520f33308582c0345b2347ff825a96d795fc068525617"
+    }
+  ],
+  "controls": [
+    {
+      "field": 0,
+      "detected": "first divergence: {\"actual\": 99, \"expected\": [20, 20], \"path\": \"$.self_nonlethal[0][0]\"}"
+    },
+    {
+      "field": 1,
+      "detected": "first divergence: {\"actual\": 99, \"expected\": null, \"path\": \"$.self_nonlethal[0][1]\"}"
+    },
+    {
+      "field": 2,
+      "detected": "first divergence: {\"actual\": 99, \"expected\": 1, \"path\": \"$.self_nonlethal[0][2]\"}"
+    },
+    {
+      "field": 3,
+      "detected": "first divergence: {\"actual\": 99, \"expected\": [], \"path\": \"$.self_nonlethal[0][3]\"}"
+    },
+    {
+      "field": 4,
+      "detected": "first divergence: {\"actual\": 99, \"expected\": [false, false], \"path\": \"$.self_nonlethal[0][4]\"}"
+    }
+  ],
+  "stdin": "closed",
+  "display": "unset",
+  "offline": true,
+  "limitations": "Synthetic positions with real casts, target selection, damage and Bite response. End-step queue and direct source departure are explicit test hooks. Compares life, Pyromancer stats, stack count, player targets and loss flags. End-step advancement to the next upkeep is asserted in both bridges after the exported resolution ledger. Raw rejection nonmutation, snapshot and normal-reset replay/capture are native checks. XMage verifies required target cardinality and creature rejection through its target API; no Forge/full-game agreement."
+}

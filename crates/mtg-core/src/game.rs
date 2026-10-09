@@ -212,3 +212,7 @@ mod etb_trigger_tests;
 #[cfg(test)]
 #[path = "cleanup_trigger_tests.rs"]
 mod cleanup_trigger_tests;
+
+#[cfg(test)]
+#[path = "m2_trigger_reference_tests.rs"]
+mod m2_trigger_reference_tests;
