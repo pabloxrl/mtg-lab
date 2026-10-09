@@ -128,9 +128,10 @@
     },
     {
       "path": "crates/mtg-core/src/instant_reference_tests.rs",
-      "sha256": "0a7b99f2f15ed1297efe6e6030058d4b50f69749f7b97fe7c9677391922c668e",
+      "sha256": "940a74085724d4bf7231b077c4c60dedda1d841ec1ac53459fd8f7b65a7f22eb",
       "tests": [
         "instant_shared_script_literal_expectations",
+        "m2_foundation_holdout_same_name_sentries_response",
         "instant_strict_choice_regressions",
         "instant_export_observations",
         "instant_checkpoint_rejects_unlisted_objects_in_every_zone",
@@ -149,7 +150,7 @@
   "combat": [
     {
       "path": "crates/mtg-core/src/combat_tests.rs",
-      "sha256": "3114ea5bb48dcd7d841242fce6739fc43c30f0227a89c5b44120e3c7584d9268",
+      "sha256": "f3632522d75ecbe6b651af280e4471bb37d5f2546dd6f4125c5381d540dcba61",
       "tests": [
         "combat_declarations_and_simultaneous_trade_cub_and_swab",
         "combat_sickness_taps_and_rejections_are_atomic",
@@ -188,6 +189,16 @@
       "sha256": "13545145eab90e444fe6a60ae726a260d09a6666a851ba9ae34b264191f1dfea",
       "tests": [
         "m2_combat_reference_literal_checkpoints"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/m2_decision_tests.rs",
+      "sha256": "f893c4361434bdd9cc81a94dd0c0f50e775ba9a6f732ad5adc0ae2d729d4b0b8",
+      "tests": [
+        "m2_six_five_power_splits_have_literal_damage_and_no_lethal_order",
+        "m2_all_64_distinct_token_subsets_and_explicit_capacity_boundary",
+        "m2_last_token_and_finish_survive_high_board_capacity_boundary",
+        "m2_fresh_vanillas_and_masked_dragon_block_reject_raw_without_mutation"
       ]
     },
     {
@@ -238,8 +249,9 @@
     },
     {
       "path": "crates/mtg-core/src/invoker_tests.rs",
-      "sha256": "cea8bf67ec6a1726ff33c77d10d1871075e9a89047d5da37ae63f85808a4dede",
+      "sha256": "c23f82ae3a7c3bce8d673fb1d8d169061eb8fe064bae3ab2191303d8eba83fc3",
       "tests": [
+        "m2_invoker_resolution_retains_both_blocker_step_response_windows",
         "invoker_sick_tapped_source_own_opposing_boost_and_cleanup",
         "invoker_payment_target_stale_cancel_reject_without_spending",
         "invoker_seven_floating_plus_forest_pays_inside_activation",
@@ -285,9 +297,10 @@
     },
     {
       "path": "crates/mtg-core/src/cast_trigger_tests.rs",
-      "sha256": "a262b3ee54c402c59e51fbbadd4252c5f22821c29de97b8474f3f1eaa63dc2d8",
+      "sha256": "87705369ed0b63599b710f7627a3d7cecb2f3628a755bfeaecb994c307b57411",
       "tests": [
         "archer_committed_cast_waits_for_resolution_and_survives_source_death",
+        "m2_archer_responding_bite_preserves_exactly_one_trigger",
         "cyclops_trigger_then_growth_literal_stat_ledger",
         "cast_trigger_all_six_orders_and_quantum_snapshots",
         "cast_trigger_negative_land_mana_creature_failed_and_cancelled",

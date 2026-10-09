@@ -1,9 +1,9 @@
 # Frozen-pool mechanics integration audit — GH-23
 
 Initial audit base: `17aeefe91c9a23bd91854a8e8c3d7960a06b6be4`.
-Integrated delivery base: `71776215b7c2372757b37c4113ac1c0a28bb1362`
-(PR #267 scalar baseline). Indexed mechanics sources and inherited reference
-receipts remain unchanged after this integration.
+Final integrated delivery base: `b5c062fb24230992671d24d01f81e00e4e56d6f8`
+(PR #267 scalar baseline and PR #265 reference foundation). The final index
+includes the foundation regression additions and its exact executed receipt.
 **PASS for the scoped mechanics integration audit, conditional on protected
 delivery and exact-main CI. This is not the M2 gate.** This bounded audit
 owns the M2 aspects of R0002-B010, B011 and B029. It retains every original
@@ -49,7 +49,7 @@ The original failed audit is historical, not an unresolved current defect.
 [The executable index](executable-index.json) pins source bytes and exact test
 entry points by the groups used below. [The card index](cards.json) enumerates
 all twenty cards plus the token. [The reference index](reference-index.json)
-pins nineteen concrete inherited receipt files and the commits that introduced
+pins twenty concrete inherited receipt files and the commits that introduced
 their current bytes. It reports current-source mismatches explicitly. These
 indices are traceability records, not generated expectations or test results.
 Every listed Rust test uses ordinary test discovery; no ignored replacement suite
@@ -95,19 +95,28 @@ is introduced. Independent card/rules sources are [pinned here](../../card-manif
 
 ## Reference provenance and limits
 
-The eight latest combat child receipts match every recorded native source hash at
-this audit base. Shivan includes actual payment-window mana choices and the
-Cub/Sentry repair. Older cost/trigger receipts retain their original exact source
-versions; they are not relabeled as current-head executions. Their fourteen
-source differences include the independently delivered activation repair,
-instrumentation/Driver work and added tests. The unchanged cast/ETB/cleanup,
-Thrill/token/mana mechanics retain their executed child evidence and run again
-natively in full torture. The newer instant receipt differs at `game.rs`, and
-the terminal receipt additionally at the instant adapter/test additions. The
-`game.rs` difference only registers the new test module; the terminal runner
-does not execute the added instant-suite controls. Exact
-paths are in the index. A zero mismatch count on an aggregate receipt with no
-source map does not claim it validates all source files.
+At the initial audit base, the eight latest combat child receipts matched every
+recorded native source hash. After PR #265 integration, their four mismatches are
+added assertions/tests in `cast_trigger_tests.rs`, `combat_tests.rs`,
+`instant_reference_tests.rs` and `invoker_tests.rs`; no production rule changed.
+Older cost/trigger receipts retain their original exact source versions, now
+with sixteen differences including the prior activation repair, instrumentation,
+Driver work and test additions. They are not relabeled as current-head executions.
+The instant receipt has five mismatches (the four test files plus `game.rs`'s
+test-module registration); terminal additionally differs at the previously added
+instant adapter. Exact paths are in the index. A zero mismatch count on an
+aggregate receipt with no source map does not claim it validates all source files.
+
+The twentieth indexed receipt is PR #265's
+[foundation pack](../m2-reference-foundation/README.md), including its frozen
+Sentry/Bite/Growth response and identity holdout. Its four aggregate input/runner hashes match the final audit tree. A separate
+[archive verification](foundation-archive-verification.json) checks all twelve
+nested receipt hashes and 688 recorded source fingerprints against that tree,
+with no mismatches; this is archive verification, not fresh reference execution. The new native decision tests independently enumerate all six
+five-power damage splits and all 64 subsets of six distinct tokens, check explicit
+capacity boundaries, and reject sick vanilla attacks and illegal flying blocks.
+They supplement this mechanics audit; #24 still owns the complete catalog union
+and scenario floor. No new GH-23 reference execution is claimed.
 
 The previous Cub/Sentry and mixed-loss gaps have concrete repaired receipts:
 [combat](../m2-reference-combat/README.md),
@@ -144,7 +153,7 @@ needed from a worker. The full suite remains mandatory; the new rows do not
 replace any prior test. The [verification receipt](verification.json) and [complete compressed log](torture.log.gz)
 record exit 0: **244 Python tests and 1,394 Rust test executions** across debug
 and release, zero failed/ignored Rust tests. Both expanded matchup tests passed
-in both profiles; every one of the 263 indexed native test names appears in the
+in both profiles; every one of the initially indexed 263 native test names appears in the
 passing log. Formatting, lint, documentation, program and catalog checks passed.
 The run acquired the shared lock after approximately one hour queued. Fresh main
 remained the audited base after execution. Runtime and test sources are unchanged
@@ -155,7 +164,7 @@ is added afterward. Full-log SHA-256:
 After PR #267 advanced main, its scalar baseline was integrated without conflicts.
 The full torture command ran again under the shared heavy lock and exited 0:
 **261 Python tests and 1,406 Rust test executions**, zero failed/ignored Rust tests.
-Both expanded matrices passed in debug and release, and all 263 indexed names
+Both expanded matrices passed in debug and release, and all 263 names from that index
 appear in the [integrated log](torture-integrated.log.gz). The
 [integrated receipt](verification-integrated.json) pins base
 `71776215b7c2372757b37c4113ac1c0a28bb1362` and source candidate
@@ -164,6 +173,19 @@ Integrated raw-log SHA-256:
 `b8d8d2eacbc4fe94bf6961db60b85d9c9dc3b8fb41b06800e4b1be920b7a3c83`.
 The original run remains preserved above. Fresh review and CI for the integrated
 candidate are recorded in the workpad; the earlier PR CI pass is not substituted.
+
+PR #265 then advanced main with additional foundation regressions and reference
+evidence. After clean integration, full torture passed again: **263 Python tests
+and 1,420 Rust executions**, zero failed/ignored Rust tests. The
+[final receipt](verification-final.json) and [complete final log](torture-final.log.gz)
+pin source candidate `bf60662d2d06c650186eada4c756d7d737c6d348` against final base
+`b5c062fb24230992671d24d01f81e00e4e56d6f8`. All 270 entries in the expanded index
+appear in the passing log; both matchup matrices pass in debug and release.
+Final raw-log SHA-256:
+`0fba3682fbc75b5fe9b7856f962d77707a8741d34f4e0b6e3753dea2764b1964`.
+Only audit evidence/documentation changes follow that source candidate. Both
+previous runs remain archived at their exact bases. Final review, protected PR
+checks and exact-main CI must refer to this latest candidate.
 
 The preliminary prescribed read-only review passed with no findings on that
 source candidate, checking retained assertions, README scope and all indexed

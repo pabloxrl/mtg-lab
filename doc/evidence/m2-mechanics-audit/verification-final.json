@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "command": "python3 \"$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py\" heavy -- ./scripts/torture.sh",
+  "exit_code": 0,
+  "base": "b5c062fb24230992671d24d01f81e00e4e56d6f8",
+  "runtime_candidate": "bf60662d2d06c650186eada4c756d7d737c6d348",
+  "boundary": "Runtime and test sources unchanged after this candidate; final report/index documentation completed after execution. Separate final-head review and protected CI remain required.",
+  "python_tests": 263,
+  "rust_test_executions": 1420,
+  "rust_failed": 0,
+  "rust_ignored": 0,
+  "indexed_test_names_verified": 270,
+  "matrix": "RG/GR/RR/GG x starts 0/1 x both policies; CLI repeat and recorder capture/quantum/replay/persistence assertions retained in debug and release.",
+  "raw_log_sha256": "0fba3682fbc75b5fe9b7856f962d77707a8741d34f4e0b6e3753dea2764b1964",
+  "gzip_sha256": "484852efdbeeb4a4e7ecd5f58a089db52ee12f9dc0ba344487cf228dee3f3fa9",
+  "reference_runs": "Inherited executed receipts indexed separately; no fresh reference engine execution or new rules change in this audit."
+}

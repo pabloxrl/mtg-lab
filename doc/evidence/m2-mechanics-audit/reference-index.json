@@ -1,4 +1,15 @@
 {
+  "foundation": {
+    "path": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+    "sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+    "receipt_commit": "b5c062fb24230992671d24d01f81e00e4e56d6f8",
+    "status": "executed",
+    "cases": null,
+    "repetitions": null,
+    "source_hashes_checked": 4,
+    "source_mismatches": [],
+    "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
+  },
   "costs": {
     "path": "doc/evidence/m2-cost-reference/reference/receipt.json",
     "sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
@@ -29,7 +40,12 @@
     "cases": 6,
     "repetitions": 2,
     "source_hashes_checked": 60,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "shivan": {
@@ -40,7 +56,12 @@
     "cases": 32,
     "repetitions": 2,
     "source_hashes_checked": 60,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "invoker": {
@@ -51,7 +72,12 @@
     "cases": 17,
     "repetitions": 2,
     "source_hashes_checked": 60,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "flying_reach": {
@@ -62,7 +88,12 @@
     "cases": 6,
     "repetitions": 2,
     "source_hashes_checked": 60,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "haste": {
@@ -73,7 +104,12 @@
     "cases": 10,
     "repetitions": 2,
     "source_hashes_checked": 60,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "trample": {
@@ -84,7 +120,12 @@
     "cases": 14,
     "repetitions": 2,
     "source_hashes_checked": 61,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "deathtouch": {
@@ -95,7 +136,12 @@
     "cases": 9,
     "repetitions": 2,
     "source_hashes_checked": 61,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "surprise": {
@@ -106,7 +152,12 @@
     "cases": 7,
     "repetitions": 2,
     "source_hashes_checked": 60,
-    "source_mismatches": [],
+    "source_mismatches": [
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
+    ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
   "thrill": {
@@ -119,6 +170,8 @@
     "source_hashes_checked": 55,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -145,6 +198,8 @@
     "source_hashes_checked": 55,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -171,6 +226,8 @@
     "source_hashes_checked": 55,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -197,6 +254,8 @@
     "source_hashes_checked": 54,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -223,6 +282,8 @@
     "source_hashes_checked": 54,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -249,6 +310,8 @@
     "source_hashes_checked": 54,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -275,6 +338,8 @@
     "source_hashes_checked": 54,
     "source_mismatches": [
       "crates/mtg-core/src/activation.rs",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/episode.rs",
       "crates/mtg-core/src/episode_budget_tests.rs",
       "crates/mtg-core/src/episode_replay.rs",
@@ -318,7 +383,11 @@
     "repetitions": null,
     "source_hashes_checked": 59,
     "source_mismatches": [
-      "crates/mtg-core/src/game.rs"
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
+      "crates/mtg-core/src/game.rs",
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
     ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   },
@@ -332,8 +401,11 @@
     "source_hashes_checked": 75,
     "source_mismatches": [
       "scripts/instant_reference.py",
+      "crates/mtg-core/src/cast_trigger_tests.rs",
+      "crates/mtg-core/src/combat_tests.rs",
       "crates/mtg-core/src/game.rs",
-      "crates/mtg-core/src/instant_reference_tests.rs"
+      "crates/mtg-core/src/instant_reference_tests.rs",
+      "crates/mtg-core/src/invoker_tests.rs"
     ],
     "scope": "Inherited executed receipt; synthetic selected checkpoints. Not a fresh GH-23 reference execution."
   }

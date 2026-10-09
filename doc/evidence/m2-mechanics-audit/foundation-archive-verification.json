@@ -1,0 +1,82 @@
+{
+  "scope": "Read-only verification of inherited PR #265 archive receipts and source fingerprints; not a fresh reference execution.",
+  "base": "b5c062fb24230992671d24d01f81e00e4e56d6f8",
+  "archive": "doc/evidence/m2-reference-foundation/final-integration/reference-artifacts.tar.gz",
+  "archive_sha256": "9b539ff2793b74891ccadbd90308ffc0839308c4749af482a7f7164ebc159f3b",
+  "aggregate_receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+  "packs": {
+    "thrill": {
+      "receipt": "thrill/receipt.json",
+      "sha256": "517a2610ed49b7d2bf0dfbd22f1f4a35d296e39b8fd2cfdeb48c5542eb3dda55",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "invoker": {
+      "receipt": "invoker/receipt.json",
+      "sha256": "9ec2dd872107a246762720fb9aae809fa44a58f9f573cd5390d68676ea5645f1",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "etb_trigger": {
+      "receipt": "etb_trigger/receipt.json",
+      "sha256": "684c42b56695bcfb1ccc59d1cc3358265096a967c6895c00124be772fe1700e3",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "deathtouch": {
+      "receipt": "deathtouch/receipt.json",
+      "sha256": "f62f916d845f296bd20b039fc7cc12f720def62e479472059a1dde5a9caf19d8",
+      "source_hashes_checked": 62,
+      "source_mismatches": []
+    },
+    "instant": {
+      "receipt": "instant/acceptance.json",
+      "sha256": "22fb6f3baeeaa5dc04da568af045f4fabb1b2e38e531656a65cb670b936ed2a9",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "shivan": {
+      "receipt": "shivan/receipt.json",
+      "sha256": "786570a621d91268e10a59fcb3b66112fba52d6f1fcec40b3b4675cfaf091ea5",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "m2_trigger": {
+      "receipt": "m2_trigger/receipt.json",
+      "sha256": "2a26f747d0e80e98ee72059210781284dd5fd6a75d1386138c4eabf15552c572",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "haste": {
+      "receipt": "haste/receipt.json",
+      "sha256": "1f9f8db3aa9b6fe4c5d804bb4c5d2b6a8af182606f0aa4b3bda9a38c8cdfb4c1",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "cast_trigger": {
+      "receipt": "cast_trigger/receipt.json",
+      "sha256": "a433aaba4e48aaa0b8376383618dc8052251537ed1e12ccee1fe87532923a71c",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "terminal": {
+      "receipt": "terminal.json",
+      "sha256": "1a1aaf54b964a19c5b8242106d083dff52c02cb6c2bd3ee88eac57a574b61cc4",
+      "source_hashes_checked": 77,
+      "source_mismatches": []
+    },
+    "surprise": {
+      "receipt": "surprise/receipt.json",
+      "sha256": "01e36e4ca5b781ed41375aac38083b945d62fc35959cdbdda5f0d88e323855f7",
+      "source_hashes_checked": 61,
+      "source_mismatches": []
+    },
+    "combat": {
+      "receipt": "combat.json",
+      "sha256": "ba0883818351746566a823e24568b851bdc38f5544d45f73ecaef9901fce6e5f",
+      "source_hashes_checked": 0,
+      "source_mismatches": []
+    }
+  },
+  "total_source_hashes_checked": 688
+}
