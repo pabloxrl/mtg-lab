@@ -28,12 +28,13 @@
     "crates/mtg-core/src/episode_capture_tests.rs": "ca0c3294d350a4ae7f29d4c833dfb0ace857b2f1e88cd0e36f61d3883fc1b52b",
     "crates/mtg-core/src/episode_replay.rs": "518f455d5b0b57e6c33f25725520444c2de08d25f0e1160c9f7f1d89f8dfcbad",
     "crates/mtg-core/src/etb_trigger_tests.rs": "d6f1624ee6634e24031dce74ee13b8de4b59eda6a96322766a021cce6d4cd939",
-    "crates/mtg-core/src/game.rs": "2d2e8365acf9a1cee0b4730ee39c1bf80ebd88eac796d507159d127e7f925445",
+    "crates/mtg-core/src/game.rs": "eafe0f54476a65ca4f09e0d5f67364fd912d16641c904a01d639506db2480324",
     "crates/mtg-core/src/haste_tests.rs": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
     "crates/mtg-core/src/instant_reference_tests.rs": "8d890847a3217735073aa10d77db82e6588398594fb3ebeba42fc49ecca4ef18",
     "crates/mtg-core/src/invoker_tests.rs": "d8613df5f49f4340bc05291be0234cf207adcdafc4f37930d454a0ad61745d22",
     "crates/mtg-core/src/lib.rs": "3effad9e6972bdaebfedae21ec9eeaf561ddb0feba007d38817d1280f23cb770",
     "crates/mtg-core/src/m2_cost_reference_tests.rs": "1a613d72939e1cea45b6713a0150841ab83d2f36e9f24fce925059315274912b",
+    "crates/mtg-core/src/m2_trigger_reference_tests.rs": "87778bbefc03ada8f77e786a7a0e925282130e5dd662ca6d2ad92a659a83c6a0",
     "crates/mtg-core/src/mana.rs": "0a88ecfff656665e10c0e3995fa54fff066084c7c5147a15e22996cdcdb55969",
     "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
     "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
@@ -65,12 +66,12 @@
   },
   "runs": [
     {
-      "xmage_log_sha256": "5f01731271b7281dd66624068bcf5eaf26f06996c927d483ae600b6c7c5b975d",
-      "native_log_sha256": "d63f14891bfbb2c954dd8d5426c122f9b173157c49fada828e07efcf3bfe1eca"
+      "xmage_log_sha256": "1db21a489a013d8cf7179366764de9b937a92824d927e974f7dceac503760b7c",
+      "native_log_sha256": "05232c5db32168d8eb015e2d3a5e45b9c1cd62b41182427fb9af29a00323fe51"
     },
     {
-      "xmage_log_sha256": "362ddbda5ec2390d399372fde7c53035a17281037f2d64f548dc1580c795b514",
-      "native_log_sha256": "d63f14891bfbb2c954dd8d5426c122f9b173157c49fada828e07efcf3bfe1eca"
+      "xmage_log_sha256": "0ffd91f0dce2f47719e6029ca0c29bd6e19f6bf75dddac16086e0f67cc407226",
+      "native_log_sha256": "05232c5db32168d8eb015e2d3a5e45b9c1cd62b41182427fb9af29a00323fe51"
     }
   ],
   "controls": [

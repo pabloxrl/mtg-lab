@@ -3,7 +3,7 @@
   "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
   "bridge_sha256": "192580088f86e39a7dbe22a321c9957ad730c36228251b08d4a35106c7997241",
   "runner_sha256": "1dbd2ecffbdcd20418fd9bb451c026d61c986547fa743fcc00c3b1399cf00733",
-  "native_log_sha256": "7293948aac71103c49804101b1ef8ab2c3ab703e58689a04bf26925d47952911",
+  "native_log_sha256": "254daf2a42121b2045bb7381d5f432d75572be20bb14b32fd358c37d31f06547",
   "native_sources": {
     "crates/mtg-core/src/actions.rs": "0109ffb12a716d31db69303902b57f09773c1548faaecc4c5d0eaa6c3c90eba2",
     "crates/mtg-core/src/actions_tests.rs": "2a9cd364f6b718e175e12ced07ab76c0e28cb4dcb61e32bb6348165579caaedf",
@@ -25,12 +25,13 @@
     "crates/mtg-core/src/episode_capture_tests.rs": "ca0c3294d350a4ae7f29d4c833dfb0ace857b2f1e88cd0e36f61d3883fc1b52b",
     "crates/mtg-core/src/episode_replay.rs": "518f455d5b0b57e6c33f25725520444c2de08d25f0e1160c9f7f1d89f8dfcbad",
     "crates/mtg-core/src/etb_trigger_tests.rs": "d6f1624ee6634e24031dce74ee13b8de4b59eda6a96322766a021cce6d4cd939",
-    "crates/mtg-core/src/game.rs": "2d2e8365acf9a1cee0b4730ee39c1bf80ebd88eac796d507159d127e7f925445",
+    "crates/mtg-core/src/game.rs": "eafe0f54476a65ca4f09e0d5f67364fd912d16641c904a01d639506db2480324",
     "crates/mtg-core/src/haste_tests.rs": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
     "crates/mtg-core/src/instant_reference_tests.rs": "8d890847a3217735073aa10d77db82e6588398594fb3ebeba42fc49ecca4ef18",
     "crates/mtg-core/src/invoker_tests.rs": "d8613df5f49f4340bc05291be0234cf207adcdafc4f37930d454a0ad61745d22",
     "crates/mtg-core/src/lib.rs": "3effad9e6972bdaebfedae21ec9eeaf561ddb0feba007d38817d1280f23cb770",
     "crates/mtg-core/src/m2_cost_reference_tests.rs": "1a613d72939e1cea45b6713a0150841ab83d2f36e9f24fce925059315274912b",
+    "crates/mtg-core/src/m2_trigger_reference_tests.rs": "87778bbefc03ada8f77e786a7a0e925282130e5dd662ca6d2ad92a659a83c6a0",
     "crates/mtg-core/src/mana.rs": "0a88ecfff656665e10c0e3995fa54fff066084c7c5147a15e22996cdcdb55969",
     "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
     "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
@@ -62,7 +63,7 @@
   },
   "native_sha256": "ca599ca31e49e2636a09c971e79955fc730980df51fb539d8b22023fa205cb10",
   "expectations_sha256": "f6cab1e78b07b44ee87a281cdae194b0d0a744ec48e9c8cc88e0882616dd10a4",
-  "log_sha256": "3739b229e2bd7e65603672ddf80c5abe80d844c43cd5d99cecccbb1390cf55c7",
+  "log_sha256": "e9fc8cc7f01a8a255f481907e22d93160afdac41d263f4645f8b0c2abac9035e",
   "checkpoints": {
     "combat": {
       "tokens": 1,

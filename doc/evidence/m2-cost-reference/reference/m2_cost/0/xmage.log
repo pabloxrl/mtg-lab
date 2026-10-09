@@ -947,13 +947,13 @@
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] +--org.mage.test.mtglab.M2CostCompositionTest - 6.164 ss
-[INFO] |  +-- [OK] executeCase[{"id":"cavalry-elf","kind":"haste-mana","card":"llanowar-elves","payment":false}] - 5.671 ss
-[INFO] |  +-- [OK] executeCase[{"id":"cavalry-druid-bite","kind":"haste-mana","card":"druid-of-the-cowl","payment":true}] - 0.097 ss
-[INFO] |  +-- [OK] executeCase[{"id":"archer-thrill","kind":"archer-thrill","archers":1,"library":["forest","bear-cub","giant-growth"],"discard":"mountain","opponent_life":20}] - 0.037 ss
-[INFO] |  +-- [OK] executeCase[{"id":"holdout-two-archers-discard-surprise","kind":"archer-thrill","archers":2,"discard":"goblin-surprise","opponent_life":5,"library":["forest","mountain","bear-cu... - 0.042 ss
-[INFO] |  +-- [OK] executeCase[{"id":"land-mountain","kind":"land","first":"mountain"}] - 0.081 ss
-[INFO] |  '-- [OK] executeCase[{"id":"land-forest-second-mountain","kind":"land","first":"forest"}] - 0.116 ss
+[INFO] +--org.mage.test.mtglab.M2CostCompositionTest - 5.619 ss
+[INFO] |  +-- [OK] executeCase[{"id":"cavalry-elf","kind":"haste-mana","card":"llanowar-elves","payment":false}] - 5.176 ss
+[INFO] |  +-- [OK] executeCase[{"id":"cavalry-druid-bite","kind":"haste-mana","card":"druid-of-the-cowl","payment":true}] - 0.053 ss
+[INFO] |  +-- [OK] executeCase[{"id":"archer-thrill","kind":"archer-thrill","archers":1,"library":["forest","bear-cub","giant-growth"],"discard":"mountain","opponent_life":20}] - 0.115 ss
+[INFO] |  +-- [OK] executeCase[{"id":"holdout-two-archers-discard-surprise","kind":"archer-thrill","archers":2,"discard":"goblin-surprise","opponent_life":5,"library":["forest","mountain","bear-cu... - 0.060 ss
+[INFO] |  +-- [OK] executeCase[{"id":"land-mountain","kind":"land","first":"mountain"}] - 0.021 ss
+[INFO] |  '-- [OK] executeCase[{"id":"land-forest-second-mountain","kind":"land","first":"forest"}] - 0.035 ss
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -963,42 +963,42 @@
 [INFO] Reactor Summary for Mage Root 1.4.61:
 [INFO] 
 [INFO] Mage Root .......................................... SUCCESS [  0.175 s]
-[INFO] Mage Framework ..................................... SUCCESS [  0.560 s]
-[INFO] Mage Common Classes ................................ SUCCESS [  0.032 s]
-[INFO] Mage Sets .......................................... SUCCESS [  0.318 s]
-[INFO] Mage Server Plugins ................................ SUCCESS [  0.002 s]
-[INFO] Mage Player AI (basic) ............................. SUCCESS [  0.011 s]
-[INFO] Mage Deck Constructed .............................. SUCCESS [  0.015 s]
-[INFO] Mage Deck Limited .................................. SUCCESS [  0.010 s]
-[INFO] Mage Game Commander Two Player ..................... SUCCESS [  0.009 s]
-[INFO] Mage Game Brawl Two Player ......................... SUCCESS [  0.009 s]
+[INFO] Mage Framework ..................................... SUCCESS [  0.585 s]
+[INFO] Mage Common Classes ................................ SUCCESS [  0.031 s]
+[INFO] Mage Sets .......................................... SUCCESS [  0.363 s]
+[INFO] Mage Server Plugins ................................ SUCCESS [  0.003 s]
+[INFO] Mage Player AI (basic) ............................. SUCCESS [  0.010 s]
+[INFO] Mage Deck Constructed .............................. SUCCESS [  0.010 s]
+[INFO] Mage Deck Limited .................................. SUCCESS [  0.008 s]
+[INFO] Mage Game Commander Two Player ..................... SUCCESS [  0.010 s]
+[INFO] Mage Game Brawl Two Player ......................... SUCCESS [  0.008 s]
 [INFO] Mage Game Commander Free For All ................... SUCCESS [  0.008 s]
-[INFO] Mage Game Brawl Free For All ....................... SUCCESS [  0.007 s]
-[INFO] Mage Game Free For All ............................. SUCCESS [  0.007 s]
+[INFO] Mage Game Brawl Free For All ....................... SUCCESS [  0.008 s]
+[INFO] Mage Game Free For All ............................. SUCCESS [  0.008 s]
 [INFO] Mage Game Two Player ............................... SUCCESS [  0.007 s]
-[INFO] Mage Player Human .................................. SUCCESS [  0.007 s]
+[INFO] Mage Player Human .................................. SUCCESS [  0.008 s]
 [INFO] Mage Player AI (mad bot) ........................... SUCCESS [  0.007 s]
-[INFO] Mage Player AI MCTS ................................ SUCCESS [  0.007 s]
-[INFO] Mage Tournament Booster Draft ...................... SUCCESS [  0.007 s]
-[INFO] Mage Tournament Sealed ............................. SUCCESS [  0.006 s]
+[INFO] Mage Player AI MCTS ................................ SUCCESS [  0.008 s]
+[INFO] Mage Tournament Booster Draft ...................... SUCCESS [  0.008 s]
+[INFO] Mage Tournament Sealed ............................. SUCCESS [  0.007 s]
 [INFO] Mage Tournament Constructed ........................ SUCCESS [  0.006 s]
 [INFO] Mage Player AI (draft bot) ......................... SUCCESS [  0.006 s]
 [INFO] Mage Game Tiny Leaders Two Player .................. SUCCESS [  0.006 s]
-[INFO] Mage Game Canadian Highlander Two Player ........... SUCCESS [  0.006 s]
-[INFO] Mage Game Penny Dreadful Commander Free For All .... SUCCESS [  0.006 s]
-[INFO] Mage Game Freeform Commander Free For All .......... SUCCESS [  0.005 s]
-[INFO] Mage Game Freeform Unlimited Commander ............. SUCCESS [  0.009 s]
-[INFO] Mage Game Freeform Commander Two Player ............ SUCCESS [  0.007 s]
-[INFO] Mage Game Custom Pillar of the Paruns Two Player Duel SUCCESS [  0.005 s]
-[INFO] Mage Game Oathbreaker Free For All ................. SUCCESS [  0.006 s]
-[INFO] Mage Game Oathbreaker Two Player ................... SUCCESS [  0.006 s]
-[INFO] Mage Game Momir Basic Two Player ................... SUCCESS [  0.005 s]
+[INFO] Mage Game Canadian Highlander Two Player ........... SUCCESS [  0.011 s]
+[INFO] Mage Game Penny Dreadful Commander Free For All .... SUCCESS [  0.005 s]
+[INFO] Mage Game Freeform Commander Free For All .......... SUCCESS [  0.006 s]
+[INFO] Mage Game Freeform Unlimited Commander ............. SUCCESS [  0.005 s]
+[INFO] Mage Game Freeform Commander Two Player ............ SUCCESS [  0.005 s]
+[INFO] Mage Game Custom Pillar of the Paruns Two Player Duel SUCCESS [  0.006 s]
+[INFO] Mage Game Oathbreaker Free For All ................. SUCCESS [  0.005 s]
+[INFO] Mage Game Oathbreaker Two Player ................... SUCCESS [  0.005 s]
+[INFO] Mage Game Momir Basic Two Player ................... SUCCESS [  0.006 s]
 [INFO] Mage Game Momir Basic Free for All ................. SUCCESS [  0.005 s]
-[INFO] Mage Server ........................................ SUCCESS [  0.195 s]
-[INFO] Mage Tests ......................................... SUCCESS [  7.717 s]
+[INFO] Mage Server ........................................ SUCCESS [  0.315 s]
+[INFO] Mage Tests ......................................... SUCCESS [  7.880 s]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  9.352 s
-[INFO] Finished at: 2026-10-09T09:36:07Z
+[INFO] Total time:  9.712 s
+[INFO] Finished at: 2026-10-09T09:58:24Z
 [INFO] ------------------------------------------------------------------------

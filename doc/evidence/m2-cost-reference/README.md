@@ -2,7 +2,7 @@
 
 This pack composes the delivered mana, haste, discard, modal, token and cast-trigger
 bridges. It changes no rules implementation. The [joined reference receipt](reference/receipt.json) records all eight suites
-passing on the integrated candidate. The [full torture receipt](verification.json) records 204 Python checks and 1,260
+passing on the integrated candidate. The [full torture receipt](verification.json) records 207 Python checks and 1,262
 Rust debug/release executions passing with zero failed/ignored tests. Delivery
 completion additionally requires independent review, protected merge and successful
 CI on that exact main commit in the [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/209#issuecomment-6076400283). M2 and whole-pool verification remain open.
