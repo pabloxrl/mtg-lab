@@ -104,7 +104,7 @@ scripted mtg-lab replay or treat a safety timeout as a benchmark result.
 
 The existing [program manifest](rfc-0002.json) authorizes only M0–M2. In-scope M2
 work continues, including the running full-pool native-player task. Legacy M3–M5
-and planning operations #81–#83 are deferred and held, not completed. Their
+and planning operations #81–#83 are closed as not planned under the operator's tracker cleanup, not completed. Their
 requirements and original task edges remain in the pinned ledger for history;
 they are not acceptance prerequisites for this new engine-validation milestone.
 The former full-RFC mandate in operations #59 is superseded by this operator decision.
