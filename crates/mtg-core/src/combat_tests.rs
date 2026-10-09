@@ -2,6 +2,8 @@
 //! literal expectations from pinned vanilla 2/2 card definitions, not engine output.
 use super::*;
 use crate::opening::turns::{Step, TurnAction, TurnKind, TurnSelection};
+#[path = "m2_decision_tests.rs"]
+mod m2_decisions;
 fn ready() -> Game {
     let mut g = Game::new().unwrap();
     g.reset(&Config::default(), 71, 0).unwrap();

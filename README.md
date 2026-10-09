@@ -91,6 +91,7 @@ and [simulation guide](doc/simulate.md).
 | [Testing](doc/testing/README.md) | Test designs, independent reference checks and delivery gates. |
 | [M2 mutation checks](doc/testing/m2-mutations.md) | Twelve named semantic mutants and strict behavioral detection. |
 | [Cost and token reference pack](doc/evidence/m2-cost-reference/README.md) | Bounded native/XMage compositions, exact catalog allocation and reproduction commands; no whole-pool claim. |
+| [Legacy and decision coverage](doc/evidence/m2-reference-foundation/README.md) | Six damage splits, 64 attacker subsets, privacy/capacity checks and bounded native/XMage reference reproduction. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |
 
 ## Contributing
