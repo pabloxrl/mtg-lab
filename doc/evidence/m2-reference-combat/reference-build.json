@@ -1,0 +1,7 @@
+{
+  "status": "built",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "command": "python3 scripts/xmage.py build --cache \"$MTG_REFERENCE_CACHE\" (shared heavy lock)",
+  "log_sha256": "21d8adcd2d4c09b68964f285dd651bbd1a6c746b2eca98bbb06b80462687a14a",
+  "limitations": "Build and smoke only; assigned combat acceptance requires the separate pack receipt."
+}
