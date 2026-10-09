@@ -1,0 +1,176 @@
+{
+  "points": {
+    "initial": {
+      "active": 1,
+      "priority": 1,
+      "step": "main",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "cub": [
+          "hand",
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "cast": {
+      "active": 1,
+      "priority": 1,
+      "step": "main",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [
+        "bear-cub"
+      ],
+      "objects": {
+        "cub": [
+          "stack",
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "resolved": {
+      "active": 1,
+      "priority": 1,
+      "step": "main",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "cub": [
+          "battlefield",
+          2,
+          2,
+          0,
+          false,
+          true
+        ]
+      }
+    },
+    "attack_rejected": {
+      "active": 1,
+      "priority": 1,
+      "step": "attackers",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "cub": [
+          "battlefield",
+          2,
+          2,
+          0,
+          false,
+          true
+        ]
+      }
+    }
+  },
+  "consumed": [
+    {
+      "kind": "cast_cub",
+      "actor": 1
+    },
+    {
+      "kind": "pay_green",
+      "actor": 1
+    },
+    {
+      "kind": "pay_red",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "reject_attack",
+      "actor": 1
+    }
+  ],
+  "attempts": [
+    {
+      "kind": "reject_attack",
+      "accepted": false,
+      "unchanged": true
+    }
+  ],
+  "combat_damage": {}
+}

@@ -1,0 +1,172 @@
+{
+  "points": {
+    "initial": {
+      "active": 1,
+      "priority": 1,
+      "step": "main",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "dragon": [
+          "battlefield",
+          5,
+          5,
+          0,
+          false,
+          false
+        ],
+        "cub": [
+          "battlefield",
+          2,
+          2,
+          0,
+          false,
+          false
+        ]
+      }
+    },
+    "block_rejected": {
+      "active": 1,
+      "priority": 0,
+      "step": "blockers",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "dragon": [
+          "battlefield",
+          5,
+          5,
+          0,
+          true,
+          false
+        ],
+        "cub": [
+          "battlefield",
+          2,
+          2,
+          0,
+          false,
+          false
+        ]
+      }
+    },
+    "damage": {
+      "active": 1,
+      "priority": 1,
+      "step": "damage",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        15,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "dragon": [
+          "battlefield",
+          5,
+          5,
+          0,
+          true,
+          false
+        ],
+        "cub": [
+          "battlefield",
+          2,
+          2,
+          0,
+          false,
+          false
+        ]
+      }
+    }
+  },
+  "consumed": [
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "attack",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "reject_block",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "damage",
+      "actor": 1
+    }
+  ],
+  "attempts": [
+    {
+      "kind": "reject_block",
+      "accepted": false,
+      "unchanged": true
+    }
+  ],
+  "combat_damage": {}
+}

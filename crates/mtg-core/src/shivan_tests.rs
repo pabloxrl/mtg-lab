@@ -146,14 +146,23 @@ fn pair(g: &mut Game) {
 }
 #[test]
 fn shivan_reference_literal_checkpoints() {
-    let fixture: serde_json::Value =
-        serde_json::from_str(include_str!("../../../fixtures/reference/shivan.json")).unwrap();
+    let fixture_text = std::env::var("MTG_SHIVAN_FIXTURE")
+        .map(|p| std::fs::read_to_string(p).unwrap())
+        .unwrap_or_else(|_| include_str!("../../../fixtures/reference/shivan.json").into());
+    let fixture: serde_json::Value = serde_json::from_str(&fixture_text).unwrap();
     let expected: serde_json::Value = serde_json::from_str(include_str!(
         "../../../fixtures/reference/shivan-expectations.json"
     ))
     .unwrap();
     let mut results = serde_json::Map::new();
     for spec in fixture["cases"].as_array().unwrap() {
+        if spec["id"].as_str().unwrap().starts_with("exact_") {
+            let result = exact::execute(spec);
+            let id = spec["id"].as_str().unwrap();
+            exact::assert_observation(&expected[id], &result, id);
+            results.insert(id.into(), result);
+            continue;
+        }
         let mode = spec["mode"].as_str().unwrap();
         let mut g = ready();
         let mut legal = true;
@@ -362,8 +371,8 @@ fn shivan_reference_literal_checkpoints() {
                 .map(|c| [c.power, c.toughness, c.damage])
         };
         let result = serde_json::json!({"dragon":stats(dragon),"others":others.iter().filter_map(|h|stats(*h)).collect::<Vec<_>>(),"life":g.life(),"mana":g.turns.mana[0][3],"stack":g.turns.stack.len(),"legal":legal});
-        assert_eq!(result, expected[mode], "{mode}");
-        results.insert(mode.into(), result);
+        assert_eq!(result, expected[spec["id"].as_str().unwrap()], "{mode}");
+        results.insert(spec["id"].as_str().unwrap().into(), result);
     }
     if let Ok(path) = std::env::var("MTG_SHIVAN_OUTPUT") {
         std::fs::write(path, serde_json::to_vec_pretty(&results).unwrap()).unwrap();
@@ -503,3 +512,6 @@ fn shivan_growth_addition_overflow_and_concession_are_atomic() {
         }
     }
 }
+
+#[path = "cub_sentry_reference.rs"]
+mod exact;
