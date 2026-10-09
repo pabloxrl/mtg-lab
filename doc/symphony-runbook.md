@@ -323,7 +323,20 @@ A missing, malformed, future-dated or previous-session report never appears as a
 current update. Each task is validated against its own session start; one worker's
 progress never appears on another worker's card. Open `agent-ready` issues waiting
 for a slot are shown as queued. The queue is read from the repository with the
-existing GitHub credential; unavailable or truncated queue data is stated explicitly. Idle/retrying/blocked states take precedence over old prose. The
+existing GitHub credential; unavailable or truncated queue data is stated explicitly.
+Open `agent-blocked` and `agent-held` issues also appear, even without `agent-ready`.
+GitHub task controls and controller worker state are separate: a running worker
+remains visible during a label transition, and each issue appears only once.
+Ready-label counts remain separate from blocked/held counts (which can overlap).
+An empty ready queue does not imply no blocked work. Each control source reports
+available, unavailable (unknown count), or truncated (a lower-bound count).
+Each label read is limited to 200 displayed numeric issue identities, with a
+three-second timeout; the three reads run concurrently. No dispatch labels change.
+For stopped controlled tasks, a safe existing note may appear as historical prose,
+with its own timestamp and age; it may predate the control and is not a current
+reason. Missing notes direct the operator to the issue rather than implying no
+blocker. Running notes still require the current session start. Controller states
+and GitHub controls take precedence over old prose. The
 card is an explanation, not proof of milestone completion; GitHub workpads,
 reviews and exact-main CI remain authoritative.
 

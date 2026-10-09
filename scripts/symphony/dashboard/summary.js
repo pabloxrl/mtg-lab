@@ -23,6 +23,7 @@
   const next = add('p', 'operator-next', '', content);
   const blocker = add('p', 'operator-blocker', '', content);
   const queue = add('p', 'operator-queue', '');
+  const tracker = add('p', 'operator-tracker', '');
   const tasks = add('div', 'operator-tasks', '');
   const footer = add('div', 'operator-footer', '');
   const times = add('span', 'operator-times', 'Refreshes every five minutes.', footer);
@@ -43,7 +44,7 @@
     unavailable: 'No current agent note is available.'
   };
   function link(node, number) {
-    node.hidden = !Number.isSafeInteger(number) || number < 1;
+    node.hidden = !Number.isSafeInteger(number) || number < 1 || number > 999999999;
     if (!node.hidden) {
       node.href = `https://github.com/pabloxrl/mtg-lab/issues/${number}`;
       node.textContent = `Open task #${number}`;
@@ -58,18 +59,26 @@
     node.className = 'operator-task';
     const prefix = `operator-task-${index}-`;
     const states = {running: 'Running', retrying: 'Waiting to retry', blocked: 'Needs attention',
-      queued: 'Queued', ready: 'Ready · worker status unavailable', unavailable: 'Status unavailable'};
+      controlled: 'No worker reported', queued: 'Queued', ready: 'Ready · worker status unavailable', unavailable: 'Status unavailable'};
     node.dataset.state = states[task.state] ? task.state : 'unavailable';
     node.dataset.freshness = task.freshness;
     add('h3', prefix + 'title', Number.isSafeInteger(task.issue) && task.issue > 0 ?
       `Task #${task.issue}` : 'Task status unavailable', node);
     add('p', prefix + 'state', states[task.state] || states.unavailable, node).className = 'operator-task-state';
+    const controls = Array.isArray(task.github_controls) ?
+      task.github_controls.filter(value => value === 'blocked' || value === 'held') : [];
+    const controlText = controls.length ? `GitHub task controls: ${controls.join(' and ')}.` : '';
+    const previous = task.previous_note;
     const fields = {
+      controller: task.controller_state ? `Controller: ${{running: 'worker running', retrying: 'waiting to retry', blocked: 'worker stopped and needs attention', none: 'no worker reported', unavailable: 'status unavailable'}[task.controller_state] || 'status unavailable'}.` : null,
+      controls: controlText + (task.github_controls_complete === false ? ' GitHub controls could not be fully checked.' : ''),
+      previous: previous ? `Last operator note (may predate the control): ${previous.current} Why: ${previous.why} Next: ${previous.next}` : null,
+      previousBlocker: previous && previous.blocker ? `Previously reported obstacle: ${previous.blocker}` : null,
       current: task.current, why: task.why,
       milestone: task.milestone_goal ? `${task.milestone}: ${task.milestone_goal}` : null,
       next: task.next ? `Next: ${task.next}` : null,
       blocker: task.blocker ? `What’s in the way: ${task.blocker}` : null,
-      freshness: task.state === 'running' ? (messages[task.freshness] || messages.unavailable) : null,
+      freshness: (task.state === 'running' || controls.length) ? (task.freshness === 'missing' && controls.length ? 'No operator note is available. Open the task for the reason.' : messages[task.freshness] || messages.unavailable) : null,
       time: task.report_updated_at ? `Agent wrote this ${date(task.report_updated_at)}.` : null
     };
     for (const [name, value] of Object.entries(fields)) {
@@ -105,13 +114,21 @@
       content.hidden = multiple;
       tasks.hidden = !multiple;
       queue.hidden = !multiple;
+      tracker.hidden = !multiple;
       if (multiple) {
         // Each response replaces the task cards, including cleared blockers and
         // removed tasks. Never reuse one worker's note for another worker.
         tasks.replaceChildren(...data.tasks.map(taskCard));
         issue.hidden = true;
         notice.textContent = data.state === 'unavailable' ? 'Worker status is unavailable.' :
-          (data.tasks.length ? `${data.tasks.length} tasks visible.` : 'No active tasks are reported.');
+          (data.tasks.length ? `${data.tasks.length} tasks visible.` : 'No worker tasks are reported.');
+        tracker.textContent = ['blocked', 'held'].map(kind => {
+          const source = data.tracker && data.tracker[kind];
+          if (!source || source.status === 'unavailable') return `GitHub ${kind} tasks could not be checked; the count is unknown.`;
+          return source.status === 'truncated' ?
+            `GitHub ${kind} tasks: at least ${source.count}; only part of the list is shown.` :
+            `GitHub ${kind} tasks: ${source.count}.`;
+        }).join(' ');
         const available = data.queue && data.queue.status === 'available';
         queue.textContent = available ? (data.queue.truncated ?
           'Ready queue is partially shown; more tasks may be waiting. See the project workpad.' :
