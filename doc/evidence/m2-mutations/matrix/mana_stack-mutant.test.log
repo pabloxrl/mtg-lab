@@ -1,0 +1,20 @@
+
+running 1 test
+test game::m2_mutation_tests::mana_stack ... FAILED
+
+failures:
+
+---- game::m2_mutation_tests::mana_stack stdout ----
+
+thread 'game::m2_mutation_tests::mana_stack' (132063) panicked at crates/mtg-core/src/m2_mutation_tests.rs:70:5:
+assertion `left == right` failed: M2-MUT mana_stack: immediate green mana and empty stack
+  left: (1, 0)
+ right: (0, 1)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::m2_mutation_tests::mana_stack
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 281 filtered out; finished in 0.00s
+
