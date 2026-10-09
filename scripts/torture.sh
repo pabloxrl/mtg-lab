@@ -3,4 +3,4 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 ./scripts/verify.sh
-cargo test --workspace --release --locked
+./scripts/verify-phase.sh release
