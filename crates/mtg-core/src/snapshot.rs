@@ -30,6 +30,8 @@ struct Envelope {
 struct GameWire {
     #[serde(skip)]
     policy_revision: u64,
+    #[serde(skip)]
+    metric_work: Option<(u64, bool)>,
     #[serde(deserialize_with = "Option::deserialize")]
     outcome: Option<terminal::Outcome>,
     #[serde(deserialize_with = "Option::deserialize")]

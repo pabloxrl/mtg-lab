@@ -22,6 +22,8 @@ new cards reuse supported mechanics through definitions, without engine changes.
   frozen pool, plus explicit scripted play.
 - Seat-filtered observations and validated choices that preserve private information.
 - Versioned snapshots, semantic replay, JSONL trajectories and dataset validation.
+- Optional [scalar counters](doc/scalar-metrics.md) with bounded public fields;
+  capture remains independent and performance qualification is still pending.
 - Automated regression tests and scoped comparisons against pinned XMage and
   Forge reference engines.
 

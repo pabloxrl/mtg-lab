@@ -16,3 +16,4 @@ pub mod opening {
 pub mod trajectory;
 
 pub mod episode;
+pub mod metrics;
