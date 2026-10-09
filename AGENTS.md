@@ -3,6 +3,9 @@
 Proceed autonomously within the assigned issue. Do not request routine plan or
 PR approval. Ask only for essential product decisions or unavailable access.
 
+- Read `doc/programs/engine-validation.md` first for the current operator scope:
+  toy decks and reference-game verification; no new RL work. It supersedes the
+  older RFC release sequence. M0–M2 remain authorized; legacy M3–M5 are deferred.
 - Read `doc/rfcs/0001-project-charter.md` for enduring requirements and
   `doc/rfcs/0002-first-mvp.md` for the scoped delivery plan.
 - `WORKFLOW.md` defines unattended GitHub issue delivery. Only open issues with

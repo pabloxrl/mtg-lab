@@ -2,6 +2,11 @@
 
 Status: **Proposed project charter** — enduring purpose, principles, and product requirements; not a release plan or a statement of implemented capabilities.
 
+**Current delivery scope (2026-10-09):** the [engine-validation plan](../programs/engine-validation.md)
+prioritizes playable toy decks and Forge/XMage game replay. Learning-related
+personas, use cases and integrations below are future context, not current
+delivery requirements or authorization. No new RL work belongs in this scope.
+
 Originally authored: 2026-09-26. Related: [open-source engine survey](../open-source-mtg-engines.md).
 
 ## Problem definition
