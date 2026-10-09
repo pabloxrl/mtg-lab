@@ -215,6 +215,12 @@ fn invoker_reference_literal_checkpoints() {
     let mut results = serde_json::Map::new();
     for spec in fixture["cases"].as_array().unwrap() {
         let mode = spec["id"].as_str().unwrap();
+        if mode == "payment_sources" {
+            let result = super::shivan_tests::activation_mana_reference(true);
+            assert_eq!(result, expected[mode], "{mode}");
+            results.insert(mode.into(), result);
+            continue;
+        }
         let mut g = ready();
         let mut legal = true;
         let casting = ["cast", "short_cast"].contains(&mode);

@@ -3,6 +3,7 @@ import argparse
 import copy
 import json
 import os
+import shutil
 from pathlib import Path
 import instant_reference
 import xmage
@@ -63,15 +64,29 @@ def main():
             controls.append({'field': field, 'detected': str(error)})
         else:
             raise ValueError('missed comparator mutation: ' + field)
+    for field in ['stage', 'source', 'target', 'pool', 'tapped', 'announced_stack', 'priority_calls']:
+        wrong = copy.deepcopy(canonical)
+        wrong['payment_sources']['payment'][0][field] = 'mutated'
+        try:
+            compare(wrong)
+        except ValueError as error:
+            controls.append({'payment_field': field, 'detected': str(error)})
+        else:
+            raise ValueError('missed payment comparator mutation: ' + field)
     receipt = dict(status='agreed', cases=len(canonical), repetitions=2,
         upstream_commit=xmage.scenario.load(ROOT / 'references/xmage/pins.json')['upstream_commit'],
         fixture_sha256=xmage.sha(FIXTURE), expected_sha256=xmage.sha(EXPECTED),
+        pins_sha256=xmage.sha(ROOT / 'references/xmage/pins.json'),
+        dependencies_sha256=xmage.sha(ROOT / 'references/xmage/dependencies.json'),
+        java_sha256=xmage.sha(Path(os.environ['JAVA_HOME']) / 'bin/java'),
+        maven_launcher_sha256=xmage.sha(Path(shutil.which('mvn'))),
+        consumed_payment_choices=actual['payment_sources']['payment'],
         bridge_sha256=xmage.sha(BRIDGE), runner_sha256=xmage.sha(Path(__file__)),
         native_sources={str(p.relative_to(ROOT)): xmage.sha(p) for p in sorted((ROOT / 'crates/mtg-core/src').glob('*.rs'))},
         runs=runs, controls=controls, stdin='closed', display='unset', offline=True,
         limitations='Synthetic control-age/departure positions, real pinned cards and rules. No Forge/full-game agreement. Raw rejection nonmutation and normal-reset replay/capture are native tests; foreign target checks XMage target cardinality.')
     (output / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
-    print('23 Shivan cases agreed twice in native Rust and pinned XMage.')
+    print(f'{len(canonical)} Shivan cases agreed twice in native Rust and pinned XMage.')
 
 
 if __name__ == '__main__':

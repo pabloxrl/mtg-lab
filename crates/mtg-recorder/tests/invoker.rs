@@ -35,6 +35,15 @@ fn send(d: &mut Driver, seat: Seat, c: C, q: NonZeroUsize) {
 }
 #[test]
 fn invoker_normal_reset_paid_activation_capture_replay() {
+    played_activation(false);
+}
+
+#[test]
+fn activation_mana_invoker_normal_reset_payment_sources_capture_replay() {
+    played_activation(true);
+}
+
+fn played_activation(during_payment: bool) {
     let mut history = None;
     let mut trajectory = None;
     for captured in [false, true] {
@@ -47,6 +56,9 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                 .chain(std::iter::repeat_n("forest", 16))
                 .map(String::from)
                 .collect();
+            if during_payment {
+                order.insert(1, "bear-cub".into());
+            }
             for c in manifest["decks"]
                 .as_array()
                 .unwrap()
@@ -92,6 +104,7 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
             send(&mut d, Seat::P1, C::Keep, q);
             let mut landed = 0;
             let mut cast = false;
+            let mut cub_cast = false;
             let mut activations = 0;
             let mut paid = 0;
             let mut boosted = false;
@@ -105,6 +118,32 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                 let o = d.observe(actor).unwrap();
                 let t = o.view.turn.unwrap();
                 let dec = o.decision.as_ref().unwrap();
+                if during_payment && matches!(dec.kind, "activation_target" | "activation_payment")
+                {
+                    for random in [false, true] {
+                        let mut probe = mtg_core::game::Game::new().unwrap();
+                        probe.restore(&d.privileged_snapshot()).unwrap();
+                        let input = probe.policy_observe(actor, 256).unwrap();
+                        let proposed = if random {
+                            mtg_policy::LegalRandom::new(
+                                mtg_policy::VERSION,
+                                mtg_policy::RNG_VERSION,
+                                254,
+                                0,
+                                0,
+                            )
+                            .unwrap()
+                            .choose(&input)
+                            .unwrap()
+                        } else {
+                            mtg_policy::Heuristic::new(mtg_policy::HEURISTIC_VERSION, 0)
+                                .unwrap()
+                                .choose(&input)
+                                .unwrap()
+                        };
+                        probe.apply_policy(actor, &proposed, 256).unwrap();
+                    }
+                }
                 let bf = &o
                     .view
                     .public_zones
@@ -112,11 +151,21 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                     .find(|z| z.zone == "battlefield")
                     .unwrap()
                     .cards;
-                if let Some(dragon) = bf.iter().find(|c| c.card == "wildheart-invoker") {
+                if let Some(dragon) = bf.iter().find(|c| {
+                    c.card
+                        == if during_payment {
+                            "bear-cub"
+                        } else {
+                            "wildheart-invoker"
+                        }
+                }) {
                     if activations == 1 && o.stack.is_empty() && t.0 == 23 {
                         let stats = dragon.creature.as_ref().unwrap();
-                        assert_eq!((stats[0], stats[1]), (9, 8));
-                        assert!(dragon.summoning_sick);
+                        assert_eq!(
+                            (stats[0], stats[1]),
+                            if during_payment { (7, 7) } else { (9, 8) }
+                        );
+                        assert_eq!(dragon.summoning_sick, !during_payment);
                         for seat in [Seat::P0, Seat::P1] {
                             let view = serde_json::to_value(d.observe(seat).unwrap()).unwrap();
                             let creature = view["view"]["public_zones"]
@@ -124,7 +173,14 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                                 .unwrap()
                                 .iter()
                                 .flat_map(|z| z["cards"].as_array().unwrap())
-                                .find(|c| c["card"] == "wildheart-invoker")
+                                .find(|c| {
+                                    c["card"]
+                                        == if during_payment {
+                                            "bear-cub"
+                                        } else {
+                                            "wildheart-invoker"
+                                        }
+                                })
                                 .unwrap();
                             assert_eq!(
                                 creature["trample"], true,
@@ -135,7 +191,10 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                     }
                     if t.0 == 24 && t.2 == "upkeep" {
                         let stats = dragon.creature.as_ref().unwrap();
-                        assert_eq!((stats[0], stats[1]), (4, 3));
+                        assert_eq!(
+                            (stats[0], stats[1]),
+                            if during_payment { (2, 2) } else { (4, 3) }
+                        );
                         let value = serde_json::to_value(dragon).unwrap();
                         assert!(
                             !value["trample"].as_bool().unwrap_or(false),
@@ -155,6 +214,18 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                                     o.view.hand.iter().position(|c| c.card == "forest").unwrap(),
                                 ),
                             }
+                        } else if during_payment && t.0 == 3 && !cub_cast {
+                            cub_cast = true;
+                            C::Cast {
+                                card: r(
+                                    VisibleZone::Hand,
+                                    o.view
+                                        .hand
+                                        .iter()
+                                        .position(|c| c.card == "bear-cub")
+                                        .unwrap(),
+                                ),
+                            }
                         } else if t.0 == 23 && !cast {
                             cast = true;
                             C::Cast {
@@ -171,7 +242,7 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                             && bf.iter().any(|c| c.card == "wildheart-invoker")
                             && activations < 1
                         {
-                            if o.view.mana[0][4] < 8 {
+                            if !during_payment && o.view.mana[0][4] < 8 {
                                 C::TapMana {
                                     card: r(
                                         VisibleZone::Battlefield,
@@ -201,7 +272,14 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                         card: r(
                             VisibleZone::Battlefield,
                             bf.iter()
-                                .position(|c| c.card == "wildheart-invoker")
+                                .position(|c| {
+                                    c.card
+                                        == if during_payment {
+                                            "bear-cub"
+                                        } else {
+                                            "wildheart-invoker"
+                                        }
+                                })
                                 .unwrap(),
                         ),
                     },
@@ -226,7 +304,26 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                         assert_eq!(before, d.privileged_snapshot());
                         assert_eq!(h, d.privileged_history());
                         assert_eq!(tr, serde_json::to_value(d.trajectory()).unwrap());
-                        if paid == 8 {
+                        if during_payment
+                            && !dec
+                                .candidates
+                                .iter()
+                                .zip(&dec.legal_mask)
+                                .any(|(c, legal)| {
+                                    *legal
+                                        && (*c == C::Pay { color: 4 } || *c == C::FinishActivation)
+                                })
+                        {
+                            assert!(o.stack.is_empty());
+                            assert_eq!(o.view.mana[0][4], 0);
+                            dec.candidates
+                                .iter()
+                                .zip(&dec.legal_mask)
+                                .find_map(|(c, legal)| {
+                                    (*legal && matches!(c, C::TapMana { .. })).then(|| c.clone())
+                                })
+                                .expect("explicit payment source")
+                        } else if paid == 8 {
                             activations += 1;
                             C::FinishActivation
                         } else {
@@ -297,6 +394,28 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                     [20, 20]
                 );
                 let converted = from_core_v2(result.trajectory().unwrap()).unwrap();
+                if during_payment {
+                    let taps: Vec<_> = converted
+                        .decisions
+                        .iter()
+                        .filter(|decision| {
+                            decision
+                                .observation
+                                .decision
+                                .as_ref()
+                                .is_some_and(|d| d.kind == "activation_payment")
+                                && decision.choice.submission.choices.iter().any(|c| {
+                                    matches!(c, mtg_recorder::structured::Command::TapMana { .. })
+                                })
+                        })
+                        .collect();
+                    assert_eq!(taps.len(), 8);
+                    assert!(
+                        taps.iter().all(|d| d.choice.status
+                            == mtg_recorder::structured::ActionStatus::Continuing)
+                    );
+                }
+
                 assert!(converted.decisions.iter().any(|decision| {
                     decision
                         .observation
@@ -305,9 +424,15 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                         .iter()
                         .flat_map(|zone| &zone.cards)
                         .any(|card| {
-                            card.card == "wildheart-invoker"
+                            card.card
+                                == if during_payment {
+                                    "bear-cub"
+                                } else {
+                                    "wildheart-invoker"
+                                }
                                 && card.trample
-                                && card.creature == Some([9, 8, 0])
+                                && card.creature
+                                    == Some(if during_payment { [7, 7, 0] } else { [9, 8, 0] })
                         })
                 }));
                 assert!(
@@ -322,7 +447,12 @@ fn invoker_normal_reset_paid_activation_capture_replay() {
                             .public_zones
                             .iter()
                             .flat_map(|zone| &zone.cards)
-                            .filter(|card| card.card == "wildheart-invoker")
+                            .filter(|card| card.card
+                                == if during_payment {
+                                    "bear-cub"
+                                } else {
+                                    "wildheart-invoker"
+                                })
                             .all(|card| !card.trample))
                 );
                 let mut w = Writer::new_v2(Vec::new(), 4_000_000, Backpressure::Block).unwrap();

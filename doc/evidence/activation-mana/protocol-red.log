@@ -1,0 +1,385 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-254/crates/mtg-core)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-254/crates/mtg-recorder)
+    Finished `test` profile [optimized + debuginfo] target(s) in 16.53s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-245c2d25024f23a6)
+
+running 5 tests
+
+thread 'game::shivan_tests::activation_mana_invoker_can_announce_with_eight_untapped_forests' (292557) panicked at crates/mtg-core/src/shivan_tests.rs:101:5:
+assertion failed: g.activation_candidates(Seat::P0).contains(&invoker)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'game::shivan_tests::activation_mana_payment_offers_untapped_sources_even_with_floating_mana' (292559) panicked at crates/mtg-core/src/shivan_tests.rs:85:5:
+assertion failed: d.candidates.iter().zip(&d.legal_mask).any(|(c, legal)|
+        { *legal && matches!(c, policy::Choice::TapMana { .. }) })
+
+thread 'game::shivan_tests::activation_mana_invoker_target_first_mixed_sources_and_sickness' (292558) panicked at crates/mtg-core/src/shivan_tests.rs:52:6:
+called `Result::unwrap()` on an `Err` value: InvalidSelection
+
+thread 'game::shivan_tests::activation_mana_private_cancel_commit_surplus_and_resolution' (292560) panicked at crates/mtg-core/src/shivan_tests.rs:52:6:
+called `Result::unwrap()` on an `Err` value: InvalidSelection
+test game::shivan_tests::activation_mana_invoker_can_announce_with_eight_untapped_forests ... FAILED
+test game::shivan_tests::activation_mana_payment_offers_untapped_sources_even_with_floating_mana ... FAILED
+test game::shivan_tests::activation_mana_invoker_target_first_mixed_sources_and_sickness ... FAILED
+test game::shivan_tests::activation_mana_private_cancel_commit_surplus_and_resolution ... FAILED
+
+thread 'game::shivan_tests::activation_mana_shivan_can_announce_with_untapped_mountain' (292561) panicked at crates/mtg-core/src/shivan_tests.rs:70:5:
+assertion failed: g.activation_candidates(Seat::P0).contains(&dragon)
+test game::shivan_tests::activation_mana_shivan_can_announce_with_untapped_mountain ... FAILED
+
+failures:
+
+failures:
+    game::shivan_tests::activation_mana_invoker_can_announce_with_eight_untapped_forests
+    game::shivan_tests::activation_mana_invoker_target_first_mixed_sources_and_sickness
+    game::shivan_tests::activation_mana_payment_offers_untapped_sources_even_with_floating_mana
+    game::shivan_tests::activation_mana_private_cancel_commit_surplus_and_resolution
+    game::shivan_tests::activation_mana_shivan_can_announce_with_untapped_mountain
+
+test result: FAILED. 0 passed; 5 failed; 0 ignored; 0 measured; 284 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+     Running tests/budgets.rs (target/debug/deps/budgets-b8250df207bc99da)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 19 filtered out; finished in 0.00s
+
+     Running tests/capture.rs (target/debug/deps/capture-b8882f177289a17e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/casting.rs (target/debug/deps/casting-d82b4178b7a6f802)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/combat.rs (target/debug/deps/combat-f63de5dd8d8d2697)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/core_integration.rs (target/debug/deps/core_integration-0060ff428d1311aa)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/episode.rs (target/debug/deps/episode-78461eaea54fa9ce)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running tests/mana.rs (target/debug/deps/mana-53f2a743a8c4e855)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/metrics.rs (target/debug/deps/metrics-8d24f137a9c5555c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/module_paths.rs (target/debug/deps/module_paths-29dfa665fa14c655)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/mulligan.rs (target/debug/deps/mulligan-4845534fd08a4cc3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/objects.rs (target/debug/deps/objects-ab7a4a638674bf06)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/opening.rs (target/debug/deps/opening-8db2a4117d0b31de)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/played_replay.rs (target/debug/deps/played_replay-787de50997464750)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/quantum.rs (target/debug/deps/quantum-29a6065999ecd1b1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/replay.rs (target/debug/deps/replay-a5ed138fed8b926b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+
+     Running tests/rng.rs (target/debug/deps/rng-764cba7dddb074ea)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/semantic_input.rs (target/debug/deps/semantic_input-86b063e05e66af16)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/snapshot.rs (target/debug/deps/snapshot-fffbae9cbd1a027a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.00s
+
+     Running tests/targets.rs (target/debug/deps/targets-13ec123ab0bc0460)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/terminal.rs (target/debug/deps/terminal-599e0f7797effa1d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/trace_modes.rs (target/debug/deps/trace_modes-51f63c86c7569652)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/turns.rs (target/debug/deps/turns-247cd78ab81fb2a7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/views.rs (target/debug/deps/views-726c06b65338df27)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/mtg_policy-e1286399559d6a03)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/full_pool.rs (target/debug/deps/full_pool-171c27261d6e648c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/games.rs (target/debug/deps/games-acc3b05a3f709241)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+
+     Running tests/heuristic.rs (target/debug/deps/heuristic-1c0608feb4aede76)
+
+running 1 test
+
+thread 'activation_mana_both_policies_represent_payment_sources' (292589) panicked at crates/mtg-policy/tests/heuristic.rs:77:10:
+called `Result::unwrap()` on an `Err` value: UnsupportedDecision
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test activation_mana_both_policies_represent_payment_sources ... FAILED
+
+failures:
+
+failures:
+    activation_mana_both_policies_represent_payment_sources
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test heuristic`
+     Running tests/heuristic_games.rs (target/debug/deps/heuristic_games-2ba210a808d7a543)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/selection.rs (target/debug/deps/selection-2c44638dc5842a7d)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (target/debug/deps/mtg_recorder-8145783ffc9db72c)
+
+running 1 test
+
+thread 'structured::activation_mana_contract_tests::activation_mana_typed_payment_command_has_no_default' (292593) panicked at crates/mtg-recorder/src/structured.rs:921:9:
+assertion failed: kind_command("activation_payment", &tap)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test structured::activation_mana_contract_tests::activation_mana_typed_payment_command_has_no_default ... FAILED
+
+failures:
+
+failures:
+    structured::activation_mana_contract_tests::activation_mana_typed_payment_command_has_no_default
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 29 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-recorder --lib`
+     Running tests/cast_triggers.rs (target/debug/deps/cast_triggers-c3bbe25e516974e8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/cleanup.rs (target/debug/deps/cleanup-fe48bd8ede2911dc)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/collector.rs (target/debug/deps/collector-55b0223a3df22b42)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.00s
+
+     Running tests/collector_audit.rs (target/debug/deps/collector_audit-2882ae45259482cf)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 16 filtered out; finished in 0.00s
+
+     Running tests/core_conversion.rs (target/debug/deps/core_conversion-173e315daabb3e3f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running tests/creature_mana.rs (target/debug/deps/creature_mana-a94ee1bae7752a84)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/deathtouch.rs (target/debug/deps/deathtouch-3c201331982cdd00)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/deathtouch_allocation.rs (target/debug/deps/deathtouch_allocation-d6555752ba7710b5)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/etb_triggers.rs (target/debug/deps/etb_triggers-d746c3c3c24922b4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/flying_reach.rs (target/debug/deps/flying_reach-99a74ce4ef9c75b3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/full_pool_policy.rs (target/debug/deps/full_pool_policy-33ff4d4cfee8a74e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/haste.rs (target/debug/deps/haste-3fd0700d51a7d1d1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests/invoker.rs (target/debug/deps/invoker-8208d949489b6afe)
+
+running 1 test
+
+thread 'activation_mana_invoker_normal_reset_payment_sources_capture_replay' (292607) panicked at crates/mtg-recorder/tests/invoker.rs:28:25:
+Decision { revision: 1, generation: 393, actor: 0, kind: "priority", count: 1, candidates: [Pass, PlayLand { card: VisibleRef { zone: Hand, row: 0 } }, PlayLand { card: VisibleRef { zone: Hand, row: 1 } }, PlayLand { card: VisibleRef { zone: Hand, row: 2 } }, PlayLand { card: VisibleRef { zone: Hand, row: 3 } }, PlayLand { card: VisibleRef { zone: Hand, row: 4 } }, Cast { card: VisibleRef { zone: Hand, row: 0 } }, Activate { card: VisibleRef { zone: Battlefield, row: 12 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 0 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 1 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 2 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 3 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 4 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 5 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 6 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 7 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 8 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 9 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 10 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 11 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 12 } }], legal_mask: [true, false, false, false, false, false, true, false, false, false, false, false, true, true, true, true, true, true, true, true, false], factored: None } Activate { card: VisibleRef { zone: Battlefield, row: 12 } }: Action(Policy(InvalidSelection))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test activation_mana_invoker_normal_reset_payment_sources_capture_replay ... FAILED
+
+failures:
+
+failures:
+    activation_mana_invoker_normal_reset_payment_sources_capture_replay
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.17s
+
+error: test failed, to rerun pass `-p mtg-recorder --test invoker`
+     Running tests/manifest_contract.rs (target/debug/deps/manifest_contract-db705e66592177cc)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 12 filtered out; finished in 0.00s
+
+     Running tests/shivan.rs (target/debug/deps/shivan-33d5f234e8cc9409)
+
+running 1 test
+
+thread 'activation_mana_shivan_normal_reset_payment_sources_capture_replay' (292610) panicked at crates/mtg-recorder/tests/shivan.rs:28:25:
+Decision { revision: 1, generation: 261, actor: 0, kind: "priority", count: 1, candidates: [Pass, PlayLand { card: VisibleRef { zone: Hand, row: 0 } }, PlayLand { card: VisibleRef { zone: Hand, row: 1 } }, PlayLand { card: VisibleRef { zone: Hand, row: 2 } }, PlayLand { card: VisibleRef { zone: Hand, row: 3 } }, PlayLand { card: VisibleRef { zone: Hand, row: 4 } }, Activate { card: VisibleRef { zone: Battlefield, row: 8 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 0 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 1 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 2 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 3 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 4 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 5 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 6 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 7 } }, TapMana { card: VisibleRef { zone: Battlefield, row: 8 } }], legal_mask: [true, false, false, false, false, false, false, false, false, false, false, false, false, true, true, false], factored: None } Activate { card: VisibleRef { zone: Battlefield, row: 8 } }: Action(Policy(InvalidSelection))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test activation_mana_shivan_normal_reset_payment_sources_capture_replay ... FAILED
+
+failures:
+
+failures:
+    activation_mana_shivan_normal_reset_payment_sources_capture_replay
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.11s
+
+error: test failed, to rerun pass `-p mtg-recorder --test shivan`
+     Running tests/structured_contract.rs (target/debug/deps/structured_contract-8c1982f742f7ea51)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/surprise.rs (target/debug/deps/surprise-57485ca9ef4c30de)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/thrill.rs (target/debug/deps/thrill-25a94654396ecaee)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/trample.rs (target/debug/deps/trample-9a6d51a1d7c5f07f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+error: 5 targets failed:
+    `-p mtg-core --lib`
+    `-p mtg-policy --test heuristic`
+    `-p mtg-recorder --lib`
+    `-p mtg-recorder --test invoker`
+    `-p mtg-recorder --test shivan`

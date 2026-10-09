@@ -4,7 +4,7 @@ use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,
 };
-pub const HEURISTIC_VERSION: &str = "heuristic-full-pool-v1";
+pub const HEURISTIC_VERSION: &str = "heuristic-activation-mana-v1";
 pub struct Heuristic {
     seat: u8,
 }
