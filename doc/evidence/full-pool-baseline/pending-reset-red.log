@@ -1,0 +1,24 @@
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/crates/mtg-cli)
+    Finished `test` profile [optimized + debuginfo] target(s) in 14.60s
+     Running unittests src/main.rs (target/debug/deps/mtg-634074455f05cda9)
+
+running 6 tests
+test resident::tests::full_pool_contract_resident_os_units_are_bytes_not_serialized_size ... ok
+test benchmark::tests::full_pool_contract_accepts_all_eight_rows_without_shorter_horizon ... ok
+test resident::tests::full_pool_contract_resident_stress_scores_use_actual_public_position ... ok
+
+thread 'resident::tests::full_pool_contract_resident_stress_sweep_retains_every_point_and_rejects_corruption' (197133) panicked at crates/mtg-cli/src/resident.rs:439:69:
+called `Result::unwrap()` on an `Err` value: "reset churn failed: WorkPending"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test resident::tests::full_pool_contract_resident_stress_sweep_retains_every_point_and_rejects_corruption ... FAILED
+test resident::tests::full_pool_contract_resident_stress_probe_preserves_native_output ... ok
+test resident::tests::full_pool_contract_resident_prefix_reexecutes_normal_play_and_rejects_corruption ... ok
+
+failures:
+
+failures:
+    resident::tests::full_pool_contract_resident_stress_sweep_retains_every_point_and_rejects_corruption
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 30 filtered out; finished in 0.38s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

@@ -1,0 +1,133 @@
+FFFFFFFFFFFFF.FFF
+======================================================================
+FAIL: test_best_window_summary_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_best_window_summary_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 51, in test_best_window_summary_rejected
+    with self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_contamination_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_contamination_rejected) (key='contaminated')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 40, in test_contamination_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_contamination_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_contamination_rejected) (key='profiler')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 40, in test_contamination_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_contamination_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_contamination_rejected) (key='returncode')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 40, in test_contamination_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_contamination_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_contamination_rejected) (key='heavy_lock')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 40, in test_contamination_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='elapsed_ns')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='failed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='completed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='stop_code')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='first_episode')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='decisions')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='completed_games_per_second')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_horizon_duration_failure_overflow_and_accounting_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_horizon_duration_failure_overflow_and_accounting_rejected) (key='counters')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 47, in test_horizon_duration_failure_overflow_and_accounting_rejected
+    with self.subTest(key=key), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_omitted_window_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_omitted_window_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 35, in test_omitted_window_rejected
+    with self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_warmup_omission_or_shortening_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_warmup_omission_or_shortening_rejected) (n=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 56, in test_warmup_omission_or_shortening_rejected
+    with self.subTest(n=n), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_warmup_omission_or_shortening_rejected (tests.test_scalar_artifact.ScalarArtifactTests.test_warmup_omission_or_shortening_rejected) (n=9999999999)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 56, in test_warmup_omission_or_shortening_rejected
+    with self.subTest(n=n), self.assertRaises(ValueError): validate_report(v)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+FAILED (failures=16)

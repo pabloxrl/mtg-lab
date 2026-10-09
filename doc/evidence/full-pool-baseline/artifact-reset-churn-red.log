@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_reset_churn_must_not_be_omitted (tests.test_scalar_artifact.ResidentArtifactTests.test_reset_churn_must_not_be_omitted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 159, in test_reset_churn_must_not_be_omitted
+    with self.assertRaises(ValueError):validate_resident(v)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

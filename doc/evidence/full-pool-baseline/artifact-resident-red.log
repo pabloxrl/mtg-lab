@@ -1,0 +1,38 @@
+EFFF
+======================================================================
+ERROR: test_literal_os_slope (tests.test_scalar_artifact.ResidentArtifactTests.test_literal_os_slope)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 133, in test_literal_os_slope
+    self.assertEqual(validate_resident(self.example())['first_cycle_bytes_per_state'],1024)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyError: 'first_cycle_bytes_per_state'
+
+======================================================================
+FAIL: test_missing_capacity_point_or_stress_rejected (tests.test_scalar_artifact.ResidentArtifactTests.test_missing_capacity_point_or_stress_rejected) (mutation='point')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 142, in test_missing_capacity_point_or_stress_rejected
+    with self.subTest(mutation=mutation),self.assertRaises(ValueError):validate_resident(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_capacity_point_or_stress_rejected (tests.test_scalar_artifact.ResidentArtifactTests.test_missing_capacity_point_or_stress_rejected) (mutation='class')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 142, in test_missing_capacity_point_or_stress_rejected
+    with self.subTest(mutation=mutation),self.assertRaises(ValueError):validate_resident(v)
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_capacity_point_or_stress_rejected (tests.test_scalar_artifact.ResidentArtifactTests.test_missing_capacity_point_or_stress_rejected) (mutation='rss')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 142, in test_missing_capacity_point_or_stress_rejected
+    with self.subTest(mutation=mutation),self.assertRaises(ValueError):validate_resident(v)
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=3, errors=1)

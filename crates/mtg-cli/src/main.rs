@@ -2,6 +2,7 @@ mod benchmark;
 mod capture;
 mod commands;
 mod native;
+mod resident;
 mod script;
 mod simulate;
 mod trajectories;
