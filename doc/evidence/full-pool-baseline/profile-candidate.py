@@ -1,8 +1,15 @@
-import hashlib,json,os,subprocess
+"""Replay the recorded independent profiles into fresh output directories."""
+import argparse,hashlib,json,os,subprocess
 from pathlib import Path
-root=Path.cwd();out=root/'doc/evidence/full-pool-baseline/profiles';out.mkdir(exist_ok=False)
-raw=root/'.agent-artifacts/profiles';raw.mkdir(exist_ok=False)
-capture=json.loads((root/'doc/evidence/full-pool-baseline/resident/capture.json').read_text())
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--output',type=Path,required=True)
+parser.add_argument('--raw',type=Path,required=True)
+parser.add_argument('--capture',type=Path,default=Path('doc/evidence/full-pool-baseline/resident/capture.json'))
+args=parser.parse_args()
+if 'MTG_SYMPHONY_LOCK_FD' not in os.environ:parser.error('shared heavy lock required')
+root=Path.cwd();out=args.output.resolve();out.mkdir(parents=True,exist_ok=False)
+raw=args.raw.resolve();raw.mkdir(parents=True,exist_ok=False)
+capture=json.loads(args.capture.read_text())
 fd=int(os.environ['MTG_SYMPHONY_LOCK_FD']);receipts={}
 for kind,specimen in capture['specimens'].items():
     config=out/(kind+'.config.json');config.write_text(json.dumps(specimen['config'],indent=2)+'\n')

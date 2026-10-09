@@ -2,6 +2,10 @@
 
 Measured implementation: `e64842ed6c8529d70997ba1d508607e5c19c66cd`, based on
 main `362aad0eeb5c7ab38d4b710de3f63c266ec48a52`, on 2026-10-09.
+Delivery subsequently integrated main `17aeefe` (combat-reference evidence and
+a `#[cfg(test)]` module). It changes no production rules, policy or benchmark
+path. Measurements remain explicitly pinned to the earlier executable; a new
+source hash caused by added test source is not relabeled as a measured binary.
 This is the bounded #217 scalar artifact, not whole-RFC certification, M2 gate
 completion, or designated-host qualification. Independent review and protected
 delivery receipts belong in the issue/PR workpad.
@@ -90,7 +94,17 @@ All four heap/PC collections and both CPU-only collections, including their
 metric/function/heap/statistics/overview exports, returned zero. The original
 [campaign script](profile-candidate.py) reproduces the diagnostic commands from
 the repository root with an existing resident capture, verified release binary,
-the shared heavy lock, and fresh `profiles` output directories. Exported heap
+the shared heavy lock, and fresh output directories (the published script adds
+path arguments to the original campaign commands):
+
+```sh
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- \
+  python3 doc/evidence/full-pool-baseline/profile-candidate.py \
+  --capture /tmp/mtg-resident-new/capture.json \
+  --output /tmp/mtg-profile-new --raw /tmp/mtg-profile-raw-new
+```
+
+Exported heap
 reports are losslessly gzip-compressed here. Raw experiment-file hashes are
 retained for heap collections; the multi-gigabyte temporary experiments are not
 committed. Full exported call-stack allocation reports remain available.
@@ -142,6 +156,8 @@ passing [focused](focused-e64842e.log.gz) and [torture](torture-e64842e.log.gz) 
 cover the measured implementation after current-main integration, including
 debug/release full-pool normal play, replay, capture, work-quantum equivalence and
 rejection nonmutation. No existing test was removed, skipped or weakened.
+The complete [post-integration torture log](torture-integrated.log.gz) additionally
+passes after merging `17aeefe`, retaining its combat-reference regressions.
 
 This change adds measurement adapters, not mechanics or a reference bridge.
 The prerequisite component/reference receipts remain authoritative; #23/#24/#25
