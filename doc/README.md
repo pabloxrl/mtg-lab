@@ -1,4 +1,14 @@
-# Research documentation
+# Documentation
+
+- [Getting started](getting-started.md) — Docker setup, verification and runnable examples.
+- [Supported functionality and verification](capabilities.md) — complete capability matrix, boundaries and acceptance evidence.
+- [Architecture](architecture.md) — module responsibilities, compatibility boundaries and repository layout.
+- [Scope and roadmap](roadmap.md) — first playable scope, test strategy and delivery stages.
+- [Contributing](contributing.md) — contribution workflow, documentation maintenance and agent progress.
+- [Simulation](simulate.md) — configuration, policies, capture, limits and exit codes.
+- [Headless commands](headless-commands.md) — replay, inspection, validation and benchmarks.
+
+## Research and operations
 
 - [MVP test strategy](testing/README.md) — concrete capability designs, AI-played game replay across three engines, component tests and delivery gates.
 
