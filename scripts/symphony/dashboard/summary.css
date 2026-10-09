@@ -9,4 +9,15 @@
 #operator-footer { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; margin-top: 20px; padding-top: 14px; border-top: 1px solid #ececf1; }
 #operator-footer a { font-size: 13px; text-decoration: underline; }
 #operator-summary[data-freshness=stale], #operator-summary[data-freshness=unavailable] { border-left-color: #b7791f; }
+#operator-tasks { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 16px; margin-top: 18px; }
+#operator-tasks[hidden] { display: none; }
+.operator-task { min-width: 0; border: 1px solid #d9d9e3; border-left: 3px solid #10a37f; border-radius: 10px; padding: 18px; overflow-wrap: anywhere; }
+.operator-task h3 { margin: 0; font-size: 18px; }
+.operator-task-state { font-size: 12px; font-weight: 700; color: #0f513f; }
+.operator-task-current { font-size: 17px; line-height: 1.5; }
+.operator-task-blocker { color: #b42318; font-weight: 500; }
+.operator-task-freshness, .operator-task-time, .operator-task-milestone, #operator-queue { font-size: 12px; color: #6e6e80; }
+.operator-task a { font-size: 13px; text-decoration: underline; }
+.operator-task[data-state=blocked], .operator-task[data-state=retrying], .operator-task[data-freshness=stale] { border-left-color: #b7791f; }
+.operator-task[data-state=queued], .operator-task[data-state=ready] { border-left-color: #6e6e80; }
 @media (max-width: 600px) { #operator-summary { width: calc(100% - 24px); padding: 20px; margin-top: 12px; } #operator-current { font-size: 17px; } }

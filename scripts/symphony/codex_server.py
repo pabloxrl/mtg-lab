@@ -14,5 +14,11 @@ for name in config.get("mcp_servers", {}):
     if not re.fullmatch(r"[A-Za-z0-9_-]+", name):
         raise SystemExit("Unsupported MCP name in host config; cannot safely disable it")
     args.extend(["-c", f"mcp_servers.{name}.enabled=false"])
+# Each dispatched checkout owns its writable reference tree; Maven mutates it.
+issue_directory = Path.cwd().name
+if not re.fullmatch(r"GH-[1-9][0-9]*", issue_directory):
+    raise SystemExit("Expected an issue workspace for managed delivery")
+os.environ["MTG_REFERENCE_CACHE"] = str(Path.home() / ".cache" / ("xmage-" + issue_directory))
+os.environ["CARGO_TARGET_DIR"] = str(Path.cwd() / "target")
 args.append("app-server")
 os.execvp(args[0], args)

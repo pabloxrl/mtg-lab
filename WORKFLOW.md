@@ -19,7 +19,7 @@ hooks:
   before_run: |
     python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/before_run.py"
 agent:
-  max_concurrent_agents: 1
+  max_concurrent_agents: 3
   max_turns: 12
   max_retry_backoff_ms: 300000
 codex:
@@ -46,7 +46,7 @@ This is continuation/retry {{ attempt }}. Resume existing work and PR; do not
 repeat completed work or create duplicate branches, comments, or PRs.
 {% endif %}
 
-This is unattended delivery. Read AGENTS.md, doc/programs/engine-validation.md and the two RFCs before changing code.
+This is unattended delivery. Read AGENTS.md, doc/programs/engine-validation.md, doc/rfcs/0003-data-driven-cards.md and the two earlier RFCs before changing code.
 The current engine-validation plan supersedes older release scope: no new RL work.
 Work only in this checkout, inside the managed Linux container. Use the image's
 Rust/Java/Maven/Python tools. Never install host software, mount host paths,
@@ -104,6 +104,40 @@ explicitly when you are still testing rather than claiming completion. Never
 include secrets, raw command output, private prompts or internal reasoning.
 These notes explain progress; workpads and CI remain the delivery evidence.
 No additional model session is needed for the dashboard.
+
+## Parallel workers and shared resources
+
+Symphony runs at most three issue workers. Every implementation lane belongs in
+Symphony; do not start an off-dashboard worker for another issue. Work only on
+your assigned issue and preserve other workers' branches, reports and claims.
+Read other open PRs before editing shared interfaces; integrate current main and
+retain all independent changes before delivery. Do not share writable reference
+source trees or Cargo target directories between issues. Use `$MTG_REFERENCE_CACHE`
+for this issue's XMage cache and the checkout-local Cargo target directory. A
+cache is build input/output, never authorization or acceptance evidence.
+
+The controller, workers and verification share a four-CPU, 7-GiB container. Run
+full torture, Cargo builds/tests and reference/Maven commands through the shared
+heavy-work lock, for example:
+`python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- ./scripts/torture.sh`
+and the same wrapper before `python3 scripts/cast_trigger_reference.py --cache
+"$MTG_REFERENCE_CACHE" --output ...`. The lock waits; it never skips a check.
+Write an operator note before waiting and after acquiring/completing the command.
+Lightweight reading, editing and Python checks can proceed concurrently. Never
+run an unlocked heavy command to avoid the queue. If the sandbox blocks the
+shared lock path, request the existing narrow auto-review approval for the locked
+command; do not substitute a different lock directory or disable the sandbox. Keep waiting jobs visible as
+running tasks; a resource wait is not a defect or a reason to remove readiness.
+
+Serialize parent-workpad mutations and successor activation with the `handoff`
+lock using the same wrapper. Execute the re-fetch, validated read/modify/write,
+reservation and confirmation in one bounded script under that lock, rather than
+holding a lock across model turns. Prepare evidence before acquiring it; inside
+the lock re-fetch current parent/task/target controls and all open ready/running
+claims, then preserve every other worker's workpad entries and labels. Never hold
+the handoff lock while running tests, waiting for CI or acquiring the heavy lock.
+GitHub protection serializes merges; re-integrate and repeat required validation
+when another worker changes main. Do not use an administrative override.
 
 ## Implement, verify, review
 
@@ -217,6 +251,8 @@ requirement ownership; they do not waive any product requirement.
    recorded. A failed current task never satisfies dependencies. Gate eligibility
    includes all milestone implementations, not merely a subset listed in text.
    An independent blocked task does not prevent other eligible tasks running.
+   Perform shared parent-workpad updates and steps 5–7 in one bounded operation
+   under the handoff lock described above; re-fetch before each mutation.
 6. Respect operator removal of dispatch authorization: never automatically
    restore `agent-ready` to an issue that previously had it and now lacks it
    (inspect paginated GitHub issue label events). This includes paused, canceled,
@@ -227,9 +263,13 @@ requirement ownership; they do not waive any product requirement.
    regain ready ONLY after every normal dependency/control check passes; atomically
    add ready and consume the grant while preserving other labels. This exception
    does not clear held/blocked controls or bypass dependencies.
-   Never remove `agent-held` or `agent-blocked` during handoff. If another open program
-   task is already ready/running, retain it and do not enqueue another. Do not
-   alter unrelated ready issues or the one-worker concurrency setting.
+   Never remove `agent-held` or `agent-blocked` during handoff. Retain every other
+   ready/running claim. Count unique other open program tasks
+   with either label, excluding the completing current task: if there are already
+   three, enqueue nothing further. Otherwise activate at most one eligible
+   successor. A target already ready/running is owned: do not claim or duplicate
+   it. Recheck counts and controls under the handoff lock immediately before
+   activation. Do not alter unrelated ready issues or controller concurrency.
 7. Re-fetch controls and selected task immediately before mutation. Record the
    selected successor and evidence in the parent workpad, then add
    `agent-ready` to that issue, preserving its other labels except consuming an
@@ -270,7 +310,7 @@ approach. Continue in scope when a credible next step exists. A counter alone
 never requires approval. Keep one independently testable deliverable per issue;
 genuine scope changes require coordinator replanning, not silently widened work.
 
-Keep one-worker concurrency, request/subprocess and worker-stall timeouts, and
+Keep the configured three-worker limit, request/subprocess and worker-stall timeouts, and
 bounded retry backoff. The pinned controller returns after `max_turns: 12` and
 schedules an active-state continuation check after one second. Abnormal worker
 exits retry with exponential backoff from 10 seconds capped at 300 seconds;

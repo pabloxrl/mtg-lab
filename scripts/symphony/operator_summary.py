@@ -6,19 +6,18 @@ import os
 from pathlib import Path
 import re
 import stat
+import subprocess
 import urllib.request
 
 REFRESH_SECONDS = 300
 MAX_REPORT_BYTES = 16384
-PROJECT_GOAL = ('Build a trustworthy Magic simulator where AI players can play reproducible games, '
-                'learn from them, and leave a record we can inspect when something goes wrong.')
+MAX_QUEUE_ISSUES = 200
+PROJECT_GOAL = ('Verify the frozen red and green toy decks through complete games and reproducible '
+                'replays of games played by Forge and XMage AI players, with independent rules checks.')
 MILESTONES = {
     'M0': 'Establish the rules, card lists and independent checks that later engine work can rely on.',
     'M1': 'Get a small set of cards through complete games, with correct choices, replays and recorded results.',
     'M2': 'Make every card in the agreed first pool work correctly, then measure how fast games run.',
-    'M3': 'Run many games together and connect them to Python training tools without losing or leaking game data.',
-    'M4': 'Make the command-line tools and two-player interface work reliably without manual intervention.',
-    'M5': 'Stress the finished system, compare it with independent engines, and prove it is ready to use.',
 }
 FIELDS = {'version', 'issue', 'updated_at', 'current', 'why', 'next', 'blocker'}
 
@@ -59,7 +58,7 @@ def issue_number(row):
     return int(match.group(1)) if match else None
 
 
-def summarize(state, report=None, milestone=None, now=None):
+def _summarize_one(state, report=None, milestone=None, now=None):
     now = now or datetime.now(timezone.utc)
     result = dict(version=1, checked_at=now.isoformat(), refresh_seconds=REFRESH_SECONDS,
                   issue=None, milestone=None, milestone_goal=None, project_goal=PROJECT_GOAL,
@@ -103,6 +102,84 @@ def summarize(state, report=None, milestone=None, now=None):
     return result
 
 
+def summarize(state, report=None, milestone=None, now=None, *, reports=None, milestones=None, queue=None):
+    """Keep the first-worker contract, plus an isolated summary for every task.
+
+    Running takes precedence over retrying, blocked and the ready queue during
+    tracker transitions. Queue membership alone never claims a task is running.
+    """
+    now = now or datetime.now(timezone.utc)
+    reports, milestones = dict(reports or {}), dict(milestones or {})
+    valid = isinstance(state, dict) and all(isinstance(state.get(k), list)
+                                          for k in ('running', 'retrying', 'blocked'))
+    if valid:
+        primary = state['running'] or state['retrying'] or state['blocked']
+        issue = issue_number(primary[0]) if primary and isinstance(primary[0], dict) else None
+        if issue is not None:
+            if report is not None:
+                reports.setdefault(issue, report)
+            if milestone is not None:
+                milestones.setdefault(issue, milestone)
+            report, milestone = reports.get(issue), milestones.get(issue)
+    result = _summarize_one(state, report, milestone, now)
+    tasks, seen = [], set()
+    if valid:
+        for kind in ('running', 'retrying', 'blocked'):
+            for row in state[kind]:
+                issue = issue_number(row) if isinstance(row, dict) else None
+                if issue is not None and issue in seen:
+                    continue
+                if issue is not None:
+                    seen.add(issue)
+                single = dict(running=[], retrying=[], blocked=[])
+                single[kind] = [row]
+                tasks.append(_summarize_one(single, reports.get(issue), milestones.get(issue), now))
+    available = (isinstance(queue, dict) and queue.get('status') == 'available'
+                 and isinstance(queue.get('issues'), list))
+    ready = []
+    if available:
+        ready = list(dict.fromkeys(number for number in queue['issues']
+                     if type(number) is int and 0 < number <= 999999999))[:MAX_QUEUE_ISSUES]
+        for issue in ready:
+            if issue in seen:
+                continue
+            task = _summarize_one(None, now=now)
+            task.update(issue=issue, state='queued' if valid else 'ready',
+                        current='This task is ready and waiting for a worker.' if valid else
+                                'This task is marked ready; worker status is unavailable.',
+                        next='Symphony will dispatch it when capacity and its prerequisites allow.',
+                        milestone=milestones.get(issue) if milestones.get(issue) in MILESTONES else None,
+                        milestone_goal=MILESTONES.get(milestones.get(issue)))
+            tasks.append(task)
+    result['tasks'] = tasks
+    result['queue'] = dict(status='available' if available else 'unavailable',
+                           count=len(ready) if available else None,
+                           truncated=bool(queue.get('truncated')) if available else False)
+    return result
+
+
+def fetch_queue():
+    """Read this repository's ready issue numbers; never expose gh output/errors."""
+    try:
+        process = subprocess.run(
+            ['gh', 'issue', 'list', '--repo', 'pabloxrl/mtg-lab', '--state', 'open',
+             '--label', 'agent-ready', '--limit', str(MAX_QUEUE_ISSUES + 1), '--json', 'number'],
+            stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+            timeout=3, check=False)
+        if process.returncode or len(process.stdout) > MAX_REPORT_BYTES:
+            raise ValueError('queue unavailable')
+        rows = json.loads(process.stdout)
+        if not isinstance(rows, list) or len(rows) > MAX_QUEUE_ISSUES + 1:
+            raise ValueError('invalid queue')
+        if any(not isinstance(row, dict) or set(row) != {'number'} or
+               type(row['number']) is not int or not 0 < row['number'] <= 999999999 for row in rows):
+            raise ValueError('invalid queue issue')
+        return dict(status='available', issues=sorted({row['number'] for row in rows})[:MAX_QUEUE_ISSUES],
+                    truncated=len(rows) > MAX_QUEUE_ISSUES)
+    except (OSError, ValueError, TypeError, subprocess.TimeoutExpired):
+        return dict(status='unavailable', issues=[], truncated=False)
+
+
 def bounded_json(path, limit):
     """Do not follow workspace symlinks into credentials or unrelated files."""
     if path.resolve() != path.absolute():
@@ -128,27 +205,38 @@ def collect(workspaces=None, control=None):
         state = json.loads(raw)
         if not isinstance(state, dict):
             raise ValueError('invalid state')
-        rows = state.get('running') or state.get('retrying') or state.get('blocked') or []
-        issue = issue_number(rows[0]) if isinstance(rows, list) and rows and isinstance(rows[0], dict) else None
     except (OSError, ValueError, TypeError):
-        return summarize(None)
-    report, milestone = None, None
-    if issue:
+        state = None
+    queue = fetch_queue()
+    reports, milestones, issues, running = {}, {}, set(queue['issues']), set()
+    if isinstance(state, dict):
+        for kind in ('running', 'retrying', 'blocked'):
+            rows = state.get(kind)
+            if isinstance(rows, list):
+                for row in rows:
+                    issue = issue_number(row) if isinstance(row, dict) else None
+                    if issue:
+                        issues.add(issue)
+                        if kind == 'running':
+                            running.add(issue)
+    for issue in sorted(issues):
         workspace = workspaces / f'GH-{issue}'
-        try:
-            report = bounded_json(workspace / '.agent-artifacts/operator-summary.json', MAX_REPORT_BYTES)
-        except (OSError, ValueError):
-            pass
+        if issue in running:
+            try:
+                reports[issue] = bounded_json(workspace / '.agent-artifacts/operator-summary.json', MAX_REPORT_BYTES)
+            except (OSError, ValueError):
+                pass
         for base in (workspace, control):
             try:
                 program = bounded_json(base / 'doc/programs/rfc-0002.json', 262144)
                 milestone = next(t['milestone'] for t in program['tasks'] if t['issue'] == issue)
                 if milestone not in MILESTONES:
                     raise ValueError('unknown milestone')
+                milestones[issue] = milestone
                 break
             except (OSError, ValueError, KeyError, TypeError, StopIteration):
-                milestone = None
-    return summarize(state, report, milestone)
+                pass
+    return summarize(state, reports=reports, milestones=milestones, queue=queue)
 
 
 class Handler(BaseHTTPRequestHandler):

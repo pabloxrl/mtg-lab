@@ -8,9 +8,11 @@ const source = fs.readFileSync(__dirname + '/summary.js', 'utf8');
 function setup() {
   const nodes = new Map(), timers = [], listeners = {};
   function element(tag) {
-    return {tag, textContent: '', hidden: false, dataset: {},
+    return {tag, textContent: '', hidden: false, dataset: {}, children: [],
       set id(id) { nodes.set(id, this); },
-      setAttribute() {}, appendChild() {}, prepend() {}};
+      setAttribute() {}, removeAttribute(name) {delete this[name];},
+      appendChild(child) {this.children.push(child);}, prepend(child) {this.children.unshift(child);},
+      replaceChildren(...children) {this.children = children;}};
   }
   let value = {version: 1, current: 'I am testing spell responses.', why: 'Games need correct results.',
     next: 'Check both spells together.', blocker: null, milestone: 'M1', milestone_goal: 'Complete games.',
@@ -80,4 +82,57 @@ test('changing task clears prior blocker; returning to the tab refreshes', async
   page.listeners.visibilitychange(); await flush();
   assert.equal(page.nodes.get('operator-blocker').hidden, true);
   assert.equal(page.nodes.get('operator-issue').href, 'https://github.com/pabloxrl/mtg-lab/issues/71');
+});
+
+test('parallel cards isolate notes, blockers, freshness and original issue links', async () => {
+  const page = setup(); await flush();
+  const base = page.get();
+  page.set({...base, tasks: [
+    {...base, state: 'running', blocker: 'Waiting for a reference build.'},
+    {...base, issue: 71, state: 'running', current: 'Testing cleanup.', freshness: 'stale'},
+    {...base, issue: 72, state: 'queued', current: 'Waiting for a worker.', freshness: 'unavailable'}
+  ], queue: {status: 'available', count: 1, truncated: false}});
+  await page.timers[0].fn();
+  assert.equal(page.nodes.get('operator-tasks').children.length, 3);
+  assert.equal(page.nodes.get('operator-content').hidden, true);
+  assert.equal(page.nodes.get('operator-task-0-current').textContent, base.current);
+  assert.equal(page.nodes.get('operator-task-1-current').textContent, 'Testing cleanup.');
+  assert.equal(page.nodes.get('operator-task-0-blocker').hidden, false);
+  assert.equal(page.nodes.get('operator-task-1-blocker').hidden, true);
+  assert.equal(page.nodes.get('operator-task-1').dataset.freshness, 'stale');
+  assert.equal(page.nodes.get('operator-task-2-state').textContent, 'Queued');
+  assert.equal(page.nodes.get('operator-task-1-issue').href, 'https://github.com/pabloxrl/mtg-lab/issues/71');
+  page.set({...page.get(), tasks: [{...base, issue: 71, state: 'running', current: 'Finished cleanup.', blocker: null}]});
+  await page.timers[0].fn();
+  assert.equal(page.nodes.get('operator-tasks').children.length, 1);
+  assert.equal(page.nodes.get('operator-task-0-blocker').hidden, true);
+  assert.equal(page.nodes.get('operator-task-0-current').textContent, 'Finished cleanup.');
+  assert.equal(page.nodes.get('operator-task-0-issue').href, 'https://github.com/pabloxrl/mtg-lab/issues/71');
+});
+
+test('queue failure is explicit and task prose never provides executable links', async () => {
+  const page = setup(); await flush();
+  const base = page.get();
+  page.set({...base, tasks: [{...base, state: 'blocked', issue: 'javascript:attack()',
+    current: '<script>private()</script>', issue_url: 'https://evil.example/', blocker: null}],
+    queue: {status: 'unavailable', count: null}});
+  await page.timers[0].fn();
+  assert.match(page.nodes.get('operator-queue').textContent, /could not be checked/);
+  assert.equal(page.nodes.get('operator-task-0-current').textContent, '<script>private()</script>');
+  assert.equal(page.nodes.get('operator-task-0-issue').hidden, true);
+  assert.equal(page.nodes.get('operator-task-0-issue').href, undefined);
+  assert.equal(page.nodes.get('operator-task-0-state').textContent, 'Needs attention');
+  const cards = page.nodes.get('operator-tasks').children;
+  page.fail(); await page.timers[0].fn();
+  assert.equal(page.nodes.get('operator-tasks').children, cards);
+  assert.match(page.nodes.get('operator-notice').textContent, /last information received/);
+});
+
+test('queue truncation and unknown worker state stay visible', async () => {
+  const page = setup(); await flush();
+  page.set({...page.get(), state: 'unavailable', tasks: [],
+    queue: {status: 'available', count: 200, truncated: true}});
+  await page.timers[0].fn();
+  assert.match(page.nodes.get('operator-queue').textContent, /partially shown/);
+  assert.match(page.nodes.get('operator-notice').textContent, /Worker status is unavailable/);
 });
