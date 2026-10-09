@@ -55,7 +55,7 @@
     "crates/mtg-core/src/game.rs": "76137869136f95b6134312099d75658040fbe58158a12504e9fb3279bfbb6a04",
     "crates/mtg-core/src/haste_tests.rs": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
     "crates/mtg-core/src/instant_reference_tests.rs": "8d890847a3217735073aa10d77db82e6588398594fb3ebeba42fc49ecca4ef18",
-    "crates/mtg-core/src/invoker_tests.rs": "4d9cccc3edae76a305165e9a54528320d49278bc13d4c347fdc4afa4fd7ddbd5",
+    "crates/mtg-core/src/invoker_tests.rs": "cea8bf67ec6a1726ff33c77d10d1871075e9a89047d5da37ae63f85808a4dede",
     "crates/mtg-core/src/lib.rs": "fbddffce597a32ed7b539a0df3dec03c4f8ee5fbc54f77912a9b1498fab621f7",
     "crates/mtg-core/src/m2_cost_reference_tests.rs": "1a613d72939e1cea45b6713a0150841ab83d2f36e9f24fce925059315274912b",
     "crates/mtg-core/src/m2_mutation_tests.rs": "8200fd26f99398cce7837b49c614474d2f576793f5b12125459cbf83ef9c2ef7",
@@ -71,7 +71,7 @@
     "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
     "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
     "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
-    "crates/mtg-core/src/shivan_tests.rs": "21a3d5ab69c50dcc0feebcd6b833bef92daf859d6c86c3c9b70eaff6ff1c6bfa",
+    "crates/mtg-core/src/shivan_tests.rs": "517fa3b7d5b0753c66f1f3c16d513c4ec9171a9bcb5f83fa5cc11c1c9af4964e",
     "crates/mtg-core/src/snapshot.rs": "0a5e1c90fdaa8266472389d7dd9487ac13b1b57f64403c76fa6c70b9b527b4af",
     "crates/mtg-core/src/targets.rs": "b657a310c77028daa7e69fb249f8861c07c511e1b2d08381d0ea9e2b34ce61da",
     "crates/mtg-core/src/targets_tests.rs": "67ae6fada2b2e0ee28926139fb89b9daffc9dfd6d23593f69bec541109627fab",
@@ -92,12 +92,12 @@
   },
   "runs": [
     {
-      "xmage_log_sha256": "0ea33fdf061a50fa3484a4252348aaab834084c9ad922009c06a998af861a322",
-      "native_log_sha256": "03a3393622071ec523b7a92fd5ba35b3dbe47f845af60127ccba7d096afa1620"
+      "xmage_log_sha256": "d524ced2b7edbaa289fbfcff8e88319a0db7a6e38f1e40de521660a2da6cda55",
+      "native_log_sha256": "04e8b10562d034865681b319c0a44a4530d374f388e3861aec9545d148a95fb3"
     },
     {
-      "xmage_log_sha256": "12b6374616ef754487239fc891369907dfa0c23d2fa2ca02a1c1abac6ddf874a",
-      "native_log_sha256": "6c594045ff6fed90c1f0a3e407199f2103b2b035bda3b5e3d06246a2173ece55"
+      "xmage_log_sha256": "8a56f4aff6ba028a168be2ec613af8e5c0170ff2c8620645734c44e948b56778",
+      "native_log_sha256": "0c6e7f699698a74d5b1e920c79d489f38d9a4e9fc90934705810cdf7fc9d1018"
     }
   ],
   "controls": [

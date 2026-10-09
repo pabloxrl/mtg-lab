@@ -1,6 +1,6 @@
 # Activation-payment mana choices
 
-GH-254 repair candidate; verification and protected delivery are pending.
+GH-254 repair candidate; full native verification passed, protected delivery is pending.
 This is not completion of the GH-23 mechanics audit or the M2 gate.
 
 CR 602.2b applies 601.2g/h to activated abilities; 605.3a permits mana abilities
@@ -72,8 +72,15 @@ python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- ./sc
 Twice-executed [Shivan](shivan/receipt.json) and [Invoker](invoker/receipt.json)
 receipts retain exact fixture/expectation, bridge, toolchain and native source
 hashes, consumed choices and first-divergence negative controls. Checkpoint exports
-are retained alongside each receipt. Final source-matched reruns are pending.
+are retained alongside each receipt. Final source-matched reruns agreed twice:
+24 Shivan cases and 17 Invoker cases, including the unchanged float-first cases.
+The documented headless native-policy quickstart completed both games without
+failed, incomplete or truncated episodes.
 
 The full-suite insufficient-mana fixture correction has [explicit independent
 review](expectation-review.md) and stronger mixed-payment regression coverage.
-Full torture, exact-candidate review and protected merge/exact-main CI: pending.
+Full [managed-container torture](torture.json) passed after current-main integration:
+222 Python tests and 1,378 Rust debug/release executions, zero failed/ignored.
+Prescribed independent review passed on the source candidate with no findings,
+including README accuracy and the fixture correction; final evidence commit
+review and protected merge/exact-main CI remain pending.
