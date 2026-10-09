@@ -95,3 +95,6 @@ retains `cfg(debug_assertions)` behavior and overflow panics, unlike release.
 The default development profile is unchanged. Cargo profile settings are
 specified explicitly in the workspace manifest; see the
 [Cargo profile reference](https://doc.rust-lang.org/cargo/reference/profiles.html).
+
+[Verification speed evidence](../evidence/verification-speed/README.md) records
+local timings, exact test-inventory comparison and cache limitations.
