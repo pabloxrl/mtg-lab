@@ -69,7 +69,8 @@ and [simulation guide](doc/simulate.md).
 Start with [AGENTS.md](AGENTS.md) and the [contributor guide](doc/contributing.md).
 Changes require independently justified tests, the full regression suite and
 separate review before protected integration. Keep capability claims and their
-evidence up to date when behavior changes.
+evidence up to date when behavior changes. CI runs every checked/release test and
+runtime check in parallel partitions; see [verification and caching](doc/testing/torture-suite.md#parallel-ci-and-caches).
 
 Work is tracked in [GitHub issues](https://github.com/pabloxrl/mtg-lab/issues).
 The [implementation program](https://github.com/pabloxrl/mtg-lab/issues/7) records
