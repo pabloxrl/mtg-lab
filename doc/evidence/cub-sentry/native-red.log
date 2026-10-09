@@ -1,0 +1,24 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-255/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 10.35s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 1 test
+test game::shivan_tests::shivan_reference_literal_checkpoints ... FAILED
+
+failures:
+
+---- game::shivan_tests::shivan_reference_literal_checkpoints stdout ----
+
+thread 'game::shivan_tests::shivan_reference_literal_checkpoints' (294651) panicked at crates/mtg-core/src/shivan_tests.rs:365:9:
+assertion `left == right` failed: cub_cast
+  left: Object {"dragon": Array [Number(6), Number(5), Number(0)], "legal": Bool(true), "life": Array [Number(20), Number(20)], "mana": Number(0), "others": Array [], "stack": Number(0)}
+ right: Object {"attempts": Array [Object {"accepted": Bool(false), "kind": String("reject_attack"), "unchanged": Bool(true)}], "consumed": Array [Object {"actor": Number(0), "kind": String("cast_cub")}, Object {"actor": Number(0), "kind": String("pay_green")}, Object {"actor": Number(0), "kind": String("pay_red")}, Object {"actor": Number(0), "kind": String("pass")}, Object {"actor": Number(1), "kind": String("pass")}, Object {"actor": Number(0), "kind": String("pass")}, Object {"actor": Number(1), "kind": String("pass")}, Object {"actor": Number(0), "kind": String("pass")}, Object {"actor": Number(1), "kind": String("pass")}, Object {"actor": Number(0), "kind": String("reject_attack")}], "points": Object {"attack_rejected": Object {"active": Number(0), "life": Array [Number(20), Number(20)], "mana": Array [Array [Number(0), Number(0)], Array [Number(0), Number(0)]], "objects": Object {"cub": Array [String("battlefield"), Number(2), Number(2), Number(0), Bool(false), Bool(true)]}, "priority": Number(0), "stack": Array [], "step": String("attackers")}, "cast": Object {"active": Number(0), "life": Array [Number(20), Number(20)], "mana": Array [Array [Number(0), Number(0)], Array [Number(0), Number(0)]], "objects": Object {"cub": Array [String("stack"), Null, Null, Null, Null, Null]}, "priority": Number(0), "stack": Array [String("bear-cub")], "step": String("main")}, "initial": Object {"active": Number(0), "life": Array [Number(20), Number(20)], "mana": Array [Array [Number(1), Number(1)], Array [Number(0), Number(0)]], "objects": Object {"cub": Array [String("hand"), Null, Null, Null, Null, Null]}, "priority": Number(0), "stack": Array [], "step": String("main")}, "resolved": Object {"active": Number(0), "life": Array [Number(20), Number(20)], "mana": Array [Array [Number(0), Number(0)], Array [Number(0), Number(0)]], "objects": Object {"cub": Array [String("battlefield"), Number(2), Number(2), Number(0), Bool(false), Bool(true)]}, "priority": Number(0), "stack": Array [], "step": String("main")}}}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::shivan_tests::shivan_reference_literal_checkpoints
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 283 filtered out; finished in 0.01s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -38,6 +38,9 @@ documents a bounded native/XMage command, assigned cases and observation limits.
 The [ordinary Sentry/Bite reference pack](doc/evidence/sentry-instant/README.md)
 covers six strict Cub/Sentry damage, response and Growth/cleanup inputs; it
 preserves the M1 shared scripts and does not complete the M2 aggregate audit.
+The [Cub casting and single-Sentry checks](doc/evidence/cub-sentry/README.md)
+extend the Shivan reference pack with explicit illegal-action attempts,
+payment/zone transitions and combat-damage checkpoints in both seats.
 
 ## Getting started
 

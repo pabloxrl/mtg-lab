@@ -1,0 +1,27 @@
+{
+  "base": "5aeab2f10e3aa91a88ac1792fd1f50a1fa744419",
+  "existing_cases": 23,
+  "new_cases": 8,
+  "files": {
+    "fixtures/reference/shivan.json": {
+      "base_sha256": "8c5de9d33178ca7aeaabd946dc95737c017162ba64e587cf1a21bf8eeebadd01",
+      "candidate_sha256": "53528fe2298b07bd911577a11daade5a2fd3fab2104c461f8e27846dd539282a",
+      "prior_rows_equal": true
+    },
+    "fixtures/reference/shivan-expectations.json": {
+      "base_sha256": "2ad3e45684b4b74a8745db052803d2ca2385cb6997ae4e8c72f2c63a39d49e49",
+      "candidate_sha256": "31b953af69d99bdb01fcf22d29643d4019f517647eb995109f2cbcc0b5d0a7e4",
+      "prior_rows_equal": true
+    },
+    "doc/testing/capability-test-plan.json": {
+      "base_sha256": "794f782d4dad77117bd05a900655196bfecfa8800bc02977ed151b9d8fb916fe",
+      "candidate_sha256": "794f782d4dad77117bd05a900655196bfecfa8800bc02977ed151b9d8fb916fe",
+      "bytes_unchanged": true
+    },
+    "doc/evidence/m2-repair-registration/diagnostics/GH-210/prerequisite-gap.txt": {
+      "base_sha256": "873bee841cbbcb76bed7b8c9a1607b998cf3de31563866c320da46c6816cc19b",
+      "candidate_sha256": "873bee841cbbcb76bed7b8c9a1607b998cf3de31563866c320da46c6816cc19b",
+      "bytes_unchanged": true
+    }
+  }
+}

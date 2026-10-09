@@ -1,0 +1,297 @@
+{
+  "points": {
+    "initial": {
+      "active": 1,
+      "priority": 1,
+      "step": "main",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "dragon": [
+          "battlefield",
+          5,
+          5,
+          0,
+          false,
+          false
+        ],
+        "sentry": [
+          "battlefield",
+          4,
+          4,
+          0,
+          false,
+          false
+        ],
+        "growth": [
+          "hand",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forest": [
+          "battlefield",
+          null,
+          null,
+          null,
+          false,
+          false
+        ]
+      }
+    },
+    "growth_cast": {
+      "active": 1,
+      "priority": 0,
+      "step": "blockers",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [
+        "giant-growth"
+      ],
+      "objects": {
+        "dragon": [
+          "battlefield",
+          5,
+          5,
+          0,
+          true,
+          false
+        ],
+        "sentry": [
+          "battlefield",
+          4,
+          4,
+          0,
+          false,
+          false
+        ],
+        "growth": [
+          "stack",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forest": [
+          "battlefield",
+          null,
+          null,
+          null,
+          true,
+          false
+        ]
+      }
+    },
+    "grown": {
+      "active": 1,
+      "priority": 1,
+      "step": "blockers",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "dragon": [
+          "battlefield",
+          5,
+          5,
+          0,
+          true,
+          false
+        ],
+        "sentry": [
+          "battlefield",
+          7,
+          7,
+          0,
+          false,
+          false
+        ],
+        "growth": [
+          "graveyard",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forest": [
+          "battlefield",
+          null,
+          null,
+          null,
+          true,
+          false
+        ]
+      }
+    },
+    "damage": {
+      "active": 1,
+      "priority": 1,
+      "step": "damage",
+      "mana": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "dragon": [
+          "graveyard",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "sentry": [
+          "battlefield",
+          7,
+          7,
+          5,
+          false,
+          false
+        ],
+        "growth": [
+          "graveyard",
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "forest": [
+          "battlefield",
+          null,
+          null,
+          null,
+          true,
+          false
+        ]
+      }
+    }
+  },
+  "consumed": [
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "attack",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "block",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "tap_forest",
+      "actor": 0
+    },
+    {
+      "kind": "cast_growth",
+      "actor": 0
+    },
+    {
+      "kind": "pay_green",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "damage",
+      "actor": 1
+    }
+  ],
+  "attempts": [],
+  "combat_damage": {
+    "dragon": 7,
+    "sentry": 5
+  }
+}
