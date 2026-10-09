@@ -1,0 +1,20 @@
+{
+  "status": "behavioral-failure",
+  "native": "all 17 checkpoint exports passed authored expectations",
+  "xmage": {
+    "tests": 17,
+    "failures": 6,
+    "errors": 0,
+    "skipped": 0,
+    "failure": "InstantResponseTest.java:284 input name-map assertion; original 11 passed"
+  },
+  "base": "5aeab2f10e3aa91a88ac1792fd1f50a1fa744419",
+  "baseline_bridge_sha256": "4ff7faee332144018be17ee3130bf73597b7648ed26274f84c3ca0bc22d4a07d",
+  "artifacts": {
+    "input.json": "db907adf0520e040ea1161a39d02bb32082b2e50774e7df49c5d7da6cf5b7001",
+    "first-divergence.json": "45bf17cba16ef0ab4d3d7c100bc01d6ff0cfc2fa230e901c1aa49547b266385f",
+    "native-1.log": "66b26ad928d4046b79b91b3d0aecf1b44a71c4d726ec259c028b8aaa1f619c05",
+    "xmage-1.log": "a5fcda854ff7bbb23b340efa7ba617e09efd04730e23bb4cefa50616ca7d667b",
+    "native-1.json": "4c2532cc3c72eafdb6c4ea77a469c024ca1f4d7cea886de077334b801f0a3984"
+  }
+}
