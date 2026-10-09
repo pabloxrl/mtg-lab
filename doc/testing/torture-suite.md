@@ -64,9 +64,10 @@ review and merge changes, and report only essential decisions or missing access.
 Operations #237 partitions the existing checks into `checks`, `debug`, `release`
 and `runtime` jobs. Run a partition using `./scripts/verify-docker.sh debug` (or
 one of the other names); omit the argument to run the complete local contract.
-Every PR and main commit still runs all four partitions. Debug and release remain
-unchanged Cargo profiles; no test, assertion, fixture, or reference requirement
-is removed. Matrix fail-fast is disabled so one failure does not cancel the other
+Every PR and main commit still runs all four partitions. The test profile uses optimization level 1 with debug information, debug
+assertions and integer-overflow checks explicitly enabled. The separate release
+profile is unchanged. No test, assertion, fixture, or reference requirement is
+removed. Matrix fail-fast is disabled so one failure does not cancel the other
 coverage. The required `verify` job succeeds only when the entire matrix succeeds;
 a failed, cancelled, skipped or missing matrix result fails the aggregate gate.
 
@@ -88,3 +89,9 @@ smoke checks. Parallelism removes serial waiting but does not reduce the total
 number of checks. Debug game/replay tests may still dominate elapsed time; further
 speed claims require measured runs. Full default verification remains mandatory
 for delivery. The runtime image and smoke contract are unchanged.
+
+The checked test profile changes compiler optimization, not test selection. It
+retains `cfg(debug_assertions)` behavior and overflow panics, unlike release.
+The default development profile is unchanged. Cargo profile settings are
+specified explicitly in the workspace manifest; see the
+[Cargo profile reference](https://doc.rust-lang.org/cargo/reference/profiles.html).

@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import tempfile
 import textwrap
+import tomllib
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -41,6 +42,14 @@ if [ -n "$FAIL_MATCH" ] && [ "$*" = "$FAIL_MATCH" ]; then exit 17; fi
 
     def calls(self):
         return self.log.read_text().splitlines() if self.log.exists() else []
+
+    def test_checked_profile_preserves_debug_assertions_and_overflow_checks(self):
+        manifest = tomllib.loads((ROOT / 'Cargo.toml').read_text())
+        profile = manifest['profile']['test']
+        self.assertTrue(profile['debug-assertions'])
+        self.assertTrue(profile['overflow-checks'])
+        self.assertTrue(profile['debug'])
+        self.assertNotIn('release', manifest['profile'])
 
     def test_full_contract_retains_all_checks_and_both_unfiltered_modes(self):
         result = self.run_script('torture.sh')
