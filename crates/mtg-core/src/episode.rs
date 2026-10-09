@@ -90,8 +90,21 @@ pub struct EpisodeResult {
     final_observations: Option<[policy::Observation; 2]>,
     budget: Option<Budget>,
     accepted_decisions: u64,
+    instrumentation: Mode,
 }
 impl EpisodeResult {
+    /// Privileged existing-format replay; never include its bytes in public diagnostics.
+    pub fn privileged_replay(&self, max_bytes: usize) -> Result<Option<Vec<u8>>, replay::Error> {
+        if self.instrumentation != Mode::FullReplay {
+            return Ok(None);
+        }
+        let bytes = replay::encode(self)?;
+        if bytes.len() > max_bytes {
+            return Err(replay::Error::Capacity);
+        }
+        Ok(Some(bytes))
+    }
+
     pub fn budget(&self) -> Option<&Budget> {
         self.budget.as_ref()
     }
@@ -148,12 +161,43 @@ pub struct Driver {
     accounting: Accounting,
     metrics: Option<RefCell<Counters>>,
     continuing_action: bool,
+    instrumentation: Mode,
+    trace_config: metrics::TraceConfig,
+    trace: metrics::Trace,
 }
 impl Driver {
+    pub fn set_trace_config(&mut self, config: metrics::TraceConfig) -> Result<(), Error> {
+        if self.inputs.is_some() || config.capacity > 65_536 {
+            return Err(Error::InvalidBudget);
+        }
+        self.trace_config = config;
+        Ok(())
+    }
+    /// Public numeric diagnostics only; reset-scoped and bounded independently of history.
+    pub fn diagnostic_trace(&self) -> Option<metrics::Trace> {
+        (self.instrumentation == Mode::SampledTrace).then(|| self.trace.clone())
+    }
+    fn trace_decision(&mut self) {
+        if self.instrumentation != Mode::SampledTrace
+            || !self.decisions.is_multiple_of(self.trace_config.every.get())
+        {
+            return;
+        }
+        if self.trace.records.len() == self.trace_config.capacity {
+            metrics::add(&mut self.trace.dropped, 1, &mut self.trace.overflowed);
+        } else {
+            self.trace.records.push(metrics::TraceRecord {
+                decision: self.decisions,
+                rules_work_units: self.game.metric_work.map_or(0, |(n, _)| n),
+            });
+        }
+    }
+
     /// Select immutable instrumentation mode for this owner's lifetime.
     pub fn instrumented(capacity: usize, mode: Mode) -> Result<Self, StorageError> {
         let mut driver = Self::new(capacity)?;
-        if mode == Mode::Counters {
+        driver.instrumentation = mode;
+        if mode != Mode::Off {
             driver.metrics = Some(RefCell::new(Counters::default()));
         }
         Ok(driver)
@@ -176,7 +220,8 @@ impl Driver {
         mode: Mode,
     ) -> Result<Self, Error> {
         let mut driver = Self::bounded(capacity, budget, clock)?;
-        if mode == Mode::Counters {
+        driver.instrumentation = mode;
+        if mode != Mode::Off {
             driver.metrics = Some(RefCell::new(Counters::default()));
         }
         Ok(driver)
@@ -419,6 +464,9 @@ impl Driver {
             accounting: Accounting::default(),
             metrics: None,
             continuing_action: false,
+            instrumentation: Mode::Off,
+            trace_config: metrics::TraceConfig::default(),
+            trace: metrics::Trace::default(),
         })
     }
     /// Enable complete in-memory capture for this reset. Header provenance and
@@ -530,6 +578,7 @@ impl Driver {
         }
         accepted?;
         self.decisions += 1;
+        self.trace_decision();
         if let Some(before) = before {
             // Core acceptance is the execution receipt, not the recorder's domain
             // validator. Preserve an explicit poisoned owner if an invariant fails.
@@ -627,6 +676,7 @@ impl Driver {
             ordinal,
         });
         self.history.clear();
+        self.trace = metrics::Trace::default();
         self.capture_header = header;
         self.recorder = None;
         self.capture_error = None;
@@ -903,6 +953,7 @@ impl Driver {
             status: self.status.unwrap(),
             budget: self.budget.clone(),
             accepted_decisions: self.decisions,
+            instrumentation: self.instrumentation,
             final_observations,
             snapshot: self.game.snapshot(),
             history: self.history.clone(),
@@ -944,6 +995,9 @@ impl Driver {
             accounting: Accounting::default(),
             metrics: None,
             continuing_action: false,
+            instrumentation: Mode::Off,
+            trace_config: metrics::TraceConfig::default(),
+            trace: metrics::Trace::default(),
         };
         d.refresh_capture().unwrap();
         d

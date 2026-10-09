@@ -723,3 +723,46 @@ fn optional_public_counters_are_bounded_and_do_not_change_native_play() {
         assert!(!text.contains(forbidden));
     }
 }
+
+#[test]
+fn sampled_and_full_modes_keep_native_results_and_emit_only_public_diagnostics() {
+    let mut config: Value =
+        serde_json::from_str(include_str!("../../../fixtures/simulate/native-v2.json")).unwrap();
+    config["episodes"] = json!(1);
+    config["max_decisions"] = json!(5);
+    let (code, off, _) = run(config.clone(), &[]);
+    assert_eq!(code, 0);
+    for mode in ["sampled_trace", "full_replay"] {
+        config["native"]["instrumentation"] = json!(mode);
+        if mode == "sampled_trace" {
+            config["native"]["trace"] = json!({"every":2,"capacity":1});
+        } else {
+            config["native"].as_object_mut().unwrap().remove("trace");
+        }
+        let (code, rows, err) = run(config.clone(), &[]);
+        assert_eq!(code, 0, "{err}");
+        for field in [
+            "status",
+            "history_sha256",
+            "decisions",
+            "life",
+            "owner_status",
+        ] {
+            assert_eq!(rows[1][field], off[1][field]);
+        }
+        assert_eq!(rows.last().unwrap()["metrics"]["counters"]["decisions"], 5);
+        if mode == "sampled_trace" {
+            let trace = &rows[1]["diagnostics"];
+            assert_eq!(trace["schema_version"], 1);
+            assert_eq!(trace["dropped"], 1);
+            assert_eq!(trace["records"][0]["decision"], 2);
+            let text = serde_json::to_string(trace).unwrap();
+            for forbidden in ["seed", "hand", "library", "rng", "forest", "mountain"] {
+                assert!(!text.contains(forbidden));
+            }
+        } else {
+            assert_eq!(rows[1]["replay_status"], "incomplete");
+            assert!(rows[1].get("diagnostics").is_none());
+        }
+    }
+}

@@ -9,6 +9,8 @@ pub enum Mode {
     #[default]
     Off,
     Counters,
+    SampledTrace,
+    FullReplay,
 }
 impl Mode {
     pub fn is_off(&self) -> bool {
@@ -296,6 +298,45 @@ impl Counters {
                 sampled_timing: "not_measured",
                 diagnostic_records: "not_applicable",
             },
+        }
+    }
+}
+
+/// Fixed-size, public diagnostic checkpoints. No player observations or identifiers.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct TraceRecord {
+    pub decision: u64,
+    pub rules_work_units: u64,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct TraceConfig {
+    pub every: std::num::NonZeroU64,
+    pub capacity: usize,
+}
+impl Default for TraceConfig {
+    fn default() -> Self {
+        Self {
+            every: std::num::NonZeroU64::new(64).unwrap(),
+            capacity: 256,
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Eq, Serialize)]
+pub struct Trace {
+    pub schema_version: u32,
+    pub records: Vec<TraceRecord>,
+    pub dropped: u64,
+    pub overflowed: bool,
+}
+
+impl Default for Trace {
+    fn default() -> Self {
+        Self {
+            schema_version: 1,
+            records: Vec::new(),
+            dropped: 0,
+            overflowed: false,
         }
     }
 }

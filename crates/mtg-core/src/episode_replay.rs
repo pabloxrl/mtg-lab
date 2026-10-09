@@ -15,6 +15,8 @@ pub enum Error {
     Identity,
     Binding,
     Corrupt,
+    Incomplete,
+    Capacity,
 }
 // No Debug/Serialize implementation: a registry contains both seats' secrets.
 #[derive(Default)]
@@ -59,20 +61,7 @@ impl Registry {
         {
             return Err(Error::Binding);
         }
-        let choices: Vec<crate::game::actions::Record> = result
-            .history
-            .iter()
-            .map(|b| serde_json::from_slice(b).map_err(|_| Error::Corrupt))
-            .collect::<Result<_, _>>()?;
-        let inputs = &result.inputs;
-        let bytes = crate::opening::replay::played::record(
-            &inputs.config,
-            inputs.master,
-            inputs.ordinal,
-            &choices,
-        )
-        .map_err(|_| Error::Binding)?;
-        check(&bytes, result)?;
+        let bytes = encode(result)?;
         let episode = trajectory.header().id.clone();
         // Mutate the owned trajectory only after all validation succeeds.
         result.trajectory.as_mut().unwrap().bind_replay(id);
@@ -110,6 +99,27 @@ impl Registry {
     pub fn remove(&mut self, id: &str) -> Result<(), Error> {
         self.artifacts.remove(id).map(|_| ()).ok_or(Error::Unknown)
     }
+}
+/// Reuse the existing format and final-state binding independently of trajectory capture.
+pub(super) fn encode(result: &EpisodeResult) -> Result<Vec<u8>, Error> {
+    if !matches!(result.status, Status::Completed(_)) {
+        return Err(Error::Incomplete);
+    }
+    let choices: Vec<crate::game::actions::Record> = result
+        .history
+        .iter()
+        .map(|b| serde_json::from_slice(b).map_err(|_| Error::Corrupt))
+        .collect::<Result<_, _>>()?;
+    let inputs = &result.inputs;
+    let bytes = crate::opening::replay::played::record(
+        &inputs.config,
+        inputs.master,
+        inputs.ordinal,
+        &choices,
+    )
+    .map_err(|_| Error::Binding)?;
+    check(&bytes, result)?;
+    Ok(bytes)
 }
 fn binding(result: &EpisodeResult) -> Vec<u8> {
     use sha2::{Digest, Sha256};

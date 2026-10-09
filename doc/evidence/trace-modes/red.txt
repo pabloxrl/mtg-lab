@@ -1,0 +1,18 @@
+Baseline: origin/main 1077a249cbe1546bdb5250f928a2c4931a3cb081 plus API-only scaffold and tests.
+Command: shared resource_lock.py heavy -- cargo test -p mtg-core --test trace_modes
+Compiled successfully in 15.08s; tests executed in 0.01s.
+5 tests, 0 passed, 5 failed, 0 ignored.
+
+trace_configuration_is_bounded_and_immutable_after_start:
+  capacity usize::MAX incorrectly accepted by stub.
+promised_replay_overflow_is_failed_and_unavailable:
+  failed owner's replay request incorrectly returned Ok(None), not an error.
+zero_capacity_rejection_and_reset_have_literal_accounting:
+  diagnostic_trace returned None for sampled mode.
+fixed_selection_exact_drop_and_public_privacy:
+  diagnostic_trace returned None ("sampled checkpoints").
+four_modes_capture_independence_and_existing_replay_format:
+  sampled mode counters absent (false != true).
+
+No compile/import errors count as behavioral red. Tests entered the normal
+Driver path. Expected counts derive from B021 and the literal input script.
