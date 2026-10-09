@@ -10,7 +10,7 @@ alias SymphonyElixir.Tracker.Issue
 Workflow.set_workflow_file_path(hd(System.argv()))
 {:ok, _} = WorkflowStore.start_link()
 settings = Config.settings!()
-1 = settings.agent.max_concurrent_agents
+3 = settings.agent.max_concurrent_agents
 12 = settings.agent.max_turns
 300_000 = settings.agent.max_retry_backoff_ms
 600_000 = settings.codex.turn_timeout_ms
@@ -39,6 +39,19 @@ entry = %{ref: ref, pid: self(), identifier: i.identifier, issue: i,
           codex_total_tokens: 0, codex_input_tokens: 0, codex_output_tokens: 0}
 busy = %{s | running: %{i.id => entry}, claimed: MapSet.new([i.id])}
 false = Orchestrator.should_dispatch_issue_for_test(%{i | id: "190"}, busy)
+
+# Parallel admission uses the packaged controller, including duplicate claims.
+parallel = %{busy | max_concurrent_agents: settings.agent.max_concurrent_agents}
+false = Orchestrator.should_dispatch_issue_for_test(i, parallel)
+true = Orchestrator.should_dispatch_issue_for_test(%{i | id: "190", identifier: "GH-190"}, parallel)
+second = %{entry | issue: %{i | id: "190", identifier: "GH-190"}, identifier: "GH-190"}
+third = %{entry | issue: %{i | id: "191", identifier: "GH-191"}, identifier: "GH-191"}
+parallel = %{parallel | running: %{"189" => entry, "190" => second},
+                         claimed: MapSet.new(["189", "190"])}
+true = Orchestrator.should_dispatch_issue_for_test(%{i | id: "191", identifier: "GH-191"}, parallel)
+parallel = %{parallel | running: Map.put(parallel.running, "191", third),
+                         claimed: MapSet.new(["189", "190", "191"])}
+false = Orchestrator.should_dispatch_issue_for_test(%{i | id: "192", identifier: "GH-192"}, parallel)
 
 # Actual worker DOWN handling: normal completion (including max_turns return)
 # schedules a fresh continuation; failures retain bounded exponential backoff

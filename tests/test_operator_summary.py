@@ -81,8 +81,59 @@ class SummaryTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     validate_report(dict(self.report, current=value))
 
+    def test_every_worker_has_its_own_note_and_state_precedence(self):
+        other = dict(issue_identifier='GH-71', started_at='2026-09-27T13:58:00Z')
+        state = dict(running=[self.row, other], retrying=[self.row, dict(issue_identifier='GH-72')],
+                     blocked=[other, dict(issue_identifier='GH-73')])
+        reports = {70: self.report, 71: dict(self.report, issue=71, current='Checking cleanup.')}
+        result = summarize(state, reports=reports, milestones={70: 'M1', 71: 'M2'}, now=self.now,
+                           queue={'status': 'available', 'issues': [70, 71, 72, 73, 74], 'truncated': False})
+        self.assertEqual([(t['issue'], t['state']) for t in result['tasks']],
+                         [(70, 'running'), (71, 'running'), (72, 'retrying'), (73, 'blocked'), (74, 'queued')])
+        self.assertEqual(result['current'], self.report['current'])
+        self.assertEqual(result['tasks'][1]['current'], 'Checking cleanup.')
+        self.assertEqual(result['tasks'][1]['milestone'], 'M2')
+        self.assertIsNone(result['tasks'][2]['report_updated_at'])
+        self.assertEqual(result['queue']['status'], 'available')
+
+    def test_foreign_or_previous_session_report_cannot_bleed_between_workers(self):
+        state = dict(running=[self.row, dict(issue_identifier='GH-71',
+                     started_at='2026-09-27T14:00:00Z')], retrying=[], blocked=[])
+        for report in (self.report, dict(self.report, issue=71)):
+            result = summarize(state, reports={70: self.report, 71: report}, now=self.now)
+            self.assertEqual(result['tasks'][0]['freshness'], 'fresh')
+            self.assertEqual(result['tasks'][1]['freshness'], 'missing')
+            self.assertNotEqual(result['tasks'][1]['current'], self.report['current'])
+
+    def test_unavailable_state_and_queue_do_not_claim_an_empty_queue(self):
+        result = summarize(None, now=self.now,
+                           queue={'status': 'available', 'issues': [74], 'truncated': False})
+        self.assertEqual(result['state'], 'unavailable')
+        self.assertEqual(result['tasks'][0]['state'], 'ready')
+        self.assertIn('unavailable', result['tasks'][0]['current'])
+        unavailable = summarize(dict(running=[], retrying=[], blocked=[]), now=self.now)
+        self.assertEqual(unavailable['queue']['status'], 'unavailable')
+        self.assertIsNone(unavailable['queue']['count'])
+        self.assertNotIn('learn from', unavailable['project_goal'])
+        self.assertIn('Forge', unavailable['project_goal'])
+
+    def test_queue_only_accepts_bounded_numeric_issue_ids(self):
+        result = summarize(self.state, self.report, now=self.now,
+            queue={'status': 'available', 'issues': [74, 74, True, 'javascript:alert(1)', -1],
+                   'truncated': False, 'error': 'secret command'})
+        self.assertEqual([t['issue'] for t in result['tasks']], [70, 74])
+        self.assertNotIn('secret command', str(result))
+        self.assertNotIn('javascript:', str(result))
+
 
 class ReportFileTests(unittest.TestCase):
+    def setUp(self):
+        from unittest.mock import patch
+        queue = patch('scripts.symphony.operator_summary.fetch_queue',
+                      return_value=dict(status='available', issues=[], truncated=False))
+        self.queue = queue.start()
+        self.addCleanup(queue.stop)
+
     def test_atomic_writer_and_safe_reader(self):
         import json
         from pathlib import Path
@@ -152,6 +203,31 @@ class ReportFileTests(unittest.TestCase):
             self.assertEqual(result['state'], 'unavailable')
             self.assertNotIn('private connection detail', str(result))
 
+    def test_collector_reads_each_own_report_and_does_not_read_stopped_notes(self):
+        import io
+        import json
+        from pathlib import Path
+        import tempfile
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import collect
+        from scripts.symphony.report_progress import write_report
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            for issue in (70, 71, 72):
+                workspace = root / f'GH-{issue}'
+                workspace.mkdir()
+                write_report(workspace, issue, f'Working on {issue}.', 'Correct games.', 'Run checks.')
+            state = dict(running=[dict(issue_identifier=f'GH-{n}', started_at='2026-01-01T00:00:00Z')
+                                  for n in (70, 71)], retrying=[], blocked=[dict(issue_identifier='GH-72')])
+            self.queue.return_value = dict(status='available', issues=[70, 73], truncated=False)
+            with patch('urllib.request.urlopen', return_value=io.BytesIO(json.dumps(state).encode())):
+                result = collect(root, root / 'unused')
+            self.assertEqual([t['issue'] for t in result['tasks']], [70, 71, 72, 73])
+            self.assertEqual(result['tasks'][0]['current'], 'Working on 70.')
+            self.assertEqual(result['tasks'][1]['current'], 'Working on 71.')
+            self.assertNotIn('Working on 72.', str(result))
+            self.assertEqual(result['tasks'][3]['state'], 'queued')
+
     def test_maximum_unicode_note_is_readable_after_successful_write(self):
         from pathlib import Path
         import tempfile
@@ -163,3 +239,40 @@ class ReportFileTests(unittest.TestCase):
             expected = write_report(root, 70, sentence, sentence, sentence, sentence)
             self.assertEqual(bounded_json(root / '.agent-artifacts/operator-summary.json',
                                           MAX_REPORT_BYTES), expected)
+
+
+class QueueTests(unittest.TestCase):
+    def test_bounded_repository_scoped_queue_and_truncation(self):
+        import json
+        import subprocess
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import fetch_queue, MAX_QUEUE_ISSUES
+        rows = [{'number': n} for n in range(1, MAX_QUEUE_ISSUES + 2)]
+        with patch('scripts.symphony.operator_summary.subprocess.run',
+                   return_value=subprocess.CompletedProcess([], 0, stdout=json.dumps(rows).encode())) as run:
+            queue = fetch_queue()
+        self.assertEqual(queue['status'], 'available')
+        self.assertTrue(queue['truncated'])
+        self.assertEqual(len(queue['issues']), MAX_QUEUE_ISSUES)
+        command = run.call_args.args[0]
+        self.assertEqual(command[:3], ['gh', 'issue', 'list'])
+        self.assertEqual(command[command.index('--repo') + 1], 'pabloxrl/mtg-lab')
+        self.assertEqual(command[command.index('--label') + 1], 'agent-ready')
+        self.assertEqual(command[command.index('--json') + 1], 'number')
+        self.assertLessEqual(run.call_args.kwargs['timeout'], 3)
+        self.assertEqual(run.call_args.kwargs['stderr'], subprocess.DEVNULL)
+
+    def test_failures_malformed_output_and_timeouts_are_unavailable_without_details(self):
+        import subprocess
+        from unittest.mock import patch
+        from scripts.symphony.operator_summary import fetch_queue
+        for value in (subprocess.CompletedProcess([], 1, stdout=b'private credential'),
+                      subprocess.CompletedProcess([], 0, stdout=b'not json'),
+                      subprocess.CompletedProcess([], 0, stdout=b'[{"number":true}]'),
+                      subprocess.CompletedProcess([], 0, stdout=b'[{"number":7,"title":"private"}]'),
+                      subprocess.CompletedProcess([], 0, stdout=b'x' * 16385),
+                      OSError('private credential'), subprocess.TimeoutExpired('private command', 3)):
+            options = {'side_effect': value} if isinstance(value, Exception) else {'return_value': value}
+            with self.subTest(value=type(value)), patch('scripts.symphony.operator_summary.subprocess.run', **options):
+                result = fetch_queue()
+            self.assertEqual(result, dict(status='unavailable', issues=[], truncated=False))

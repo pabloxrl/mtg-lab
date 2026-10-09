@@ -50,7 +50,8 @@ The image has a read-only root filesystem, drops Linux capabilities, runs as UID
 workspaces, logs, authentication and build caches under `/home/agent` survive
 container recreation. Runtime limits are four CPUs, 7 GiB RAM and 1024 processes.
 Only localhost port 4318 is published. The container binds 0.0.0.0 internally for
-Docker port forwarding. The current single-worker configuration is retained.
+Docker port forwarding. The controller admits at most three issue workers. Heavy verification/reference
+commands share one resource lock; each issue has its own writable build/reference cache.
 
 Agents still have repository credentials and share a trusted user/volume; this
 is not isolation between tasks or a credential vault. Codex's workspace-write
@@ -134,8 +135,14 @@ task at cutover, retaining previous evidence and diagnostic counters.
 
 ## Continuous delivery and real blockers
 
-One implementation issue runs at a time; separate candidate review uses an
-additional short-lived Codex process. Authorized work continues through review,
+Up to three independent implementation issues run at a time; separate candidate
+review uses an additional short-lived Codex process. Dependency, pause, readiness
+and hold checks still apply to every issue. Full torture, Cargo and reference/Maven
+commands run under the shared `heavy` lock. Workers describe resource waits in
+their progress notes, allowing other workers to read/edit without overlapping
+memory-heavy verification. Parent-workpad updates and successor reservations use
+a separate `handoff` lock around one bounded re-fetch/update/confirm script.
+Neither lock weakens or skips required checks. Authorized work continues through review,
 CI, exact-main verification and handoff across sessions. There is no total issue
 elapsed-time or lifetime dispatch-attempt ceiling. After three repair/review
 cycles, record an evidence-based diagnosis and revised approach; continue when
@@ -175,7 +182,7 @@ consumed only by the existing bounded handoff, after all controls pass.
 ## RFC 0002 program: operator workflow
 
 The RFC delivery program uses upstream Symphony's normal GitHub dispatch and
-one worker. The worker hands off to the next dependency-ready issue; there is no
+three workers. Each worker hands off to the next dependency-ready issue; there is no
 additional scheduler or Symphony fork. The committed
 [program manifest](programs/rfc-0002.json) fixes the parent issue, ordered task
 allowlist, dependencies, assigned requirements, and authorized milestones. The
@@ -186,7 +193,9 @@ The parent is tracking-only and never receives `agent-ready`.
 Your role is to read the parent's `Program workpad` for completed requirements,
 evidence, current work, and blockers. Agents implement bounded tasks, run an
 independent review, merge through required CI, verify main CI, update the parent,
-and enqueue at most one eligible successor before closing the current task.
+and enqueue at most one eligible successor before closing the current task,
+provided fewer than three other tasks are already ready/running. Reservations and
+shared workpad updates are serialized; existing workers keep their ownership.
 The current task's verified completion evidence permits this handoff before
 closure, so Symphony cannot terminate the worker halfway through scheduling its
 successor. Retries reuse the recorded successor and existing labels. A gate task
@@ -291,13 +300,15 @@ resuming ordinary work.
   merge commit `a50fcde0586d3f2f0a2c21b83da55eefb6d93496`.
 - Post-merge regression recovery has not been fault-injected. The recovery
   instructions are configured, but a verified revert/repair drill remains a
-  readiness item before increasing concurrency or claiming unattended recovery.
+  unverified limitation; parallel admission smoke checks do not establish arbitrary
+post-merge crash recovery. The operator explicitly authorized bounded concurrency
+in [operations #244](https://github.com/pabloxrl/mtg-lab/issues/244).
 - Game correctness, reference bridges, and MVP delivery remain separate work.
 
 ## Five-minute activity summary
 
 Open <http://localhost:4318/>. The “What’s happening” card above the live dashboard
-shows the worker's own short explanation: current work, why it matters, the
+shows each worker's own short explanation: current work, why it matters, the
 milestone goal, the wider project goal, the next check and any reported blocker.
 It loads immediately, refreshes every five minutes while the page is open, and
 refreshes when you return to the tab. No second model session or additional AI
@@ -309,7 +320,10 @@ meaningful transitions and every five minutes during active work. Long-running
 tools can delay a note. The card displays both when the agent wrote it and when
 the dashboard checked; notes older than five minutes are explicitly marked old.
 A missing, malformed, future-dated or previous-session report never appears as a
-current update. Idle/retrying/blocked states take precedence over old prose. The
+current update. Each task is validated against its own session start; one worker's
+progress never appears on another worker's card. Open `agent-ready` issues waiting
+for a slot are shown as queued. The queue is read from the repository with the
+existing GitHub credential; unavailable or truncated queue data is stated explicitly. Idle/retrying/blocked states take precedence over old prose. The
 card is an explanation, not proof of milestone completion; GitHub workpads,
 reviews and exact-main CI remain authoritative.
 
@@ -334,3 +348,38 @@ Do not restart a working agent merely to update the dashboard. `runtime-smoke.sh
 exercises the real proxy and a WebSocket ping/pong with invalid dispatch credentials
 in an isolated volume, plus browser-script behavior and the Python summary tests
 in the full torture suite.
+
+## Parallel operation and workspace transfers
+
+All implementation tasks execute through Symphony. The concurrency limit is three;
+a larger ready queue waits for capacity and stays visible on the dashboard. The
+worker handoff keeps a bounded supply of eligible tasks and never grants itself
+permission to expand the program. Operators may seed an explicitly reviewed set
+of independent ready tasks; readiness is not proof that a dependency is complete.
+
+Managed workers receive `MTG_REFERENCE_CACHE=~/.cache/xmage-GH-N` and a checkout-local
+`CARGO_TARGET_DIR`. Prepare/copy only verified reference build inputs into each
+cache; never share a mutable XMage/Maven source tree or a Cargo target across tasks.
+The container still has four CPUs and 7 GiB RAM. Run heavy commands with:
+
+```sh
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- ./scripts/torture.sh
+```
+
+Use the same wrapper for reference runners and other Cargo/Maven commands. A queued
+command waits for the foreground owner; it does not count as a passed check. Keep
+foreground jobs attached and wait for all children: deliberately detached processes
+that close the inherited lock descriptor are outside the lock's protection. The
+`handoff` lock uses the same CLI for a bounded script containing current control
+rechecks and GitHub mutations; never hold it across model turns or CI waits.
+
+To migrate an external lane, first hold it and obtain its owner's stopped-work
+handoff. Preserve its complete source, uncommitted changes, workpad, diagnostics
+and evidence. Make a standalone clone of a host linked worktree before importing
+with `import-workspace.py`; a host `.git` pointer cannot be used inside Docker.
+Copy via stdin without a host mount or credentials, and refuse an existing target.
+Retain the source checkout. Reconcile branch/base and files in the destination,
+record the transfer, remove only migration-owned holds and explicitly apply
+`agent-ready` after normal dependency/program checks. A bare `agent-running`
+label from the external owner is replaced by actual controller ownership; never
+run the external lane and Symphony worker at the same time.
