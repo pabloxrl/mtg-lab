@@ -80,6 +80,44 @@ fn archer_committed_cast_waits_for_resolution_and_survives_source_death() {
     assert_eq!(g.creature_state(cub).unwrap().power, 5);
 }
 #[test]
+fn m2_archer_responding_bite_preserves_exactly_one_trigger() {
+    // CR 113.7a/603: the opponent's responding Bite kills the physical
+    // Archer but does not erase its already stacked trigger or trigger it again.
+    let mut g = ready();
+    let archer = add(&mut g, "firebrand-archer", Seat::P0, Zone::Battlefield);
+    let cub = add(&mut g, "bear-cub", Seat::P0, Zone::Battlefield);
+    let enemy = add(&mut g, "bear-cub", Seat::P1, Zone::Battlefield);
+    growth(&mut g, cub);
+    order(&mut g, &[0]);
+    pass(&mut g);
+    let bite = add(&mut g, "bite-down", Seat::P1, Zone::Hand(Seat::P1));
+    g.turns.mana[1][4] = 2;
+    let d = g.turn_decision().unwrap();
+    assert_eq!(d.actor, Seat::P1);
+    let t = g.begin_targeted_cast(Seat::P1, d.id, bite, 256).unwrap();
+    let t = g.choose_target(Seat::P1, t.id, enemy).unwrap();
+    let t = g.choose_target(Seat::P1, t.id, archer).unwrap();
+    let p = g.finish_targets(Seat::P1, t.id).unwrap();
+    let p = g
+        .choose_payment(Seat::P1, p.id, mana::Color::Green)
+        .unwrap();
+    let p = g
+        .choose_payment(Seat::P1, p.id, mana::Color::Green)
+        .unwrap();
+    g.finish_cast(Seat::P1, p.id).unwrap();
+    pair(&mut g);
+    assert!(g.objects.get(archer).is_err());
+    assert_eq!(g.life(), [20, 20]);
+    assert_eq!(g.turns.stack.len(), 2);
+    pair(&mut g);
+    assert_eq!(g.life(), [20, 19]);
+    assert_eq!(g.turns.stack.len(), 1);
+    pair(&mut g);
+    assert_eq!(g.life(), [20, 19]);
+    let c = g.creature_state(cub).unwrap();
+    assert_eq!((c.power, c.toughness, c.damage), (5, 5, 0));
+}
+#[test]
 fn cyclops_trigger_then_growth_literal_stat_ledger() {
     let mut g = ready();
     let c = add(&mut g, "crackling-cyclops", Seat::P0, Zone::Battlefield);

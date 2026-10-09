@@ -1,0 +1,662 @@
+[
+  {
+    "catalog": {
+      "id": "rules-priority-response-window-negative",
+      "capability_id": "priority/response-window",
+      "category": "negative",
+      "setup": "Thrill cast awaiting discard-cost commitment",
+      "actions": "Opponent requests Growth now",
+      "expected": "No response window within casting/payment",
+      "basis": "CR 117 and RFC 0002 \u00a74 atomic choices: retain legal response windows but none inside costs/resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "ordered"
+    ],
+    "native_tests": [
+      "thrill_response_window_missing_discard_and_departed_cost_reject_atomically",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Native exact pending-cost rejection; reference executes atomic discard/payment and ordered draw, not native private continuations."
+  },
+  {
+    "catalog": {
+      "id": "rules-priority-response-window-interaction",
+      "capability_id": "priority/response-window",
+      "category": "interaction",
+      "setup": "Wildheart ability targets Thornweald before combat damage",
+      "actions": "Resolve then both players receive blocker-step priority",
+      "expected": "Opponent may respond before damage assignment",
+      "basis": "CR 117 and RFC 0002 \u00a74 atomic choices: retain legal response windows but none inside costs/resolution. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "invoker",
+    "reference_cases": [
+      "thorn_combat"
+    ],
+    "native_tests": [
+      "m2_invoker_resolution_retains_both_blocker_step_response_windows"
+    ],
+    "boundary": "Native exact both-seat blocker-step priority and Growth response; reference exercises Invoker/Thornweald combat but does not export both priority windows."
+  },
+  {
+    "catalog": {
+      "id": "rules-targets-required-targets-interaction",
+      "capability_id": "targets/required-targets",
+      "category": "interaction",
+      "setup": "Pyromancer cast with mana",
+      "actions": "Cast with no spell targets; choose P1 on ETB trigger",
+      "expected": "Creature cast succeeds; trigger gets target only after entry",
+      "basis": "CR 601.2c: required legal targets chosen when casting; Pyromancer target belongs to trigger, not creature spell. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "etb_trigger",
+    "reference_cases": [
+      "rules-targets-required-targets-interaction"
+    ],
+    "native_tests": [
+      "pyromancer_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-targets-zone-change-interaction",
+      "capability_id": "targets/zone-change",
+      "category": "interaction",
+      "setup": "Bite source Thornweald and destination Cub; Thornweald dies to opposing Bite",
+      "actions": "Resolve original Bite",
+      "expected": "Legal destination alone cannot supply illegal-source power; no damage",
+      "basis": "CR 400.7 and 608.2b: zone transition makes new object; old target handle illegal. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "deathtouch",
+    "reference_cases": [
+      "source-gone"
+    ],
+    "native_tests": [
+      "deathtouch_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-targets-resolution-revalidation-regression",
+      "capability_id": "targets/resolution-revalidation",
+      "category": "regression",
+      "setup": "Pyromancer ETB targets P0; source killed before trigger resolves",
+      "actions": "Resolve targeted trigger",
+      "expected": "P0 still legal and loses two life; source departure is not target invalidation",
+      "basis": "CR 608.2b and Bite Oracle: recheck target legality at resolution, not only cast. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "etb_trigger",
+    "reference_cases": [
+      "rules-targets-resolution-revalidation-regression"
+    ],
+    "native_tests": [
+      "pyromancer_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-continuous-resolution-power-positive",
+      "capability_id": "continuous/resolution-power",
+      "category": "positive",
+      "setup": "P0 Cub Bite targets P1 Sentry; Growth on source above Bite",
+      "actions": "Resolve Growth then Bite",
+      "expected": "Source 5/5 deals five; Sentry dies",
+      "basis": "Bite Down Oracle and CR 608.2b/h: evaluate required information at resolution; illegal target supplies none. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "instant",
+    "reference_cases": [
+      "rules-continuous-resolution-power-positive"
+    ],
+    "native_tests": [
+      "instant_sentry_strict_scripts_and_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-continuous-resolution-power-interaction",
+      "capability_id": "continuous/resolution-power",
+      "category": "interaction",
+      "setup": "Shivan is Bite source with two own boosts responding",
+      "actions": "Resolve boosts then Bite",
+      "expected": "Damage is seven, not five",
+      "basis": "Bite Down Oracle and CR 608.2b/h: evaluate required information at resolution; illegal target supplies none. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "shivan",
+    "reference_cases": [
+      "bite"
+    ],
+    "native_tests": [
+      "shivan_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-continuous-resolution-power-regression",
+      "capability_id": "continuous/resolution-power",
+      "category": "regression",
+      "setup": "Cyclops is Bite source and its cast trigger pending",
+      "actions": "Resolve +3/+0 trigger before Bite",
+      "expected": "Bite deals three using updated Cyclops power",
+      "basis": "Bite Down Oracle and CR 608.2b/h: evaluate required information at resolution; illegal target supplies none. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_trigger",
+    "reference_cases": [
+      "cyclops_bite_survivor"
+    ],
+    "native_tests": [
+      "m2_trigger_composition_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-dead-source-positive",
+      "capability_id": "objects/dead-source",
+      "category": "positive",
+      "setup": "Pyromancer ETB trigger targeting P1; Pyromancer killed by Bite",
+      "actions": "Resolve trigger",
+      "expected": "P1 loses two despite dead source",
+      "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "etb_trigger",
+    "reference_cases": [
+      "rules-objects-dead-source-positive"
+    ],
+    "native_tests": [
+      "pyromancer_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-dead-source-negative",
+      "capability_id": "objects/dead-source",
+      "category": "negative",
+      "setup": "Cavalry dead before activation command",
+      "actions": "Attempt activate old source",
+      "expected": "Reject; independence protects existing abilities only",
+      "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "haste",
+    "reference_cases": [
+      "dead_before"
+    ],
+    "native_tests": [
+      "haste_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-dead-source-interaction",
+      "capability_id": "objects/dead-source",
+      "category": "interaction",
+      "setup": "Cavalry haste ability targets new Cub; Cavalry killed in response",
+      "actions": "Resolve haste then attack",
+      "expected": "Cub gains haste and may attack",
+      "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "haste",
+    "reference_cases": [
+      "source_dies"
+    ],
+    "native_tests": [
+      "haste_bite_response_kills_source_not_ability"
+    ],
+    "boundary": "Native actual responding Bite; reference uses explicitly synthetic source departure after real ability commitment and then real haste/attack."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-dead-source-regression",
+      "capability_id": "objects/dead-source",
+      "category": "regression",
+      "setup": "Archer cast trigger above spell; Archer killed by responding Bite",
+      "actions": "Resolve trigger",
+      "expected": "Exactly one damage still dealt; not removed with source",
+      "basis": "CR 113.7a: activated/triggered stack abilities exist independently of their source. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "cast_trigger",
+    "reference_cases": [
+      "dead_source"
+    ],
+    "native_tests": [
+      "m2_archer_responding_bite_preserves_exactly_one_trigger"
+    ],
+    "boundary": "Native actual responding Bite; reference uses synthetic source departure after cast-trigger placement."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-bookkeeping-positive",
+      "capability_id": "objects/bookkeeping",
+      "category": "positive",
+      "setup": "Sentry 4/4 receives two from Bite",
+      "actions": "Inspect object",
+      "expected": "Power/toughness stay 4/4; marked damage two",
+      "basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "instant",
+    "reference_cases": [
+      "rules-objects-bookkeeping-positive"
+    ],
+    "native_tests": [
+      "instant_sentry_strict_scripts_and_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-bookkeeping-interaction",
+      "capability_id": "objects/bookkeeping",
+      "category": "interaction",
+      "setup": "Sentry with two marked damage receives Growth",
+      "actions": "Inspect then cleanup",
+      "expected": "7/7 with two damage before cleanup; 4/4 with zero after",
+      "basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "instant",
+    "reference_cases": [
+      "rules-objects-bookkeeping-interaction"
+    ],
+    "native_tests": [
+      "instant_sentry_strict_scripts_and_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-terminal-simultaneous-loss-positive",
+      "capability_id": "terminal/simultaneous-loss",
+      "category": "positive",
+      "setup": "Synthetic before-SBA state: both players zero life",
+      "actions": "Process one SBA batch",
+      "expected": "Draw; neither seat wins",
+      "basis": "CR 104.4a and 704: all remaining players losing simultaneously draws. Synthetic SBA-boundary states, not reachability claims. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "terminal",
+    "reference_cases": [
+      "simultaneous-life"
+    ],
+    "native_tests": [
+      "terminal_per_seat_reference_behavior"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-terminal-simultaneous-loss-negative",
+      "capability_id": "terminal/simultaneous-loss",
+      "category": "negative",
+      "setup": "Synthetic before-SBA: P0 zero, P1 one",
+      "actions": "Process SBAs",
+      "expected": "Only P0 loses; P1 wins",
+      "basis": "CR 104.4a and 704: all remaining players losing simultaneously draws. Synthetic SBA-boundary states, not reachability claims. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "terminal",
+    "reference_cases": [
+      "one-life-survivor-p1"
+    ],
+    "native_tests": [
+      "terminal_per_seat_reference_behavior"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-terminal-simultaneous-loss-interaction",
+      "capability_id": "terminal/simultaneous-loss",
+      "category": "interaction",
+      "setup": "Synthetic before-SBA: P0 zero life; P1 failed-empty-draw flag",
+      "actions": "Process simultaneous loss conditions",
+      "expected": "Draw regardless of different loss reasons",
+      "basis": "CR 104.4a and 704: all remaining players losing simultaneously draws. Synthetic SBA-boundary states, not reachability claims. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "terminal",
+    "reference_cases": [
+      "mixed-life-p0-draw-p1-life_then_draw",
+      "mixed-life-p0-draw-p1-draw_then_life"
+    ],
+    "native_tests": [
+      "terminal_per_seat_reference_behavior"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-terminal-simultaneous-loss-regression",
+      "capability_id": "terminal/simultaneous-loss",
+      "category": "regression",
+      "setup": "Same both-zero state with seat IDs swapped",
+      "actions": "Process SBAs in both instances",
+      "expected": "Draw in both; iteration order cannot award first processed seat win",
+      "basis": "CR 104.4a and 704: all remaining players losing simultaneously draws. Synthetic SBA-boundary states, not reachability claims. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "terminal",
+    "reference_cases": [
+      "simultaneous-life",
+      "simultaneous-life-reverse-life-order"
+    ],
+    "native_tests": [
+      "terminal_per_seat_reference_behavior"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-decisions-all-combinations-interaction",
+      "capability_id": "decisions/all-combinations",
+      "category": "interaction",
+      "setup": "Shivan power five blocked by two Magnigoth Sentries",
+      "actions": "Enumerate assignments",
+      "expected": "All six nonnegative integer splits totaling five expressible; no lethal-order filter",
+      "basis": "RFC 0002 \u00a74 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "shivan",
+    "reference_cases": [
+      "split_0",
+      "split_1",
+      "split_2",
+      "split_3",
+      "split_4",
+      "split_5"
+    ],
+    "native_tests": [
+      "m2_six_five_power_splits_have_literal_damage_and_no_lethal_order"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-decisions-all-combinations-regression",
+      "capability_id": "decisions/all-combinations",
+      "category": "regression",
+      "setup": "Goblin Surprise; two possible modes and multiple payment sources",
+      "actions": "Enumerate and submit each mode/payment combination in clones",
+      "expected": "Both modes remain selectable with every legal explicit payment",
+      "basis": "RFC 0002 \u00a74 legal-action completeness; CR 601.2 and 510.1c preserve every supported semantic choice. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "boost",
+      "tokens"
+    ],
+    "native_tests": [
+      "surprise_explicit_source_combinations_and_cancel_keep_taps_private"
+    ],
+    "boundary": "Native independent full mode/physical-payment domain; XMage both modes and literal outcomes, not enumeration of all payment source combinations."
+  },
+  {
+    "catalog": {
+      "id": "rules-decisions-masked-rejection-interaction",
+      "capability_id": "decisions/masked-rejection",
+      "category": "interaction",
+      "setup": "Shivan attacking and Cub defender",
+      "actions": "Submit masked Cub-blocks-Dragon pair",
+      "expected": "Reject even through raw scalar interface",
+      "basis": "RFC 0001 and RFC 0002 \u00a74: legality boundary rejects masked actions regardless of client mask. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "shivan",
+    "reference_cases": [
+      "exact_single_cub_illegal_0",
+      "exact_single_cub_illegal_1"
+    ],
+    "native_tests": [
+      "m2_fresh_vanillas_and_masked_dragon_block_reject_raw_without_mutation"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-decisions-capacity-interaction",
+      "capability_id": "decisions/capacity",
+      "category": "interaction",
+      "setup": "Six distinct Goblin tokens can attack",
+      "actions": "Enumerate attacker subsets through factorization",
+      "expected": "All 64 subsets expressible including empty/full",
+      "basis": "RFC 0001 faithful choices and RFC 0002 \u00a74: overflow diagnosed; factorization never truncates legal combinations. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "native",
+    "reference_cases": [],
+    "native_tests": [
+      "m2_all_64_distinct_token_subsets_and_explicit_capacity_boundary"
+    ],
+    "boundary": "Native scalar/policy API contract: independent 2^6 subsets; no corresponding reference encoder capacity claim."
+  },
+  {
+    "catalog": {
+      "id": "rules-decisions-capacity-regression",
+      "capability_id": "decisions/capacity",
+      "category": "regression",
+      "setup": "High-token board immediately below then above capacity boundary",
+      "actions": "Compare candidate set against independent combinatorial count",
+      "expected": "No silently missing last token, assignment or pass action",
+      "basis": "RFC 0001 faithful choices and RFC 0002 \u00a74: overflow diagnosed; factorization never truncates legal combinations. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "native",
+    "reference_cases": [],
+    "native_tests": [
+      "m2_last_token_and_finish_survive_high_board_capacity_boundary"
+    ],
+    "boundary": "Native scalar/policy API capacity contract: 79/80/81 distinct tokens; no corresponding XMage capacity claim."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-bear-cub-negative",
+      "capability_id": "foundations_micro_v1/bear-cub",
+      "category": "negative",
+      "setup": "Cub just entered this turn without haste",
+      "actions": "Try attack",
+      "expected": "Rejected; vanilla creature has no haste",
+      "basis": "Pinned Bear Cub characteristics: 1G vanilla 2/2; CR 302.6 and 510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/d8662ebb-068b-41d2-b504-4b5854e4d4aa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "shivan",
+    "reference_cases": [
+      "exact_cub_cast_0",
+      "exact_cub_cast_1"
+    ],
+    "native_tests": [
+      "m2_fresh_vanillas_and_masked_dragon_block_reject_raw_without_mutation",
+      "shivan_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-bite-down-positive",
+      "capability_id": "foundations_micro_v1/bite-down",
+      "category": "positive",
+      "setup": "Own 2/2 Cub and opposing 4/4 Sentry",
+      "actions": "Cast Bite and resolve",
+      "expected": "Sentry marked two; Cub takes zero damage",
+      "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "instant",
+    "reference_cases": [
+      "rules-foundations_micro_v1-bite-down-positive"
+    ],
+    "native_tests": [
+      "instant_sentry_strict_scripts_and_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-bite-down-negative",
+      "capability_id": "foundations_micro_v1/bite-down",
+      "category": "negative",
+      "setup": "Own Cub and own Sentry",
+      "actions": "Try Bite source Cub destination Sentry",
+      "expected": "Reject friendly destination",
+      "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "instant",
+    "reference_cases": [
+      "rules-foundations_micro_v1-bite-down-negative"
+    ],
+    "native_tests": [
+      "instant_sentry_strict_scripts_and_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-bite-down-interaction",
+      "capability_id": "foundations_micro_v1/bite-down",
+      "category": "interaction",
+      "setup": "Own Thornweald and opposing Shivan",
+      "actions": "Resolve Bite",
+      "expected": "Dragon destroyed from deathtouch damage; Thornweald survives",
+      "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "shivan",
+    "reference_cases": [
+      "thorn_bite"
+    ],
+    "native_tests": [
+      "shivan_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-bite-down-regression",
+      "capability_id": "foundations_micro_v1/bite-down",
+      "category": "regression",
+      "setup": "Own Cub source killed above Bite; opposing Sentry alive",
+      "actions": "Resolve",
+      "expected": "No cached-source damage; Sentry unmarked",
+      "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "instant",
+    "reference_cases": [
+      "rules-foundations_micro_v1-bite-down-regression"
+    ],
+    "native_tests": [
+      "instant_sentry_strict_scripts_and_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-mountain-regression",
+      "capability_id": "foundations_micro_v1/mountain",
+      "category": "regression",
+      "setup": "Mountain played while Archer present",
+      "actions": "Inspect stack before/after tap",
+      "expected": "No noncreature-cast trigger from land play or mana activation",
+      "basis": "Pinned Mountain is basic land with R mana ability; CR 305/605/106.4. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/279df7e2-2a3b-464a-a7df-e91da28e3a8c; oracle_text_sha256=91e8319d188a3c46e5c83ea1023ab6a453d5b028c8b00254c1168bdc23578e3c.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "cast_trigger",
+    "reference_cases": [
+      "land",
+      "mana"
+    ],
+    "native_tests": [
+      "cast_trigger_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-swab-goblin-negative",
+      "capability_id": "foundations_micro_v1/swab-goblin",
+      "category": "negative",
+      "setup": "Swab freshly cast with no haste",
+      "actions": "Attack",
+      "expected": "Rejected sickness; no implicit Goblin haste",
+      "basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "combat",
+    "reference_cases": [
+      "swab-unblocked"
+    ],
+    "native_tests": [
+      "m2_fresh_vanillas_and_masked_dragon_block_reject_raw_without_mutation"
+    ],
+    "boundary": "Native fresh Swab attack rejection; retained XMage Swab characteristic/combat evidence uses an old creature and does not claim the fresh-attack command."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-swab-goblin-regression",
+      "capability_id": "foundations_micro_v1/swab-goblin",
+      "category": "regression",
+      "setup": "Swab receives Surprise boost to 4/2; opposing 4/4 Sentry attacks",
+      "actions": "Block with boosted Swab and assign combat damage",
+      "expected": "Swab deals four, not cached printed two; both die",
+      "basis": "Pinned Swab Goblin: 1R vanilla 2/2 Goblin Pirate; CR 302.6/510. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/8db11970-74c2-463d-88bb-9f88aa079eaa; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "swab"
+    ],
+    "native_tests": [
+      "surprise_reference_literal_checkpoints"
+    ],
+    "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+  }
+]

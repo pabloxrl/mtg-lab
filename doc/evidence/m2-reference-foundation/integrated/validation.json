@@ -1,0 +1,24 @@
+{
+  "status": "passed-after-main-integration",
+  "base": "17aeefe91c9a23bd91854a8e8c3d7960a06b6be4",
+  "tested_head": "118c56cf5d7546366bf47d462c5583eb0a7458c6",
+  "python_tests": 246,
+  "rust_executions": 1408,
+  "failures": 0,
+  "ignored": 0,
+  "torture_sha256": "9a1991e2d72f147ba6277c860105575fc7b0369b0d7e87f4ef871de5efc5b43c",
+  "timings": {
+    "focused": {
+      "exit": 0,
+      "seconds": 16.461
+    },
+    "references": {
+      "exit": 0,
+      "seconds": 596.909
+    },
+    "torture": {
+      "exit": 0,
+      "seconds": 857.299
+    }
+  }
+}

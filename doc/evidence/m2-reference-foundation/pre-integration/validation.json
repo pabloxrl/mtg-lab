@@ -1,0 +1,23 @@
+{
+  "status": "passed-before-main-integration",
+  "base": "362aad0eeb5c7ab38d4b710de3f63c266ec48a52",
+  "python_tests": 240,
+  "rust_executions": 1406,
+  "failures": 0,
+  "ignored": 0,
+  "torture_sha256": "2e00f9c2fdc3eb1ebf734e9a3c1295ad5210aedfab76287ec613dc1048dd9dab",
+  "timings": {
+    "focused": {
+      "exit": 0,
+      "seconds": 0.101
+    },
+    "references": {
+      "exit": 0,
+      "seconds": 718.386
+    },
+    "torture": {
+      "exit": 0,
+      "seconds": 985.267
+    }
+  }
+}

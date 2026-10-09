@@ -1,0 +1,705 @@
+{
+  "holdout-sentry-bite-grown-sentry": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "source",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        }
+      }
+    },
+    {
+      "name": "bite-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "source",
+                "incarnation": 0
+              },
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [],
+            [
+              "growth"
+            ]
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        }
+      }
+    },
+    {
+      "name": "response-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "source",
+                "incarnation": 0
+              },
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          },
+          {
+            "id": "growth",
+            "controller": 1,
+            "targets": [
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": null,
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [],
+            []
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        }
+      }
+    },
+    {
+      "name": "growth-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "source",
+                "incarnation": 0
+              },
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 7,
+            "toughness": 7,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 1
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 2
+          }
+        ],
+        "damage_events": [],
+        "last_resolution": {
+          "id": "growth",
+          "legal_targets": 1,
+          "resolved": true
+        },
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [],
+            []
+          ],
+          "graveyard": [
+            [],
+            [
+              "growth"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "name": "bite-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "stack": [],
+        "objects": [
+          {
+            "id": "source",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0,
+            "incarnation": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": false,
+            "power": 7,
+            "toughness": 7,
+            "damage": 4,
+            "incarnation": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 0
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 2
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null,
+            "incarnation": 2
+          }
+        ],
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 4
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        },
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -501,6 +501,23 @@ fn instant_shared_script_literal_expectations() {
     }
 }
 #[test]
+fn m2_foundation_holdout_same_name_sentries_response() {
+    // Independently derived before execution: Sentry 4/4, Growth +3/+3,
+    // Bite current source power four. Same names never replace physical targets.
+    let fixture: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/m2-foundation-holdout.json"
+    ))
+    .unwrap();
+    let expected: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/m2-foundation-holdout-expectations.json"
+    ))
+    .unwrap();
+    let c = &fixture["cases"][0];
+    let result = execute(c);
+    assert_eq!(result["checkpoints"], expected[text(&c["id"])]);
+    assert_eq!(result["consumed"], c["script"]);
+}
+#[test]
 fn instant_strict_choice_regressions() {
     let base = fixture()["cases"][0].clone();
     // Every omission, duplicated choice, wrong actor and adjacent reordering
