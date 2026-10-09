@@ -1,0 +1,13 @@
+{
+  "command": "./scripts/torture.sh (shared heavy lock)",
+  "status": "passed",
+  "exit": 0,
+  "base_sha": "8aa47edd416a26a43d044ec577a2f24790ad9afe",
+  "python_tests": 204,
+  "rust_debug_release_executions": 1244,
+  "failed": 0,
+  "ignored": 0,
+  "log_sha256": "00c3f216d0f58b160bbc4e8eff43a6b527449a724ad4ea2aa974d2b8b480ae17",
+  "reference_receipt": "reference/receipt.json",
+  "readme_impact": "Added bounded reference-pack guide and runnable commands. Existing quickstart syntax, supported cards and milestone claims unchanged; new prepare/build/pack commands executed in the managed image."
+}

@@ -67,6 +67,7 @@ and [simulation guide](doc/simulate.md).
 | [Architecture](doc/architecture.md) | Core module responsibilities, compatibility boundaries and repository layout. |
 | [Scope and roadmap](doc/roadmap.md) | Toy decks, reference-game pilots and the 1,000-game torture corpus. |
 | [Testing](doc/testing/README.md) | Test designs, independent reference checks and delivery gates. |
+| [Cost and token reference pack](doc/evidence/m2-cost-reference/README.md) | Bounded native/XMage compositions, exact catalog allocation and reproduction commands; no whole-pool claim. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |
 
 ## Contributing

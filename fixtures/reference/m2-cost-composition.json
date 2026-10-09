@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "cavalry-elf",
+      "kind": "haste-mana",
+      "card": "llanowar-elves",
+      "payment": false
+    },
+    {
+      "id": "cavalry-druid-bite",
+      "kind": "haste-mana",
+      "card": "druid-of-the-cowl",
+      "payment": true
+    },
+    {
+      "id": "archer-thrill",
+      "kind": "archer-thrill",
+      "archers": 1,
+      "library": [
+        "forest",
+        "bear-cub",
+        "giant-growth"
+      ],
+      "discard": "mountain",
+      "opponent_life": 20
+    },
+    {
+      "id": "holdout-two-archers-discard-surprise",
+      "kind": "archer-thrill",
+      "archers": 2,
+      "discard": "goblin-surprise",
+      "opponent_life": 5,
+      "library": [
+        "forest",
+        "mountain",
+        "bear-cub"
+      ],
+      "authorship": "Independent coordinator specification before execution; CR 601.2, 603, 608 and pinned Archer/Thrill. Discarding Surprise is not casting it."
+    },
+    {
+      "id": "land-mountain",
+      "kind": "land",
+      "first": "mountain"
+    },
+    {
+      "id": "land-forest-second-mountain",
+      "kind": "land",
+      "first": "forest"
+    }
+  ]
+}

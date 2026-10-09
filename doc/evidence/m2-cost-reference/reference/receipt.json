@@ -1,0 +1,43 @@
+{
+  "status": "agreed",
+  "issue": 209,
+  "assigned_cases": 56,
+  "catalog_sha256": "b75cefc41b326a2b2ee10efa7e33a802e8a223b586ba36ecf7f28d654181b195",
+  "packs": {
+    "creature_mana": {
+      "receipt": "creature_mana/receipt.json",
+      "sha256": "30109c6e1b4a268052e34ff9cc115c8981037d682fa39f78c5dab3eb5b1b7369"
+    },
+    "haste": {
+      "receipt": "haste/receipt.json",
+      "sha256": "60c58ed67d35242ca6e66a3a9701dee51d940ca34c475ed58622593a4ce3c1ce"
+    },
+    "thrill": {
+      "receipt": "thrill/receipt.json",
+      "sha256": "429a47bf8c164a350c45b2929073b7f0cba1c8a896ee84bb4d4e30c4f096c088"
+    },
+    "surprise": {
+      "receipt": "surprise/receipt.json",
+      "sha256": "f7e47dff986a9b4a7d504e133a72ac47ad8751bd17f2f546df4be55a5ed2af8e"
+    },
+    "token": {
+      "receipt": "token/receipt.json",
+      "sha256": "bb914e81a5ceb1f0d15cc1dff0851b83770b8c635fca82813e6342ec032fdafa"
+    },
+    "cast_trigger": {
+      "receipt": "cast_trigger/receipt.json",
+      "sha256": "7f58728583b5c1dce175ea85b66921e1288b632d8ce78c1c9109bbf18ef20f01"
+    },
+    "combat": {
+      "receipt": "combat",
+      "sha256": "a42bb6c6f5660e845632961df79f891a57aac33d87c39eb917c1eeb05bed3316",
+      "native_log_sha256": "2e170083048530450655119f94e2f58bdbda65d71aa1e851fb2bfa5c9518b351"
+    },
+    "m2_cost": {
+      "receipt": "m2_cost/receipt.json",
+      "sha256": "37e1e1536a2d3d5b798b93b6e2169052449eb6c2bd10223be419e3a728ed1083"
+    }
+  },
+  "holdout": "holdout-two-archers-discard-surprise",
+  "limitations": "Selected synthetic reference positions, not full games or whole-pool qualification. Native raw API rejection, snapshots, normal-reset replay and capture remain separate mandatory torture checks. Catalog boundary notes identify the reference observations."
+}

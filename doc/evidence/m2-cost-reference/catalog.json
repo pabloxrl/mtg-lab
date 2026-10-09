@@ -1,0 +1,1227 @@
+[
+  {
+    "catalog": {
+      "id": "rules-setup-ordered-draw-interaction",
+      "capability_id": "setup/ordered-draw",
+      "category": "interaction",
+      "setup": "P0 library Forest, Bear Cub, Giant Growth; Thrill and discard in hand",
+      "actions": "Pay Thrill discard then resolve",
+      "expected": "Forest and Bear Cub enter hand in order; Growth remains top",
+      "basis": "CR 121.1 and neutral scenario contract: draw moves the top card; libraries are top-to-bottom. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "ordered"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-mana-rejection-interaction",
+      "capability_id": "costs/mana-rejection",
+      "category": "interaction",
+      "setup": "One G floating and ready Llanowar Elves",
+      "actions": "Activate Elf during Cub payment",
+      "expected": "Second G pays generic; Elf tapped; spell legal",
+      "basis": "CR 601.2f-h and 118: pay complete cost with required colors. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-floating"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-creature-mana-positive",
+      "capability_id": "costs/creature-mana",
+      "category": "positive",
+      "setup": "Old untapped Llanowar Elves; empty mana pool",
+      "actions": "Activate mana ability",
+      "expected": "Elf tapped; G added immediately; no stack entry",
+      "basis": "CR 605.1a/605.3 and 302.6: non-targeted mana abilities resolve immediately and obey tap restrictions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-priority"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-creature-mana-negative",
+      "capability_id": "costs/creature-mana",
+      "category": "negative",
+      "setup": "Elf entered this turn without haste",
+      "actions": "Attempt tap mana ability",
+      "expected": "Reject summoning sickness",
+      "basis": "CR 605.1a/605.3 and 302.6: non-targeted mana abilities resolve immediately and obey tap restrictions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-sick"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-creature-mana-interaction",
+      "capability_id": "costs/creature-mana",
+      "category": "interaction",
+      "setup": "Old Druid; casting Cub with one G already available",
+      "actions": "Activate Druid in payment window",
+      "expected": "Cub paid; opponent cannot respond to mana ability",
+      "basis": "CR 605.1a/605.3 and 302.6: non-targeted mana abilities resolve immediately and obey tap restrictions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "druid-of-the-cowl-floating"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-creature-mana-regression",
+      "capability_id": "costs/creature-mana",
+      "category": "regression",
+      "setup": "Old Elf untapped; opponent has priority outside payment",
+      "actions": "Attempt activate Elf",
+      "expected": "Reject unavailable timing; mana abilities are not unrestricted at every moment",
+      "basis": "CR 605.1a/605.3 and 302.6: non-targeted mana abilities resolve immediately and obey tap restrictions. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-opponent"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "XMage observes the opponent-priority boundary; native raw invalid submissions prove rejection/nonmutation. No identical invalid callback protocol is claimed."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-summoning-sickness-positive",
+      "capability_id": "costs/summoning-sickness",
+      "category": "positive",
+      "setup": "Cub controlled since start of P0 turn",
+      "actions": "Declare it attacker",
+      "expected": "Attack legal and Cub taps",
+      "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "combat",
+    "reference_cases": [
+      "cub-unblocked"
+    ],
+    "native_tests": [
+      "combat_shared_xmage_reference_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-summoning-sickness-negative",
+      "capability_id": "costs/summoning-sickness",
+      "category": "negative",
+      "setup": "Cavalry just entered without haste",
+      "actions": "Activate its tap ability",
+      "expected": "Reject; target not granted haste",
+      "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "haste",
+    "reference_cases": [
+      "cast"
+    ],
+    "native_tests": [
+      "haste_reference_literal_checkpoints",
+      "haste_cancel_and_illegal_policy_do_not_pay_cost"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-summoning-sickness-interaction",
+      "capability_id": "costs/summoning-sickness",
+      "category": "interaction",
+      "setup": "Old Cavalry and newly cast Elf",
+      "actions": "Grant Elf haste then tap Elf for mana",
+      "expected": "Elf produces G this turn",
+      "basis": "CR 302.6 and 702.10: attack and tap-symbol abilities require control since turn start unless haste. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "cavalry-elf"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-positive",
+      "capability_id": "costs/discard-cost",
+      "category": "positive",
+      "setup": "Thrill, Mountain and sufficient mana in P0 hand",
+      "actions": "Cast Thrill discarding Mountain",
+      "expected": "Mountain in graveyard before priority passes; Thrill on stack",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "ordered"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-negative",
+      "capability_id": "costs/discard-cost",
+      "category": "negative",
+      "setup": "Thrill is only P0 hand card",
+      "actions": "Attempt Thrill",
+      "expected": "Cannot discard spell itself from hand; reject atomically",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "alone"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-interaction",
+      "capability_id": "costs/discard-cost",
+      "category": "interaction",
+      "setup": "Thrill cast with discard; Firebrand Archer present",
+      "actions": "Place cast trigger then resolve trigger before spell",
+      "expected": "Discard already public; Archer damage precedes two draws",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "archer-thrill"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-discard-cost-regression",
+      "capability_id": "costs/discard-cost",
+      "category": "regression",
+      "setup": "Committed Thrill cast; library empty",
+      "actions": "Resolve Thrill",
+      "expected": "Discard remains paid; failed draw loss cannot refund cost",
+      "basis": "Thrill pinned Oracle additional discard cost; CR 601.2h: costs precede completed cast. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "empty"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-atomic-rejection-negative",
+      "capability_id": "costs/atomic-rejection",
+      "category": "negative",
+      "setup": "Thrill and discard choice; only G mana",
+      "actions": "Attempt Thrill selecting valid discard",
+      "expected": "Reject wrong color; selected card stays hand and no trigger",
+      "basis": "RFC 0001 boundary legality; RFC 0002 \u00a74: invalid actions preserve state, RNG, decisions and privacy. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "wrong_color"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum",
+      "thrill_alone_or_wrong_color_rejects_without_mutation"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-removal-positive",
+      "capability_id": "objects/token-removal",
+      "category": "positive",
+      "setup": "Goblin token receives lethal Bite damage",
+      "actions": "Resolve and settle SBAs",
+      "expected": "Token dies then ceases to exist; not a persistent graveyard card",
+      "basis": "CR 111 and 704.5d: tokens outside battlefield cease to exist at SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "lethal"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-removal-negative",
+      "capability_id": "objects/token-removal",
+      "category": "negative",
+      "setup": "Live undamaged Goblin token",
+      "actions": "Pass priority",
+      "expected": "Token remains; not deleted merely because token flag set",
+      "basis": "CR 111 and 704.5d: tokens outside battlefield cease to exist at SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-removal-interaction",
+      "capability_id": "objects/token-removal",
+      "category": "interaction",
+      "setup": "Two tokens; one blocked by Cub and other unblocked",
+      "actions": "Combat damage and SBAs",
+      "expected": "Only dead token disappears; other remains and deals one",
+      "basis": "CR 111 and 704.5d: tokens outside battlefield cease to exist at SBA. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "combat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-removal-regression",
+      "capability_id": "objects/token-removal",
+      "category": "regression",
+      "setup": "Token dies with targeted Growth beneath killing Bite",
+      "actions": "Resolve Growth",
+      "expected": "Old token handle invalid; no recreated token",
+      "basis": "CR 111 and 704.5d: tokens outside battlefield cease to exist at SBA. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "stale-growth"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-terminal-empty-draw-interaction",
+      "capability_id": "terminal/empty-draw",
+      "category": "interaction",
+      "setup": "P0 Thrill with one library card and paid discard",
+      "actions": "Resolve draw two",
+      "expected": "Draw first card then fail second; P0 loses after resolution",
+      "basis": "CR 704.5b: attempted draw from empty library causes loss; emptiness alone does not. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "one"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-replay-pending-snapshot-interaction",
+      "capability_id": "replay/pending-snapshot",
+      "category": "interaction",
+      "setup": "Pending Thrill discard choice with hand-private candidates",
+      "actions": "Restore then choose same discard",
+      "expected": "Same payment and draw results; no opponent view exposes provisional discard",
+      "basis": "RFC 0002 \u00a74: snapshots include pending continuations and RNG; semantic replay rejects incompatible versions. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 24,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "ordered"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Pending private snapshot/restore is a native API assertion; XMage independently checks the same completed discard/draw ledger, not native snapshot bytes."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-land-colored-modal-positive",
+      "capability_id": "costs/land-colored-modal",
+      "category": "positive",
+      "setup": "P0 precombat main empty stack; Mountain hand; no land played",
+      "actions": "Play Mountain then tap R",
+      "expected": "Land enters without stack; one red mana added",
+      "basis": "CR 305.1-3, 601.2b/h and Goblin Surprise Oracle: land timing/limit plus explicit modal/payment choices. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "land-mountain"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-land-colored-modal-negative",
+      "capability_id": "costs/land-colored-modal",
+      "category": "negative",
+      "setup": "P0 already played Forest this turn",
+      "actions": "Attempt Mountain land play",
+      "expected": "Reject second land; Mountain stays hand",
+      "basis": "CR 305.1-3, 601.2b/h and Goblin Surprise Oracle: land timing/limit plus explicit modal/payment choices. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "land-forest-second-mountain"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-land-colored-modal-interaction",
+      "capability_id": "costs/land-colored-modal",
+      "category": "interaction",
+      "setup": "Goblin Surprise and sufficient mana",
+      "actions": "Choose token mode and explicit payment",
+      "expected": "Exactly two tokens; existing creatures receive no boost",
+      "basis": "CR 305.1-3, 601.2b/h and Goblin Surprise Oracle: land timing/limit plus explicit modal/payment choices. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "tokens"
+    ],
+    "native_tests": [
+      "surprise_modes_literal_affected_set_and_rejection",
+      "mana_masked_second_land_and_timing_rejected_transactionally"
+    ],
+    "boundary": "XMage executes explicit token-mode payment; native malformed mode-count and off-turn land submissions must reject without mutation."
+  },
+  {
+    "catalog": {
+      "id": "rules-costs-land-colored-modal-regression",
+      "capability_id": "costs/land-colored-modal",
+      "category": "regression",
+      "setup": "Goblin Surprise with both modes submitted or opponent priority during land play",
+      "actions": "Submit malformed mode count and off-turn land separately",
+      "expected": "Both rejected atomically; no modal default or extra land window",
+      "basis": "CR 305.1-3, 601.2b/h and Goblin Surprise Oracle: land timing/limit plus explicit modal/payment choices. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "tokens"
+    ],
+    "native_tests": [
+      "surprise_modes_literal_affected_set_and_rejection",
+      "mana_masked_second_land_and_timing_rejected_transactionally",
+      "mana_foreign_stale_wrong_actor_and_pending_commands_preserve_state",
+      "mana_nonactive_priority_can_tap_but_cannot_play_land_and_action_resets_passes"
+    ],
+    "boundary": "XMage executes explicit token-mode payment; native malformed mode-count and off-turn land submissions must reject without mutation."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-create-positive",
+      "capability_id": "objects/token-create",
+      "category": "positive",
+      "setup": "P0 Dragon Fodder resolves",
+      "actions": "Create specified tokens",
+      "expected": "Two distinct untapped red 1/1 Goblins owned/controlled by P0",
+      "basis": "Dragon Fodder/Goblin Surprise pinned Oracle; CR 111: create two distinct red 1/1 Goblin creature tokens. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins",
+      "tokens_reference_observations_match_literal_oracle"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-create-negative",
+      "capability_id": "objects/token-create",
+      "category": "negative",
+      "setup": "Fodder merely cast and waiting on stack",
+      "actions": "Inspect battlefield",
+      "expected": "No premature token creation",
+      "basis": "Dragon Fodder/Goblin Surprise pinned Oracle; CR 111: create two distinct red 1/1 Goblin creature tokens. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins",
+      "tokens_reference_observations_match_literal_oracle"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-create-interaction",
+      "capability_id": "objects/token-create",
+      "category": "interaction",
+      "setup": "Goblin Surprise token mode cast in opponent end step",
+      "actions": "Resolve then begin own turn",
+      "expected": "Two tokens exist and may attack after continuous control since turn began",
+      "basis": "Dragon Fodder/Goblin Surprise pinned Oracle; CR 111: create two distinct red 1/1 Goblin creature tokens. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "end"
+    ],
+    "native_tests": [
+      "surprise_reference_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-objects-token-create-regression",
+      "capability_id": "objects/token-create",
+      "category": "regression",
+      "setup": "Fodder resolves twice",
+      "actions": "Inspect four objects",
+      "expected": "Four unique identities; no overwrite/merge of identical token definitions",
+      "basis": "Dragon Fodder/Goblin Surprise pinned Oracle; CR 111: create two distinct red 1/1 Goblin creature tokens. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins",
+      "tokens_reference_observations_match_literal_oracle"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-axgard-cavalry-positive",
+      "capability_id": "foundations_micro_v1/axgard-cavalry",
+      "category": "positive",
+      "setup": "Old untapped Cavalry and freshly cast Swab Goblin",
+      "actions": "Tap Cavalry targeting Goblin; resolve; attack",
+      "expected": "Cavalry tapped; Goblin may attack immediately",
+      "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "haste",
+    "reference_cases": [
+      "swab"
+    ],
+    "native_tests": [
+      "haste_reference_literal_checkpoints",
+      "haste_cancel_and_illegal_policy_do_not_pay_cost"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-axgard-cavalry-negative",
+      "capability_id": "foundations_micro_v1/axgard-cavalry",
+      "category": "negative",
+      "setup": "Fresh Cavalry without haste; new Goblin",
+      "actions": "Try Cavalry activation",
+      "expected": "Reject sickness; neither tap nor haste applied",
+      "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "haste",
+    "reference_cases": [
+      "cast"
+    ],
+    "native_tests": [
+      "haste_reference_literal_checkpoints",
+      "haste_cancel_and_illegal_policy_do_not_pay_cost"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-axgard-cavalry-interaction",
+      "capability_id": "foundations_micro_v1/axgard-cavalry",
+      "category": "interaction",
+      "setup": "Old Cavalry targets newly cast Llanowar Elves",
+      "actions": "Resolve haste then activate Elf",
+      "expected": "Elf taps to produce G immediately",
+      "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "cavalry-elf"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-axgard-cavalry-regression",
+      "capability_id": "foundations_micro_v1/axgard-cavalry",
+      "category": "regression",
+      "setup": "Old Cavalry targets opposing Cub",
+      "actions": "Resolve then cleanup",
+      "expected": "Opposing Cub legally gains temporary haste; target not limited to own creature",
+      "basis": "Pinned Axgard Cavalry Oracle: tap to grant target creature haste until end of turn; CR 302.6/602/702.10. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/fe3cc41a-adae-4c9b-b4d3-03f3ca862fed; oracle_text_sha256=4ab734c15fcd75f97a3ed08a177b89a62946f112c86ebea2b5f8048ce89ee1b0.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "haste",
+    "reference_cases": [
+      "opposing"
+    ],
+    "native_tests": [
+      "haste_reference_literal_checkpoints",
+      "haste_cancel_and_illegal_policy_do_not_pay_cost"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-dragon-fodder-positive",
+      "capability_id": "foundations_micro_v1/dragon-fodder",
+      "category": "positive",
+      "setup": "P0 main; Fodder and 1R",
+      "actions": "Cast then resolve",
+      "expected": "Exactly two Goblin tokens enter under P0",
+      "basis": "Pinned Dragon Fodder: 1R sorcery creates two red 1/1 Goblins; CR 307 and 111. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146; oracle_text_sha256=b75c20b710694947f47a2c5f8f6907dd9d8cd721fc2d41dd2a5a476435fda7fd.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_sorcery_timing_and_unpaid_rejections_preserve_state"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-dragon-fodder-negative",
+      "capability_id": "foundations_micro_v1/dragon-fodder",
+      "category": "negative",
+      "setup": "P1 priority during P0 combat; Fodder in P1 hand",
+      "actions": "Attempt cast",
+      "expected": "Rejected sorcery timing",
+      "basis": "Pinned Dragon Fodder: 1R sorcery creates two red 1/1 Goblins; CR 307 and 111. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146; oracle_text_sha256=b75c20b710694947f47a2c5f8f6907dd9d8cd721fc2d41dd2a5a476435fda7fd.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_sorcery_timing_and_unpaid_rejections_preserve_state"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-dragon-fodder-interaction",
+      "capability_id": "foundations_micro_v1/dragon-fodder",
+      "category": "interaction",
+      "setup": "P0 Archer plus Fodder",
+      "actions": "Cast, resolve Archer then Fodder",
+      "expected": "P1 loses one before exactly two tokens enter",
+      "basis": "Pinned Dragon Fodder: 1R sorcery creates two red 1/1 Goblins; CR 307 and 111. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146; oracle_text_sha256=b75c20b710694947f47a2c5f8f6907dd9d8cd721fc2d41dd2a5a476435fda7fd.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "cast_trigger",
+    "reference_cases": [
+      "archer_fodder"
+    ],
+    "native_tests": [
+      "cast_trigger_reference_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-dragon-fodder-regression",
+      "capability_id": "foundations_micro_v1/dragon-fodder",
+      "category": "regression",
+      "setup": "Fodder-created tokens on creation turn",
+      "actions": "Attempt attack without haste",
+      "expected": "Both ineligible; token creation does not imply haste",
+      "basis": "Pinned Dragon Fodder: 1R sorcery creates two red 1/1 Goblins; CR 307 and 111. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f9abe517-f601-4784-8d62-2350bd755146; oracle_text_sha256=b75c20b710694947f47a2c5f8f6907dd9d8cd721fc2d41dd2a5a476435fda7fd.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_sorcery_timing_and_unpaid_rejections_preserve_state"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-druid-of-the-cowl-positive",
+      "capability_id": "foundations_micro_v1/druid-of-the-cowl",
+      "category": "positive",
+      "setup": "Old untapped Druid",
+      "actions": "Activate mana",
+      "expected": "Adds one G immediately and taps",
+      "basis": "Pinned Druid: 1G 1/3 with tap add G; CR 302.6 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "druid-of-the-cowl-priority"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-druid-of-the-cowl-negative",
+      "capability_id": "foundations_micro_v1/druid-of-the-cowl",
+      "category": "negative",
+      "setup": "New Druid without haste",
+      "actions": "Attempt mana activation",
+      "expected": "Rejected sickness",
+      "basis": "Pinned Druid: 1G 1/3 with tap add G; CR 302.6 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "druid-of-the-cowl-sick"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-druid-of-the-cowl-interaction",
+      "capability_id": "foundations_micro_v1/druid-of-the-cowl",
+      "category": "interaction",
+      "setup": "Druid blocks 2/2 Cub",
+      "actions": "Combat damage",
+      "expected": "Druid survives with two damage; Cub survives with one",
+      "basis": "Pinned Druid: 1G 1/3 with tap add G; CR 302.6 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "druid-block"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-druid-of-the-cowl-regression",
+      "capability_id": "foundations_micro_v1/druid-of-the-cowl",
+      "category": "regression",
+      "setup": "New Druid granted haste by Cavalry",
+      "actions": "Activate during Bite payment",
+      "expected": "Produces G legally with no stack entry/response window",
+      "basis": "Pinned Druid: 1G 1/3 with tap add G; CR 302.6 and 605. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/db2d0ee9-865c-4fc9-8cb6-540c597e1bf4; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "cavalry-druid-bite"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-positive",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "positive",
+      "setup": "P0 Cub and two Goblins; Surprise and 2R",
+      "actions": "Choose boost mode; resolve",
+      "expected": "Cub 4/2; both Goblins 3/1 until cleanup",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "boost"
+    ],
+    "native_tests": [
+      "surprise_reference_literal_checkpoints",
+      "surprise_modes_literal_affected_set_and_rejection"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-negative",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "negative",
+      "setup": "Surprise cast request includes both modes",
+      "actions": "Submit",
+      "expected": "Reject choose-one violation; no mana spent",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "tokens"
+    ],
+    "native_tests": [
+      "surprise_reference_literal_checkpoints",
+      "surprise_modes_literal_affected_set_and_rejection"
+    ],
+    "boundary": "Both-mode submission is native-only rejection/nonmutation; XMage independently executes the explicit single-mode outcomes."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-interaction",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "interaction",
+      "setup": "Surprise boost resolves with one Goblin; later Fodder resolves",
+      "actions": "Inspect all Goblins",
+      "expected": "Existing token 3/1; two later tokens 1/1; affected set fixed at resolution",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "later"
+    ],
+    "native_tests": [
+      "surprise_reference_literal_checkpoints",
+      "surprise_modes_literal_affected_set_and_rejection"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-surprise-regression",
+      "capability_id": "foundations_micro_v1/goblin-surprise",
+      "category": "regression",
+      "setup": "Surprise token mode during opponent combat before blockers",
+      "actions": "Resolve and block with new tokens",
+      "expected": "Tokens can block immediately; no boost applied and no haste needed to block",
+      "basis": "Pinned Surprise: choose one of own-creature +2/+0 until end of turn or create two red 1/1 Goblins; CR 601.2b and 611.2c. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/527dd5d4-5f72-40bb-8a9d-1f5ac3f81e2e; oracle_text_sha256=01197aea4520bc3f060e133512d9f6c0064ced81997aef5a2488cb1cb719d3d1.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "surprise",
+    "reference_cases": [
+      "block"
+    ],
+    "native_tests": [
+      "surprise_reference_literal_checkpoints",
+      "surprise_modes_literal_affected_set_and_rejection"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-token-positive",
+      "capability_id": "foundations_micro_v1/goblin-token",
+      "category": "positive",
+      "setup": "Token produced by Fodder last turn",
+      "actions": "Attack unblocked",
+      "expected": "Deals one; red 1/1 Goblin characteristics retained",
+      "basis": "Pinned token: red 1/1 Goblin; CR 111/302.6/704.5d. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "combat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_two_attack_one_dies_other_deals_one"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-token-negative",
+      "capability_id": "foundations_micro_v1/goblin-token",
+      "category": "negative",
+      "setup": "Token just created this turn without haste",
+      "actions": "Declare attacker",
+      "expected": "Reject sickness",
+      "basis": "Pinned token: red 1/1 Goblin; CR 111/302.6/704.5d. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "repeat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_two_attack_one_dies_other_deals_one"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-token-interaction",
+      "capability_id": "foundations_micro_v1/goblin-token",
+      "category": "interaction",
+      "setup": "Token receives Growth then blocks Cub",
+      "actions": "Damage then cleanup",
+      "expected": "4/4 token survives two damage, returns to undamaged 1/1",
+      "basis": "Pinned token: red 1/1 Goblin; CR 111/302.6/704.5d. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "growth-block"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_two_attack_one_dies_other_deals_one"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-goblin-token-regression",
+      "capability_id": "foundations_micro_v1/goblin-token",
+      "category": "regression",
+      "setup": "Token dies in combat",
+      "actions": "Check settled zones",
+      "expected": "No token remains as usable graveyard card; old ID invalid",
+      "basis": "Pinned token: red 1/1 Goblin; CR 111/302.6/704.5d. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/70f8a1de-cd4c-4afa-bf03-0245d375d42e; oracle_text_sha256=e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "token",
+    "reference_cases": [
+      "combat"
+    ],
+    "native_tests": [
+      "tokens_reference_observations_match_literal_oracle",
+      "tokens_two_attack_one_dies_other_deals_one"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-llanowar-elves-positive",
+      "capability_id": "foundations_micro_v1/llanowar-elves",
+      "category": "positive",
+      "setup": "Old untapped Elf",
+      "actions": "Activate mana",
+      "expected": "Elf taps; adds G immediately",
+      "basis": "Pinned Elf: G 1/1 with tap add G; CR 302.6 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-priority"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-llanowar-elves-negative",
+      "capability_id": "foundations_micro_v1/llanowar-elves",
+      "category": "negative",
+      "setup": "Elf cast this turn with no haste",
+      "actions": "Attempt mana activation",
+      "expected": "Reject; no mana generated",
+      "basis": "Pinned Elf: G 1/1 with tap add G; CR 302.6 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-sick"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-llanowar-elves-interaction",
+      "capability_id": "foundations_micro_v1/llanowar-elves",
+      "category": "interaction",
+      "setup": "Old Elf and one Forest; Cub hand",
+      "actions": "Activate both during casting payment",
+      "expected": "Cub paid with GG; both sources tapped",
+      "basis": "Pinned Elf: G 1/1 with tap add G; CR 302.6 and 605. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-payment"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-llanowar-elves-regression",
+      "capability_id": "foundations_micro_v1/llanowar-elves",
+      "category": "regression",
+      "setup": "Elf attacked and tapped this turn",
+      "actions": "Attempt mana activation in second main",
+      "expected": "Reject tapped cost even though control duration permits activation",
+      "basis": "Pinned Elf: G 1/1 with tap add G; CR 302.6 and 605. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/6a0b230b-d391-4998-a3f7-7b158a0ec2cd; oracle_text_sha256=9231ec8ed88e95d1df0ea928fdee13d6d3a0f8c2edfba8d1a59f03d364edfed3.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "creature_mana",
+    "reference_cases": [
+      "llanowar-elves-attacked"
+    ],
+    "native_tests": [
+      "creature_mana_reference_literal_checkpoints",
+      "creature_mana_priority_is_immediate_and_rejects_illegal_sources"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-positive",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "positive",
+      "setup": "Thrill plus Mountain in hand; two known library cards; 1R",
+      "actions": "Cast discarding Mountain; resolve",
+      "expected": "Mountain graveyard before response; two top cards drawn",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "ordered"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-negative",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "negative",
+      "setup": "Thrill only card in hand with sufficient mana",
+      "actions": "Attempt cast",
+      "expected": "Reject unpayable discard; no mana spent",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "alone"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-interaction",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "interaction",
+      "setup": "Archer in play; Thrill legal",
+      "actions": "Cast, resolve Archer then Thrill",
+      "expected": "One opponent damage before draws; discard already committed",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "m2_cost",
+    "reference_cases": [
+      "archer-thrill"
+    ],
+    "native_tests": [
+      "cost_compositions_match_independent_literal_checkpoints"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  },
+  {
+    "catalog": {
+      "id": "rules-foundations_micro_v1-thrill-of-possibility-regression",
+      "capability_id": "foundations_micro_v1/thrill-of-possibility",
+      "category": "regression",
+      "setup": "Only one card in library",
+      "actions": "Resolve paid Thrill",
+      "expected": "First draw succeeds, second fails; loss at SBA; cost not refunded",
+      "basis": "Pinned Thrill: 1R instant, discard a card additional cost, draw two; CR 601.2h/121/704.5b. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/882b348c-076b-41d8-b505-063480636669; oracle_text_sha256=be6c82d2ad1424ca059be6c864de656543aa343aa6e8b35b2cf9494bdaabfd28.",
+      "owner_issue": 23,
+      "milestone": "M2"
+    },
+    "pack": "thrill",
+    "reference_cases": [
+      "one"
+    ],
+    "native_tests": [
+      "thrill_reference_literal_checkpoints",
+      "thrill_private_pending_snapshots_cancel_stale_and_quantum"
+    ],
+    "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+  }
+]
