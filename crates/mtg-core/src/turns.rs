@@ -96,6 +96,10 @@ pub(super) struct TurnState {
 #[derive(serde::Serialize, serde::Deserialize, Debug)]
 pub(super) enum TurnWork {
     Boundary(u64, Seat, Step),
+    CleanupEnd {
+        next_turn: u64,
+        active: Seat,
+    },
     Move(Handle, Zone),
     Expire,
     ExpireHaste,
@@ -308,11 +312,7 @@ impl Game {
                 for _ in &self.turns.modifications {
                     work.push(TurnWork::Expire);
                 }
-                work.push(TurnWork::Boundary(
-                    next_turn,
-                    opponent(active),
-                    Step::Upkeep,
-                ));
+                work.push(TurnWork::CleanupEnd { next_turn, active });
                 self.plan_untap(opponent(active), &mut work);
                 work.push(TurnWork::Ready {
                     actor: opponent(active),
@@ -382,6 +382,26 @@ impl Game {
     }
     pub(super) fn run_turn_work(&mut self, work: &TurnWork) {
         match *work {
+            TurnWork::CleanupEnd { next_turn, active } => {
+                // CR 514.3a/704: after simultaneous expiration, check losses and
+                // waiting triggers before any next-turn boundary/untap work.
+                // All scoped creatures have positive printed toughness; removing
+                // every bonus together with damage cannot kill one here.
+                if self.settle_terminal(None).is_some() {
+                    return;
+                }
+                if self.turns.pending_triggers.iter().any(Option::is_some) {
+                    self.work.clear();
+                    self.turns.passed = false;
+                    self.set_turn_decision(active, TurnKind::Priority);
+                } else {
+                    self.run_turn_work(&TurnWork::Boundary(
+                        next_turn,
+                        opponent(active),
+                        Step::Upkeep,
+                    ));
+                }
+            }
             TurnWork::Boundary(turn, active, step) => {
                 self.turns.position = Some((turn, active, step));
                 self.turns.passed = false;
