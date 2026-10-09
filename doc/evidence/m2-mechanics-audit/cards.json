@@ -1,0 +1,111 @@
+{
+  "cards": [
+    {
+      "key": "mountain",
+      "native_group": "mana_cast",
+      "reference": "costs"
+    },
+    {
+      "key": "forest",
+      "native_group": "mana_cast",
+      "reference": "costs"
+    },
+    {
+      "key": "swab-goblin",
+      "native_group": "combat",
+      "reference": "costs"
+    },
+    {
+      "key": "bear-cub",
+      "native_group": "combat",
+      "reference": "shivan"
+    },
+    {
+      "key": "axgard-cavalry",
+      "native_group": "activations",
+      "reference": "haste"
+    },
+    {
+      "key": "llanowar-elves",
+      "native_group": "mana_cast",
+      "reference": "creature_mana"
+    },
+    {
+      "key": "druid-of-the-cowl",
+      "native_group": "mana_cast",
+      "reference": "creature_mana"
+    },
+    {
+      "key": "magnigoth-sentry",
+      "native_group": "combat",
+      "reference": "flying_reach"
+    },
+    {
+      "key": "tajuru-pathwarden",
+      "native_group": "combat",
+      "reference": "trample"
+    },
+    {
+      "key": "thornweald-archer",
+      "native_group": "combat",
+      "reference": "deathtouch"
+    },
+    {
+      "key": "shivan-dragon",
+      "native_group": "activations",
+      "reference": "shivan"
+    },
+    {
+      "key": "wildheart-invoker",
+      "native_group": "activations",
+      "reference": "invoker"
+    },
+    {
+      "key": "dragon-fodder",
+      "native_group": "identity_tokens",
+      "reference": "tokens"
+    },
+    {
+      "key": "goblin-surprise",
+      "native_group": "mana_cast",
+      "reference": "surprise"
+    },
+    {
+      "key": "thrill-of-possibility",
+      "native_group": "mana_cast",
+      "reference": "thrill"
+    },
+    {
+      "key": "giant-growth",
+      "native_group": "targets",
+      "reference": "instant"
+    },
+    {
+      "key": "bite-down",
+      "native_group": "targets",
+      "reference": "instant"
+    },
+    {
+      "key": "firebrand-archer",
+      "native_group": "triggers",
+      "reference": "cast"
+    },
+    {
+      "key": "crackling-cyclops",
+      "native_group": "triggers",
+      "reference": "cast"
+    },
+    {
+      "key": "viashino-pyromancer",
+      "native_group": "triggers",
+      "reference": "etb"
+    }
+  ],
+  "token": {
+    "key": "goblin-token",
+    "native_group": "identity_tokens",
+    "reference": "tokens"
+  },
+  "manifest": "data/cards/foundations_micro_v1.json",
+  "manifest_sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235"
+}

@@ -1,0 +1,525 @@
+{
+  "opening": [
+    {
+      "path": "crates/mtg-core/tests/opening.rs",
+      "sha256": "44bdd64c0a97ac958a13a80f1c33597a31a69dafd94c541935807b98da2b7f85",
+      "tests": [
+        "opening_ordered_both_starters_and_mirrors",
+        "opening_invalid_config_preserves_complete_state_and_rng",
+        "opening_reset_restarts_rng_reuses_allocations_and_isolates_games",
+        "opening_shuffle_matches_independent_vectors"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/tests/mulligan.rs",
+      "sha256": "6603e0299e2f0b0d45f74cb38301584fdf9aa8dda5dc1e6fc897a50608912c4d",
+      "tests": [
+        "mulligan_rules_setup_two_player_opening_positive",
+        "mulligan_rules_setup_mulligan_bottom_positive",
+        "mulligan_rules_setup_mulligan_bottom_negative",
+        "mulligan_rules_setup_mulligan_bottom_interaction",
+        "mulligan_rules_setup_mulligan_bottom_regression",
+        "mulligan_rules_setup_deterministic_reset_positive",
+        "mulligan_rules_setup_deterministic_reset_interaction",
+        "mulligan_rules_setup_deterministic_reset_regression",
+        "mulligan_rules_setup_ordered_draw_positive",
+        "mulligan_rules_setup_ordered_draw_negative",
+        "mulligan_rules_setup_ordered_draw_regression",
+        "mulligan_rules_decisions_stale_candidates_regression",
+        "mulligan_sys_core_003_rejections_between_every_real_stage",
+        "mulligan_explicit_order_validation_and_seven_limit",
+        "mulligan_random_replacements_match_independent_full_order_vectors",
+        "mulligan_both_seats_mirrors_and_distinct_bottom_generations",
+        "mulligan_rejects_foreign_stale_and_unexpected_replacement_orders"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/tests/turns.rs",
+      "sha256": "7376a1a5540229ce93a0471fe0f109c7dde9ceffb69774798fd3a69e62eed420",
+      "tests": [
+        "turns_first_draw_positive_negative_interaction_regression",
+        "turns_priority_passing_positive_and_stale_candidates_negative",
+        "turns_red_mirror_mulligan_opening_interaction",
+        "turns_empty_combat_sequence_cleanup_and_reset_scope",
+        "turns_cannot_start_before_opening_or_twice"
+      ]
+    }
+  ],
+  "mana_cast": [
+    {
+      "path": "crates/mtg-core/tests/mana.rs",
+      "sha256": "477b15be25a3fb367d45507ae19d88a01f26bff8cd0d0b36f951c9341329b0fd",
+      "tests": [
+        "mana_forest_mountain_positive_negative_regression",
+        "mana_masked_second_land_and_timing_rejected_transactionally",
+        "mana_payment_private_atomic_rejection_and_duplicate_commit",
+        "mana_cancel_payment_restores_pool_and_invalidates_decisions",
+        "mana_foreign_stale_wrong_actor_and_pending_commands_preserve_state",
+        "mana_nonactive_priority_can_tap_but_cannot_play_land_and_action_resets_passes"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/casting_tests.rs",
+      "sha256": "b76aab139fad5e3c5e6e373f8cee5fa5d4364fc96ec1ceb1c159ef1826cefbc0",
+      "tests": [
+        "casting_literal_payment_stack_resolution_and_priority",
+        "casting_generic_choices_and_atomic_rejected_final_command",
+        "casting_missing_colors_masked_timing_foreign_and_wrong_actor",
+        "casting_land_activation_choices_cancel_and_retry",
+        "casting_lifo_synthetic_stack_and_mana_response_resets_passes",
+        "casting_fresh_forest_mountain_negative_and_unsupported_cards",
+        "casting_nested_stale_cancel_reset_and_exhaustion",
+        "creature_mana_priority_is_immediate_and_rejects_illegal_sources",
+        "creature_mana_staged_cancel_and_commit_are_atomic",
+        "creature_mana_pending_snapshot_and_illegal_payment_sources",
+        "thrill_payable_instant_is_available_without_targets",
+        "thrill_discard_atomic_ordered_draw_and_failed_second_draw",
+        "thrill_alone_or_wrong_color_rejects_without_mutation",
+        "thrill_private_pending_snapshots_cancel_stale_and_quantum",
+        "thrill_reference_literal_checkpoints",
+        "thrill_response_window_missing_discard_and_departed_cost_reject_atomically",
+        "surprise_payable_instant_requires_explicit_mode",
+        "surprise_modes_literal_affected_set_and_rejection",
+        "surprise_modes_payments_cancellation_snapshots_and_quantum",
+        "surprise_reference_literal_checkpoints",
+        "surprise_explicit_source_combinations_and_cancel_keep_taps_private"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/cast_boundary_tests.rs",
+      "sha256": "94041e47f036700f465e84c4ca57e4afd3614f80db37fb362c68d516aec418e7",
+      "tests": [
+        "cast_boundary_restore_finish_or_cancel_at_every_target_and_payment_stage",
+        "cast_boundary_rejections_preserve_snapshot_rng_and_private_choices"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/creature_mana_reference_tests.rs",
+      "sha256": "79bac87ae62e5e21a70aae6a1b69fd06028cc47a34464c5d3472f9126edc0230",
+      "tests": [
+        "creature_mana_reference_literal_checkpoints"
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "path": "crates/mtg-core/src/targets_tests.rs",
+      "sha256": "67ae6fada2b2e0ee28926139fb89b9daffc9dfd6d23593f69bec541109627fab",
+      "tests": [
+        "targets_payable_instants_offered_with_legal_targets",
+        "targets_independent_all_pairs_and_capacity_boundaries",
+        "targets_required_restricted_stale_and_atomic",
+        "targets_response_chain_priority_current_power_and_lethal",
+        "targets_growth_below_bite_zone_identity_no_retarget",
+        "targets_partial_invalidation_no_lki_or_redirection",
+        "targets_cleanup_damage_and_expiration_simultaneous",
+        "targets_generic_payment_preserves_future_growth_choices",
+        "targets_stacked_growth_and_grown_source_invalid_destination",
+        "targets_empty_roles_payment_cancel_revalidation_and_exhaustion",
+        "targets_resolution_controller_recheck_and_numeric_overflow",
+        "targets_hold_priority_bite_above_growth_and_five_no_redirection",
+        "settlement_quantum_growth_responds_to_bite_literal_checkpoints",
+        "settlement_quantum_bite_uses_grown_source_and_terminal_boundary",
+        "settlement_quantum_rejections_preserve_exact_state",
+        "settlement_quantum_response_death_revalidates_targets",
+        "settlement_quantum_creature_identity_and_sickness",
+        "deathtouch_bite_kills_sentry_without_return_damage"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/instant_reference_tests.rs",
+      "sha256": "0a7b99f2f15ed1297efe6e6030058d4b50f69749f7b97fe7c9677391922c668e",
+      "tests": [
+        "instant_shared_script_literal_expectations",
+        "instant_strict_choice_regressions",
+        "instant_export_observations",
+        "instant_checkpoint_rejects_unlisted_objects_in_every_zone",
+        "instant_departed_targets_literal_expectations",
+        "instant_identity_survives_departure_and_reentry_without_retargeting",
+        "instant_departure_choices_are_not_silently_dropped",
+        "instant_lineage_binding_still_checks_actual_card_and_owner",
+        "instant_blocker_script_reaches_damage_with_remembered_blocked_status",
+        "instant_blocker_illegal_declarations_and_response_order_fail",
+        "instant_cleanup_literal_discard_and_next_turn",
+        "instant_cleanup_strict_discard_identity_count_and_actor",
+        "instant_sentry_strict_scripts_and_literal_checkpoints"
+      ]
+    }
+  ],
+  "combat": [
+    {
+      "path": "crates/mtg-core/src/combat_tests.rs",
+      "sha256": "3114ea5bb48dcd7d841242fce6739fc43c30f0227a89c5b44120e3c7584d9268",
+      "tests": [
+        "combat_declarations_and_simultaneous_trade_cub_and_swab",
+        "combat_sickness_taps_and_rejections_are_atomic",
+        "combat_each_subset_and_blocker_mapping_is_expressible",
+        "combat_either_blocked_attacker_and_unblocked_swab_damage",
+        "combat_blocked_status_survives_departed_and_reentered_blocker",
+        "combat_modern_split_does_not_require_lethal_or_blocker_order",
+        "combat_simultaneous_player_damage_crosses_zero_without_early_stop",
+        "combat_backtracking_stale_foreign_reset_and_generation_exhaustion",
+        "combat_departed_attacker_tapped_blocker_and_overflow",
+        "combat_linear_capacity_and_all_remaining_blockers",
+        "combat_shared_xmage_reference_checkpoints",
+        "combat_quantum_all_modern_allocations_simultaneous_lethal_both_seats",
+        "combat_quantum_removed_blockers_remember_blocked_status",
+        "combat_quantum_terminal_after_all_damage_and_deaths",
+        "combat_quantum_preflight_rejections_preserve_exact_snapshot",
+        "integration_growth_windows_end_before_atomic_combat_damage",
+        "creature_mana_druid_blocks_cub_and_survives_two_damage",
+        "flying_reach_illegal_cub_block_is_atomic",
+        "flying_reach_sentry_blocks_five_five_and_dies",
+        "flying_reach_sentry_attacking_is_blockable_by_cub",
+        "flying_reach_pair_matrix_policy_actions_snapshot_and_quantum",
+        "flying_reach_reference_literal_checkpoints",
+        "tajuru_vigilance_trample_and_unordered_blocker_splits",
+        "tajuru_departed_blockers_and_single_blocker_marked_lethal",
+        "trample_reference_literal_checkpoints",
+        "trample_both_seats_quantum_restore_and_atomic_rejections",
+        "deathtouch_thornweald_blocks_five_five_flyer_simultaneously",
+        "deathtouch_zero_split_and_no_trample_rejection",
+        "deathtouch_trample_synthetic_seven_six_both_seats_quantum_and_rejection",
+        "deathtouch_reference_literal_checkpoints"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/m2_combat_tests.rs",
+      "sha256": "13545145eab90e444fe6a60ae726a260d09a6666a851ba9ae34b264191f1dfea",
+      "tests": [
+        "m2_combat_reference_literal_checkpoints"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/policy_combat_tests.rs",
+      "sha256": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
+      "tests": [
+        "policy_combat_independent_subsets_maps_and_allocations",
+        "policy_combat_twins_private_backtracking_errors_and_capacity",
+        "policy_combat_invalid_block_damage_and_finish_preserve_state",
+        "policy_cleanup_normal_reset_both_seats_and_distinct_sorted_rows",
+        "policy_combat_normal_reset_cast_attack_block_damage_cleanup_both_seats",
+        "policy_combat_every_boundary_hidden_twins_masks_and_atomic_errors",
+        "policy_cleanup_independent_pairs_sorted_identity_and_hidden_twins",
+        "policy_combat_storage_twins_and_departed_blockers_keep_public_identity",
+        "snapshot_nondefault_combat_fresh_process"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/cub_sentry_reference.rs",
+      "sha256": "033bb9c6de991b1fcce3752b1e1e1233334e5f6bf7f57d3e7f58e1085fab06f3",
+      "tests": [
+        "exact_inputs_reject_missing_extra_wrong_actor_and_unknown_fields"
+      ]
+    }
+  ],
+  "activations": [
+    {
+      "path": "crates/mtg-core/src/shivan_tests.rs",
+      "sha256": "0ba9424ee0f24c7f02e1722f78fa7eb5ed62a67abb36c2e04209f9c852bcb1c4",
+      "tests": [
+        "activation_mana_shivan_can_announce_with_untapped_mountain",
+        "activation_mana_payment_offers_untapped_sources_even_with_floating_mana",
+        "activation_mana_invoker_can_announce_with_eight_untapped_forests",
+        "shivan_sick_repeated_paid_boost_cleanup",
+        "shivan_invalid_sources_and_foreign_target_atomic",
+        "shivan_stacked_source_return_cannot_receive_boost",
+        "shivan_reference_literal_checkpoints",
+        "shivan_payment_cancel_stale_semantic_and_quantum_restore",
+        "shivan_growth_addition_overflow_and_concession_are_atomic",
+        "activation_mana_private_cancel_commit_surplus_and_resolution",
+        "activation_mana_invoker_target_first_mixed_sources_and_sickness",
+        "activation_mana_source_revalidation_overflow_and_rejection_atomicity",
+        "activation_mana_bounded_source_payment_oracle_and_semantic_snapshots",
+        "activation_mana_commit_revalidates_resources_and_exhaustion",
+        "activation_mana_hidden_information_and_cancel_all_invoker_stages",
+        "activation_mana_snapshot_rejects_missing_reservations_and_old_engine"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/invoker_tests.rs",
+      "sha256": "cea8bf67ec6a1726ff33c77d10d1871075e9a89047d5da37ae63f85808a4dede",
+      "tests": [
+        "invoker_sick_tapped_source_own_opposing_boost_and_cleanup",
+        "invoker_payment_target_stale_cancel_reject_without_spending",
+        "invoker_seven_floating_plus_forest_pays_inside_activation",
+        "invoker_departed_target_does_not_boost_returned_incarnation",
+        "invoker_pending_payment_semantic_and_every_work_quantum_restore",
+        "invoker_reference_literal_checkpoints",
+        "invoker_atomic_unavailable_reserved_mana_missing_target_overflow_and_concession"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/haste_tests.rs",
+      "sha256": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
+      "tests": [
+        "cavalry_pinned_cast_and_fresh_activation_rejection",
+        "old_cavalry_offers_targeted_activation",
+        "haste_source_independent_target_identity_and_cleanup",
+        "haste_cancel_and_illegal_policy_do_not_pay_cost",
+        "haste_reference_literal_checkpoints",
+        "activation_raw_rejections_pending_restore_and_capacity_are_atomic",
+        "haste_every_resolution_quantum_restores_and_malformed_cost_rejects",
+        "haste_bite_response_kills_source_not_ability",
+        "concession_before_and_after_activation_target_is_final"
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "path": "crates/mtg-core/src/trigger_tests.rs",
+      "sha256": "a07ee94274de5fcdc5f2e15c1836d97aee4bad709a680375db715887d03db736",
+      "tests": [
+        "mandatory_trigger_order_precedes_priority",
+        "incomplete_trigger_permutation_rejects_without_mutation",
+        "trigger_apnap_dead_source_and_every_placement_snapshot",
+        "trigger_invalid_orders_and_capacity_preserve_snapshot",
+        "synthetic_trigger_resolution_removes_ability_not_creature",
+        "malformed_duplicate_placement_work_is_rejected_atomically",
+        "trigger_driver_capture_and_semantic_replay_from_declared_snapshot",
+        "trigger_batch_storage_exhaustion_rejects_before_first_placement",
+        "mandatory_source_death_and_terminal_settlement_precede_placement",
+        "malformed_trigger_decision_cannot_restore_without_pending_owner_or_return",
+        "trigger_does_not_inherit_source_trample"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/cast_trigger_tests.rs",
+      "sha256": "a262b3ee54c402c59e51fbbadd4252c5f22821c29de97b8474f3f1eaa63dc2d8",
+      "tests": [
+        "archer_committed_cast_waits_for_resolution_and_survives_source_death",
+        "cyclops_trigger_then_growth_literal_stat_ledger",
+        "cast_trigger_all_six_orders_and_quantum_snapshots",
+        "cast_trigger_negative_land_mana_creature_failed_and_cancelled",
+        "cast_trigger_opponent_cast_and_departed_cyclops_incarnation",
+        "cast_trigger_two_archers_growth_and_invalidated_spell",
+        "cast_trigger_reference_literal_checkpoints",
+        "cast_trigger_archer_lethal_stops_before_growth_and_apnap_fixture",
+        "cast_trigger_completed_growth_on_cub_detects_each_source_once",
+        "cast_trigger_policy_identifies_pending_and_stacked_sources"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/etb_trigger_tests.rs",
+      "sha256": "d6f1624ee6634e24031dce74ee13b8de4b59eda6a96322766a021cce6d4cd939",
+      "tests": [
+        "pyromancer_etb_requires_player_target_then_deals_two",
+        "pyromancer_missing_creature_wrong_seat_stale_target_reject_without_mutation",
+        "pyromancer_corrupt_target_continuation_rejects_restore",
+        "pyromancer_quantum_snapshot_target_and_resolution",
+        "pyromancer_synthetic_multi_target_apnap_placement_and_end_step",
+        "pyromancer_reference_literal_checkpoints",
+        "pyromancer_concession_during_target_clears_choice_and_restores_terminal"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/m2_trigger_reference_tests.rs",
+      "sha256": "87778bbefc03ada8f77e786a7a0e925282130e5dd662ca6d2ad92a659a83c6a0",
+      "tests": [
+        "m2_trigger_composition_literal_checkpoints"
+      ]
+    }
+  ],
+  "identity_tokens": [
+    {
+      "path": "crates/mtg-core/tests/objects.rs",
+      "sha256": "b7c494a20f57b0d476888ea9b880650b07470d39ceef43435b2d3e13ac0f5456",
+      "tests": [
+        "objects_allocation_and_zone_change_literal_ledgers",
+        "objects_reuse_and_reset_never_revive_retained_handles",
+        "objects_zone_ownership_order_and_foreign_store_rejection",
+        "objects_frozen_identities_are_shared_and_match_manifest"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/token_tests.rs",
+      "sha256": "ca599ca31e49e2636a09c971e79955fc730980df51fb539d8b22023fa205cb10",
+      "tests": [
+        "tokens_fodder_waits_for_resolution_then_creates_four_distinct_goblins",
+        "tokens_sorcery_timing_and_unpaid_rejections_preserve_state",
+        "tokens_lethal_bite_ceases_and_pending_growth_cannot_recreate_dead_target",
+        "tokens_two_attack_one_dies_other_deals_one",
+        "tokens_sick_blocker_growth_survives_and_cleanup_restores_one_one",
+        "tokens_resolution_snapshot_at_every_quantum_and_no_partial_exhausted_batch",
+        "tokens_pinned_characteristics_and_no_token_card_cast",
+        "tokens_reference_observations_match_literal_oracle"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/card_definition_tests.rs",
+      "sha256": "a21396a68a10d2927cbdd10ba9194ba90259f36da657dabe4e75a7dfee29207f",
+      "tests": [
+        "card_definitions_six_card_manifest_and_public_candidates",
+        "card_definitions_every_other_frozen_identity_rejects_play_without_mutation",
+        "card_definitions_sentry_characteristics_and_complete_support",
+        "card_definitions_unknown_and_corrupt_identity_rejection",
+        "flying_reach_sentry_pinned_cost_casts_for_three_generic_one_green"
+      ]
+    }
+  ],
+  "terminal_cleanup": [
+    {
+      "path": "crates/mtg-core/src/terminal_tests.rs",
+      "sha256": "6b01a7fd6bbc28e9215160417338188a723269878d90bbca49269597bbb0e865",
+      "tests": [
+        "terminal_lethal_zero_negative_and_creature_death_is_not_player_loss",
+        "terminal_empty_draw_versus_empty_library_and_first_draw_skip",
+        "terminal_concede_nonacting_seat_and_finality",
+        "terminal_concession_cancels_payment_without_commit",
+        "terminal_hand_cub_cannot_block",
+        "terminal_simultaneous_losses_and_external_work_limits",
+        "terminal_grown_dead_cub_then_real_cast_has_fresh_bookkeeping",
+        "terminal_concession_preserves_stack_and_invalidates_target_and_cast_choices",
+        "terminal_same_neutral_boundaries_as_xmage",
+        "terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal",
+        "terminal_per_seat_reference_behavior",
+        "terminal_reference_explicit_outcome",
+        "terminal_export_observations"
+      ]
+    },
+    {
+      "path": "crates/mtg-core/src/cleanup_trigger_tests.rs",
+      "sha256": "34aa72cab09415e6bb6995669626c674c3fd2cc92b6510e1713830c010d4a78e",
+      "tests": [
+        "cleanup_pending_trigger_discards_expires_resolves_and_repeats",
+        "cleanup_ordinary_has_no_priority_and_terminal_stops_before_untap",
+        "cleanup_reference_literal_checkpoints",
+        "cleanup_driver_private_choices_typed_capture_and_snapshot_replay",
+        "cleanup_trigger_lethal_stops_all_turn_work"
+      ]
+    }
+  ],
+  "played_recording": [
+    {
+      "path": "crates/mtg-recorder/tests/cast_triggers.rs",
+      "sha256": "732decabad078a6ff801faa460a8413daeae505490bd0ff0134abc8c5d554cd9",
+      "tests": [
+        "cast_triggers_normal_reset_typed_capture_replay_quantum"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/cleanup.rs",
+      "sha256": "41698e8cc35bbb47a9ee1f170ed760ca5ef0652e32c7eb52dd51070c7976a291",
+      "tests": [
+        "cleanup_normal_reset_both_seats_capture_replay_and_quantum"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/creature_mana.rs",
+      "sha256": "75db515871c4ea0204ecee9b5be0bea7d82c0e5155b9ecff488e86504274f072",
+      "tests": [
+        "creature_mana_typed_roundtrip_and_quantum_equivalence"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/deathtouch.rs",
+      "sha256": "b33728ae0803263f05d6bc266e8b3b5a711c37a4a613da6bff4a71a84cd4d597",
+      "tests": [
+        "deathtouch_normal_reset_combat_bite_capture_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/etb_triggers.rs",
+      "sha256": "d502654847c625cf7e1bebe9c525510a032072fe212f67a09b6ed93ea9dbd7d2",
+      "tests": [
+        "pyromancer_normal_reset_typed_capture_replay_quantum"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/flying_reach.rs",
+      "sha256": "94a41aee250cde84a9cee2b0922930886a4042294f6e2093717ad5e3a03b9d47",
+      "tests": [
+        "flying_reach_normal_reset_sentry_cast_combat_capture_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/full_pool_policy.rs",
+      "sha256": "280247e190908ab3297a3b688625a0a253c724238c4efbb900c9fe18d3735f41",
+      "tests": [
+        "full_pool_native_games_replay_capture_quantum_and_rejections"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/haste.rs",
+      "sha256": "04dd5e5635bdf0d0993482e3cd30b72b0577c7199c63c757c6c38f1cd557c545",
+      "tests": [
+        "haste_normal_reset_cavalry_activation_capture_replay",
+        "haste_pending_concession_terminal_capture_and_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/invoker.rs",
+      "sha256": "f13804f384da2f19027c6a25de7eb58ee153828511b4578e3fa315c9c00f8d89",
+      "tests": [
+        "invoker_normal_reset_paid_activation_capture_replay",
+        "activation_mana_invoker_normal_reset_payment_sources_capture_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/shivan.rs",
+      "sha256": "9d6f513c71ab17511d4749bc4be92db7c7698b15f8cd3c4a7e4fbc92991b9a33",
+      "tests": [
+        "shivan_normal_reset_paid_activation_capture_replay",
+        "activation_mana_shivan_normal_reset_payment_sources_capture_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/surprise.rs",
+      "sha256": "5a6fc218eacbbd7d55be558900d405e6548c396a26a951d5c76ad66b22d12b8a",
+      "tests": [
+        "surprise_normal_reset_modes_capture_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/thrill.rs",
+      "sha256": "f5608460316683994b59fc12fda13fba9a8df9a1a267ee144e979d0097362175",
+      "tests": [
+        "thrill_normal_reset_discard_draw_capture_replay"
+      ]
+    },
+    {
+      "path": "crates/mtg-recorder/tests/trample.rs",
+      "sha256": "5c8f5c458625fd98e0fd9eb13adb0f3b358af60bc520a937aa172ae0aa722c39",
+      "tests": [
+        "trample_normal_reset_two_cubs_capture_replay"
+      ]
+    }
+  ],
+  "native_cli": [
+    {
+      "path": "crates/mtg-cli/tests/native_simulate.rs",
+      "sha256": "62a7735bb90655058988ae59ead93b7d584eeac3181c89ecb7f47ce1a6f6f5e1",
+      "tests": [
+        "native_one_decision_cannot_be_a_rules_outcome",
+        "native_explicit_work_and_record_limits_account_exactly",
+        "native_bad_versions_policies_bounds_and_overflow_fail_without_output",
+        "native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints",
+        "native_stdout_failure_is_a_caller_error",
+        "native_signals_have_bounded_complete_accounting",
+        "native_literal_first_land_checkpoint_both_starting_seats",
+        "native_configuration_never_silently_runs_as_passive_benchmark",
+        "native_benchmark_preserves_production_rows_and_all_failure_denominators",
+        "native_benchmark_complete_games_equal_untimed_simulation",
+        "native_benchmark_rejects_other_workloads_and_excessive_budgets",
+        "native_benchmark_work_and_wall_stops_never_become_completed_games",
+        "native_benchmark_rejects_capture_before_creating_artifacts",
+        "full_pool_cli_all_matchups_both_policies_and_starting_seats",
+        "m2_failed_denominator",
+        "optional_public_counters_are_bounded_and_do_not_change_native_play",
+        "sampled_and_full_modes_keep_native_results_and_emit_only_public_diagnostics"
+      ]
+    },
+    {
+      "path": "crates/mtg-policy/tests/full_pool.rs",
+      "sha256": "837d5277c0e0fe2d1549249410ba0efb01e2d1a542bbb3ccce352d8a333a8d88",
+      "tests": [
+        "full_pool_trigger_creatures_are_supported_without_pass_fallback",
+        "full_pool_trigger_permutation_uses_existing_rng_and_stable_heuristic_order",
+        "full_pool_player_targets_and_missing_choices_are_explicit",
+        "full_pool_scripted_trigger_checkpoints_and_hidden_twins",
+        "full_pool_trigger_order_rejects_incomplete_or_duplicate_permutations",
+        "full_pool_policy_versions_reject_previous_support_contract"
+      ]
+    }
+  ]
+}

@@ -673,7 +673,12 @@ fn native_benchmark_rejects_capture_before_creating_artifacts() {
 #[test]
 fn full_pool_cli_all_matchups_both_policies_and_starting_seats() {
     for policy in [mtg_policy::HEURISTIC_VERSION, mtg_policy::VERSION] {
-        for decks in [["red", "green"], ["red", "red"], ["green", "green"]] {
+        for decks in [
+            ["red", "green"],
+            ["green", "red"],
+            ["red", "red"],
+            ["green", "green"],
+        ] {
             for start in [0, 1] {
                 let mut c = config();
                 c["policies"] = json!([policy, policy]);

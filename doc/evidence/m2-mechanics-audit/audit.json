@@ -1,0 +1,44 @@
+{
+  "status": "partial-audit-no-acceptance-pass",
+  "head": "7b7affc387d0464995661d15a39f732e7937e543",
+  "sources": {
+    "crates/mtg-core/src/activation.rs": "d2f739b743d2619e72e224cad7548763cd2b99f039931a705d1978949d78523d",
+    "crates/mtg-core/src/mana.rs": "0a88ecfff656665e10c0e3995fa54fff066084c7c5147a15e22996cdcdb55969",
+    "crates/mtg-core/src/policy.rs": "dc80bf785b92f72d7249b76df60bf863b7ae109210a01cc1ae353805949798f2",
+    "crates/mtg-policy/src/lib.rs": "463fa4dcf1e55f8d103fc43271e8ea657bcb1ed774de846aeefc79a6db9c7df1",
+    "crates/mtg-recorder/src/structured.rs": "f46706ded130e09db676555c319d95fb9574883695ab7f51e4dae716d61b8438",
+    "doc/programs/m2-atomic-delivery.md": "3d4cf03c1df31d76714fe700fb9c6502dddf94927442ccc56e80e35b8e2304e0",
+    "doc/rfcs/0002-first-mvp.md": "f96a63f427a913d15da6522bab3842ceeb3d35f750a67e2af770464847b5b86c"
+  },
+  "rules_basis": [
+    "RFC 0002 section 3 rules baseline",
+    "CR 602.2b",
+    "CR 601.2g",
+    "CR 605.3a"
+  ],
+  "rules_source": "Committed pin and requirements reviewed; no fresh official text fetch in this audit.",
+  "diagnostic_review": {
+    "session": "/root/review_mana_gap",
+    "verdict": "Confirmed missing activation-payment mana opportunity. Float-first equivalence does not preserve legal sequence or replay.",
+    "boundary": "Diagnostic read-only review, not final clean-candidate review. One independently testable repair is plausible; cross-interface impact alone is not proof of broad scope."
+  },
+  "behavioral_tests": {
+    "status": "compiled-behavioral-red",
+    "command": "./scripts/torture.sh under shared heavy lock",
+    "exit_code": 101,
+    "core_result": {
+      "passed": 272,
+      "failed": 3,
+      "ignored": 0
+    },
+    "failures": [
+      "activation_mana_shivan_can_announce_with_untapped_mountain",
+      "activation_mana_invoker_can_announce_with_eight_untapped_forests",
+      "activation_mana_payment_offers_untapped_sources_even_with_floating_mana"
+    ],
+    "log_sha256": "31c60181774fe2789ce0fdf7ed32dce1882288c906ed536d94d6fd3cc43329ab",
+    "patch_sha256": "ca894843252e041aa6a61e24779adad64b486582962e9fc48bb5adb23b50bdf1",
+    "full_suite_pass": false,
+    "release_executed": false
+  }
+}

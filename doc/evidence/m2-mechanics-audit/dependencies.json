@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-10-09",
+  "audit_base": "17aeefe91c9a23bd91854a8e8c3d7960a06b6be4",
+  "manifest_task_count": 129,
+  "dependencies": [
+    {
+      "issue": 208,
+      "state": "closed",
+      "state_reason": "completed",
+      "pr": 243,
+      "merge": "0f46ba11c1c8902ac7337af3377b132ee361c1ea",
+      "reviewed_head": "c6398ece14610a3a496d73d49378df8516be6b1e",
+      "main_ci": "https://github.com/pabloxrl/mtg-lab/actions/runs/37906128645",
+      "ci_status": "success",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/208#issuecomment-6074112807"
+    },
+    {
+      "issue": 254,
+      "state": "closed",
+      "state_reason": "completed",
+      "pr": 260,
+      "merge": "9a4e8812ecf9fc019cb2c76812058840da89a543",
+      "reviewed_head": "f6826f78f84b780675bd675f2650da31ed29571e",
+      "main_ci": "https://github.com/pabloxrl/mtg-lab/actions/runs/37956881953",
+      "ci_status": "success",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/254#issuecomment-6083453095"
+    }
+  ],
+  "method": "Fresh GitHub issue/workpad reads and exact-main workflow run queries. Both independent reviews and acceptance reports inspected; controls active. Historical completion receipts do not establish this audit's new test result."
+}
