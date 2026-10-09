@@ -1,0 +1,38 @@
+[
+  {
+    "checkpoint": "fresh",
+    "stack": 0,
+    "green": 0,
+    "cavalry_tapped": false,
+    "creature_tapped": false,
+    "haste": false,
+    "enemy_damage": 0
+  },
+  {
+    "checkpoint": "haste-pending",
+    "stack": 1,
+    "green": 0,
+    "cavalry_tapped": true,
+    "creature_tapped": false,
+    "haste": false,
+    "enemy_damage": 0
+  },
+  {
+    "checkpoint": "haste-resolved",
+    "stack": 0,
+    "green": 0,
+    "cavalry_tapped": true,
+    "creature_tapped": false,
+    "haste": true,
+    "enemy_damage": 0
+  },
+  {
+    "checkpoint": "mana-produced",
+    "stack": 0,
+    "green": 1,
+    "cavalry_tapped": true,
+    "creature_tapped": true,
+    "haste": true,
+    "enemy_damage": 0
+  }
+]

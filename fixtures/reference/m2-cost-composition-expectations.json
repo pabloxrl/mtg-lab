@@ -1,0 +1,284 @@
+{
+  "cavalry-elf": [
+    {
+      "checkpoint": "fresh",
+      "green": 0,
+      "stack": 0,
+      "cavalry_tapped": false,
+      "creature_tapped": false,
+      "haste": false,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "haste-pending",
+      "green": 0,
+      "stack": 1,
+      "cavalry_tapped": true,
+      "creature_tapped": false,
+      "haste": false,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "haste-resolved",
+      "green": 0,
+      "stack": 0,
+      "cavalry_tapped": true,
+      "creature_tapped": false,
+      "haste": true,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "mana-produced",
+      "green": 1,
+      "stack": 0,
+      "cavalry_tapped": true,
+      "creature_tapped": true,
+      "haste": true,
+      "enemy_damage": 0
+    }
+  ],
+  "cavalry-druid-bite": [
+    {
+      "checkpoint": "fresh",
+      "green": 0,
+      "stack": 0,
+      "cavalry_tapped": false,
+      "creature_tapped": false,
+      "haste": false,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "haste-pending",
+      "green": 0,
+      "stack": 1,
+      "cavalry_tapped": true,
+      "creature_tapped": false,
+      "haste": false,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "haste-resolved",
+      "green": 0,
+      "stack": 0,
+      "cavalry_tapped": true,
+      "creature_tapped": false,
+      "haste": true,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "bite-paid",
+      "green": 0,
+      "stack": 1,
+      "cavalry_tapped": true,
+      "creature_tapped": true,
+      "haste": true,
+      "enemy_damage": 0
+    },
+    {
+      "checkpoint": "bite-resolved",
+      "green": 0,
+      "stack": 0,
+      "cavalry_tapped": true,
+      "creature_tapped": true,
+      "haste": true,
+      "enemy_damage": 1
+    }
+  ],
+  "archer-thrill": [
+    {
+      "checkpoint": "committed",
+      "life": [
+        20,
+        20
+      ],
+      "stack": 2,
+      "hand": [],
+      "graveyard": [
+        "mountain"
+      ],
+      "library": [
+        "forest",
+        "bear-cub",
+        "giant-growth"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    },
+    {
+      "checkpoint": "trigger-1",
+      "life": [
+        20,
+        19
+      ],
+      "stack": 1,
+      "hand": [],
+      "graveyard": [
+        "mountain"
+      ],
+      "library": [
+        "forest",
+        "bear-cub",
+        "giant-growth"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    },
+    {
+      "checkpoint": "draws",
+      "life": [
+        20,
+        19
+      ],
+      "stack": 0,
+      "hand": [
+        "forest",
+        "bear-cub"
+      ],
+      "graveyard": [
+        "mountain",
+        "thrill-of-possibility"
+      ],
+      "library": [
+        "giant-growth"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    }
+  ],
+  "holdout-two-archers-discard-surprise": [
+    {
+      "checkpoint": "committed",
+      "life": [
+        20,
+        5
+      ],
+      "stack": 3,
+      "hand": [],
+      "graveyard": [
+        "goblin-surprise"
+      ],
+      "library": [
+        "forest",
+        "mountain",
+        "bear-cub"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    },
+    {
+      "checkpoint": "trigger-1",
+      "life": [
+        20,
+        4
+      ],
+      "stack": 2,
+      "hand": [],
+      "graveyard": [
+        "goblin-surprise"
+      ],
+      "library": [
+        "forest",
+        "mountain",
+        "bear-cub"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    },
+    {
+      "checkpoint": "trigger-2",
+      "life": [
+        20,
+        3
+      ],
+      "stack": 1,
+      "hand": [],
+      "graveyard": [
+        "goblin-surprise"
+      ],
+      "library": [
+        "forest",
+        "mountain",
+        "bear-cub"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    },
+    {
+      "checkpoint": "draws",
+      "life": [
+        20,
+        3
+      ],
+      "stack": 0,
+      "hand": [
+        "forest",
+        "mountain"
+      ],
+      "graveyard": [
+        "goblin-surprise",
+        "thrill-of-possibility"
+      ],
+      "library": [
+        "bear-cub"
+      ],
+      "mana": 0,
+      "tapped_mountains": 2
+    }
+  ],
+  "land-mountain": [
+    {
+      "checkpoint": "first-land",
+      "battlefield": [
+        "mountain"
+      ],
+      "hand": [
+        "mountain"
+      ],
+      "stack": 0,
+      "red": 1,
+      "green": 0,
+      "tapped": true
+    },
+    {
+      "checkpoint": "second-rejected",
+      "battlefield": [
+        "mountain"
+      ],
+      "hand": [
+        "mountain"
+      ],
+      "stack": 0,
+      "red": 1,
+      "green": 0,
+      "tapped": true
+    }
+  ],
+  "land-forest-second-mountain": [
+    {
+      "checkpoint": "first-land",
+      "battlefield": [
+        "forest"
+      ],
+      "hand": [
+        "mountain"
+      ],
+      "stack": 0,
+      "red": 0,
+      "green": 1,
+      "tapped": true
+    },
+    {
+      "checkpoint": "second-rejected",
+      "battlefield": [
+        "forest"
+      ],
+      "hand": [
+        "mountain"
+      ],
+      "stack": 0,
+      "red": 0,
+      "green": 1,
+      "tapped": true
+    }
+  ]
+}
