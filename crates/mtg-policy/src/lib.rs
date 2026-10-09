@@ -6,7 +6,7 @@ use mtg_core::{
     rng::{EpisodeRng, Stream},
 };
 
-pub const VERSION: &str = "legal-random-surprise-v1";
+pub const VERSION: &str = "legal-random-full-pool-v1";
 /// Pins SplitMix64 seed derivation, seat domains and unbiased bounded sampling.
 pub const RNG_VERSION: &str = "legal-random-rng-v1";
 const POLICY_SCHEMA: u32 = 1;
@@ -221,14 +221,32 @@ fn validate(d: &Decision) -> Result<(), Error> {
             | "cast_discard"
             | "payment"
             | "cleanup_discard"
+            | "trigger_order"
+            | "trigger_target"
     ) {
         return Err(Error::UnsupportedDecision);
     }
     if d.factored.is_some()
-        || (!matches!(d.kind, "bottom" | "cleanup_discard") && d.count != 1)
+        || (!matches!(d.kind, "bottom" | "cleanup_discard" | "trigger_order") && d.count != 1)
         || d.legal_mask.iter().filter(|legal| **legal).count() < d.count
     {
         return Err(Error::InvalidObservation);
+    }
+    if d.kind == "trigger_order" {
+        let legal: Vec<_> = d
+            .candidates
+            .iter()
+            .zip(&d.legal_mask)
+            .filter_map(|(c, m)| m.then_some(c))
+            .collect();
+        if d.count != legal.len()
+            || legal
+                .iter()
+                .enumerate()
+                .any(|(i, c)| legal[..i].contains(c))
+        {
+            return Err(Error::InvalidObservation);
+        }
     }
     for (c, legal) in d.candidates.iter().zip(&d.legal_mask) {
         if !legal {
@@ -237,6 +255,8 @@ fn validate(d: &Decision) -> Result<(), Error> {
         let supported = match d.kind {
             "keep_or_mulligan" => matches!(c, Choice::Keep | Choice::Mulligan),
             "bottom" => matches!(c, Choice::Bottom { .. }),
+            "trigger_order" => matches!(c, Choice::OrderTrigger { .. }),
+            "trigger_target" => matches!(c, Choice::TargetPlayer { seat: 0..=1 }),
             "cast_mode" => matches!(c, Choice::Mode { mode: 0..=1 } | Choice::CancelPayment),
             "cast_discard" => matches!(c, Choice::Discard { .. } | Choice::CancelPayment),
             "cleanup_discard" => matches!(c, Choice::Discard { .. }),
@@ -302,6 +322,9 @@ fn validate_content(o: &Observation, d: &Decision) -> Result<(), Error> {
                     "wildheart-invoker",
                     "thrill-of-possibility",
                     "goblin-surprise",
+                    "firebrand-archer",
+                    "crackling-cyclops",
+                    "viashino-pyromancer",
                 ],
             ),
             Choice::Activate { card } => (

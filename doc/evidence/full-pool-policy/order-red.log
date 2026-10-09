@@ -1,0 +1,24 @@
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-208/crates/mtg-policy)
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.62s
+     Running tests/full_pool.rs (target/debug/deps/full_pool-b52ca471ff6e7ded)
+
+running 1 test
+test full_pool_trigger_order_rejects_incomplete_or_duplicate_permutations ... FAILED
+
+failures:
+
+---- full_pool_trigger_order_rejects_incomplete_or_duplicate_permutations stdout ----
+
+thread 'full_pool_trigger_order_rejects_incomplete_or_duplicate_permutations' (53) panicked at crates/mtg-policy/tests/full_pool.rs:171:34:
+assertion `left == right` failed
+  left: Ok([OrderTrigger { trigger: 0 }])
+ right: Err(InvalidObservation)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    full_pool_trigger_order_rejects_incomplete_or_duplicate_permutations
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-policy --test full_pool`

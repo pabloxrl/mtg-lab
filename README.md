@@ -5,16 +5,17 @@ AI-player experiments and trustworthy game data. Built in Rust, with a
 command-line interface for simulation, replay and validation.
 
 The project is under active development. The M1 six-card scalar slice has passed
-its acceptance audit, and additional card mechanics are being delivered toward
-the frozen 20-card MVP pool. Full-pool native policies, Python bindings, batching
-and RL training integrations remain planned. See [supported functionality and
+its acceptance audit. Native random and heuristic policies now handle the frozen
+20-card pool through the existing scalar runner, with [game, replay and trajectory
+checks](doc/evidence/full-pool-policy/README.md). The M2 gate, Python bindings,
+batching and RL training integrations remain incomplete. See [supported functionality and
 limitations](doc/capabilities.md) for precise coverage and verification evidence.
 
 ## Features
 
 - Deterministic game execution with explicit seeds, budgets and player decisions.
 - Headless simulation with native random and heuristic policies for the supported
-  subset, plus explicit scripted play.
+  frozen pool, plus explicit scripted play.
 - Seat-filtered observations and validated choices that preserve private information.
 - Versioned snapshots, semantic replay, JSONL trajectories and dataset validation.
 - Automated regression tests and scoped comparisons against pinned XMage and

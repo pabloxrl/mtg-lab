@@ -102,7 +102,7 @@ fn run_command_with_timeout(mut command: Command, timeout: Duration) -> (i32, Ve
 fn config() -> Value {
     let mut c = legacy_config();
     c["schema_version"] = json!(2);
-    c["policies"] = json!(["heuristic-surprise-v1", "heuristic-surprise-v1"]);
+    c["policies"] = json!(["heuristic-full-pool-v1", "heuristic-full-pool-v1"]);
     c["native"] = json!({"policy_seed":42,"rng_version":"legal-random-rng-v1","work_quantum":64,"max_work_calls":100000,"max_records":10000});
     c["episodes"] = json!(1);
     for i in 0..2 {
@@ -115,7 +115,7 @@ fn native_one_decision_cannot_be_a_rules_outcome() {
     // CR103: one opening choice cannot cause life loss or rules completion.
     // Random may choose keep or mulligan; neither is a win or draw.
     for start in [0, 1] {
-        for policy in ["heuristic-surprise-v1", "legal-random-surprise-v1"] {
+        for policy in ["heuristic-full-pool-v1", "legal-random-full-pool-v1"] {
             let mut c = config();
             c["game"]["starting_seat"] = json!(start);
             c["policies"] = json!([policy, policy]);
@@ -168,7 +168,7 @@ fn native_bad_versions_policies_bounds_and_overflow_fail_without_output() {
         ("schema_version", json!(3)),
         (
             "policies",
-            json!(["missing-private-token", "heuristic-surprise-v1"]),
+            json!(["missing-private-token", "heuristic-full-pool-v1"]),
         ),
         ("episodes", json!(0)),
         ("max_decisions", json!(0)),
@@ -295,9 +295,9 @@ fn direct(c: &Value) -> Value {
 fn native_real_games_repeat_and_match_direct_libraries_with_rules_checkpoints() {
     for start in [0, 1] {
         for policies in [
-            ["heuristic-surprise-v1", "heuristic-surprise-v1"],
-            ["legal-random-surprise-v1", "legal-random-surprise-v1"],
-            ["heuristic-surprise-v1", "legal-random-surprise-v1"],
+            ["heuristic-full-pool-v1", "heuristic-full-pool-v1"],
+            ["legal-random-full-pool-v1", "legal-random-full-pool-v1"],
+            ["heuristic-full-pool-v1", "legal-random-full-pool-v1"],
         ] {
             let mut c = config();
             c["policies"] = json!(policies);
@@ -521,7 +521,7 @@ fn native_benchmark_preserves_production_rows_and_all_failure_denominators() {
     // RFC B020: reset/policy/error work stays inside the denominator. CR103:
     // one opening decision cannot finish a game. Record bound 1 diagnoses the
     // second choice as capacity failure; neither path is a win or a draw.
-    for policy in ["heuristic-surprise-v1", "legal-random-surprise-v1"] {
+    for policy in ["heuristic-full-pool-v1", "legal-random-full-pool-v1"] {
         for failure in [false, true] {
             let mut c = config();
             c["policies"] = json!([policy, policy]);
@@ -650,4 +650,30 @@ fn native_benchmark_rejects_capture_before_creating_artifacts() {
     assert_eq!(fs::read_dir(&data).unwrap().count(), 0);
     assert_eq!(fs::read_dir(&replay).unwrap().count(), 0);
     fs::remove_dir_all(root).unwrap();
+}
+
+#[test]
+fn full_pool_cli_all_matchups_both_policies_and_starting_seats() {
+    for policy in [mtg_policy::HEURISTIC_VERSION, mtg_policy::VERSION] {
+        for decks in [["red", "green"], ["red", "red"], ["green", "green"]] {
+            for start in [0, 1] {
+                let mut c = config();
+                c["policies"] = json!([policy, policy]);
+                c["game"]["starting_seat"] = json!(start);
+                for (seat, deck) in decks.iter().enumerate() {
+                    c["game"]["seats"][seat]["deck"] = json!(deck);
+                }
+                c["first_episode"] = json!(7);
+                c["max_decisions"] = json!(20000);
+                c["native"]["max_records"] = json!(20000);
+                let (code, rows, error) = run_game(c.clone());
+                assert_eq!(code, 0, "{policy} {decks:?} {start}: {error}");
+                assert_eq!(rows, run_game(c).1);
+                assert_eq!(rows[1]["status"], "completed");
+                assert_eq!(rows[2]["completed"], 1);
+                assert_eq!(rows[2]["failed"], 0);
+                assert_eq!(rows[2]["truncated"], 0);
+            }
+        }
+    }
 }
