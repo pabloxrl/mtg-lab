@@ -1,0 +1,13 @@
+{
+  "returncode": 0,
+  "timed_out": false,
+  "wall_seconds": 12.214721899988945,
+  "process_user_seconds": 12.08776,
+  "process_system_seconds": 0.104989,
+  "peak_rss_bytes": 80461824,
+  "minor_faults": 22648,
+  "major_faults": 0,
+  "voluntary_switches": 1,
+  "involuntary_switches": 345,
+  "oracle": "Linux wait4 rusage; ru_maxrss KiB converted to bytes"
+}

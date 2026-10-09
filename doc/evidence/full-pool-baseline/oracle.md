@@ -45,8 +45,9 @@ They are preserved as history, not a current gap or a new execution receipt.
 Correctness qualification comes from the executable suite, applicable pinned
 reference receipts and independent review. Native policy agreement, repeated
 snapshots, rates and this arithmetic verifier are not independent Magic rules
-oracles. Measurements, full torture, review and delivery remain pending until
-recorded in the final report.
+oracles. The [artifact report](README.md) records measurements and passing full
+torture; candidate-bound review and delivery receipts remain in the issue/PR
+workpad and must pass before integration.
 
 The existing native client checks its deadline before reset. One final scheduled
 attempt can therefore start no game. The validator reports `attempts - started`

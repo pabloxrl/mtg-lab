@@ -9,7 +9,9 @@ The 20,000-decision, 100,000-work-call and 20,000-record horizons are unchanged.
 The historical green/green `scalar-windows-v1` command remains available.
 
 The [experiment plan](evidence/full-pool-baseline/plan.md) freezes order, seeds,
-policy versions, minima and extension criteria. Run from the repository root
+policy versions, minima and extension criteria. The [recorded container
+artifact](evidence/full-pool-baseline/README.md) includes raw results and limits.
+Run from the repository root
 inside the managed Linux toolchain container. The Python collectors require the
 existing shared heavy-work lock; they do not build, install tools or change the
 lock directory. Use new output directories for every attempt:

@@ -1,0 +1,37 @@
+{
+  "deadline_ms": null,
+  "episodes": 1,
+  "first_episode": 0,
+  "game": {
+    "format": "foundations_micro_v1",
+    "game_number": 1,
+    "rng_version": "splitmix64-v1",
+    "seats": [
+      {
+        "deck": "red",
+        "order": null
+      },
+      {
+        "deck": "green",
+        "order": null
+      }
+    ],
+    "shuffle_version": "fisher-yates-rejection-v1",
+    "sideboards": false,
+    "starting_seat": 0
+  },
+  "master_seed": 42,
+  "max_decisions": 20000,
+  "native": {
+    "max_records": 20000,
+    "max_work_calls": 100000,
+    "policy_seed": 42,
+    "rng_version": "legal-random-rng-v1",
+    "work_quantum": 64
+  },
+  "policies": [
+    "heuristic-activation-mana-v1",
+    "heuristic-activation-mana-v1"
+  ],
+  "schema_version": 2
+}

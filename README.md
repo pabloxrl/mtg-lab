@@ -32,7 +32,9 @@ new cards reuse supported mechanics through definitions, without engine changes.
   separate measured costs and explicit unfinished-game accounting.
   [Full-pool collectors](doc/scalar-baseline.md) cover all eight matchup rows,
   off/counters comparisons and normal-play resident-state RSS sweeps;
-  shared-container measurements do not qualify the designated performance host.
+  the [available-container artifact](doc/evidence/full-pool-baseline/README.md)
+  records provisional speed/overhead misses and all four 10,000-state sweeps.
+  Shared-container measurements do not qualify the designated performance host.
 - Automated regression tests and scoped comparisons against pinned XMage and
   Forge reference engines.
 
