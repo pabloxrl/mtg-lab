@@ -538,3 +538,53 @@ fn published_limits_match_explicit_configuration_not_internal_clock_signals() {
         assert_eq!(loaded.episodes()[0].header.limits.wall_time_ms, deadline);
     }
 }
+
+#[test]
+fn full_replay_write_failure_and_off_trajectory_persistence() {
+    for mode in [
+        mtg_core::metrics::Mode::Off,
+        mtg_core::metrics::Mode::FullReplay,
+    ] {
+        for fail in [false, true] {
+            let root = Root::new();
+            let mut c = root.config(true);
+            short(&mut c);
+            c.native.as_mut().unwrap().instrumentation = mode;
+            let mut out = vec![];
+            let mut observed = false;
+            let code = crate::native::run_observed(
+                &c,
+                &mut out,
+                || None,
+                &mut |_, stage| {
+                    if fail && stage == FileStage::Flush {
+                        Err(io::Error::other("injected replay publication failure"))
+                    } else {
+                        Ok(())
+                    }
+                },
+                &mut |r| {
+                    observed = true;
+                    assert!(r.trajectory().unwrap().footer().unwrap().complete);
+                    assert_eq!(
+                        r.privileged_replay(4_000_000).unwrap().is_some(),
+                        mode == mtg_core::metrics::Mode::FullReplay
+                    );
+                },
+            )
+            .unwrap();
+            assert!(observed);
+            assert_eq!(code, if fail { 3 } else { 0 });
+            let rows = rows(&out);
+            assert_eq!(
+                rows.last().unwrap()["publication"],
+                if fail { "failed" } else { "published" }
+            );
+            let dir = root
+                .0
+                .join("data")
+                .join(rows[2]["run_id"].as_str().unwrap());
+            assert_eq!(dir.join("manifest.json").exists(), !fail);
+        }
+    }
+}
