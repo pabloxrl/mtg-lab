@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "cleanup-8-4",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand"
+          },
+          {
+            "id": "green2",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "red2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite2",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand"
+          },
+          {
+            "id": "keep7",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red0"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "mana",
+          "actor": 1,
+          "source": "green1"
+        },
+        {
+          "kind": "cast",
+          "actor": 1,
+          "source": "growth"
+        },
+        {
+          "kind": "target",
+          "actor": 1,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 1,
+          "color": "G"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "growth-resolved"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-resolved"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "green2"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "red2"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite2"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "source"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "destination"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "second-bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "four-damage"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "precombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": []
+        },
+        {
+          "kind": "checkpoint",
+          "name": "no-attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "postcombat_main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end_turn"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "end-response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "before-discard"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "discard",
+          "actor": 0,
+          "cards": [
+            "keep3"
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "next-upkeep-response"
+        }
+      ]
+    }
+  ]
+}

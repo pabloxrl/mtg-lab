@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "bite-killed-blocker",
+      "setup": {
+        "boundary": "turn-1-upkeep-priority",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "libraries": [
+          [],
+          []
+        ],
+        "objects": [
+          {
+            "id": "attacker",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "blocker",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield"
+          },
+          {
+            "id": "forest0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "mountain",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield"
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand"
+          }
+        ]
+      },
+      "script": [
+        {
+          "kind": "checkpoint",
+          "name": "initial"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "main"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "begin-combat"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "attackers",
+          "actor": 0,
+          "attackers": [
+            "attacker"
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "attackers"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "blockers",
+          "actor": 1,
+          "blocks": [
+            {
+              "blocker": "blocker",
+              "attacker": "forest0"
+            }
+          ]
+        },
+        {
+          "kind": "checkpoint",
+          "name": "blockers"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "forest0"
+        },
+        {
+          "kind": "mana",
+          "actor": 0,
+          "source": "mountain"
+        },
+        {
+          "kind": "cast",
+          "actor": 0,
+          "source": "bite"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "attacker"
+        },
+        {
+          "kind": "target",
+          "actor": 0,
+          "target": "blocker"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "G"
+        },
+        {
+          "kind": "pay",
+          "actor": 0,
+          "color": "R"
+        },
+        {
+          "kind": "finish_cast",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "bite-cast"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "checkpoint",
+          "name": "response-window"
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "blocker-died"
+        },
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        },
+        {
+          "kind": "checkpoint",
+          "name": "combat-damage"
+        }
+      ]
+    }
+  ]
+}

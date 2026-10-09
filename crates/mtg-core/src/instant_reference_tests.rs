@@ -307,6 +307,7 @@ fn execute(case: &Value) -> Value {
         assert!(
             [
                 "bear-cub",
+                "magnigoth-sentry",
                 "forest",
                 "mountain",
                 "giant-growth",
@@ -334,6 +335,35 @@ fn execute(case: &Value) -> Value {
         } else {
             let actor = seat(&action["actor"]);
             match kind {
+                "reject_cast" => {
+                    // No opposing creature exists in this minimal negative setup.
+                    // Admission must reject before a target/payment continuation.
+                    keys(action, &["kind", "actor", "source", "targets"]);
+                    assert!(cast_actor.is_none());
+                    let spell = a.handle(text(&action["source"]));
+                    assert_eq!(
+                        a.game.objects.get(spell).unwrap().card.identity().key,
+                        "bite-down"
+                    );
+                    let targets = action["targets"].as_array().unwrap();
+                    assert_eq!(targets.len(), 2);
+                    for target in targets {
+                        let h = a.handle(text(target));
+                        let o = a.game.objects.get(h).unwrap();
+                        assert_eq!(o.zone, Zone::Battlefield);
+                        assert_eq!(o.controller, actor);
+                        assert!(a.game.creature_state(h).is_some());
+                    }
+                    assert_ne!(targets[0], targets[1]);
+                    let before = a.game.snapshot();
+                    let d = a.game.turn_decision().unwrap();
+                    assert_eq!(actor, d.actor);
+                    assert_eq!(
+                        a.game.begin_targeted_cast(actor, d.id, spell, 80),
+                        Err(targets::TargetError::Cast(casting::CastError::IllegalSpell))
+                    );
+                    assert_eq!(a.game.snapshot(), before, "rejected cast mutated state");
+                }
                 "discard" => {
                     keys(action, &["kind", "actor", "cards"]);
                     assert!(cast_actor.is_none());
@@ -620,6 +650,7 @@ fn instant_departure_choices_are_not_silently_dropped() {
             std::panic::catch_unwind(|| {
                 let result = execute(case);
                 assert_eq!(result["checkpoints"], expectations()[text(&base["id"])]);
+                assert_eq!(result["consumed"], base["script"]);
             })
             .is_ok()
         };
@@ -812,5 +843,51 @@ fn instant_cleanup_strict_discard_identity_count_and_actor() {
             .is_err(),
             "survived {mutation}"
         );
+    }
+}
+
+#[test]
+fn instant_sentry_strict_scripts_and_literal_checkpoints() {
+    // Original catalog: CR 608.2b/h, 120.6, 400.7, 514.2 and pinned Oracle.
+    // The same rules-authored literals run in XMage; never derive them here.
+    for case in fixture()["cases"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|c| text(&c["id"]).starts_with("rules-"))
+    {
+        let expected = &expectations()[text(&case["id"])];
+        let valid = |candidate: &Value| {
+            std::panic::catch_unwind(|| {
+                let result = execute(candidate);
+                assert_eq!(&result["checkpoints"], expected);
+                assert_eq!(result["consumed"], case["script"]);
+            })
+            .is_ok()
+        };
+        assert!(valid(case), "{}", case["id"]);
+        let count = case["script"].as_array().unwrap().len();
+        for i in 0..count {
+            let mut wrong = case.clone();
+            wrong["script"].as_array_mut().unwrap().remove(i);
+            assert!(!valid(&wrong), "omission {} {i}", case["id"]);
+            let mut wrong = case.clone();
+            wrong["script"]
+                .as_array_mut()
+                .unwrap()
+                .insert(i, case["script"][i].clone());
+            assert!(!valid(&wrong), "extra {} {i}", case["id"]);
+            if case["script"][i].get("actor").is_some() {
+                let mut wrong = case.clone();
+                wrong["script"][i]["actor"] =
+                    json!(1 - case["script"][i]["actor"].as_u64().unwrap());
+                assert!(!valid(&wrong), "actor {} {i}", case["id"]);
+            }
+            if i + 1 < count {
+                let mut wrong = case.clone();
+                wrong["script"].as_array_mut().unwrap().swap(i, i + 1);
+                assert!(!valid(&wrong), "order {} {i}", case["id"]);
+            }
+        }
     }
 }

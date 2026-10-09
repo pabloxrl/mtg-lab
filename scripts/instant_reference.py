@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import sys
 import xmage
+import sentry_instant_controls
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / 'fixtures/reference/instant-responses.json'
@@ -378,9 +379,10 @@ def main():
         else:
             raise ValueError('forgotten blocked status mutant survived')
         mutations = strict_mutations(cache, output, document)
+        mutations['sentry-controls'] = sentry_instant_controls.run(sys.modules[__name__], cache, output, document, runs['native-1'])
         mutations['blocker-controls'] = blocker_mutations(cache, output, document)
         mutations['cleanup-controls'] = cleanup_mutations(cache, output, document, runs['native-1'])
-        files = [FIXTURE, EXPECTATIONS, BRIDGE, NATIVE, Path(__file__), ROOT / 'references/xmage/pins.json',
+        files = [FIXTURE, EXPECTATIONS, BRIDGE, NATIVE, Path(__file__), ROOT / 'scripts/sentry_instant_controls.py', ROOT / 'references/xmage/pins.json',
                  ROOT / 'references/xmage/dependencies.json', ROOT / 'Cargo.lock', ROOT / 'data/rules/cr-2026-09-25.json',
                  ROOT / 'data/cards/foundations_micro_v1.json']
         report = {'status': 'agreed', 'schema_version': 2, 'cases': list(runs['native-1']),

@@ -1,0 +1,11 @@
+{
+  "toughness-as-health": "first divergence: {\"actual\": 2, \"expected\": 4, \"path\": \"$.rules-foundations_micro_v1-bite-down-positive.checkpoints[2].state.objects[1].toughness\"}",
+  "missing-damage": "first divergence: {\"actual\": 0, \"expected\": 2, \"path\": \"$.rules-foundations_micro_v1-bite-down-positive.checkpoints[2].state.objects[1].damage\"}",
+  "missing-growth": "first divergence: {\"actual\": 4, \"expected\": 7, \"path\": \"$.rules-objects-bookkeeping-interaction.checkpoints[4].state.objects[1].power\"}",
+  "retained-damage": "first divergence: {\"actual\": 2, \"expected\": 0, \"path\": \"$.rules-objects-bookkeeping-interaction.checkpoints[12].state.objects[1].damage\"}",
+  "retained-growth": "first divergence: {\"actual\": 7, \"expected\": 4, \"path\": \"$.rules-objects-bookkeeping-interaction.checkpoints[12].state.objects[1].toughness\"}",
+  "cached-source-damage": "first divergence: {\"actual\": 2, \"expected\": 0, \"path\": \"$.rules-foundations_micro_v1-bite-down-regression.checkpoints[4].state.objects[1].damage\"}",
+  "source-id": "first divergence: {\"actual\": \"decoy0\", \"expected\": \"source\", \"path\": \"$.rules-foundations_micro_v1-bite-down-regression.checkpoints[3].state.stack[0].targets[0].id\"}",
+  "source-incarnation": "first divergence: {\"actual\": 1, \"expected\": 0, \"path\": \"$.rules-foundations_micro_v1-bite-down-regression.checkpoints[3].state.stack[0].targets[0].incarnation\"}",
+  "stack-order": "first divergence: {\"actual\": \"growth\", \"expected\": \"bite\", \"path\": \"$.rules-continuous-resolution-power-positive.checkpoints[2].state.stack[0].id\"}"
+}

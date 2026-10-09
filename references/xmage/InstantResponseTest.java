@@ -42,6 +42,8 @@ public class InstantResponseTest extends CardTestPlayerBase {
     private final Map<UUID,Integer> initialCounters = new HashMap<>();
     private final Map<UUID,Map<UUID,Integer>> targetIncarnations = new HashMap<>();
     private Spell pendingResolution;
+    private JsonArray rejectedTargets;
+    private int rejectedTargetCursor;
     private JsonElement lastResolution = JsonNull.INSTANCE;
     private int incarnation(UUID id, Game game) {
         assertTrue("missing initial identity", initialCounters.containsKey(id));
@@ -120,6 +122,32 @@ public class InstantResponseTest extends CardTestPlayerBase {
                         List<ActivatedManaAbilityImpl> abilities=p.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD);assertEquals(1,abilities.size());
                         assertTrue("illegal mana activation",activateAbility(abilities.get(0),game));return true;
                     }
+                    case "reject_cast":{
+                        // The original catalog has only friendly creatures. Check the
+                        // requested pair with XMage's target rules, then really attempt
+                        // the cast and observe the engine's rollback.
+                        JsonObject a=take("reject_cast",s,"source","targets");
+                        Card card=game.getCard(object(a.get("source").getAsString()));
+                        assertEquals("Bite Down",card.getName());
+                        assertTrue(getHand().contains(card.getId()));
+                        JsonArray targets=a.getAsJsonArray("targets");assertEquals(2,targets.size());
+                        assertNotEquals(targets.get(0),targets.get(1));
+                        for(JsonElement target:targets){
+                            Permanent p=game.getPermanent(object(target.getAsString()));
+                            assertNotNull(p);assertTrue(p.isCreature(game));assertEquals(getId(),p.getControllerId());
+                        }
+                        Ability ability=card.getSpellAbility();
+                        assertEquals(2,ability.getTargets().size());
+                        assertTrue(ability.getTargets().get(0).canTarget(object(targets.get(0).getAsString()),ability,game));
+                        assertFalse(ability.getTargets().get(1).canTarget(object(targets.get(1).getAsString()),ability,game));
+                        JsonObject before=checkpoint("rejected-boundary",game);
+                        rejectedTargets=targets;rejectedTargetCursor=0;
+                        assertFalse("friendly destination cast accepted",cast(card.getSpellAbility(),game,false,null));
+                        rejectedTargets=null;
+                        assertEquals("rejected cast mutated observed state",before,checkpoint("rejected-boundary",game));
+                        for(Target target:game.getCard(card.getId()).getSpellAbility().getTargets())assertTrue(target.getTargets().isEmpty());
+                        return true;
+                    }
                     case "cast":{
                         JsonObject a=take("cast",s,"source");Card card=game.getCard(object(a.get("source").getAsString()));assertTrue(game.getPlayer(getId()).getHand().contains(card.getId()));
                         getManaPool().setAutoPayment(false);
@@ -197,6 +225,12 @@ public class InstantResponseTest extends CardTestPlayerBase {
                 return true;
             }
             @Override public boolean chooseTarget(Outcome outcome,Target target,Ability source,Game game){
+                if(rejectedTargets!=null){
+                    assertTrue("extra rejected target callback",rejectedTargetCursor<rejectedTargets.size());
+                    UUID id=object(rejectedTargets.get(rejectedTargetCursor++).getAsString());
+                    if(!target.canTarget(id,source,game))return false;
+                    target.addTarget(id,source,game);return true;
+                }
                 JsonObject a=take("target",seat(getId()),"target");UUID id=object(a.get("target").getAsString());
                 assertTrue("illegal target",target.canTarget(id,source,game));target.addTarget(id,source,game);return true;
             }
@@ -279,7 +313,7 @@ public class InstantResponseTest extends CardTestPlayerBase {
         assertEquals(JsonParser.parseString("[[0,0,0,0,0,0],[0,0,0,0,0,0]]"),setup.get("mana"));assertEquals(JsonParser.parseString("[[],[]]"),setup.get("libraries"));
         setStrictChooseMode(true);currentGame.setStartingPlayerId(playerA.getId());gameOptions.skipInitShuffling=true;
         for(int s=0;s<2;s++){TestPlayer p=s==0?playerA:playerB;removeAllCardsFromHand(p);removeAllCardsFromLibrary(p);setLife(p,setup.getAsJsonArray("life").get(s).getAsInt());}
-        Map<String,String> names=new HashMap<>();names.put("bear-cub","Bear Cub");names.put("forest","Forest");names.put("mountain","Mountain");names.put("bite-down","Bite Down");names.put("giant-growth","Giant Growth");
+        Map<String,String> names=new HashMap<>();names.put("bear-cub","Bear Cub");names.put("magnigoth-sentry","Magnigoth Sentry");names.put("forest","Forest");names.put("mountain","Mountain");names.put("bite-down","Bite Down");names.put("giant-growth","Giant Growth");
         for(JsonElement e:setup.getAsJsonArray("objects")){
             JsonObject o=e.getAsJsonObject();keys(o,"id","card","owner","zone");String key=o.get("card").getAsString();assertTrue(names.containsKey(key));int s=o.get("owner").getAsInt();TestPlayer p=s==0?playerA:playerB;player(s);
             String z=o.get("zone").getAsString();assertTrue(z.equals("hand")||z.equals("battlefield"));
