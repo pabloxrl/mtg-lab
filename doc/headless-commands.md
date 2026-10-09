@@ -179,8 +179,11 @@ Acceptance: `cargo test -p mtg-cli --test headless_commands`, all CLI tests via
 `native-rollout-v1` runs the same owned native client as `simulate`, with schema 2,
 capture disabled and the configured M1 random/heuristic policy identities. Script,
 passive and captured configurations fail explicitly; no hidden policy substitution.
-Run the release binary for diagnostic measurements. The source's six-card M1
-capability boundary remains unchanged; the frozen decks include uncastable cards.
+Run the release binary for diagnostic measurements. Current native policies
+support the frozen full pool; the historical M1 six-card limitation no longer
+describes this command. For repeated windows and pinned accounting, see the
+[versioned scalar benchmark](scalar-benchmark.md). Neither smoke command is a
+speed qualification.
 
 The single schema-1 result contains resolved `run`, unmodified `episodes` and
 `summary` rows, `elapsed_ns`, `policy_ns`, and `counters.accepted_decisions` and

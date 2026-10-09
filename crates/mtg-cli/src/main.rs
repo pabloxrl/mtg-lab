@@ -1,3 +1,4 @@
+mod benchmark;
 mod capture;
 mod commands;
 mod native;

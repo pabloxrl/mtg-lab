@@ -1,0 +1,11 @@
+2026-10-09, base ffff9486f821020ef9e093c67839e62d4224fbe9
+Shared heavy lock; cargo test -p mtg-cli --bin mtg benchmark::tests -- --nocapture
+Compiled successfully, test profile optimized + debuginfo, 27.72s.
+4 tests: 1 passed, 3 failed, 0 ignored, exit 101.
+benchmark_rejects_invalid_contract_without_reducing_production_minima: accepted schema_version
+benchmark_clock_includes_reset_failure_and_boundary_overshoot:
+  left (0, 0, 0, 0, 0), independently expected (17, 3, 1, 1, 1)
+benchmark_distribution_retains_zero_windows_and_nearest_rank_percentiles:
+  left Null, expected [9.0, 1.0, 0.0, 3.0, 2.0]
+benchmark_zero_completions_have_no_successful_rate: PASS (stub returns None).
+This is compiling scaffold behavioral red, not an import/compile failure.
