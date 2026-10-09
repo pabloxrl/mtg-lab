@@ -1,0 +1,18 @@
+{
+  "base_sha": "9a4e8812ecf9fc019cb2c76812058840da89a543",
+  "command": "./scripts/torture.sh (shared heavy lock)",
+  "exit_code": 0,
+  "python_tests": 224,
+  "rust_debug_release_executions": 1380,
+  "failed": 0,
+  "ignored": 0,
+  "log_sha256": "6bf9ec2f56694cda476e15b52d9848836783982e6344f0b75c3657b70a6dc4ac",
+  "reference_cases": 32,
+  "reference_repetitions": 2,
+  "reference_controls": 369,
+  "reference_native_source_hashes_verified": 58,
+  "reference_receipt_sha256": "13a30047fe121f81504eacc84a114bb4bd4b00863a9ae4783044a4b78db81888",
+  "related_reference_archive_sha256": "c8fec63ea5903b943a65808236d69b15fa0681d58bf87d4c977aaaac76715d2b",
+  "instant_archived_artifacts_verified": 102,
+  "related_native_source_hashes_verified_per_pack": 58
+}

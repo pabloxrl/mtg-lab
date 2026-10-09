@@ -35,6 +35,9 @@ new cards reuse supported mechanics through definitions, without engine changes.
 
 The [cast, ETB and cleanup reference pack](doc/evidence/m2-triggers/README.md)
 documents a bounded native/XMage command, assigned cases and observation limits.
+The [Cub casting and single-Sentry checks](doc/evidence/cub-sentry/README.md)
+extend the Shivan reference pack with explicit illegal-action attempts,
+payment/zone transitions and combat-damage checkpoints in both seats.
 
 ## Getting started
 

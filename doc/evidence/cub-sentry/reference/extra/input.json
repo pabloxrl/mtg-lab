@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "setup": "Original synthetic positions using real pinned cards. Sickness/departure are explicit test setup; real abilities, spells, combat and cleanup execute in each engine.",
+  "basis": "Pinned Shivan 4RR 5/5 flying, R gives +1/+0; CR 602, 113.7a, 302.6, 400.7, 611.2, 613, 509, 510, 702.2.",
+  "cases": [
+    {
+      "id": "exact_cub_reject_0",
+      "mode": "cub_reject",
+      "active": 0,
+      "choices": [
+        {
+          "kind": "pass",
+          "actor": 0
+        },
+        {
+          "kind": "reject_cub",
+          "actor": 1
+        },
+        {
+          "kind": "pass",
+          "actor": 1
+        }
+      ]
+    }
+  ]
+}

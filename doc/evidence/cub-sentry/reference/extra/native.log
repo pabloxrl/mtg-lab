@@ -1,0 +1,23 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.01s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 1 test
+test game::shivan_tests::shivan_reference_literal_checkpoints ... FAILED
+
+failures:
+
+---- game::shivan_tests::shivan_reference_literal_checkpoints stdout ----
+
+thread 'game::shivan_tests::shivan_reference_literal_checkpoints' (39347) panicked at crates/mtg-core/src/cub_sentry_reference.rs:307:5:
+assertion `left == right` failed: first divergence: exact_cub_reject_0/choices/extra
+  left: 2
+ right: 3
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::shivan_tests::shivan_reference_literal_checkpoints
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 284 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

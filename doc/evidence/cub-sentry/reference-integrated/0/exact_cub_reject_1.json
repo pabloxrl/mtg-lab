@@ -1,0 +1,112 @@
+{
+  "points": {
+    "initial": {
+      "active": 1,
+      "priority": 1,
+      "step": "main",
+      "mana": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "cub": [
+          "hand",
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "before_rejection": {
+      "active": 1,
+      "priority": 0,
+      "step": "main",
+      "mana": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "cub": [
+          "hand",
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "cast_rejected": {
+      "active": 1,
+      "priority": 0,
+      "step": "main",
+      "mana": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "stack": [],
+      "objects": {
+        "cub": [
+          "hand",
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    }
+  },
+  "consumed": [
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "reject_cub",
+      "actor": 0
+    }
+  ],
+  "attempts": [
+    {
+      "kind": "reject_cub",
+      "accepted": false,
+      "unchanged": true
+    }
+  ],
+  "combat_damage": {}
+}
