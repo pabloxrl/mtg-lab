@@ -1,24 +1,22 @@
 # MVP test strategy
 
-Status: planned game tests and delivery obligations, **not implemented game support**.
-The [executable torture baseline](torture-suite.md) covers current verification
-tooling; [atomic delivery](../programs/atomic-delivery.md) is the current ownership
-and sequencing amendment. Original scenario expectations remain unchanged.
-This plan refines [RFC 0002](../rfcs/0002-first-mvp.md), preserving every acceptance
-requirement and its [tracked owner](../programs/rfc-0002.json). It delivers the
-missing design in [correction #52](https://github.com/pabloxrl/mtg-lab/issues/52),
-registered through [operations #54](https://github.com/pabloxrl/mtg-lab/issues/54).
-The earlier [failed M0 audit](../evidence/m0/README.md) remains historical evidence;
-a fresh gate must assess the corrected main commit.
+Status: test designs and delivery obligations, **not implemented game support**.
+The [current engine-validation plan](../programs/engine-validation.md) supersedes
+older generation order, campaign sizes and M3–M5 release commitments. Current
+priority: toy-deck correctness, games captured from Forge and XMage's existing
+AIs, and strict replay as a torture suite. No new learning interfaces or training
+work is in scope. Historical designs and all existing regressions remain intact.
+The pinned RFC requirement inventory remains an audit trail; current M2 acceptance
+is unchanged. See the [executable baseline](torture-suite.md) and
+[bounded delivery plan](../programs/atomic-delivery.md).
 
 ## The approach
 
 Use **AI-played games as reproducible test inputs**, supported by focused,
 independently justified rules tests. Start with small deterministic legal-random
 and heuristic policies, using exactly the frozen red and green POC decks, their
-mirrors and both starting seats. An LLM choosing each move adds cost and
-nondeterminism without being necessary for this testing goal. Learned policies
-can later add diverse games through the same recording contract.
+mirrors and both starting seats. Use Forge and XMage's existing AIs for the independent game corpus; no model service
+or learned-policy implementation is required.
 
 Record what happened: opening decks, all random outcomes, every choice, and
 meaningful intermediate states. Replace the players with strict scripted
@@ -27,9 +25,11 @@ must execute the rules itself. Compare states after the same semantic events,
 not after the same internal callback or array index. A shared seed alone does
 not make different engines shuffle or choose identically.
 
-Start generation in the native engine when its relevant capabilities exist.
-Admit independently sourced reference-origin games later through the same
-neutral format; never assume either upstream engine already exports that format.
+Native games remain useful existing checks. The next corpus work starts with
+reference-origin games: a 10-complete-game capture/replay pilot in one engine,
+a 100-attempt timing campaign, the same gates in the second engine, then at least
+1,000 admitted games across both. Never assume either upstream engine already
+exports the neutral format.
 The source engine supplies a candidate trace, **not the expected answer**.
 A disagreement becomes a reproducible, minimized case. Agents justify the
 expectation from the pinned rules and card definitions, obtain independent
