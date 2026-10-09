@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "basis": "Original independently authored CR 603.2/603.3b, 101.4, 113.7a, 608.2b, 704.5a and pinned card definitions. All positions synthetic; APNAP pending-trigger injection is not naturally reachable frozen-pool play. Holdout specified in migration handoff before execution. Stack bottom to top; labels distinguish duplicate sources.",
+  "cases": [
+    {
+      "id": "growth_cub",
+      "kind": "growth_cub",
+      "setup": "synthetic",
+      "active": 0
+    },
+    {
+      "id": "cyclops_bite",
+      "kind": "cyclops_bite",
+      "setup": "synthetic",
+      "active": 0
+    },
+    {
+      "id": "cyclops_bite_survivor",
+      "kind": "cyclops_bite_survivor",
+      "active": 0,
+      "setup": "synthetic"
+    },
+    {
+      "id": "lethal_fodder",
+      "kind": "lethal_fodder",
+      "setup": "synthetic",
+      "active": 0
+    },
+    {
+      "id": "apnap_single",
+      "kind": "apnap",
+      "active": 0,
+      "per_seat": 1,
+      "orders": [
+        [
+          0
+        ],
+        [
+          0
+        ]
+      ],
+      "setup": "synthetic"
+    },
+    {
+      "id": "apnap_p0",
+      "kind": "apnap",
+      "active": 0,
+      "per_seat": 2,
+      "orders": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "setup": "synthetic"
+    },
+    {
+      "id": "apnap_p1",
+      "kind": "apnap",
+      "active": 1,
+      "per_seat": 2,
+      "orders": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "setup": "synthetic"
+    },
+    {
+      "id": "apnap_dead",
+      "kind": "apnap",
+      "active": 0,
+      "per_seat": 2,
+      "orders": [
+        [
+          1,
+          0
+        ],
+        [
+          0,
+          1
+        ]
+      ],
+      "dead_sources": true,
+      "setup": "synthetic"
+    },
+    {
+      "id": "holdout_departed_cyclops",
+      "kind": "holdout",
+      "setup": "synthetic",
+      "active": 0
+    }
+  ]
+}

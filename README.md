@@ -27,6 +27,9 @@ new cards reuse supported mechanics through definitions, without engine changes.
 - Automated regression tests and scoped comparisons against pinned XMage and
   Forge reference engines.
 
+The [cast, ETB and cleanup reference pack](doc/evidence/m2-triggers/README.md)
+documents a bounded native/XMage command, assigned cases and observation limits.
+
 ## Getting started
 
 Install Git, Python 3, Docker Engine and Docker Compose v2, and start Docker.

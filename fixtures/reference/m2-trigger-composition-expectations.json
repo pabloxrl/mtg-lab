@@ -1,0 +1,782 @@
+{
+  "growth_cub": [
+    {
+      "stack": [
+        "spell:giant-growth",
+        "trigger:p0-archer",
+        "trigger:p0-cyclops"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": [
+          0,
+          4,
+          0
+        ],
+        "cub": [
+          2,
+          2,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:giant-growth",
+        "trigger:p0-archer"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "cub": [
+          2,
+          2,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:giant-growth"
+      ],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "cub": [
+          2,
+          2,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "cub": [
+          5,
+          5,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "cyclops_bite": [
+    {
+      "stack": [
+        "spell:bite-down",
+        "trigger:p0-archer",
+        "trigger:p0-cyclops"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": [
+          0,
+          4,
+          0
+        ],
+        "enemy": [
+          2,
+          2,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:bite-down",
+        "trigger:p0-archer"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "enemy": [
+          2,
+          2,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:bite-down"
+      ],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "enemy": [
+          2,
+          2,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "enemy": null
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "lethal_fodder": [
+    {
+      "stack": [
+        "spell:dragon-fodder",
+        "trigger:p0-archer"
+      ],
+      "life": [
+        20,
+        1
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:dragon-fodder"
+      ],
+      "life": [
+        20,
+        0
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        true
+      ]
+    }
+  ],
+  "holdout_departed_cyclops": [
+    {
+      "stack": [
+        "spell:giant-growth",
+        "trigger:p0-archer",
+        "trigger:p0-cyclops",
+        "trigger:p0-archer-b"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": null,
+        "archer": [
+          2,
+          1,
+          0
+        ],
+        "archer-b": [
+          2,
+          1,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:giant-growth",
+        "trigger:p0-archer",
+        "trigger:p0-cyclops"
+      ],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": null,
+        "archer": [
+          2,
+          1,
+          0
+        ],
+        "archer-b": [
+          2,
+          1,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:giant-growth",
+        "trigger:p0-archer"
+      ],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": null,
+        "archer": [
+          2,
+          1,
+          0
+        ],
+        "archer-b": [
+          2,
+          1,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:giant-growth"
+      ],
+      "life": [
+        20,
+        18
+      ],
+      "creatures": {
+        "cyclops": null,
+        "archer": [
+          2,
+          1,
+          0
+        ],
+        "archer-b": [
+          2,
+          1,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        20,
+        18
+      ],
+      "creatures": {
+        "cyclops": null,
+        "archer": [
+          2,
+          1,
+          0
+        ],
+        "archer-b": [
+          2,
+          1,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "apnap_p0": [
+    {
+      "stack": [
+        "trigger:p0-archer-1",
+        "trigger:p0-archer-0",
+        "trigger:p1-archer-0",
+        "trigger:p1-archer-1"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-1",
+        "trigger:p0-archer-0",
+        "trigger:p1-archer-0"
+      ],
+      "life": [
+        19,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-1",
+        "trigger:p0-archer-0"
+      ],
+      "life": [
+        18,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-1"
+      ],
+      "life": [
+        18,
+        19
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        18,
+        18
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "apnap_dead": [
+    {
+      "stack": [
+        "trigger:p0-archer-1",
+        "trigger:p0-archer-0",
+        "trigger:p1-archer-0",
+        "trigger:p1-archer-1"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-1",
+        "trigger:p0-archer-0",
+        "trigger:p1-archer-0"
+      ],
+      "life": [
+        19,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-1",
+        "trigger:p0-archer-0"
+      ],
+      "life": [
+        18,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-1"
+      ],
+      "life": [
+        18,
+        19
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        18,
+        18
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "apnap_p1": [
+    {
+      "stack": [
+        "trigger:p1-archer-1",
+        "trigger:p1-archer-0",
+        "trigger:p0-archer-0",
+        "trigger:p0-archer-1"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p1-archer-1",
+        "trigger:p1-archer-0",
+        "trigger:p0-archer-0"
+      ],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p1-archer-1",
+        "trigger:p1-archer-0"
+      ],
+      "life": [
+        20,
+        18
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p1-archer-1"
+      ],
+      "life": [
+        19,
+        18
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        18,
+        18
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "apnap_single": [
+    {
+      "stack": [
+        "trigger:p0-archer-0",
+        "trigger:p1-archer-0"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "trigger:p0-archer-0"
+      ],
+      "life": [
+        19,
+        20
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        19,
+        19
+      ],
+      "creatures": {},
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ],
+  "cyclops_bite_survivor": [
+    {
+      "stack": [
+        "spell:bite-down",
+        "trigger:p0-archer",
+        "trigger:p0-cyclops"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": [
+          0,
+          4,
+          0
+        ],
+        "enemy": [
+          4,
+          4,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:bite-down",
+        "trigger:p0-archer"
+      ],
+      "life": [
+        20,
+        20
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "enemy": [
+          4,
+          4,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [
+        "spell:bite-down"
+      ],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "enemy": [
+          4,
+          4,
+          0
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    },
+    {
+      "stack": [],
+      "life": [
+        20,
+        19
+      ],
+      "creatures": {
+        "cyclops": [
+          3,
+          4,
+          0
+        ],
+        "enemy": [
+          4,
+          4,
+          3
+        ]
+      },
+      "goblins": 0,
+      "lost": [
+        false,
+        false
+      ]
+    }
+  ]
+}
