@@ -1,0 +1,28 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-212/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 16.36s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 20 tests
+test game::cast_trigger_tests::m2_archer_responding_bite_preserves_exactly_one_trigger ... ok
+test game::combat::tests::m2_decisions::m2_fresh_vanillas_and_masked_dragon_block_reject_raw_without_mutation ... ok
+test game::combat::tests::m2_decisions::m2_last_token_and_finish_survive_high_board_capacity_boundary ... ok
+test game::instant_reference_tests::m2_foundation_holdout_same_name_sentries_response ... ok
+test game::invoker_tests::m2_invoker_resolution_retains_both_blocker_step_response_windows ... ok
+test game::m2_combat_tests::m2_combat_reference_literal_checkpoints ... ok
+test game::m2_mutation_tests::boost_expiry ... ok
+test game::m2_mutation_tests::cast_trigger ... ok
+test game::m2_mutation_tests::cleanup_damage ... ok
+test game::m2_mutation_tests::clipped_choices ... ok
+test game::m2_mutation_tests::mana_stack ... ok
+test game::m2_mutation_tests::priority ... ok
+test game::m2_mutation_tests::private_hand ... ok
+test game::m2_mutation_tests::sick_tap ... ok
+test game::m2_cost_reference_tests::cost_compositions_match_independent_literal_checkpoints ... ok
+test game::m2_mutation_tests::stale_action ... ok
+test game::trajectory_v2_tests::m2_terminal_reward ... ok
+test game::combat::tests::m2_decisions::m2_six_five_power_splits_have_literal_damage_and_no_lethal_order ... ok
+test game::m2_trigger_reference_tests::m2_trigger_composition_literal_checkpoints ... ok
+test game::combat::tests::m2_decisions::m2_all_64_distinct_token_subsets_and_explicit_capacity_boundary ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 290 filtered out; finished in 0.03s
+
