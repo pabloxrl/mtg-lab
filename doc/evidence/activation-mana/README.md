@@ -69,5 +69,11 @@ python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- pyth
 python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- ./scripts/torture.sh
 ```
 
-Exact candidate, twice-executed reference receipts, full torture, independent
-review, README quickstart and protected merge/exact-main CI receipts: pending.
+Twice-executed [Shivan](shivan/receipt.json) and [Invoker](invoker/receipt.json)
+receipts retain exact fixture/expectation, bridge, toolchain and native source
+hashes, consumed choices and first-divergence negative controls. Checkpoint exports
+are retained alongside each receipt. Final source-matched reruns are pending.
+
+The full-suite insufficient-mana fixture correction has [explicit independent
+review](expectation-review.md) and stronger mixed-payment regression coverage.
+Full torture, exact-candidate review and protected merge/exact-main CI: pending.

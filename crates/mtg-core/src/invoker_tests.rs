@@ -94,6 +94,8 @@ fn invoker_payment_target_stale_cancel_reject_without_spending() {
     let source = add(&mut g, "wildheart-invoker");
     let target = add(&mut g, "bear-cub");
     let land = add(&mut g, "forest");
+    // CR 602.2b/601.2g: an untapped Forest would supply the eighth mana.
+    g.objects.get_mut(land).unwrap().tapped = true;
     g.turns.mana[0][4] = 7;
     let d = g.turn_decision().unwrap();
     let before = g.snapshot();
@@ -117,6 +119,46 @@ fn invoker_payment_target_stale_cancel_reject_without_spending() {
     g.cancel_activation(Seat::P0, id).unwrap();
     assert_eq!(g.turns.mana[0][4], 8);
     assert!(g.turns.stack.is_empty());
+}
+#[test]
+fn invoker_seven_floating_plus_forest_pays_inside_activation() {
+    let mut g = ready();
+    let source = add(&mut g, "wildheart-invoker");
+    let target = add(&mut g, "bear-cub");
+    let land = add(&mut g, "forest");
+    g.turns.mana[0][4] = 7;
+    let d = g.turn_decision().unwrap();
+    g.begin_activation(Seat::P0, d.id, source).unwrap();
+    let id = g.turns.activation.as_ref().unwrap().id;
+    let before = g.snapshot();
+    assert!(g.activation_tap_mana(Seat::P0, id, land).is_err());
+    assert_eq!(before, g.snapshot());
+    g.choose_activation_target(Seat::P0, id, target).unwrap();
+    let id = g.turns.activation.as_ref().unwrap().id;
+    g.activation_tap_mana(Seat::P0, id, land).unwrap();
+    assert_eq!(g.turns.mana[0][4], 7);
+    assert!(!g.objects.get(land).unwrap().tapped);
+    assert!(g.turns.stack.is_empty());
+    assert!(g.turn_decision().is_none());
+    for _ in 0..8 {
+        let id = g.turns.activation.as_ref().unwrap().id;
+        g.pay_activation(Seat::P0, id, mana::Color::Green).unwrap();
+    }
+    assert_eq!(g.turns.mana[0][4], 7);
+    assert!(!g.objects.get(land).unwrap().tapped);
+    let id = g.turns.activation.as_ref().unwrap().id;
+    g.finish_activation(Seat::P0, id).unwrap();
+    assert_eq!(g.turns.stack.len(), 1);
+    assert!(g.objects.get(land).unwrap().tapped);
+    assert_eq!(g.turns.mana[0][4], 0);
+    let before = g.snapshot();
+    assert!(g.finish_activation(Seat::P0, id).is_err());
+    assert_eq!(before, g.snapshot());
+    pass(&mut g);
+    pass(&mut g);
+    let cub = g.creature_state(target).unwrap();
+    assert_eq!((cub.power, cub.toughness), (7, 7));
+    assert!(g.has_trample(target));
 }
 #[test]
 fn invoker_departed_target_does_not_boost_returned_incarnation() {

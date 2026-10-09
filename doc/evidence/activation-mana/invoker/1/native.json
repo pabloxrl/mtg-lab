@@ -1,0 +1,426 @@
+{
+  "cast": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "cleanup": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "dead_source": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": null,
+    "stack": 0,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true
+  },
+  "departed": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "illegal": {
+    "dragon": null,
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 8,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "missing": {
+    "dragon": null,
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 8,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "mixed": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true
+  },
+  "opposing": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true
+  },
+  "own": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true
+  },
+  "payment_sources": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "payment": [
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay1",
+        "stage": "mana",
+        "tapped": 1,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay2",
+        "stage": "mana",
+        "tapped": 2,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay3",
+        "stage": "mana",
+        "tapped": 3,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay4",
+        "stage": "mana",
+        "tapped": 4,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay5",
+        "stage": "mana",
+        "tapped": 5,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay6",
+        "stage": "mana",
+        "tapped": 6,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay7",
+        "stage": "mana",
+        "tapped": 7,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 1,
+        "priority_calls": 0,
+        "source": "pay8",
+        "stage": "mana",
+        "tapped": 8,
+        "target": "bear-cub"
+      },
+      {
+        "announced_stack": 1,
+        "pool": 0,
+        "priority_calls": 0,
+        "source": null,
+        "stage": "committed",
+        "tapped": 8,
+        "target": "bear-cub"
+      }
+    ],
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true
+  },
+  "seven": {
+    "dragon": null,
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 7,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "short_cast": {
+    "dragon": null,
+    "legal": false,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 3,
+    "source": null,
+    "stack": 0,
+    "target": [
+      2,
+      2,
+      0
+    ],
+    "trample": false
+  },
+  "tapped": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      7,
+      7,
+      0
+    ],
+    "trample": true
+  },
+  "thorn_cleanup": {
+    "dragon": [
+      5,
+      5,
+      0
+    ],
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": null,
+    "stack": 0,
+    "target": [
+      2,
+      1,
+      0
+    ],
+    "trample": false
+  },
+  "thorn_combat": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      15
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": null,
+    "trample": false
+  },
+  "thorn_dead": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": null,
+    "stack": 0,
+    "target": [
+      7,
+      6,
+      0
+    ],
+    "trample": true
+  },
+  "thorn_double": {
+    "dragon": null,
+    "legal": true,
+    "life": [
+      20,
+      20
+    ],
+    "mana": 0,
+    "source": [
+      4,
+      3,
+      0
+    ],
+    "stack": 0,
+    "target": [
+      12,
+      11,
+      0
+    ],
+    "trample": true
+  }
+}
