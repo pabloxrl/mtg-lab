@@ -1,0 +1,6 @@
+Native focused check on integrated base fb8689267ee5d80750998c55e9580074ac12dc8d
+Command (shared heavy lock): cargo test -p mtg-core --locked --lib game::m2_combat_tests::m2_combat_reference_literal_checkpoints -- --exact
+Result: 1 passed; 0 failed; 0 ignored; 296 filtered out.
+The test executes all six authored composition cases against literal checkpoints.
+This focused pass is not full torture, a reference pass or delivery evidence by itself.
+Initial test compilation failed because begin_activation/pay_activation return unit; test-only call sites corrected to read pending IDs. That failure is not behavioral red.
