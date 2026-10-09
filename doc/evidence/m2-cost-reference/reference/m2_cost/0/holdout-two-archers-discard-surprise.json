@@ -1,0 +1,80 @@
+[
+  {
+    "checkpoint": "committed",
+    "stack": 3,
+    "life": [
+      20,
+      5
+    ],
+    "hand": [],
+    "graveyard": [
+      "goblin-surprise"
+    ],
+    "library": [
+      "forest",
+      "mountain",
+      "bear-cub"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  },
+  {
+    "checkpoint": "trigger-1",
+    "stack": 2,
+    "life": [
+      20,
+      4
+    ],
+    "hand": [],
+    "graveyard": [
+      "goblin-surprise"
+    ],
+    "library": [
+      "forest",
+      "mountain",
+      "bear-cub"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  },
+  {
+    "checkpoint": "trigger-2",
+    "stack": 1,
+    "life": [
+      20,
+      3
+    ],
+    "hand": [],
+    "graveyard": [
+      "goblin-surprise"
+    ],
+    "library": [
+      "forest",
+      "mountain",
+      "bear-cub"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  },
+  {
+    "checkpoint": "draws",
+    "stack": 0,
+    "life": [
+      20,
+      3
+    ],
+    "hand": [
+      "forest",
+      "mountain"
+    ],
+    "graveyard": [
+      "goblin-surprise",
+      "thrill-of-possibility"
+    ],
+    "library": [
+      "bear-cub"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  }
+]

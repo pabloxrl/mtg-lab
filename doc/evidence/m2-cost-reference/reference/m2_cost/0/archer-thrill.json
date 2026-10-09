@@ -1,0 +1,61 @@
+[
+  {
+    "checkpoint": "committed",
+    "stack": 2,
+    "life": [
+      20,
+      20
+    ],
+    "hand": [],
+    "graveyard": [
+      "mountain"
+    ],
+    "library": [
+      "forest",
+      "bear-cub",
+      "giant-growth"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  },
+  {
+    "checkpoint": "trigger-1",
+    "stack": 1,
+    "life": [
+      20,
+      19
+    ],
+    "hand": [],
+    "graveyard": [
+      "mountain"
+    ],
+    "library": [
+      "forest",
+      "bear-cub",
+      "giant-growth"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  },
+  {
+    "checkpoint": "draws",
+    "stack": 0,
+    "life": [
+      20,
+      19
+    ],
+    "hand": [
+      "forest",
+      "bear-cub"
+    ],
+    "graveyard": [
+      "mountain",
+      "thrill-of-possibility"
+    ],
+    "library": [
+      "giant-growth"
+    ],
+    "mana": 0,
+    "tapped_mountains": 2
+  }
+]
