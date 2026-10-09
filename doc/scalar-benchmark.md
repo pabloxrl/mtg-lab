@@ -4,7 +4,7 @@
 It uses the existing native client and authoritative Driver. It does not qualify
 engine speed, the full card pool, or the complete RFC benchmark tracks. The
 [contract evidence](evidence/scalar-benchmark/README.md) distinguishes deterministic
-accounting tests from performance measurements. Full-pool profiling remains #217;
+accounting tests from performance measurements. The [full-pool collectors](scalar-baseline.md) extend this contract for #217;
 aggregate acceptance remains #25 and #26.
 
 Inside the toolchain container, build and run:

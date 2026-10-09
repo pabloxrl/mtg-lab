@@ -9,6 +9,7 @@ use std::{
 };
 
 const WORKLOAD: &str = "scalar-windows-v1";
+pub(crate) const FULL_POOL: &str = "scalar-full-pool-v1";
 const ATTEMPTS: u64 = 100_000;
 #[derive(Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
@@ -27,7 +28,7 @@ pub(crate) struct Config {
 }
 impl Config {
     fn validate(&self) -> Result<(), String> {
-        if self.schema_version != 1 || self.workload != WORKLOAD {
+        if self.schema_version != 1 || ![WORKLOAD, FULL_POOL].contains(&self.workload.as_str()) {
             return Err("incompatible scalar workload/schema version".into());
         }
         if !matches!(
@@ -44,6 +45,14 @@ impl Config {
         }
         self.run_config()?.validate()
     }
+    fn run_config_at(&self, ordinal: u64) -> Result<simulate::Config, String> {
+        let mut c = self.run_config()?;
+        c.first_episode = ordinal;
+        if self.workload == FULL_POOL {
+            full_pool_row(&mut c, ordinal);
+        }
+        Ok(c)
+    }
     fn run_config(&self) -> Result<simulate::Config, String> {
         // Pin the existing real normal-reset workload, not synthetic game states.
         let mut c: simulate::Config = serde_json::from_slice(include_bytes!(
@@ -58,6 +67,20 @@ impl Config {
         n.instrumentation = self.instrumentation;
         Ok(c)
     }
+}
+
+/// RG, GR, RR and GG, each starting seat. Ordinal is also the stable seed input.
+pub(crate) fn full_pool_row(c: &mut simulate::Config, ordinal: u64) {
+    let row = ordinal as usize % 8;
+    let decks = [
+        ("red", "green"),
+        ("green", "red"),
+        ("red", "red"),
+        ("green", "green"),
+    ][row / 2];
+    c.game.seats[0].deck = decks.0.into();
+    c.game.seats[1].deck = decks.1.into();
+    c.game.starting_seat = (row % 2) as u8;
 }
 
 #[derive(Default, Debug, Serialize)]
@@ -79,6 +102,8 @@ struct Window {
     phases: native::Phases,
     first_episode: u64,
     attempts: u64,
+    row_attempts: [u64; 8],
+    row_completed: [u64; 8],
     stop_code: i32,
     #[serde(skip_serializing_if = "Option::is_none")]
     error: Option<String>,
@@ -89,6 +114,10 @@ impl Window {
             .then(|| self.completed as f64 * 1e9 / self.elapsed_ns as f64)
     }
     fn merge(&mut self, other: Self) {
+        for row in 0..8 {
+            self.row_attempts[row] += other.row_attempts[row];
+            self.row_completed[row] += other.row_completed[row];
+        }
         self.started += other.started;
         self.completed += other.completed;
         self.failed += other.failed;
@@ -291,18 +320,28 @@ fn attempt(
     out
 }
 
-fn measured_window(
+fn measured_matrix_window(
     c: &mut simulate::Config,
     seconds: u64,
     now: Rc<dyn Fn() -> u128>,
     signal: &AtomicUsize,
     encode: bool,
+    full_pool: bool,
 ) -> Window {
     let first = c.first_episode;
     let duration = seconds as u128 * 1_000_000_000;
     let deadline = now() + duration;
     let mut w = window(duration, now.as_ref(), &mut || {
-        let r = attempt(c, now.clone(), deadline, signal, encode);
+        if full_pool {
+            let ordinal = c.first_episode;
+            full_pool_row(c, ordinal);
+        }
+        let mut r = attempt(c, now.clone(), deadline, signal, encode);
+        if full_pool {
+            let row = c.first_episode as usize % 8;
+            r.row_attempts[row] = 1;
+            r.row_completed[row] = r.completed;
+        }
         c.first_episode += 1;
         r
     });
@@ -343,7 +382,7 @@ fn run_with_clock(
 ) -> Result<(i32, Value), (i32, String)> {
     let config: Config = serde_json::from_slice(bytes).map_err(|e| (2, e.to_string()))?;
     config.validate().map_err(|e| (2, e))?;
-    let mut c = config.run_config().map_err(|e| (2, e))?;
+    let mut c = config.run_config_at(0).map_err(|e| (2, e))?;
     let pins = json!({"config":config,"resolved_episode":c,
         "deck_source_sha256":simulate::hash(include_bytes!("../../mtg-core/src/opening.rs")),
         "card_manifest_sha256":simulate::hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),
@@ -354,24 +393,27 @@ fn run_with_clock(
         "heuristic_source_sha256":simulate::hash(include_bytes!("../../mtg-policy/src/heuristic.rs")),
         "workload_source_sha256":simulate::hash(include_bytes!("benchmark.rs")),
         "fixture_sha256":simulate::hash(include_bytes!("../../../fixtures/bench/scalar-workload-v1.json")),
+        "matchup_order":if config.workload == FULL_POOL {json!(["RG0","RG1","GR0","GR1","RR0","RR1","GG0","GG1"])}else{json!(["GG0"])},
         "instrumentation":config.instrumentation,"timing":"every-client-boundary-v1","capture":"none"});
     let hardware = metadata();
-    let warmup = measured_window(
+    let warmup = measured_matrix_window(
         &mut c,
         config.warmup_seconds,
         now.clone(),
         signal,
         config.encoding,
+        config.workload == FULL_POOL,
     );
     let mut windows = Vec::new();
     if warmup.stop_code == 0 {
         for _ in 0..config.windows {
-            let w = measured_window(
+            let w = measured_matrix_window(
                 &mut c,
                 config.window_seconds,
                 now.clone(),
                 signal,
                 config.encoding,
+                config.workload == FULL_POOL,
             );
             let stopped = w.stop_code != 0;
             windows.push(w);
@@ -424,7 +466,7 @@ fn run_with_clock(
     }
     Ok((
         code,
-        json!({"type":"benchmark","workload":WORKLOAD,"qualification":"contract-only-not-speed-qualified",
+        json!({"type":"benchmark","workload":config.workload,"qualification":"contract-only-not-speed-qualified",
         "status":if valid {"measured"}else{"incomplete-or-failed"},"pins":pins,"hardware":hardware,
             "warmup":warmup,"windows":raw,"completed_games_per_second":distribution(&rates),
             "distributions":{
@@ -455,6 +497,34 @@ mod tests {
     use std::cell::Cell;
     fn input() -> Value {
         json!({"schema_version":1,"workload":"scalar-windows-v1","warmup_seconds":10,"window_seconds":30,"windows":5,"policies":[mtg_policy::HEURISTIC_VERSION,mtg_policy::VERSION],"master_seed":42,"policy_seed":42,"instrumentation":"counters"})
+    }
+    #[test]
+    fn full_pool_contract_accepts_all_eight_rows_without_shorter_horizon() {
+        let mut v = input();
+        v["workload"] = json!("scalar-full-pool-v1");
+        let c: Config = serde_json::from_value(v).unwrap();
+        assert!(
+            c.validate().is_ok(),
+            "full-pool scalar workload must be supported"
+        );
+        // Frozen deck matrix: RG, GR, RR, GG, each with both starting seats.
+        let expected = [
+            ("red", "green"),
+            ("green", "red"),
+            ("red", "red"),
+            ("green", "green"),
+        ];
+        for ordinal in 0..16 {
+            let run = c.run_config_at(ordinal).unwrap();
+            // Existing run configuration is the public behavior under test.
+            let game = serde_json::to_value(&run.game).unwrap();
+            let row = ordinal as usize % 8;
+            assert_eq!(game["seats"][0]["deck"], expected[row / 2].0);
+            assert_eq!(game["seats"][1]["deck"], expected[row / 2].1);
+            assert_eq!(game["starting_seat"], row % 2);
+            assert_eq!(run.max_decisions, 20_000);
+            assert_eq!(run.native.unwrap().max_work_calls, 100_000);
+        }
     }
     #[test]
     fn benchmark_rejects_invalid_contract_without_reducing_production_minima() {

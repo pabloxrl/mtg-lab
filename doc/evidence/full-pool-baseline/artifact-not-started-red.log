@@ -1,0 +1,21 @@
+E
+======================================================================
+ERROR: test_deadline_before_reset_retains_an_unstarted_attempt (tests.test_scalar_artifact.ScalarArtifactTests.test_deadline_before_reset_retains_an_unstarted_attempt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/tests/test_scalar_artifact.py", line 77, in test_deadline_before_reset_retains_an_unstarted_attempt
+    self.assertEqual(validate_report(v)['not_started'],1)
+                     ^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/scripts/scalar_artifact.py", line 28, in validate_report
+    return _validate(report)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/scripts/scalar_artifact.py", line 64, in _validate
+    require(w['attempts'] == w['started'], 'attempt accounting')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-217/scripts/scalar_artifact.py", line 14, in require
+    raise ValueError(message)
+ValueError: attempt accounting
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (errors=1)
