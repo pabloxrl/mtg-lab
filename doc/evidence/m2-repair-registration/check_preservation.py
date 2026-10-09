@@ -23,7 +23,7 @@ before, after = json.loads(original(manifest)), read(manifest)
 assert {k: v for k, v in before.items() if k != 'tasks'} == {
     k: v for k, v in after.items() if k != 'tasks'}
 tasks = {t['issue']: t for t in after['tasks']}
-extra = {23: [254], 210: [255], 212: [256, 257]}
+extra = {23: [254], 210: [255], 212: [256, 257], 217: [254]}
 for task in before['tasks']:
     expected = dict(task, depends_on=task['depends_on'] + extra.get(task['issue'], []))
     assert tasks[task['issue']] == expected, task['issue']

@@ -26,7 +26,7 @@ false diagnosis was found. Do not read support from a similar synthetic case.
 
 | Repair | Observable deliverable | Direct prerequisites | Additional audit edge |
 | --- | --- | --- | --- |
-| #254 | Payment-stage mana source choices across scalar, policy, semantic action, snapshots and typed recording/replay | #252, #80, #195, #197, #200, #201, #208 | #23 requires #254 |
+| #254 | Payment-stage mana source choices across scalar, policy, semantic action, snapshots and typed recording/replay | #252, #80, #195, #197, #200, #201, #208 | #23 and #217 require #254 |
 | #255 | Strict Cub casting/sickness/off-turn rejection and real single-Sentry/Shivan Growth checkpoints | #252, #80, #196, #200 | #210 requires #255 |
 | #256 | Strict ordinary Sentry/Bite, power and cleanup inputs/checkpoints | #252, #80, #196, #137, #139 | #212 requires #256 |
 | #257 | Per-seat failed draw and explicit mixed simultaneous-loss outcome | #252, #80, #72 | #212 requires #257 |
@@ -45,6 +45,28 @@ Dragon never activates; #256 uses no deathtouch; #257 uses synthetic SBA boundar
 #23/#210/#212 gain only the edges listed, retaining all old prerequisites.
 #24/#25/#26 remain unchanged; transitive M2 gate ancestry includes #252 and all
 four new children as well as every original implementation/operations task.
+
+### Correctness-gated benchmark prerequisite
+
+[Coordinator steering](https://github.com/pabloxrl/mtg-lab/issues/252#issuecomment-6082492423)
+also authorizes the real #217 → #254 edge confirmed by the
+[benchmark worker's source/contract audit](https://github.com/pabloxrl/mtg-lab/issues/217#issuecomment-6082444182).
+#217 promises a **correctness-gated full-pool baseline**. Its measurement cannot
+qualify a known incomplete legal payment/choice protocol: repair changes the legal
+decision space, seeded policy histories and decision/cost accounting being measured.
+The existing #23 compiled-red patch applies unchanged; fresh source inspection
+confirms activation/mana/policy-library/typed-recorder bytes match that audit.
+Core `policy.rs` only adds `metric_completion`; activation choices/validation are
+unchanged. This is preserved compiled evidence plus fresh source inspection,
+not a newly executed failure or a claim that current throughput was measured.
+
+Add only #254 to #217's existing #80/#208/#216/#215 prerequisites. Do not require
+all of #23 or any independent reference repair. Preserve #217's measurement scope,
+drafts and useful diagnostic preparation; it must rerun qualified measurements
+against the delivered repair. #216's delivered benchmark contract is not revoked.
+After verified registration, record #217's dependency-gated coordinator resume
+grant, clearing only a documented activation-gap block if its worker has entered
+that state; retain any other hold/withdrawal. Do not make it ready with #254 pending.
 
 ## Exact child acceptance
 
@@ -142,7 +164,7 @@ Authorization: proposed by operations #252; remain UNREADY until its reviewed re
 Keep all four children unready until protected registration merge and exact-main
 CI pass. Then, under the shared handoff lock, re-fetch parent/current/task controls,
 label histories and all other ready/running claims. Record coordinator reactivation
-for #23/#210/#212, clearing only their documented prerequisite-gap blocks and adding
+for #23/#210/#212 (and #217 as specified above), clearing only their documented prerequisite-gap blocks and adding
 `agent-resume-authorized`; leave them unready while new dependencies are pending.
 Other holds/withdrawals remain authoritative. Preserve original workspaces/drafts.
 This is explicit #252 coordinator authority, not feature-worker permission.
