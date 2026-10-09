@@ -22,7 +22,8 @@ new cards reuse supported mechanics through definitions, without engine changes.
   frozen pool, plus explicit scripted play.
 - Seat-filtered observations and validated choices that preserve private information.
 - Versioned snapshots, semantic replay, JSONL trajectories and dataset validation.
-- Optional [scalar counters](doc/scalar-metrics.md) with bounded public fields;
+- Optional [scalar instrumentation](doc/scalar-metrics.md): off, counters,
+  bounded sampled diagnostics and complete replay export;
   capture remains independent and performance qualification is still pending.
 - [Versioned scalar benchmarks](doc/scalar-benchmark.md) retain repeated windows,
   separate measured costs and explicit unfinished-game accounting.

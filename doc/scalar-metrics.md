@@ -1,6 +1,7 @@
 # Scalar counters
 
-The owned Driver supports `metrics::Mode::Off` (default) and `Counters` through
+The owned Driver supports `metrics::Mode::Off` (default), `Counters`, `SampledTrace` and
+`FullReplay` through
 `Driver::instrumented` and `Driver::bounded_instrumented`. The bounded constructor
 retains its existing injected deadline clock and budget contract. Counters do not
 read a performance clock or change budget checks. `metrics()` returns a cumulative
@@ -46,16 +47,57 @@ attempt failed in these counters even if its underlying owner completed. Existin
 
 Capture is independently requested. Off mode does not discard semantic history
 or selected trajectory capture; those are existing owned-execution contracts.
-Neither mode materializes additional trajectory frames for instrumentation.
+No mode materializes additional trajectory frames for instrumentation.
 
-Worker/queue/batch/inference and diagnostic-buffer metrics are explicitly
-`not_applicable` to this scalar counter path. Encoding/policy timing, sampled
+Worker/queue/batch/inference and diagnostic-buffer fields in the counters report
+are explicitly `not_applicable` to that path; sampled diagnostics have a separate
+versioned per-episode report. Encoding/policy timing, sampled
 histograms and memory high-water are `not_measured`, not measured zeros. Existing
-benchmark policy timing remains separate. Sampled/full trace modes, benchmark
-workloads, overhead qualification and memory measurements remain the registered
-#215–#217 deliveries; no five-percent overhead or full RFC B021 claim is made here.
+benchmark policy timing remains separate. Benchmark workloads, overhead qualification and memory measurements remain the
+registered #216–#217 deliveries; no five-percent overhead or full RFC B021 claim is made here.
 
 The literal traces and injected-clock checks are in
 [the normal regression suite](../crates/mtg-core/tests/metrics.rs), with
 [native output checks](../crates/mtg-cli/tests/native_simulate.rs).
 [Delivery evidence](evidence/scalar-metrics/README.md) records validation status.
+
+## Bounded trace modes
+
+`sampled_trace` adds decision checkpoints to the same scalar counters. Selection
+is deterministic: every Nth accepted decision, numbered from one at each reset.
+It never consumes game or policy RNG. A checkpoint contains only the decision
+count and cumulative rules-work count. These are public numeric diagnostics;
+there are no hands, library order, action payloads, seeds or state hashes. It is
+not a player observation or a replacement for a replay.
+
+`TraceConfig` declares a nonzero interval and a capacity from zero through 65,536
+records (defaults: 64 and 256). A full buffer retains its earlier checkpoints and
+increments `dropped` for each selected checkpoint it cannot retain. A zero-capacity
+buffer counts every selected checkpoint as dropped. Counts saturate with a visible
+`overflowed` flag. Configuration is immutable after the first reset; the buffer and
+its drop counter restart at each successful reset. Rejected input adds no sample.
+The trace has its own schema version and is separate from aggregate counter labels.
+
+`full_replay` enables the same counters and explicit privileged export through
+`EpisodeResult::privileged_replay(max_bytes)`. Export uses the existing played
+replay format: complete semantic history, version pins, seeds, initial state and
+per-action checkpoints, verified against the owned final state. It is independent
+of trajectory capture. Incomplete, truncated or failed episodes cannot yield a
+complete replay; size overflow returns an error. This byte limit bounds the returned artifact,
+not peak memory during serialization. Export is an explicit recording operation;
+a recording error does not rewrite the immutable underlying rules result. Existing Driver record bounds
+fail the episode before accepting an unrecordable action. No replay data is
+silently replaced by sampled diagnostics.
+
+Native/script CLI modes use the same owner. `native.trace` optionally configures
+sampled mode. Episode rows expose only numeric `diagnostics` or a `replay_status`;
+private replay bytes never enter stdout. Without requested durable capture,
+complete replay generation is an in-memory operation. Request the existing
+canonical capture configuration to persist replay artifacts through its restricted
+replay directory and atomic manifest publication. Storage/queue failures remain
+explicit publication failures; they do not change the underlying rules outcome.
+Trajectory capture with instrumentation off retains the same persistence contract.
+
+These modes add no timing histograms, worker implementation or performance claim.
+Overhead qualification remains the separately registered benchmark work. See
+[acceptance evidence](evidence/trace-modes/README.md) for current validation status.

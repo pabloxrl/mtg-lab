@@ -22,6 +22,8 @@ use std::{
 pub struct Config {
     #[serde(default, skip_serializing_if = "mtg_core::metrics::Mode::is_off")]
     pub instrumentation: mtg_core::metrics::Mode,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub trace: Option<mtg_core::metrics::TraceConfig>,
     pub policy_seed: u64,
     pub rng_version: String,
     pub work_quantum: NonZeroUsize,
@@ -30,6 +32,11 @@ pub struct Config {
 }
 impl Config {
     pub fn validate_bounds(&self) -> Result<(), String> {
+        if self.trace.is_some_and(|t| {
+            t.capacity > 65_536 || self.instrumentation != mtg_core::metrics::Mode::SampledTrace
+        }) {
+            return Err("trace configuration requires sampled_trace and capacity <= 65536".into());
+        }
         if self.max_work_calls == 0 || self.rng_version != mtg_policy::RNG_VERSION {
             return Err("unsupported native RNG version or zero work bound".into());
         }
@@ -185,7 +192,7 @@ pub(crate) fn run_instrumented(
         requested: c.episodes,
         ..Counts::default()
     };
-    let mut metrics = (n.instrumentation == mtg_core::metrics::Mode::Counters)
+    let mut metrics = (n.instrumentation != mtg_core::metrics::Mode::Off)
         .then(mtg_core::metrics::Counters::default);
     let mut exit = 0;
     let mut run_reason = "budget_complete";
@@ -215,6 +222,10 @@ pub(crate) fn run_instrumented(
             n.instrumentation,
         )
         .map_err(|_| io::Error::other("owner initialization failed"))?;
+        if let Some(trace) = n.trace {
+            d.set_trace_config(trace)
+                .map_err(|_| io::Error::other("invalid trace configuration"))?;
+        }
         let episode_start = cursor;
         let policy_start = stamp(&timing, false);
         let mut policies = c.script.is_none().then(|| {
@@ -377,6 +388,25 @@ pub(crate) fn run_instrumented(
         if let Some(t) = timing.as_mut() {
             t.phases.finalization_ns += duration;
         }
+        // Replay bytes are privileged. Validate complete export here but never
+        // send it to public JSONL; durable publication uses the existing capture path.
+        let replay_status = if n.instrumentation == mtg_core::metrics::Mode::FullReplay {
+            Some(match &result {
+                Ok(r) if matches!(r.status(), Status::Completed(_)) => {
+                    let max = c.capture.as_ref().map_or(67_108_864, |c| c.max_bytes);
+                    match r.privileged_replay(max) {
+                        Ok(Some(_)) => "available_in_memory",
+                        _ => {
+                            caller_error = Some("replay_recording_error");
+                            "failed"
+                        }
+                    }
+                }
+                _ => "incomplete",
+            })
+        } else {
+            None
+        };
         let (status, winner) = match result.as_ref().map(|r| r.status()) {
             Ok(Status::Completed(o)) => {
                 counts.completed += 1;
@@ -448,10 +478,14 @@ pub(crate) fn run_instrumented(
         let view = owned
             .and_then(|r| r.final_observations())
             .map(|o| &o[0].view);
-        emit(
-            w,
-            json!({"type":"episode","episode":episode,"status":status,"reason":reason,"winner":winner,"decisions":owned.map(|r|r.accepted_decisions()),"work_calls":work_calls,"life":view.map(|v|v.life),"turn":view.and_then(|v|v.turn.map(|t|t.0)),"turn_position":view.and_then(|v|v.turn),"hand_counts":view.map(|v|v.hand_counts),"library_counts":view.map(|v|v.library_counts),"public_zones":view.map(|v|&v.public_zones),"terminal":view.and_then(|v|v.terminal.as_ref()),"history_sha256":owned.map(|r|hash(&serde_json::to_vec(r.privileged_history()).unwrap())),"caller_error":caller_error,"owner_status":owned.map(|r| match r.status() {Status::Completed(_)=>"completed",Status::Truncated(_)=>"truncated",Status::Failed(_)=>"failed",Status::Incomplete=>"incomplete"}),"script_consumed":c.script.as_ref().map(|_|cursor-episode_start),"script_status":c.script.as_ref().map(|_|if caller_error.is_some() {"error"} else if status=="completed" {"complete"} else if status=="truncated" {"truncated"} else {"incomplete"})}),
-        )?;
+        let mut row = json!({"type":"episode","episode":episode,"status":status,"reason":reason,"winner":winner,"decisions":owned.map(|r|r.accepted_decisions()),"work_calls":work_calls,"life":view.map(|v|v.life),"turn":view.and_then(|v|v.turn.map(|t|t.0)),"turn_position":view.and_then(|v|v.turn),"hand_counts":view.map(|v|v.hand_counts),"library_counts":view.map(|v|v.library_counts),"public_zones":view.map(|v|&v.public_zones),"terminal":view.and_then(|v|v.terminal.as_ref()),"history_sha256":owned.map(|r|hash(&serde_json::to_vec(r.privileged_history()).unwrap())),"caller_error":caller_error,"owner_status":owned.map(|r| match r.status() {Status::Completed(_)=>"completed",Status::Truncated(_)=>"truncated",Status::Failed(_)=>"failed",Status::Incomplete=>"incomplete"}),"script_consumed":c.script.as_ref().map(|_|cursor-episode_start),"script_status":c.script.as_ref().map(|_|if caller_error.is_some() {"error"} else if status=="completed" {"complete"} else if status=="truncated" {"truncated"} else {"incomplete"})});
+        if let Some(trace) = d.diagnostic_trace() {
+            row["diagnostics"] = serde_json::to_value(trace)?;
+        }
+        if let Some(status) = replay_status {
+            row["replay_status"] = json!(status);
+        }
+        emit(w, row)?;
         if let Ok(result) = result {
             observe(&result);
             if let Some(session) = &mut capture {

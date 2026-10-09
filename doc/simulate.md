@@ -329,3 +329,32 @@ cargo run --quiet --locked -p mtg-cli -- simulate --config /tmp/mtg-counters.jso
 
 This deliberately short run demonstrates decision-limit truncation, not completed-game throughput. The summary separates truncations from natural rules endings;
 it makes no measured performance claim.
+
+
+### Sampled diagnostics and full replay
+
+The same native/script configurations accept `"sampled_trace"` and `"full_replay"`.
+For sampled mode, optionally set `native.trace` to `{"every": 2, "capacity": 1}`.
+Every second accepted decision is selected; the first fits and subsequent selected
+records increment the episode's explicit `diagnostics.dropped` count. Defaults are
+64 and 256; zero capacity counts all selected records as dropped, and capacities
+above 65,536 or trace settings in another mode fail validation. Diagnostic rows
+contain only numeric decision/work checkpoints, never replay payloads.
+
+To exercise the example above, change its mode to `sampled_trace` and add that
+`trace` object. Each four-decision episode retains decision 2 and drops decision 4.
+The diagnostic report is separate from the aggregate `metrics` summary.
+
+Full replay generates and verifies the existing complete played-replay artifact
+for completed episodes. Public episode output contains only `replay_status`:
+`available_in_memory`, `incomplete`, or `failed`. The short truncated example
+correctly reports `incomplete`; it cannot masquerade as a complete replay.
+In-memory export is limited to 64 MiB by the CLI, or `capture.max_bytes` when
+capture is requested. This is an artifact-size limit, not a peak-memory guarantee.
+
+Use the existing canonical capture example above for durable replay publication
+in the restricted replay root. Without capture, CLI replay generation validates
+in memory and does not persist an artifact. Capture remains independently usable
+in every mode, including off. Overflow or write failure returns a failure instead
+of dropping replay records; publication status is separate from the game outcome.
+No new recorder format, storage backend or performance qualification is implied.

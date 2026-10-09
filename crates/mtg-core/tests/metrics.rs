@@ -161,7 +161,12 @@ fn counts_capture_and_quantum_preserve_normal_play_and_rng() {
     let mut baseline = None;
     let mut baseline_capture = None;
     let mut baseline_counts = None;
-    for mode in [Mode::Off, Mode::Counters] {
+    for mode in [
+        Mode::Off,
+        Mode::Counters,
+        Mode::SampledTrace,
+        Mode::FullReplay,
+    ] {
         for capture in [false, true] {
             for quantum in [NonZeroUsize::MIN, NonZeroUsize::MAX] {
                 let mut d = Driver::instrumented(256, mode).unwrap();
@@ -516,7 +521,12 @@ impl mtg_core::episode::Clock for CountingClock {
 fn instrumentation_adds_no_clock_reads_at_any_work_quantum() {
     for quantum in [NonZeroUsize::MIN, NonZeroUsize::MAX] {
         let mut baseline = None;
-        for mode in [Mode::Off, Mode::Counters] {
+        for mode in [
+            Mode::Off,
+            Mode::Counters,
+            Mode::SampledTrace,
+            Mode::FullReplay,
+        ] {
             let reads = std::rc::Rc::new(std::cell::Cell::new(0));
             let mut d = Driver::bounded_instrumented(
                 256,

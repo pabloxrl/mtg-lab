@@ -30,6 +30,12 @@ impl Config {
         if self.schema_version != 1 || self.workload != WORKLOAD {
             return Err("incompatible scalar workload/schema version".into());
         }
+        if !matches!(
+            self.instrumentation,
+            mtg_core::metrics::Mode::Off | mtg_core::metrics::Mode::Counters
+        ) {
+            return Err("scalar-windows-v1 supports only off/counters instrumentation".into());
+        }
         if !(10..=3600).contains(&self.warmup_seconds)
             || !(30..=3600).contains(&self.window_seconds)
             || !(5..=100).contains(&self.windows)
@@ -484,6 +490,18 @@ mod tests {
         let mut v = input();
         v.as_object_mut().unwrap().remove("policies");
         assert!(serde_json::from_value::<Config>(v).is_err());
+        // Current main also supports diagnostics/replay modes in simulation;
+        // they are not silently admitted into this frozen benchmark workload.
+        for mode in ["sampled_trace", "full_replay"] {
+            let mut v = input();
+            v["instrumentation"] = json!(mode);
+            assert!(
+                serde_json::from_value::<Config>(v)
+                    .unwrap()
+                    .validate()
+                    .is_err()
+            );
+        }
     }
     #[test]
     fn benchmark_clock_includes_reset_failure_and_boundary_overshoot() {
