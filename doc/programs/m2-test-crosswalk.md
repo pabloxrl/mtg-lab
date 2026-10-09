@@ -6,6 +6,15 @@ This table assigns future composed test execution; it is not execution evidence.
 Each pack must cite exact ordinary-discovery tests and native/XMage receipts; the
 original component audits and #26 retain full acceptance. See [contracts](m2-atomic-delivery.md).
 
+The additive [repair-input crosswalk](m2-repair-prerequisites.md) registers #255
+for creature-abilities positive/negative and magnigoth-sentry interaction; #256
+for bite-down positive/negative/regression, bookkeeping positive/interaction and
+resolution-power positive; #257 for simultaneous-loss interaction. These repairs
+supply missing exact inputs/checkpoints to the existing packs below, without
+transferring any case or aggregate owner. #254 supplies the activation-payment
+protocol regression prerequisite of #23; existing activation catalog acceptance
+and float-first regressions remain. All 175 rows below are unchanged.
+
 | Stable catalog ID | Original aggregate owner | Execution pack |
 | --- | --- | --- |
 | `rules-setup-ordered-draw-interaction` | #24 | #209 |

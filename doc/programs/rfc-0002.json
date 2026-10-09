@@ -1360,6 +1360,94 @@
       ]
     },
     {
+      "key": "m2-repair-registration",
+      "issue": 252,
+      "milestone": "M2",
+      "kind": "operations",
+      "depends_on": [
+        80
+      ],
+      "requirements": []
+    },
+    {
+      "key": "m2-activation-payment-mana",
+      "issue": 254,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        252,
+        80,
+        195,
+        197,
+        200,
+        201,
+        208
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029",
+        "R0002-B036",
+        "R0002-B037"
+      ]
+    },
+    {
+      "key": "m2-exact-keyword-reference",
+      "issue": 255,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        252,
+        80,
+        196,
+        200
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-sentry-bite-reference",
+      "issue": 256,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        252,
+        80,
+        196,
+        137,
+        139
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-mixed-loss-reference",
+      "issue": 257,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        252,
+        80,
+        72
+      ],
+      "requirements": [
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
       "key": "m2-reference-combat",
       "issue": 210,
       "milestone": "M2",
@@ -1370,7 +1458,8 @@
         200,
         201,
         197,
-        203
+        203,
+        255
       ],
       "requirements": [
         "R0002-B010",
@@ -1406,7 +1495,9 @@
       "kind": "implementation",
       "depends_on": [
         80,
-        208
+        208,
+        256,
+        257
       ],
       "requirements": [
         "R0002-B010",
@@ -1485,7 +1576,8 @@
         80,
         208,
         216,
-        215
+        215,
+        254
       ],
       "requirements": [
         "R0002-B008",
@@ -1501,7 +1593,8 @@
       "kind": "implementation",
       "issue": 23,
       "depends_on": [
-        208
+        208,
+        254
       ],
       "requirements": [
         "R0002-B010",
