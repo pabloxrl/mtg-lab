@@ -9,7 +9,7 @@ runner obtains the current actor's observation and applies the submission with
 
 Construct one policy **per episode and persistent seat**, using
 `LegalRandom::new(VERSION, RNG_VERSION, policy_seed, episode_id, seat)`.
-`VERSION = legal-random-surprise-v1` pins decision sampling and supported content;
+`VERSION = legal-random-full-pool-v1` pins decision sampling and supported content;
 `RNG_VERSION = legal-random-rng-v1` separately pins the underlying
 `splitmix64-v1` seed derivation, policy-seat domains and bounded sampling. Both
 versions must match exactly. Changing either contract requires a version change.
@@ -64,25 +64,28 @@ passes may delay progress; the caller must impose and account for external limit
 
 ## Supported content and boundaries
 
-All current M1 decision families are handled: keep/mulligan, ordered bottoming,
-priority, lands and mana, staged target/payment/finish/cancel choices, attacker
-subsets, blocker mappings, modern damage allocation, and cleanup discard.
-Supported casts are Bear Cub, Swab Goblin, Giant Growth, Bite Down, Dragon Fodder,
-Llanowar Elves, Druid of the Cowl, Magnigoth Sentry, Axgard Cavalry, Tajuru Pathwarden and Thornweald Archer. Lands are Forest and Mountain; mana sources
-also include legal Elf/Druid tap abilities. A newly enabled cast/land/mana candidate outside
-that list fails with `UnsupportedContent`, including when pass is also legal.
-Unknown decision kinds or enabled unsupported commands fail explicitly.
-Malformed masks/cardinality/factored domains produce `InvalidObservation`;
-missing decision, wrong seat and incompatible version have separate errors.
-These shape checks do not replace the engine's authoritative legality validation.
+All delivered decision families are handled: opening, ordered bottoming, priority,
+lands/mana, staged target/payment/finish/cancel choices, modal selection, casting
+and cleanup discard, nonmana activations, trigger ordering/player targets, and
+factored combat. All twenty frozen cards and Goblin token combat are supported.
+A newly enabled cast/land/mana/activation candidate outside the explicit supported
+content list fails with `UnsupportedContent`, even when pass is legal. Unknown
+kinds or enabled unsupported commands fail explicitly. Malformed masks/cardinality
+produce `InvalidObservation`; missing decision, wrong seat and incompatible version
+have separate errors. Trigger orders must select every legal row exactly once.
+These checks do not replace the engine's authoritative legality validation.
 
-The core still resets only its fixed 40-card red/green deck configurations. Other
-cards remain physically present and can be drawn, bottomed or discarded, but
-cannot be cast unless their complete abilities are implemented. This policy does
-**not** make the full frozen card pool playable. Cavalry haste activations are
-supported; other nonmana abilities and triggers remain unsupported. The existing owned runner, native CLI and
-trajectory capture use this policy through the shared decision interface;
-see [simulation](simulate.md). Passive `pass-v1` runs remain a separate baseline.
+Trigger ordering samples a uniform permutation without replacement using exactly
+`count` bounded draws. Player targets sample uniformly among legal rows, including
+the controller: this policy can damage itself. Existing SplitMix64 seed domains,
+RNG version, bounded sampling and all other decision distributions are unchanged.
+The new policy ID rejects the previous `legal-random-surprise-v1` ID explicitly.
+
+The core resets the frozen 40-card red/green decks; arbitrary decks/cards remain
+unsupported. The existing Driver, native CLI and canonical capture consume these
+choices; no other game loop or collector is introduced. See [simulation](simulate.md)
+and [full-pool acceptance](evidence/full-pool-policy/README.md). Passive `pass-v1`
+remains a separate baseline. No playing-strength or M2 gate claim is implied.
 
 Caller-limited unfinished games are **truncated**, never terminal/drawn games.
 Engine/capacity errors are failures, not successful truncations. The test harness
@@ -109,27 +112,27 @@ excluding `forbidden_blocks`. Sentry casts join the supported content domain.
 
 GH-197 added Cavalry casting and staged targeted tap-cost activation. Random sampling includes all legal activation targets, finish and cancellation. Full-pool policy qualification remains #208.
 
-GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-surprise-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
+GH-198 adds Tajuru Pathwarden (4G 5/4 vigilance/trample); current `legal-random-full-pool-v1` rejects prior policy IDs. For trample with enough power for all lethal requirements, flip a fair coin: either use the existing blocker-only distribution, or reserve lethal for every blocker and sample each blocker’s additional amount uniformly from zero through remaining excess, leaving the rest for the defender. Every legal split remains reachable; this is not a uniform distribution over splits. Insufficient power uses blocker-only allocation.
 
-GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `surprise-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy qualification remains pending.
+GH-199 adds pinned Thornweald Archer (1G 2/1 reach/deathtouch) to the supported casts. Policy IDs now end in `full-pool-v1`; older IDs reject. Trample allocation consumes the same observed lethal domain, whose entries are one for deathtouch sources. The heuristic gives Thornweald the existing creature score; full-pool policy evidence is linked above; M2 qualification remains pending.
 
-GH-200 adds Shivan Dragon casting and the nontargeted `activation_payment` continuation. Current IDs end in `surprise-v1`; the prior `deathtouch-v1` IDs reject. Explicit red payment and finish/cancel use the existing candidate sampling/scoring. Float red mana at priority before activating. Full-pool policy qualification remains pending.
+GH-200 adds Shivan Dragon casting and the nontargeted `activation_payment` continuation. Current IDs end in `full-pool-v1`; the prior `deathtouch-v1` IDs reject. Explicit red payment and finish/cancel use the existing candidate sampling/scoring. Float red mana at priority before activating. Full-pool policy evidence is linked above; M2 qualification remains pending.
 
 GH-201 enables Wildheart Invoker casting and targeted activation. Current IDs end
-in `surprise-v1`; previous IDs reject. Select a creature target, then reserve eight
+in `full-pool-v1`; previous IDs reject. Select a creature target, then reserve eight
 units of any floated mana through `activation_payment`. Finish commits all eight
 atomically; cancellation spends nothing. Full-pool qualification remains #208.
 
 GH-202 adds Thrill of Possibility and `cast_discard`: choose one other hand card
 or cancel payment. Discard selection stays private until the cast commits;
 then the existing explicit mana choices finish payment. Current IDs end in
-`surprise-v1`; prior IDs reject. The heuristic scores Thrill as 30 and selects a
+`full-pool-v1`; prior IDs reject. The heuristic scores Thrill as 30 and selects a
 lowest-retention discard; random samples the legal candidates. Full-pool
 qualification remains with #208.
 
 GH-203 adds Goblin Surprise and the explicit `cast_mode` continuation. Mode 0
 boosts creatures controlled at resolution; mode 1 creates two Goblins. Current
-IDs end in `surprise-v1`; prior IDs reject. Legal-random samples both modes and
+IDs end in `full-pool-v1`; prior IDs reject. Legal-random samples both modes and
 cancellation. The heuristic scores the cast as 30 and prefers token mode (2)
 over boost mode (1), with cancellation retaining its existing lower score.
 This small deterministic preference is not a strength or full-pool qualification.

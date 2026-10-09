@@ -128,6 +128,7 @@ name = "mtg-recorder"
 version = "0.0.0"
 dependencies = [
  "mtg-core",
+ "mtg-policy",
  "serde",
  "serde_json",
  "sha2",

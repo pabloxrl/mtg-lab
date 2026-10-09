@@ -300,8 +300,8 @@ fn heuristic_errors_never_default_to_pass() {
     o = obs("priority", vec![Choice::Pass, Choice::Spell]);
     assert_eq!(p.choose(&o), Err(Error::UnsupportedDecision));
     o = obs("priority", vec![Choice::Pass, Choice::Cast { card: h(4) }]);
-    // GH-197 enables Cavalry; retain strict rejection with unimplemented Shivan.
-    o.view.hand[4].card = "viashino-pyromancer";
+    // GH-208 enables every frozen card; retain rejection using unknown content.
+    o.view.hand[4].card = "unknown-content";
     assert_eq!(p.choose(&o), Err(Error::UnsupportedContent));
     o = obs("priority", vec![Choice::Pass]);
     o.decision.as_mut().unwrap().legal_mask.clear();

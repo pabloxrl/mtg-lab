@@ -304,7 +304,7 @@ fn three_recipient_distribution_is_sequential_not_uniform_compositions() {
 #[test]
 fn newly_enabled_unsupported_card_is_an_error_not_a_fallback() {
     let mut o = observation(0);
-    o.view.hand[0].card = "viashino-pyromancer";
+    o.view.hand[0].card = "unknown-content";
     let d = o.decision.as_mut().unwrap();
     d.kind = "priority";
     d.candidates = vec![
@@ -322,7 +322,7 @@ fn newly_enabled_unsupported_card_is_an_error_not_a_fallback() {
         format!("{:?}", policy(0).choose(&o)),
         "Err(UnsupportedContent)"
     );
-    // Masked unsupported content is present in the frozen decks and remains uncastable.
+    // Masked unknown content remains uncastable and cannot affect selection.
     o.decision.as_mut().unwrap().legal_mask[1] = false;
     assert_eq!(policy(0).choose(&o).unwrap().choices, vec![Choice::Pass]);
 }
