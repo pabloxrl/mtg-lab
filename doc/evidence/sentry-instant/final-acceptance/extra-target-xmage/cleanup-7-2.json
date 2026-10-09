@@ -1,0 +1,3342 @@
+{
+  "checkpoints": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "bite",
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            [
+              "growth"
+            ]
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": null
+      }
+    },
+    {
+      "name": "bite-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "incarnation": 1,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "source",
+                "incarnation": 0
+              },
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            [
+              "growth"
+            ]
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": null
+      }
+    },
+    {
+      "name": "response-cast",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "incarnation": 1,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "stack",
+            "incarnation": 1,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "source",
+                "incarnation": 0
+              },
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          },
+          {
+            "id": "growth",
+            "controller": 1,
+            "targets": [
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": null
+      }
+    },
+    {
+      "name": "growth-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "stack",
+            "incarnation": 1,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [
+          {
+            "id": "bite",
+            "controller": 0,
+            "targets": [
+              {
+                "id": "source",
+                "incarnation": 0
+              },
+              {
+                "id": "destination",
+                "incarnation": 0
+              }
+            ]
+          }
+        ],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": {
+          "id": "growth",
+          "legal_targets": 1,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "bite-resolved",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "precombat_main",
+      "state": {
+        "turn": 1,
+        "step": "precombat_main",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "begin_combat",
+      "state": {
+        "turn": 1,
+        "step": "begin_combat",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "no-attackers",
+      "state": {
+        "turn": 1,
+        "step": "declare_attackers",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "end_combat",
+      "state": {
+        "turn": 1,
+        "step": "end_combat",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "postcombat_main",
+      "state": {
+        "turn": 1,
+        "step": "postcombat_main",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "end_turn",
+      "state": {
+        "turn": 1,
+        "step": "end_turn",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "end-response-window",
+      "state": {
+        "turn": 1,
+        "step": "end_turn",
+        "active": 0,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 5,
+            "toughness": 5,
+            "damage": 2
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "next-upkeep",
+      "state": {
+        "turn": 2,
+        "step": "upkeep",
+        "active": 1,
+        "priority": 1,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    },
+    {
+      "name": "next-upkeep-response",
+      "state": {
+        "turn": 2,
+        "step": "upkeep",
+        "active": 1,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "bear-cub",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "green1",
+            "card": "forest",
+            "owner": 1,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "growth",
+            "card": "giant-growth",
+            "owner": 1,
+            "zone": "graveyard",
+            "incarnation": 2,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep1",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep2",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep3",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep4",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep5",
+            "card": "forest",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "keep6",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "keep0",
+              "keep1",
+              "keep2",
+              "keep3",
+              "keep4",
+              "keep5",
+              "keep6"
+            ],
+            []
+          ],
+          "graveyard": [
+            [
+              "bite"
+            ],
+            [
+              "growth"
+            ]
+          ]
+        },
+        "damage_events": [
+          {
+            "source": "source",
+            "target": "destination",
+            "amount": 2
+          }
+        ],
+        "last_resolution": {
+          "id": "bite",
+          "legal_targets": 2,
+          "resolved": true
+        }
+      }
+    }
+  ],
+  "consumed": [
+    {
+      "kind": "checkpoint",
+      "name": "initial"
+    },
+    {
+      "kind": "mana",
+      "actor": 0,
+      "source": "green0"
+    },
+    {
+      "kind": "mana",
+      "actor": 0,
+      "source": "red0"
+    },
+    {
+      "kind": "cast",
+      "actor": 0,
+      "source": "bite"
+    },
+    {
+      "kind": "target",
+      "actor": 0,
+      "target": "source"
+    },
+    {
+      "kind": "target",
+      "actor": 0,
+      "target": "destination"
+    },
+    {
+      "kind": "pay",
+      "actor": 0,
+      "color": "G"
+    },
+    {
+      "kind": "pay",
+      "actor": 0,
+      "color": "R"
+    },
+    {
+      "kind": "finish_cast",
+      "actor": 0
+    },
+    {
+      "kind": "checkpoint",
+      "name": "bite-cast"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "mana",
+      "actor": 1,
+      "source": "green1"
+    },
+    {
+      "kind": "cast",
+      "actor": 1,
+      "source": "growth"
+    },
+    {
+      "kind": "target",
+      "actor": 1,
+      "target": "destination"
+    },
+    {
+      "kind": "pay",
+      "actor": 1,
+      "color": "G"
+    },
+    {
+      "kind": "finish_cast",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "response-cast"
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "checkpoint",
+      "name": "growth-resolved"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "bite-resolved"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "precombat_main"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "begin_combat"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "attackers",
+      "actor": 0,
+      "attackers": []
+    },
+    {
+      "kind": "checkpoint",
+      "name": "no-attackers"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "end_combat"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "postcombat_main"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "end_turn"
+    },
+    {
+      "kind": "pass",
+      "actor": 0
+    },
+    {
+      "kind": "checkpoint",
+      "name": "end-response-window"
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "next-upkeep"
+    },
+    {
+      "kind": "pass",
+      "actor": 1
+    },
+    {
+      "kind": "checkpoint",
+      "name": "next-upkeep-response"
+    }
+  ]
+}

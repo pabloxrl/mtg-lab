@@ -1,0 +1,349 @@
+{
+  "checkpoints": [
+    {
+      "name": "initial",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "bite"
+            ],
+            []
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": null
+      }
+    },
+    {
+      "name": "before-rejection",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "bite"
+            ],
+            []
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": null
+      }
+    },
+    {
+      "name": "after-rejection",
+      "state": {
+        "turn": 1,
+        "step": "upkeep",
+        "active": 0,
+        "priority": 0,
+        "life": [
+          20,
+          20
+        ],
+        "mana": [
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        ],
+        "objects": [
+          {
+            "id": "source",
+            "card": "bear-cub",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 2,
+            "toughness": 2,
+            "damage": 0
+          },
+          {
+            "id": "destination",
+            "card": "magnigoth-sentry",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": false,
+            "power": 4,
+            "toughness": 4,
+            "damage": 0
+          },
+          {
+            "id": "green0",
+            "card": "forest",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "red0",
+            "card": "mountain",
+            "owner": 0,
+            "zone": "battlefield",
+            "incarnation": 0,
+            "tapped": true,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          },
+          {
+            "id": "bite",
+            "card": "bite-down",
+            "owner": 0,
+            "zone": "hand",
+            "incarnation": 0,
+            "tapped": false,
+            "power": null,
+            "toughness": null,
+            "damage": null
+          }
+        ],
+        "stack": [],
+        "combat": [],
+        "ordered_zones": {
+          "hand": [
+            [
+              "bite"
+            ],
+            []
+          ],
+          "graveyard": [
+            [],
+            []
+          ]
+        },
+        "damage_events": [],
+        "last_resolution": null
+      }
+    }
+  ],
+  "consumed": [
+    {
+      "kind": "checkpoint",
+      "name": "initial"
+    },
+    {
+      "kind": "mana",
+      "actor": 0,
+      "source": "green0"
+    },
+    {
+      "kind": "mana",
+      "actor": 0,
+      "source": "red0"
+    },
+    {
+      "kind": "checkpoint",
+      "name": "before-rejection"
+    },
+    {
+      "kind": "reject_cast",
+      "actor": 0,
+      "source": "bite",
+      "targets": [
+        "source",
+        "destination"
+      ]
+    },
+    {
+      "kind": "checkpoint",
+      "name": "after-rejection"
+    }
+  ]
+}

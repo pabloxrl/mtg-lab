@@ -1,9 +1,9 @@
 # Ordinary Sentry/Bite shared reference inputs
 
-Status: real native/XMage acceptance PASS for this bounded GH-256 extension.
-Full torture passed before an independent main update (227 Python, 1,348 Rust
-executions, zero failed/ignored); integrated revalidation, independent review
-and protected delivery are still pending;
+Status: real native/XMage acceptance and full latest-main torture PASS for this
+bounded GH-256 extension: seventeen cases twice per engine, 229 Python tests and
+1,382 Rust debug/release executions, zero failed or ignored. Independent review
+and protected delivery receipts are recorded in the linked issue workpad;
 no aggregate-audit or M2 completion claim.
 
 ## Independent oracle and unchanged scope
@@ -78,7 +78,7 @@ unavailable toolchains and build failures are failures, never agreement.
 
 ## Executed reference acceptance
 
-The [receipt](acceptance/acceptance.json) records all seventeen shared cases
+The [final receipt](final-acceptance/acceptance.json) records all seventeen shared cases
 (original eleven plus six new) agreeing with literal expectations in both engines,
 twice. There are no skipped, missing or disputed cases in this bounded pack.
 The Bite-positive and bookkeeping-positive catalog slots intentionally share the
@@ -99,3 +99,33 @@ selected targets. Native admission rejects before staging and preserves its
 snapshot. The two APIs differ in where they reject the same illegal command;
 neither commits mana, targets or zones. The callback translator supplies only
 that command's declared targets during the attempted XMage cast.
+
+## Preserved validation history
+
+The [first green receipt](acceptance/acceptance.json) and
+[pre-integration torture log](pre-integration-torture.log) retain the original
+verification. The [first integrated receipt](integrated-acceptance/acceptance.json)
+and [integrated verification log](integrated-verification.log) retain the run
+after activation-payment main `9a4e8812ecf9fc019cb2c76812058840da89a543`: 227 Python
+tests and 1,380 Rust debug/release executions passed, zero failed or ignored.
+The final receipt follows integration of Cub/Shivan main
+`fb8689267ee5d80750998c55e9580074ac12dc8d`; its source fingerprints match the
+delivered adapter sources. Historical receipts retain their original source
+fingerprints and are not relabeled as final-candidate executions.
+
+The existing native omission/duplication control additionally checks exact
+consumption of the original script, including rejected commands that preserve
+state. No existing assertion, input, expectation or test was removed or weakened.
+The root README and capability map describe only this bounded reference pack;
+quickstart commands are unchanged. The reference reproduction command above ran
+against the real pinned engine, without skipped cases or fallback observations.
+
+[The issue workpad](https://github.com/pabloxrl/mtg-lab/issues/256#issuecomment-6083738575)
+records the exact-candidate independent review, protected PR, merged commit and
+exact-main CI receipts when delivered. Local acceptance alone does not complete
+that delivery contract or any aggregate milestone.
+
+The [final verification log](final-verification.log) and
+[validation summary](validation.json) preserve the successful post-integration
+run. The [recursive artifact inventory](artifacts.json) hashes every retained
+evidence file, including nested raw XMage observations.
