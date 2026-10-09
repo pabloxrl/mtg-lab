@@ -16,14 +16,15 @@ Python discovery rejects empty execution, skips and expected failures as success
 Rust tests must not be ignored or selectively filtered for delivery; reviewers
 inspect exemptions and required acceptance explicitly.
 
-Today this executes verifier/schema/corpus/program/tooling regressions and the
-synthetic Rust checkpoint comparator. `tests/test_torture.py` adds fixed seeded
-nested-difference, mutation-detection, ordering, type and presence adversaries.
-They exercise the verifier, **not AI matches or implemented Magic rules**.
-The 320 catalog designs remain designs until their owners implement actual tests.
-The required wrapper does not run full games, long fuzz campaigns, trainers or
-the dual-reference matrix that are not yet implemented. No empty placeholder
-for those capabilities reports success.
+The suite includes verifier/schema/corpus/program/tooling regressions, the
+synthetic checkpoint comparator, implemented rules tests, native-policy games,
+and scripted full-game capture/publication/replay checks. `tests/test_torture.py`
+adds fixed seeded nested-difference, mutation-detection, ordering, type and
+presence adversaries; those specific tests exercise the verifier rather than
+Magic rules. The [capability catalog](../testing/README.md) distinguishes designs
+from implemented execution. Full-pool qualification, long fuzz campaigns,
+trainers and the complete dual-reference matrix are separate delivery gates;
+passing this suite does not claim those future capabilities.
 
 For each delivered behavior, add positive, rejected-input and boundary/interaction
 checks to normal discovery (`tests/test_*.py` or Rust unit/integration tests), using
