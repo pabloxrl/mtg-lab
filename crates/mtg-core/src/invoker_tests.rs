@@ -50,6 +50,63 @@ fn activate(g: &mut Game, source: Handle, target: Handle) {
     g.finish_activation(d.actor, id).unwrap();
 }
 #[test]
+fn m2_invoker_resolution_retains_both_blocker_step_response_windows() {
+    // CR 117.3b/117.4: resolving the boost returns priority to the active
+    // player. It does not skip the opponent's chance to respond before damage.
+    let mut g = ready();
+    let source = add(&mut g, "wildheart-invoker");
+    let thorn = add(&mut g, "thornweald-archer");
+    g.turns.position = Some((3, Seat::P0, turns::Step::BeginningCombat));
+    pass(&mut g);
+    pass(&mut g);
+    let d = g.turn_decision().unwrap();
+    let d = g.select_attackers(d.actor, d.id, &[thorn]).unwrap();
+    g.finish_combat(d.actor, d.id).unwrap();
+    pass(&mut g);
+    pass(&mut g);
+    let d = g.turn_decision().unwrap();
+    let d = g.select_blockers(d.actor, d.id, &[]).unwrap();
+    g.finish_combat(d.actor, d.id).unwrap();
+    g.turns.mana[0][4] = 8;
+    activate(&mut g, source, thorn);
+    pass(&mut g);
+    pass(&mut g);
+    assert_eq!(g.creature_state(thorn).unwrap().power, 7);
+    assert!(g.has_trample(thorn));
+    for actor in [Seat::P0, Seat::P1] {
+        assert_eq!(g.turn_position().unwrap().2, turns::Step::DeclareBlockers);
+        let d = g.turn_decision().unwrap();
+        assert_eq!(d.actor, actor);
+        assert!(matches!(d.kind, turns::TurnKind::Priority));
+        if actor == Seat::P0 {
+            pass(&mut g);
+        }
+    }
+    let growth = g
+        .objects
+        .allocate(
+            CardId::from_key("giant-growth").unwrap(),
+            Seat::P1,
+            Zone::Hand(Seat::P1),
+        )
+        .unwrap();
+    g.turns.mana[1][4] = 1;
+    let d = g.turn_decision().unwrap();
+    let d = g.begin_targeted_cast(Seat::P1, d.id, growth, 256).unwrap();
+    let d = g.choose_target(Seat::P1, d.id, thorn).unwrap();
+    let d = g.finish_targets(Seat::P1, d.id).unwrap();
+    let d = g
+        .choose_payment(Seat::P1, d.id, mana::Color::Green)
+        .unwrap();
+    g.finish_cast(Seat::P1, d.id).unwrap();
+    pass(&mut g);
+    pass(&mut g);
+    let c = g.creature_state(thorn).unwrap();
+    assert_eq!((c.power, c.toughness, c.damage), (10, 9, 0));
+    assert_eq!(g.life(), [20, 20]);
+    assert_eq!(g.turn_position().unwrap().2, turns::Step::DeclareBlockers);
+}
+#[test]
 fn invoker_sick_tapped_source_own_opposing_boost_and_cleanup() {
     for owner in [Seat::P0, Seat::P1] {
         let mut g = ready();
