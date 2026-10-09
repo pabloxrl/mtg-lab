@@ -167,7 +167,12 @@ fn play(
 fn full_pool_native_games_replay_capture_quantum_and_rejections() {
     let mut all = BTreeSet::new();
     for random in [false, true] {
-        for decks in [["red", "green"], ["red", "red"], ["green", "green"]] {
+        for decks in [
+            ["red", "green"],
+            ["green", "red"],
+            ["red", "red"],
+            ["green", "green"],
+        ] {
             for start in [0, 1] {
                 let id = if random { VERSION } else { HEURISTIC_VERSION };
                 let run = Run {
