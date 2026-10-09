@@ -170,7 +170,7 @@ fn capture_episodes(signal: &AtomicUsize, episodes: u64) -> Result<(i32, Value),
         ))
         .map_err(|e| e.to_string())?;
         c.first_episode = ordinal;
-        let policy = if (ordinal / 8) % 2 == 0 {
+        let policy = if (ordinal / 8).is_multiple_of(2) {
             mtg_policy::HEURISTIC_VERSION
         } else {
             mtg_policy::VERSION
@@ -183,11 +183,11 @@ fn capture_episodes(signal: &AtomicUsize, episodes: u64) -> Result<(i32, Value),
             sample: Some(Box::new(move |driver, o| {
                 let shape = scores(o);
                 let mut slots = saved.borrow_mut();
-                for i in 0..4 {
-                    if shape[i] > 0
+                for (i, &score) in shape.iter().enumerate() {
+                    if score > 0
                         && slots[i]
                             .as_ref()
-                            .is_none_or(|v| shape[i] as u64 > v["score"].as_u64().unwrap())
+                            .is_none_or(|v| score as u64 > v["score"].as_u64().unwrap())
                     {
                         let snapshot = driver.privileged_snapshot();
                         let history: Vec<Value> = driver
@@ -196,7 +196,7 @@ fn capture_episodes(signal: &AtomicUsize, episodes: u64) -> Result<(i32, Value),
                             .map(|b| serde_json::from_slice(b).expect("owned semantic record"))
                             .collect();
                         slots[i] = Some(
-                            json!({"kind":KINDS[i],"score":shape[i],"shape":shape,"actor":o.view.seat,
+                            json!({"kind":KINDS[i],"score":score,"shape":shape,"actor":o.view.seat,
                             "config":config,"ordinal":ordinal,"decision_index":history.len(),"history":history,
                             "snapshot_sha256":simulate::hash(&snapshot),"snapshot":String::from_utf8(snapshot).expect("snapshot JSON"),
                             "provenance":"existing native client/Driver, normal reset; privileged diagnostic sample before a policy choice"}),
