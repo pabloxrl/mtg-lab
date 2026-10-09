@@ -4,6 +4,16 @@ Operations #252 delivers only the [bounded registration](../../programs/m2-repai
 Inspected main: `522b7da8b86cd412c03c709bf88d8540c0385e16`.
 No new mechanic/reference execution or M2 completion is claimed.
 
+The coordinator supplied six preserved diagnostic files inside this checkout.
+Their [archive manifest](diagnostics/manifest.json) records original issue/path,
+length and SHA-256; every archived file was checked byte-for-byte. Markdown
+reports use `.txt` extensions to retain historical relative links literally.
+The [compiled-red patch](diagnostics/GH-23/activation-mana-red.patch),
+[GH-210 gap report](diagnostics/GH-210/prerequisite-gap.txt) and
+[complete 31-case GH-212 inventory](diagnostics/GH-212/prerequisite-audit.json)
+are durable child inputs, not new acceptance passes. Original workspaces remain
+untouched; implementation workers must reuse their drafts/evidence.
+
 Existing prerequisite completion reports (acceptance, review, protected merge and
 exact-main CI are linked in each):
 
