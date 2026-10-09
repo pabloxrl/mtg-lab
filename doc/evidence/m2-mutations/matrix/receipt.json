@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "head": "38978e831abde58e8a1b3678fd5aa78baac16787",
+  "head": "9d584b823ca79f9cf37385f5ba85cc80c8d1744f",
   "source_sha256": {
     ".dockerignore": "2da78373d06a82ae5e6a407f6059e4cabc68a7af10f97122c94ae1f10400bad4",
     ".github/ISSUE_TEMPLATE/problem.yml": "1474f12f329ef0de1853e9598f0d1e14b9867ead49e098be8228c92c382df850",
@@ -9,7 +9,7 @@
     "AGENTS.md": "2a0ee29a25e5857d7d2c803f027b1af84f8362dd9a35a4f26ddf3c9de8bd8950",
     "Cargo.lock": "1bfa4406868d560092b46b46c5c0d9531d84cd07fc2c0185718d6590f97dd7fe",
     "Cargo.toml": "8460200f30cb9e72c404d0034e5c09e979818130e4e538f310c923052a25e1b6",
-    "README.md": "cef4af4b410d45a1c195155e174fec3be8c8ead93a910186501999cf0476832a",
+    "README.md": "f7128863198b89f5f9bf6cbd5adc57627e79951ea63049d5f69a868a5d573eaf",
     "WORKFLOW.md": "b7a7e0075628fc7003fbce1bca92d2affac19c16e1a54b866c89cf0ef6e5e915",
     "compose.yaml": "937b840ac651798ce47f2a96c7d71aebbf80399bcb28cc43f9970dd97a2b51f3",
     "crates/mtg-cli/Cargo.toml": "805a14b2cf1e3547c91a9ee33438d1f0755063f4e6d231b564603a1ddc6b4f1f",
@@ -18,7 +18,7 @@
     "crates/mtg-cli/src/capture_tests.rs": "73f3d9355478508ccf1bfcb6baddeec45956044bb099982bb868db81a3915fa7",
     "crates/mtg-cli/src/commands.rs": "ae0904960e1ac48fa968482fb9eb310d6eca5b9b7c3ef7fc7d6b58a715b02b76",
     "crates/mtg-cli/src/main.rs": "86ebfd55893009d338599d38b073d83277cd131ff9c9eb6c24962ba962d76240",
-    "crates/mtg-cli/src/native.rs": "aef078ed1fa38dfefec027b1c557a19eee60941f14b68db8e28d74ce0e209f86",
+    "crates/mtg-cli/src/native.rs": "2429c217c244778d2581ca75a43a13cf1714e306e0af66e1bfb09fb77ed86d25",
     "crates/mtg-cli/src/script.rs": "2833778f59032d7a6e0db99a0d03c83dd70791f791733b738cd24b85b0f0c43a",
     "crates/mtg-cli/src/script_tests.rs": "626cb93ee83fd34288b63ef7b9dd25c87449b168b316614c2b34110a2f9c5511",
     "crates/mtg-cli/src/simulate.rs": "59c80141497ed4b22e3345a2666224e62d00a3c57111bde79ec03ed72413a1a7",
@@ -26,7 +26,7 @@
     "crates/mtg-cli/tests/captured_simulate.rs": "8094f177682d23df4e50fef99f5dc519445e44ca0e9fcae7c66281020b025cc0",
     "crates/mtg-cli/tests/composed_cli.rs": "fb60effc39d7cfbcd4aeebd03c75641b46c02f9a4905c8d88337abe864c36a16",
     "crates/mtg-cli/tests/headless_commands.rs": "d47315c9b854929478b33cf1501a47e6762606d977540edcd7d2516104707232",
-    "crates/mtg-cli/tests/native_simulate.rs": "64def68d5e9e99a3666a0c101d7d75b51e9679fa668e18970110be0533878f78",
+    "crates/mtg-cli/tests/native_simulate.rs": "4fec46417dd314679f3599cb94578083cbd941f34653c851a32d7096c376d653",
     "crates/mtg-cli/tests/played_replay_commands.rs": "7854d3f14b69e21e3ddaaaeb89a8662e78b20f11b0b221dae89861347042b922",
     "crates/mtg-cli/tests/script_simulate.rs": "c2ecbf91f526bbb0d7e645301eb83ea3eeb876c8e622f0989de4b302f6775cfc",
     "crates/mtg-cli/tests/simulate.rs": "5020c397e9514ddeddbdf401db8d0a68d445fb9f9c777e6c05fb6fd0b8478782",
@@ -47,31 +47,32 @@
     "crates/mtg-core/src/combat.rs": "bb645cd831ab205864e17b486f8a064c564f51d5b80c5e2cdf4c6d66903cf41b",
     "crates/mtg-core/src/combat_tests.rs": "3114ea5bb48dcd7d841242fce6739fc43c30f0227a89c5b44120e3c7584d9268",
     "crates/mtg-core/src/creature_mana_reference_tests.rs": "79bac87ae62e5e21a70aae6a1b69fd06028cc47a34464c5d3472f9126edc0230",
-    "crates/mtg-core/src/episode.rs": "d8afd74e94cc9e173d94f6bed84d277ffd6aec0b71e46659849e410dffb25b10",
-    "crates/mtg-core/src/episode_budget_tests.rs": "84b241da7fb178873ea4290e7f3117ea5a4666d341dd4bac22324063b79f85d6",
+    "crates/mtg-core/src/episode.rs": "ff3983b584c7e8b5ab4d7268d0f155e1c2cbecb61b83cb00f94a42b8896114ce",
+    "crates/mtg-core/src/episode_budget_tests.rs": "61fc4aca7f68e25e83fbe90f3b8fa64e14d09aa1f99e7522b71c0ea89827bb5d",
     "crates/mtg-core/src/episode_capture_tests.rs": "ca0c3294d350a4ae7f29d4c833dfb0ace857b2f1e88cd0e36f61d3883fc1b52b",
     "crates/mtg-core/src/episode_replay.rs": "518f455d5b0b57e6c33f25725520444c2de08d25f0e1160c9f7f1d89f8dfcbad",
     "crates/mtg-core/src/etb_trigger_tests.rs": "d6f1624ee6634e24031dce74ee13b8de4b59eda6a96322766a021cce6d4cd939",
-    "crates/mtg-core/src/game.rs": "2a04e28bac7517acb3cdf478ba73b076d0bdf655116d3128f4f1017a4c8d5b9f",
+    "crates/mtg-core/src/game.rs": "76137869136f95b6134312099d75658040fbe58158a12504e9fb3279bfbb6a04",
     "crates/mtg-core/src/haste_tests.rs": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
     "crates/mtg-core/src/instant_reference_tests.rs": "8d890847a3217735073aa10d77db82e6588398594fb3ebeba42fc49ecca4ef18",
     "crates/mtg-core/src/invoker_tests.rs": "d8613df5f49f4340bc05291be0234cf207adcdafc4f37930d454a0ad61745d22",
-    "crates/mtg-core/src/lib.rs": "3effad9e6972bdaebfedae21ec9eeaf561ddb0feba007d38817d1280f23cb770",
+    "crates/mtg-core/src/lib.rs": "fbddffce597a32ed7b539a0df3dec03c4f8ee5fbc54f77912a9b1498fab621f7",
     "crates/mtg-core/src/m2_cost_reference_tests.rs": "1a613d72939e1cea45b6713a0150841ab83d2f36e9f24fce925059315274912b",
     "crates/mtg-core/src/m2_mutation_tests.rs": "8200fd26f99398cce7837b49c614474d2f576793f5b12125459cbf83ef9c2ef7",
     "crates/mtg-core/src/m2_trigger_reference_tests.rs": "87778bbefc03ada8f77e786a7a0e925282130e5dd662ca6d2ad92a659a83c6a0",
     "crates/mtg-core/src/mana.rs": "0a88ecfff656665e10c0e3995fa54fff066084c7c5147a15e22996cdcdb55969",
+    "crates/mtg-core/src/metrics.rs": "d70d289d73a2e6395cd9357a667d9167ff9b9c1d309e9db40bb9dffb6786efd5",
     "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
     "crates/mtg-core/src/opening.rs": "d9506cbc5498c65b03605c99b7c3c0459cb11be1527999782e1a71a79da37e8a",
     "crates/mtg-core/src/played_replay.rs": "76367edf1d3cda8f9e56cc64f014bdd373e7ca7a28c181d69ad41c49adb4a38d",
-    "crates/mtg-core/src/policy.rs": "dc80bf785b92f72d7249b76df60bf863b7ae109210a01cc1ae353805949798f2",
+    "crates/mtg-core/src/policy.rs": "325898f8793d60e86070406d8f188e1832bb067822b8a56732b52ec8b9df153a",
     "crates/mtg-core/src/policy_combat_tests.rs": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
     "crates/mtg-core/src/policy_spell_tests.rs": "8638b1d12770ec9ecddee0df4c0375b23d0a182d60a1770f05a94260d72e3f14",
     "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
     "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
     "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
     "crates/mtg-core/src/shivan_tests.rs": "0b175b3d53542a27700a0c822b538afc6a7363b110b6dfbf27118fe5bd82ff06",
-    "crates/mtg-core/src/snapshot.rs": "4394577b8dd398bc6293c1877ad20b720e152e3e821e6d89ead211207da7f445",
+    "crates/mtg-core/src/snapshot.rs": "0a5e1c90fdaa8266472389d7dd9487ac13b1b57f64403c76fa6c70b9b527b4af",
     "crates/mtg-core/src/targets.rs": "b657a310c77028daa7e69fb249f8861c07c511e1b2d08381d0ea9e2b34ce61da",
     "crates/mtg-core/src/targets_tests.rs": "67ae6fada2b2e0ee28926139fb89b9daffc9dfd6d23593f69bec541109627fab",
     "crates/mtg-core/src/terminal.rs": "0ed0cba11dc5a98a08e32b93ecc5fd4b9a730c85e360a4d0e1a462abb9e99ebe",
@@ -88,7 +89,7 @@
     "crates/mtg-core/src/turns.rs": "4afc9ea6b150bf2639f7069abae6919a6a9608746bc638a218037680307a028f",
     "crates/mtg-core/src/views.rs": "8f0bb89f4bff40f384f68d9f98e0c26ddc45c1f74fcbb69d16e982b71931c0ef",
     "crates/mtg-core/src/views_tests.rs": "1b0d1d30ab560d903eebcd1b2295f55a57126789f8655e1e73f64522da9a1c40",
-    "crates/mtg-core/src/work.rs": "ab1325fb7c128be69a62473cfc217a1bb7f8d21699fb960922c495520d6f300f",
+    "crates/mtg-core/src/work.rs": "87296501b828acedf4491de0c0ea88701b448653083e1dc09875397c4a500fe4",
     "crates/mtg-core/tests/budgets.rs": "087fa2b4fba12d112e067fc1a0b679fd0ae14cf6b7c97c9df44cb14d83203bee",
     "crates/mtg-core/tests/capture.rs": "fcaa6bd1d363a608d1de1fe249a8a72545035ce28d2dfbd221ad4eb9faf4085f",
     "crates/mtg-core/tests/casting.rs": "e4bcdac8b4a4fbe69dd088e7d8e56d7fe83b81f44616314f2ad35269b8ffa5b1",
@@ -96,6 +97,7 @@
     "crates/mtg-core/tests/core_integration.rs": "b62daa80d80eb28569baab752a5c05e3550644e5409f8c29d74b5619f76be516",
     "crates/mtg-core/tests/episode.rs": "5d054ac9b03c5504d3530dbef6bf22c362ce465e6a9889f03a39085375cc77b2",
     "crates/mtg-core/tests/mana.rs": "477b15be25a3fb367d45507ae19d88a01f26bff8cd0d0b36f951c9341329b0fd",
+    "crates/mtg-core/tests/metrics.rs": "f84a2230a02f67d9117bf2ca8284862d65969a70f47319c447dbbe40986bd2bb",
     "crates/mtg-core/tests/module_paths.rs": "94dd5edc0aafcbae0e8766d38799497186a4220285d45667aa6a2a85625459d5",
     "crates/mtg-core/tests/mulligan.rs": "6603e0299e2f0b0d45f74cb38301584fdf9aa8dda5dc1e6fc897a50608912c4d",
     "crates/mtg-core/tests/objects.rs": "b7c494a20f57b0d476888ea9b880650b07470d39ceef43435b2d3e13ac0f5456",
@@ -143,7 +145,7 @@
     "crates/mtg-recorder/tests/episode.jsonl": "778584a206189a8ad3352b8bd26cb6fbca143b44c21459f8a7f3854a1dff8bb6",
     "crates/mtg-recorder/tests/etb_triggers.rs": "d502654847c625cf7e1bebe9c525510a032072fe212f67a09b6ed93ea9dbd7d2",
     "crates/mtg-recorder/tests/flying_reach.rs": "94a41aee250cde84a9cee2b0922930886a4042294f6e2093717ad5e3a03b9d47",
-    "crates/mtg-recorder/tests/full_pool_policy.rs": "668795c933512b5c8a5831b597d790f17990fa3ed5e1b37ccdc6138cedb97ed1",
+    "crates/mtg-recorder/tests/full_pool_policy.rs": "9c80102e0344f7abc9483a69eabb67647f7938a96bb32b4823db8b8bc20fee85",
     "crates/mtg-recorder/tests/haste.rs": "04dd5e5635bdf0d0993482e3cd30b72b0577c7199c63c757c6c38f1cd557c545",
     "crates/mtg-recorder/tests/invoker.rs": "214f3c1b74372573123c72d31d5e46eb6678ff24a1b74abeb2a01c123ddfed59",
     "crates/mtg-recorder/tests/manifest.json": "c57d24cdcd6b1d51c726a4879f49d859456ba1a06475d1a4cd68d83417dd332b",
@@ -849,7 +851,81 @@
     "doc/evidence/m2-cost-reference/verification-before-main-integration.json": "e9955e7abcca8923f62d2460b45527124557c15b6b56ceecdf09f1ce07b54d9f",
     "doc/evidence/m2-cost-reference/verification-before-trigger-integration.json": "6f9ef001216fe45e10fc850a76ad71b5a67fccdb2e62f47ea4f2e3c99c9521f1",
     "doc/evidence/m2-cost-reference/verification.json": "2eb00f54089a0428463d91c71ef4dd1cdfb9d7b14d673d2d29f569ed15da8997",
-    "doc/evidence/m2-mutations/README.md": "b87f4a50cf1ac003ce84e95599dccd0538561d9cf62b2ab6c9ed22b01a0cae7a",
+    "doc/evidence/m2-mutations/README.md": "ddcf2801786b0e857f5d30cac6a744e8947621ac490e332161b3fb87c8a70a0b",
+    "doc/evidence/m2-mutations/initial-truncation-harness-failure.log": "1006af257fdbd4e4bda44e1858ace64a830a371af8cfb24537776b94b6d6cad3",
+    "doc/evidence/m2-mutations/matrix/boost_expiry-baseline.build.log": "a7a72286634b6161afc125a532325661cafb1e41ff2c09e249f987e6ec62aa19",
+    "doc/evidence/m2-mutations/matrix/boost_expiry-baseline.list.log": "c3d15889403ce3be70b7c9d16e7301bc9e35151fc442945664f6aa79f6b7012b",
+    "doc/evidence/m2-mutations/matrix/boost_expiry-baseline.test.log": "1146dce7f0a9f89399e22042257b79ac66c20d2035beadeb1eb8f9edbd8786a5",
+    "doc/evidence/m2-mutations/matrix/boost_expiry-mutant.build.log": "a05805e04c5cdcd95b156410c9b116633c84cfe3abd78a6d485fb6a4c464c6c2",
+    "doc/evidence/m2-mutations/matrix/boost_expiry-mutant.list.log": "c3d15889403ce3be70b7c9d16e7301bc9e35151fc442945664f6aa79f6b7012b",
+    "doc/evidence/m2-mutations/matrix/boost_expiry-mutant.test.log": "18b995e9f5f7a70279e58d7f5c5c51835de5084dfad76d74122b0a8b335bcbf8",
+    "doc/evidence/m2-mutations/matrix/cast_trigger-baseline.build.log": "dc154aa98b08f4611d54b3a62038facffc1d7af26931e2f0d29821f3f85985fa",
+    "doc/evidence/m2-mutations/matrix/cast_trigger-baseline.list.log": "1e53bac8d33b49af5d53e226a92bd72dc813a5e5d28ccb03966776d4ad0c80d3",
+    "doc/evidence/m2-mutations/matrix/cast_trigger-baseline.test.log": "429d91e542016b82743ed98311c53a4ed6cfc771b65d1d93ba566ac4eae5b57b",
+    "doc/evidence/m2-mutations/matrix/cast_trigger-mutant.build.log": "0d9aca359aa1e36afded6a04771ee5e93591cb27ca2b7324a83ec26fe89e3d71",
+    "doc/evidence/m2-mutations/matrix/cast_trigger-mutant.list.log": "1e53bac8d33b49af5d53e226a92bd72dc813a5e5d28ccb03966776d4ad0c80d3",
+    "doc/evidence/m2-mutations/matrix/cast_trigger-mutant.test.log": "c329aaa9c83c41fb6d23995b03d723f611fb3ca4dc01f8919a3aa5a3a8730fd8",
+    "doc/evidence/m2-mutations/matrix/cleanup_damage-baseline.build.log": "153c6100032065fb9a0950a1a105d0498e5ffc690f9fc2ac3a1c40b457113c7a",
+    "doc/evidence/m2-mutations/matrix/cleanup_damage-baseline.list.log": "6f63ec1376c9fa8e7648e368db2cd233eea4b3aaba0d1da33c8e6bef2bc24882",
+    "doc/evidence/m2-mutations/matrix/cleanup_damage-baseline.test.log": "4b1dacdaf86b14db5f119d977d875f10a2d55bbd3c7c0578c7fbe789c033c377",
+    "doc/evidence/m2-mutations/matrix/cleanup_damage-mutant.build.log": "3243de6c62f20196c6a844a9ef6f7c358b6e2c834eaab4983355fc98fd2421d1",
+    "doc/evidence/m2-mutations/matrix/cleanup_damage-mutant.list.log": "6f63ec1376c9fa8e7648e368db2cd233eea4b3aaba0d1da33c8e6bef2bc24882",
+    "doc/evidence/m2-mutations/matrix/cleanup_damage-mutant.test.log": "0481ce97860e0b098e29361fa608b9e84792209c4e98dd32285f50a93cbf448f",
+    "doc/evidence/m2-mutations/matrix/clipped_choices-baseline.build.log": "d4369118c1a1b9486f23db0d87de65c888f28dcbd841b85aab1d70bd6a837b27",
+    "doc/evidence/m2-mutations/matrix/clipped_choices-baseline.list.log": "5708de001f2b415e776ba17d2852454493430e71b0f276f7f81d97bdb36ffe14",
+    "doc/evidence/m2-mutations/matrix/clipped_choices-baseline.test.log": "cdef9b4a3c5e68188e60826c33234b2f309e538e102f127c01b1e0f15ea0c823",
+    "doc/evidence/m2-mutations/matrix/clipped_choices-mutant.build.log": "b6148524b34e7095001e4ca12ed693061f8fc8eec1f843c5486b2e1468107277",
+    "doc/evidence/m2-mutations/matrix/clipped_choices-mutant.list.log": "5708de001f2b415e776ba17d2852454493430e71b0f276f7f81d97bdb36ffe14",
+    "doc/evidence/m2-mutations/matrix/clipped_choices-mutant.test.log": "10fc58a1298514191cb8b4b1109e44c0b6cdfb76cea588d748dc2a591c48ec79",
+    "doc/evidence/m2-mutations/matrix/failed_denominator-baseline.build.log": "4bbfef12b740453ca97e1a97232cacb417db340a1b51ea623a013aa9f25da243",
+    "doc/evidence/m2-mutations/matrix/failed_denominator-baseline.list.log": "efb194eaead589a5769cce919762f0e31dd64988124148c0f073fdcac34d3f7f",
+    "doc/evidence/m2-mutations/matrix/failed_denominator-baseline.test.log": "49aa6b9729e9872189ad781067c49a903bbc8f99ad253e8e6a0bfdf171620855",
+    "doc/evidence/m2-mutations/matrix/failed_denominator-mutant.build.log": "ce6543c6dff47214d33cac9f7318ddfc633c8cad2060f5b7de7e8aa5388d0922",
+    "doc/evidence/m2-mutations/matrix/failed_denominator-mutant.list.log": "efb194eaead589a5769cce919762f0e31dd64988124148c0f073fdcac34d3f7f",
+    "doc/evidence/m2-mutations/matrix/failed_denominator-mutant.test.log": "e22d273a87b4d2843a2b6f23e43e4c98861f873d9f1a645b83929f7cca59ce52",
+    "doc/evidence/m2-mutations/matrix/mana_stack-baseline.build.log": "707417623c9020506310255c14e8e7a3dc0b0c3dba6d109f697acf16d1fee9c8",
+    "doc/evidence/m2-mutations/matrix/mana_stack-baseline.list.log": "033feb288543d81d5a9d8157904ae29a57927b5276cdfa9a8b57ae8b3e3977a7",
+    "doc/evidence/m2-mutations/matrix/mana_stack-baseline.test.log": "976407d33b0002bee4539339940e87e5daaf3cd6c253d1c4b22a97455a687871",
+    "doc/evidence/m2-mutations/matrix/mana_stack-mutant.build.log": "bf1590f23d0738377f7c8338a3b3dade81f06eb731f0c08b3fb16ba6142ad1fe",
+    "doc/evidence/m2-mutations/matrix/mana_stack-mutant.list.log": "033feb288543d81d5a9d8157904ae29a57927b5276cdfa9a8b57ae8b3e3977a7",
+    "doc/evidence/m2-mutations/matrix/mana_stack-mutant.test.log": "83e0a8d283992a7b609ee87fea474e86cb5df6ab91a57d304560df65e0f61f8b",
+    "doc/evidence/m2-mutations/matrix/priority-baseline.build.log": "adfb19ada886b7a340b0a17090345cb8a31c0b802d72e06507e8c034c449f48e",
+    "doc/evidence/m2-mutations/matrix/priority-baseline.list.log": "85c30a43909124ffb33373cbe927b0b650e0d062cba7fde12112396d746803eb",
+    "doc/evidence/m2-mutations/matrix/priority-baseline.test.log": "798d939f1f8b729465cc889003e06d7eb65cf168ba9832637175e08f1b3b35be",
+    "doc/evidence/m2-mutations/matrix/priority-mutant.build.log": "3a984d51c3e65f7aba9df2e428c4b3fd37460b9faa81b9db0bae86991c6c23a1",
+    "doc/evidence/m2-mutations/matrix/priority-mutant.list.log": "85c30a43909124ffb33373cbe927b0b650e0d062cba7fde12112396d746803eb",
+    "doc/evidence/m2-mutations/matrix/priority-mutant.test.log": "c85dffb54a0cd2bc2b9e03cd80be0bace2565414acd9926cf7e7ce074f42a823",
+    "doc/evidence/m2-mutations/matrix/private_hand-baseline.build.log": "835113fa1b9b17c56fc0ec7c15f4e6ef52b4b0589b3b69fa832763cc0f159b45",
+    "doc/evidence/m2-mutations/matrix/private_hand-baseline.list.log": "9632064a1415120e131739b5ebeb369196c7eeeb948ac8a10bc0d0db919b1ea2",
+    "doc/evidence/m2-mutations/matrix/private_hand-baseline.test.log": "8e732b1876a511aae777950b6b0ff09f395973089f4375e5944cb52918dbc04c",
+    "doc/evidence/m2-mutations/matrix/private_hand-mutant.build.log": "acdf6229ae60d52147ffd63fb97512a8877f6a8a33e129851e8e06656f6196ba",
+    "doc/evidence/m2-mutations/matrix/private_hand-mutant.list.log": "9632064a1415120e131739b5ebeb369196c7eeeb948ac8a10bc0d0db919b1ea2",
+    "doc/evidence/m2-mutations/matrix/private_hand-mutant.test.log": "1c13c070082e6dc2860a0de794b0f69f90a1149b90e41e5c4606331d20b105e3",
+    "doc/evidence/m2-mutations/matrix/receipt.json": "4c8a013b5f1516564a5da721d6e1ed437db67fd6469e28dd92989dfbe2bb1380",
+    "doc/evidence/m2-mutations/matrix/sick_tap-baseline.build.log": "37a40ace28ae862f02907b584e2c257857010c08bd2edb9a80a3f7e7777d4fc6",
+    "doc/evidence/m2-mutations/matrix/sick_tap-baseline.list.log": "5ebc126fe9736a05129844d33f8f5ce36c1b0b1a294679f92ecf5aeb1c17f018",
+    "doc/evidence/m2-mutations/matrix/sick_tap-baseline.test.log": "08853bb17a10b13dd56cc4064bcd2e9ae240ee58ed87fbf3e81ec4266f741968",
+    "doc/evidence/m2-mutations/matrix/sick_tap-mutant.build.log": "02c8408d95694e6889db0fb1e8031566e8e5902684cca2226ea2758a6897b80d",
+    "doc/evidence/m2-mutations/matrix/sick_tap-mutant.list.log": "5ebc126fe9736a05129844d33f8f5ce36c1b0b1a294679f92ecf5aeb1c17f018",
+    "doc/evidence/m2-mutations/matrix/sick_tap-mutant.test.log": "f7673e61b1fecbc3aa1ed245d0fcdb406052284ecea0ecda1cfb59b6135f778c",
+    "doc/evidence/m2-mutations/matrix/stale_action-baseline.build.log": "84b7071534065dc4e4276e9cadc703b3032a882fd4fd58c24568986a69e05f54",
+    "doc/evidence/m2-mutations/matrix/stale_action-baseline.list.log": "8f50cf9c77e74b0bcd0e97c444a3e838afab3cc0cf2116a317bd81c4f5bb9b08",
+    "doc/evidence/m2-mutations/matrix/stale_action-baseline.test.log": "220f1ce3c402bc6f91cee8d4a4eac4f6052c868e28a69bc2e204d95b33d42471",
+    "doc/evidence/m2-mutations/matrix/stale_action-mutant.build.log": "a8ee7fe99a280d5f59e3c08c98f11deb82064077e93be8776a4a6a0040aaa206",
+    "doc/evidence/m2-mutations/matrix/stale_action-mutant.list.log": "8f50cf9c77e74b0bcd0e97c444a3e838afab3cc0cf2116a317bd81c4f5bb9b08",
+    "doc/evidence/m2-mutations/matrix/stale_action-mutant.test.log": "dc90701e1c96b7cc94c42cf3f9c0717e0a9a8a73684d133c02b3625742ec8b55",
+    "doc/evidence/m2-mutations/matrix/terminal_reward-baseline.build.log": "d0d60cb738dfdc5b266126e3fabd87ddc505fcb39f4914f11409f706e0ebdddd",
+    "doc/evidence/m2-mutations/matrix/terminal_reward-baseline.list.log": "1d386714085b027a8960c8f776fd3ae6de9e2e01655f12c4ec66548d9733084f",
+    "doc/evidence/m2-mutations/matrix/terminal_reward-baseline.test.log": "8f6241554cf0dc15da25c3aecc3b923db52e8a765a063ff69a6f94c681becc69",
+    "doc/evidence/m2-mutations/matrix/terminal_reward-mutant.build.log": "0ec75214f16a1a0e876f6b0c829bc8b832f53dbd38c2ea7c63d0b4390f6c2f1d",
+    "doc/evidence/m2-mutations/matrix/terminal_reward-mutant.list.log": "1d386714085b027a8960c8f776fd3ae6de9e2e01655f12c4ec66548d9733084f",
+    "doc/evidence/m2-mutations/matrix/terminal_reward-mutant.test.log": "278371e12db9a6dc72a669c4e68930ebf507e00c558fed6da98124bf853c4567",
+    "doc/evidence/m2-mutations/matrix/truncation-baseline.build.log": "5983281bc78894ad114d39cc5cbc7f084ccf27124b6c61e9ad186633f5b5f720",
+    "doc/evidence/m2-mutations/matrix/truncation-baseline.list.log": "367996da4f75e27f4180bf35a21923cc744943d44264d4ad1ad9b599d66044c2",
+    "doc/evidence/m2-mutations/matrix/truncation-baseline.test.log": "71c4797b670b84e21094bae42cbf3b7343ecfbde978d6cc5adcc3c5ef44fd2dd",
+    "doc/evidence/m2-mutations/matrix/truncation-mutant.build.log": "8827a2d8d4b1713411abef4b7e8a4876d9f8faeda665804178d5fb5fa7262299",
+    "doc/evidence/m2-mutations/matrix/truncation-mutant.list.log": "367996da4f75e27f4180bf35a21923cc744943d44264d4ad1ad9b599d66044c2",
+    "doc/evidence/m2-mutations/matrix/truncation-mutant.test.log": "cc40befe28c78eaaf2b5b5118c5862fd9561e9d9bda9eafb01bfe0fba697ca8b",
     "doc/evidence/m2-mutations/runner-red.log": "189506c9c80f8801277697c55d52c5f0870371c16b398f00df02eaccc34a69c4",
     "doc/evidence/m2-plan/README.md": "08642cdb884807ff9dd1742afe7971e8d1d7d53a3aa68c6523717e84273020b4",
     "doc/evidence/m2-plan/check_preservation.py": "b0d26d9e4eb0a3219b9b21578f6b8a9b5c920cedf9d00d4e1ed9a6c1c0dae8bc",
@@ -1491,6 +1567,8 @@
     "doc/evidence/scalar-integration/terminal.log": "30a0942c585551d99e4f45f94bd1710341756273030cf5132d2e4259f129c7ee",
     "doc/evidence/scalar-integration/torture.log": "28386281117da6d8915cb4c3cd2326f98ff0c6ac5de7ab080e4aa262d90b483d",
     "doc/evidence/scalar-integration/verification.json": "62b5a17105f345b8af087c4c7a10a3efd1418352367ae559ce4d9acc3e34da61",
+    "doc/evidence/scalar-metrics/README.md": "571d32875c3de01d4bc90b9580aa984cc4f65a117c35b90530b3c6d2d1831d48",
+    "doc/evidence/scalar-metrics/red.txt": "303b5577b352311f1aaac444cddd96c112199cec2b3296076ed74963013aba53",
     "doc/evidence/script-cli/README.md": "9a4c091fa8aab56f430d0da51a451cd9224beeb539aa04297b8ad199375387d2",
     "doc/evidence/script-cli/behavioral-green.txt": "c8558bd5cab5e28a86f4e868723a940ecb4793156d0e7524cf3efbe0b933a88d",
     "doc/evidence/script-cli/behavioral-red.txt": "6343fad38a9965656dd304abc8f861b6cfba229c5011302f66554155700f7f61",
@@ -1678,7 +1756,8 @@
     "doc/roadmap.md": "bf4c996b9b3b21f25c7871e92f5fb022c0d31cfe5260d57997def0f682f5ef8c",
     "doc/rules-source.md": "8eba79655a2fc992912d66662c4bcf673fb89389fd5a015cd2f59181be7e0fcd",
     "doc/run-manifest.md": "d1b42c8a979846b2d277e035a4ad39a1b533be07e0c58c4294f8112db3d8c1a4",
-    "doc/simulate.md": "8bdfcb190166c08650d98ef738bc2e11ad37dc4c4d2eaccb96f307a09e90b0f4",
+    "doc/scalar-metrics.md": "eac01e39182c23387d52fa18db7e50f65a22eaf51085ec706b726992ddb240cf",
+    "doc/simulate.md": "542edeb576d73e4750ca6e9b195ba4faceeffbb299917c67150793c0603129f1",
     "doc/snapshot.md": "074d19985f288d463f487d63bc70d214f1f392d7b2cbec049c4a813bc9f5bb22",
     "doc/spell-settlement.md": "3a53706ed3ca5e9c658aca03b7aa928dd4056e7c0616e83f8cc300ab7e81515c",
     "doc/symphony-runbook.md": "01a5c9fa37f184895c450b9e69254fe518991fd2d9ca2d60ea0ab9a96bda089c",
@@ -1901,12 +1980,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "798d939f1f8b729465cc889003e06d7eb65cf168ba9832637175e08f1b3b35be"
+        "output_sha256": "0c5e166e58e75830d87790ccd668af61c52c1ce30b0ce9eda10fd045fb8c3dbe"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "c85dffb54a0cd2bc2b9e03cd80be0bace2565414acd9926cf7e7ce074f42a823"
+        "output_sha256": "9eca087ab8d2c505618547edcd72c40191c658136f2bb115c1fb6bb6962f0bdc"
       }
     },
     {
@@ -1916,12 +1995,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "976407d33b0002bee4539339940e87e5daaf3cd6c253d1c4b22a97455a687871"
+        "output_sha256": "4a5cec14b5821cf0eacb6bed49f13549e79b8628e897b39370e128b354943642"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "83e0a8d283992a7b609ee87fea474e86cb5df6ab91a57d304560df65e0f61f8b"
+        "output_sha256": "30b2012e9f5437256b29ca1821945da2011f43fb14c5d20127dae20b4564da2b"
       }
     },
     {
@@ -1931,12 +2010,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "08853bb17a10b13dd56cc4064bcd2e9ae240ee58ed87fbf3e81ec4266f741968"
+        "output_sha256": "50d790370f4b6fa7d8523ad31ed294376bc387f47f3b850be458bc5a928771b4"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "f7673e61b1fecbc3aa1ed245d0fcdb406052284ecea0ecda1cfb59b6135f778c"
+        "output_sha256": "aa340e251e7c425ef9ac31a1ab16d0a1ae87dc382259dff84c0ee08b1ae755d3"
       }
     },
     {
@@ -1946,12 +2025,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "429d91e542016b82743ed98311c53a4ed6cfc771b65d1d93ba566ac4eae5b57b"
+        "output_sha256": "456642c268eae895c2a25dd12d055b5529329296321c6d6a12a71e2a037bdf25"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "c329aaa9c83c41fb6d23995b03d723f611fb3ca4dc01f8919a3aa5a3a8730fd8"
+        "output_sha256": "450cd57b5f12826a75d5abc4ab95ee0d573f34a2d87b3806fda0dda82a6b3804"
       }
     },
     {
@@ -1961,12 +2040,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "1146dce7f0a9f89399e22042257b79ac66c20d2035beadeb1eb8f9edbd8786a5"
+        "output_sha256": "4e9f25ced66b9fa52b4994339dac67d942bb9feaf9c41153daab65d4ffb11729"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "18b995e9f5f7a70279e58d7f5c5c51835de5084dfad76d74122b0a8b335bcbf8"
+        "output_sha256": "3d56006f708e8b998dbc7e3c5469a10def1b549959e8d76ceb92b06ad6e8bdb4"
       }
     },
     {
@@ -1976,12 +2055,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "4b1dacdaf86b14db5f119d977d875f10a2d55bbd3c7c0578c7fbe789c033c377"
+        "output_sha256": "5c6cb7c874230880074aa8d7c0af68424f9e01c3aa0f95e752dca9e1fb723665"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "0481ce97860e0b098e29361fa608b9e84792209c4e98dd32285f50a93cbf448f"
+        "output_sha256": "9003728a07763cee6c306b4831cf7e349b05268c182e50f26de74311ae58f9b8"
       }
     },
     {
@@ -1991,12 +2070,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "220f1ce3c402bc6f91cee8d4a4eac4f6052c868e28a69bc2e204d95b33d42471"
+        "output_sha256": "3e21d8cafa1419c23d2081d63b52b319e032e264692355351f0dcba3b480e469"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "dc90701e1c96b7cc94c42cf3f9c0717e0a9a8a73684d133c02b3625742ec8b55"
+        "output_sha256": "74330081b13fcbd7db2667fb7bcfa9c77bf6e57db380bb56cfae75295d656dd2"
       }
     },
     {
@@ -2006,12 +2085,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "8e732b1876a511aae777950b6b0ff09f395973089f4375e5944cb52918dbc04c"
+        "output_sha256": "7409dad23938c402e4df89bce5c82cc1e3aba37f49c110b7a68fec77282f026b"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "1c13c070082e6dc2860a0de794b0f69f90a1149b90e41e5c4606331d20b105e3"
+        "output_sha256": "ac0fab914d731bb0b8227c0c0a5d95fb15a1e9815b788c65bdb634c4daad3053"
       }
     },
     {
@@ -2021,12 +2100,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "cdef9b4a3c5e68188e60826c33234b2f309e538e102f127c01b1e0f15ea0c823"
+        "output_sha256": "148129696a8bb57eb707fb04de3dfee47ed74de56a66d0c5b50da0adab1c621f"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "10fc58a1298514191cb8b4b1109e44c0b6cdfb76cea588d748dc2a591c48ec79"
+        "output_sha256": "ec55e740b16710b7a3b1e8597f098eca21d4870c7e273ec26c2d66952699e5c1"
       }
     },
     {
@@ -2036,12 +2115,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "8f6241554cf0dc15da25c3aecc3b923db52e8a765a063ff69a6f94c681becc69"
+        "output_sha256": "415f744cdb391d900df1ade08358dc48bef4211e0dc40ac9b7bd0f3c3fd49c1c"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "278371e12db9a6dc72a669c4e68930ebf507e00c558fed6da98124bf853c4567"
+        "output_sha256": "febd0f3b3ee222b03fb86d047c40d040ddbb7afb709d779d105abb230b2ff5f3"
       }
     },
     {
@@ -2056,7 +2135,7 @@
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "cc40befe28c78eaaf2b5b5118c5862fd9561e9d9bda9eafb01bfe0fba697ca8b"
+        "output_sha256": "db131ce72d1bd38d72b7853670143451e01859b6f955a22d23a53ce425a7a213"
       }
     },
     {
@@ -2066,12 +2145,12 @@
       "baseline": {
         "verdict": "passed",
         "exit": 0,
-        "output_sha256": "49aa6b9729e9872189ad781067c49a903bbc8f99ad253e8e6a0bfdf171620855"
+        "output_sha256": "5d255b6cca138e688a7fd16821fdf4af7b62d015a2838f790d35abb82b5b0f7a"
       },
       "mutant": {
         "verdict": "detected",
         "exit": 101,
-        "output_sha256": "e22d273a87b4d2843a2b6f23e43e4c98861f873d9f1a645b83929f7cca59ce52"
+        "output_sha256": "c9ed8c547b1bdb7223b0fad2411a1ddb422427d4b34f40048b57d4f5f9b766c6"
       }
     }
   ],

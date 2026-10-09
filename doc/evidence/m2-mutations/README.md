@@ -38,8 +38,8 @@ mutation positions do not replace them.
 [Receipt and copied-source hashes](matrix/receipt.json): all twelve unmodified
 baselines PASS, all twelve individually compiled mutants DETECTED at their
 named assertions, runner exit 0. Executed on integrated head
-`38978e831abde58e8a1b3678fd5aa78baac16787`, based on main
-`7b7affc387d0464995661d15a39f732e7937e543`. Every case retains separate baseline and
+`9d584b823ca79f9cf37385f5ba85cc80c8d1744f`, based on main
+`1077a249cbe1546bdb5250f928a2c4931a3cb081`. Every case retains separate baseline and
 mutant `.build.log`, `.list.log` and `.test.log` files in the receipt directory.
 The copied-source hashes include documentation as it stood before publishing
 this evidence; later receipt/report additions are not changed rules or test inputs.
@@ -60,3 +60,10 @@ this delivery does not claim a new external-reference run or new game capability
 Complete torture, independent review and protected exact-main delivery evidence
 are required in the PR and issue completion workpad; the matrix alone is not a
 whole-suite or milestone verdict.
+
+The matrix was repeated after integrating the scalar-metrics delivery (#214),
+with all twelve baselines/detections passing again and no changed expectations.
+The preceding candidate's read-only review passed without findings; its partial
+full-suite run was interrupted when main advanced, so no complete-suite success
+is attributed to that interrupted run. Final current-source verification and
+review remain bound to the final PR head in the completion workpad.

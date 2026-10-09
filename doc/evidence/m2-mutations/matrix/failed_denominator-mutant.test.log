@@ -6,7 +6,7 @@ failures:
 
 ---- m2_failed_denominator stdout ----
 
-thread 'm2_failed_denominator' (137080) panicked at crates/mtg-cli/tests/native_simulate.rs:693:5:
+thread 'm2_failed_denominator' (162217) panicked at crates/mtg-cli/tests/native_simulate.rs:693:5:
 assertion `left != right` failed: M2-MUT failed_denominator: failed attempt time stays in denominator
   left: 0
  right: 0
@@ -16,5 +16,5 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 failures:
     m2_failed_denominator
 
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 14 filtered out; finished in 0.01s
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 15 filtered out; finished in 0.01s
 

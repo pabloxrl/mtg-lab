@@ -6,7 +6,7 @@ failures:
 
 ---- m2_truncation_is_not_draw stdout ----
 
-thread 'm2_truncation_is_not_draw' (136177) panicked at crates/mtg-core/tests/budgets.rs:891:5:
+thread 'm2_truncation_is_not_draw' (161348) panicked at crates/mtg-core/tests/budgets.rs:891:5:
 assertion `left == right` failed: M2-MUT truncation: one keep is a truncation not a rules draw
   left: Completed(Outcome { winner: None, losses: [None, None] })
  right: Truncated(Decisions)

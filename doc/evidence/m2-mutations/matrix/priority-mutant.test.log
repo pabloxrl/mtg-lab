@@ -6,7 +6,7 @@ failures:
 
 ---- game::m2_mutation_tests::priority stdout ----
 
-thread 'game::m2_mutation_tests::priority' (131564) panicked at crates/mtg-core/src/m2_mutation_tests.rs:57:5:
+thread 'game::m2_mutation_tests::priority' (156968) panicked at crates/mtg-core/src/m2_mutation_tests.rs:57:5:
 assertion `left == right` failed: M2-MUT priority: opponent receives priority in the same step
   left: (P0, Some((1, P0, PrecombatMain)))
  right: (P1, Some((1, P0, Upkeep)))
@@ -16,5 +16,5 @@ note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
 failures:
     game::m2_mutation_tests::priority
 
-test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 281 filtered out; finished in 0.00s
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 283 filtered out; finished in 0.00s
 
