@@ -1,6 +1,9 @@
 # Frozen-pool mechanics integration audit — GH-23
 
-Audit base: `17aeefe91c9a23bd91854a8e8c3d7960a06b6be4`.
+Initial audit base: `17aeefe91c9a23bd91854a8e8c3d7960a06b6be4`.
+Integrated delivery base: `71776215b7c2372757b37c4113ac1c0a28bb1362`
+(PR #267 scalar baseline). Indexed mechanics sources and inherited reference
+receipts remain unchanged after this integration.
 **PASS for the scoped mechanics integration audit, conditional on protected
 delivery and exact-main CI. This is not the M2 gate.** This bounded audit
 owns the M2 aspects of R0002-B010, B011 and B029. It retains every original
@@ -148,6 +151,19 @@ remained the audited base after execution. Runtime and test sources are unchange
 from `a0306530998d9bfddb1c71d0ecfb75a9e70e7084`; only final evidence/documentation
 is added afterward. Full-log SHA-256:
 `1dc568572dd2433617be69f3a49b874035ce5a40f6c9b41d62063c04d8a8b517`.
+
+After PR #267 advanced main, its scalar baseline was integrated without conflicts.
+The full torture command ran again under the shared heavy lock and exited 0:
+**261 Python tests and 1,406 Rust test executions**, zero failed/ignored Rust tests.
+Both expanded matrices passed in debug and release, and all 263 indexed names
+appear in the [integrated log](torture-integrated.log.gz). The
+[integrated receipt](verification-integrated.json) pins base
+`71776215b7c2372757b37c4113ac1c0a28bb1362` and source candidate
+`a4e27570a5417e4fc4aa528a4a2c3becbb8b90fe`; later changes only record this evidence.
+Integrated raw-log SHA-256:
+`b8d8d2eacbc4fe94bf6961db60b85d9c9dc3b8fb41b06800e4b1be920b7a3c83`.
+The original run remains preserved above. Fresh review and CI for the integrated
+candidate are recorded in the workpad; the earlier PR CI pass is not substituted.
 
 The preliminary prescribed read-only review passed with no findings on that
 source candidate, checking retained assertions, README scope and all indexed
