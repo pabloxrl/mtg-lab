@@ -90,3 +90,47 @@ input/expected/bridge/runner and native-source hashes. [Native](native.json) and
 [XMage](xmage.json) checkpoint results are retained. Setup failures (a read-only
 cache, an incorrect test-bridge damage method and the cleanup-specific target
 type) were repaired before these successful executions; none counted as agreement.
+
+## Post-merge verification reconciliation
+
+The implementation was independently reviewed and merged through
+[PR #235](https://github.com/pabloxrl/mtg-lab/pull/235) as
+`2e0d83026b67a1a131b2601dba3760facebb3b37`. Its required PR CI passed, but
+the original main workflow exhausted its unchanged 30-minute limit. Attempts
+1–4 passed all 172 Python and 1,242 Rust executions; attempts 3–4 also passed
+the runtime smoke checks before cancellation during cleanup. Those cancelled
+workflows do not constitute successful exact-main verification. Attempt 5 was
+superseded when the operations repair reached main, and is not a full test pass.
+
+Separately authorized operations [#237](https://github.com/pabloxrl/mtg-lab/issues/237)
+delivered [PR #238](https://github.com/pabloxrl/mtg-lab/pull/238), main
+`41cbd1f721af67b1d4466ba99360c2233488da1e`. Its reviewed verification change
+preserves every test, assertion and runtime check, keeps debug assertions and
+overflow checks in the optimized checked profile, and requires every parallel
+partition to pass. This cleanup receipt changes no engine code, tests, CI,
+profiles, policy or requirement ownership; the operations change is already in
+its base. See the [operations evidence](../verification-speed/README.md).
+
+Full `./scripts/torture.sh` passed again after integration: 181 Python tests and
+1,242 Rust executions across checked/release profiles, zero failed/ignored.
+The Rust test-name/outcome multiset exactly matches the original passing local
+run; the nine additional Python tests belong to operations #237. Documentation,
+program/catalog, formatting and Clippy checks pass. Full log SHA-256:
+`3cf95aa6c8d2e6de15aeb40b85288103f63e97b3dd822e668b4f072f34539e5c`.
+The operations base also passed its complete
+[exact-main CI](https://github.com/pabloxrl/mtg-lab/actions/runs/37879846643).
+
+The [fresh post-integration reference receipt](post-merge-reference.json)
+executes all four unchanged cleanup cases twice in native Rust and pinned
+XMage under the new checked profile. Every recorded native-source hash still
+matches; the original literal expectations and synthetic/reference limitations
+above remain unchanged. Full-suite and final review/merge/CI results remain
+in the [single issue workpad](https://github.com/pabloxrl/mtg-lab/issues/207#issuecomment-6067305597).
+The follow-up receipt must itself complete protected delivery and exact-main
+verification before this issue closes; neither a cancelled original run nor
+this document alone satisfies that gate.
+
+Root README needs no additional edit for this receipt: supported behavior,
+commands and milestone status are unchanged, and operations #237 already
+updated its verification instructions. Original component and M2 gate ownership
+remain authoritative.
