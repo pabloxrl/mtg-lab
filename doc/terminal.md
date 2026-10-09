@@ -43,3 +43,40 @@ container. [Acceptance evidence](evidence/terminal/README.md) distinguishes
 normal-reset complete scripts, synthetic edge positions, and matched XMage
 boundary observations. This does not implement recorder rewards, policy views,
 CLI matches, unsupported cards/keywords, multi-draw effects, or all M1 integration.
+
+
+## Synthetic reference contract
+
+`fixtures/reference/terminal.json` remains version 1: draws explicitly retain the
+historical P0 interpretation, concessions P1, and observations retain life/lost/
+library/hand only. `fixtures/reference/terminal-v2.json` requires `draw_seat` or
+`concede_seat` for those actions and specifies life-seat and draw/life injection
+order. Unknown fields, invalid seats and conflicting actions fail visibly.
+Version 2 observations carry `version: 2`, `pending`, `settled` and `consumed`;
+pending/settled contain the four legacy fields plus `outcome` (`ongoing`, `win`,
+`draw`), nullable `winner` (0 or 1), and a Boolean `draw`. Old artifacts cannot be
+read as this richer contract.
+
+The pending checkpoint follows the synthetic setters and attempted draw but
+precedes the single SBA settlement. Concessions use a separate immediate action
+after that checkpoint. Native draws retain actual empty-library failure until
+the existing terminal collector; XMage performs real drawCards and SBA processing.
+The final XMage winner/draw is observed after its game loop finalizes the result.
+Neither adapter derives outcomes from fixture expectations. These tests do not
+claim that the injected states are reachable through ordinary games.
+
+Inside the managed container, with the issue's prepared pinned cache:
+
+```sh
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- \
+  python3 scripts/terminal_reference.py --cache "$MTG_REFERENCE_CACHE" \
+  --output /tmp/terminal-reference.json
+```
+
+The runner now writes a version-2 receipt with a hashed artifact directory, instead
+of the old unversioned receipt's inline `checkpoints`. Historical receipts remain
+unchanged. This runs all seven legacy and 31 version-2 cases twice in native Rust and XMage,
+retaining raw inputs, choices, observations, hashes, strict rejection and actual
+wrong-seat/premature-settlement controls in the receipt's sibling directory.
+See [the scoped evidence](evidence/mixed-terminal/README.md). Production outcome,
+snapshot and replay versions are unchanged by this test-only adapter contract.

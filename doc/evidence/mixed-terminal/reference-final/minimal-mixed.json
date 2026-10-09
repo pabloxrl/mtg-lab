@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "basis": "Original synthetic before-SBA injection. Pinned CR 104.3, 104.4a, 121.1/121.4, 704.3 and 704.5a/b. One actual attempted draw at most; life setters and draw attempt have no intermediate SBA. No game reachability claim. Expectations authored before adapter changes.",
+  "cases": [
+    {
+      "id": "mixed-life-p0-draw-p1-life_then_draw",
+      "life": [
+        0,
+        20
+      ],
+      "action": "draw",
+      "life_order": [
+        0,
+        1
+      ],
+      "injection_order": "life_then_draw",
+      "draw_seat": 1,
+      "expected": {
+        "life": [
+          0,
+          20
+        ],
+        "lost": [
+          true,
+          true
+        ],
+        "library": [
+          0,
+          0
+        ],
+        "hand": [
+          0,
+          0
+        ],
+        "outcome": "draw",
+        "winner": null,
+        "draw": true
+      },
+      "expected_pending": {
+        "life": [
+          0,
+          20
+        ],
+        "lost": [
+          false,
+          false
+        ],
+        "library": [
+          0,
+          0
+        ],
+        "hand": [
+          0,
+          0
+        ],
+        "outcome": "ongoing",
+        "winner": null,
+        "draw": false
+      },
+      "expected_drawn": 0
+    }
+  ]
+}

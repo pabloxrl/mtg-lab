@@ -1,0 +1,77 @@
+Symphony resource lock: waiting for heavy (751s elapsed)
+Symphony resource lock: waiting for heavy (781s elapsed)
+Symphony resource lock: waiting for heavy (811s elapsed)
+Symphony resource lock: waiting for heavy (841s elapsed)
+Symphony resource lock: acquired heavy after waiting
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling unicode-ident v1.0.26
+   Compiling libc v0.2.189
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling syn v3.0.6
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling serde v1.0.229
+   Compiling serde_json v1.0.151
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling cfg-if v1.0.5
+   Compiling itoa v1.0.18
+   Compiling memchr v2.8.3
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 28.10s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 24 tests
+test game::policy::tests::policy_wire_contract_owned_records_and_terminal_boundary ... ok
+test episode::budget_tests::injected_append_and_terminal_finish_failures_account_once_and_quarantine ... ok
+test game::terminal::tests::terminal_concede_nonacting_seat_and_finality ... ok
+test game::terminal::tests::terminal_concession_cancels_payment_without_commit ... ok
+test game::cleanup_trigger_tests::cleanup_ordinary_has_no_priority_and_terminal_stops_before_untap ... ok
+test game::terminal::tests::terminal_concession_preserves_stack_and_invalidates_target_and_cast_choices ... ok
+test game::terminal::tests::terminal_grown_dead_cub_then_real_cast_has_fresh_bookkeeping ... ok
+test game::terminal::tests::terminal_hand_cub_cannot_block ... ok
+test game::terminal::tests::terminal_lethal_zero_negative_and_creature_death_is_not_player_loss ... ok
+test game::terminal::tests::terminal_main_priority_concession_each_seat_and_stale_actions_after_lethal ... ok
+
+thread 'game::terminal::tests::terminal_per_seat_reference_behavior_red' (74358) panicked at crates/mtg-core/src/terminal_tests.rs:431:5:
+assertion `left == right` failed: mixed pending reasons must both lose
+  left: Array [Bool(true), Bool(false)]
+ right: Array [Bool(true), Bool(true)]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test game::terminal::tests::terminal_per_seat_reference_behavior_red ... FAILED
+
+thread 'game::terminal::tests::terminal_reference_explicit_outcome_red' (74359) panicked at crates/mtg-core/src/terminal_tests.rs:437:5:
+assertion `left == right` failed: CR 104.4a explicit draw observation required
+  left: Null
+ right: "draw"
+test game::terminal::tests::terminal_reference_explicit_outcome_red ... FAILED
+test game::terminal::tests::terminal_same_neutral_boundaries_as_xmage ... ok
+test game::terminal::tests::terminal_simultaneous_losses_and_external_work_limits ... ok
+test game::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_interaction ... ok
+test game::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_negative ... ok
+test game::trajectory_rules_tests::trajectory_rules_terminal_rewards_once_positive ... ok
+test game::trajectory_v2_tests::m2_terminal_reward ... ok
+test game::trajectory_v2_tests::trajectory_v2_terminal_action_rewards_once_and_truncation_pending ... ok
+test game::terminal::tests::terminal_empty_draw_versus_empty_library_and_first_draw_skip ... ok
+test game::turns::tests::turns_empty_library_terminal_and_unsupported_combat_preserve_boundary ... ok
+test game::trigger_tests::mandatory_source_death_and_terminal_settlement_precede_placement ... ok
+test game::targets_tests::settlement_quantum_bite_uses_grown_source_and_terminal_boundary ... ok
+test game::combat::tests::combat_quantum_terminal_after_all_damage_and_deaths ... ok
+
+failures:
+
+failures:
+    game::terminal::tests::terminal_per_seat_reference_behavior_red
+    game::terminal::tests::terminal_reference_explicit_outcome_red
+
+test result: FAILED. 22 passed; 2 failed; 0 ignored; 0 measured; 273 filtered out; finished in 0.03s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+

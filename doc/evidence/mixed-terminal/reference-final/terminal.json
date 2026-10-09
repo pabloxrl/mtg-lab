@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "basis": "Original synthetic settled-boundary cases, CR 104.3a/104.4a/704.5a/704.5b. Empty libraries except last-card-draw, with one Forest. Life is injected before the SBA check; no production engine supplies expectations.",
+  "cases": [
+    {"id":"zero-life", "life":[20,0], "action":"settle", "expected":{"life":[20,0],"lost":[false,true],"library":[0,0],"hand":[0,0]}},
+    {"id":"negative-life", "life":[20,-1], "action":"settle", "expected":{"life":[20,-1],"lost":[false,true],"library":[0,0],"hand":[0,0]}},
+    {"id":"simultaneous-life", "life":[0,0], "action":"settle", "expected":{"life":[0,0],"lost":[true,true],"library":[0,0],"hand":[0,0]}},
+    {"id":"empty-no-draw", "life":[20,20], "action":"settle", "expected":{"life":[20,20],"lost":[false,false],"library":[0,0],"hand":[0,0]}},
+    {"id":"empty-draw", "life":[20,20], "action":"draw", "expected":{"life":[20,20],"lost":[true,false],"library":[0,0],"hand":[0,0]}},
+    {"id":"last-card-draw", "life":[20,20], "action":"draw", "library_card":"Forest", "expected":{"life":[20,20],"lost":[false,false],"library":[0,0],"hand":[1,0]}},
+    {"id":"nonacting-concession", "life":[20,20], "action":"concede", "expected":{"life":[20,20],"lost":[false,true],"library":[0,0],"hand":[0,0]}}
+  ]
+}

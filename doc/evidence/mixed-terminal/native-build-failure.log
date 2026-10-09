@@ -1,0 +1,10 @@
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/crates/mtg-core)
+error: no rules expected `.`
+   --> crates/mtg-core/src/terminal_reference_tests.rs:215:39
+    |
+215 |         "library":[Seat::P0, Seat::P1].map(|s| g.objects.in_zone(Zone::Library(s)).count()),
+    |                                       ^ no rules expected this token in macro call
+    |
+    = note: while trying to match end of macro
+
+error: could not compile `mtg-core` (lib test) due to 1 previous error

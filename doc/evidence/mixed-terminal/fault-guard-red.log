@@ -1,0 +1,37 @@
+...FFFF......
+======================================================================
+FAIL: test_fault_controls_require_complete_observations_and_named_semantic_failure (test_terminal_reference.TerminalReferenceTests.test_fault_controls_require_complete_observations_and_named_semantic_failure) (fault='wrong_draw_seat', malformed={})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 157, in test_fault_controls_require_complete_observations_and_named_semantic_failure
+    with self.subTest(fault=fault, malformed=malformed), self.assertRaisesRegex(ValueError, 'fault observations'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fault_controls_require_complete_observations_and_named_semantic_failure (test_terminal_reference.TerminalReferenceTests.test_fault_controls_require_complete_observations_and_named_semantic_failure) (fault='wrong_draw_seat', malformed={'mixed-life-p0-draw-p1-life_then_draw': {}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 157, in test_fault_controls_require_complete_observations_and_named_semantic_failure
+    with self.subTest(fault=fault, malformed=malformed), self.assertRaisesRegex(ValueError, 'fault observations'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fault_controls_require_complete_observations_and_named_semantic_failure (test_terminal_reference.TerminalReferenceTests.test_fault_controls_require_complete_observations_and_named_semantic_failure) (fault='wrong_draw_seat', malformed={'mixed-life-p0-draw-p1-life_then_draw': {'version': 2, 'pending': {'life': [0, 20], 'lost': [False, False], 'library': [0, 0], 'hand': [0, 0], 'outcome': 'ongoing', 'winner': None, 'draw': False}, 'settled': {'life': [0, 20], 'lost': [True, False], 'library': [0, 0], 'hand': [0, 0], 'outcome': 'draw', 'draw': True}, 'consumed': [{'action': 'life', 'seat': 0, 'value': 0}, {'action': 'life', 'seat': 1, 'value': 20}, {'action': 'draw', 'seat': 1, 'drawn': 0}, {'action': 'settle'}]}})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 157, in test_fault_controls_require_complete_observations_and_named_semantic_failure
+    with self.subTest(fault=fault, malformed=malformed), self.assertRaisesRegex(ValueError, 'fault observations'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_fault_controls_require_complete_observations_and_named_semantic_failure (test_terminal_reference.TerminalReferenceTests.test_fault_controls_require_complete_observations_and_named_semantic_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-257/tests/test_terminal_reference.py", line 161, in test_fault_controls_require_complete_observations_and_named_semantic_failure
+    with self.assertRaisesRegex(ValueError, 'unexpected fault divergence'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 10 tests in 3.887s
+
+FAILED (failures=4)
