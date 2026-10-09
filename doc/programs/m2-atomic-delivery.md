@@ -11,6 +11,12 @@ are unchanged. Explicit #80 edges prevent execution from an unmerged proposal.
 
 ## Established interfaces and dependency decisions
 
+The later [#252 repair registration](m2-repair-prerequisites.md) adds four missing
+contracts found by the original audits. It supplements the historical table below:
+#23 additionally requires #254; #210 requires #255; #212 requires #256 and #257.
+All original prerequisites and acceptance clauses remain; #26 includes the new
+registration and repairs transitively. Registration does not implement the repairs.
+
 Inspected main `503ab665372122fd7a8c08b7ba8e6ba77ce525c2`.
 [M1 gate receipt](https://github.com/pabloxrl/mtg-lab/issues/22#issuecomment-5943196087)
 and [module extraction receipt](https://github.com/pabloxrl/mtg-lab/issues/130#issuecomment-5862456385)

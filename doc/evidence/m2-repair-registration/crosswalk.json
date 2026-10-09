@@ -1,0 +1,190 @@
+{
+  "inspected_main": "522b7da8b86cd412c03c709bf88d8540c0385e16",
+  "catalog_sha256": "794f782d4dad77117bd05a900655196bfecfa8800bc02977ed151b9d8fb916fe",
+  "repairs": [
+    {
+      "issue": 254,
+      "depends_on": [
+        252,
+        80,
+        195,
+        197,
+        200,
+        201,
+        208
+      ],
+      "partial_requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B029",
+        "R0002-B036",
+        "R0002-B037"
+      ],
+      "unchanged_catalog_cases": []
+    },
+    {
+      "issue": 255,
+      "depends_on": [
+        252,
+        80,
+        196,
+        200
+      ],
+      "partial_requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ],
+      "unchanged_catalog_cases": [
+        {
+          "id": "rules-combat-creature-abilities-positive",
+          "capability_id": "combat/creature-abilities",
+          "category": "positive",
+          "setup": "P0 main empty stack; Cub hand and 1G",
+          "actions": "Cast then resolve",
+          "expected": "Cub enters untapped but cannot attack this turn",
+          "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-combat-creature-abilities-negative",
+          "capability_id": "combat/creature-abilities",
+          "category": "negative",
+          "setup": "P1 has priority during P0 turn; Cub hand",
+          "actions": "Attempt cast creature without flash",
+          "expected": "Reject instant-speed creature casting",
+          "basis": "CR 302.6, 601 and 602: creature casting/activated abilities use timing/costs; tap status distinct from sickness. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-foundations_micro_v1-magnigoth-sentry-interaction",
+          "capability_id": "foundations_micro_v1/magnigoth-sentry",
+          "category": "interaction",
+          "setup": "Sentry blocks Dragon then gets Growth",
+          "actions": "Resolve Growth; combat",
+          "expected": "7/7 Sentry survives five and kills Dragon with seven",
+          "basis": "Pinned Sentry: 3G 4/4 reach; CR 702.9/702.17/510. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/5624e610-c4c0-4103-a32b-0f1264030a7a; oracle_text_sha256=0eeb291d4d093ec7ed57cf6c7345e4e1692a6c2387f9ab4f941f60aefbe56b16.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        }
+      ]
+    },
+    {
+      "issue": 256,
+      "depends_on": [
+        252,
+        80,
+        196,
+        137,
+        139
+      ],
+      "partial_requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ],
+      "unchanged_catalog_cases": [
+        {
+          "id": "rules-continuous-resolution-power-positive",
+          "capability_id": "continuous/resolution-power",
+          "category": "positive",
+          "setup": "P0 Cub Bite targets P1 Sentry; Growth on source above Bite",
+          "actions": "Resolve Growth then Bite",
+          "expected": "Source 5/5 deals five; Sentry dies",
+          "basis": "Bite Down Oracle and CR 608.2b/h: evaluate required information at resolution; illegal target supplies none. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-objects-bookkeeping-positive",
+          "capability_id": "objects/bookkeeping",
+          "category": "positive",
+          "setup": "Sentry 4/4 receives two from Bite",
+          "actions": "Inspect object",
+          "expected": "Power/toughness stay 4/4; marked damage two",
+          "basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-objects-bookkeeping-interaction",
+          "capability_id": "objects/bookkeeping",
+          "category": "interaction",
+          "setup": "Sentry with two marked damage receives Growth",
+          "actions": "Inspect then cleanup",
+          "expected": "7/7 with two damage before cleanup; 4/4 with zero after",
+          "basis": "CR 120.6, 400.7 and 514.2: marked damage distinct from toughness; zones and identities consistent. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-foundations_micro_v1-bite-down-positive",
+          "capability_id": "foundations_micro_v1/bite-down",
+          "category": "positive",
+          "setup": "Own 2/2 Cub and opposing 4/4 Sentry",
+          "actions": "Cast Bite and resolve",
+          "expected": "Sentry marked two; Cub takes zero damage",
+          "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-foundations_micro_v1-bite-down-negative",
+          "capability_id": "foundations_micro_v1/bite-down",
+          "category": "negative",
+          "setup": "Own Cub and own Sentry",
+          "actions": "Try Bite source Cub destination Sentry",
+          "expected": "Reject friendly destination",
+          "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        },
+        {
+          "id": "rules-foundations_micro_v1-bite-down-regression",
+          "capability_id": "foundations_micro_v1/bite-down",
+          "category": "regression",
+          "setup": "Own Cub source killed above Bite; opposing Sentry alive",
+          "actions": "Resolve",
+          "expected": "No cached-source damage; Sentry unmarked",
+          "basis": "Pinned Bite Down Oracle: own creature deals current power to opposing creature; CR 608.2b/h, not fight. Seeded regression risk (not a historical defect claim): violate the stated expected checkpoint through caching, ordering or state-lifetime handling. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations. Card source https://api.scryfall.com/cards/f8d70b3b-f6f9-4b3c-ad70-0ce369e812b5; oracle_text_sha256=89161f83aefaaf7a7e67872b1b2c3d3b27f60eddf231fe13268fc923c4b9d6cc.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        }
+      ]
+    },
+    {
+      "issue": 257,
+      "depends_on": [
+        252,
+        80,
+        72
+      ],
+      "partial_requirements": [
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ],
+      "unchanged_catalog_cases": [
+        {
+          "id": "rules-terminal-simultaneous-loss-interaction",
+          "capability_id": "terminal/simultaneous-loss",
+          "category": "interaction",
+          "setup": "Synthetic before-SBA: P0 zero life; P1 failed-empty-draw flag",
+          "actions": "Process simultaneous loss conditions",
+          "expected": "Draw regardless of different loss reasons",
+          "basis": "CR 104.4a and 704: all remaining players losing simultaneously draws. Synthetic SBA-boundary states, not reachability claims. Basis reviewed against RFC 0002 \u00a73/\u00a77 and the pinned CR 2026-09-25; see rules.md source verification and design limitations.",
+          "owner_issue": 23,
+          "milestone": "M2"
+        }
+      ]
+    }
+  ],
+  "claim": "registration only; no engine implementation, new reference run or M2 completion"
+}
