@@ -72,4 +72,3 @@ This guide describes delivered capabilities; it is not a live worker dashboard.
 M0 verifies that the requirements, test designs and basic reference infrastructure
 are ready. It does not certify a playable Magic engine. The original failed M0
 audit is retained alongside the successful re-audit so the evidence remains traceable.
-

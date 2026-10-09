@@ -123,4 +123,3 @@ fixtures and zero execution evidence added. Real reference acceptance requires
 separately prepared pinned source/dependency caches; follow the
 [XMage](../references/xmage/README.md) and [Forge](../references/forge/README.md)
 instructions inside Docker. The quickstart does not run those heavyweight bridges.
-

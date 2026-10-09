@@ -49,4 +49,3 @@ Start with the [project charter](rfcs/0001-project-charter.md) for purpose,
 [AGENTS.md](../AGENTS.md) for contribution rules. Repository licensing and exact
 release/data redistribution decisions remain open release prerequisites, recorded
 in the [provenance policy](provenance-policy.md); M0 is not release clearance.
-

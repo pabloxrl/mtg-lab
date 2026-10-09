@@ -71,4 +71,3 @@ requirement. A milestone completes only after its independently reviewed audit
 and checks on the merged commit pass. [Operations #59](https://github.com/pabloxrl/mtg-lab/issues/59)
 authorizes the existing MVP stages in advance; successful gates hand off to the
 next eligible task. Workers cannot expand scope or bypass dependencies.
-
