@@ -457,3 +457,37 @@ fn four_modes_duplicate_fields_remain_strict_for_both_versions() {
         );
     }
 }
+
+#[test]
+fn four_modes_existing_bench_command_routes_the_new_version() {
+    let roots = Roots::new();
+    let config_path = roots.0.join("config.json");
+    let output_path = roots.0.join("report.json");
+    fs::write(
+        &config_path,
+        serde_json::to_vec(&config(Mode::FullReplay)).unwrap(),
+    )
+    .unwrap();
+    let args = vec![
+        "bench".into(),
+        "--workload".into(),
+        FOUR_MODES.into(),
+        "--config".into(),
+        config_path.into_os_string(),
+        "--output".into(),
+        output_path.clone().into_os_string(),
+    ];
+    // Inject only the control signal: execute the actual command dispatcher and
+    // native pre-reset path without shortening the production window contract.
+    let code = crate::commands::execute(
+        &args,
+        &AtomicUsize::new(signal_hook::consts::SIGTERM as usize),
+    )
+    .unwrap();
+    assert_eq!(code, 143);
+    let report: Value = serde_json::from_slice(&fs::read(output_path).unwrap()).unwrap();
+    assert_eq!(report["workload"], FOUR_MODES);
+    assert_eq!(report["schema_version"], 2);
+    assert_eq!(report["warmup"]["execution"]["not_started"], 1);
+    assert_eq!(report["status"], "incomplete-or-failed");
+}
