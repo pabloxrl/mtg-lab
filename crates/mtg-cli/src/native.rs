@@ -120,8 +120,31 @@ pub(crate) fn run_observed(
 /// every-boundary clocks; optional histograms reuse those reads when present.
 /// Normal enabled instrumentation reads only deterministically selected spans.
 type StateProbe = dyn FnMut(&Driver, &Observation);
+/// Privileged benchmark-only byte retention, never serialized into public output.
+pub(crate) struct RetainedReplay {
+    pub max_bytes: usize,
+    pub bytes: Option<Vec<u8>>,
+    pub verified: u64,
+    pub failed: u64,
+    pub incomplete: u64,
+    pub elapsed_ns: u128,
+}
+impl RetainedReplay {
+    pub fn new(max_bytes: usize) -> Self {
+        Self {
+            max_bytes,
+            bytes: None,
+            verified: 0,
+            failed: 0,
+            incomplete: 0,
+            elapsed_ns: 0,
+        }
+    }
+}
 pub(crate) struct PolicyTiming {
     pub sample: Option<Box<StateProbe>>,
+    pub replay: Option<RetainedReplay>,
+    pub publication_ns: u128,
     pub sample_config: latency::Config,
     pub latency: Option<Sampler>,
     pub legacy: bool,
@@ -149,6 +172,8 @@ impl Default for PolicyTiming {
         let start = Instant::now();
         Self {
             sample: None,
+            replay: None,
+            publication_ns: 0,
             sample_config: latency::Config::default(),
             latency: None,
             legacy: true,
@@ -244,6 +269,21 @@ fn elapsed(t: &mut Option<&mut PolicyTiming>, span: Stamp, failed: bool) -> io::
         duration?;
     }
     Ok(())
+}
+
+// Replay retention and durable publication are benchmark denominator subsets,
+// not additional sampled phase observations. Reuse the checked shared clock
+// only for the explicitly requested detailed benchmark timing contract.
+fn benchmark_stamp(t: &mut Option<&mut PolicyTiming>) -> io::Result<Option<u128>> {
+    t.as_mut()
+        .filter(|t| t.legacy && t.detailed)
+        .map(|t| t.now())
+        .transpose()
+}
+fn benchmark_elapsed(t: &mut Option<&mut PolicyTiming>, start: Option<u128>) -> io::Result<u128> {
+    start.map_or(Ok(0), |start| {
+        t.as_mut().unwrap().now().map(|end| end - start)
+    })
 }
 
 pub(crate) fn run_instrumented(
@@ -501,23 +541,51 @@ pub(crate) fn run_instrumented(
         elapsed(&mut timing, start, result.is_err())?;
         // Replay bytes are privileged. Validate complete export here but never
         // send it to public JSONL; durable publication uses the existing capture path.
+        let replay_start = if timing.as_ref().is_some_and(|t| t.replay.is_some())
+            && n.instrumentation == mtg_core::metrics::Mode::FullReplay
+        {
+            benchmark_stamp(&mut timing)?
+        } else {
+            None
+        };
         let replay_status = if n.instrumentation == mtg_core::metrics::Mode::FullReplay {
             Some(match &result {
                 Ok(r) if matches!(r.status(), Status::Completed(_)) => {
-                    let max = c.capture.as_ref().map_or(67_108_864, |c| c.max_bytes);
+                    let max = timing.as_ref().and_then(|t| t.replay.as_ref()).map_or_else(
+                        || c.capture.as_ref().map_or(67_108_864, |c| c.max_bytes),
+                        |r| r.max_bytes,
+                    );
                     match r.privileged_replay(max) {
-                        Ok(Some(_)) => "available_in_memory",
+                        Ok(Some(bytes)) => {
+                            if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+                                r.verified += 1;
+                                r.bytes = Some(bytes);
+                            }
+                            "available_in_memory"
+                        }
                         _ => {
+                            if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+                                r.failed += 1;
+                            }
                             caller_error = Some("replay_recording_error");
                             "failed"
                         }
                     }
                 }
-                _ => "incomplete",
+                _ => {
+                    if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+                        r.incomplete += 1;
+                    }
+                    "incomplete"
+                }
             })
         } else {
             None
         };
+        let replay_duration = benchmark_elapsed(&mut timing, replay_start)?;
+        if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+            r.elapsed_ns += replay_duration;
+        }
         let (status, winner) = match result.as_ref().map(|r| r.status()) {
             Ok(Status::Completed(o)) => {
                 counts.completed += 1;
@@ -612,12 +680,17 @@ pub(crate) fn run_instrumented(
     }
     let mut publication = None;
     if let Some(session) = &mut capture {
+        let publication_start = benchmark_stamp(&mut timing)?;
         let (row, stop, failed) = session.publish(
             c.capture.as_ref().unwrap(),
             counts.started,
             &mut control,
             hook,
         );
+        let duration = benchmark_elapsed(&mut timing, publication_start)?;
+        if let Some(t) = timing.as_mut() {
+            t.publication_ns += duration;
+        }
         if let Some(stop) = stop {
             exit = stop.code();
             run_reason = stop.reason();

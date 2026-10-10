@@ -107,3 +107,60 @@ it prevents the requested duration; no short run is accepted as a full window.
 Reports contain seeds and configuration for reproducibility and are experiment
 artifacts, not live player-facing telemetry. They contain no observation payloads
 or hidden card order from the temporary JSON encoding.
+
+## Four-mode execution contract (schema 2)
+
+`scalar-four-modes-v1` adds all four instrumentation modes to the existing bench
+command. The schema-1 workloads and their trace-mode rejection remain frozen.
+Use [the sample config](../fixtures/bench/scalar-four-modes-v1.json):
+
+```sh
+target/release/mtg bench --workload scalar-four-modes-v1 \
+  --config fixtures/bench/scalar-four-modes-v1.json --output /tmp/scalar-four-modes.json
+```
+
+This is a contract, not a new measurement campaign or speed qualification. It
+cycles RG0, RG1, GR0, GR1, RR0, RR1, GG0, GG1 with continuous episode ordinals;
+normal reset, seeds, policy versions, quantum and game horizons match the
+full-pool workload. The 10-second warmup and five 30-second window minima remain.
+A started attempt finishes before the next deadline check. All overshoot stays
+in elapsed time, including replay verification, capture publication and cleanup.
+Signals and failures retain partial evidence and cannot qualify a run.
+
+Set `instrumentation` to `off`, `counters`, `sampled_trace` or `full_replay`.
+Only sampled mode accepts `trace: {"every": 64, "capacity": 256}` (the default).
+Capacity may be zero through 65,536; zero retains no checkpoints and counts every
+selected record as dropped. Reports retain actual selected, retained and dropped
+counts. Selection restarts per episode and uses accepted-decision multiples of
+`every`, not wall-clock sampling. Sampled latency availability is explicitly
+`not_measured`; this contract does not implement the separate timing child.
+
+`replay` defaults to `max_records: 20000`, `max_bytes: 67108864`,
+`persistence: "in_memory"`. Positive capacities up to these maxima are supported;
+lower bounds are useful failure controls and must be identical in compared runs.
+Full mode serializes and verifies the complete existing replay format, retains its
+privileged bytes until that attempt ends, and releases them inside the window.
+It reports byte totals and verified/incomplete/failed counts, never the bytes.
+`execution.replay_ns` includes serialization and the existing strict verifier;
+it is separate from `phases.finalization_ns`. Incomplete recordings or exhausted
+replay bounds cannot count as a successful benchmark. Byte capacity bounds the
+exported artifact, not peak transient memory used while serializing/verifying.
+
+This in-memory contract does not promise durability. Independently request the
+existing `capture` object from [simulation capture](simulate.md) to publish
+canonical-v2 datasets and restricted replays under existing disjoint roots.
+Each attempt publishes its own bounded one-episode run inside the timer, including
+with instrumentation off. `execution.publication_ns` measures the publisher;
+other capture costs remain in their reset/finalization phases and total elapsed.
+Publication failure is explicit. Unsupported replay-only persistence names reject;
+there is no silent fallback from requested durable capture to memory.
+
+[Acceptance evidence and independent oracle review](evidence/four-mode-benchmark/README.md)
+cover real finite native execution separately from injected-clock accounting.
+The Python `scripts.scalar_modes.collect_report` function collects one declared
+run under the caller's existing heavy lock, retains raw failures and validates
+its report; campaign ordering and qualification remain the measurement child's
+responsibility. `scripts.scalar_artifact.validate_report` accepts schema 2 and
+checks all raw windows, rows, mode/version, replay/capture and denominators.
+Reports are experiment artifacts; authorized observations and replay payloads
+remain outside public diagnostic JSON.
