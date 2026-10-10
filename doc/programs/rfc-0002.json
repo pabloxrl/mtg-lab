@@ -1603,6 +1603,251 @@
       ]
     },
     {
+      "key": "m2-audit-repair-registration",
+      "issue": 268,
+      "milestone": "M2",
+      "kind": "operations",
+      "depends_on": [
+        80
+      ],
+      "requirements": []
+    },
+    {
+      "key": "m2-repair-reset",
+      "issue": 269,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        64
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-mulligan",
+      "issue": 270,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        269,
+        65
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-priority",
+      "issue": 271,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        270,
+        208
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-spells",
+      "issue": 272,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        271,
+        209,
+        212
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-activations",
+      "issue": 273,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        271,
+        254
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-triggers",
+      "issue": 274,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        272,
+        211
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-combat",
+      "issue": 275,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        271,
+        210
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-cleanup",
+      "issue": 276,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        272,
+        257
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-admission",
+      "issue": 277,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        273,
+        274,
+        275,
+        276
+      ],
+      "requirements": [
+        "R0002-B010",
+        "R0002-B011",
+        "R0002-B026",
+        "R0002-B028",
+        "R0002-B030"
+      ]
+    },
+    {
+      "key": "m2-repair-timing",
+      "issue": 278,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        214,
+        215,
+        216
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m2-repair-modes",
+      "issue": 279,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        215,
+        216,
+        208
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B019",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
+      "key": "m2-repair-profile",
+      "issue": 280,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        208,
+        216
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B014",
+        "R0002-B020"
+      ]
+    },
+    {
+      "key": "m2-repair-measurement",
+      "issue": 281,
+      "milestone": "M2",
+      "kind": "implementation",
+      "depends_on": [
+        268,
+        278,
+        279,
+        280,
+        217
+      ],
+      "requirements": [
+        "R0002-B008",
+        "R0002-B014",
+        "R0002-B019",
+        "R0002-B020",
+        "R0002-B021"
+      ]
+    },
+    {
       "key": "coverage",
       "milestone": "M2",
       "kind": "implementation",
@@ -1613,7 +1858,8 @@
         210,
         211,
         212,
-        213
+        213,
+        277
       ],
       "requirements": [
         "R0002-B010",
@@ -1629,7 +1875,8 @@
       "kind": "implementation",
       "issue": 25,
       "depends_on": [
-        217
+        217,
+        281
       ],
       "requirements": [
         "R0002-B008",

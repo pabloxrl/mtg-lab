@@ -98,3 +98,16 @@ bounded full-acceptance audits; #26 remains the M2 gate. Registration is plannin
 not feature implementation or an M2 completion claim. The earlier M1-pending prose
 above records historical planning; the [M1 gate report](../evidence/m1-gate/README.md)
 and root README carry the reviewed delivered verdict. Live queue status stays in #7.
+
+## Additional M2 audit repair operation
+
+Coordinator operation #268 is additionally authorized only to register the thirteen
+bounded M2 audit repairs in doc/programs/m2-audit-repair-prerequisites.md, preserve
+all original tasks/requirements/gates, and, after protected registration merge and
+successful exact-main CI, record dependency-gated resume grants for #24/#25 under
+the shared handoff lock. It may clear ONLY their documented now-owned prerequisite-gap
+blocks, preserving unrelated holds/withdrawals; pending dependencies never permit
+early readiness. This named amendment does not authorize feature workers to register
+tasks, expand scope, or change workflow/CI/resource/concurrency/settings policy.
+
+See the [repair graph](m2-audit-repair-prerequisites.md) and [complete contracts](m2-audit-repair-contracts.md).
