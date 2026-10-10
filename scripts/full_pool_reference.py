@@ -1,4 +1,4 @@
-"""Versioned test-only native/XMage prefixes; reset and London opening families."""
+"""Versioned test-only native/XMage reset, London and played-priority prefixes."""
 import argparse
 import copy
 import json
@@ -96,6 +96,8 @@ def native(folder, family='reset'):
         family_module = sys.modules[__name__]
     elif family == 'mulligan':
         import mulligan_reference as family_module
+    elif family == 'priority':
+        import priority_reference as family_module
     else:
         raise ValueError('unsupported family')
     folder = folder.resolve()
@@ -134,10 +136,13 @@ def native(folder, family='reset'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--family', choices=['reset', 'mulligan'], required=True)
+    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority'], required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
+    if args.family == 'priority':
+        import priority_reference
+        return priority_reference.run(args)
     if args.family == 'mulligan':
         import mulligan_reference
         return mulligan_reference.run(args)

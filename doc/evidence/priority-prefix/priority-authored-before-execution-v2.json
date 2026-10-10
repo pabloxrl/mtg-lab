@@ -1,0 +1,13 @@
+{
+  "authored_at": "2026-10-10T11:54:49.506100+00:00",
+  "status": "additive mana-response variants before new adapter implementation and baseline execution",
+  "sha256": {
+    "tests/test_m2_repair_priority.py": "e0bfde834a4888bdd55ad82fa109a4a3e895f7adef6a9d78c8cdd7d617736ac1",
+    "fixtures/reference/author_priority.py": "e2cb55b61acba33553fef818ca1bf2d250c224d7d41d4dc95f7beac36456be87",
+    "fixtures/reference/full-pool-priority.json": "9175d07fc42d77887e8c592303f56f0a32c226f7cee03465274b13989bc0d8de",
+    "fixtures/reference/full-pool-priority-final.json": "7968ca3a2d878592df6891ab639aa0e56fcee2aa1c0e506f28e3be9164d34e7d",
+    "fixtures/reference/full-pool-priority-native.json": "203a30c1d3e266ee131347208cbd4cc9293014ada47b244500e6ca6b5aebb047",
+    "fixtures/reference/full-pool-priority-negative-inputs.json": "91546bca11aef352595d8ef46840afff1a744b66d39bff5017aff32b7aeba9a1",
+    "fixtures/reference/full-pool-priority-oracle.md": "7381e716c24cccf297b0ebda7440ee39fb3e0166e64895558f9cdfa7db68251e"
+  }
+}

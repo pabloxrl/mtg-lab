@@ -1,0 +1,26 @@
+{
+  "origin": "Original strict CR117/305/601/608 bridge and literal fixture; no copied upstream scenario.",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "notice": "UPSTREAM-LICENSE.txt",
+  "consulted_sources": {
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage/src/main/java/mage/players/ManaPool.java": "7a4fe599d203edd8bcd673fad994303fa055ae37c2f9a1986b8cbf9fcbb7d1f4",
+    "Mage/src/main/java/mage/abilities/SpellAbility.java": "4e4176a30f97131904087a7dd383dcc0751afc17514457761eb2ceeaa7e71354",
+    "Mage/src/main/java/mage/abilities/costs/mana/ManaCostsImpl.java": "688c76a95c8de7351eda3a0f3aafc95d8d01b0b0db70970a286cd60e537b6154",
+    "Mage/src/main/java/mage/game/permanent/PermanentImpl.java": "5b72e235e1fe716b7337ffe76539d7fd79a5a9de1c54e6f343426126aeec6fe1",
+    "Mage/src/main/java/mage/game/stack/Spell.java": "7613dc12a6650f28f30cddca34bc409021108489792961eb4a7a7bcf9e747099",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
+    "Mage/src/main/java/mage/game/stack/SpellStack.java": "b42449c85fd27068b3f561f9e163ef3008621916e6c88ea25f4ab66cc2aaab13",
+    "Mage/src/main/java/mage/game/permanent/Battlefield.java": "41ddffe8b13b0f91bcc4a81582e62f8f0f7933d66a2998ac2787bec475034f6f",
+    "Mage/src/main/java/mage/cards/CardsImpl.java": "e3a32dd4f367a6429bd83cb8c1a1890e314b5dfbbedf8d61f4251797646dc1e0",
+    "Mage/src/main/java/mage/game/Exile.java": "c60d18086b8b252f7ab38978eac5ab9a71e5a54a2a1787fe239d8f564df9c766",
+    "Mage/src/main/java/mage/game/combat/Combat.java": "3c2de1444f0e35216eb8e9bfebd88e02c6693995a41b5ea2a271bf3e585c6250",
+    "Mage/src/main/java/mage/abilities/Modes.java": "aba1a0699596a6f1db972182990d248cad9f8a59146211b4902ceb0a26c882b1",
+    "Mage/src/main/java/mage/MageObjectImpl.java": "63a6eb349d00d6440cfc744b06da03602f61388cf5d5d14b5b32e9096883ae71",
+    "Mage/src/main/java/mage/game/GameState.java": "4ccd69feeb57da0e5036312374b6641b9063e77c60215cb51c5156518d557c9e",
+    "Mage/src/main/java/mage/players/Library.java": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c",
+    "Mage/src/main/java/mage/game/mulligan/MulliganDefaultHandSorter.java": "3186842747d0e271ea124b21143a1eb386b0e43afdb6430c26f1e43883b43b43"
+  },
+  "scope": "Normal reset and explicit London opening continued through six turns of lands, basic mana and four vanilla creatures; raw staged payment states independently specified per engine."
+}
