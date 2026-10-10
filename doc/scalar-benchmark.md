@@ -67,6 +67,19 @@ fixed counters, including decision kinds, logical actions and rules work units.
 Off mode reports unavailable counters as null. Work calls are not rules work units
 or logical actions. Decisions/game uses only decisions from completed games.
 
+The historical `logical_actions_per_second` field uses begun groups
+(`counters.logical_actions`), which include subsequently cancelled choices.
+For completed logical-action throughput use `counters.committed_actions * 1e9 /
+elapsed_ns`; retain `cancelled_actions` separately. Off mode has no optional
+logical-action counts. The [instrumentation audit](evidence/m2-instrumentation-audit/README.md)
+publishes completed rates from the unchanged four-mode campaign artifacts.
+
+Benchmark clients request every-boundary phase clocks even in off mode. Enabled
+modes additionally update sampled histograms using those same reads. Mode overhead
+therefore compares execution under this common profiling contract; it does not
+measure overhead against ordinary clock-free off simulation. Histogram exports
+from separate fixed episodes must not be described as benchmark-window histograms.
+
 Only natural rules-terminal outcomes enter completed games/s. Concessions,
 external limits, failures and unfinished games do not. A zero-completion window
 has a null successful completion rate and makes the run exit 3, with its complete

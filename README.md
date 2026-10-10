@@ -39,6 +39,9 @@ new cards reuse supported mechanics through definitions, without engine changes.
   retains both native policies, encoded/unencoded windows, variance extensions,
   fixed-episode semantic checks and separate sampled-latency/profile diagnostics.
   Benchmark-window latency histograms remain unmeasured.
+  The [scalar instrumentation audit](doc/evidence/m2-instrumentation-audit/README.md)
+  maps the M2 requirements to executable evidence and reports committed-action
+  rates separately from begun/cancelled choices; M2 gate acceptance remains pending.
   [Full-pool collectors](doc/scalar-baseline.md) cover all eight matchup rows,
   off/counters comparisons and normal-play resident-state RSS sweeps;
   the [available-container artifact](doc/evidence/full-pool-baseline/README.md)
