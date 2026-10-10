@@ -144,6 +144,21 @@ def comparator_controls(points):
     return controls
 
 
+def source_files():
+    """Executable and oracle inputs covered by each priority receipt."""
+    return [FIXTURE, EXPECTED, REFERENCE_EXPECTED, NEGATIVES, BRIDGE, opening.BRIDGE,
+               Path(__file__).resolve(), ROOT / 'fixtures/reference/author_priority.py',
+               ROOT / 'fixtures/reference/full-pool-priority-final.json',
+               ROOT / 'fixtures/reference/full-pool-priority-oracle.md',
+               ROOT / 'scripts/full_pool_reference.py', ROOT / 'scripts/mulligan_reference.py',
+               ROOT / 'Cargo.lock', ROOT / 'Cargo.toml', ROOT / 'crates/mtg-core/Cargo.toml',
+               ROOT / 'scripts/xmage.py', ROOT / 'scripts/instant_reference.py', ROOT / 'scripts/scenario.py',
+               ROOT / 'references/xmage/pins.json', ROOT / 'references/xmage/dependencies.json',
+               ROOT / 'references/xmage/mulligan-provenance.json',
+               ROOT / 'references/xmage/priority-provenance.json',
+               *sorted((ROOT / 'crates/mtg-core/src').rglob('*.rs'))]
+
+
 def run(args):
     import os
     import shutil
@@ -161,17 +176,7 @@ def run(args):
     for source, name in [(FIXTURE, 'input.json'), (EXPECTED, 'native-oracle.json'),
                          (REFERENCE_EXPECTED, 'xmage-oracle.json')]:
         (folder / name).write_bytes(source.read_bytes())
-    sources = [FIXTURE, EXPECTED, REFERENCE_EXPECTED, NEGATIVES, BRIDGE, opening.BRIDGE,
-               Path(__file__).resolve(), ROOT / 'fixtures/reference/author_priority.py',
-               ROOT / 'fixtures/reference/full-pool-priority-final.json',
-               ROOT / 'fixtures/reference/full-pool-priority-oracle.md',
-               ROOT / 'scripts/full_pool_reference.py', ROOT / 'scripts/mulligan_reference.py',
-               ROOT / 'Cargo.lock', ROOT / 'Cargo.toml', ROOT / 'crates/mtg-core/Cargo.toml',
-               ROOT / 'scripts/xmage.py', ROOT / 'scripts/instant_reference.py', ROOT / 'scripts/scenario.py',
-               ROOT / 'references/xmage/pins.json', ROOT / 'references/xmage/dependencies.json',
-               ROOT / 'references/xmage/mulligan-provenance.json',
-               ROOT / 'references/xmage/priority-provenance.json',
-               *sorted((ROOT / 'crates/mtg-core/src').glob('*.rs'))]
+    sources = source_files()
     hashes = {str(p.relative_to(ROOT)): xmage.sha(p) for p in sources}
     native_result = native(folder)
     check_run(native_result, doc, 'native')

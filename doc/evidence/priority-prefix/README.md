@@ -1,16 +1,20 @@
 # Played priority prefix evidence (GH-271)
 
-The current-main candidate passes the full locked torture suite: **296 Python
-tests and 1486 Rust debug/release test executions**, zero failed/ignored
+The current-main candidate passes the full locked torture suite: **309 Python
+tests and 1490 Rust debug/release test executions**, zero failed/ignored
 or skipped. The [complete log](torture.log.gz) includes normal
 `python3 scripts/run_tests.py`, `cargo test --workspace --locked`, release tests,
 formatting, Clippy, documentation, program and catalog checks. New normal
-coverage is **five Python tests and one Rust test**, executing six real prefixes,
+coverage is **six Python tests and one Rust test**, executing six real prefixes,
 760 checkpoints, repeated runs, same-game stop/continuation and twenty rejected
-tapes. Base: `94f0e0334f4037d815824bf8832c1d594e00755e`. This report records local
+tapes. Base: `c779b190ed28ff845741c4ce1149f71e55ec675b`. This report records local
 acceptance; independent review, protected merge and exact-main CI receipts belong
 in the PR and [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/271#issuecomment-6096816121).
 Delivery completion remains conditional on those receipts.
+The [final focused run](focused-final.log) discovers all six new Python tests.
+Earlier [pre-integration](pre-integration-torture.log.gz) and
+[intermediate integrated](intermediate-integrated-torture.log.gz) full runs are
+retained separately; the latter preceded the source-inventory regression.
 
 Both required actual pinned native/XMage priority executions agree:
 [run 1](priority-run-1.json), [run 2](priority-run-2.json). Each runs six cases
@@ -106,6 +110,15 @@ the new reference-oracle correction, unchanged requirements and stronger
 raw-order/incarnation/negative-boundary coverage, plus README accuracy. These
 corrections are not accepted merely because an engine produced them. No original
 test or expectation was removed or weakened.
+
+A final source-inventory audit found that the root-only Rust glob omitted the
+nested recorder implementation actually consumed by this family. The new
+[normal-discovery regression failed first](source-inventory-red.log), then passed
+after recursive source coverage included `crates/mtg-core/src/trajectory/v2.rs`.
+Both final priority receipts were rerun with that complete inventory. All earlier
+receipts remain in the superseded-attempt archive; no gameplay expectation or
+input changed. Full torture was repeated on the final integrated tree with all
+six new Python tests discovered.
 
 ## Scope
 

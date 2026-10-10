@@ -10,6 +10,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import priority_reference as reference
 
 
+class PriorityEvidenceTests(unittest.TestCase):
+    def test_receipt_hashes_delivered_recording_interface(self):
+        # GH-271 consumes the delivered nested v2 recorder, so its implementation
+        # must be covered by the actual execution receipt's source inventory.
+        required = {reference.ROOT / 'crates/mtg-core/src/trajectory/v2.rs',
+                    reference.ROOT / 'crates/mtg-core/src/actions.rs',
+                    reference.ROOT / 'crates/mtg-core/src/policy.rs'}
+        self.assertTrue(required.issubset(reference.source_files()),
+                        'receipt omits the delivered recording interface source')
+
+
 class PriorityTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
