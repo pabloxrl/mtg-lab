@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "integrated_main": "94f0e0334f4037d815824bf8832c1d594e00755e",
+  "tested_head": "ddacdc0f625b347609bf78d618510d83371300a1",
+  "scope": "Complete working tree tested; subsequent changes only final report/validation receipt. Measured binary retains its separate original source pin.",
+  "focused_python_tests": 12,
+  "normal_python_tests": 303,
+  "new_python_cases": 12,
+  "new_rust_cases": 2,
+  "new_rust_executions": 4,
+  "rust_debug": 744,
+  "rust_release": 744,
+  "failed": 0,
+  "ignored": 0,
+  "format": "pass",
+  "strict_clippy": "pass",
+  "heavy_lock": true,
+  "log_sha256": "831d072a0569610de41b087b4c713ed880b137ac60fa09b7143faacccc1fc0fd",
+  "command": "shared heavy lock -- bash .agent-artifacts/final-verify.sh: focused unittest then ./scripts/torture.sh",
+  "precollection": {
+    "focused_python_tests": 7,
+    "normal_python_tests": 291,
+    "rust_debug_release": 1486,
+    "source_commit": "2ec601cd778312871937ed242933052a365fad29"
+  },
+  "campaign": {
+    "invocations": 18,
+    "windows": 100,
+    "native_failures": 0,
+    "original_aggregate_status": "failed",
+    "corrected_archive_validation": "pass"
+  }
+}

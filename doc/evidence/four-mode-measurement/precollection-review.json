@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "The candidate provides campaign tooling but does not deliver GH-281\u2019s required measurements. Three read-only arithmetic tests passed. No existing tests were deleted or weakened, and README claims remain appropriately limited. Native and full torture tests were not run during this read-only review.",
+  "findings": [
+    {
+      "file": "doc/evidence/four-mode-measurement/README.md:3",
+      "finding": "GH-281\u2019s owned deliverable requires executing the correctness-gated campaign and publishing raw artifacts, throughput/overhead distributions, native latency summaries, and profile evidence (doc/programs/m2-audit-repair-contracts.md:450). This candidate explicitly remains work in progress and supplies only the plan, tooling, and tests, with no completed campaign report or durable measurement evidence linked. Complete and publish the frozen campaign, including unsuccessful attempts and required diagnostic evidence, before integrating this as the GH-281 delivery; executable accounting tests do not substitute for those measurements.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "e1ee7bfc2715a04e0f7e3a29a827466d342565d3",
+  "head_sha": "2ec601cd778312871937ed242933052a365fad29"
+}

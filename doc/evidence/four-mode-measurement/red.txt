@@ -1,0 +1,45 @@
+FFFFF
+======================================================================
+FAIL: test_missing_contract_and_tampered_accounting_rejected (test_m2_repair_measurement.MeasurementArithmetic.test_missing_contract_and_tampered_accounting_rejected) (mutation='mode')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 81, in test_missing_contract_and_tampered_accounting_rejected
+    with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_contract_and_tampered_accounting_rejected (test_m2_repair_measurement.MeasurementArithmetic.test_missing_contract_and_tampered_accounting_rejected) (mutation='policy')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 81, in test_missing_contract_and_tampered_accounting_rejected
+    with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_contract_and_tampered_accounting_rejected (test_m2_repair_measurement.MeasurementArithmetic.test_missing_contract_and_tampered_accounting_rejected) (mutation='binary')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 81, in test_missing_contract_and_tampered_accounting_rejected
+    with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_contract_and_tampered_accounting_rejected (test_m2_repair_measurement.MeasurementArithmetic.test_missing_contract_and_tampered_accounting_rejected) (mutation='extension')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 81, in test_missing_contract_and_tampered_accounting_rejected
+    with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_contract_and_tampered_accounting_rejected (test_m2_repair_measurement.MeasurementArithmetic.test_missing_contract_and_tampered_accounting_rejected) (mutation='resources')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 81, in test_missing_contract_and_tampered_accounting_rejected
+    with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.040s
+
+FAILED (failures=5)
