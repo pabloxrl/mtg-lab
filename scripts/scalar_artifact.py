@@ -32,20 +32,27 @@ def validate_report(report):
 
 def _validate(r):
     require(r['status'] == 'measured', 'unsuccessful benchmark')
-    require(r['workload'] == 'scalar-full-pool-v1', 'not the full-pool workload')
+    four_modes = r['workload'] == 'scalar-four-modes-v1'
+    require(four_modes or r['workload'] == 'scalar-full-pool-v1', 'not the full-pool workload')
+    if four_modes:
+        if __package__:
+            from .scalar_modes import validate_pins
+        else:
+            from scalar_modes import validate_pins
+        validate_pins(r)
     collection = r['collection']
     require(collection['contaminated'] is False and collection['profiler'] is False
             and collection['returncode'] == 0 and collection['heavy_lock'] is True,
             'contaminated, profiled, failed or unlocked throughput run')
     episode = r['pins']['resolved_episode']
     require(episode['max_decisions'] == 20_000 and episode['native']['max_work_calls'] == 100_000
-            and episode['native']['max_records'] == 20_000, 'changed game horizon')
+            and (four_modes or episode['native']['max_records'] == 20_000), 'changed game horizon')
     c = r['pins']['config']
     require(integer(c['warmup_seconds']) and c['warmup_seconds'] >= 10, 'short warmup config')
     require(integer(c['window_seconds']) and c['window_seconds'] >= 30, 'short window config')
     require(integer(c['windows']) and c['windows'] >= 5, 'too few declared windows')
     require(len(r['windows']) == c['windows'], 'omitted windows')
-    require(c['instrumentation'] in ('off', 'counters'), 'unsupported instrumentation')
+    require(c['instrumentation'] in (('off', 'counters', 'sampled_trace', 'full_replay') if four_modes else ('off', 'counters')), 'unsupported instrumentation')
     next_episode = 0
     for i, w in enumerate([r['warmup'], *r['windows']]):
         duration = c['window_seconds'] if i else c['warmup_seconds']
@@ -73,6 +80,12 @@ def _validate(r):
         require(integer(phases['encoding_ns']) if c['encoding'] else phases['encoding_ns'] is None, 'encoding availability')
         elapsed_phases = sum(phases[k] for k in ('reset_ns','transition_ns','legality_and_view_ns','finalization_ns'))
         require(elapsed_phases + (phases['encoding_ns'] or 0) + w['policy_ns'] <= w['elapsed_ns'], 'overlapping boundary times')
+        if four_modes:
+            if __package__:
+                from .scalar_modes import validate_window
+            else:
+                from scalar_modes import validate_window
+            validate_window(w, c['instrumentation'], r['pins']['execution'])
         counters = w['counters']
         if c['instrumentation'] == 'off':
             require(counters is None, 'off counters must be unavailable')
