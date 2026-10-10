@@ -53,10 +53,18 @@ struct PlayedClient {
 }
 impl PlayedClient {
     fn new(g: &Game, tape: &Tape<'_>, case: &Value) -> Result<Self, String> {
+        let spells = case["stop"]
+            .as_str()
+            .is_some_and(|s| s.starts_with("resolved/"));
         let hash = |v: &Value| format!("{:x}", Sha256::digest(serde_json::to_vec(v).unwrap()));
         let header = trajectory::Header {
             id: trajectory::EpisodeKey {
-                run: "27100000-0000-4000-8000-000000000001".into(),
+                run: if spells {
+                    "27200000-0000-4000-8000-000000000001"
+                } else {
+                    "27100000-0000-4000-8000-000000000001"
+                }
+                .into(),
                 ordinal: 0,
             },
             versions: trajectory::Versions {
@@ -70,12 +78,29 @@ impl PlayedClient {
             deck_hashes: [hash(&case["decks"][0]), hash(&case["decks"][1])],
             config_hash: hash(&json!({"starting_seat":case["starter"],"decks":case["decks"]})),
             policies: [
-                "strict-priority-tape-v3".into(),
-                "strict-priority-tape-v3".into(),
+                if spells {
+                    "strict-spells-tape-v4"
+                } else {
+                    "strict-priority-tape-v3"
+                }
+                .into(),
+                if spells {
+                    "strict-spells-tape-v4"
+                } else {
+                    "strict-priority-tape-v3"
+                }
+                .into(),
             ],
             starting_seat: case["starter"].as_u64().unwrap() as u8,
             limits: trajectory::Limits::default(),
-            restricted_replay: Some("privileged-priority-input".into()),
+            restricted_replay: Some(
+                if spells {
+                    "privileged-spells-input"
+                } else {
+                    "privileged-priority-input"
+                }
+                .into(),
+            ),
         };
         let frame =
             v2::Frame::capture(g, 256).map_err(|e| format!("first divergence: /capture {e:?}"))?;
@@ -187,9 +212,22 @@ impl PlayedClient {
             format!("{g:?}") == before_state,
             "/decode changed caller state/RNG",
         )?;
-        let actions::Decoded::Decision { submission, .. } =
-            decoded.map_err(|e| format!("first divergence: /native command {e:?}"))?
-        else {
+        let decoded = match decoded {
+            Ok(value) => value,
+            Err(error) => {
+                let diagnostic = format!("first divergence: /native command {error:?}");
+                require(
+                    actions::apply(g, &bytes, 256).err() == Some(error),
+                    "/decode/apply rejection disagreement",
+                )?;
+                require(
+                    format!("{g:?}") == before_state,
+                    "/rejected application changed state/RNG",
+                )?;
+                return Err(diagnostic);
+            }
+        };
+        let actions::Decoded::Decision { submission, .. } = decoded else {
             return Err("first divergence: /unsupported concession".into());
         };
         require(
@@ -370,8 +408,11 @@ impl PlayedClient {
         )?;
         while self.cursor < play.len() {
             self.apply(g, &play[self.cursor]).map_err(|error| {
-                format!("first divergence: /play/{} {}", self.cursor,
-                    error.strip_prefix("first divergence: ").unwrap_or(&error))
+                format!(
+                    "first divergence: /play/{} {}",
+                    self.cursor,
+                    error.strip_prefix("first divergence: ").unwrap_or(&error)
+                )
             })?;
             if stop == "first_cast_committed"
                 && !g.turns.stack.is_empty()
@@ -391,7 +432,10 @@ impl PlayedClient {
                     .count()
                     == 4
             {
-                require(self.cursor == play.len(), &format!("/play/{} /extra choice after named stop", self.cursor))?;
+                require(
+                    self.cursor == play.len(),
+                    &format!("/play/{} /extra choice after named stop", self.cursor),
+                )?;
                 self.points.push(self.point(g, stop));
                 return Ok(());
             }
@@ -580,14 +624,20 @@ fn full_pool_priority_literal_checkpoints() {
     let mut rejections = BTreeMap::new();
     let expected_rejections: Value = serde_json::from_str(include_str!(
         "../../../fixtures/reference/full-pool-priority-negative-expectations.json"
-    )).unwrap();
-    assert_eq!(negatives.as_object().unwrap().len(), expected_rejections.as_object().unwrap().len());
+    ))
+    .unwrap();
+    assert_eq!(
+        negatives.as_object().unwrap().len(),
+        expected_rejections.as_object().unwrap().len()
+    );
     for (name, bad) in negatives.as_object().unwrap() {
         let before = format!("{g:?}");
         let error = priority_consume(&mut g, bad.clone(), false).unwrap_err();
         assert_eq!(format!("{g:?}"), before, "rejection state/RNG: {name}");
-        assert!(error.starts_with(expected_rejections[name]["native"].as_str().unwrap()),
-            "intended rejection boundary: {name}: {error}");
+        assert!(
+            error.starts_with(expected_rejections[name]["native"].as_str().unwrap()),
+            "intended rejection boundary: {name}: {error}"
+        );
         rejections.insert(name, error);
     }
     assert_eq!(runs.len(), 6);

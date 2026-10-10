@@ -166,6 +166,7 @@ public class FullPoolMulliganTest {
                 observed.add(point(game,s,"declaration"));raw(game,s,"declare");consumedChoices.add(e.deepCopy());return selected.equals("mulligan");
             }
             @Override public boolean chooseTarget(Outcome outcome,Target target,Ability source,Game game) {
+                if(source!=null) return onSpellTarget(this,s,outcome,target,source,game);
                 need(source==null && outcome==Outcome.Discard && target!=null && target instanceof mage.target.common.TargetCardInHand && target.getMinNumberOfTargets()==1 && target.getMaxNumberOfTargets()==1,"/unsupported target callback");
                 JsonObject e=choice(s,"bottom");JsonArray selected=e.getAsJsonArray("selection");
                 need(selected.size()==rounds[s] && rounds[s]>0,"/bottom cardinality");
@@ -189,17 +190,23 @@ public class FullPoolMulliganTest {
             @Override public boolean chooseUse(Outcome outcome,String message,String second,String yes,String no,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
             @Override public mage.abilities.TriggeredAbility chooseTriggeredAbility(List<mage.abilities.TriggeredAbility> abilities,Game game) { throw new IllegalArgumentException("first divergence: /unsupported trigger callback"); }
             @Override public boolean triggerAbility(mage.abilities.TriggeredAbility ability,Game game) { throw new IllegalArgumentException("first divergence: /unsupported trigger callback"); }
-            @Override public mage.abilities.Mode chooseMode(mage.abilities.Modes modes,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported mode callback"); }
+            @Override public mage.abilities.Mode chooseMode(mage.abilities.Modes modes,Ability source,Game game) { return onSpellMode(this,s,modes,source,game); }
             @Override public int chooseReplacementEffect(Map<String,String> effects,Map<String,mage.MageObject> objects,Game game) { throw new IllegalArgumentException("first divergence: /unsupported replacement callback"); }
             @Override public boolean choosePile(Outcome outcome,String message,List<? extends Card> first,List<? extends Card> second,Game game) { throw new IllegalArgumentException("first divergence: /unsupported pile callback"); }
             @Override public boolean choose(Outcome outcome,mage.choices.Choice choice,Game game) { throw new IllegalArgumentException("first divergence: /unsupported choice callback"); }
-            @Override public boolean choose(Outcome outcome,Target target,Ability source,Game game,Map<String,java.io.Serializable> options) { throw new IllegalArgumentException("first divergence: /unsupported choice callback"); }
-            @Override public boolean chooseTarget(Outcome outcome,mage.cards.Cards cards,mage.target.TargetCard target,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported target callback"); }
-            @Override public boolean choose(Outcome outcome,mage.cards.Cards cards,mage.target.TargetCard target,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported choice callback"); }
+            @Override public boolean choose(Outcome outcome,Target target,Ability source,Game game,Map<String,java.io.Serializable> options) { return onSpellTarget(this,s,outcome,target,source,game); }
+            @Override public boolean chooseTarget(Outcome outcome,mage.cards.Cards cards,mage.target.TargetCard target,Ability source,Game game) { return onSpellTarget(this,s,outcome,target,source,game); }
+            @Override public boolean choose(Outcome outcome,mage.cards.Cards cards,mage.target.TargetCard target,Ability source,Game game) { return onSpellTarget(this,s,outcome,target,source,game); }
             @Override public boolean chooseTargetAmount(Outcome outcome,mage.target.TargetAmount target,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported target amount callback"); }
 
         };
         p.setChooseStrictMode(true);return p;
+    }
+    protected boolean onSpellTarget(TestPlayer p,int s,Outcome outcome,Target target,Ability source,Game game) {
+        throw new IllegalArgumentException("first divergence: /unsupported target callback");
+    }
+    protected mage.abilities.Mode onSpellMode(TestPlayer p,int s,mage.abilities.Modes modes,Ability source,Game game) {
+        throw new IllegalArgumentException("first divergence: /unsupported mode callback");
     }
     protected void firstUpkeep(TestPlayer p,int s,Game game) {
         need(!stopped,"/repeated priority callback");

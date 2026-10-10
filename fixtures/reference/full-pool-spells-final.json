@@ -1,0 +1,915 @@
+{
+  "fodder": {
+    "turn": 3,
+    "step": "precombat_main",
+    "active": 0,
+    "actor": 0,
+    "life": [
+      20,
+      20
+    ],
+    "mana": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "land_plays": 1,
+    "hand_membership": [
+      [
+        "0/mountain/2",
+        "0/mountain/3",
+        "0/mountain/4",
+        "0/mountain/5",
+        "0/swab-goblin/1"
+      ],
+      [
+        "1/bear-cub/0",
+        "1/bear-cub/1",
+        "1/forest/1",
+        "1/forest/2",
+        "1/forest/3",
+        "1/forest/4",
+        "1/forest/5"
+      ]
+    ],
+    "library": [
+      [
+        "0/mountain/6",
+        "0/mountain/7",
+        "0/mountain/8",
+        "0/mountain/9",
+        "0/mountain/10",
+        "0/mountain/11",
+        "0/mountain/12",
+        "0/mountain/13",
+        "0/mountain/14",
+        "0/mountain/15",
+        "0/swab-goblin/2",
+        "0/swab-goblin/3",
+        "0/axgard-cavalry/0",
+        "0/axgard-cavalry/1",
+        "0/crackling-cyclops/0",
+        "0/crackling-cyclops/1",
+        "0/crackling-cyclops/2",
+        "0/firebrand-archer/0",
+        "0/firebrand-archer/1",
+        "0/firebrand-archer/2",
+        "0/swab-goblin/0",
+        "0/dragon-fodder/1",
+        "0/dragon-fodder/2",
+        "0/dragon-fodder/3",
+        "0/goblin-surprise/0",
+        "0/goblin-surprise/1",
+        "0/viashino-pyromancer/0",
+        "0/viashino-pyromancer/1",
+        "0/thrill-of-possibility/0",
+        "0/thrill-of-possibility/1",
+        "0/shivan-dragon/0",
+        "0/shivan-dragon/1"
+      ],
+      [
+        "1/forest/6",
+        "1/forest/7",
+        "1/forest/8",
+        "1/forest/9",
+        "1/forest/10",
+        "1/forest/11",
+        "1/forest/12",
+        "1/forest/13",
+        "1/forest/14",
+        "1/forest/15",
+        "1/bear-cub/2",
+        "1/bear-cub/3",
+        "1/llanowar-elves/0",
+        "1/llanowar-elves/1",
+        "1/llanowar-elves/2",
+        "1/druid-of-the-cowl/0",
+        "1/druid-of-the-cowl/1",
+        "1/magnigoth-sentry/0",
+        "1/magnigoth-sentry/1",
+        "1/tajuru-pathwarden/0",
+        "1/tajuru-pathwarden/1",
+        "1/thornweald-archer/0",
+        "1/thornweald-archer/1",
+        "1/thornweald-archer/2",
+        "1/giant-growth/0",
+        "1/giant-growth/1",
+        "1/giant-growth/2",
+        "1/bite-down/0",
+        "1/bite-down/1",
+        "1/bite-down/2",
+        "1/wildheart-invoker/0",
+        "1/wildheart-invoker/1"
+      ]
+    ],
+    "graveyard": [
+      [
+        "0/dragon-fodder/0"
+      ],
+      []
+    ],
+    "exile": [],
+    "stack": [],
+    "payment": null,
+    "targeting": null,
+    "battlefield_membership": [
+      "0/mountain/0",
+      "0/mountain/1",
+      "1/forest/0",
+      "token/0/0/0",
+      "token/0/0/1"
+    ],
+    "creatures": {
+      "token/0/0/0": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "token/0/0/1": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      }
+    }
+  },
+  "thrill": {
+    "turn": 3,
+    "step": "precombat_main",
+    "active": 0,
+    "actor": 0,
+    "life": [
+      20,
+      20
+    ],
+    "mana": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "land_plays": 1,
+    "hand_membership": [
+      [
+        "0/mountain/3",
+        "0/mountain/4",
+        "0/mountain/5",
+        "0/mountain/6",
+        "0/mountain/7",
+        "0/swab-goblin/1"
+      ],
+      [
+        "1/bear-cub/0",
+        "1/bear-cub/1",
+        "1/forest/1",
+        "1/forest/2",
+        "1/forest/3",
+        "1/forest/4",
+        "1/forest/5"
+      ]
+    ],
+    "library": [
+      [
+        "0/mountain/8",
+        "0/mountain/9",
+        "0/mountain/10",
+        "0/mountain/11",
+        "0/mountain/12",
+        "0/mountain/13",
+        "0/mountain/14",
+        "0/mountain/15",
+        "0/swab-goblin/2",
+        "0/swab-goblin/3",
+        "0/axgard-cavalry/0",
+        "0/axgard-cavalry/1",
+        "0/crackling-cyclops/0",
+        "0/crackling-cyclops/1",
+        "0/crackling-cyclops/2",
+        "0/firebrand-archer/0",
+        "0/firebrand-archer/1",
+        "0/firebrand-archer/2",
+        "0/dragon-fodder/0",
+        "0/dragon-fodder/1",
+        "0/dragon-fodder/2",
+        "0/dragon-fodder/3",
+        "0/goblin-surprise/0",
+        "0/goblin-surprise/1",
+        "0/viashino-pyromancer/0",
+        "0/viashino-pyromancer/1",
+        "0/swab-goblin/0",
+        "0/thrill-of-possibility/1",
+        "0/shivan-dragon/0",
+        "0/shivan-dragon/1"
+      ],
+      [
+        "1/forest/6",
+        "1/forest/7",
+        "1/forest/8",
+        "1/forest/9",
+        "1/forest/10",
+        "1/forest/11",
+        "1/forest/12",
+        "1/forest/13",
+        "1/forest/14",
+        "1/forest/15",
+        "1/bear-cub/2",
+        "1/bear-cub/3",
+        "1/llanowar-elves/0",
+        "1/llanowar-elves/1",
+        "1/llanowar-elves/2",
+        "1/druid-of-the-cowl/0",
+        "1/druid-of-the-cowl/1",
+        "1/magnigoth-sentry/0",
+        "1/magnigoth-sentry/1",
+        "1/tajuru-pathwarden/0",
+        "1/tajuru-pathwarden/1",
+        "1/thornweald-archer/0",
+        "1/thornweald-archer/1",
+        "1/thornweald-archer/2",
+        "1/giant-growth/0",
+        "1/giant-growth/1",
+        "1/giant-growth/2",
+        "1/bite-down/0",
+        "1/bite-down/1",
+        "1/bite-down/2",
+        "1/wildheart-invoker/0",
+        "1/wildheart-invoker/1"
+      ]
+    ],
+    "graveyard": [
+      [
+        "0/mountain/2",
+        "0/thrill-of-possibility/0"
+      ],
+      []
+    ],
+    "exile": [],
+    "stack": [],
+    "payment": null,
+    "targeting": null,
+    "battlefield_membership": [
+      "0/mountain/0",
+      "0/mountain/1",
+      "1/forest/0"
+    ],
+    "creatures": {}
+  },
+  "surprise-boost": {
+    "turn": 5,
+    "step": "precombat_main",
+    "active": 0,
+    "actor": 0,
+    "life": [
+      20,
+      20
+    ],
+    "mana": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "land_plays": 1,
+    "hand_membership": [
+      [
+        "0/mountain/3",
+        "0/mountain/4",
+        "0/mountain/5",
+        "0/mountain/6"
+      ],
+      [
+        "1/bear-cub/1",
+        "1/forest/2",
+        "1/forest/3",
+        "1/forest/4",
+        "1/forest/5",
+        "1/forest/6"
+      ]
+    ],
+    "library": [
+      [
+        "0/mountain/7",
+        "0/mountain/8",
+        "0/mountain/9",
+        "0/mountain/10",
+        "0/mountain/11",
+        "0/mountain/12",
+        "0/mountain/13",
+        "0/mountain/14",
+        "0/mountain/15",
+        "0/swab-goblin/2",
+        "0/swab-goblin/3",
+        "0/axgard-cavalry/0",
+        "0/axgard-cavalry/1",
+        "0/crackling-cyclops/0",
+        "0/crackling-cyclops/1",
+        "0/crackling-cyclops/2",
+        "0/firebrand-archer/0",
+        "0/firebrand-archer/1",
+        "0/firebrand-archer/2",
+        "0/swab-goblin/0",
+        "0/dragon-fodder/1",
+        "0/dragon-fodder/2",
+        "0/dragon-fodder/3",
+        "0/swab-goblin/1",
+        "0/goblin-surprise/1",
+        "0/viashino-pyromancer/0",
+        "0/viashino-pyromancer/1",
+        "0/thrill-of-possibility/0",
+        "0/thrill-of-possibility/1",
+        "0/shivan-dragon/0",
+        "0/shivan-dragon/1"
+      ],
+      [
+        "1/forest/7",
+        "1/forest/8",
+        "1/forest/9",
+        "1/forest/10",
+        "1/forest/11",
+        "1/forest/12",
+        "1/forest/13",
+        "1/forest/14",
+        "1/forest/15",
+        "1/bear-cub/2",
+        "1/bear-cub/3",
+        "1/llanowar-elves/0",
+        "1/llanowar-elves/1",
+        "1/llanowar-elves/2",
+        "1/druid-of-the-cowl/0",
+        "1/druid-of-the-cowl/1",
+        "1/magnigoth-sentry/0",
+        "1/magnigoth-sentry/1",
+        "1/tajuru-pathwarden/0",
+        "1/tajuru-pathwarden/1",
+        "1/thornweald-archer/0",
+        "1/thornweald-archer/1",
+        "1/thornweald-archer/2",
+        "1/giant-growth/0",
+        "1/giant-growth/1",
+        "1/giant-growth/2",
+        "1/bite-down/0",
+        "1/bite-down/1",
+        "1/bite-down/2",
+        "1/wildheart-invoker/0",
+        "1/wildheart-invoker/1"
+      ]
+    ],
+    "graveyard": [
+      [
+        "0/dragon-fodder/0",
+        "0/goblin-surprise/0"
+      ],
+      []
+    ],
+    "exile": [],
+    "stack": [],
+    "payment": null,
+    "targeting": null,
+    "battlefield_membership": [
+      "0/mountain/0",
+      "0/mountain/1",
+      "0/mountain/2",
+      "1/bear-cub/0",
+      "1/forest/0",
+      "1/forest/1",
+      "token/0/0/0",
+      "token/0/0/1"
+    ],
+    "creatures": {
+      "token/0/0/0": {
+        "power": 3,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "token/0/0/1": {
+        "power": 3,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "1/bear-cub/0": {
+        "power": 2,
+        "toughness": 2,
+        "owner": 1,
+        "controller": 1,
+        "card": "bear-cub"
+      }
+    }
+  },
+  "surprise-tokens": {
+    "turn": 5,
+    "step": "precombat_main",
+    "active": 0,
+    "actor": 0,
+    "life": [
+      20,
+      20
+    ],
+    "mana": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "land_plays": 1,
+    "hand_membership": [
+      [
+        "0/mountain/3",
+        "0/mountain/4",
+        "0/mountain/5",
+        "0/mountain/6"
+      ],
+      [
+        "1/bear-cub/1",
+        "1/forest/2",
+        "1/forest/3",
+        "1/forest/4",
+        "1/forest/5",
+        "1/forest/6"
+      ]
+    ],
+    "library": [
+      [
+        "0/mountain/7",
+        "0/mountain/8",
+        "0/mountain/9",
+        "0/mountain/10",
+        "0/mountain/11",
+        "0/mountain/12",
+        "0/mountain/13",
+        "0/mountain/14",
+        "0/mountain/15",
+        "0/swab-goblin/2",
+        "0/swab-goblin/3",
+        "0/axgard-cavalry/0",
+        "0/axgard-cavalry/1",
+        "0/crackling-cyclops/0",
+        "0/crackling-cyclops/1",
+        "0/crackling-cyclops/2",
+        "0/firebrand-archer/0",
+        "0/firebrand-archer/1",
+        "0/firebrand-archer/2",
+        "0/swab-goblin/0",
+        "0/dragon-fodder/1",
+        "0/dragon-fodder/2",
+        "0/dragon-fodder/3",
+        "0/swab-goblin/1",
+        "0/goblin-surprise/1",
+        "0/viashino-pyromancer/0",
+        "0/viashino-pyromancer/1",
+        "0/thrill-of-possibility/0",
+        "0/thrill-of-possibility/1",
+        "0/shivan-dragon/0",
+        "0/shivan-dragon/1"
+      ],
+      [
+        "1/forest/7",
+        "1/forest/8",
+        "1/forest/9",
+        "1/forest/10",
+        "1/forest/11",
+        "1/forest/12",
+        "1/forest/13",
+        "1/forest/14",
+        "1/forest/15",
+        "1/bear-cub/2",
+        "1/bear-cub/3",
+        "1/llanowar-elves/0",
+        "1/llanowar-elves/1",
+        "1/llanowar-elves/2",
+        "1/druid-of-the-cowl/0",
+        "1/druid-of-the-cowl/1",
+        "1/magnigoth-sentry/0",
+        "1/magnigoth-sentry/1",
+        "1/tajuru-pathwarden/0",
+        "1/tajuru-pathwarden/1",
+        "1/thornweald-archer/0",
+        "1/thornweald-archer/1",
+        "1/thornweald-archer/2",
+        "1/giant-growth/0",
+        "1/giant-growth/1",
+        "1/giant-growth/2",
+        "1/bite-down/0",
+        "1/bite-down/1",
+        "1/bite-down/2",
+        "1/wildheart-invoker/0",
+        "1/wildheart-invoker/1"
+      ]
+    ],
+    "graveyard": [
+      [
+        "0/dragon-fodder/0",
+        "0/goblin-surprise/0"
+      ],
+      []
+    ],
+    "exile": [],
+    "stack": [],
+    "payment": null,
+    "targeting": null,
+    "battlefield_membership": [
+      "0/mountain/0",
+      "0/mountain/1",
+      "0/mountain/2",
+      "1/bear-cub/0",
+      "1/forest/0",
+      "1/forest/1",
+      "token/0/0/0",
+      "token/0/0/1",
+      "token/0/1/0",
+      "token/0/1/1"
+    ],
+    "creatures": {
+      "token/0/0/0": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "token/0/0/1": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "token/0/1/0": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "token/0/1/1": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "1/bear-cub/0": {
+        "power": 2,
+        "toughness": 2,
+        "owner": 1,
+        "controller": 1,
+        "card": "bear-cub"
+      }
+    }
+  },
+  "growth-bite": {
+    "turn": 6,
+    "step": "precombat_main",
+    "active": 1,
+    "actor": 1,
+    "life": [
+      20,
+      20
+    ],
+    "mana": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "land_plays": 1,
+    "hand_membership": [
+      [
+        "0/mountain/3",
+        "0/mountain/4",
+        "0/mountain/5",
+        "0/mountain/6",
+        "0/swab-goblin/1"
+      ],
+      [
+        "1/forest/4",
+        "1/forest/5",
+        "1/forest/6",
+        "1/forest/7"
+      ]
+    ],
+    "library": [
+      [
+        "0/mountain/7",
+        "0/mountain/8",
+        "0/mountain/9",
+        "0/mountain/10",
+        "0/mountain/11",
+        "0/mountain/12",
+        "0/mountain/13",
+        "0/mountain/14",
+        "0/mountain/15",
+        "0/swab-goblin/2",
+        "0/swab-goblin/3",
+        "0/axgard-cavalry/0",
+        "0/axgard-cavalry/1",
+        "0/crackling-cyclops/0",
+        "0/crackling-cyclops/1",
+        "0/crackling-cyclops/2",
+        "0/firebrand-archer/0",
+        "0/firebrand-archer/1",
+        "0/firebrand-archer/2",
+        "0/swab-goblin/0",
+        "0/dragon-fodder/1",
+        "0/dragon-fodder/2",
+        "0/dragon-fodder/3",
+        "0/goblin-surprise/0",
+        "0/goblin-surprise/1",
+        "0/viashino-pyromancer/0",
+        "0/viashino-pyromancer/1",
+        "0/thrill-of-possibility/0",
+        "0/thrill-of-possibility/1",
+        "0/shivan-dragon/0",
+        "0/shivan-dragon/1"
+      ],
+      [
+        "1/forest/8",
+        "1/forest/9",
+        "1/forest/10",
+        "1/forest/11",
+        "1/forest/12",
+        "1/forest/13",
+        "1/forest/14",
+        "1/forest/15",
+        "1/bear-cub/2",
+        "1/bear-cub/3",
+        "1/llanowar-elves/0",
+        "1/llanowar-elves/1",
+        "1/llanowar-elves/2",
+        "1/druid-of-the-cowl/0",
+        "1/druid-of-the-cowl/1",
+        "1/magnigoth-sentry/0",
+        "1/magnigoth-sentry/1",
+        "1/tajuru-pathwarden/0",
+        "1/tajuru-pathwarden/1",
+        "1/thornweald-archer/0",
+        "1/thornweald-archer/1",
+        "1/thornweald-archer/2",
+        "1/forest/3",
+        "1/giant-growth/1",
+        "1/giant-growth/2",
+        "1/bear-cub/1",
+        "1/bite-down/1",
+        "1/bite-down/2",
+        "1/wildheart-invoker/0",
+        "1/wildheart-invoker/1"
+      ]
+    ],
+    "graveyard": [
+      [
+        "0/dragon-fodder/0"
+      ],
+      [
+        "1/giant-growth/0",
+        "1/bite-down/0"
+      ]
+    ],
+    "exile": [],
+    "stack": [],
+    "payment": null,
+    "targeting": null,
+    "battlefield_membership": [
+      "0/mountain/0",
+      "0/mountain/1",
+      "0/mountain/2",
+      "1/bear-cub/0",
+      "1/forest/0",
+      "1/forest/1",
+      "1/forest/2",
+      "token/0/0/0"
+    ],
+    "creatures": {
+      "token/0/0/0": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "1/bear-cub/0": {
+        "power": 5,
+        "toughness": 5,
+        "owner": 1,
+        "controller": 1,
+        "card": "bear-cub"
+      }
+    }
+  },
+  "departed-target": {
+    "turn": 6,
+    "step": "precombat_main",
+    "active": 1,
+    "actor": 1,
+    "life": [
+      20,
+      20
+    ],
+    "mana": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "land_plays": 1,
+    "hand_membership": [
+      [
+        "0/mountain/3",
+        "0/mountain/4",
+        "0/mountain/5",
+        "0/mountain/6",
+        "0/swab-goblin/1"
+      ],
+      [
+        "1/forest/4",
+        "1/forest/5",
+        "1/forest/6",
+        "1/forest/7"
+      ]
+    ],
+    "library": [
+      [
+        "0/mountain/7",
+        "0/mountain/8",
+        "0/mountain/9",
+        "0/mountain/10",
+        "0/mountain/11",
+        "0/mountain/12",
+        "0/mountain/13",
+        "0/mountain/14",
+        "0/mountain/15",
+        "0/swab-goblin/2",
+        "0/swab-goblin/3",
+        "0/axgard-cavalry/0",
+        "0/axgard-cavalry/1",
+        "0/crackling-cyclops/0",
+        "0/crackling-cyclops/1",
+        "0/crackling-cyclops/2",
+        "0/firebrand-archer/0",
+        "0/firebrand-archer/1",
+        "0/firebrand-archer/2",
+        "0/swab-goblin/0",
+        "0/dragon-fodder/1",
+        "0/dragon-fodder/2",
+        "0/dragon-fodder/3",
+        "0/goblin-surprise/0",
+        "0/goblin-surprise/1",
+        "0/viashino-pyromancer/0",
+        "0/viashino-pyromancer/1",
+        "0/thrill-of-possibility/0",
+        "0/thrill-of-possibility/1",
+        "0/shivan-dragon/0",
+        "0/shivan-dragon/1"
+      ],
+      [
+        "1/forest/8",
+        "1/forest/9",
+        "1/forest/10",
+        "1/forest/11",
+        "1/forest/12",
+        "1/forest/13",
+        "1/forest/14",
+        "1/forest/15",
+        "1/bear-cub/2",
+        "1/bear-cub/3",
+        "1/llanowar-elves/0",
+        "1/llanowar-elves/1",
+        "1/llanowar-elves/2",
+        "1/druid-of-the-cowl/0",
+        "1/druid-of-the-cowl/1",
+        "1/magnigoth-sentry/0",
+        "1/magnigoth-sentry/1",
+        "1/tajuru-pathwarden/0",
+        "1/tajuru-pathwarden/1",
+        "1/thornweald-archer/0",
+        "1/thornweald-archer/1",
+        "1/thornweald-archer/2",
+        "1/forest/3",
+        "1/giant-growth/1",
+        "1/giant-growth/2",
+        "1/bear-cub/1",
+        "1/bite-down/1",
+        "1/bite-down/2",
+        "1/wildheart-invoker/0",
+        "1/wildheart-invoker/1"
+      ]
+    ],
+    "graveyard": [
+      [
+        "0/dragon-fodder/0"
+      ],
+      [
+        "1/bite-down/0",
+        "1/giant-growth/0"
+      ]
+    ],
+    "exile": [],
+    "stack": [],
+    "payment": null,
+    "targeting": null,
+    "battlefield_membership": [
+      "0/mountain/0",
+      "0/mountain/1",
+      "0/mountain/2",
+      "1/bear-cub/0",
+      "1/forest/0",
+      "1/forest/1",
+      "1/forest/2",
+      "token/0/0/0"
+    ],
+    "creatures": {
+      "token/0/0/0": {
+        "power": 1,
+        "toughness": 1,
+        "owner": 0,
+        "controller": 0,
+        "card": "goblin-token"
+      },
+      "1/bear-cub/0": {
+        "power": 2,
+        "toughness": 2,
+        "owner": 1,
+        "controller": 1,
+        "card": "bear-cub"
+      }
+    }
+  }
+}

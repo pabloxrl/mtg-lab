@@ -183,3 +183,57 @@ complete legal-set comparison, reference rollback/internal-RNG equality,
 noncreature/trigger/activated-choice support, nonempty combat, cleanup discard,
 full-game claim or M2 gate completion. Verification receipts belong in
 [the priority evidence report](evidence/priority-prefix/README.md).
+
+## Version 4 played spell prefixes
+
+The additive `spells` family executes six normal-reset prefixes through ordinary
+native semantic actions and pinned XMage player callbacks. Both players keep;
+all chance, passes, empty attacks, casts, modes, physical targets, mana payments
+and discard choices are supplied explicitly. It stops in main before cleanup.
+
+The [authored schedules](../fixtures/reference/author_spells.py) and
+[independent oracle](../fixtures/reference/full-pool-spells-oracle.md) cover
+Fodder's two distinct 1/1 red Goblins, Thrill's physical Mountain discard and
+ordered draw two, both Surprise modes, Growth responding to Bite (Cub 5/5),
+and Bite responding to Growth on a token (the departed target stays absent).
+A second token-producing spell gets a new creation-event ordinal. Native birth
+identities and actual XMage CREATED_TOKEN events bind tokens before selection;
+no name-based matching selects among duplicate copies or tokens.
+
+Version 4 keeps the original version 1–3 inputs and acceptance. It adds explicit
+`role` and `mode` fields. The native and XMage spell inputs have distinct,
+explicitly authored discard chronology: native chooses its private additional
+cost before mana, whereas XMage calls the additional-cost selector after mana.
+The actual callback ledgers and raw announcement/payment states remain separate.
+After commitment, both engines compare life, ordered library/graveyard/stack,
+ordered target roles and incarnations, mana, characteristics and token creation
+order. Hand and battlefield membership are compared across engines; raw orders
+are retained, and the two drawn cards are checked in order. Native transient
+modification slots and XMage continuous-effect source/duration objects supply
+separate effect evidence; cleanup expiry is outside this family.
+
+Eighteen invalid tapes exercise role/controller, incarnation, missing/disordered
+target, unknown/duplicated token selection, illegal mode, missing/wrong discard,
+unpaid/insufficient resources, cancellation, extra callback and truncated/extra
+tape boundaries. Additional reference callback probes reject repeated token
+births and unsolicited target/mode/mana calls. Native semantic decode/application
+checks state/RNG nonmutation and stale submissions; failed complete envelopes
+also preserve the caller. These are distinct from the reference's selected-cast
+playable-action query and callback/resource rejection evidence. Neither proves
+complete legal-set equality or reference rollback/internal-RNG equality.
+
+```sh
+python3 -m unittest discover -s tests -p 'test_m2_repair_spells.py'
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family spells --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/spells-run-1.json
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family spells --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/spells-run-2.json
+```
+
+The focused Python module launches the real native client and is in normal
+discovery. The runner writes a public hash receipt plus a separate restricted
+privileged directory containing complete inputs, actual choices/chance,
+checkpoints, first-divergence controls and source/toolchain/dependency evidence.
+No trigger/activated-choice dispatch, nonempty combat, cleanup expiry,
+terminal-game admission, full-game agreement or M2 completion is claimed.
+
+Retained red assertions, acceptance receipts and limitations are in the
+[spell-prefix evidence report](evidence/spells-prefix/README.md).
