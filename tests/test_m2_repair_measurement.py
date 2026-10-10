@@ -146,6 +146,20 @@ class MeasurementArithmetic(unittest.TestCase):
         self.assertTrue(api.needs_extension([1,1,1,1,2]))
         self.assertEqual(api.distribution([1,2,3,4,5])['p95'],5)
 
+    def test_literal_boundary_rollup_preserves_encoding_availability(self):
+        import runpy
+        function=runpy.run_path(str(ROOT/'doc/evidence/four-mode-measurement/summarize.py'))['window_costs']
+        costs=function(literal_reports())
+        native=costs[POLICIES[0]+'/native/off']
+        self.assertEqual(native['elapsed_ns'],150_000_000_000)
+        self.assertEqual(native['phases']['reset_ns'],5_000_000_000)
+        self.assertEqual(native['policy_ns'],5_000_000_000)
+        self.assertIsNone(native['phases']['encoding_ns'])
+        encoded=costs[POLICIES[0]+'/encoded/off']
+        self.assertEqual(encoded['phases']['encoding_ns'],5)
+        self.assertEqual(encoded['phases']['encoded_bytes'],3000)
+        self.assertNotIn('effect_dispatch_ns',encoded)
+
     def test_archive_rejects_unreported_failed_attempt(self):
         from scripts.m2_measurement import validate_archive
         import hashlib
@@ -169,6 +183,52 @@ class MeasurementArithmetic(unittest.TestCase):
             manifest['runs'].append(dict(name='failed-attempt',status='failed'))
             (root/'campaign.json').write_text(json.dumps(manifest))
             with self.assertRaisesRegex(ValueError,'unsuccessful'): validate_archive(root)
+
+
+class MeasurementArchivedEvidence(unittest.TestCase):
+    def test_published_archives_recompute_and_reject_tampered_accounting(self):
+        import hashlib
+        import gzip
+        import runpy
+        evidence=ROOT/'doc/evidence/four-mode-measurement'
+        binary=json.loads((evidence/'binary.json').read_text())
+        compressed=(evidence/'measured-mtg.gz').read_bytes()
+        self.assertEqual(hashlib.sha256(compressed).hexdigest(),binary['archive_sha256'])
+        self.assertEqual(hashlib.sha256(gzip.decompress(compressed)).hexdigest(),binary['binary_sha256'])
+        unpack=runpy.run_path(str(evidence/'archive.py'))['unpack_verified']
+        summarize=runpy.run_path(str(evidence/'summarize.py'))['summarize']
+        from scripts.m2_measurement import validate_archive
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary)
+            unpack(evidence/'throughput.tar.gz',evidence/'throughput-index.json',root/'throughput')
+            unpack(evidence/'privileged-diagnostics.tar.gz',evidence/'diagnostics-index.json',root/'diagnostics')
+            actual=summarize(root/'throughput',root/'diagnostics')
+            self.assertEqual(actual,json.loads((evidence/'summary.json').read_text()))
+            self.assertEqual(len(actual['configurations']),16)
+            self.assertGreater(actual['latency']['observations'],0)
+            manifest_path=root/'throughput/campaign.json'
+            manifest=json.loads(manifest_path.read_text())
+            for field,path in (('plan_sha256',evidence/'plan.md'),
+                               ('script_sha256',evidence/'campaign.py'),
+                               ('validator_sha256',evidence/'validator-at-start.txt'),
+                               ('collector_sha256',ROOT/'scripts/scalar_modes.py')):
+                self.assertEqual(manifest[field],hashlib.sha256(path.read_bytes()).hexdigest())
+            self.assertEqual(manifest['binary_sha256'],binary['binary_sha256'])
+            row=manifest['runs'][0];folder=root/'throughput'/row['name']
+            report=json.loads((folder/'report.json').read_text())
+            report['windows'][0]['elapsed_ns']=1
+            data=json.dumps(report).encode()
+            (folder/'report.json').write_bytes(data)
+            (folder/'raw.json').write_text(json.dumps({k:v for k,v in report.items() if k!='collection'}))
+            row['report_sha256']=hashlib.sha256(data).hexdigest()
+            manifest_path.write_text(json.dumps(manifest))
+            # Re-hashing corruption must not turn a broken real denominator into
+            # valid evidence. Earlier literal controls independently fix rates.
+            with self.assertRaises(ValueError): validate_archive(root/'throughput')
+            corrupted=root/'corrupted.tar.gz'
+            corrupted.write_bytes((evidence/'throughput.tar.gz').read_bytes()+b'corrupt')
+            with self.assertRaisesRegex(ValueError,'identity'):
+                unpack(corrupted,evidence/'throughput-index.json',root/'unused')
 
 
 class MeasurementRealAdapter(unittest.TestCase):

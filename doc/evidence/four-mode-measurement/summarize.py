@@ -13,6 +13,10 @@ from scripts.scalar_modes import validate_execution
 
 def summarize(throughput, diagnostics):
     result=validate_archive(throughput)
+    manifest=json.loads((Path(throughput)/'campaign.json').read_text())
+    reports=[json.loads((Path(throughput)/r['name']/'report.json').read_text()) for r in manifest['runs']]
+    result['window_costs']=window_costs(reports)
+    result['process_receipts']=[dict(name=r['name'],receipt=report['collection']) for r,report in zip(manifest['runs'],reports)]
     diagnostics=Path(diagnostics)
     native=json.loads((diagnostics/'native-latency.json').read_text())
     rows=native['runs']
@@ -32,8 +36,10 @@ def summarize(throughput, diagnostics):
         group='/'.join((r['policy'],'encoded' if r['encoded'] else 'native',r['mode']))
         for label,phase in r['latency']['phases'].items():
             dest=latency.setdefault(group,{}).setdefault(label,dict(attempts=0,count=0,skipped=0,
-                errors=0,sum_ns=0,buckets=[0]*8))
-            for field in ('attempts','count','skipped','errors','sum_ns'): dest[field]+=phase[field]
+                errors=0,clock_errors=0,overflow=False,status=phase['status'],sum_ns=0,buckets=[0]*8))
+            if dest['status']!=phase['status']: raise ValueError('inconsistent latency availability')
+            for field in ('attempts','count','skipped','errors','clock_errors','sum_ns'): dest[field]+=phase[field]
+            dest['overflow']=dest['overflow'] or phase['overflow']
             dest['buckets']=[a+b for a,b in zip(dest['buckets'],phase['buckets'])]
     for phases in latency.values():
         for phase in phases.values():
@@ -61,7 +67,8 @@ def summarize(throughput, diagnostics):
         validate_profile(report)
         if report['trace_sha256']!=hashlib.sha256(inp.read_bytes()).hexdigest():
             raise ValueError('profile input hash mismatch')
-        public_fields=('trace_sha256','source_sha256','binary_sha256','toolchain_sha256',
+        public_fields=('instrumentation','capture','privacy','allocation_scope','application_scope',
+            'oracle','engine','build','trace_sha256','source_sha256','binary_sha256','toolchain_sha256',
             'dependency_sha256','rules_sha256','cards_sha256','history_sha256','observations_sha256',
             'elapsed_ns','allocations','allocated_bytes','costs','consumed','validated_checkpoints',
             'policy_ns','observations','legal_candidates','decision_kinds','encoding','effect_probe',
@@ -69,4 +76,21 @@ def summarize(throughput, diagnostics):
         profiles.append(dict(path=path.name,metrics={k:report[k] for k in public_fields if k in report}))
     if len(profiles)!=12 or len(rejections)!=7: raise ValueError('missing profile execution or rejection')
     result['profiles']=dict(valid=profiles,rejected=rejections)
+    return result
+
+
+def window_costs(reports):
+    """Direct measured boundaries only; never infer effect cost from differences."""
+    result={}
+    for report in reports:
+        config=report['pins']['config']
+        name='/'.join((config['policies'][0],'encoded' if config['encoding'] else 'native',config['instrumentation']))
+        row=result.setdefault(name,dict(elapsed_ns=0,policy_ns=0,replay_ns=0,publication_ns=0,
+            phases={k:None if k=='encoding_ns' and not config['encoding'] else 0
+                    for k in ('reset_ns','transition_ns','legality_and_view_ns','finalization_ns','encoding_ns','encoded_bytes')}))
+        for w in report['windows']:
+            row['elapsed_ns']+=w['elapsed_ns'];row['policy_ns']+=w['policy_ns']
+            for k in ('replay_ns','publication_ns'): row[k]+=w['execution'][k]
+            for k in row['phases']:
+                if row['phases'][k] is not None: row['phases'][k]+=w['phases'][k]
     return result
