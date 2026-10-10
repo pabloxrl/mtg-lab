@@ -4,6 +4,8 @@ The delivered four-mode runners have been measured on a correctness-gated releas
 binary, with both native policies and both encoding settings across all eight
 matchup/starting-seat rows. This is scoped measurement evidence, **not M2 or
 designated-host qualification**. No production runner or engine feature changed.
+Partial additive evidence covers R0002-B008, B014, B019, B020 and B021;
+all original requirement owners and aggregate acceptance remain.
 
 ## Campaign and accounting
 
@@ -17,7 +19,9 @@ Measured totals: **7,204 natural completions**, 7,204 attempts,
 3,091.847304s denominator; seat wins [3511, 3693], draws 0,
 errors 0, truncations 0, unfinished 0,
 concessions 0, pre-reset/not-started 0.
-Separate warmups retain 504 attempts and 190.091372s.
+The windows processed 7,181,389 decisions; their full per-kind and logical-action
+counters are retained where instrumentation is enabled. Separate warmups retain
+504 attempts and 190.091372s.
 All failed/unfinished work would remain in elapsed time and outside the completed
 numerator; literal injected-clock and tampered-artifact controls enforce this.
 
@@ -90,6 +94,8 @@ The JSON additionally preserves transition, legality/view and publication bounda
 encoded-vs-native overhead distributions and every process wall/CPU receipt. Reset
 and finalization remain inside elapsed time. Process RSS includes the whole client;
 it is not marginal core-state memory.
+The 64 MiB replay byte limit is not a process-RSS ceiling: legal-random full
+replay reached about 863 MiB peak RSS including verification and client work.
 
 ## Fixed-profile observations
 
@@ -149,6 +155,13 @@ Trace sampling is every 64 decisions with capacity 256; complete replay capacity
 is 20,000 records / 64 MiB with `in_memory` persistence. Canonical capture is off
 for timed windows; verification/serialization stays inside their denominator.
 Horizon is unchanged at 20,000 decisions / 100,000 work calls, quantum 64.
+
+Main commit `94f0e0334f4037d815824bf8832c1d594e00755e` was integrated after
+collection. Its Rust changes add London-mulligan tests inside the existing
+`cfg(test)` reference module; production gameplay, benchmark and profile paths
+are unchanged. The conservative native source fingerprint includes test files,
+so a later rebuilt fingerprint is **not** relabeled as the measured binary.
+The archived executable and original source identity remain the measurement pin.
 
 ## Interpretation and limits
 
@@ -217,6 +230,11 @@ The exact measured aarch64 production executable is retained in
 [measured-mtg.gz](measured-mtg.gz), with [binary identity](binary.json). It is an
 evidence artifact, not a portable installation package. Preserve the recorded
 source revision when reproducing it; never relabel a later binary as measured.
+For a fresh campaign, correctness-gate the selected source/binary first, then
+call `run(binary_path, new_output_directory)` from `campaign.py` under the shared
+heavy lock. The output directory must not exist. The function freezes the same
+16 configurations, retains every invocation and applies the declared extension
+rule; it returns the original collection status instead of deleting failed work.
 
 To verify archive integrity and recompute every published statistic from the
 repository root (no native execution):
@@ -253,3 +271,13 @@ See [preparation and correction history](validation-notes.md) for literal red
 assertions, independent arithmetic and the review-confirmed stronger replay
 expectation. No pre-existing regression or ownership was removed or weakened.
 
+The [integrated validation receipt](validation.json) and
+[full torture log](integrated-torture.log.gz) record 12 focused tests, 303 normal
+Python tests, and 744 Rust tests in each of debug and release (1,488 executions),
+with no failures or ignored tests. Formatting and strict Clippy passed. This adds
+12 Python cases and two Rust cases to normal discovery. The documented archive
+reproduction command also passed. The [precollection gate log](precollection-validation.log.gz)
+preserves the original correctness gate and the later aggregate-validator failure.
+Final independent review, protected merge and exact-main CI receipts are recorded
+in the [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/281#issuecomment-6096505485);
+delivery remains conditional on those receipts.
