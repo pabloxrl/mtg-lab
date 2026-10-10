@@ -166,7 +166,7 @@ public class FullPoolMulliganTest {
                 observed.add(point(game,s,"declaration"));raw(game,s,"declare");consumedChoices.add(e.deepCopy());return selected.equals("mulligan");
             }
             @Override public boolean chooseTarget(Outcome outcome,Target target,Ability source,Game game) {
-                if(source!=null) return onSpellTarget(this,s,outcome,target,source,game);
+                if(source!=null || game.getTurnStepType()==PhaseStep.CLEANUP) return onSpellTarget(this,s,outcome,target,source,game);
                 need(source==null && outcome==Outcome.Discard && target!=null && target instanceof mage.target.common.TargetCardInHand && target.getMinNumberOfTargets()==1 && target.getMaxNumberOfTargets()==1,"/unsupported target callback");
                 JsonObject e=choice(s,"bottom");JsonArray selected=e.getAsJsonArray("selection");
                 need(selected.size()==rounds[s] && rounds[s]>0,"/bottom cardinality");
@@ -245,6 +245,9 @@ public class FullPoolMulliganTest {
         Card card=(Card)info.getCardClass().getConstructor(UUID.class,CardSetInfo.class).newInstance(owner,new CardSetInfo(info.getName(),"FDN",info.getCardNumber(),info.getRarity(),info.getGraphicInfo()));
         need(card.getName().equals(metadata.get("name").getAsString()),"/card class/name");return card;
     }
+    protected void afterGame(Game game) {
+        need(stopped && game.isPaused() && observed.size()>0,"/missing first upkeep stop");
+    }
     protected JsonObject run(JsonObject c) throws Exception {
         current=c;stopped=false;priorityFailure=null;bindings.clear();handles.clear();consumed=new JsonArray();consumedChoices=new JsonArray();rawCallbacks=new JsonArray();rounds=new int[2];bottomIndex=0;rawPreShuffleOrders=new JsonArray();observed=new JsonArray();
         prepareCase(c);
@@ -263,7 +266,7 @@ public class FullPoolMulliganTest {
         game.setStartingPlayerId(players[c.get("starter").getAsInt()].getId());
         game.start(players[c.get("starter").getAsInt()].getId());
         if(priorityFailure!=null)throw priorityFailure;
-        need(stopped && game.isPaused() && observed.size()>0,"/missing first upkeep stop");
+        afterGame(game);
         JsonObject result=new JsonObject();result.add("points",observed);result.add("consumed_chance",consumed);result.add("consumed_choices",consumedChoices);result.add("raw_callbacks",rawCallbacks);result.addProperty("reference_rng","unobservable; explicit shuffle callbacks witnessed, internal RNG not compared");return result;
     }
     @Test public void mulliganPrefixes() throws Exception {

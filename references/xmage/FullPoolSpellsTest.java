@@ -202,7 +202,8 @@ public class FullPoolSpellsTest extends FullPoolPriorityTest {
             need(!stopped&&priorityFailure==null,"/repeated priority callback");
             if(!openingSeen){firstUpkeep(p,s,g);openingSeen=true;}
             if(!observerInstalled){g.getState().addWatcher(new SpellObserver());observerInstalled=true;}
-            String resolved=current.get("stop").getAsString().substring("resolved/".length());UUID end=handles.get(resolved);
+            String stop=current.get("stop").getAsString();
+            String resolved=stop.startsWith("resolved/")?stop.substring("resolved/".length()):"";UUID end=handles.get(resolved);
             if(end!=null&&g.getState().getZone(end)==Zone.GRAVEYARD&&g.getStack().isEmpty()&&pending==null) {
                 need(cursor==current.getAsJsonArray("play").size(),"/extra choice after named stop");played.add(state(g,s,current.get("stop").getAsString(),null));stopped=true;g.pause();return false;
             }

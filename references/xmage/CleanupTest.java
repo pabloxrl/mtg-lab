@@ -32,6 +32,7 @@ import static org.junit.Assert.*;
 public class CleanupTest extends CardTestPlayerBase {
  private final JsonObject spec;
  private final JsonArray points = new JsonArray();
+ private final JsonArray cleanupBoundaries = new JsonArray();
  private final List<List<Card>> hands = new ArrayList<>();
  private boolean installed, finished;
  private int cleanups, calls, discards, targets, stage;
@@ -54,6 +55,7 @@ public class CleanupTest extends CardTestPlayerBase {
   @Override public void watch(GameEvent event,Game g){
    if(event.getType()==GameEvent.EventType.CLEANUP_STEP_PRE){
     assertTrue(++cleanups<=2);
+    JsonObject observed=new JsonObject();observed.addProperty("ordinal",cleanups);observed.addProperty("turn",g.getTurnNum());observed.addProperty("step",g.getTurnStepType().name());observed.add("state",point(g));cleanupBoundaries.add(observed);
     if(cleanups==1){
      points.add(point(g));
      if(spec.get("trigger").getAsBoolean())g.getState().addTriggeredAbility(pyro(g).getAbilities().getTriggeredAbilities(Zone.BATTLEFIELD).get(0).copy());
@@ -115,6 +117,8 @@ public class CleanupTest extends CardTestPlayerBase {
   for(TestPlayer p:Arrays.asList(playerA,playerB)){hands.add(new ArrayList<>(getHandCards(p)));getHandCards(p).clear();}
   setStopAt(2,PhaseStep.PRECOMBAT_MAIN);execute();assertTrue("next upkeep reached",finished);
   assertEquals(spec.get("thrill").getAsBoolean()?2:1,discards);
+  Path observations=Paths.get(System.getProperty("mtglab.output"),"cleanup-observations");Files.createDirectories(observations);
+  Files.write(observations.resolve(spec.get("id").getAsString()+".json"),new Gson().toJson(cleanupBoundaries).getBytes(StandardCharsets.UTF_8));
   Files.write(Paths.get(System.getProperty("mtglab.output"),spec.get("id").getAsString()+".json"),new GsonBuilder().setPrettyPrinting().create().toJson(points).getBytes(StandardCharsets.UTF_8));
  }
 }
