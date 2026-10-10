@@ -374,3 +374,4 @@ fn full_pool_reset_retains_legacy_card_projection() {
 }
 
 include!("mulligan_reference_tests.rs");
+include!("priority_reference_tests.rs");

@@ -128,3 +128,58 @@ this family claims the first two, not exhaustive legal-set equivalence.
 
 Receipts and privileged artifacts follow the same separation as version 1.
 No full game, admission, Forge or M2 completion claim follows from this prefix.
+
+## Version 3 played priority prefixes
+
+The additive `priority` family consumes the version 3
+[envelope](../fixtures/reference/full-pool-priority.json) using real full-deck
+reset and explicit keep/mulligan prefixes. Six cases cover both starting seats,
+two distinct copies each of Swab Goblin and Bear Cub, floating and payment-stage
+basic mana, explicit colored and generic payments, and a mana response between
+passes. Every priority pass and empty attacker declaration is on the tape. The
+starting player skips the first draw step; both seats continue through their
+second draw and stop after the fourth creature resolves on turn six.
+
+The native client submits `actions::Record` through the delivered scalar policy
+interfaces and appends real before/after captures to a version 2 recorder. It
+also rejects every stale previously accepted policy submission without changing
+state or RNG. The recorder is an open played prefix, not a complete episode.
+XMage uses continuous priority, land, cast and mana callbacks. No adapter invokes
+stack resolution directly. A named `first_cast_committed` stop pauses the same
+game and strict continuation resumes its remaining tape.
+
+[Literal expectations and their derivation](../fixtures/reference/full-pool-priority-oracle.md)
+are independent of engine results. Committed checkpoints compare ordered zones,
+turn/step/actor, land usage, all six mana values, tapping/sickness, stats, physical
+occurrences, incarnations and stack source/action identity. Raw payment staging
+has separate native and XMage expectations: native retains a transaction before
+commit, while XMage moves the card onto the stack during announcement. Both raw
+states remain in privileged artifacts; neither is rewritten to pretend they are
+identical. The explicit remaining-cost/payment ledger also agrees. XMage sorts opening
+hands for display; each raw hand order has its own literal assertion, while
+cross-engine hands compare membership. The version-3 `incarnations` field starts at zero in the initial library and
+counts witnessed zone transitions under CR 400.7. Raw counters are retained,
+including XMage's direct mulligan
+return that changes zone without incrementing its counter. No engine state is
+injected by these mappings.
+
+Twenty malformed or illegal tapes exercise actual clients, including missing,
+extra and reordered passes, wrong actor/timing, second land, wrong/insufficient
+mana, stale sources and unsupported callbacks. Comparator controls alter draw,
+priority and incarnation fields. Vanilla creature timing admits one spell at a
+time, so the stack-order comparator control is explicitly synthetic, made from
+two separately witnessed stack entries; it is not a simultaneous-stack play claim.
+
+```sh
+python3 -m unittest discover -s tests -p 'test_m2_repair_priority.py'
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family priority --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/priority-run-1.json
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family priority --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/priority-run-2.json
+```
+
+The runner retains actual inputs, consumed chance/choices, raw identities,
+checkpoints, oracle files, first-difference controls, source/dependency/toolchain
+hashes and separate privileged artifacts. Unsupported choices fail. There is no
+complete legal-set comparison, reference rollback/internal-RNG equality,
+noncreature/trigger/activated-choice support, nonempty combat, cleanup discard,
+full-game claim or M2 gate completion. Verification receipts belong in
+[the priority evidence report](evidence/priority-prefix/README.md).

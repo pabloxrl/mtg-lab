@@ -20,44 +20,44 @@ import static org.junit.Assert.*;
 
 /** Original CR 103 test client: real normal initialization, no injected hands. */
 public class FullPoolMulliganTest {
-    private static final Gson JSON = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
-    private final Path root = Paths.get(System.getProperty("mtglab.root"));
-    private final JsonObject manifest = read(root.resolve("data/cards/foundations_micro_v1.json"));
-    private final Map<UUID,String> bindings = new LinkedHashMap<>();
-    private final Map<String,UUID> handles = new LinkedHashMap<>();
-    private final TestPlayer[] players = new TestPlayer[2];
-    private JsonArray consumed;
-    private JsonArray rawPreShuffleOrders;
-    private final JsonObject rawPreShuffleEvidence = new JsonObject();
-    private JsonArray observed;
-    private JsonArray consumedChoices;
-    private JsonArray rawCallbacks;
-    private int[] rounds;
-    private int bottomIndex;
-    private JsonObject current;
-    private Game lastGame;
-    private boolean stopped;
-    private IllegalArgumentException priorityFailure;
-    private static JsonObject read(Path p) {
+    protected static final Gson JSON = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+    protected final Path root = Paths.get(System.getProperty("mtglab.root"));
+    protected final JsonObject manifest = read(root.resolve("data/cards/foundations_micro_v1.json"));
+    protected final Map<UUID,String> bindings = new LinkedHashMap<>();
+    protected final Map<String,UUID> handles = new LinkedHashMap<>();
+    protected final TestPlayer[] players = new TestPlayer[2];
+    protected JsonArray consumed;
+    protected JsonArray rawPreShuffleOrders;
+    protected final JsonObject rawPreShuffleEvidence = new JsonObject();
+    protected JsonArray observed;
+    protected JsonArray consumedChoices;
+    protected JsonArray rawCallbacks;
+    protected int[] rounds;
+    protected int bottomIndex;
+    protected JsonObject current;
+    protected Game lastGame;
+    protected boolean stopped;
+    protected IllegalArgumentException priorityFailure;
+    protected static JsonObject read(Path p) {
         try { return JsonParser.parseString(new String(Files.readAllBytes(p),StandardCharsets.UTF_8)).getAsJsonObject(); }
         catch(Exception e) { throw new IllegalArgumentException(e); }
     }
-    private static void need(boolean ok, String path) {
+    protected static void need(boolean ok, String path) {
         if(!ok) throw new IllegalArgumentException("first divergence: "+path);
     }
-    private static void keys(JsonObject o, String... names) {
+    protected static void keys(JsonObject o, String... names) {
         need(o.keySet().equals(new HashSet<>(Arrays.asList(names))),"/fields");
     }
-    private static boolean integer(JsonElement e, int value) {
+    protected static boolean integer(JsonElement e, int value) {
         return e.isJsonPrimitive() && e.getAsJsonPrimitive().isNumber() && e.toString().equals(Integer.toString(value));
     }
-    private String sha(Path p) {
+    protected String sha(Path p) {
         try {
             byte[] hash=MessageDigest.getInstance("SHA-256").digest(Files.readAllBytes(p));
             StringBuilder s=new StringBuilder(); for(byte b:hash) s.append(String.format("%02x",b & 255)); return s.toString();
         } catch(Exception e) {throw new IllegalArgumentException(e);}
     }
-    private JsonArray canonical(String deck, int seat) {
+    protected JsonArray canonical(String deck, int seat) {
         JsonArray result=new JsonArray();
         for(JsonElement d:manifest.getAsJsonArray("decks")) if(d.getAsJsonObject().get("id").getAsString().equals(deck)) {
             for(JsonElement item:d.getAsJsonObject().getAsJsonArray("cards")) {
@@ -67,11 +67,11 @@ public class FullPoolMulliganTest {
         }
         need(result.size()==40,"/deck"); return result;
     }
-    private static List<String> strings(JsonArray a) {
+    protected static List<String> strings(JsonArray a) {
         List<String> out=new ArrayList<>(); for(JsonElement e:a) {need(e.isJsonPrimitive() && e.getAsJsonPrimitive().isString(),"/occurrence type");out.add(e.getAsString());}return out;
     }
-    private static List<String> sorted(JsonArray a) {List<String> out=strings(a);Collections.sort(out);return out;}
-    private void validate(JsonObject doc) {
+    protected static List<String> sorted(JsonArray a) {List<String> out=strings(a);Collections.sort(out);return out;}
+    protected void validate(JsonObject doc) {
         keys(doc,"schema_version","family","pins","cases");
         need(integer(doc.get("schema_version"),2),"/schema_version");
         need(doc.get("family").getAsString().equals("mulligan"),"/family");
@@ -101,15 +101,15 @@ public class FullPoolMulliganTest {
             }
         }
     }
-    private int seat(UUID id) {
+    protected int seat(UUID id) {
         for(int i=0;i<2;i++) if(players[i].getId().equals(id)) return i;
         throw new IllegalArgumentException("first divergence: unknown player");
     }
-    private JsonArray ids(Iterable<UUID> values, boolean sort) {
+    protected JsonArray ids(Iterable<UUID> values, boolean sort) {
         List<String> result=new ArrayList<>();for(UUID id:values) {need(bindings.containsKey(id),"/unknown engine occurrence");result.add(bindings.get(id));}
         if(sort) Collections.sort(result);return JSON.toJsonTree(result).getAsJsonArray();
     }
-    private JsonObject point(Game game, int s, String boundary) {
+    protected JsonObject point(Game game, int s, String boundary) {
         need(!game.hasEnded(),"/unexpected terminal game");
         need(game.getCards().size()==bindings.size(),"/unbound engine cards");
         JsonObject point=new JsonObject(); point.addProperty("boundary",boundary);point.addProperty("actor",s);
@@ -118,12 +118,12 @@ public class FullPoolMulliganTest {
         point.add("library",ids(game.getPlayer(players[s].getId()).getLibrary().getCardList(),false));
         point.addProperty("mulligans",rounds[s]);return point;
     }
-    private void raw(Game game,int s,String kind) {
+    protected void raw(Game game,int s,String kind) {
         JsonObject row=new JsonObject();row.addProperty("kind",kind);row.addProperty("actor",s);
         JsonArray state=new JsonArray();for(int i=0;i<2;i++)state.add(point(game,i,kind));
         row.add("state",state);rawCallbacks.add(row);
     }
-    private JsonObject choice(int s,String kind) {
+    protected JsonObject choice(int s,String kind) {
         need(consumedChoices.size()<current.getAsJsonArray("choices").size(),"/missing choice or unexpected callback");
         JsonObject e=current.getAsJsonArray("choices").get(consumedChoices.size()).getAsJsonObject();
         keys(e,"sequence","kind","actor","source","round","selection");
@@ -133,9 +133,10 @@ public class FullPoolMulliganTest {
         need(e.get("source").isJsonNull(),"/choice source");
         need(integer(e.get("round"),rounds[s]),"/stale choice round");return e;
     }
-    private TestPlayer player(final int s) {
+    protected TestPlayer player(final int s) {
         TestPlayer p=new TestPlayer(new TestComputerPlayer("Seat"+s,RangeOfInfluence.ONE)) {
             @Override public void shuffleLibrary(Ability source,Game game) {
+                if(consumed.size()<2)initialLibrary(s,game);
                 need(source==null && consumed.size()<current.getAsJsonArray("chance").size(),"/unsupported or missing shuffle callback");
                 JsonObject event=current.getAsJsonArray("chance").get(consumed.size()).getAsJsonObject();
                 keys(event,"sequence","actor","kind","source","before","after");
@@ -180,19 +181,45 @@ public class FullPoolMulliganTest {
                 raw(game,s,"bottom_card");bottomIndex++;
                 if(bottomIndex==selected.size()){consumedChoices.add(e.deepCopy());bottomIndex=0;}return true;
             }
-            @Override public boolean priority(Game game) {
-                try {
-                need(!stopped,"/repeated priority callback");
-                need(bottomIndex==0 && game.getTurnNum()==1 && game.getTurnStepType()==PhaseStep.UPKEEP && getId().equals(game.getActivePlayerId()) && getId().equals(game.getStartingPlayerId()),"/unexpected priority callback");
-                need(consumed.size()==current.getAsJsonArray("chance").size() && consumedChoices.size()==current.getAsJsonArray("choices").size(),"/incomplete ledger");
-                int starter=seat(game.getStartingPlayerId());observed.add(point(game,starter,"first_upkeep"));observed.add(point(game,1-starter,"first_upkeep"));raw(game,s,"first_upkeep");
-                } catch(IllegalArgumentException error) { priorityFailure=error; }
-                stopped=true;game.pause();return false;
-            }
+            @Override public boolean priority(Game game) { return onPriority(this,s,game); }
+            @Override public boolean playMana(Ability source,mage.abilities.costs.mana.ManaCost unpaid,String prompt,Game game) { return onMana(this,s,source,unpaid,game); }
+            @Override public void selectAttackers(Game game,UUID active) { onAttackers(this,s,game,active); }
+            @Override public void selectBlockers(Ability source,Game game,UUID defending) { throw new IllegalArgumentException("first divergence: /unsupported blockers callback"); }
+            @Override public boolean chooseUse(Outcome outcome,String message,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
+            @Override public boolean chooseUse(Outcome outcome,String message,String second,String yes,String no,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
+            @Override public mage.abilities.TriggeredAbility chooseTriggeredAbility(List<mage.abilities.TriggeredAbility> abilities,Game game) { throw new IllegalArgumentException("first divergence: /unsupported trigger callback"); }
+            @Override public boolean triggerAbility(mage.abilities.TriggeredAbility ability,Game game) { throw new IllegalArgumentException("first divergence: /unsupported trigger callback"); }
+            @Override public mage.abilities.Mode chooseMode(mage.abilities.Modes modes,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported mode callback"); }
+            @Override public int chooseReplacementEffect(Map<String,String> effects,Map<String,mage.MageObject> objects,Game game) { throw new IllegalArgumentException("first divergence: /unsupported replacement callback"); }
+            @Override public boolean choosePile(Outcome outcome,String message,List<? extends Card> first,List<? extends Card> second,Game game) { throw new IllegalArgumentException("first divergence: /unsupported pile callback"); }
+            @Override public boolean choose(Outcome outcome,mage.choices.Choice choice,Game game) { throw new IllegalArgumentException("first divergence: /unsupported choice callback"); }
+            @Override public boolean choose(Outcome outcome,Target target,Ability source,Game game,Map<String,java.io.Serializable> options) { throw new IllegalArgumentException("first divergence: /unsupported choice callback"); }
+            @Override public boolean chooseTarget(Outcome outcome,mage.cards.Cards cards,mage.target.TargetCard target,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported target callback"); }
+            @Override public boolean choose(Outcome outcome,mage.cards.Cards cards,mage.target.TargetCard target,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported choice callback"); }
+            @Override public boolean chooseTargetAmount(Outcome outcome,mage.target.TargetAmount target,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported target amount callback"); }
+
         };
         p.setChooseStrictMode(true);return p;
     }
-    private Card create(String key,UUID owner) throws Exception {
+    protected void firstUpkeep(TestPlayer p,int s,Game game) {
+        need(!stopped,"/repeated priority callback");
+        need(bottomIndex==0 && game.getTurnNum()==1 && game.getTurnStepType()==PhaseStep.UPKEEP && p.getId().equals(game.getActivePlayerId()) && p.getId().equals(game.getStartingPlayerId()),"/unexpected priority callback");
+        need(consumed.size()==current.getAsJsonArray("chance").size() && consumedChoices.size()==current.getAsJsonArray("choices").size(),"/incomplete ledger");
+        int starter=seat(game.getStartingPlayerId());observed.add(point(game,starter,"first_upkeep"));observed.add(point(game,1-starter,"first_upkeep"));raw(game,s,"first_upkeep");
+    }
+    protected boolean onPriority(TestPlayer p,int s,Game game) {
+        try { firstUpkeep(p,s,game); } catch(IllegalArgumentException error) { priorityFailure=error; }
+        stopped=true;game.pause();return false;
+    }
+    protected boolean onMana(TestPlayer p,int s,Ability source,mage.abilities.costs.mana.ManaCost unpaid,Game game) {
+        throw new IllegalArgumentException("first divergence: /unsupported mana callback");
+    }
+    protected void onAttackers(TestPlayer p,int s,Game game,UUID active) {
+        throw new IllegalArgumentException("first divergence: /unsupported attackers callback");
+    }
+    protected void initialLibrary(int s,Game game) { }
+    protected void prepareCase(JsonObject c) { }
+    protected Card create(String key,UUID owner) throws Exception {
         JsonObject metadata=null;for(JsonElement e:manifest.getAsJsonArray("cards")) if(e.getAsJsonObject().get("id").getAsString().equals(key)) metadata=e.getAsJsonObject();
         need(metadata!=null && metadata.get("kind").getAsString().equals("card"),"/unknown card");
         JsonObject print=metadata.getAsJsonObject("printing");
@@ -205,8 +232,9 @@ public class FullPoolMulliganTest {
         Card card=(Card)info.getCardClass().getConstructor(UUID.class,CardSetInfo.class).newInstance(owner,new CardSetInfo(info.getName(),"FDN",info.getCardNumber(),info.getRarity(),info.getGraphicInfo()));
         need(card.getName().equals(metadata.get("name").getAsString()),"/card class/name");return card;
     }
-    private JsonObject run(JsonObject c) throws Exception {
+    protected JsonObject run(JsonObject c) throws Exception {
         current=c;stopped=false;priorityFailure=null;bindings.clear();handles.clear();consumed=new JsonArray();consumedChoices=new JsonArray();rawCallbacks=new JsonArray();rounds=new int[2];bottomIndex=0;rawPreShuffleOrders=new JsonArray();observed=new JsonArray();
+        prepareCase(c);
         Game game=new TwoPlayerDuel(MultiplayerAttackOption.LEFT,RangeOfInfluence.ONE,new LondonMulligan(0),40,20,7);
         lastGame=game;
         for(int s=0;s<2;s++) {

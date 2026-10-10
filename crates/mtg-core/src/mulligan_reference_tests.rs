@@ -67,6 +67,14 @@ fn london_point(g: &Game, tape: &Tape<'_>, boundary: &str, actor: Seat) -> Value
         "library":london_ids(g,tape,Zone::Library(actor)),"mulligans":g.mulligans[seat_index(actor)]})
 }
 fn london_execute(g: &mut Game, reset: &Case, case: &Value) -> Result<Value, String> {
+    london_continue(g, reset, case, |_, _| Ok(())).map(|(opening, ())| opening)
+}
+fn london_continue<T>(
+    g: &mut Game,
+    reset: &Case,
+    case: &Value,
+    continuation: impl FnOnce(&mut Game, &Tape<'_>) -> Result<T, String>,
+) -> Result<(Value, T), String> {
     let chance: Vec<LondonChance> = serde_json::from_value(case["chance"].clone())
         .map_err(|e| format!("first divergence: /chance {e}"))?;
     let choices: Vec<LondonChoice> = serde_json::from_value(case["choices"].clone())
@@ -278,9 +286,11 @@ fn london_execute(g: &mut Game, reset: &Case, case: &Value) -> Result<Value, Str
     } {
         points.push(london_point(g, &tape, "first_upkeep", seat));
     }
-    Ok(
+    let result = continuation(g, &tape)?;
+    Ok((
         json!({"points":points,"consumed_chance":used_chance,"consumed_choices":used_choices,"raw_callbacks":raw,"native_rng":"unchanged"}),
-    )
+        result,
+    ))
 }
 fn london_consume(g: &mut Game, doc: Value) -> Result<BTreeMap<String, Value>, String> {
     let reset = london_reset(&doc)?;
