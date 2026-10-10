@@ -1,0 +1,14 @@
+{
+  "scope": "Source-inspected played trigger callbacks and source-incarnation provenance. Original bridge code; no adapted upstream tests.",
+  "consulted_sources": {
+    "Mage.Sets/src/mage/cards/f/FirebrandArcher.java": "77886d0ecbe156f8c25e7f01ac6e25ba7c5ba884bb42e7da2899f8b22b1b9d98",
+    "Mage.Sets/src/mage/cards/c/CracklingCyclops.java": "a7ff040c0ace6fc8155a8e30e3e8c18be88b2c6830946f3aa1a28043476ee614",
+    "Mage.Sets/src/mage/cards/v/ViashinoPyromancer.java": "183621c07b2ee9a59094dbfbdfa83fee1e47f20645cd535dd4e21875732945a8",
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/game/GameState.java": "4ccd69feeb57da0e5036312374b6641b9063e77c60215cb51c5156518d557c9e",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage/src/main/java/mage/abilities/AbilityImpl.java": "dac914825d442d3300f3b18788ba80371c46bde1e32dac706f582d12c830a980",
+    "Mage/src/main/java/mage/abilities/TriggeredAbilityImpl.java": "ea4e038dc20943c16d4669c91682a439a853356db25e804489f1635bf8afed66",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb"
+  }
+}

@@ -53,6 +53,7 @@ struct PlayedClient {
 }
 impl PlayedClient {
     fn new(g: &Game, tape: &Tape<'_>, case: &Value) -> Result<Self, String> {
+        let triggers = case["stop"].as_str().is_some_and(|s|s.starts_with("triggers_settled/"));
         let activations = case["stop"].as_str().is_some_and(|s|s.starts_with("activations/"));
         let spells = case["stop"]
             .as_str()
@@ -60,7 +61,9 @@ impl PlayedClient {
         let hash = |v: &Value| format!("{:x}", Sha256::digest(serde_json::to_vec(v).unwrap()));
         let header = trajectory::Header {
             id: trajectory::EpisodeKey {
-                run: if activations {
+                run: if triggers {
+                    "27400000-0000-4000-8000-000000000001"
+                } else if activations {
                     "27300000-0000-4000-8000-000000000001"
                 } else if spells {
                     "27200000-0000-4000-8000-000000000001"
@@ -81,7 +84,9 @@ impl PlayedClient {
             deck_hashes: [hash(&case["decks"][0]), hash(&case["decks"][1])],
             config_hash: hash(&json!({"starting_seat":case["starter"],"decks":case["decks"]})),
             policies: [
-                if activations {
+                if triggers {
+                    "strict-triggers-tape-v6"
+                } else if activations {
                     "strict-activations-tape-v5"
                 } else if spells {
                     "strict-spells-tape-v4"
@@ -89,7 +94,9 @@ impl PlayedClient {
                     "strict-priority-tape-v3"
                 }
                 .into(),
-                if activations {
+                if triggers {
+                    "strict-triggers-tape-v6"
+                } else if activations {
                     "strict-activations-tape-v5"
                 } else if spells {
                     "strict-spells-tape-v4"
@@ -208,11 +215,14 @@ impl PlayedClient {
         kind: &str,
         choice: actions::Choice,
     ) -> Result<(), String> {
+        self.submit_many(g, actor, kind, vec![choice])
+    }
+    fn submit_many(&mut self, g: &mut Game, actor: Seat, kind: &str, choices: Vec<actions::Choice>) -> Result<(), String> {
         let record = actions::Record {
             version: actions::ACTION_VERSION,
             actor,
             decision: kind.into(),
-            choices: vec![choice],
+            choices,
         };
         let bytes = serde_json::to_vec(&record).unwrap();
         let before_state = format!("{g:?}");
