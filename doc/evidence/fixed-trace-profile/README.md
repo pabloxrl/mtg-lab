@@ -136,3 +136,22 @@ trajectory digest. Binary, dependency, card and rules hashes are independently
 checked against the executable/input files by Python. Full replay modes also
 produce nonempty complete verified replay bytes. Both raw runs remain retained;
 run 1 predates the explicit canonical capture digest and main integration.
+
+
+Protected reset-reference main integration (#285) changed the conservative native
+source fingerprint through its reviewed reset-preflight refactor and test hooks.
+The retained [compatibility rejection](integration-pin-failure.txt) shows the
+previous diagnostic inputs were rejected in normal Python discovery. Only the
+three profiling inputs' engine fingerprints were updated from independently
+hashed current source; every semantic action and expected checkpoint remains
+byte-preserved. Card/rules and XMage reference pins remain unchanged. Earlier
+archives retain their original inputs and binaries; current-main validation and
+review receipts are recorded in the issue workpad.
+
+The [third raw run](profile-run-3.tar.gz) and [hash index](profile-run-3-index.json)
+retain the successful real-adapter rerun on reset-reference main `52ab5f6`.
+All four focused cases passed: 12 valid reports, 1,850 observations, seven
+rejected inputs, and identical canonical capture digests across four modes.
+The conservative engine identity changed; all independently authored gameplay
+expectations remained unchanged. The final full-suite and review receipts remain
+in the issue workpad/PR.
