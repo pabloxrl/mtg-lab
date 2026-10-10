@@ -124,3 +124,13 @@ real-duration collector command cover it. The repair preserves explicitly
 declared report schemas while retaining the legacy v1 envelope for unversioned
 command results. Full validation and independent review must run again after
 this correction; the earlier review is not approval of the corrected candidate.
+
+CI exposed a launcher-only defect: the toolchain image declares a controller
+root at `/opt/mtg-lab`, but mounts the tested checkout at `/workspace`. The new
+Python adapter test incorrectly used that absent controller path when no lock
+was inherited. [The launcher regression](launcher-red.txt) records an intended
+path assertion failure. The adapter now invokes this checkout's existing lock
+wrapper; its shared lock location, inherited-lock handling and real native
+execution remain unchanged. This supplemental command-construction probe mocks
+no rules engine; the four real-artifact checks remain mandatory. No workflow,
+image, lock implementation or CI policy changes are required.

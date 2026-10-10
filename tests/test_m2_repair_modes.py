@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -21,8 +22,7 @@ class FourModeContract(unittest.TestCase):
                    'four_modes_export_native_contract', '--', '--nocapture']
         fd = env.get('MTG_SYMPHONY_LOCK_FD')
         if fd is None:
-            control = Path(env.get('SYMPHONY_CONTROL_ROOT', ROOT))
-            command = [sys.executable, str(control / 'scripts/symphony/resource_lock.py'),
+            command = [sys.executable, str(ROOT / 'scripts/symphony/resource_lock.py'),
                        'heavy', '--', *command]
         run = subprocess.run(command, cwd=ROOT, env=env, capture_output=True, text=True,
                              pass_fds=() if fd is None else (int(fd),), timeout=1800)
@@ -78,6 +78,23 @@ class FourModeContract(unittest.TestCase):
 
 
 class FourModeArithmetic(unittest.TestCase):
+    def test_exporter_lock_launcher_uses_checkout_in_toolchain_image(self):
+        # The CI toolchain has a controller-root default but mounts this checkout
+        # at /workspace; its shared lock implementation lives in the checkout.
+        env = dict(os.environ, SYMPHONY_CONTROL_ROOT='/opt/mtg-lab')
+        env.pop('MTG_SYMPHONY_LOCK_FD', None)
+        failed = subprocess.CompletedProcess([], 1, '', 'intentional launcher probe')
+        with mock.patch.dict(os.environ, env, clear=True), mock.patch.object(
+                subprocess, 'run', return_value=failed) as run:
+            try:
+                with self.assertRaisesRegex(AssertionError, 'intentional launcher probe'):
+                    FourModeContract.setUpClass()
+                command = run.call_args.args[0]
+                self.assertEqual(command[1], str(ROOT / 'scripts/symphony/resource_lock.py'))
+                self.assertEqual(command[2:4], ['heavy', '--'])
+            finally:
+                FourModeContract.directory.cleanup()
+
     def test_new_version_preserves_independent_window_ledger(self):
         # B020/#216's independent 60 completions per 30s, five windows.
         from test_scalar_artifact import example
