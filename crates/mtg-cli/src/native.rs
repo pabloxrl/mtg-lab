@@ -271,6 +271,21 @@ fn elapsed(t: &mut Option<&mut PolicyTiming>, span: Stamp, failed: bool) -> io::
     Ok(())
 }
 
+// Replay retention and durable publication are benchmark denominator subsets,
+// not additional sampled phase observations. Reuse the checked shared clock
+// only for the explicitly requested detailed benchmark timing contract.
+fn benchmark_stamp(t: &mut Option<&mut PolicyTiming>) -> io::Result<Option<u128>> {
+    t.as_mut()
+        .filter(|t| t.legacy && t.detailed)
+        .map(|t| t.now())
+        .transpose()
+}
+fn benchmark_elapsed(t: &mut Option<&mut PolicyTiming>, start: Option<u128>) -> io::Result<u128> {
+    start.map_or(Ok(0), |start| {
+        t.as_mut().unwrap().now().map(|end| end - start)
+    })
+}
+
 pub(crate) fn run_instrumented(
     c: &simulate::Config,
     w: &mut impl Write,
@@ -529,7 +544,7 @@ pub(crate) fn run_instrumented(
         let replay_start = if timing.as_ref().is_some_and(|t| t.replay.is_some())
             && n.instrumentation == mtg_core::metrics::Mode::FullReplay
         {
-            stamp(&timing, true)
+            benchmark_stamp(&mut timing)?
         } else {
             None
         };
@@ -567,7 +582,7 @@ pub(crate) fn run_instrumented(
         } else {
             None
         };
-        let replay_duration = elapsed(&timing, replay_start);
+        let replay_duration = benchmark_elapsed(&mut timing, replay_start)?;
         if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
             r.elapsed_ns += replay_duration;
         }
@@ -665,14 +680,14 @@ pub(crate) fn run_instrumented(
     }
     let mut publication = None;
     if let Some(session) = &mut capture {
-        let publication_start = stamp(&timing, true);
+        let publication_start = benchmark_stamp(&mut timing)?;
         let (row, stop, failed) = session.publish(
             c.capture.as_ref().unwrap(),
             counts.started,
             &mut control,
             hook,
         );
-        let duration = elapsed(&timing, publication_start);
+        let duration = benchmark_elapsed(&mut timing, publication_start)?;
         if let Some(t) = timing.as_mut() {
             t.publication_ns += duration;
         }
