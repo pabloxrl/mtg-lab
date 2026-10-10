@@ -373,3 +373,87 @@ fn four_modes_fixed_semantic_script_keeps_literal_combat_and_concession_accounti
         }
     }
 }
+
+#[test]
+fn four_modes_capture_interruption_preserves_signal_and_owner_accounting() {
+    for signal in [signal_hook::consts::SIGINT, signal_hook::consts::SIGTERM] {
+        for boundary in ["before_reset", "after_reset", "before_publication"] {
+            let roots = Roots::new();
+            let mut cfg = config(Mode::FullReplay);
+            cfg.capture = Some(roots.capture());
+            let c = cfg.run_config_at(0).unwrap();
+            let flag = Rc::new(AtomicUsize::new(if boundary == "before_reset" {
+                signal as usize
+            } else {
+                0
+            }));
+            let clock_flag = flag.clone();
+            let ticks = Cell::new(0u128);
+            let now: Rc<dyn Fn() -> u128> = Rc::new(move || {
+                let n = ticks.get();
+                ticks.set(n + 7);
+                if boundary == "after_reset" && n >= 21 {
+                    clock_flag.store(signal as usize, Ordering::Relaxed);
+                }
+                n
+            });
+            let timing = native::PolicyTiming {
+                replay: Some(native::RetainedReplay::new(67_108_864)),
+                detailed: true,
+                clock: now.clone(),
+                ..Default::default()
+            };
+            let w = attempt_observed(
+                &c,
+                now,
+                u128::MAX,
+                flag.as_ref(),
+                timing,
+                &mut |_| {
+                    if boundary == "before_publication" {
+                        flag.store(signal as usize, Ordering::Relaxed);
+                    }
+                },
+                &mut |_, _| Ok(()),
+            );
+            assert_eq!(
+                w.stop_code,
+                128 + signal,
+                "{boundary}: capture must preserve the signal"
+            );
+            assert_eq!(w.failed, 0, "an interrupted owner is not a failed owner");
+            assert_eq!(w.started, u64::from(boundary != "before_reset"));
+            assert_eq!(w.unfinished, u64::from(boundary == "after_reset"));
+            assert_eq!(w.completed, u64::from(boundary == "before_publication"));
+            let e = w.execution.unwrap();
+            assert_eq!(e.not_started, u64::from(boundary == "before_reset"));
+            assert_eq!(e.publication_failed, 1);
+            for entry in fs::read_dir(roots.0.join("data")).unwrap() {
+                assert!(!entry.unwrap().path().join("manifest.json").exists());
+            }
+        }
+    }
+}
+
+#[test]
+fn four_modes_duplicate_fields_remain_strict_for_both_versions() {
+    for schema in [1, 2] {
+        let mut cfg = config(Mode::Off);
+        if schema == 1 {
+            cfg.schema_version = 1;
+            cfg.workload = FULL_POOL.into();
+        }
+        let mut bytes = serde_json::to_string(&cfg).unwrap();
+        bytes.pop();
+        bytes.push_str(&format!(",\"schema_version\":{schema}}}"));
+        let result = run_with_clock(
+            bytes.as_bytes(),
+            &AtomicUsize::new(signal_hook::consts::SIGTERM as usize),
+            clock(7),
+        );
+        assert!(
+            result.is_err(),
+            "duplicate fields must retain strict deserialization"
+        );
+    }
+}

@@ -399,17 +399,21 @@ fn attempt_observed(
             out.error = Some("incomplete full replay".into());
         }
         if e.replay_failed > 0 || e.publication_failed > 0 {
-            out.completed = 0;
-            out.completed_decisions = 0;
-            out.wins = [0; 2];
-            out.draws = 0;
-            if out.started > 0 {
-                out.failed = 1;
-                out.unfinished = 0;
-                out.truncated = 0;
-                out.concessions = 0;
+            // Publication interrupted by a signal is unsuccessful, but it must
+            // retain the signal code and the owner's actual terminal state.
+            if !matches!(out.stop_code, 130 | 143) {
+                out.completed = 0;
+                out.completed_decisions = 0;
+                out.wins = [0; 2];
+                out.draws = 0;
+                if out.started > 0 {
+                    out.failed = 1;
+                    out.unfinished = 0;
+                    out.truncated = 0;
+                    out.concessions = 0;
+                }
+                out.stop_code = 3;
             }
-            out.stop_code = 3;
             out.error = Some("replay or publication failed".into());
         }
     }
@@ -490,7 +494,7 @@ fn run_with_clock(
     {
         return Err((2, "unknown v1 configuration field".into()));
     }
-    let config: Config = serde_json::from_value(raw_config).map_err(|e| (2, e.to_string()))?;
+    let config: Config = serde_json::from_slice(bytes).map_err(|e| (2, e.to_string()))?;
     config.validate().map_err(|e| (2, e))?;
     let mut c = config.run_config_at(0).map_err(|e| (2, e))?;
     let replay = (config.workload == FOUR_MODES).then(|| config.replay.clone().unwrap_or_default());
@@ -726,7 +730,14 @@ mod tests {
                 assert_eq!(run.first_episode, ordinal);
                 assert_eq!(run.game.starting_seat, (ordinal % 2) as u8);
                 assert_eq!(run.max_decisions, 20_000);
-                assert_eq!(run.native.unwrap().max_records.get(), 20_000);
+                let native = run.native.unwrap();
+                assert_eq!(native.max_records.get(), 20_000);
+                if mode == "sampled_trace" {
+                    let trace = native.trace.unwrap();
+                    assert_eq!((trace.every.get(), trace.capacity), (64, 256));
+                } else {
+                    assert!(native.trace.is_none());
+                }
             }
         }
     }
