@@ -237,3 +237,30 @@ terminal-game admission, full-game agreement or M2 completion is claimed.
 
 Retained red assertions, acceptance receipts and limitations are in the
 [spell-prefix evidence report](evidence/spells-prefix/README.md).
+
+## Version 5 played activation prefixes
+
+The test-only `activations` family extends the same runner while retaining
+reset, mulligan, priority and spells versions. Six normal-play schedules reach
+Elf, Druid, Cavalry, Shivan and Invoker through actual land plays and creature
+casts. Explicit source choices cover empty and floating pools, Cavalry haste,
+Shivan single/repeated activations, Invoker targeting/payment and surplus mana.
+
+Native reservations, source/target incarnations, distinct raw stack objects,
+actual consumed choices and turn-scoped effects are retained. XMage exposes its
+actual target/payment callbacks and `EndOfTurn` effects. Native cancellation is
+checked at every continuation; reference cancellation at every actual callback.
+Raw staging differs and is asserted separately, with committed states compared.
+See the [oracle and limits](../fixtures/reference/full-pool-activations-oracle.md)
+and [acceptance evidence](evidence/activation-prefix/README.md).
+
+```sh
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 -m unittest discover -s tests -p 'test_m2_repair_activations.py'
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family activations --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/activations-run-1.json
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family activations --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/activations-run-2.json
+```
+
+Outputs are privileged diagnostic artifacts, separate from player captures.
+Unsupported callbacks and missing observations fail explicitly. These are bounded
+prefixes ending before cleanup, not complete games, a complete legal-set comparison,
+a general ability language or an M2 gate verdict.
