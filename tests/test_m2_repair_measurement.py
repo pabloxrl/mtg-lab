@@ -17,7 +17,8 @@ POLICIES = ('heuristic-activation-mana-v1', 'legal-random-activation-mana-v1')
 
 def literal_reports():
     # Independent ledger: 60 natural completions + one unfinished per 30s.
-    # Full replay has 60 verified complete records and one explicitly incomplete.
+    # Full replay requires every started recording complete; unfinished work
+    # remains in the other modes' literal accounting controls.
     reports = []
     for policy in POLICIES:
         for encoded in (False, True):
@@ -26,17 +27,24 @@ def literal_reports():
                 r.update(schema_version=2, workload='scalar-four-modes-v1')
                 r['pins']['config'].update(schema_version=2, workload=r['workload'], policies=[policy]*2,
                     master_seed=42, policy_seed=42, instrumentation=mode, encoding=encoded)
+                r['pins']['resolved_episode']['policies']=[policy]*2
+                r['pins']['resolved_episode']['native']['instrumentation']=mode
                 r['hardware'] = dict(binary_sha256='1'*64, source_sha256='2'*64, cpu_affinity='0',rustc='pinned',target='test',opt_level='3',rustflags='',debug_assertions=False)
                 r['pins']['execution'] = dict(replay=dict(max_bytes=67108864, max_records=20000,
                     persistence='in_memory'), trace=dict(every=64, capacity=256) if mode=='sampled_trace' else None,
                     capture='none', sampled_timing='not_measured')
                 r['collection'].update(before=dict(affinity=[0],cpu_quota='400000 100000',memory_limit='7516192768'),
                     after=dict(affinity=[0],cpu_quota='400000 100000',memory_limit='7516192768'))
-                for w in [r['warmup'], *r['windows']]:
+                for i,w in enumerate([r['warmup'], *r['windows']]):
                     w['execution'] = dict(not_started=0,trace_selected=0,trace_retained=0,trace_dropped=0,
                         replay_verified=60 if mode=='full_replay' else 0,replay_bytes=600 if mode=='full_replay' else 0,
-                        replay_failed=0,replay_incomplete=1 if mode=='full_replay' else 0,replay_ns=0,
+                        replay_failed=0,replay_incomplete=0,replay_ns=0,
                         publication_ns=0,published=0,publication_failed=0)
+                    if mode=='full_replay':
+                        w.update(unfinished=0,started=60,attempts=60,completed_decisions=600,
+                                 mean_decisions_per_completed_game=10.0,first_episode=60*i)
+                        w['row_attempts']=[sum(1 for n in range(60*i,60*(i+1)) if n%8==j) for j in range(8)]
+                        w['row_completed']=w['row_attempts'].copy()
                     if encoded:
                         w['phases'].update(encoding_ns=1, encoded_bytes=600)
                     if mode!='off':
@@ -57,7 +65,7 @@ class MeasurementArithmetic(unittest.TestCase):
         summary=self.api().validate_campaign(literal_reports())
         self.assertEqual(summary['completed'], 4800)
         self.assertEqual(summary['elapsed_ns'], 2400_000_000_000)
-        self.assertEqual(summary['unfinished'], 80)
+        self.assertEqual(summary['unfinished'], 60)
         self.assertEqual(len(summary['configurations']), 16)
         for group in summary['configurations'].values():
             self.assertEqual(group['games_per_second']['samples'], [2.0]*5)
@@ -65,7 +73,7 @@ class MeasurementArithmetic(unittest.TestCase):
 
     def test_missing_contract_and_tampered_accounting_rejected(self):
         for mutation in ('mode','policy','row','window','horizon','failed','denominator','replay','trace',
-                         'capacity','persistence','binary','extension','encoding','resources','flags','sampling'):
+                         'capacity','persistence','binary','extension','encoding','resources','flags','sampling','resolved_policy','resolved_mode','empty_encoding'):
             reports=literal_reports(); r=reports[-1]; w=r['windows'][0]
             if mutation=='mode': reports=[r for r in reports if r['pins']['config']['instrumentation']!='off']
             elif mutation=='policy': reports=reports[:8]
@@ -83,9 +91,54 @@ class MeasurementArithmetic(unittest.TestCase):
             elif mutation=='encoding': w['phases']['encoding_ns']=None
             elif mutation=='flags': del r['hardware']['rustflags']
             elif mutation=='sampling': del r['pins']['execution']['sampled_timing']
+            elif mutation=='resolved_policy': r['pins']['resolved_episode']['policies']=[POLICIES[0]]*2
+            elif mutation=='resolved_mode': r['pins']['resolved_episode']['native']['instrumentation']='off'
+            elif mutation=='empty_encoding': w['phases'].update(encoding_ns=0,encoded_bytes=0)
             else: r['collection']['after']['memory_limit']='max'
             with self.subTest(mutation=mutation), self.assertRaises(ValueError):
                 self.api().validate_campaign(reports)
+
+    def test_consistently_counted_incomplete_replay_still_rejects(self):
+        reports=literal_reports(); r=reports[-1]; w=r['windows'][-1]
+        # No count mismatch: replace one natural completion with one unfinished
+        # replay and independently recompute every affected count/rate.
+        w['completed']-=1; w['wins'][0]-=1; w['unfinished']+=1
+        w['row_completed'][w['first_episode']%8]-=1
+        w['execution']['replay_verified']-=1; w['execution']['replay_incomplete']+=1
+        w['completed_decisions']=590; w['completed_games_per_second']=59/30
+        w['mean_decisions_per_completed_game']=590/59
+        samples=[2.0]*4+[59/30]
+        r['completed_games_per_second']=dict(samples=samples,mean=sum(samples)/5,
+                                           p50=2.0,p95=2.0,min=59/30,max=2.0)
+        with self.assertRaisesRegex(ValueError,'incomplete'):
+            self.api().validate_campaign(reports)
+
+    def test_slow_warmup_does_not_invent_a_minimum_game_rate(self):
+        reports=literal_reports(); r=reports[-1]; w=r['warmup']
+        w.update(attempts=1,started=1,completed=1,wins=[1,0],decisions=10,completed_decisions=10)
+        w['row_attempts']=[1]+[0]*7; w['row_completed']=[1]+[0]*7
+        w['counters'].update(decisions=10,logical_actions=10)
+        w['execution'].update(replay_verified=1,replay_bytes=10)
+        for i,w in enumerate(r['windows']):
+            w['first_episode']=1+60*i
+            w['row_attempts']=[sum(1 for n in range(1+60*i,1+60*(i+1)) if n%8==j) for j in range(8)]
+            w['row_completed']=w['row_attempts'].copy()
+        try:
+            summary=self.api().validate_campaign(reports)
+        except ValueError as error:
+            self.fail(f'B020 requires 10s warmup, not eight warmup completions: {error}')
+        self.assertEqual(summary['completed'],4800)
+
+    def test_off_resolved_mode_uses_declared_serde_omission(self):
+        reports=literal_reports()
+        for r in reports:
+            if r['pins']['config']['instrumentation']=='off':
+                del r['pins']['resolved_episode']['native']['instrumentation']
+        try:
+            summary=self.api().validate_campaign(reports)
+        except ValueError as error:
+            self.fail(f'native Config explicitly omits Off; this must remain valid: {error}')
+        self.assertEqual(summary['completed'],4800)
 
     def test_variance_rule_is_literal_population_cv(self):
         api=self.api()

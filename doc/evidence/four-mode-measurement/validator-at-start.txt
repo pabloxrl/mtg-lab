@@ -59,9 +59,8 @@ def _campaign(reports):
         require(e['capture']=='none', 'throughput campaign capture pin')
         require(c['warmup_seconds']==10 and c['window_seconds']==30, 'frozen duration')
         require(c['master_seed']==42 and c['policy_seed']==42, 'frozen seed')
-        require(all(sum(w['row_attempts'][row] for w in r['windows'])>0 for row in range(8)),
-                'all eight rows must be observed in measured windows')
         for w in [r['warmup'],*r['windows']]:
+            require(all(n>0 for n in w['row_attempts']), 'all eight rows must be observed per interval')
             if k[1]: require(w['phases']['encoded_bytes']>0, 'missing actual encoded bytes')
             if k[2]=='full_replay':
                 require(w['execution']['replay_incomplete']==0, 'incomplete promised replay')

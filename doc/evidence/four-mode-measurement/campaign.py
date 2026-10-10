@@ -18,7 +18,10 @@ def run(binary, destination):
     binary=Path(binary).resolve()
     cpu=min(os.sched_getaffinity(0));os.sched_setaffinity(0,{cpu})
     manifest=dict(schema_version=1,plan_sha256=digest(Path(__file__).with_name('plan.md')),
-                  script_sha256=digest(Path(__file__)), binary_sha256=digest(binary),
+                  script_sha256=digest(Path(__file__)),
+                  validator_sha256=digest(ROOT/'scripts/m2_measurement.py'),
+                  collector_sha256=digest(ROOT/'scripts/scalar_modes.py'),
+                  binary_sha256=digest(binary),
                   started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),system=system(),runs=[])
     path=directory/'campaign.json'
     def save(): path.write_text(json.dumps(manifest,indent=2)+'\n')
