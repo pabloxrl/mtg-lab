@@ -53,13 +53,16 @@ struct PlayedClient {
 }
 impl PlayedClient {
     fn new(g: &Game, tape: &Tape<'_>, case: &Value) -> Result<Self, String> {
+        let activations = case["stop"].as_str().is_some_and(|s|s.starts_with("activations/"));
         let spells = case["stop"]
             .as_str()
             .is_some_and(|s| s.starts_with("resolved/"));
         let hash = |v: &Value| format!("{:x}", Sha256::digest(serde_json::to_vec(v).unwrap()));
         let header = trajectory::Header {
             id: trajectory::EpisodeKey {
-                run: if spells {
+                run: if activations {
+                    "27300000-0000-4000-8000-000000000001"
+                } else if spells {
                     "27200000-0000-4000-8000-000000000001"
                 } else {
                     "27100000-0000-4000-8000-000000000001"
@@ -78,13 +81,17 @@ impl PlayedClient {
             deck_hashes: [hash(&case["decks"][0]), hash(&case["decks"][1])],
             config_hash: hash(&json!({"starting_seat":case["starter"],"decks":case["decks"]})),
             policies: [
-                if spells {
+                if activations {
+                    "strict-activations-tape-v5"
+                } else if spells {
                     "strict-spells-tape-v4"
                 } else {
                     "strict-priority-tape-v3"
                 }
                 .into(),
-                if spells {
+                if activations {
+                    "strict-activations-tape-v5"
+                } else if spells {
                     "strict-spells-tape-v4"
                 } else {
                     "strict-priority-tape-v3"
@@ -94,7 +101,9 @@ impl PlayedClient {
             starting_seat: case["starter"].as_u64().unwrap() as u8,
             limits: trajectory::Limits::default(),
             restricted_replay: Some(
-                if spells {
+                if activations {
+                    "privileged-activations-input"
+                } else if spells {
                     "privileged-spells-input"
                 } else {
                     "privileged-priority-input"

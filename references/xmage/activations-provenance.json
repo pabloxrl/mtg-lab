@@ -1,0 +1,15 @@
+{
+  "scope": "Source-inspected strict activation and mana/target callbacks; original test bridge, no adapted upstream tests.",
+  "consulted_sources": {
+    "Mage.Sets/src/mage/cards/a/AxgardCavalry.java": "f0f6ad2cc9a5e9d7e98e50b31a980734fc1e766540e9f40d41d1227229a2aad8",
+    "Mage.Sets/src/mage/cards/s/ShivanDragon.java": "145e950190f93febc48e3535ad37a730407cd9ad8d0093e2bc74de70bbe2741a",
+    "Mage.Sets/src/mage/cards/w/WildheartInvoker.java": "4188099410f97b6b5f5dfd1991ea5f22ccbce0c50ec796aecb29b4cf33e85f87",
+    "Mage.Sets/src/mage/cards/l/LlanowarElves.java": "dadbb73c8c0816bee4e46eeeeabeee565b3f26c96dfd65b92db5b389d5d37210",
+    "Mage.Sets/src/mage/cards/d/DruidOfTheCowl.java": "8c5f9ebacd388845346f97c7ea22a3333c121b6d7ad657d59ca76e13b3c53b1e",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage/src/main/java/mage/game/stack/StackAbility.java": "b0f26eb28c42e2e5ea7aaac45cdb926a2ccd77cf5e7feff09961b8d4d4db0d23",
+    "Mage/src/main/java/mage/game/permanent/PermanentImpl.java": "5b72e235e1fe716b7337ffe76539d7fd79a5a9de1c54e6f343426126aeec6fe1",
+    "Mage/src/main/java/mage/abilities/ActivatedAbility.java": "f1d5f9e5167bacdfd4f2a3362e1904847ae16f03dcf4290177f131c5258e68b3",
+    "Mage/src/main/java/mage/abilities/AbilityImpl.java": "dac914825d442d3300f3b18788ba80371c46bde1e32dac706f582d12c830a980"
+  }
+}
