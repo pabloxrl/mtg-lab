@@ -7,7 +7,7 @@ or skipped. The [complete log](torture.log.gz) includes normal
 formatting, Clippy, documentation, program and catalog checks. New normal
 coverage is **six Python tests and one Rust test**, executing six real prefixes,
 760 checkpoints, repeated runs, same-game stop/continuation and twenty rejected
-tapes. Base: `c779b190ed28ff845741c4ce1149f71e55ec675b`. This report records local
+tapes. Base: `09a86b6c1fa763e5aae92f142099b72e5d837d16`. This report records local
 acceptance; independent review, protected merge and exact-main CI receipts belong
 in the PR and [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/271#issuecomment-6096816121).
 Delivery completion remains conditional on those receipts.
@@ -15,6 +15,9 @@ The [final focused run](focused-final.log) discovers all six new Python tests.
 Earlier [pre-integration](pre-integration-torture.log.gz) and
 [intermediate integrated](intermediate-integrated-torture.log.gz) full runs are
 retained separately; the latter preceded the source-inventory regression.
+The [complete pre-audit-integration run](pre-audit-integration-torture.log.gz)
+also passed with all six new tests. The final log repeats full torture after
+integrating documentation-only audit PR #289; reference source hashes remained unchanged.
 
 Both required actual pinned native/XMage priority executions agree:
 [run 1](priority-run-1.json), [run 2](priority-run-2.json). Each runs six cases
