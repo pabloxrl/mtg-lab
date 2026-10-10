@@ -1,0 +1,42 @@
+{
+  "issue": 24,
+  "audit_commit": "ff4d0d455209c6a3dda2907e011cb25c52b1cc43",
+  "files": [
+    {
+      "source": "doc/evidence/m2-coverage-audit/README.md",
+      "supplied": "gh24/README.md",
+      "bytes": 9864,
+      "sha256": "4c3403ed6340c4e54f6c3429c66168f0287a35568323c80731bbd875c4d8e061"
+    },
+    {
+      "source": "doc/evidence/m2-coverage-audit/catalog-inventory.json",
+      "supplied": "gh24/catalog-inventory.json",
+      "bytes": 257362,
+      "sha256": "0ed4a3255cd3f8993d6a96e6f065d0ae5a8799b71dfc415edfe8d2ef388fe3ec"
+    },
+    {
+      "source": "doc/evidence/m2-coverage-audit/dependencies.json",
+      "supplied": "gh24/dependencies.json",
+      "bytes": 4285,
+      "sha256": "fcf84faa581effa2feb7895f965eb3301f9dec46e728d960b17916f1cc4773b3"
+    },
+    {
+      "source": "doc/evidence/m2-coverage-audit/source-hashes.json",
+      "supplied": "gh24/source-hashes.json",
+      "bytes": 1632,
+      "sha256": "a8a21c7a798eddcf8a115749664666d38dc95fcffe58d48782efe18b40364200"
+    },
+    {
+      "source": ".agent-artifacts/review.json",
+      "supplied": "gh24/review.json",
+      "bytes": 584,
+      "sha256": "e7cbb614e38c6562e5b03229f424e5eed30521014c7a53c960b11e2e7c20dace"
+    },
+    {
+      "source": ".agent-artifacts/gh24-torture.log",
+      "supplied": "gh24/gh24-torture.log",
+      "bytes": 145660,
+      "sha256": "f25d86814a9a3d61f7b52ebad66c9b842674fb7236d93dcbe163617982b4dcaa"
+    }
+  ]
+}

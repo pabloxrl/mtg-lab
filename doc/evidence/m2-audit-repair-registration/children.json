@@ -1,0 +1,250 @@
+[
+  {
+    "issue": 269,
+    "id": 5787062406,
+    "key": "reset",
+    "title": "Occurrence-preserving native/XMage normal reset",
+    "depends_on": [
+      268,
+      64
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_reset.py'"
+  },
+  {
+    "issue": 270,
+    "id": 5787062484,
+    "key": "mulligan",
+    "title": "Strict native/XMage London chance and choice chronology",
+    "depends_on": [
+      268,
+      269,
+      65
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_mulligan.py'"
+  },
+  {
+    "issue": 271,
+    "id": 5787062582,
+    "key": "priority",
+    "title": "Strict played priority, land and creature-cast transcript prefixes",
+    "depends_on": [
+      268,
+      270,
+      208
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_priority.py'"
+  },
+  {
+    "issue": 272,
+    "id": 5787062660,
+    "key": "spells",
+    "title": "Strict played spell modes, targets, discard costs and token identities",
+    "depends_on": [
+      268,
+      271,
+      209,
+      212
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_spells.py'"
+  },
+  {
+    "issue": 273,
+    "id": 5787062736,
+    "key": "activations",
+    "title": "Strict played creature mana and activated-ability transcript prefixes",
+    "depends_on": [
+      268,
+      271,
+      254
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_activations.py'"
+  },
+  {
+    "issue": 274,
+    "id": 5787062825,
+    "key": "triggers",
+    "title": "Strict played cast and ETB trigger ordering and source identities",
+    "depends_on": [
+      268,
+      272,
+      211
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_triggers.py'"
+  },
+  {
+    "issue": 275,
+    "id": 5787062942,
+    "key": "combat",
+    "title": "Strict played attackers, blockers and modern damage-choice transcripts",
+    "depends_on": [
+      268,
+      271,
+      210
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_combat.py'"
+  },
+  {
+    "issue": 276,
+    "id": 5787063119,
+    "key": "cleanup",
+    "title": "Strict played cleanup, discard and rules-terminal checkpoints",
+    "depends_on": [
+      268,
+      272,
+      257
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_cleanup.py'"
+  },
+  {
+    "issue": 277,
+    "id": 5787063402,
+    "key": "admission",
+    "title": "Admit the initial M2 native/XMage normal-reset terminal-game set",
+    "depends_on": [
+      268,
+      273,
+      274,
+      275,
+      276
+    ],
+    "requirements": [
+      "R0002-B010",
+      "R0002-B011",
+      "R0002-B026",
+      "R0002-B028",
+      "R0002-B030"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_admission.py'"
+  },
+  {
+    "issue": 278,
+    "id": 5787063509,
+    "key": "timing",
+    "title": "Bounded scalar sampled latency collection and summaries",
+    "depends_on": [
+      268,
+      214,
+      215,
+      216
+    ],
+    "requirements": [
+      "R0002-B008",
+      "R0002-B020",
+      "R0002-B021"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_timing.py'"
+  },
+  {
+    "issue": 279,
+    "id": 5787063582,
+    "key": "modes",
+    "title": "Versioned four-mode scalar benchmark execution contract",
+    "depends_on": [
+      268,
+      215,
+      216,
+      208
+    ],
+    "requirements": [
+      "R0002-B008",
+      "R0002-B019",
+      "R0002-B020",
+      "R0002-B021"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_modes.py'"
+  },
+  {
+    "issue": 280,
+    "id": 5787063675,
+    "key": "profile",
+    "title": "Validated fixed-trace scalar application, legality and effect-dispatch profiling",
+    "depends_on": [
+      268,
+      208,
+      216
+    ],
+    "requirements": [
+      "R0002-B008",
+      "R0002-B014",
+      "R0002-B020"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_profile.py'"
+  },
+  {
+    "issue": 281,
+    "id": 5787063765,
+    "key": "measurement",
+    "title": "Measure the delivered four-mode scalar and profile contracts",
+    "depends_on": [
+      268,
+      278,
+      279,
+      280,
+      217
+    ],
+    "requirements": [
+      "R0002-B008",
+      "R0002-B014",
+      "R0002-B019",
+      "R0002-B020",
+      "R0002-B021"
+    ],
+    "focused": "python3 -m unittest discover -s tests -p 'test_m2_repair_measurement.py'"
+  }
+]
