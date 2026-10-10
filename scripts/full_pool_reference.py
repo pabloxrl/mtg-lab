@@ -1,4 +1,4 @@
-"""Versioned test-only native/XMage prefixes; currently reset only."""
+"""Versioned test-only native/XMage prefixes; reset and London opening families."""
 import argparse
 import copy
 import json
@@ -90,16 +90,22 @@ def compare(actual):
         raise ValueError('first divergence: ' + json.dumps(diff, sort_keys=True))
 
 
-def native(folder):
+def native(folder, family='reset'):
     """Run the real Rust test client, including its runtime negative inputs."""
+    if family == 'reset':
+        family_module = sys.modules[__name__]
+    elif family == 'mulligan':
+        import mulligan_reference as family_module
+    else:
+        raise ValueError('unsupported family')
     folder = folder.resolve()
     folder.mkdir(parents=True, exist_ok=True)
     output = folder / 'native.json'
     output.unlink(missing_ok=True)
     negatives = folder / 'negative-inputs.json'
-    negatives.write_text(json.dumps(negative_inputs(json.loads(FIXTURE.read_text()))))
-    env = dict(os.environ, MTG_FULL_POOL_OUTPUT=str(output), MTG_FULL_POOL_NEGATIVES=str(negatives))
-    command = ['cargo', 'test', '-p', 'mtg-core', '--locked', '--lib', 'game::full_pool_reference_tests::full_pool_reset_literal_checkpoints', '--', '--exact']
+    negatives.write_text(json.dumps(family_module.negative_inputs(json.loads(family_module.FIXTURE.read_text()))))
+    env = dict(os.environ, MTG_FULL_POOL_OUTPUT=str(output), MTG_FULL_POOL_NEGATIVES=str(negatives), MTG_FULL_POOL_FAMILY=family)
+    command = ['cargo', 'test', '-p', 'mtg-core', '--locked', '--lib', 'game::full_pool_reference_tests::full_pool_' + family + '_literal_checkpoints', '--', '--exact']
     # Torture already holds the shared lock; do not deadlock by reacquiring it.
     fd = env.get('MTG_SYMPHONY_LOCK_FD')
     pass_fds = ()
@@ -122,16 +128,19 @@ def native(folder):
             raise ValueError('native client failed: ' + (folder / 'native.log').read_text()[-7000:]) from error
     require(output.exists(), '/native missing observations')
     result = json.loads(output.read_text())
-    compare(result['checkpoints'])
+    family_module.compare(result['checkpoints'])
     return result
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--family', choices=['reset'], required=True)
+    parser.add_argument('--family', choices=['reset', 'mulligan'], required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
+    if args.family == 'mulligan':
+        import mulligan_reference
+        return mulligan_reference.run(args)
     output = args.output.resolve()
     output.parent.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)

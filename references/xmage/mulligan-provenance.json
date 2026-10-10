@@ -1,0 +1,14 @@
+{
+  "origin": "Original CR 103.5 ledger and bridge, no copied upstream scenario.",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "notice": "UPSTREAM-LICENSE.txt",
+  "consulted_sources": {
+    "Mage/src/main/java/mage/game/mulligan/LondonMulligan.java": "abea450526a3ebcfe6d29c9a52656e474f79f8b6e60d9bb74639eb6083c5b80b",
+    "Mage/src/main/java/mage/game/mulligan/Mulligan.java": "8753cf8165f4a71aedd2e1029c6783bc99e8ba8ef87997dd3ca081ac0c8d32db",
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/target/Target.java": "bfa4bcb195f5bc43a53e61baf312f392c782fd177d36c4b232e4146156a6b916",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
+    "Mage.Tests/src/test/java/org/mage/test/serverside/base/CardTestPlayerBase.java": "7aa7a03ab7123e53d1662e05c24b0a637a4a3871c96ede79b7749c1c63034d4d"
+  },
+  "scope": "Normal full-deck reset, independent strict chance/choice sequences through first upkeep. Native redraws all seats before bottom choices; pinned XMage completes each seat serially. Per-player boundaries align; raw callback scheduling remains distinct and retained."
+}
