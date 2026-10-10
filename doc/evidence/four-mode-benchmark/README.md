@@ -114,3 +114,13 @@ The unchanged rules/reference basis remains the delivered
 and [#215 trace/replay receipt](https://github.com/pabloxrl/mtg-lab/issues/215#issuecomment-6079735470).
 No new reference-adapter execution or rules agreement is claimed for clock,
 serialization retention or artifact arithmetic.
+
+
+The real command-dispatch regression subsequently caught the outer CLI envelope
+overwriting schema 2 with schema 1. [Compiled routing red](routing-red.txt) records
+the literal `1 != 2` assertion on candidate `2c7c6ab`. Native execution/export
+checks had bypassed that outer envelope; the new dispatcher test and documented
+real-duration collector command cover it. The repair preserves explicitly
+declared report schemas while retaining the legacy v1 envelope for unversioned
+command results. Full validation and independent review must run again after
+this correction; the earlier review is not approval of the corrected candidate.

@@ -175,7 +175,11 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
     } else {
         return Err(invalid(USAGE));
     };
-    value["schema_version"] = json!(1);
+    // Versioned command reports own their schema; the envelope supplies v1
+    // only for legacy clients that do not declare one themselves.
+    if value.get("schema_version").is_none() {
+        value["schema_version"] = json!(1);
+    }
     let mut sink: Box<dyn Write> = match output {
         Some(path) => Box::new(
             OpenOptions::new()
