@@ -1,6 +1,6 @@
 # Four-mode scalar contract — acceptance design
 
-GH-279, partial RFC 0002 B008/B019/B020/B021. Implementation pending.
+GH-279, partial RFC 0002 B008/B019/B020/B021. Implementation candidate; protected delivery and full verification pending.
 
 Independent requirements: RFC B020 requires 10s warmup and at least five 30s
 windows, normal reset and policy costs, raw distributions, failed work retained
@@ -35,9 +35,17 @@ Expected tests, independent of measured rates or engine-generated goldens:
   prove real execution. Full replay verification reconstructs the final state.
 - Literal sampling formula above checks real decision counts, retained indices,
   and drops; public artifacts contain no replay bytes or private state.
-- Zero/oversized capacities, incompatible trace settings, unknown persistence,
-  and old-version trace modes reject. Tiny valid bounds cause visible runtime
-  failure, never faster successful throughput; writer faults also fail.
+- Zero/oversized replay capacities, oversized diagnostic capacity, incompatible
+  trace settings, unknown persistence, and old-version trace modes reject.
+  Zero/tiny diagnostic buffers preserve gameplay with exact drops. Tiny replay
+  bounds cause visible failure, never faster successful throughput; writer
+  faults also fail. Successful capture must publish and reload through the
+  existing canonical validator, including instrumentation off.
+- New-version tests retain duration minima, unsupported-policy rejection, all
+  raw windows, warmup separation, zero-completion failure and signal exit codes.
+  Replay verification retains all existing pins/checkpoints/choice checks.
+  Report replay serialization/verification and canonical publication costs
+  separately, as subsets of the outer denominator.
 - Injected clocks change only measurement, never the game engine. Literal
   pre-reset/reset/failure/finalization/unfinished/overshoot costs remain counted.
 - Python normal discovery consumes real Rust-exported artifacts, validates rows,
@@ -47,3 +55,22 @@ Expected tests, independent of measured rates or engine-generated goldens:
 No rules/reference semantic boundary changes are planned; reuse #208/#215
 reference receipts. No campaign, histogram implementation, optimization, CLI
 command family, RL or M2 completion claim.
+
+Pre-implementation independent review: diagnostic capacity zero is valid under
+#215/B021 and must report drops, not fail. This correction is incorporated above;
+no existing expectation is changed. Complete implementation/review remains required.
+
+The [independent expectation review](oracle-review.txt) is preserved verbatim.
+Its diagnostic-capacity correction and required capture/qualification checks are
+incorporated in the test plan above. The initial whole-candidate review correctly
+reported the test-only commit as undeliverable; it is not an integration approval.
+
+
+Behavioral red: [the independent schema-2 window-ledger rejection](red.txt) is an
+assertion failure, not a compile/import error. It was recorded before production
+changes. The first Rust build later found a test-only reference-type error; that
+compile failure is not red evidence. The corrected first native run passed seven
+new tests, including 64 actual normal-reset mode/capture/row combinations. A
+subsequent finite-script test also retains the existing independent Growth/Bear
+Cub five-damage ledger and concession exclusion. Full normal discovery and final
+review remain required before delivery.

@@ -8,6 +8,8 @@ use std::{
     time::Instant,
 };
 
+mod modes;
+const FOUR_MODES: &str = "scalar-four-modes-v1";
 const WORKLOAD: &str = "scalar-windows-v1";
 pub(crate) const FULL_POOL: &str = "scalar-full-pool-v1";
 const ATTEMPTS: u64 = 100_000;
@@ -25,16 +27,31 @@ pub(crate) struct Config {
     instrumentation: mtg_core::metrics::Mode,
     #[serde(default)]
     encoding: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    trace: Option<mtg_core::metrics::TraceConfig>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    replay: Option<modes::ReplayConfig>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    capture: Option<crate::capture::Config>,
 }
 impl Config {
     fn validate(&self) -> Result<(), String> {
-        if self.schema_version != 1 || ![WORKLOAD, FULL_POOL].contains(&self.workload.as_str()) {
+        if !((self.schema_version == 1 && [WORKLOAD, FULL_POOL].contains(&self.workload.as_str()))
+            || (self.schema_version == 2 && self.workload == FOUR_MODES))
+        {
             return Err("incompatible scalar workload/schema version".into());
         }
-        if !matches!(
-            self.instrumentation,
-            mtg_core::metrics::Mode::Off | mtg_core::metrics::Mode::Counters
-        ) {
+        if self.workload == FOUR_MODES {
+            self.replay.clone().unwrap_or_default().validate()?;
+        } else if self.trace.is_some() || self.replay.is_some() || self.capture.is_some() {
+            return Err("v1 has no trace/replay/capture configuration".into());
+        }
+        if self.workload != FOUR_MODES
+            && !matches!(
+                self.instrumentation,
+                mtg_core::metrics::Mode::Off | mtg_core::metrics::Mode::Counters
+            )
+        {
             return Err("scalar-windows-v1 supports only off/counters instrumentation".into());
         }
         if !(10..=3600).contains(&self.warmup_seconds)
@@ -48,7 +65,7 @@ impl Config {
     fn run_config_at(&self, ordinal: u64) -> Result<simulate::Config, String> {
         let mut c = self.run_config()?;
         c.first_episode = ordinal;
-        if self.workload == FULL_POOL {
+        if [FULL_POOL, FOUR_MODES].contains(&self.workload.as_str()) {
             full_pool_row(&mut c, ordinal);
         }
         Ok(c)
@@ -65,6 +82,17 @@ impl Config {
         let n = c.native.as_mut().unwrap();
         n.policy_seed = self.policy_seed;
         n.instrumentation = self.instrumentation;
+        if self.workload == FOUR_MODES {
+            n.trace = self.trace.or_else(|| {
+                (self.instrumentation == mtg_core::metrics::Mode::SampledTrace)
+                    .then(Default::default)
+            });
+            n.max_records = self.replay.clone().unwrap_or_default().max_records;
+            c.capture = self
+                .capture
+                .as_ref()
+                .map(|v| serde_json::from_value(serde_json::to_value(v).unwrap()).unwrap());
+        }
         Ok(c)
     }
 }
@@ -107,6 +135,8 @@ struct Window {
     stop_code: i32,
     #[serde(skip_serializing_if = "Option::is_none")]
     error: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    execution: Option<modes::Execution>,
 }
 impl Window {
     fn rate(&self) -> Option<f64> {
@@ -114,6 +144,9 @@ impl Window {
             .then(|| self.completed as f64 * 1e9 / self.elapsed_ns as f64)
     }
     fn merge(&mut self, other: Self) {
+        if let Some(e) = other.execution {
+            self.execution.get_or_insert_with(Default::default).merge(e);
+        }
         for row in 0..8 {
             self.row_attempts[row] += other.row_attempts[row];
             self.row_completed[row] += other.row_completed[row];
@@ -223,12 +256,45 @@ fn attempt(
     signal: &AtomicUsize,
     encode: bool,
 ) -> Window {
-    let mut timing = native::PolicyTiming {
+    attempt_configured(c, now, deadline, signal, encode, None)
+}
+
+fn attempt_configured(
+    c: &simulate::Config,
+    now: Rc<dyn Fn() -> u128>,
+    deadline: u128,
+    signal: &AtomicUsize,
+    encode: bool,
+    replay: Option<&modes::ReplayConfig>,
+) -> Window {
+    let timing = native::PolicyTiming {
+        replay: replay.map(|r| native::RetainedReplay::new(r.max_bytes)),
         detailed: true,
         encode,
         clock: now.clone(),
         ..Default::default()
     };
+    attempt_observed(
+        c,
+        now,
+        deadline,
+        signal,
+        timing,
+        &mut |_| {},
+        &mut |_, _| Ok(()),
+    )
+}
+
+fn attempt_observed(
+    c: &simulate::Config,
+    now: Rc<dyn Fn() -> u128>,
+    deadline: u128,
+    signal: &AtomicUsize,
+    mut timing: native::PolicyTiming,
+    observe: &mut impl FnMut(&mtg_core::episode::EpisodeResult),
+    hook: &mut mtg_recorder::FileHook<'_>,
+) -> Window {
+    let versioned = timing.replay.is_some();
     let mut bytes = Vec::new();
     let mut out = Window::default();
     let mut natural = false;
@@ -236,8 +302,9 @@ fn attempt(
         c,
         &mut bytes,
         || signal_stop(signal).or_else(|| (now() >= deadline).then_some(simulate::Stop::Deadline)),
-        &mut |_, _| Ok(()),
+        hook,
         &mut |r| {
+            observe(r);
             use mtg_core::episode::Status;
             if let Status::Completed(o) = r.status() {
                 natural = natural_outcome(o);
@@ -245,6 +312,9 @@ fn attempt(
         },
         Some(&mut timing),
     );
+    if versioned {
+        out.execution = Some(modes::Execution::from_timing(&timing));
+    }
     out.policy_ns = timing.elapsed_ns;
     out.phases = timing.phases;
     // Parsing and aggregation are intentionally within the measured window too.
@@ -269,6 +339,9 @@ fn attempt(
                     out.error = Some(e.to_string());
                 }
                 Ok(rows) => {
+                    if let Some(e) = &mut out.execution {
+                        e.read_rows(&rows);
+                    }
                     let episode = rows.iter().find(|r| r["type"] == "episode");
                     if let Some(e) = episode {
                         out.started = 1;
@@ -317,16 +390,41 @@ fn attempt(
             }
         }
     }
+    if let Some(e) = &mut out.execution {
+        e.not_started = u64::from(out.started == 0);
+        if e.replay_incomplete > 0 {
+            if out.stop_code == 0 {
+                out.stop_code = 3;
+            }
+            out.error = Some("incomplete full replay".into());
+        }
+        if e.replay_failed > 0 || e.publication_failed > 0 {
+            out.completed = 0;
+            out.completed_decisions = 0;
+            out.wins = [0; 2];
+            out.draws = 0;
+            if out.started > 0 {
+                out.failed = 1;
+                out.unfinished = 0;
+                out.truncated = 0;
+                out.concessions = 0;
+            }
+            out.stop_code = 3;
+            out.error = Some("replay or publication failed".into());
+        }
+    }
+    // Retained replay bytes are dropped here, still inside the window timer.
     out
 }
 
-fn measured_matrix_window(
+fn measured_window(
     c: &mut simulate::Config,
     seconds: u64,
     now: Rc<dyn Fn() -> u128>,
     signal: &AtomicUsize,
     encode: bool,
     full_pool: bool,
+    replay: Option<&modes::ReplayConfig>,
 ) -> Window {
     let first = c.first_episode;
     let duration = seconds as u128 * 1_000_000_000;
@@ -336,7 +434,11 @@ fn measured_matrix_window(
             let ordinal = c.first_episode;
             full_pool_row(c, ordinal);
         }
-        let mut r = attempt(c, now.clone(), deadline, signal, encode);
+        let mut r = if let Some(replay) = replay {
+            attempt_configured(c, now.clone(), u128::MAX, signal, encode, Some(replay))
+        } else {
+            attempt(c, now.clone(), deadline, signal, encode)
+        };
         if full_pool {
             let row = c.first_episode as usize % 8;
             r.row_attempts[row] = 1;
@@ -380,10 +482,19 @@ fn run_with_clock(
     signal: &AtomicUsize,
     now: Rc<dyn Fn() -> u128>,
 ) -> Result<(i32, Value), (i32, String)> {
-    let config: Config = serde_json::from_slice(bytes).map_err(|e| (2, e.to_string()))?;
+    let raw_config: Value = serde_json::from_slice(bytes).map_err(|e| (2, e.to_string()))?;
+    if raw_config["schema_version"] == 1
+        && ["trace", "replay", "capture"]
+            .iter()
+            .any(|k| raw_config.get(k).is_some())
+    {
+        return Err((2, "unknown v1 configuration field".into()));
+    }
+    let config: Config = serde_json::from_value(raw_config).map_err(|e| (2, e.to_string()))?;
     config.validate().map_err(|e| (2, e))?;
     let mut c = config.run_config_at(0).map_err(|e| (2, e))?;
-    let pins = json!({"config":config,"resolved_episode":c,
+    let replay = (config.workload == FOUR_MODES).then(|| config.replay.clone().unwrap_or_default());
+    let mut pins = json!({"config":config,"resolved_episode":c,
         "deck_source_sha256":simulate::hash(include_bytes!("../../mtg-core/src/opening.rs")),
         "card_manifest_sha256":simulate::hash(include_bytes!("../../../data/cards/foundations_micro_v1.json")),
         "rules_manifest_sha256":simulate::hash(include_bytes!("../../../data/rules/cr-2026-09-25.json")),
@@ -393,27 +504,35 @@ fn run_with_clock(
         "heuristic_source_sha256":simulate::hash(include_bytes!("../../mtg-policy/src/heuristic.rs")),
         "workload_source_sha256":simulate::hash(include_bytes!("benchmark.rs")),
         "fixture_sha256":simulate::hash(include_bytes!("../../../fixtures/bench/scalar-workload-v1.json")),
-        "matchup_order":if config.workload == FULL_POOL {json!(["RG0","RG1","GR0","GR1","RR0","RR1","GG0","GG1"])}else{json!(["GG0"])},
+        "matchup_order":if [FULL_POOL, FOUR_MODES].contains(&config.workload.as_str()) {json!(["RG0","RG1","GR0","GR1","RR0","RR1","GG0","GG1"])}else{json!(["GG0"])},
         "instrumentation":config.instrumentation,"timing":"every-client-boundary-v1","capture":"none"});
+    if let Some(replay) = &replay {
+        pins["execution"] = json!({"replay":replay,"trace":c.native.as_ref().unwrap().trace,
+            "capture":if c.capture.is_some() {"canonical-v2-durable"} else {"none"},
+            "sampled_timing":"not_measured"});
+        pins["capture"] = pins["execution"]["capture"].clone();
+    }
     let hardware = metadata();
-    let warmup = measured_matrix_window(
+    let warmup = measured_window(
         &mut c,
         config.warmup_seconds,
         now.clone(),
         signal,
         config.encoding,
-        config.workload == FULL_POOL,
+        [FULL_POOL, FOUR_MODES].contains(&config.workload.as_str()),
+        replay.as_ref(),
     );
     let mut windows = Vec::new();
     if warmup.stop_code == 0 {
         for _ in 0..config.windows {
-            let w = measured_matrix_window(
+            let w = measured_window(
                 &mut c,
                 config.window_seconds,
                 now.clone(),
                 signal,
                 config.encoding,
-                config.workload == FULL_POOL,
+                [FULL_POOL, FOUR_MODES].contains(&config.workload.as_str()),
+                replay.as_ref(),
             );
             let stopped = w.stop_code != 0;
             windows.push(w);
@@ -464,9 +583,7 @@ fn run_with_clock(
     if !config.encoding {
         warmup["phases"]["encoding_ns"] = Value::Null;
     }
-    Ok((
-        code,
-        json!({"type":"benchmark","workload":config.workload,"qualification":"contract-only-not-speed-qualified",
+    let mut report = json!({"type":"benchmark","workload":config.workload,"qualification":"contract-only-not-speed-qualified",
         "status":if valid {"measured"}else{"incomplete-or-failed"},"pins":pins,"hardware":hardware,
             "warmup":warmup,"windows":raw,"completed_games_per_second":distribution(&rates),
             "distributions":{
@@ -487,8 +604,19 @@ fn run_with_clock(
             "other":"elapsed minus disjoint measured phases; runner/report/clock/accounting work is retained",
             "startup_and_final_artifact":"excluded; config validation/hardware collection precede warmup, final report/output follow all windows",
             "python":"not_applicable","inference":"not_applicable","batch":"not_applicable",
-            "cpu_seconds":"not_measured","memory":"not_measured"}}),
-    ))
+            "cpu_seconds":"not_measured","memory":"not_measured"}});
+    if replay.is_some() {
+        report["schema_version"] = json!(2);
+        report["timing_contract"]["replay"] = json!(
+            "complete serialization, verification and per-attempt byte retention in memory inside elapsed_ns; no durable replay-only sink"
+        );
+        report["timing_contract"]["publication"] = json!(
+            "requested canonical-v2 durable publication inside elapsed_ns; separately reported publication_ns"
+        );
+        report["timing_contract"]["deadline"] =
+            json!("finish started attempt, including overshoot, before next window deadline check");
+    }
+    Ok((code, report))
 }
 #[cfg(test)]
 mod tests {
@@ -498,6 +626,88 @@ mod tests {
     fn input() -> Value {
         json!({"schema_version":1,"workload":"scalar-windows-v1","warmup_seconds":10,"window_seconds":30,"windows":5,"policies":[mtg_policy::HEURISTIC_VERSION,mtg_policy::VERSION],"master_seed":42,"policy_seed":42,"instrumentation":"counters"})
     }
+    #[test]
+    fn four_modes_real_attempt_exports_trace_replay_and_accounting() {
+        let c: Config = serde_json::from_value(input()).unwrap();
+        let mut run = c.run_config().unwrap();
+        run.policies = [
+            mtg_policy::HEURISTIC_VERSION.into(),
+            mtg_policy::HEURISTIC_VERSION.into(),
+        ];
+        for mode in [
+            mtg_core::metrics::Mode::SampledTrace,
+            mtg_core::metrics::Mode::FullReplay,
+        ] {
+            run.native.as_mut().unwrap().instrumentation = mode;
+            let w = attempt_configured(
+                &run,
+                Rc::new(|| 0),
+                u128::MAX,
+                &AtomicUsize::new(0),
+                true,
+                Some(&modes::ReplayConfig::default()),
+            );
+            assert_eq!(w.completed, 1, "real normal-reset game must finish");
+            assert!(w.decisions > 0);
+            // New version must export completeness, not just accept a mode name.
+            let value = serde_json::to_value(w).unwrap();
+            assert!(
+                value.get("execution").is_some(),
+                "missing actual execution receipt"
+            );
+        }
+    }
+
+    #[test]
+    fn four_modes_new_schema_rejects_incompatible_settings_and_preserves_v1() {
+        for workload in [WORKLOAD, FULL_POOL] {
+            for mode in ["sampled_trace", "full_replay"] {
+                let mut v = input();
+                v["workload"] = json!(workload);
+                v["instrumentation"] = json!(mode);
+                assert!(
+                    serde_json::from_value::<Config>(v)
+                        .unwrap()
+                        .validate()
+                        .is_err()
+                );
+            }
+        }
+        for (field, value) in [
+            ("warmup_seconds", json!(9)),
+            ("window_seconds", json!(29)),
+            ("windows", json!(4)),
+            ("policies", json!(["unsupported", "unsupported"])),
+            ("trace", json!({"every":0,"capacity":1})),
+            ("trace", json!({"every":1,"capacity":65537})),
+            (
+                "replay",
+                json!({"max_bytes":0,"max_records":20000,"persistence":"in_memory"}),
+            ),
+            (
+                "replay",
+                json!({"max_bytes":1,"max_records":0,"persistence":"in_memory"}),
+            ),
+            (
+                "replay",
+                json!({"max_bytes":67108865,"max_records":20000,"persistence":"in_memory"}),
+            ),
+            (
+                "replay",
+                json!({"max_bytes":1024,"max_records":20000,"persistence":"durable"}),
+            ),
+        ] {
+            let mut v = input();
+            v["schema_version"] = json!(2);
+            v["workload"] = json!("scalar-four-modes-v1");
+            v[field] = value;
+            assert!(
+                serde_json::from_value::<Config>(v).map_or(true, |c| c.validate().is_err()),
+                "accepted {field}"
+            );
+        }
+    }
+
     // B020/B021: a new version admits all four modes while v1 stays frozen.
     #[test]
     fn four_modes_version_accepts_real_native_configuration() {
@@ -507,7 +717,10 @@ mod tests {
             v["workload"] = json!("scalar-four-modes-v1");
             v["instrumentation"] = json!(mode);
             let c: Config = serde_json::from_value(v).unwrap();
-            assert!(c.validate().is_ok(), "new four-mode contract rejects {mode}");
+            assert!(
+                c.validate().is_ok(),
+                "new four-mode contract rejects {mode}"
+            );
             for ordinal in 0..8 {
                 let run = c.run_config_at(ordinal).unwrap();
                 assert_eq!(run.first_episode, ordinal);

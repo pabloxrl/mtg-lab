@@ -119,8 +119,31 @@ pub(crate) fn run_observed(
 /// read a performance clock for each choice. Includes policy initialization and
 /// all choose attempts (including failures), excludes observation/submission.
 type StateProbe = dyn FnMut(&Driver, &Observation);
+/// Privileged benchmark-only byte retention, never serialized into public output.
+pub(crate) struct RetainedReplay {
+    pub max_bytes: usize,
+    pub bytes: Option<Vec<u8>>,
+    pub verified: u64,
+    pub failed: u64,
+    pub incomplete: u64,
+    pub elapsed_ns: u128,
+}
+impl RetainedReplay {
+    pub fn new(max_bytes: usize) -> Self {
+        Self {
+            max_bytes,
+            bytes: None,
+            verified: 0,
+            failed: 0,
+            incomplete: 0,
+            elapsed_ns: 0,
+        }
+    }
+}
 pub(crate) struct PolicyTiming {
     pub sample: Option<Box<StateProbe>>,
+    pub replay: Option<RetainedReplay>,
+    pub publication_ns: u128,
     pub elapsed_ns: u128,
     pub phases: Phases,
     pub detailed: bool,
@@ -141,6 +164,8 @@ impl Default for PolicyTiming {
         let start = Instant::now();
         Self {
             sample: None,
+            replay: None,
+            publication_ns: 0,
             elapsed_ns: 0,
             phases: Phases::default(),
             detailed: false,
@@ -396,23 +421,51 @@ pub(crate) fn run_instrumented(
         }
         // Replay bytes are privileged. Validate complete export here but never
         // send it to public JSONL; durable publication uses the existing capture path.
+        let replay_start = if timing.as_ref().is_some_and(|t| t.replay.is_some())
+            && n.instrumentation == mtg_core::metrics::Mode::FullReplay
+        {
+            stamp(&timing, true)
+        } else {
+            None
+        };
         let replay_status = if n.instrumentation == mtg_core::metrics::Mode::FullReplay {
             Some(match &result {
                 Ok(r) if matches!(r.status(), Status::Completed(_)) => {
-                    let max = c.capture.as_ref().map_or(67_108_864, |c| c.max_bytes);
+                    let max = timing.as_ref().and_then(|t| t.replay.as_ref()).map_or_else(
+                        || c.capture.as_ref().map_or(67_108_864, |c| c.max_bytes),
+                        |r| r.max_bytes,
+                    );
                     match r.privileged_replay(max) {
-                        Ok(Some(_)) => "available_in_memory",
+                        Ok(Some(bytes)) => {
+                            if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+                                r.verified += 1;
+                                r.bytes = Some(bytes);
+                            }
+                            "available_in_memory"
+                        }
                         _ => {
+                            if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+                                r.failed += 1;
+                            }
                             caller_error = Some("replay_recording_error");
                             "failed"
                         }
                     }
                 }
-                _ => "incomplete",
+                _ => {
+                    if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+                        r.incomplete += 1;
+                    }
+                    "incomplete"
+                }
             })
         } else {
             None
         };
+        let replay_duration = elapsed(&timing, replay_start);
+        if let Some(r) = timing.as_mut().and_then(|t| t.replay.as_mut()) {
+            r.elapsed_ns += replay_duration;
+        }
         let (status, winner) = match result.as_ref().map(|r| r.status()) {
             Ok(Status::Completed(o)) => {
                 counts.completed += 1;
@@ -507,12 +560,17 @@ pub(crate) fn run_instrumented(
     }
     let mut publication = None;
     if let Some(session) = &mut capture {
+        let publication_start = stamp(&timing, true);
         let (row, stop, failed) = session.publish(
             c.capture.as_ref().unwrap(),
             counts.started,
             &mut control,
             hook,
         );
+        let duration = elapsed(&timing, publication_start);
+        if let Some(t) = timing.as_mut() {
+            t.publication_ns += duration;
+        }
         if let Some(stop) = stop {
             exit = stop.code();
             run_reason = stop.reason();
