@@ -56,7 +56,7 @@ Strict native/XMage London chance and choice chronology.
 | Independent oracle | Pinned CR 103.5 and existing opening-counts independent ledger; GR-010/011/012/020/021. Explicitly review upstream chronology at the pin, do not mimic implementation output. |
 | Prerequisites | #268, #269, #65 |
 | Independent siblings | #278, #279, #280 (subject to their own prerequisites and three-worker cap) |
-| Exclusions | First draw and ongoing #271, game #277, synthetic injected hands. |
+| Exclusions | First draw and ongoing priority, game admission, synthetic injected hands. |
 
 Focused acceptance: `python3 -m unittest discover -s tests -p 'test_m2_repair_mulligan.py'` plus full native normal discovery. The Python module must exercise the delivered real adapter/client, validate nonempty observations and run its negative controls; a parser-only pass cannot satisfy a played-prefix claim. The pinned reference runner family is `mulligan`, executed twice by the command below.
 
@@ -82,7 +82,7 @@ Parent audit: #24. Registration: #268. Milestone M2; proposed until registration
 
 ## Observable deliverable
 
-Strict played #271, land and creature-cast transcript prefixes.
+Strict played priority, land and creature-cast transcript prefixes.
 
 | Contract | Acceptance |
 | --- | --- |
@@ -92,7 +92,7 @@ Strict played #271, land and creature-cast transcript prefixes.
 | Independent oracle | CR 117, 305, 302.6, 601/608 and starting-player draw rule; frozen costs/stats; GR-022 and basic GR-030. Existing #208 semantic actions/recording is delivered, no mock sibling. |
 | Prerequisites | #268, #270, #208 |
 | Independent siblings | #278, #279, #280 (subject to their own prerequisites and three-worker cap) |
-| Exclusions | Noncreature #272, triggered/activated choices, nonempty #275, cleanup discards and complete games; unsupported content fails at callback, never auto-passes. |
+| Exclusions | Noncreature spells, triggered/activated choices, nonempty combat, cleanup discards and complete games; unsupported content fails at callback, never auto-passes. |
 
 Focused acceptance: `python3 -m unittest discover -s tests -p 'test_m2_repair_priority.py'` plus full native normal discovery. The Python module must exercise the delivered real adapter/client, validate nonempty observations and run its negative controls; a parser-only pass cannot satisfy a played-prefix claim. The pinned reference runner family is `priority`, executed twice by the command below.
 
@@ -118,7 +118,7 @@ Parent audit: #24. Registration: #268. Milestone M2; proposed until registration
 
 ## Observable deliverable
 
-Strict played spell #279, targets, discard costs and token identities.
+Strict played spell modes, targets, discard costs and token identities.
 
 | Contract | Acceptance |
 | --- | --- |
@@ -195,12 +195,12 @@ Strict played cast and ETB trigger ordering and source identities.
 | Contract | Acceptance |
 | --- | --- |
 | Owned interfaces | XMage chooseTriggeredAbility and ETB chooseTarget; pending/stack trigger canonical keys (source incarnation, ability, event ordinal); trigger-pending versus settled checkpoints. |
-| Runnable positive acceptance | Normal-reset prefixes cast Archer/Cyclops and a noncreature spell: observe cast trigger before resolution, explicit ordering of two same-controller #274, separate source/event IDs for identical Archers and pending versus placed states. Cast Pyromancer: no cast target, ETB player target chosen after creature resolution, damage two on trigger resolution. Respond with legally played Bite to kill source while ability remains on stack; retain source incarnation/LKI and resolve correctly. Native APNAP integration and applicable real reference APNAP scenario retained with explicit synthetic provenance if unreachable in frozen pool; never inject triggers into a claimed played prefix. |
+| Runnable positive acceptance | Normal-reset prefixes cast Archer/Cyclops and a noncreature spell: observe cast trigger before resolution, explicit ordering of two same-controller triggers, separate source/event IDs for identical Archers and pending versus placed states. Cast Pyromancer: no cast target, ETB player target chosen after creature resolution, damage two on trigger resolution. Respond with legally played Bite to kill source while ability remains on stack; retain source incarnation/LKI and resolve correctly. Native APNAP integration and applicable real reference APNAP scenario retained with explicit synthetic provenance if unreachable in frozen pool; never inject triggers into a claimed played prefix. |
 | Runnable negative acceptance | Failed cast produces no cast trigger; creature/land/mana does not spuriously trigger Archer. Missing/reordered/extra trigger choice, wrong source/event, ETB target at casting time, creature as Pyromancer target and source identity rebound after death fail. Unsupported callback fails closed; mutate pending/settled alignment and trigger stack order. |
 | Independent oracle | CR 603.2/603.3, 101.4, 113.7a, 601.2i and pinned Archer/Cyclops/Pyromancer; #211 retains existing APNAP and cleanup scenarios. GR-031. |
 | Prerequisites | #268, #272, #211 |
 | Independent siblings | #273, #275, #276, #278, #279, #280 (subject to their own prerequisites and three-worker cap) |
-| Exclusions | Inventing reachable simultaneous events for an impossible pool combination, #275, terminal-game admission or general trigger language. |
+| Exclusions | Inventing reachable simultaneous events for an impossible pool combination, combat, terminal-game admission or general trigger language. |
 
 Focused acceptance: `python3 -m unittest discover -s tests -p 'test_m2_repair_triggers.py'` plus full native normal discovery. The Python module must exercise the delivered real adapter/client, validate nonempty observations and run its negative controls; a parser-only pass cannot satisfy a played-prefix claim. The pinned reference runner family is `triggers`, executed twice by the command below.
 
@@ -262,7 +262,7 @@ Parent audit: #24. Registration: #268. Milestone M2; proposed until registration
 
 ## Observable deliverable
 
-Strict played #276, discard and rules-terminal checkpoints.
+Strict played cleanup, discard and rules-terminal checkpoints.
 
 | Contract | Acceptance |
 | --- | --- |
@@ -303,7 +303,7 @@ Admit the initial M2 native/XMage normal-reset terminal-game set.
 | Contract | Acceptance |
 | --- | --- |
 | Owned interfaces | Frozen normal-game tapes, admission manifest, per-game first-divergence/consumption/checkpoint verifier and ordinary discovery regression runner using delivered adapters. |
-| Runnable positive acceptance | Admit at least two distinct nonconcession rules-terminal native/XMage games per RG/GR/RR/GG starting-seat row (16 total): one deterministic heuristic-origin and one independently authored coverage-directed path per row, recording provenance rather than running AI during replay. Run all admitted tapes twice in both actual engines. Full 40-card multisets, strict initial/mulligan permutations, choices, copy/incarnation/token/stack IDs and every required intermediate field are mandatory. All twenty card behaviors across the set plus reviewed prefixes, both Surprise #279, payment/trigger/combat/cleanup interactions and both starters; count played behavior, not cards in library. Freeze inputs and rules-derived checkpoints before candidate comparison. Preserve every attempted/duplicate/failed/truncated/unsupported/disputed game and first diff; no outcome-only comparison. |
+| Runnable positive acceptance | Admit at least two distinct nonconcession rules-terminal native/XMage games per RG/GR/RR/GG starting-seat row (16 total): one deterministic heuristic-origin and one independently authored coverage-directed path per row, recording provenance rather than running AI during replay. Run all admitted tapes twice in both actual engines. Full 40-card multisets, strict initial/mulligan permutations, choices, copy/incarnation/token/stack IDs and every required intermediate field are mandatory. All twenty card behaviors across the set plus reviewed prefixes, both Surprise modes, payment/trigger/combat/cleanup interactions and both starters; count played behavior, not cards in library. Freeze inputs and rules-derived checkpoints before candidate comparison. Preserve every attempted/duplicate/failed/truncated/unsupported/disputed game and first diff; no outcome-only comparison. |
 | Runnable negative acceptance | Normal discovery must reject altered duplicate identity, missing/extra/reordered action/chance/checkpoint, wrong target/payment/damage, mismatched pin, forged outcome, concession/timeout as quota filler and truncated replay. Missing required field blocks admission even if winner agrees. Report selected-action legality versus full legal-set observability separately; native privacy/capture/snapshot tests stay mandatory. |
 | Independent oracle | GR-040 initial two-engine subset of retained 16-game technical floor; frozen rules/card-derived authored expectations and independent reviewer, never captured engine output promoted to golden. Later all-three-engine qualification belongs to #241 transition, with historical #38/#40 obligations retained. #24 still owns >=100 distinct scenarios, twelve families and final per-capability aggregate. |
 | Prerequisites | #268, #273, #274, #275, #276 |
@@ -339,7 +339,7 @@ Bounded scalar sampled latency collection and summaries.
 | Contract | Acceptance |
 | --- | --- |
 | Owned interfaces | Boundary-owned sampler/histogram in mtg-cli native::run_instrumented and collector summaries; pure fixed counters/buckets as needed in metrics.rs; existing PolicyTiming injected clock is the real consumer. |
-| Runnable positive acceptance | Tests first inject exact clock sequence through actual scalar/collector execution: fixed deterministic sampling schedule, fixed labels/buckets, bucket-edge membership, count/sum and p50/p95/p99 bucket bounds, reset and local merge, saturation/overflow/error flags. Sample #269, transition/application, legality/view, policy, encoding and finalization separately; distinguish unavailable/not_measured/not_applicable from zero and preserve skipped-sample denominator. Off creates no optional summaries or extra performance-clock calls; counters and trace/replay get declared bounded timings. Normal full-deck executions compare semantic state/RNG/actions/records and capture on/off across all four modes with enabled/disabled encoding. |
+| Runnable positive acceptance | Tests first inject exact clock sequence through actual scalar/collector execution: fixed deterministic sampling schedule, fixed labels/buckets, bucket-edge membership, count/sum and p50/p95/p99 bucket bounds, reset and local merge, saturation/overflow/error flags. Sample reset, transition/application, legality/view, policy, encoding and finalization separately; distinguish unavailable/not_measured/not_applicable from zero and preserve skipped-sample denominator. Off creates no optional summaries or extra performance-clock calls; counters and trace/replay get declared bounded timings. Normal full-deck executions compare semantic state/RNG/actions/records and capture on/off across all four modes with enabled/disabled encoding. |
 | Runnable negative acceptance | Reject invalid sample interval/buckets/config, nonmonotonic clock and malformed merges, report overflow and error attempts without wrapped/negative durations. Hidden sentinels never appear in public labels; no per-game/seed/card label. Sample policy and encoding with different literal durations and prove they cannot be folded into rules time; no extra game RNG draws or clock inside rules. |
 | Independent oracle | RFC B008 decision latency and B021 sampled histograms; hand-authored fake clock arithmetic, fixed bucket tables and unchanged semantic transcripts. Real native execution is the consumer; no schema-only deliverable. |
 | Prerequisites | #268, #214, #215, #216 |
@@ -411,7 +411,7 @@ Validated fixed-trace scalar application, legality and effect-dispatch profiling
 | Contract | Acceptance |
 | --- | --- |
 | Owned interfaces | Native profiling runner around existing semantic actions, legal observation generation and bounded rules work; immutable trace inputs and allocation/CPU profile attribution. Clock ownership stays in scalar/profile client. |
-| Runnable positive acceptance | Replay fixed independently validated priority/cast/trigger/combat/cleanup traces against actual engine; compare every expected checkpoint before measuring. Separately time application/replay and legal generation/view at declared nonoverlapping boundaries; explicitly profile effect-dispatch symbols/call stacks with counts/time or isolated boundary #281, not infer effect cost from transition total. Include valid typed trace with repeated effects and no-effect control, plus encoded feature construction using existing PolicyTiming.encode; report shared/unattributable work separately. Inject clock arithmetic to test exact accounting and exclude policy/encoding from application; preserve trace, binary/source/toolchain hashes and allocation counts/bytes. |
+| Runnable positive acceptance | Replay fixed independently validated priority/cast/trigger/combat/cleanup traces against actual engine; compare every expected checkpoint before measuring. Separately time application/replay and legal generation/view at declared nonoverlapping boundaries; explicitly profile effect-dispatch symbols/call stacks with counts/time or isolated boundary measurement, not infer effect cost from transition total. Include valid typed trace with repeated effects and no-effect control, plus encoded feature construction using existing PolicyTiming.encode; report shared/unattributable work separately. Inject clock arithmetic to test exact accounting and exclude policy/encoding from application; preserve trace, binary/source/toolchain hashes and allocation counts/bytes. |
 | Runnable negative acceptance | Reject wrong action/target/checkpoint/pin, missing or extra trace suffix, unvalidated/unfinished trace and overlapping/missing cost categories. Mutation of one known checkpoint must fail correctness gate before timing. Missing profiler facility is explicit limitation; effect-dispatch measured evidence is still required via available in-process profiling or boundary attribution without clocks in rules. |
 | Independent oracle | RFC B020 separate transition and legal-action tracks plus effect/allocation/encoding profile; independent rules-derived frozen trace expectations and exact injected durations. Existing native semantic executor and benchmark boundary hooks suffice without new modes/timing children. |
 | Prerequisites | #268, #208, #216 |
