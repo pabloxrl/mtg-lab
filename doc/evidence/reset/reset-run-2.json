@@ -16,7 +16,7 @@
     "fixtures/reference/full-pool-reset.json": "89bdb5fd1019530047536fce40a0dfd0f09026aac5bff4183f47e1883249b679",
     "fixtures/reference/full-pool-reset-expectations.json": "6d77fffdf3d6ef1aba350a3d726c729d699517b50c707b49881508bd9bd043c4",
     "references/xmage/FullPoolResetTest.java": "b3f0b41dec81b166e2c7a2b6bb896616f9662884df04a696fd96a85acbb3c824",
-    "scripts/full_pool_reference.py": "659a3440ef45aa2edc7436616398ce9238c16eeabe8b1e86df4a24fd513ecfb4",
+    "scripts/full_pool_reference.py": "e78acd17d943f6673c0062dcaf5ced196fca9d3ed6117451fcb198effb3a297b",
     "Cargo.lock": "1bfa4406868d560092b46b46c5c0d9531d84cd07fc2c0185718d6590f97dd7fe",
     "Cargo.toml": "8460200f30cb9e72c404d0034e5c09e979818130e4e538f310c923052a25e1b6",
     "crates/mtg-core/Cargo.toml": "b71d01242970ced7e18f2ba873d937d696beff9fc022c4edf40514806fd9beb4",
@@ -90,15 +90,15 @@
     "crates/mtg-core/src/views_tests.rs": "1b0d1d30ab560d903eebcd1b2295f55a57126789f8655e1e73f64522da9a1c40",
     "crates/mtg-core/src/work.rs": "87296501b828acedf4491de0c0ea88701b448653083e1dc09875397c4a500fe4"
   },
-  "privileged_directory": "reset-run-2.privileged-y_5yasqh",
+  "privileged_directory": "reset-run-2.privileged-mwks0l67",
   "privileged_artifacts": {
     "input.json": "89bdb5fd1019530047536fce40a0dfd0f09026aac5bff4183f47e1883249b679",
     "native.json": "a8357913dec423fca27e77b67cb926501a3764dd7f5d016c63723187c2025e8b",
-    "xmage.log": "545c2f31b774c9a45b6242f6584f08e5e3670bd18f91703d54777ee51f8058b7",
+    "xmage.log": "5f32bee05bd3b713e3c2ab5051e55fe537d1905b956078cd04a872865723242e",
     "negative-inputs.json": "5e2a9407cc71c1b566aada1c4644e4f77abf65db9a769e32af1a910ed13097f5",
     "toolchain.json": "9e60531c0667c10740f6af20b1e1e84aeabba688560633bf7384a5865ea758a1",
     "xmage.json": "042e8a1f529f2ffd5f9b767a90e18a11143d04769a7afbf577af1d61840a7b2a",
-    "native.log": "4f26e7979c1097b087705a1bd0467164e479e1c2f100564df1848a0d1d9458bb",
+    "native.log": "586b4157f97ec726e6097af83b458f32e86de0394f277bc088be382024c66d57",
     "comparator-controls.json": "5bf96aae18c406d4c1c08c689fe5e204ba5f103feda54442f36b56c7d55addb4",
     "independent-oracle.json": "6d77fffdf3d6ef1aba350a3d726c729d699517b50c707b49881508bd9bd043c4"
   },

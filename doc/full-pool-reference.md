@@ -64,7 +64,10 @@ directory contains actual inputs, oracle, native/XMage checkpoints, consumed
 chance, repeat-reset observations, rejection diagnostics, toolchain metadata and
 logs. Directory/file permissions are 0700/0600. Failed runs publish no success
 receipt; existing diagnostic artifacts are retained. Python native checks use
-the same shared lock when invoked standalone, and inherit it during torture.
+the checked-in `scripts/symphony/resource_lock.py` helper with the same shared
+lock directory when invoked standalone, and inherit the held lock during torture.
+This also works in the toolchain-only CI image, which declares a controller root
+without containing that checkout.
 
 [Executed acceptance evidence](evidence/reset/README.md) retains the test-first
 failure, both real reference runs, negative controls and regression logs.

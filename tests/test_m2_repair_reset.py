@@ -1,10 +1,12 @@
 """CR 103: real reset observations, occurrence swaps and strict negative controls."""
 import copy
 import json
+import os
 from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 import full_pool_reference as ref
 
@@ -53,3 +55,19 @@ class ResetTests(unittest.TestCase):
         for name, doc in ref.negative_inputs(self.fixture).items():
             with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'first divergence:'):
                 ref.validate(doc)
+
+
+class LauncherTests(unittest.TestCase):
+    def test_standalone_native_uses_repository_shared_lock(self):
+        # CI's toolchain image declares a controller root without copying the
+        # controller checkout. Probe the real launch path, not an engine stub.
+        with tempfile.TemporaryDirectory() as folder, patch.dict(
+                os.environ, {'SYMPHONY_CONTROL_ROOT': '/absent-ci-controller'}):
+            os.environ.pop('MTG_SYMPHONY_LOCK_FD', None)
+            with patch.object(ref.subprocess, 'run',
+                              side_effect=RuntimeError('launch probe')) as launch:
+                with self.assertRaisesRegex(RuntimeError, 'launch probe'):
+                    ref.native(Path(folder))
+            command = launch.call_args.args[0]
+        self.assertEqual(command[1], str(ref.ROOT / 'scripts/symphony/resource_lock.py'))
+        self.assertEqual(command[2:5], ['heavy', '--', 'cargo'])

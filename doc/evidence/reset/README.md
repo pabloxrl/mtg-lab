@@ -65,13 +65,32 @@ discovered `test_every_observed_field_is_required` includes this exact
 missing-null-field control. No expected state changed and a missing field
 never became agreement.
 
+PR CI then exposed a standalone-launcher assumption: the toolchain-only image
+sets `SYMPHONY_CONTROL_ROOT` without containing that controller checkout.
+The [CI failure](privileged/reset-ci-launcher-failure.log.gz) remains recorded.
+A new normally discovered launcher regression first failed its intended
+[helper-path assertion](privileged/reset-launcher-red.log.gz), then
+[passed](privileged/reset-launcher-green.log.gz) after the adapter selected the
+checked-in shared-lock helper. The lock directory/policy and CI/workflow files
+are unchanged. Earlier successful reference receipts and full archives remain
+under [pre-launcher-fix](privileged/pre-launcher-fix/reset-run-1.json), with
+[run 2](privileged/pre-launcher-fix/reset-run-2.json) alongside them.
+
 ## Executed acceptance
 
 The [focused Python result](focused.log) passes six tests, exercising the real
 native client over sixteen cases, repeated resets, 1,280 stale-handle rejections
-and nineteen invalid-input controls. Three new Rust tests and six new Python
+and nineteen invalid-input controls. Three new Rust tests and seven new Python
 tests participate in normal discovery; no existing test or oracle was removed,
-skipped, weakened or replaced.
+skipped, weakened or replaced. The final [standalone focused run](standalone-focused.log)
+passes all seven tests with no inherited lock and an absent controller path:
+
+```sh
+env -u MTG_SYMPHONY_LOCK_FD SYMPHONY_CONTROL_ROOT=/absent-ci-controller python3 -m unittest discover -s tests -p test_m2_repair_reset.py
+```
+
+Six tests share a real native-client execution; the additional launcher
+probe only intercepts command construction and claims no engine execution.
 
 Both pinned real executions agree with the independently authored literal oracle:
 [run 1 receipt](reset-run-1.json) and [run 2 receipt](reset-run-2.json).
@@ -97,12 +116,21 @@ Full torture passed before integration (270 Python tests; 1,426 native
 executions) and after integrating main `4068c855d1bcfbe9f1c63dfd5c98a44752e8c95c`
 (274 Python tests; 1,446 native executions), with zero failures/ignored tests.
 The [first log](torture.log.gz) and [integrated log](integrated-torture.log.gz)
-are retained. The [final full run](final-torture.log.gz) after the null-export correction also
+are retained. The [pre-launcher-repair full run](final-torture.log.gz) after the null-export correction also
 passes: 274 Python tests and 1,446 native debug/release executions, zero
 failures/ignored tests, plus formatting, clippy, documentation, program and
 catalog checks. All Cargo/Maven/reference work used the shared heavy lock.
 `python3 scripts/run_tests.py` and `cargo test --workspace --locked` ran in
-normal discovery as part of each full torture invocation.
+normal discovery as part of each full torture invocation. The complete [launcher-repair rerun](launcher-torture.log.gz) passes
+275 Python tests and 1,446 native executions, with zero failures/ignored tests.
+Main subsequently advanced to `3744ffab7ac2571fcb59e4aae2ff744810eee5b5`
+with the independent four-mode benchmark delivery. Integration was conflict-free,
+and both reference receipts still match every covered source hash. The required
+[latest-main full run](latest-main-torture.log.gz) passes: 280 Python tests,
+1,468 native debug/release executions, zero failures/ignored tests, plus
+formatting, clippy, documentation, program and catalog checks. This is the
+final integrated candidate validation, including seven new Python and three
+new Rust tests in normal discovery.
 
 README impact: added a scoped test-only reference-prefix link and documented
 commands. No production CLI, rules/source pin, replay format or verified milestone

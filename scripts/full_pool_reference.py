@@ -110,7 +110,10 @@ def native(folder):
         except OSError:
             fd = None
     if fd is None:
-        command = [sys.executable, str(Path(env.get('SYMPHONY_CONTROL_ROOT', ROOT)) / 'scripts/symphony/resource_lock.py'), 'heavy', '--'] + command
+        # The toolchain-only CI image declares a controller root but does not
+        # contain that checkout. This checked-in helper uses the same shared
+        # lock directory and policy in every environment.
+        command = [sys.executable, str(ROOT / 'scripts/symphony/resource_lock.py'), 'heavy', '--'] + command
     with (folder / 'native.log').open('w') as log:
         try:
             subprocess.run(command, cwd=ROOT, env=env, stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, timeout=3600, check=True, pass_fds=pass_fds)
