@@ -29,7 +29,7 @@ new cards reuse supported mechanics through definitions, without engine changes.
   with private cancellation and recorded replay; see the [payment contract and
   compatibility notes](doc/evidence/activation-mana/README.md).
 - Optional [scalar instrumentation](doc/scalar-metrics.md): off, counters,
-  bounded sampled diagnostics and complete replay export;
+  bounded sampled latency histograms, sampled diagnostics and complete replay export;
   capture remains independent and performance qualification is still pending.
 - [Versioned scalar benchmarks](doc/scalar-benchmark.md) retain repeated windows,
   separate measured costs and explicit unfinished-game accounting. The additive
