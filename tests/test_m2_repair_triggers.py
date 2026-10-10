@@ -27,7 +27,7 @@ class TriggerTests(unittest.TestCase):
 
     def test_all_semantic_mutations_are_detected(self):
         controls=reference.comparator_controls(self.actual,self.doc,'native')
-        self.assertEqual(len(controls),14)
+        self.assertEqual(len(controls),16)
         self.assertTrue(all(v['path'] and 'first divergence' in v['rejection'] for v in controls.values()))
 
     def test_missing_extra_and_empty_observations_fail(self):
@@ -39,6 +39,22 @@ class TriggerTests(unittest.TestCase):
             else:rows.clear()
             bad['checkpoints']['archer-cyclops']=rows
             with self.subTest(kind=kind),self.assertRaises(ValueError):reference.check_run(bad,self.doc,'native')
+
+    def test_late_pending_and_boundary_mutations_fail(self):
+        for repeat in (False, True):
+            for field, value in (
+                ('trigger_boundary', 'order'),
+                ('pending_triggers', [{'controller': 0, 'key': {
+                    'source': '0/firebrand-archer/99', 'incarnation': 99,
+                    'ability': 'archer', 'event': 99}}]),
+            ):
+                bad = copy.deepcopy(self.actual)
+                run = 'repeat_runs' if repeat else 'runs'
+                bad[run]['archer-cyclops']['points'][145][field] = value
+                if not repeat:
+                    bad['checkpoints']['archer-cyclops'] = bad[run]['archer-cyclops']['points']
+                with self.subTest(repeat=repeat, field=field), self.assertRaises(ValueError):
+                    reference.check_run(bad, self.doc, 'native')
 
     def test_no_empty_real_client_pass(self):
         with self.assertRaises(ValueError):reference.compare({})

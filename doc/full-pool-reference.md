@@ -278,7 +278,9 @@ Native pending batches and XMage's actual ordering/placement callbacks retain ra
 source and ability provenance. XMage calls `chooseTriggeredAbility` only for
 multiple waiting triggers; a lone trigger uses `triggerAbility`. During its ETB
 target callback, XMage already has an announced stack ability, while native still
-has a pending trigger. Each engine's staging is asserted separately; settled
+has a pending trigger. Each engine's pending identities and boundary are asserted
+at every checkpoint, including ordinary checkpoints after earlier triggers. Repeat
+comparison includes both fields. Each engine's staging is asserted separately; settled
 semantic checkpoints are compared. Unsupported callbacks and missing fields fail.
 
 ```sh

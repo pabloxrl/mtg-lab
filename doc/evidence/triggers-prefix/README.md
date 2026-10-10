@@ -7,9 +7,9 @@ and its linked PR. No M2 gate verdict is claimed.
 
 | Check | Final evidence |
 | --- | --- |
-| Focused real-client discovery | [10 Python tests pass](triggers-focused.log); one new native test is also in normal discovery. |
-| Full current-main torture | [343 Python tests; 1,496 Rust debug/release executions](torture.json), zero failed/ignored Rust tests; [complete log](triggers-torture.log). Includes `python3 scripts/run_tests.py` and `cargo test --workspace --locked`. |
-| Actual native/XMage triggers, twice | [Run 1](triggers-run-1.json), [run 2](triggers-run-2.json): three prefixes/repeats, 427 settled checkpoints each, 16 invalid tapes, two callback probes, 14 comparator controls per engine. |
+| Focused real-client discovery | [11 Python tests pass](triggers-focused.log); one new native test is also in normal discovery. |
+| Full current-main torture | [344 Python tests; 1,496 Rust debug/release executions](torture.json), zero failed/ignored Rust tests; [complete log](triggers-torture.log). Includes `python3 scripts/run_tests.py` and `cargo test --workspace --locked`. |
+| Actual native/XMage triggers, twice | [Run 1](triggers-run-1.json), [run 2](triggers-run-2.json): three prefixes/repeats, 427 settled checkpoints each, 16 invalid tapes, two callback probes, 16 comparator controls per engine. |
 | Earlier family compatibility, twice each | [London 1](triggers-compat-mulligan-1.json)/[2](triggers-compat-mulligan-2.json), [priority 1](triggers-compat-priority-1.json)/[2](triggers-compat-priority-2.json), [spells 1](triggers-compat-spells-1.json)/[2](triggers-compat-spells-2.json), [activations 1](triggers-compat-activations-1.json)/[2](triggers-compat-activations-2.json). |
 | Retained APNAP integration | [Nine existing synthetic compositions agree twice](synthetic-apnap.json). Their provenance remains synthetic. |
 
@@ -67,3 +67,13 @@ full witnessed handle, including scope, epoch, generation and slot. Raw artifact
 retain all values. Canonical and raw-source rebound mutations are both rejected.
 The interim full run exposed this new test comparison error; it was not a rules
 failure or a passing full-suite result. Final validation follows the correction.
+
+Independent review round 1 found that late ordinary checkpoints could carry
+invented pending triggers or a false order boundary without rejection.
+[The review](review-round1.json) and [four intended assertion failures](review-red.log)
+are retained. Validation now checks the exact pending source/event set and
+boundary at every checkpoint. Repeat comparisons include both fields. Cross-engine
+comparison retains all previous fields, compares pending sets at shared stages,
+and explicitly exempts only XMage's documented lone-trigger placement difference.
+Normal discovery includes the checkpoint-145 reproduction for primary and repeated
+runs; both real engines also run the two new comparator controls.

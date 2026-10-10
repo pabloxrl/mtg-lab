@@ -42,7 +42,8 @@ def validate(doc):
 
 def semantic(p):
     p=copy.deepcopy(p)
-    out={f:p[f] for f in ('turn','step','active','actor','life','mana','land_plays','library','graveyard','exile','stack','incarnations','permanents')}
+    out={f:p[f] for f in ('turn','step','active','actor','life','mana','land_plays','library','graveyard','exile','stack','incarnations','permanents','trigger_boundary','pending_triggers')}
+    out['pending_triggers'].sort(key=lambda a:json.dumps(a,sort_keys=True))
     for a in out['stack']:
         a.pop('raw_birth',None);a.pop('raw_uuid',None);a.pop('raw_source_handle',None);a.pop('raw_source',None);a.pop('raw_source_zcc',None)
     out['hand_membership']=[sorted(h) for h in p['hand']]
@@ -71,12 +72,26 @@ def check_run(result,doc,engine):
             if i<len(play):
                 e=play[i]
                 require(p['boundary']==f'before/{i}' and (p['turn'],p['step'],p['actor'])==(e['turn'],e['step'],e['actor']),'/choice alignment/'+name+'/'+str(i))
+            # Validate every boundary from the supplied choices, including late
+            # ordinary checkpoints and final settlement. These are adapter
+            # staging differences, not inferred trigger creation.
+            e=play[i] if i<len(play) else None
+            kind=e['kind'] if e else None
+            expected_boundary=('order' if kind=='order_triggers' else
+                               'target' if kind=='target_player' else
+                               None if engine=='native' and (p['payment'] is not None or p['targeting'] is not None) else 'settled')
+            require(p['trigger_boundary']==expected_boundary,'/checkpoint trigger boundary/'+name+'/'+str(i))
+            expected_pending=[]
+            if kind=='order_triggers' and (engine=='native' or len(e['order'])>1):
+                expected_pending=[{'key':k,'controller':e['actor']} for k in e['order']]
+            elif kind=='target_player' and engine=='native':
+                require(i>0 and play[i-1]['kind']=='order_triggers','/target order predecessor')
+                expected_pending=[{'key':k,'controller':e['actor']} for k in play[i-1]['order']]
+            elif engine=='xmage' and kind=='finish_payment' and i+1<len(play) and play[i+1]['kind']=='order_triggers':
+                expected_pending=[{'key':k,'controller':play[i+1]['actor']} for k in play[i+1]['order']]
+            canonical=lambda rows:sorted(rows,key=lambda a:json.dumps(a,sort_keys=True))
+            require(canonical(p['pending_triggers'])==canonical(expected_pending),'/checkpoint pending source/event set/'+name+'/'+str(i))
             if i<first_order:
-                # Reference sees waiting cast triggers during its finish-payment
-                # acknowledgement; native commitment occurs on that action.
-                has_pending=bool(p['pending_triggers'])
-                allowed=engine=='xmage' and play[i]['kind']=='finish_payment' and i==first_order-1
-                require(not has_pending or allowed,'/spurious trigger before event')
                 require(not any(a.get('ability')=='trigger' for a in p['stack']),'/trigger before event')
             for a in p['stack']:
                 if a.get('ability')=='trigger':
@@ -166,6 +181,10 @@ def comparator_controls(result,doc,engine):
     mutate('pending-settled',c,j,['trigger_boundary'],'settled')
     mutate('missing-pending',c,j,['pending_triggers'],[])
     mutate('extra-pending',c,j,['pending_triggers'],rows[j]['pending_triggers']*2)
+    # Review reproduction: ordinary checkpoints after the first trigger event
+    # must not acquire a pending trigger or become an ordering boundary.
+    mutate('late-order-boundary',c,145,['trigger_boundary'],'order')
+    mutate('late-invented-pending',c,145,['pending_triggers'],[{'controller':0,'key':{'source':'0/firebrand-archer/99','incarnation':99,'ability':'archer','event':99}}])
     c='pyromancer-bite';rows=result['checkpoints'][c];i=next(i for i,p in enumerate(rows) if p['stack'] and '0/viashino-pyromancer/0' in p['graveyard'][0])
     mutate('source-rebound',c,i,['stack',0,'key','incarnation'],4)
     if engine=='native':
@@ -214,7 +233,13 @@ def run(args):
         indices=[]
         for i,(left,right) in enumerate(zip(points,other)):
             if any(p['payment'] is not None or p['targeting'] is not None or p['trigger_boundary']=='target' for p in (left,right)):continue
-            diff=base.instant_reference.difference(semantic(left),semantic(right))
+            lhs,rhs=semantic(left),semantic(right)
+            # A lone XMage trigger bypasses chooseTriggeredAbility; native
+            # still exposes it as pending. check_run asserts both exact states.
+            # Retain comparison of every other field at this ordering boundary.
+            if left['trigger_boundary']=='order' and len(left['pending_triggers'])==1:
+                lhs.pop('pending_triggers');rhs.pop('pending_triggers')
+            diff=base.instant_reference.difference(lhs,rhs)
             require(diff is None,'/committed/'+name+'/'+str(i)+' '+str(diff));indices.append(i)
         require(indices,'/no committed comparisons');agreed[name]=indices
     controls={'native':comparator_controls(actual,native_doc,'native'),'xmage':comparator_controls(reference,reference_doc,'xmage')}

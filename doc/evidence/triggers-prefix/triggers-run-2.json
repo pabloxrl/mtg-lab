@@ -203,27 +203,27 @@
     "scripts/priority_reference.py": "25b7b8e43360dd23d9cccbd449c3804be65aa6cde6f09cbaaec59d9f7171f120",
     "scripts/scenario.py": "71a7b826746f4bc94b048d01ab3ccdb82712f03524f3019932cc5353564d4b60",
     "scripts/spells_reference.py": "c734b56f3f523146cee5e0b8ecea0f25b5bd440112264d8e1ec2ae75276c9453",
-    "scripts/triggers_reference.py": "15e3fb91cc9ea71ebf686e6d68a930db9f514b3f697d3df2522a3f084a65575d",
+    "scripts/triggers_reference.py": "7314f60a1d27b9170c63c1bfbefc092890d09a86a1de2c98d406de14ff5eba37",
     "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
     "tests/test_m2_repair_spells.py": "bd2143fd6dec96f4d1fcb6ee55885e5eb9038f544b453a0e5b7ecbdc660c0203",
-    "tests/test_m2_repair_triggers.py": "95d1502b12077812baa92eb296055fd72df37c95333609b32c82c4bd68b502ac"
+    "tests/test_m2_repair_triggers.py": "9b051bf12a08710ddab493eb5234ec75164bd91a39e94ad5c344940b2fdc33ab"
   },
-  "privileged_directory": "triggers-run-2.privileged-9chtjv1b",
+  "privileged_directory": "triggers-run-2.privileged-2ht6jy5g",
   "privileged_artifacts": {
     "full-pool-triggers.json": "d9021e573967d071876a5f766af53bc4c31966d481bff3a31f154f17a6cee9aa",
     "native.json": "c865b9026b36cef86beef1c434f41ba8ca01d6d7cea547adc502b45ac8538fd9",
-    "xmage.log": "67ab2565911d19a5e4463c314d13058ed0b627a7a54c8722d204d74284219027",
+    "xmage.log": "f7b76024bde1af13feb8ed2328d588efdfb3f8ff1796a2917ded167b76ab88d7",
     "agreed-committed-indices.json": "4ec404c490c332b3537e6f9533a46c71e537a969bed0dc75ecc3a5765921e3b3",
     "negative-inputs.json": "99293e58f7d43a0e5e9a89280ff6d65307c8dae5551ceb1d9893aff75846965d",
     "toolchain.json": "9e60531c0667c10740f6af20b1e1e84aeabba688560633bf7384a5865ea758a1",
     "full-pool-triggers-xmage-negatives.json": "af83636272d118880cd78d9e8253e78acee76824d5b45c2118803d94f9169cbc",
-    "xmage.json.failure.json": "c415f5d9e8548c68f1b0cf7609c0a4dbfc574e79a04bb89a4a026f702061e46b",
-    "xmage.json": "9343e6a9cd174788afb55d3042e1671db7c9afae2534a08b427acf3df802e427",
+    "xmage.json.failure.json": "d2b455ffe2c99bffa961a5e4ca0c486c4ee33a4c5268c447bb99654320b4f129",
+    "xmage.json": "41e4928ccc24c4f7084e8042c3e23f005355b7eda6fdd6e360fa911b77fa98c6",
     "full-pool-triggers-native-negatives.json": "25fde2dd2e3f324dfc308bea5bb5ee08d80d9da8284c078d8c97f3c90cee5c9f",
-    "native.log": "2fcff43b593122f58df6f20f5ac9284926006999745bc103424a89630525059d",
+    "native.log": "199eb4397a259034d642a1daf99e6aaf9a79b432c5e9877f60fcc4fae9cf5fab",
     "full-pool-triggers-xmage-input.json": "d9021e573967d071876a5f766af53bc4c31966d481bff3a31f154f17a6cee9aa",
     "full-pool-triggers-oracle.md": "1b8183fca05db06eadd8fc454fa0d5167824d9e6b2573313f99a2266fc6db1c6",
-    "comparator-controls.json": "8ca902b5e1c62f37f754cbba70471132411fabf9ee8f9bb9b0efe87278f4ed72"
+    "comparator-controls.json": "6b7d886c50b3a0685d4b2767d52c35b8e968d778a21b4f4e3ec5fa7fe2a9ff84"
   },
   "compared_committed_checkpoints": {
     "archer-cyclops": 129,
@@ -253,8 +253,8 @@
     "extra_placement"
   ],
   "comparator_controls_detected": {
-    "native": 14,
-    "xmage": 14
+    "native": 16,
+    "xmage": 16
   },
   "acceptance_claims": {
     "selected_actions": "Actual scalar semantic decode/apply and pinned XMage callbacks; every supplied choice consumed.",
