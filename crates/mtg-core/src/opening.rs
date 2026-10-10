@@ -355,6 +355,29 @@ impl Game {
         episode: u64,
         quantum: NonZeroUsize,
     ) -> Result<Progress, ResetError> {
+        let decks = self.prepare_reset(config, master, episode)?;
+        self.work.push_back(Work::Reset {
+            decks: Box::new(decks),
+            random: [
+                config.seats[0].order.is_none(),
+                config.seats[1].order.is_none(),
+            ],
+            seat: 0,
+            size: 40,
+            position: 0,
+            phase: 0,
+        });
+        Ok(self.resume(quantum))
+    }
+    /// Shared validation, allocation reservation and new-episode initialization.
+    /// The normal work executor and test-only occurrence shuffle hook both use
+    /// this preflight; existing shuffle/replay formats retain their behavior.
+    pub(super) fn prepare_reset(
+        &mut self,
+        config: &Config,
+        master: u64,
+        episode: u64,
+    ) -> Result<[[CardId; 40]; 2], ResetError> {
         if !self.work.is_empty() {
             return Err(ResetError::WorkPending);
         }
@@ -407,18 +430,7 @@ impl Game {
         self.rng = Some(rng);
         self.generation = generation;
         self.decision = None;
-        self.work.push_back(Work::Reset {
-            decks: Box::new(decks),
-            random: [
-                config.seats[0].order.is_none(),
-                config.seats[1].order.is_none(),
-            ],
-            seat: 0,
-            size: 40,
-            position: 0,
-            phase: 0,
-        });
-        Ok(self.resume(quantum))
+        Ok(decks)
     }
 }
 
@@ -824,5 +836,50 @@ impl Game {
         self.objects
             .move_to(top, Zone::Hand(seat))
             .expect("reserved opening draw");
+    }
+}
+
+/// Privileged test-only normal-reset instrumentation. No player input uses this.
+#[cfg(test)]
+pub(super) trait ResetChance {
+    fn created(&mut self, objects: &ObjectStore, seat: Seat, index: usize, handle: Handle);
+    fn shuffle(&mut self, objects: &mut ObjectStore, seat: Seat);
+}
+
+#[cfg(test)]
+impl Game {
+    /// Occurrence-aware reset version 1: bind at creation, supply chance only,
+    /// then use the same opening draw and declaration routines as normal reset.
+    /// Legacy name-only orders and seeded reset keep their frozen semantics.
+    pub(super) fn reset_with_occurrence_chance(
+        &mut self,
+        config: &Config,
+        master: u64,
+        episode: u64,
+        chance: &mut impl ResetChance,
+    ) -> Result<OpeningDecision, ResetError> {
+        if config.seats.iter().any(|deck| deck.order.is_some()) {
+            return Err(ResetError::InvalidDeckOrder);
+        }
+        let decks = self.prepare_reset(config, master, episode)?;
+        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+            for (index, card) in decks[i].iter().enumerate() {
+                let handle = self
+                    .objects
+                    .allocate(*card, seat, Zone::Library(seat))
+                    .expect("reserved reset allocation");
+                chance.created(&self.objects, seat, index, handle);
+            }
+        }
+        for seat in [Seat::P0, Seat::P1] {
+            chance.shuffle(&mut self.objects, seat);
+        }
+        for seat in [Seat::P0, Seat::P1] {
+            for _ in 0..7 {
+                self.draw_internal(seat);
+            }
+        }
+        self.set_decision(self.starting, OpeningKind::KeepOrMulligan);
+        Ok(self.decision.expect("reset opening boundary"))
     }
 }
