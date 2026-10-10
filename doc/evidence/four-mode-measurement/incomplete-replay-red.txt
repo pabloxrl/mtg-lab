@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_consistently_counted_incomplete_replay_still_rejects (test_m2_repair_measurement.MeasurementArithmetic.test_consistently_counted_incomplete_replay_still_rejects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 114, in test_consistently_counted_incomplete_replay_still_rejects
+    with self.assertRaisesRegex(ValueError,'incomplete'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.006s
+
+FAILED (failures=1)

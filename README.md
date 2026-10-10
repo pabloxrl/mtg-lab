@@ -35,7 +35,10 @@ new cards reuse supported mechanics through definitions, without engine changes.
   separate measured costs and explicit unfinished-game accounting. The additive
   `scalar-four-modes-v1` contract covers all four modes with bounded in-memory
   replay retention and independently requested durable canonical capture;
-  sampled timing and the four-mode measurement campaign remain separate work.
+  the [four-mode measurement report](doc/evidence/four-mode-measurement/README.md)
+  retains both native policies, encoded/unencoded windows, variance extensions,
+  fixed-episode semantic checks and separate sampled-latency/profile diagnostics.
+  Benchmark-window latency histograms remain unmeasured.
   [Full-pool collectors](doc/scalar-baseline.md) cover all eight matchup rows,
   off/counters comparisons and normal-play resident-state RSS sweeps;
   the [available-container artifact](doc/evidence/full-pool-baseline/README.md)
