@@ -11,6 +11,26 @@ import priority_reference as reference
 
 
 class PriorityEvidenceTests(unittest.TestCase):
+    def test_every_rejection_requires_its_category_and_sequence(self):
+        expected = json.loads(reference.REJECTIONS.read_text())
+        for engine in ('native', 'xmage'):
+            valid = {name: boundary[engine] for name, boundary in expected.items()}
+            reference.check_rejections(valid, engine)
+            for name, boundary in expected.items():
+                replacements = ['first divergence: /missing choice before named stop',
+                                'first divergence: /play/999 /play actor']
+                if boundary['sequence'] is not None:
+                    replacements.append(valid[name].replace(
+                        '/play/' + str(boundary['sequence']) + ' ',
+                        '/play/' + str(boundary['sequence'] + 1) + ' ', 1))
+                    replacements.append('first divergence: /play/' + str(boundary['sequence'])
+                                        + ' /missing choice before named stop')
+                for replacement in replacements:
+                    with self.subTest(engine=engine, control=name, replacement=replacement):
+                        bad = dict(valid, **{name: replacement})
+                        with self.assertRaises(ValueError):
+                            reference.check_rejections(bad, engine)
+
     def test_receipt_hashes_delivered_recording_interface(self):
         # GH-271 consumes the delivered nested v2 recorder, so its implementation
         # must be covered by the actual execution receipt's source inventory.
@@ -51,6 +71,16 @@ class PriorityTests(unittest.TestCase):
         for result in self.actual['runs'].values():
             self.assertGreater(result['stale_candidates_rejected'], 100)
             self.assertEqual(result['stale_candidates_rejected'], len(result['records']))
+
+    def test_late_exhaustion_cannot_satisfy_illegal_action_controls(self):
+        # A truncated negative tape must fail at its illegal action, never merely
+        # because the rest of the otherwise valid episode was not supplied.
+        for name in self.actual['rejections']:
+            with self.subTest(control=name):
+                bad = copy.deepcopy(self.actual)
+                bad['rejections'][name] = 'first divergence: /missing choice before named stop'
+                with self.assertRaises(ValueError):
+                    reference.check_run(bad, self.doc, 'native')
 
     def test_first_field_comparator_controls(self):
         controls = reference.comparator_controls(self.actual['checkpoints'])

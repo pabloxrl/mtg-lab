@@ -369,7 +369,10 @@ impl PlayedClient {
             "/unsupported stop",
         )?;
         while self.cursor < play.len() {
-            self.apply(g, &play[self.cursor])?;
+            self.apply(g, &play[self.cursor]).map_err(|error| {
+                format!("first divergence: /play/{} {}", self.cursor,
+                    error.strip_prefix("first divergence: ").unwrap_or(&error))
+            })?;
             if stop == "first_cast_committed"
                 && !g.turns.stack.is_empty()
                 && g.turns.payment.is_none()
@@ -388,7 +391,7 @@ impl PlayedClient {
                     .count()
                     == 4
             {
-                require(self.cursor == play.len(), "/extra choice after named stop")?;
+                require(self.cursor == play.len(), &format!("/play/{} /extra choice after named stop", self.cursor))?;
                 self.points.push(self.point(g, stop));
                 return Ok(());
             }
@@ -575,10 +578,16 @@ fn full_pool_priority_literal_checkpoints() {
     )))
     .unwrap();
     let mut rejections = BTreeMap::new();
+    let expected_rejections: Value = serde_json::from_str(include_str!(
+        "../../../fixtures/reference/full-pool-priority-negative-expectations.json"
+    )).unwrap();
+    assert_eq!(negatives.as_object().unwrap().len(), expected_rejections.as_object().unwrap().len());
     for (name, bad) in negatives.as_object().unwrap() {
         let before = format!("{g:?}");
         let error = priority_consume(&mut g, bad.clone(), false).unwrap_err();
         assert_eq!(format!("{g:?}"), before, "rejection state/RNG: {name}");
+        assert!(error.starts_with(expected_rejections[name]["native"].as_str().unwrap()),
+            "intended rejection boundary: {name}: {error}");
         rejections.insert(name, error);
     }
     assert_eq!(runs.len(), 6);

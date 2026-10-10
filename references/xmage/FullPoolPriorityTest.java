@@ -175,7 +175,9 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
         accept(e);
     }
     private void failCallback(Game g,IllegalArgumentException error) {
-        if(priorityFailure==null)priorityFailure=error;stopped=true;g.pause();
+        if(priorityFailure==null)priorityFailure=new IllegalArgumentException(
+            "first divergence: /play/"+cursor+" "+error.getMessage().replaceFirst("^first divergence: ",""));
+        stopped=true;g.pause();
     }
     @Override protected boolean onMana(TestPlayer p,int s,Ability ability,ManaCost unpaid,Game g) {
         try {
@@ -267,9 +269,10 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
             current=c;stopped=false;lastGame.resume();if(priorityFailure!=null)throw priorityFailure;need(stopped && lastGame.isPaused(),"/missing continuation stop");continued.add(id,result());
         }
         JsonObject bad=read(Paths.get(System.getProperty("mtglab.negatives")));
+        JsonObject expectedRejections=read(Paths.get(System.getProperty("mtglab.root"),"fixtures/reference/full-pool-priority-negative-expectations.json"));
         for(String name:bad.keySet()) {
             try {JsonObject input=bad.getAsJsonObject(name);validate(input);for(JsonElement c:input.getAsJsonArray("cases"))run(c.getAsJsonObject());fail("accepted negative "+name);}
-            catch(IllegalArgumentException e){need(e.getMessage().startsWith("first divergence:"),"/negative diagnostic");rejected.addProperty(name,e.getMessage());}
+            catch(IllegalArgumentException e){need(e.getMessage().startsWith(expectedRejections.getAsJsonObject(name).get("xmage").getAsString()),"/intended rejection boundary "+name+": "+e.getMessage());rejected.addProperty(name,e.getMessage());}
         }
         JsonObject callbacks=new JsonObject();run(doc.getAsJsonArray("cases").get(0).getAsJsonObject());
         onMana(players[0],0,null,null,lastGame);need(priorityFailure!=null,"/unscripted mana probe accepted");callbacks.addProperty("unscripted_mana",priorityFailure.getMessage());

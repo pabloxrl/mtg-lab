@@ -10,6 +10,7 @@ FIXTURE = ROOT / 'fixtures/reference/full-pool-priority.json'
 EXPECTED = ROOT / 'fixtures/reference/full-pool-priority-native.json'
 REFERENCE_EXPECTED = ROOT / 'fixtures/reference/full-pool-priority-xmage.json'
 NEGATIVES = ROOT / 'fixtures/reference/full-pool-priority-negative-inputs.json'
+REJECTIONS = ROOT / 'fixtures/reference/full-pool-priority-negative-expectations.json'
 BRIDGE = ROOT / 'references/xmage/FullPoolPriorityTest.java'
 require = base.require
 
@@ -49,6 +50,14 @@ def compare(actual, engine='native'):
 
 def native(folder):
     return base.native(folder, family='priority')
+
+
+def check_rejections(rejections, engine):
+    expected = json.loads(REJECTIONS.read_text())
+    require(set(rejections) == set(expected), '/negative controls')
+    for name, boundary in expected.items():
+        require(rejections[name].startswith(boundary[engine]),
+                '/intended rejection boundary ' + name)
 
 
 def check_run(result, doc, engine):
@@ -95,6 +104,7 @@ def check_run(result, doc, engine):
             require(incarnations == observed['points'][-1]['incarnations'], '/final incarnation provenance')
     require(set(result['rejections']) == set(negative_inputs(doc)), '/negative controls')
     require(all(v.startswith('first divergence:') for v in result['rejections'].values()), '/negative diagnostics')
+    check_rejections(result['rejections'], engine)
     if engine == 'native':
         require(result['rejection_state_rng'] == 'unchanged', '/native atomic rejection')
     else:
@@ -146,7 +156,7 @@ def comparator_controls(points):
 
 def source_files():
     """Executable and oracle inputs covered by each priority receipt."""
-    return [FIXTURE, EXPECTED, REFERENCE_EXPECTED, NEGATIVES, BRIDGE, opening.BRIDGE,
+    return [FIXTURE, EXPECTED, REFERENCE_EXPECTED, NEGATIVES, REJECTIONS, BRIDGE, opening.BRIDGE,
                Path(__file__).resolve(), ROOT / 'fixtures/reference/author_priority.py',
                ROOT / 'fixtures/reference/full-pool-priority-final.json',
                ROOT / 'fixtures/reference/full-pool-priority-oracle.md',

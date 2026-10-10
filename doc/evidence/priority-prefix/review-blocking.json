@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Found one blocking verification defect. README scope and atomic ownership are accurate; existing tests remain intact. Checked archived source hashes and ran read-only validation probes; did not rerun the full suite.",
+  "findings": [
+    {
+      "file": "scripts/priority_reference.py:96",
+      "finding": "Negative controls accept failures unrelated to the intended illegal action. author_priority.py truncates most negative tapes shortly after the modified choice, while the Rust test accepts any error and check_run generally checks only the 'first divergence:' prefix. If a second land or wrong-color payment is incorrectly accepted, later tape exhaustion can still pass the control. A read-only probe replacing archived rejection diagnostics with '/missing choice before named stop' passed check_run for all native controls and all XMage controls except the two explicitly guarded cast cases. Assert the expected rejection category and offending sequence for each control in normal discovery, so later exhaustion or actor mismatches cannot satisfy the required illegal-action rejection coverage.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "09a86b6c1fa763e5aae92f142099b72e5d837d16",
+  "head_sha": "3cee6016109cef16b4956d4280e31978d8056f1c"
+}

@@ -1,23 +1,27 @@
 # Played priority prefix evidence (GH-271)
 
-The current-main candidate passes the full locked torture suite: **309 Python
+The current-main candidate passes the full locked torture suite: **311 Python
 tests and 1490 Rust debug/release test executions**, zero failed/ignored
 or skipped. The [complete log](torture.log.gz) includes normal
 `python3 scripts/run_tests.py`, `cargo test --workspace --locked`, release tests,
 formatting, Clippy, documentation, program and catalog checks. New normal
-coverage is **six Python tests and one Rust test**, executing six real prefixes,
+coverage is **eight Python tests and one Rust test**, executing six real prefixes,
 760 checkpoints, repeated runs, same-game stop/continuation and twenty rejected
 tapes. Base: `09a86b6c1fa763e5aae92f142099b72e5d837d16`. This report records local
 acceptance; independent review, protected merge and exact-main CI receipts belong
 in the PR and [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/271#issuecomment-6096816121).
 Delivery completion remains conditional on those receipts.
-The [final focused run](focused-final.log) discovers all six new Python tests.
+The [final focused run](focused-final.log) discovers all eight new Python tests.
 Earlier [pre-integration](pre-integration-torture.log.gz) and
 [intermediate integrated](intermediate-integrated-torture.log.gz) full runs are
 retained separately; the latter preceded the source-inventory regression.
+The [complete pre-review-repair run](pre-review-repair-torture.log.gz)
+passed before the stricter rejection assertions and remains retained.
 The [complete pre-audit-integration run](pre-audit-integration-torture.log.gz)
-also passed with all six new tests. The final log repeats full torture after
-integrating documentation-only audit PR #289; reference source hashes remained unchanged.
+also passed with all six then-present new tests. The final log includes the later
+rejection-boundary repair on the same integrated base. Documentation-only audit
+PR #289 changed no covered reference sources; the later repair did, and all four
+reference receipts were refreshed as described below.
 
 Both required actual pinned native/XMage priority executions agree:
 [run 1](priority-run-1.json), [run 2](priority-run-2.json). Each runs six cases
@@ -121,7 +125,7 @@ after recursive source coverage included `crates/mtg-core/src/trajectory/v2.rs`.
 Both final priority receipts were rerun with that complete inventory. All earlier
 receipts remain in the superseded-attempt archive; no gameplay expectation or
 input changed. Full torture was repeated on the final integrated tree with all
-six new Python tests discovered.
+eight new Python tests discovered.
 
 ## Scope
 
@@ -140,3 +144,21 @@ or complete legal-set equality, noncreature/trigger/activated-choice support,
 nonempty combat, cleanup discards, complete games, RFC 0003/RL work or M2 completion
 is claimed. Original owners and the #24/#25/#26 audits retain full acceptance.
 No production rule, workflow, CI, dependency pin or repository setting changed.
+
+## Independent review repair: rejection boundaries
+
+The [final-candidate review](review-blocking.json) found that generic negative
+diagnostics could accept later exhaustion of a minimized tape. The new real-client
+[regression produced twenty intended assertion failures](rejection-boundaries-red.log)
+before repair. Each negative now requires its authored illegal tape position and
+rejection category in both native normal discovery and the actual XMage runner.
+The [literal boundary table](../../../fixtures/reference/full-pool-priority-negative-expectations.json)
+records the independent requirement for each case: priority holder, one-land limit,
+frozen cost, unpaid mana, source incarnation or strict envelope/callback contract.
+Indices identify the offending choices in the preserved input tapes; no tape or
+gameplay checkpoint expectation changed. Normal comparator probes reject later
+exhaustion, wrong categories and shifted positions for both engine formats.
+The original twenty controls and all earlier assertions remain; the stronger
+checks supplement them. Both priority runs and both London compatibility runs were refreshed after this
+repair, all eight focused tests passed, and the full torture log above records
+311 Python tests and 1,490 Rust executions on the repaired integrated tree.
