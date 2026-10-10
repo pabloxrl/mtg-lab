@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "privacy": "privileged",
+  "validated": true,
+  "oracle": "CR 103: keep seven, no first draw; CR 305: one Forest leaves P0 hand; CR 104.3a concession. No resolving spell/effect control.",
+  "config": {
+    "schema_version": 3,
+    "game": {
+      "format": "foundations_micro_v1",
+      "seats": [
+        {
+          "deck": "green",
+          "order": [
+            "bear-cub",
+            "giant-growth",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "giant-growth",
+            "giant-growth",
+            "llanowar-elves",
+            "llanowar-elves",
+            "llanowar-elves",
+            "druid-of-the-cowl",
+            "druid-of-the-cowl",
+            "magnigoth-sentry",
+            "magnigoth-sentry",
+            "tajuru-pathwarden",
+            "tajuru-pathwarden",
+            "thornweald-archer",
+            "thornweald-archer",
+            "thornweald-archer",
+            "bite-down",
+            "bite-down",
+            "bite-down",
+            "wildheart-invoker",
+            "wildheart-invoker"
+          ]
+        },
+        {
+          "deck": "green",
+          "order": [
+            "bear-cub",
+            "giant-growth",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "giant-growth",
+            "giant-growth",
+            "llanowar-elves",
+            "llanowar-elves",
+            "llanowar-elves",
+            "druid-of-the-cowl",
+            "druid-of-the-cowl",
+            "magnigoth-sentry",
+            "magnigoth-sentry",
+            "tajuru-pathwarden",
+            "tajuru-pathwarden",
+            "thornweald-archer",
+            "thornweald-archer",
+            "thornweald-archer",
+            "bite-down",
+            "bite-down",
+            "bite-down",
+            "wildheart-invoker",
+            "wildheart-invoker"
+          ]
+        }
+      ],
+      "starting_seat": 0,
+      "game_number": 1,
+      "sideboards": false,
+      "rng_version": "splitmix64-v1",
+      "shuffle_version": "fisher-yates-rejection-v1"
+    },
+    "policies": [
+      "semantic-script-v1",
+      "semantic-script-v1"
+    ],
+    "master_seed": 178,
+    "first_episode": 0,
+    "episodes": 1,
+    "max_decisions": 1000,
+    "deadline_ms": null,
+    "native": {
+      "policy_seed": 42,
+      "rng_version": "legal-random-rng-v1",
+      "work_quantum": 64,
+      "max_work_calls": 100000,
+      "max_records": 20000
+    },
+    "script": {
+      "version": 1,
+      "privacy": "privileged",
+      "max_bytes": 262144,
+      "max_records": 1000,
+      "records": [
+        {
+          "episode": 0,
+          "decision": 0,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"keep_or_mulligan\",\"choices\":[{\"kind\":\"keep\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 1,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"keep_or_mulligan\",\"choices\":[{\"kind\":\"keep\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 2,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 3,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 4,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 5,
+          "seat": "P1",
+          "record": "{\"version\": 1, \"actor\": \"P1\", \"decision\": \"concession\", \"choices\": [{\"kind\": \"concede\"}]}"
+        }
+      ]
+    }
+  },
+  "checkpoints": [
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    }
+  ],
+  "final": {
+    "life": [
+      20,
+      20
+    ],
+    "hand_counts": [
+      6,
+      7
+    ],
+    "library_counts": [
+      33,
+      33
+    ]
+  },
+  "engine": "028d5b7c9b251e8443c070f0246b41e499414c3f8e510a6721fbeb3bfbf1be8e"
+}

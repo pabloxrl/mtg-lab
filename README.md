@@ -38,6 +38,10 @@ new cards reuse supported mechanics through definitions, without engine changes.
   the [available-container artifact](doc/evidence/full-pool-baseline/README.md)
   records provisional speed/overhead misses and all four 10,000-state sweeps.
   Shared-container measurements do not qualify the designated performance host.
+- [Fixed-trace profiling](doc/evidence/fixed-trace-profile/README.md) checks frozen
+  rules-derived checkpoints before measuring replay, observations, encoding and
+  allocations. Its diagnostic adapter isolates repeated effect dispatches;
+  it is not a throughput campaign or a new game command.
 - Automated regression tests and scoped comparisons against pinned XMage and
   Forge reference engines.
 

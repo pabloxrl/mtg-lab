@@ -1,0 +1,5378 @@
+{
+  "schema_version": 1,
+  "privacy": "privileged",
+  "validated": true,
+  "oracle": "CR 103, 305, 601, 608, 508-510, 514; doc/evidence/script-cli/README.md and lethal-expectation-review.json",
+  "config": {
+    "schema_version": 3,
+    "game": {
+      "format": "foundations_micro_v1",
+      "seats": [
+        {
+          "deck": "green",
+          "order": [
+            "bear-cub",
+            "giant-growth",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "giant-growth",
+            "giant-growth",
+            "llanowar-elves",
+            "llanowar-elves",
+            "llanowar-elves",
+            "druid-of-the-cowl",
+            "druid-of-the-cowl",
+            "magnigoth-sentry",
+            "magnigoth-sentry",
+            "tajuru-pathwarden",
+            "tajuru-pathwarden",
+            "thornweald-archer",
+            "thornweald-archer",
+            "thornweald-archer",
+            "bite-down",
+            "bite-down",
+            "bite-down",
+            "wildheart-invoker",
+            "wildheart-invoker"
+          ]
+        },
+        {
+          "deck": "green",
+          "order": [
+            "bear-cub",
+            "giant-growth",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "forest",
+            "bear-cub",
+            "bear-cub",
+            "bear-cub",
+            "giant-growth",
+            "giant-growth",
+            "llanowar-elves",
+            "llanowar-elves",
+            "llanowar-elves",
+            "druid-of-the-cowl",
+            "druid-of-the-cowl",
+            "magnigoth-sentry",
+            "magnigoth-sentry",
+            "tajuru-pathwarden",
+            "tajuru-pathwarden",
+            "thornweald-archer",
+            "thornweald-archer",
+            "thornweald-archer",
+            "bite-down",
+            "bite-down",
+            "bite-down",
+            "wildheart-invoker",
+            "wildheart-invoker"
+          ]
+        }
+      ],
+      "starting_seat": 0,
+      "game_number": 1,
+      "sideboards": false,
+      "rng_version": "splitmix64-v1",
+      "shuffle_version": "fisher-yates-rejection-v1"
+    },
+    "policies": [
+      "semantic-script-v1",
+      "semantic-script-v1"
+    ],
+    "master_seed": 178,
+    "first_episode": 0,
+    "episodes": 1,
+    "max_decisions": 1000,
+    "deadline_ms": null,
+    "native": {
+      "policy_seed": 42,
+      "rng_version": "legal-random-rng-v1",
+      "work_quantum": 64,
+      "max_work_calls": 100000,
+      "max_records": 20000
+    },
+    "script": {
+      "version": 1,
+      "privacy": "privileged",
+      "max_bytes": 262144,
+      "max_records": 1000,
+      "records": [
+        {
+          "episode": 0,
+          "decision": 0,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"keep_or_mulligan\",\"choices\":[{\"kind\":\"keep\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 1,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"keep_or_mulligan\",\"choices\":[{\"kind\":\"keep\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 2,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 3,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 4,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 5,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 6,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 7,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 8,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 9,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 10,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 11,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 12,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 13,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 14,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 15,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 16,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 17,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 18,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 19,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 20,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 21,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":42,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 22,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 23,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 24,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 25,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 26,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 27,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 28,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 29,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 30,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 31,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 32,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 33,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 34,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 35,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 36,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 37,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 38,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":3,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 39,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"cast\",\"card\":{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 40,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"tap_mana\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":2}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 41,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"tap_mana\",\"card\":{\"birth\":3,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":2}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 42,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"pay\",\"color\":4}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 43,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"pay\",\"color\":4}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 44,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"finish_payment\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 45,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 46,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 47,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 48,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 49,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 50,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 51,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 52,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 53,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 54,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 55,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 56,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 57,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 58,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 59,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 60,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 61,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 62,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 63,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 64,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"play_land\",\"card\":{\"birth\":43,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 65,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 66,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 67,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 68,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 69,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 70,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 71,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 72,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 73,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 74,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 75,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 76,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 77,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 78,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 79,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 80,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 81,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"cast\",\"card\":{\"birth\":1,\"card\":\"giant-growth\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 82,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"growth_target\",\"choices\":[{\"kind\":\"target\",\"card\":{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 83,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"targets_complete\",\"choices\":[{\"kind\":\"finish_targets\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 84,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"tap_mana\",\"card\":{\"birth\":2,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":2}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 85,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"pay\",\"color\":4}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 86,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"payment\",\"choices\":[{\"kind\":\"finish_payment\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 87,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 88,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 89,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 90,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 91,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 92,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 93,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 94,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 95,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 96,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 97,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 98,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 99,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 100,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 101,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 102,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 103,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 104,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 105,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 106,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 107,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 108,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 109,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 110,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 111,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 112,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 113,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 114,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 115,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 116,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 117,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 118,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 119,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 120,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 121,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 122,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 123,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 124,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 125,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":49,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 126,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 127,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 128,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 129,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 130,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 131,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 132,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 133,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 134,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 135,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 136,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 137,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 138,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 139,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 140,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 141,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 142,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 143,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 144,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 145,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 146,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 147,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 148,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 149,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 150,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 151,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 152,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 153,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 154,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 155,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 156,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 157,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 158,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 159,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 160,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 161,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 162,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 163,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 164,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 165,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 166,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":50,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 167,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 168,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 169,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 170,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 171,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 172,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 173,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 174,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 175,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 176,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 177,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 178,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 179,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 180,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 181,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 182,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 183,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 184,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 185,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 186,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 187,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 188,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 189,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 190,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 191,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 192,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 193,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 194,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 195,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 196,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 197,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 198,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 199,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 200,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 201,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 202,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 203,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 204,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 205,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 206,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 207,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":51,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 208,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 209,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 210,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 211,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 212,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 213,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 214,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 215,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 216,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 217,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 218,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 219,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 220,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 221,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 222,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 223,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 224,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 225,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 226,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 227,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 228,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 229,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 230,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 231,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 232,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":11,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 233,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 234,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 235,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 236,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 237,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 238,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 239,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 240,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 241,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 242,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 243,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 244,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 245,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 246,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 247,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 248,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 249,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":52,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 250,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 251,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 252,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 253,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 254,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 255,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 256,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 257,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 258,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 259,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 260,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 261,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 262,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 263,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 264,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 265,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 266,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 267,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 268,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 269,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 270,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 271,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 272,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 273,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 274,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":12,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 275,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 276,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 277,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 278,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 279,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 280,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 281,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 282,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 283,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 284,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 285,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 286,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 287,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 288,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 289,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 290,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 291,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":53,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 292,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 293,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 294,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 295,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 296,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 297,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 298,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 299,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 300,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 301,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 302,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 303,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 304,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 305,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 306,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 307,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 308,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 309,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 310,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 311,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 312,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 313,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 314,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 315,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 316,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":13,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 317,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 318,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 319,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 320,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 321,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 322,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 323,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 324,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 325,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 326,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 327,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 328,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 329,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 330,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 331,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 332,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 333,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":54,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 334,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 335,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 336,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 337,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 338,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 339,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 340,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 341,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 342,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 343,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 344,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 345,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 346,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 347,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 348,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 349,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 350,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 351,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 352,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 353,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 354,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 355,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 356,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 357,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 358,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":14,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 359,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 360,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 361,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 362,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 363,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 364,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 365,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 366,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 367,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 368,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 369,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 370,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 371,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 372,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 373,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 374,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 375,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":55,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 376,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 377,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 378,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 379,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 380,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 381,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 382,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 383,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 384,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 385,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 386,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 387,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 388,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 389,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 390,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 391,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 392,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 393,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 394,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 395,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 396,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 397,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 398,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 399,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 400,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":15,\"card\":\"forest\",\"owner\":\"P0\",\"zone\":{\"Hand\":\"P0\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 401,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 402,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 403,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 404,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 405,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 406,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 407,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 408,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 409,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 410,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 411,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 412,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 413,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 414,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 415,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 416,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 417,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"cleanup_discard\",\"choices\":[{\"kind\":\"discard\",\"card\":{\"birth\":56,\"card\":\"forest\",\"owner\":\"P1\",\"zone\":{\"Hand\":\"P1\"},\"incarnation\":1}}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 418,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 419,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 420,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 421,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 422,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 423,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 424,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 425,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 426,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"select_attackers\",\"cards\":[{\"birth\":0,\"card\":\"bear-cub\",\"owner\":\"P0\",\"zone\":\"Battlefield\",\"incarnation\":3}]}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 427,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"attackers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 428,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 429,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 430,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"blockers\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 431,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 432,
+          "seat": "P1",
+          "record": "{\"version\":1,\"actor\":\"P1\",\"decision\":\"priority\",\"choices\":[{\"kind\":\"pass\"}]}"
+        },
+        {
+          "episode": 0,
+          "decision": 433,
+          "seat": "P0",
+          "record": "{\"version\":1,\"actor\":\"P0\",\"decision\":\"combat_damage\",\"choices\":[{\"kind\":\"finish_combat\"}]}"
+        }
+      ]
+    }
+  },
+  "checkpoints": [
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ],
+      "creatures": [
+        [
+          "bear-cub",
+          [
+            5,
+            5,
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        20
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        15
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        13
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        11
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        9
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        7
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        5
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        3
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        1
+      ]
+    },
+    {
+      "life": [
+        20,
+        -1
+      ]
+    }
+  ],
+  "final": {
+    "life": [
+      20,
+      -1
+    ],
+    "hand_counts": [
+      8,
+      7
+    ],
+    "library_counts": [
+      23,
+      23
+    ],
+    "creatures": [
+      [
+        "bear-cub",
+        [
+          2,
+          2,
+          0
+        ]
+      ]
+    ]
+  },
+  "engine": "028d5b7c9b251e8443c070f0246b41e499414c3f8e510a6721fbeb3bfbf1be8e"
+}
