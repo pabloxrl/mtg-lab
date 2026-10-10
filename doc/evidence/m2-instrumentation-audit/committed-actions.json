@@ -1,0 +1,120 @@
+{
+  "audit_base": "c779b190ed28ff845741c4ce1149f71e55ec675b",
+  "formula": "sum(counters.committed_actions) * 1e9 / sum(elapsed_ns); off unavailable",
+  "groups": {
+    "heuristic-activation-mana-v1/encoded/counters": {
+      "begun": 399023,
+      "cancelled": 0,
+      "committed": 399023,
+      "committed_per_second": 2652.3911689124343,
+      "elapsed_ns": 150438971701
+    },
+    "heuristic-activation-mana-v1/encoded/full_replay": {
+      "begun": 85086,
+      "cancelled": 0,
+      "committed": 85086,
+      "committed_per_second": 556.4731951539001,
+      "elapsed_ns": 152902243524
+    },
+    "heuristic-activation-mana-v1/encoded/off": {
+      "begun": null,
+      "cancelled": null,
+      "committed": null,
+      "committed_per_second": null,
+      "elapsed_ns": 150433141577
+    },
+    "heuristic-activation-mana-v1/encoded/sampled_trace": {
+      "begun": 399960,
+      "cancelled": 0,
+      "committed": 399960,
+      "committed_per_second": 2656.9468840363934,
+      "elapsed_ns": 150533683004
+    },
+    "heuristic-activation-mana-v1/native/counters": {
+      "begun": 403766,
+      "cancelled": 0,
+      "committed": 403766,
+      "committed_per_second": 2682.5288393943765,
+      "elapsed_ns": 150516927934
+    },
+    "heuristic-activation-mana-v1/native/full_replay": {
+      "begun": 84619,
+      "cancelled": 0,
+      "committed": 84619,
+      "committed_per_second": 555.8892418994158,
+      "elapsed_ns": 152222769613
+    },
+    "heuristic-activation-mana-v1/native/off": {
+      "begun": null,
+      "cancelled": null,
+      "committed": null,
+      "committed_per_second": null,
+      "elapsed_ns": 150423524336
+    },
+    "heuristic-activation-mana-v1/native/sampled_trace": {
+      "begun": 409146,
+      "cancelled": 0,
+      "committed": 409146,
+      "committed_per_second": 2715.291550158226,
+      "elapsed_ns": 150682161544
+    },
+    "legal-random-activation-mana-v1/encoded/counters": {
+      "begun": 366024,
+      "cancelled": 39718,
+      "committed": 326306,
+      "committed_per_second": 2136.1613711634964,
+      "elapsed_ns": 152753441011
+    },
+    "legal-random-activation-mana-v1/encoded/full_replay": {
+      "begun": 250877,
+      "cancelled": 27006,
+      "committed": 223871,
+      "committed_per_second": 460.2603055312651,
+      "elapsed_ns": 486400841675
+    },
+    "legal-random-activation-mana-v1/encoded/off": {
+      "begun": null,
+      "cancelled": null,
+      "committed": null,
+      "committed_per_second": null,
+      "elapsed_ns": 152937532448
+    },
+    "legal-random-activation-mana-v1/encoded/sampled_trace": {
+      "begun": 363920,
+      "cancelled": 39477,
+      "committed": 324443,
+      "committed_per_second": 2125.3274033528373,
+      "elapsed_ns": 152655538854
+    },
+    "legal-random-activation-mana-v1/native/counters": {
+      "begun": 371431,
+      "cancelled": 40446,
+      "committed": 330985,
+      "committed_per_second": 2179.7837902303104,
+      "elapsed_ns": 151843041261
+    },
+    "legal-random-activation-mana-v1/native/full_replay": {
+      "begun": 248951,
+      "cancelled": 26752,
+      "committed": 222199,
+      "committed_per_second": 460.7236041395101,
+      "elapsed_ns": 482282648433
+    },
+    "legal-random-activation-mana-v1/native/off": {
+      "begun": null,
+      "cancelled": null,
+      "committed": null,
+      "committed_per_second": null,
+      "elapsed_ns": 152619832772
+    },
+    "legal-random-activation-mana-v1/native/sampled_trace": {
+      "begun": 371431,
+      "cancelled": 40446,
+      "committed": 330985,
+      "committed_per_second": 2174.657142081435,
+      "elapsed_ns": 152201003825
+    }
+  },
+  "schema_version": 1,
+  "source_archive_sha256": "0346835eed5392de88d31b6a3409bb157a409d1fa10de2be1fcc3d232bee4367"
+}
