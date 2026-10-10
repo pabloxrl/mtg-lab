@@ -1,7 +1,7 @@
 # Scalar sampled latency evidence (GH-278)
 
-Status: implementation and full local regression checks pass. Protected delivery
-and independent-review receipts are recorded in the [GH-278 workpad](https://github.com/pabloxrl/mtg-lab/issues/278#issuecomment-6093342402).
+Status: bounded latency implementation with executable regression evidence.
+Consult the latest verification, protected-delivery and independent-review receipts in the [GH-278 workpad](https://github.com/pabloxrl/mtg-lab/issues/278#issuecomment-6093342402).
 No measurement qualification or M2 completion is claimed.
 
 Oracle: RFC 0002 B008 requires decision latency p50/p95/p99; B020/B021
@@ -62,9 +62,10 @@ process-local object scopes are normalized; all game content remains compared.
 This is played-prefix equivalence, not a new complete-game reference claim.
 
 Three pure histogram/config/merge tests and two real exported-artifact Python tests
-also pass in ordinary discovery. There are ten new Rust tests and two new Python
-tests. Full locked `./scripts/torture.sh` passes on the candidate source against
-current main `a44d7bfde8ae78fc3da3a2caf0063b023b5bbaba`: 266 Python tests and
+also pass in ordinary discovery. Two additional Python regression cases cover
+the CI-discovered controller-environment/target-directory defect in the test
+harness. There are ten new Rust tests and four new Python tests. The first candidate `432473823196de739ed946f6e7bae82520d5e451` passed full
+locked `./scripts/torture.sh` against main `a44d7bfde8ae78fc3da3a2caf0063b023b5bbaba`: 266 Python tests and
 1,440 Rust debug/release executions, zero failed/ignored. This includes
 `python3 scripts/run_tests.py` and `cargo test --workspace --locked`.
 The focused Python command also passes with two nonempty real-client tests:
@@ -82,3 +83,13 @@ The [previous full-pool policy evidence](../full-pool-policy/README.md) and
 [scoped M2 reference audit](../m2-mechanics-audit/README.md) remain applicable to
 unchanged rules; no new reference bridge or clock-arithmetic reference claim.
 
+
+
+The first PR checks job exposed a test-harness portability defect: the pinned
+image sets a controller-root environment variable even in isolated verification,
+and Cargo's target directory is outside the read-only source tree. New behavioral
+red cases are retained in `red.txt`. The harness now leaves resource scheduling
+to its caller and honors `CARGO_TARGET_DIR`; in Symphony, wrap focused and full
+commands with the existing shared heavy lock. No alternate lock, skipped test,
+CI policy change or fallback engine is introduced. The original two real native
+artifact tests remain mandatory. Consult the workpad for the corrected candidate’s full rerun and exact-head review.

@@ -1,14 +1,20 @@
 """RFC B008/B021: execute the real native client and reject bad accounting."""
 import copy
 import json
+import os
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 LABELS = {"reset", "transition", "legality_and_view", "policy", "encoding", "finalization"}
 EDGES = [0, 10, 100, 1000, 10000, 100000, 1000000]
+
+
+def native_binary():
+    return ROOT / os.environ.get("CARGO_TARGET_DIR", "target") / "debug/mtg"
 
 
 def validate(report):
@@ -62,14 +68,11 @@ def validate(report):
 class ScalarSampledTiming(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        # CI already serializes its check phase. Managed Symphony callers hold
-        # the shared heavy lock; a standalone focused run acquires it here.
-        import os
-        command = ["cargo", "build", "-p", "mtg-cli", "--locked"]
-        if os.environ.get("SYMPHONY_CONTROL_ROOT") and not os.environ.get("MTG_SYMPHONY_LOCK_FD"):
-            command = ["python3", str(Path(os.environ["SYMPHONY_CONTROL_ROOT"]) /
-                       "scripts/symphony/resource_lock.py"), "heavy", "--"] + command
-        subprocess.run(command, cwd=ROOT, check=True)
+        # Resource ownership belongs to the invoking environment. Symphony
+        # wraps the whole check in its existing heavy lock; CI has an isolated
+        # verification partition. The test must not infer controller presence
+        # from an image's default environment variable.
+        subprocess.run(["cargo", "build", "-p", "mtg-cli", "--locked"], cwd=ROOT, check=True)
 
     def run_client(self, mode):
         config = json.loads((ROOT / "fixtures/bench/scalar-workload-v1.json").read_text())
@@ -78,7 +81,7 @@ class ScalarSampledTiming(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "input.json"
             path.write_text(json.dumps(config))
-            result = subprocess.run([str(ROOT / "target/debug/mtg"), "simulate", "--config", str(path)],
+            result = subprocess.run([str(native_binary()), "simulate", "--config", str(path)],
                                     cwd=ROOT, capture_output=True, text=True, timeout=60, check=True)
         return [json.loads(line) for line in result.stdout.splitlines()]
 
@@ -111,3 +114,22 @@ class ScalarSampledTiming(unittest.TestCase):
         bad["phases"]["hidden-hand-seed-42"] = bad["phases"].pop("policy")
         with self.assertRaises(ValueError):
             validate(bad)
+
+
+class NativeBuildInterface(unittest.TestCase):
+    def test_build_command_does_not_depend_on_controller_environment(self):
+        # The pinned CI image declares a controller path absent from the
+        # read-only verification checkout. Scheduling belongs to the caller.
+        with patch.dict(os.environ, {"SYMPHONY_CONTROL_ROOT": "/unavailable-controller"}):
+            with patch("subprocess.run") as run:
+                os.environ.pop("MTG_SYMPHONY_LOCK_FD", None)
+                ScalarSampledTiming.setUpClass()
+        self.assertEqual(run.call_args.args[0], ["cargo", "build", "-p", "mtg-cli", "--locked"])
+
+    def test_binary_path_respects_cargo_target_directory(self):
+        # scripts/verify-docker.sh supplies an absolute target outside source;
+        # Cargo also accepts a target path relative to its working directory.
+        for value, expected in [("/tmp/native-build-output", Path("/tmp/native-build-output/debug/mtg")),
+                                ("other-target", ROOT / "other-target/debug/mtg")]:
+            with self.subTest(value=value), patch.dict(os.environ, {"CARGO_TARGET_DIR": value}):
+                self.assertEqual(native_binary(), expected)

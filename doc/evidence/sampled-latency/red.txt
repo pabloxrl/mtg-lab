@@ -7,3 +7,15 @@ assertion `left == right` failed: missing real-client sampled latency summary
  right: 1
 Result: 0 passed; 1 failed; 0 ignored; 39 filtered out; finished in 0.02s. Exit 101.
 The real client had executed a normal reset and two choices successfully; the intended failure was the absent summary, not a compile/import/tool error.
+
+CI portability defect reproduced before correction (PR #283 checks job 114130785421):
+The pinned CI image sets SYMPHONY_CONTROL_ROOT=/opt/mtg-lab, but verification has no controller checkout there.
+It also uses CARGO_TARGET_DIR=/tmp/target rather than source/target.
+Two new test-harness regression cases ran locally before correction; three intended assertion failures:
+- build command unexpectedly began python3 /unavailable-controller/... rather than cargo build.
+- absolute target /tmp/native-build-output expected but source/target returned.
+- relative target other-target expected but source/target returned.
+Command: python3 -m unittest discover -s tests -p test_m2_repair_timing.py -k NativeBuildInterface
+Result: 2 tests, 3 assertion failures, no import/build failure. No actual build in these interface probes.
+The existing real-client execution tests remain mandatory and unchanged in purpose.
+Correction: test build scheduling belongs to the invoking environment; resolve the executable using Cargo's declared target directory. Worker commands still run under the required shared heavy lock. No CI/workflow/lock policy is changed.
