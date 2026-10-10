@@ -196,6 +196,15 @@ struct Stamp {
     start: Option<u128>,
 }
 impl PolicyTiming {
+    /// The same authorized observation encoder used by the scalar diagnostic
+    /// client. The caller owns its measurement boundary; rules never encode it.
+    pub(crate) fn encode_observation(&self, o: &Observation) -> io::Result<Vec<u8>> {
+        if self.encode {
+            serde_json::to_vec(o).map_err(io::Error::other)
+        } else {
+            Ok(Vec::new())
+        }
+    }
     fn now(&mut self) -> io::Result<u128> {
         let n = (self.clock)();
         if self.last_clock.is_some_and(|last| n < last) {
@@ -477,7 +486,7 @@ pub(crate) fn run_instrumented(
                             let index = usize::from(seat == Seat::P1);
                             if timing.as_ref().is_some_and(|t| t.encode) {
                                 let start = stamp(&mut timing, Phase::Encoding)?;
-                                let bytes = serde_json::to_vec(&o);
+                                let bytes = timing.as_ref().unwrap().encode_observation(&o);
                                 elapsed(&mut timing, start, bytes.is_err())?;
                                 let t = timing.as_mut().unwrap();
                                 let size = std::hint::black_box(bytes?).len() as u64;

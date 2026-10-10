@@ -3,6 +3,8 @@ mod capture;
 mod commands;
 mod latency;
 mod native;
+#[cfg(test)]
+mod profile;
 mod resident;
 mod script;
 mod simulate;
