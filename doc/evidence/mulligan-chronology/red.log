@@ -1,0 +1,21 @@
+Symphony resource lock: waiting for heavy (0s elapsed)
+Symphony resource lock: waiting for heavy (30s elapsed)
+Symphony resource lock: waiting for heavy (60s elapsed)
+Symphony resource lock: waiting for heavy (90s elapsed)
+Symphony resource lock: acquired heavy after waiting
+F
+======================================================================
+FAIL: test_real_opening_reaches_first_upkeep (test_m2_repair_mulligan.MulliganTests.test_real_opening_reaches_first_upkeep)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-270/tests/test_m2_repair_mulligan.py", line 20, in test_real_opening_reaches_first_upkeep
+    self.assertEqual(point['boundary'], 'first_upkeep')
+AssertionError: 'first_declaration' != 'first_upkeep'
+- first_declaration
++ first_upkeep
+
+
+----------------------------------------------------------------------
+Ran 1 test in 17.698s
+
+FAILED (failures=1)
