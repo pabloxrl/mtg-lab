@@ -264,3 +264,36 @@ Outputs are privileged diagnostic artifacts, separate from player captures.
 Unsupported callbacks and missing observations fail explicitly. These are bounded
 prefixes ending before cleanup, not complete games, a complete legal-set comparison,
 a general ability language or an M2 gate verdict.
+
+## Version 6 played trigger prefixes
+
+The test-only `triggers` family retains all earlier families. Three normal-reset
+prefixes cast Archer/Cyclops, two identical Archers across two noncreature casts,
+and Pyromancer followed by a legally played Bite killing it before its ability
+resolves. Explicit controller order, source incarnation, ability and event ordinal
+identify pending and placed triggers. The event ordinal counts witnessed trigger-generating batches within the prefix; raw choice-boundary provenance is retained. Targets are chosen after Pyromancer resolves;
+its source remains incarnation 3 after the physical card moves to incarnation 4.
+
+Native pending batches and XMage's actual ordering/placement callbacks retain raw
+source and ability provenance. XMage calls `chooseTriggeredAbility` only for
+multiple waiting triggers; a lone trigger uses `triggerAbility`. During its ETB
+target callback, XMage already has an announced stack ability, while native still
+has a pending trigger. Each engine's pending identities and boundary are asserted
+at every checkpoint, including ordinary checkpoints after earlier triggers. Repeat
+comparison includes both fields. Each engine's staging is asserted separately; settled
+semantic checkpoints are compared. Unsupported callbacks and missing fields fail.
+
+```sh
+python3 -m unittest discover -s tests -p 'test_m2_repair_triggers.py'
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family triggers --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/triggers-run-1.json
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family triggers --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/triggers-run-2.json
+```
+
+The focused module executes the real native client and its negative tapes in
+normal discovery. Public receipts hash separately restricted privileged artifacts.
+The [independent oracle](../fixtures/reference/full-pool-triggers-oracle.md) and
+[acceptance report](evidence/triggers-prefix/README.md) state exact coverage.
+Existing [APNAP compositions](evidence/m2-triggers/README.md) remain explicitly
+synthetic supplemental evidence; no triggers are injected into these played
+prefixes. No complete legal-set comparison, reference rollback/internal-RNG,
+nonempty combat, terminal-game admission or M2 completion claim is made.

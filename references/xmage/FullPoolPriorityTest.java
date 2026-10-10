@@ -198,7 +198,7 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
     protected void emptyAttackers(TestPlayer p,int s,Game g,boolean forced) {
         need(g.getTurnStepType()==PhaseStep.DECLARE_ATTACKERS && p.getId().equals(g.getActivePlayerId()) && declarations.add(g.getTurnNum()),"/extra or misplaced declaration");
         JsonObject e=next(s,g);need(e.get("kind").getAsString().equals("empty_attackers"),"/missing empty declaration");
-        if(forced)for(Permanent permanent:g.getBattlefield().getAllActivePermanents())if(permanent.getControllerId().equals(p.getId()))need(!permanent.canAttack(players[1-s].getId(),g),"/unwitnessed attackers choice");
+        if(forced)for(Permanent permanent:g.getBattlefield().getAllActivePermanents())if(permanent.isCreature(g)&&permanent.getControllerId().equals(p.getId()))need(!permanent.canAttack(players[1-s].getId(),g),"/unwitnessed attackers choice");
         need(g.getCombat().getGroups().isEmpty(),"/unsupported nonempty combat");played.add(state(g,s,"before/"+cursor,null));accept(e);
     }
     @Override protected void onAttackers(TestPlayer p,int s,Game g,UUID active) {

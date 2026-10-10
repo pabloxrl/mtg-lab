@@ -377,3 +377,5 @@ include!("mulligan_reference_tests.rs");
 include!("priority_reference_tests.rs");
 include!("spells_reference_tests.rs");
 include!("activations_reference_tests.rs");
+
+include!("triggers_reference_tests.rs");

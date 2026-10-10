@@ -1,0 +1,23 @@
+Symphony resource lock: acquired heavy
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-274/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 3.82s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 1 test
+test game::full_pool_reference_tests::full_pool_triggers_played_etb_choice ... FAILED
+
+failures:
+
+---- game::full_pool_reference_tests::full_pool_triggers_played_etb_choice stdout ----
+
+thread 'game::full_pool_reference_tests::full_pool_triggers_played_etb_choice' (329653) panicked at crates/mtg-core/src/triggers_reference_tests.rs:21:5:
+legal played Pyromancer ETB must accept its post-resolution trigger choice: Err("first divergence: /play/47 /unsupported spell callback")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::full_pool_reference_tests::full_pool_triggers_played_etb_choice
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 317 filtered out; finished in 0.05s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

@@ -188,8 +188,8 @@ public class FullPoolMulliganTest {
             @Override public void selectBlockers(Ability source,Game game,UUID defending) { throw new IllegalArgumentException("first divergence: /unsupported blockers callback"); }
             @Override public boolean chooseUse(Outcome outcome,String message,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
             @Override public boolean chooseUse(Outcome outcome,String message,String second,String yes,String no,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
-            @Override public mage.abilities.TriggeredAbility chooseTriggeredAbility(List<mage.abilities.TriggeredAbility> abilities,Game game) { throw new IllegalArgumentException("first divergence: /unsupported trigger callback"); }
-            @Override public boolean triggerAbility(mage.abilities.TriggeredAbility ability,Game game) { throw new IllegalArgumentException("first divergence: /unsupported trigger callback"); }
+            @Override public mage.abilities.TriggeredAbility chooseTriggeredAbility(List<mage.abilities.TriggeredAbility> abilities,Game game) { return onTriggerOrder(this,s,abilities,game); }
+            @Override public boolean triggerAbility(mage.abilities.TriggeredAbility ability,Game game) { onTriggerPlacement(this,s,ability,game); return super.triggerAbility(ability,game); }
             @Override public mage.abilities.Mode chooseMode(mage.abilities.Modes modes,Ability source,Game game) { return onSpellMode(this,s,modes,source,game); }
             @Override public int chooseReplacementEffect(Map<String,String> effects,Map<String,mage.MageObject> objects,Game game) { throw new IllegalArgumentException("first divergence: /unsupported replacement callback"); }
             @Override public boolean choosePile(Outcome outcome,String message,List<? extends Card> first,List<? extends Card> second,Game game) { throw new IllegalArgumentException("first divergence: /unsupported pile callback"); }
@@ -201,6 +201,12 @@ public class FullPoolMulliganTest {
 
         };
         p.setChooseStrictMode(true);return p;
+    }
+    protected mage.abilities.TriggeredAbility onTriggerOrder(TestPlayer p,int s,List<mage.abilities.TriggeredAbility> abilities,Game g) {
+        throw new IllegalArgumentException("first divergence: /unsupported trigger callback");
+    }
+    protected void onTriggerPlacement(TestPlayer p,int s,mage.abilities.TriggeredAbility ability,Game g) {
+        throw new IllegalArgumentException("first divergence: /unsupported trigger callback");
     }
     protected boolean onSpellTarget(TestPlayer p,int s,Outcome outcome,Target target,Ability source,Game game) {
         throw new IllegalArgumentException("first divergence: /unsupported target callback");
