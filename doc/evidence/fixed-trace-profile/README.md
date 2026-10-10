@@ -123,3 +123,16 @@ not just matching gameplay, observations and capture counts. Its intended
 [assertion failure](capture-red.txt) precedes the added capture digest. Full
 integrated verification is repeated for that final correction; the earlier
 full run is historical evidence, not a substitute for final validation.
+
+
+Final integrated focused acceptance PASS: seven Rust tests, four Python tests,
+format and Clippy, after integrating protected four-mode benchmark main
+`3744ffab7ac2571fcb59e4aae2ff744810eee5b5`. The
+[second raw archive](profile-run-2.tar.gz) and [hash index](profile-run-2-index.json)
+retain 12 successful reports, 1,850 observations and seven rejected inputs.
+All four capture-enabled modes have the identical actual canonical-trajectory
+digest and exactly 155 recorded decisions; capture-disabled reports contain no
+trajectory digest. Binary, dependency, card and rules hashes are independently
+checked against the executable/input files by Python. Full replay modes also
+produce nonempty complete verified replay bytes. Both raw runs remain retained;
+run 1 predates the explicit canonical capture digest and main integration.
