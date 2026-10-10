@@ -681,8 +681,23 @@ mod tests {
             .unwrap(),
             0
         );
+        // B021 adds measured latency to counters output. Preserve equality of
+        // every pre-existing field; independently test the new clock-dependent
+        // summary in native::tests (including distinct policy/encoding spans).
+        let semantic_rows = |bytes: &[u8]| -> Vec<Value> {
+            bytes
+                .split(|b| *b == b'\n')
+                .filter(|b| !b.is_empty())
+                .map(|line| {
+                    let mut row: Value = serde_json::from_slice(line).unwrap();
+                    row.as_object_mut().unwrap().remove("latency");
+                    row
+                })
+                .collect()
+        };
         assert_eq!(
-            plain, encoded,
+            semantic_rows(&plain),
+            semantic_rows(&encoded),
             "extra actual JSON encoding and timers must not alter native output"
         );
         assert_eq!(

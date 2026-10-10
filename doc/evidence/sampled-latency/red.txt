@@ -1,0 +1,9 @@
+Baseline on a44d7bfde8ae78fc3da3a2caf0063b023b5bbaba plus new tests, before implementation.
+Command (existing shared heavy lock): cargo test -p mtg-cli --locked sampled_latency_real_client_exports_bounded_observations
+Compiled successfully in 2m20s (test profile optimized + debuginfo).
+Running 1 test: native::tests::sampled_latency_real_client_exports_bounded_observations FAILED
+assertion `left == right` failed: missing real-client sampled latency summary
+  left: Null
+ right: 1
+Result: 0 passed; 1 failed; 0 ignored; 39 filtered out; finished in 0.02s. Exit 101.
+The real client had executed a normal reset and two choices successfully; the intended failure was the absent summary, not a compile/import/tool error.

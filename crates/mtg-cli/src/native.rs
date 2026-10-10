@@ -1,4 +1,5 @@
 //! Native/script client of the authoritative episode owner.
+use crate::latency::{self, Phase, Sampler};
 use crate::simulate::{self, Stop, emit, hash};
 use mtg_core::{
     episode::{Budget, Clock, Driver, Failure, Progress, Status},
@@ -115,12 +116,19 @@ pub(crate) fn run_observed(
     run_instrumented(c, w, control, hook, observe, None)
 }
 
-/// Optional timing for the benchmark client only; ordinary simulation does not
-/// read a performance clock for each choice. Includes policy initialization and
-/// all choose attempts (including failures), excludes observation/submission.
+/// Boundary-owned measurement. Legacy benchmark totals keep their declared
+/// every-boundary clocks; optional histograms reuse those reads when present.
+/// Normal enabled instrumentation reads only deterministically selected spans.
 type StateProbe = dyn FnMut(&Driver, &Observation);
 pub(crate) struct PolicyTiming {
     pub sample: Option<Box<StateProbe>>,
+    pub sample_config: latency::Config,
+    pub latency: Option<Sampler>,
+    pub legacy: bool,
+    pub overflow: bool,
+    pub clock_errors: u64,
+    pub(crate) sampler: Option<Sampler>,
+    pub(crate) last_clock: Option<u128>,
     pub elapsed_ns: u128,
     pub phases: Phases,
     pub detailed: bool,
@@ -141,6 +149,13 @@ impl Default for PolicyTiming {
         let start = Instant::now();
         Self {
             sample: None,
+            sample_config: latency::Config::default(),
+            latency: None,
+            legacy: true,
+            overflow: false,
+            clock_errors: 0,
+            sampler: None,
+            last_clock: None,
             elapsed_ns: 0,
             phases: Phases::default(),
             detailed: false,
@@ -149,13 +164,86 @@ impl Default for PolicyTiming {
         }
     }
 }
-fn stamp(t: &Option<&mut PolicyTiming>, detailed: bool) -> Option<u128> {
-    t.as_ref()
-        .filter(|t| !detailed || t.detailed)
-        .map(|t| (t.clock)())
+struct Stamp {
+    phase: Phase,
+    selected: bool,
+    legacy: bool,
+    start: Option<u128>,
 }
-fn elapsed(t: &Option<&mut PolicyTiming>, start: Option<u128>) -> u128 {
-    start.map_or(0, |start| (t.as_ref().unwrap().clock)() - start)
+impl PolicyTiming {
+    fn now(&mut self) -> io::Result<u128> {
+        let n = (self.clock)();
+        if self.last_clock.is_some_and(|last| n < last) {
+            self.clock_errors = self.clock_errors.saturating_add(1);
+            return Err(io::Error::other("nonmonotonic performance clock"));
+        }
+        self.last_clock = Some(n);
+        Ok(n)
+    }
+    fn add_duration(&mut self, phase: Phase, n: u128) {
+        let to = match phase {
+            Phase::Reset => &mut self.phases.reset_ns,
+            Phase::Transition => &mut self.phases.transition_ns,
+            Phase::LegalityAndView => &mut self.phases.legality_and_view_ns,
+            Phase::Policy => &mut self.elapsed_ns,
+            Phase::Encoding => &mut self.phases.encoding_ns,
+            Phase::Finalization => &mut self.phases.finalization_ns,
+        };
+        match to.checked_add(n) {
+            Some(value) => *to = value,
+            None => {
+                *to = u128::MAX;
+                self.overflow = true;
+            }
+        }
+    }
+}
+fn stamp(t: &mut Option<&mut PolicyTiming>, phase: Phase) -> io::Result<Stamp> {
+    let mut span = Stamp {
+        phase,
+        selected: false,
+        legacy: false,
+        start: None,
+    };
+    if let Some(t) = t {
+        span.selected = t.sampler.as_mut().is_some_and(|s| s.begin(phase));
+        span.legacy = t.legacy && (t.detailed || matches!(phase, Phase::Policy));
+        if span.selected || span.legacy {
+            match t.now() {
+                Ok(n) => span.start = Some(n),
+                Err(e) => {
+                    if let Some(s) = &mut t.sampler {
+                        s.finish(phase, span.selected, None, false);
+                    }
+                    return Err(e);
+                }
+            }
+        }
+    }
+    Ok(span)
+}
+fn elapsed(t: &mut Option<&mut PolicyTiming>, span: Stamp, failed: bool) -> io::Result<()> {
+    if let Some(t) = t {
+        let duration = span
+            .start
+            .map(|start| t.now().map(|end| end - start))
+            .transpose();
+        if let Some(s) = &mut t.sampler {
+            s.finish(
+                span.phase,
+                span.selected,
+                duration.as_ref().ok().copied().flatten(),
+                failed,
+            );
+        }
+        if span.legacy
+            && let Ok(Some(n)) = duration
+        {
+            t.add_duration(span.phase, n);
+        }
+        duration?;
+    }
+    Ok(())
 }
 
 pub(crate) fn run_instrumented(
@@ -164,7 +252,7 @@ pub(crate) fn run_instrumented(
     mut control: impl FnMut() -> Option<Stop>,
     hook: &mut mtg_recorder::FileHook<'_>,
     observe: &mut impl FnMut(&mtg_core::episode::EpisodeResult),
-    mut timing: Option<&mut PolicyTiming>,
+    timing: Option<&mut PolicyTiming>,
 ) -> io::Result<i32> {
     let mut capture = c
         .capture
@@ -175,6 +263,23 @@ pub(crate) fn run_instrumented(
         .native
         .as_ref()
         .ok_or_else(|| io::Error::other("native configuration missing"))?;
+    let mut local_timing = (timing.is_none() && n.instrumentation != mtg_core::metrics::Mode::Off)
+        .then(|| PolicyTiming {
+            legacy: false,
+            ..Default::default()
+        });
+    let mut timing = timing.or(local_timing.as_mut());
+    if let Some(t) = timing.as_mut() {
+        t.sample_config.validate().map_err(io::Error::other)?;
+        t.last_clock = None;
+        t.sampler = if n.instrumentation == mtg_core::metrics::Mode::Off {
+            None
+        } else {
+            let mut sampler = Sampler::new(t.sample_config.clone()).map_err(io::Error::other)?;
+            sampler.reset();
+            Some(sampler)
+        };
+    }
     let mut resolved = serde_json::to_value(c)?;
     if c.script.is_some() {
         resolved["script"]
@@ -230,20 +335,29 @@ pub(crate) fn run_instrumented(
                 .map_err(|_| io::Error::other("invalid trace configuration"))?;
         }
         let episode_start = cursor;
-        let policy_start = stamp(&timing, false);
+        let policy_start = if c.script.is_none() {
+            Some(stamp(&mut timing, Phase::Policy)?)
+        } else {
+            None
+        };
         let mut policies = c.script.is_none().then(|| {
             [
                 Policy::new(&c.policies[0], n, episode, 0),
                 Policy::new(&c.policies[1], n, episode, 1),
             ]
         });
-        let duration = elapsed(&timing, policy_start);
-        if let Some(timing) = timing.as_mut() {
-            timing.elapsed_ns += duration;
+        if let Some(start) = policy_start {
+            elapsed(
+                &mut timing,
+                start,
+                policies
+                    .as_ref()
+                    .is_some_and(|p| p.iter().any(Result::is_err)),
+            )?;
         }
         counts.started += 1;
         let mut work_calls = 1;
-        let reset_start = stamp(&timing, true);
+        let reset_start = stamp(&mut timing, Phase::Reset)?;
         let reset = if let Some(session) = &capture {
             let header = session
                 .run
@@ -253,10 +367,7 @@ pub(crate) fn run_instrumented(
         } else {
             d.reset(&c.game, c.master_seed, episode, n.work_quantum)
         };
-        let duration = elapsed(&timing, reset_start);
-        if let Some(timing) = timing.as_mut() {
-            timing.phases.reset_ns += duration;
-        }
+        elapsed(&mut timing, reset_start, reset.is_err())?;
         let mut caller_error = None;
         let mut reason = "abandoned";
         let mut progress = match reset {
@@ -286,21 +397,21 @@ pub(crate) fn run_instrumented(
             work_calls += 1;
             let result = match progress {
                 Progress::InternalYield => {
-                    let start = stamp(&timing, true);
+                    let start = stamp(&mut timing, Phase::Transition)?;
                     let result = d.advance(n.work_quantum);
-                    let duration = elapsed(&timing, start);
-                    if let Some(t) = timing.as_mut() {
-                        t.phases.transition_ns += duration;
-                    }
+                    elapsed(&mut timing, start, result.is_err())?;
                     result
                 }
                 Progress::Ready if c.script.is_some() => {
-                    match crate::script::submit(
+                    let start = stamp(&mut timing, Phase::Transition)?;
+                    let submission = crate::script::submit(
                         c.script.as_ref().unwrap(),
                         &mut cursor,
                         episode,
                         &mut d,
-                    ) {
+                    );
+                    elapsed(&mut timing, start, submission.is_err())?;
+                    match submission {
                         Ok(()) => Ok(Progress::InternalYield),
                         Err(e) => {
                             caller_error = Some(e);
@@ -310,17 +421,14 @@ pub(crate) fn run_instrumented(
                 }
                 Progress::Ready => {
                     // Only authorized policy observations cross into a policy.
-                    let start = stamp(&timing, true);
+                    let start = stamp(&mut timing, Phase::LegalityAndView)?;
                     let ready = [Seat::P0, Seat::P1].into_iter().find_map(|seat| {
                         d.observe(seat)
                             .ok()
                             .filter(|o| o.decision.is_some())
                             .map(|o| (seat, o))
                     });
-                    let duration = elapsed(&timing, start);
-                    if let Some(t) = timing.as_mut() {
-                        t.phases.legality_and_view_ns += duration;
-                    }
+                    elapsed(&mut timing, start, ready.is_none())?;
                     match ready {
                         Some((seat, o)) => {
                             if let Some(probe) = timing.as_mut().and_then(|t| t.sample.as_mut()) {
@@ -328,31 +436,31 @@ pub(crate) fn run_instrumented(
                             }
                             let index = usize::from(seat == Seat::P1);
                             if timing.as_ref().is_some_and(|t| t.encode) {
-                                let start = stamp(&timing, true);
+                                let start = stamp(&mut timing, Phase::Encoding)?;
                                 let bytes = serde_json::to_vec(&o);
-                                let duration = elapsed(&timing, start);
+                                elapsed(&mut timing, start, bytes.is_err())?;
                                 let t = timing.as_mut().unwrap();
-                                t.phases.encoding_ns += duration;
-                                t.phases.encoded_bytes += std::hint::black_box(bytes?).len() as u64;
+                                let size = std::hint::black_box(bytes?).len() as u64;
+                                match t.phases.encoded_bytes.checked_add(size) {
+                                    Some(n) => t.phases.encoded_bytes = n,
+                                    None => {
+                                        t.phases.encoded_bytes = u64::MAX;
+                                        t.overflow = true;
+                                    }
+                                }
                             }
-                            let policy_start = stamp(&timing, false);
+                            let policy_start = stamp(&mut timing, Phase::Policy)?;
                             let submission = policies.as_mut().unwrap()[index]
                                 .as_mut()
                                 .map_err(|_| ())
                                 .and_then(|p| p.choose(&o).map_err(|_| ()));
-                            let duration = elapsed(&timing, policy_start);
-                            if let Some(timing) = timing.as_mut() {
-                                timing.elapsed_ns += duration;
-                            }
+                            elapsed(&mut timing, policy_start, submission.is_err())?;
                             match submission {
                                 Ok(s) => {
-                                    let start = stamp(&timing, true);
+                                    let start = stamp(&mut timing, Phase::Transition)?;
                                     let result =
                                         d.submit(seat, &s).map(|()| Progress::InternalYield);
-                                    let duration = elapsed(&timing, start);
-                                    if let Some(t) = timing.as_mut() {
-                                        t.phases.transition_ns += duration;
-                                    }
+                                    elapsed(&mut timing, start, result.is_err())?;
                                     result
                                 }
                                 Err(()) => {
@@ -388,12 +496,9 @@ pub(crate) fn run_instrumented(
         {
             caller_error = Some("script_extra");
         }
-        let start = stamp(&timing, true);
+        let start = stamp(&mut timing, Phase::Finalization)?;
         let result = d.finish();
-        let duration = elapsed(&timing, start);
-        if let Some(t) = timing.as_mut() {
-            t.phases.finalization_ns += duration;
-        }
+        elapsed(&mut timing, start, result.is_err())?;
         // Replay bytes are privileged. Validate complete export here but never
         // send it to public JSONL; durable publication uses the existing capture path.
         let replay_status = if n.instrumentation == mtg_core::metrics::Mode::FullReplay {
@@ -535,6 +640,16 @@ pub(crate) fn run_instrumented(
     if let Some(metrics) = &metrics {
         summary["metrics"] = serde_json::to_value(metrics.report())?;
     }
+    if let Some(t) = timing.as_mut()
+        && let Some(local) = &t.sampler
+    {
+        summary["latency"] = local.report(t.encode, c.script.is_some());
+        if let Some(total) = &mut t.latency {
+            total.merge(local).map_err(io::Error::other)?;
+        } else {
+            t.latency = Some(local.clone());
+        }
+    }
     summary["type"] = json!("summary");
     summary["reason"] = json!(run_reason);
     summary["exit_code"] = json!(exit);
@@ -555,6 +670,294 @@ mod tests {
             .map(|s| serde_json::from_str(s).unwrap())
             .collect()
     }
+    #[test]
+    fn sampled_latency_native_duration_overflow_is_flagged_not_wrapped() {
+        let mut c = config();
+        c.episodes = 1;
+        c.max_decisions = 1;
+        c.native.as_mut().unwrap().instrumentation = mtg_core::metrics::Mode::Counters;
+        let first = Rc::new(Cell::new(true));
+        let mut t = PolicyTiming {
+            legacy: false,
+            clock: Rc::new(move || if first.replace(false) { 0 } else { u128::MAX }),
+            ..Default::default()
+        };
+        let mut bytes = vec![];
+        assert_eq!(
+            run_instrumented(
+                &c,
+                &mut bytes,
+                || None,
+                &mut |_, _| Ok(()),
+                &mut |_| {},
+                Some(&mut t)
+            )
+            .unwrap(),
+            0
+        );
+        let r = rows(&bytes);
+        let p = &r.last().unwrap()["latency"]["phases"]["policy"];
+        assert_eq!(p["sum_ns"], u64::MAX);
+        assert_eq!(p["overflow"], true);
+        assert_eq!(p["status"], "unavailable");
+        assert_eq!(p["p99"], Value::Null);
+        assert_eq!(r[1]["decisions"], 1);
+    }
+
+    #[test]
+    fn sampled_latency_off_reads_no_clock_and_sampling_preserves_denominator() {
+        for mode in [
+            mtg_core::metrics::Mode::Off,
+            mtg_core::metrics::Mode::Counters,
+        ] {
+            let mut c = config();
+            c.episodes = 1;
+            c.max_decisions = 2;
+            c.native.as_mut().unwrap().instrumentation = mode;
+            let calls = Rc::new(Cell::new(0u128));
+            let reads = calls.clone();
+            let mut t = PolicyTiming {
+                legacy: false,
+                encode: true,
+                sample_config: latency::Config {
+                    interval: 2,
+                    ..Default::default()
+                },
+                clock: Rc::new(move || {
+                    let n = reads.get();
+                    reads.set(n + 1);
+                    n * 5
+                }),
+                ..Default::default()
+            };
+            let mut bytes = vec![];
+            assert_eq!(
+                run_instrumented(
+                    &c,
+                    &mut bytes,
+                    || None,
+                    &mut |_, _| Ok(()),
+                    &mut |_| {},
+                    Some(&mut t)
+                )
+                .unwrap(),
+                0
+            );
+            let r = rows(&bytes);
+            if mode == mtg_core::metrics::Mode::Off {
+                assert_eq!(calls.get(), 0);
+                assert!(t.latency.is_none());
+                assert!(r.last().unwrap().get("latency").is_none());
+            } else {
+                assert_eq!(calls.get(), 16, "only selected spans read two clock stamps");
+                let p = &r.last().unwrap()["latency"]["phases"];
+                for (phase, attempts, count) in [
+                    ("reset", 1, 1),
+                    ("transition", 3, 2),
+                    ("legality_and_view", 2, 1),
+                    ("policy", 3, 2),
+                    ("encoding", 2, 1),
+                    ("finalization", 1, 1),
+                ] {
+                    assert_eq!(p[phase]["attempts"], attempts);
+                    assert_eq!(p[phase]["count"], count);
+                    assert_eq!(p[phase]["skipped"], attempts - count);
+                    assert_eq!(p[phase]["sum_ns"], count * 5);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn sampled_latency_real_failures_invalid_config_and_collector_merge() {
+        let mut c = config();
+        c.episodes = 1;
+        c.max_decisions = 1;
+        c.native.as_mut().unwrap().instrumentation = mtg_core::metrics::Mode::Counters;
+        let mut t = PolicyTiming {
+            legacy: false,
+            clock: Rc::new(|| 0),
+            ..Default::default()
+        };
+        for _ in 0..2 {
+            assert_eq!(
+                run_instrumented(
+                    &c,
+                    &mut vec![],
+                    || None,
+                    &mut |_, _| Ok(()),
+                    &mut |_| {},
+                    Some(&mut t)
+                )
+                .unwrap(),
+                0
+            );
+        }
+        let total = t.latency.as_ref().unwrap().report(false, false);
+        assert_eq!(total["phases"]["reset"]["attempts"], 2);
+        assert_eq!(total["phases"]["reset"]["count"], 2);
+        assert_eq!(total["phases"]["reset"]["sum_ns"], 0);
+        assert_eq!(total["phases"]["reset"]["status"], "measured");
+        t.sample_config.interval = 0;
+        let mut bytes = vec![];
+        assert!(
+            run_instrumented(
+                &c,
+                &mut bytes,
+                || None,
+                &mut |_, _| Ok(()),
+                &mut |_| {},
+                Some(&mut t)
+            )
+            .is_err()
+        );
+        assert!(bytes.is_empty());
+        for failure in ["reset", "policy", "transition"] {
+            let mut c = config();
+            c.episodes = 1;
+            c.max_decisions = 2;
+            c.native.as_mut().unwrap().instrumentation = mtg_core::metrics::Mode::Counters;
+            match failure {
+                "reset" => c.game.format = "invalid".into(),
+                "policy" => {
+                    c.policies = ["hidden-hand-sentinel".into(), "hidden-hand-sentinel".into()]
+                }
+                _ => c.native.as_mut().unwrap().max_records = NonZeroUsize::new(1).unwrap(),
+            }
+            let mut bytes = vec![];
+            assert_eq!(run(&c, &mut bytes, || None).unwrap(), 3);
+            let r = rows(&bytes);
+            let p = &r.last().unwrap()["latency"]["phases"];
+            assert_eq!(
+                p[failure]["errors"],
+                if failure == "policy" { 2 } else { 1 }
+            );
+            let text = serde_json::to_string(&r.last().unwrap()["latency"]).unwrap();
+            for secret in [
+                "hidden-hand-sentinel",
+                "seed",
+                "forest",
+                "episode",
+                "library",
+            ] {
+                assert!(!text.contains(secret));
+            }
+        }
+    }
+
+    #[test]
+    fn sampled_latency_nonmonotonic_clock_is_rejected_without_panicking() {
+        let mut c = config();
+        c.episodes = 1;
+        c.max_decisions = 1;
+        c.native.as_mut().unwrap().instrumentation = mtg_core::metrics::Mode::Counters;
+        let calls = Rc::new(Cell::new(0));
+        let n = calls.clone();
+        let mut timing = PolicyTiming {
+            clock: Rc::new(move || {
+                let i = n.get();
+                n.set(i + 1);
+                if i == 0 { 10 } else { 9 }
+            }),
+            ..Default::default()
+        };
+        let result = run_instrumented(
+            &c,
+            &mut vec![],
+            || None,
+            &mut |_, _| Ok(()),
+            &mut |_| {},
+            Some(&mut timing),
+        );
+        assert!(
+            result.is_err(),
+            "invalid clock cannot produce a successful measurement"
+        );
+        assert_eq!(timing.elapsed_ns, 0);
+        assert_eq!(timing.clock_errors, 1);
+        let p = timing.sampler.as_ref().unwrap().report(false, false);
+        assert_eq!(p["phases"]["policy"]["clock_errors"], 1);
+        assert_eq!(p["phases"]["policy"]["status"], "unavailable");
+    }
+
+    #[test]
+    fn sampled_latency_literal_clock_keeps_policy_encoding_and_rules_separate() {
+        let mut c = config();
+        c.episodes = 1;
+        c.max_decisions = 1;
+        c.native.as_mut().unwrap().instrumentation = mtg_core::metrics::Mode::Counters;
+        // The one-choice path is init, reset, view, encode, choose, submit, finish.
+        let tape = Rc::new(std::cell::RefCell::new(std::collections::VecDeque::from([
+            0, 3, 3, 13, 13, 33, 33, 133, 133, 140, 140, 170, 170, 210,
+        ])));
+        let times = tape.clone();
+        let mut timing = PolicyTiming {
+            detailed: true,
+            encode: true,
+            clock: Rc::new(move || times.borrow_mut().pop_front().expect("extra clock read")),
+            sample_config: latency::Config {
+                interval: 1,
+                ..Default::default()
+            },
+            ..Default::default()
+        };
+        let mut output = vec![];
+        assert_eq!(
+            run_instrumented(
+                &c,
+                &mut output,
+                || None,
+                &mut |_, _| Ok(()),
+                &mut |_| {},
+                Some(&mut timing)
+            )
+            .unwrap(),
+            0
+        );
+        assert!(tape.borrow().is_empty());
+        assert_eq!(timing.elapsed_ns, 10);
+        assert_eq!(timing.phases.transition_ns, 30);
+        assert_eq!(timing.phases.encoding_ns, 100);
+        let r = rows(&output);
+        let p = &r.last().unwrap()["latency"]["phases"];
+        for (label, duration) in [
+            ("reset", 10),
+            ("legality_and_view", 20),
+            ("encoding", 100),
+            ("transition", 30),
+            ("finalization", 40),
+            ("policy", 10),
+        ] {
+            assert_eq!(p[label]["sum_ns"], duration, "{label} sampled duration");
+            assert_eq!(p[label]["count"], if label == "policy" { 2 } else { 1 });
+        }
+        assert_eq!(p["policy"]["skipped"], 0);
+        assert_eq!(p["encoding"]["p99"], json!({"lower_ns":11,"upper_ns":100}));
+    }
+
+    #[test]
+    fn sampled_latency_real_client_exports_bounded_observations() {
+        // RFC B008/B021: real normal reset plus two accepted opening choices.
+        // Sampling starts at ordinal zero for each fixed phase; no random draws.
+        let mut c = config();
+        c.episodes = 1;
+        c.max_decisions = 2;
+        c.native.as_mut().unwrap().instrumentation = mtg_core::metrics::Mode::Counters;
+        let mut output = vec![];
+        assert_eq!(run(&c, &mut output, || None).unwrap(), 0);
+        let r = rows(&output);
+        let latency = &r.last().unwrap()["latency"];
+        assert_eq!(
+            latency["schema_version"], 1,
+            "missing real-client sampled latency summary"
+        );
+        assert_eq!(latency["phases"]["reset"]["attempts"], 1);
+        assert_eq!(latency["phases"]["policy"]["attempts"], 3);
+        assert_eq!(latency["phases"]["policy"]["count"], 1);
+        assert_eq!(latency["phases"]["policy"]["skipped"], 2);
+        assert_eq!(latency["phases"]["encoding"]["status"], "not_measured");
+    }
+
     #[test]
     fn native_deterministic_prestart_and_midgame_stop_deadline_accounting() {
         for (stop, code, status, field) in [

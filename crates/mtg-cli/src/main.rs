@@ -1,6 +1,7 @@
 mod benchmark;
 mod capture;
 mod commands;
+mod latency;
 mod native;
 mod resident;
 mod script;
