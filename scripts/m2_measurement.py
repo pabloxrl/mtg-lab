@@ -1,0 +1,136 @@
+"""GH-281 campaign arithmetic over delivered reports; no engine or collector."""
+import math
+import statistics
+
+from scripts.scalar_artifact import require, validate_report
+from scripts.scalar_modes import MODES
+
+POLICIES = ('heuristic-activation-mana-v1', 'legal-random-activation-mana-v1')
+
+
+def distribution(samples):
+    require(bool(samples) and all(math.isfinite(n) for n in samples), 'empty/nonfinite samples')
+    ordered = sorted(samples)
+    return dict(samples=samples, mean=statistics.mean(samples),
+                p50=ordered[math.ceil(len(samples)*.5)-1], p95=ordered[math.ceil(len(samples)*.95)-1],
+                min=min(samples), max=max(samples))
+
+
+def needs_extension(samples):
+    require(bool(samples) and all(math.isfinite(n) and n > 0 for n in samples), 'invalid CV samples')
+    return statistics.pstdev(samples)/statistics.mean(samples) > .1
+
+
+def key(config):
+    policies=config['policies']
+    require(len(policies)==2 and policies[0]==policies[1] and policies[0] in POLICIES, 'policy pair')
+    require(type(config['encoding']) is bool, 'encoding track')
+    require(config['instrumentation'] in MODES, 'mode')
+    return policies[0], config['encoding'], config['instrumentation']
+
+
+def validate_campaign(reports):
+    """Require the complete 16-configuration matrix and every declared extension.
+
+    Failures remain in the raw collection but cannot produce a qualified campaign.
+    Distributions contain every window, not a best-run summary. Cross-product
+    overhead samples compare independent windows; they are not paired episodes
+    or independent replicates, confidence intervals, or a causal estimator.
+    """
+    try:
+        return _campaign(reports)
+    except (KeyError, TypeError, IndexError, ZeroDivisionError) as error:
+        raise ValueError(f'malformed measurement campaign: {error}') from error
+
+
+def _campaign(reports):
+    groups={}; reference=None
+    for r in reports:
+        validate_report(r)
+        c=r['pins']['config']; k=key(c)
+        require(r['workload']=='scalar-four-modes-v1', 'four-mode workload required')
+        e=r['pins']['execution']
+        require(e['replay']==dict(max_bytes=67108864,max_records=20000,persistence='in_memory'), 'frozen replay pin')
+        require(e['trace']==(dict(every=64,capacity=256) if k[2]=='sampled_trace' else None), 'frozen trace pin')
+        require(e['capture']=='none', 'throughput campaign capture pin')
+        require(c['warmup_seconds']==10 and c['window_seconds']==30, 'frozen duration')
+        require(c['master_seed']==42 and c['policy_seed']==42, 'frozen seed')
+        for w in [r['warmup'],*r['windows']]:
+            require(all(n>0 for n in w['row_attempts']), 'all eight rows must be observed per interval')
+        before=r['collection']['before'];after=r['collection']['after']
+        resources=tuple(before[f] for f in ('affinity','cpu_quota','memory_limit'))
+        require(resources==tuple(after[f] for f in ('affinity','cpu_quota','memory_limit')), 'resource change')
+        hardware=r['hardware']
+        build=tuple(hardware[f] for f in ('rustc','target','opt_level','rustflags','debug_assertions'))
+        for field in ('binary_sha256','source_sha256'):
+            value=hardware[field]
+            require(len(value)==64 and all(ch in '0123456789abcdef' for ch in value), 'missing source/binary pin')
+        # Strip only dimensions intentionally varied by this frozen campaign.
+        import copy
+        episode=copy.deepcopy(r['pins']['resolved_episode'])
+        episode.pop('policies',None)
+        episode.get('native',{}).pop('instrumentation',None)
+        episode.get('native',{}).pop('trace',None)
+        identity=(hardware['binary_sha256'],hardware['source_sha256'],hardware['cpu_affinity'],resources,episode,build)
+        if reference is None: reference=identity
+        require(identity==reference, 'incomparable executable, workload or resources')
+        groups.setdefault(k,[]).append(r)
+    expected={(p,e,m) for p in POLICIES for e in (False,True) for m in MODES}
+    require(set(groups)==expected, 'missing policy/mode/encoding configuration')
+    result={}; total={f:0 for f in ('completed','elapsed_ns','failed','unfinished','truncated','concessions','attempts','started','decisions','draws')}
+    for k, rows in groups.items():
+        require(rows[0]['pins']['config']['windows']==5, 'initial five windows required')
+        extension=needs_extension(rows[0]['completed_games_per_second']['samples'])
+        require(len(rows)==1+int(extension), 'omitted or undeclared variance extension')
+        if extension: require(rows[1]['pins']['config']['windows']==10, 'extension requires ten windows')
+        windows=[w for r in rows for w in r['windows']]
+        for field in total: total[field]+=sum(w[field] for w in windows)
+        games=[w['completed']*1e9/w['elapsed_ns'] for w in windows]
+        decisions=[w['decisions']*1e9/w['elapsed_ns'] for w in windows]
+        off=[w['decisions']*1e9/w['elapsed_ns'] for r in groups[(k[0],k[1],'off')] for w in r['windows']]
+        native_rates=[w['decisions']*1e9/w['elapsed_ns'] for r in groups[(k[0],False,k[2])] for w in r['windows']]
+        ns=sum(w['elapsed_ns'] for w in windows)
+        name='/'.join((k[0],'encoded' if k[1] else 'native',k[2]))
+        result[name]=dict(games_per_second=distribution(games),decisions_per_second=distribution(decisions),
+            overhead_percent=distribution([100*(1-rate/base) for rate in decisions for base in off]),
+            aggregate_games_per_second=sum(w['completed'] for w in windows)*1e9/ns,
+            aggregate_decisions_per_second=sum(w['decisions'] for w in windows)*1e9/ns,
+            extended=extension, windows=len(windows),
+            encoding_overhead_percent=distribution([100*(1-rate/base) for rate in decisions for base in native_rates]) if k[1] else None,
+            limitation='cross-product of independent window rates, not paired semantic episodes or confidence interval')
+    warmups=[r['warmup'] for r in reports]
+    warmup={f:sum(w[f] for w in warmups) for f in total}
+    return dict(**total, not_started=total['attempts']-total['started'],
+                wins=[sum(w['wins'][seat] for r in reports for w in r['windows']) for seat in (0,1)],
+                warmup=warmup, configurations=result, status='validated-measurements-not-M2-qualification')
+
+
+def validate_archive(directory):
+    """Audit all retained run directories, including unsuccessful process work."""
+    import hashlib
+    import json
+    from pathlib import Path
+    root=Path(directory)
+    try:
+        manifest=json.loads((root/'campaign.json').read_text())
+        rows=manifest['runs']
+        names=[r['name'] for r in rows]
+        require(len(names)==len(set(names)), 'duplicate attempt name')
+        require(all(Path(n).name==n and n not in ('.','..') for n in names), 'invalid run name')
+        require({p.name for p in root.iterdir() if p.is_dir()}==set(names), 'omitted or missing attempt directory')
+        reports=[]
+        for row in rows:
+            folder=root/row['name']
+            require(row['status']=='collected', 'unsuccessful attempt stays published; no campaign qualification')
+            data=(folder/'report.json').read_bytes()
+            require(hashlib.sha256(data).hexdigest()==row['report_sha256'], 'report hash mismatch')
+            report=json.loads(data)
+            require(report['pins']['config']==json.loads((folder/'config.json').read_text())==row['config'], 'requested config mismatch')
+            raw=json.loads((folder/'raw.json').read_text())
+            require({k:v for k,v in report.items() if k!='collection'}==raw, 'modified raw report')
+            require(report['hardware']['binary_sha256']==manifest['binary_sha256'], 'campaign binary mismatch')
+            require(report['collection']['returncode']==json.loads((folder/'collection.json').read_text())['returncode'], 'process status mismatch')
+            reports.append(report)
+        return validate_campaign(reports)
+    except (KeyError,TypeError,OSError,json.JSONDecodeError) as error:
+        raise ValueError(f'malformed measurement archive: {error}') from error
