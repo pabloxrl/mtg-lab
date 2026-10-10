@@ -14,7 +14,7 @@ use std::{
 };
 type Error = (i32, String);
 const INPUT_LIMIT: usize = 16 * 1024 * 1024;
-const USAGE: &str = "usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1|native-rollout-v1|scalar-windows-v1|scalar-full-pool-v1|scalar-resident-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail";
+const USAGE: &str = "usage: mtg replay verify FILE | replay inspect FILE --seat 0|1 --format jsonl | trajectories validate FILE | conformance --suite checkpoints-v1 --fixture FILE --actual FILE --artifacts NEW_DIR | bench --workload scalar-pass-v1|native-rollout-v1|scalar-windows-v1|scalar-full-pool-v1|scalar-four-modes-v1|scalar-resident-v1 --config FILE; optional trailing --output NEW_FILE; unsupported suites/references fail";
 fn invalid(message: impl Into<String>) -> Error {
     (2, message.into())
 }
@@ -145,7 +145,9 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
     } else if args.len() == 5
         && is(0, "bench")
         && is(1, "--workload")
-        && (is(2, "scalar-windows-v1") || is(2, "scalar-full-pool-v1"))
+        && (is(2, "scalar-windows-v1")
+            || is(2, "scalar-full-pool-v1")
+            || is(2, "scalar-four-modes-v1"))
         && is(3, "--config")
     {
         let bytes = read(&args[4], 1_048_576)?;
@@ -173,7 +175,11 @@ pub fn execute(args: &[OsString], signal: &AtomicUsize) -> Result<i32, Error> {
     } else {
         return Err(invalid(USAGE));
     };
-    value["schema_version"] = json!(1);
+    // Versioned command reports own their schema; the envelope supplies v1
+    // only for legacy clients that do not declare one themselves.
+    if value.get("schema_version").is_none() {
+        value["schema_version"] = json!(1);
+    }
     let mut sink: Box<dyn Write> = match output {
         Some(path) => Box::new(
             OpenOptions::new()

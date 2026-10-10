@@ -32,7 +32,10 @@ new cards reuse supported mechanics through definitions, without engine changes.
   bounded sampled latency histograms, sampled diagnostics and complete replay export;
   capture remains independent and performance qualification is still pending.
 - [Versioned scalar benchmarks](doc/scalar-benchmark.md) retain repeated windows,
-  separate measured costs and explicit unfinished-game accounting.
+  separate measured costs and explicit unfinished-game accounting. The additive
+  `scalar-four-modes-v1` contract covers all four modes with bounded in-memory
+  replay retention and independently requested durable canonical capture;
+  sampled timing and the four-mode measurement campaign remain separate work.
   [Full-pool collectors](doc/scalar-baseline.md) cover all eight matchup rows,
   off/counters comparisons and normal-play resident-state RSS sweeps;
   the [available-container artifact](doc/evidence/full-pool-baseline/README.md)

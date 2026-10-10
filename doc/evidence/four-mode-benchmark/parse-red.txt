@@ -1,0 +1,18 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.02s
+     Running unittests src/main.rs (target/debug/deps/mtg-634074455f05cda9)
+
+running 1 test
+
+thread 'benchmark::modes::tests::four_modes_duplicate_fields_remain_strict_for_both_versions' (394144) panicked at crates/mtg-cli/src/benchmark/modes_tests.rs:454:9:
+duplicate fields must retain strict deserialization
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test benchmark::modes::tests::four_modes_duplicate_fields_remain_strict_for_both_versions ... FAILED
+
+failures:
+
+failures:
+    benchmark::modes::tests::four_modes_duplicate_fields_remain_strict_for_both_versions
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 45 filtered out; finished in 0.21s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`
