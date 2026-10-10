@@ -66,8 +66,7 @@ impl SpellClient {
             .as_ref()
             .map(|t| t.decision().actor)
             .or_else(|| g.turns.payment.as_ref().map(|p| p.actor()))
-            .or_else(|| g.turn_decision().map(|d| d.actor))
-            .unwrap();
+            .or_else(|| g.turn_decision().map(|d| d.actor));
         let ordered = |z| {
             g.objects
                 .in_zone(z)
@@ -122,7 +121,7 @@ impl SpellClient {
             "boost":m.boost,"power_boost":m.power_boost,"damage":m.damage})
             })
             .collect();
-        json!({"boundary":boundary,"turn":turn,"step":priority_step(step),"active":seat_index(active),"actor":seat_index(actor),
+        json!({"boundary":boundary,"turn":turn,"step":priority_step(step),"active":seat_index(active),"actor":actor.map(seat_index),
             "life":g.life(),"mana":g.mana(),"land_plays":u8::from(g.turns.land_used),
             "hand":[ordered(Zone::Hand(Seat::P0)),ordered(Zone::Hand(Seat::P1))],
             "library":[ordered(Zone::Library(Seat::P0)),ordered(Zone::Library(Seat::P1))],
@@ -249,7 +248,7 @@ impl SpellClient {
                     },
                 ),
                 "discard" => (
-                    "cast_discard",
+                    if step == turns::Step::Cleanup && g.turns.casting.is_none() { "cleanup_discard" } else { "cast_discard" },
                     actions::Choice::Discard {
                         card: self.object(g, e)?,
                     },
@@ -548,4 +547,28 @@ fn full_pool_spells_literal_checkpoints() {
             .collect::<Vec<_>>(),
         vec![json!("0/mountain/7"), json!("0/mountain/6")]
     );
+}
+
+#[test]
+fn played_cleanup_discard_client_regression() {
+    // CR 514.1: after the second turn's draw/pass prefix, discard the drawn
+    // occurrence and start the third upkeep with exactly seven cards.
+    let mut doc: Value = serde_json::from_str(include_str!("../../../fixtures/reference/full-pool-cleanup.json")).unwrap();
+    doc["schema_version"] = json!(4);
+    doc["family"] = json!("spells");
+    let mut case = doc["cases"][0].clone();
+    let play = case["play"].as_array_mut().unwrap();
+    let end = play.iter().position(|e| e["kind"] == "cleanup_discard").unwrap();
+    let selected=play[end]["selection"][0].clone();
+    play[end]=json!({"sequence":end,"turn":2,"step":"cleanup","actor":1,"kind":"discard","source":selected["source"],"incarnation":selected["incarnation"],"color":null,"role":null,"mode":null});
+    let discarded = play[end]["source"].as_str().unwrap().to_owned();
+    play.truncate(end + 1);
+    case["stop"] = json!(format!("resolved/{discarded}"));
+    doc["cases"] = json!([case]);
+    let mut g = Game::new().unwrap();
+    let runs = spells_consume(&mut g, doc, &mut Value::Null)
+        .expect("CR514.1 legal played cleanup discard must be consumed");
+    let final_point = runs.values().next().unwrap()["points"].as_array().unwrap().last().unwrap();
+    assert_eq!(final_point["turn"], 3);
+    assert_eq!(final_point["hand"][1].as_array().unwrap().len(), 7);
 }

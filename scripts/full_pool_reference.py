@@ -98,6 +98,8 @@ def native(folder, family='reset'):
         import mulligan_reference as family_module
     elif family == 'priority':
         import priority_reference as family_module
+    elif family == 'cleanup':
+        import played_cleanup_reference as family_module
     elif family == 'spells':
         import spells_reference as family_module
     elif family == 'triggers':
@@ -142,10 +144,13 @@ def native(folder, family='reset'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority', 'spells', 'activations', 'triggers'], required=True)
+    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority', 'spells', 'activations', 'triggers', 'cleanup'], required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
+    if args.family == 'cleanup':
+        import played_cleanup_reference
+        return played_cleanup_reference.run(args)
     if args.family == 'triggers':
         import triggers_reference
         return triggers_reference.run(args)

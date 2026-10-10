@@ -1,0 +1,5 @@
+Baseline 9ff1216273338076a9cb147ffd93661c397a4da3 plus test-first reproduction.
+Command (existing shared heavy lock): cargo test -p mtg-core --locked --lib game::full_pool_reference_tests::played_cleanup_discard_client_regression -- --exact
+Compilation succeeded; 1 test ran, 1 failed, 318 filtered out.
+CR514.1 legal played cleanup discard must be consumed: "first divergence: /play/32 /native command WrongKind"
+No implementation change preceded this assertion failure.

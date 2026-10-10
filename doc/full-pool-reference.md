@@ -297,3 +297,42 @@ Existing [APNAP compositions](evidence/m2-triggers/README.md) remain explicitly
 synthetic supplemental evidence; no triggers are injected into these played
 prefixes. No complete legal-set comparison, reference rollback/internal-RNG,
 nonempty combat, terminal-game admission or M2 completion claim is made.
+
+## Version 7: played cleanup and rules endings
+
+`python3 -m unittest discover -s tests -p 'test_m2_repair_cleanup.py'`
+executes the real native client, independent discard/effect/terminal ledgers and
+negative controls. Run the actual pinned native/XMage family twice inside the
+managed container, with the prepared issue-specific cache and existing heavy lock:
+
+```sh
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family cleanup --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/cleanup-run-1.json
+python3 "$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py" heavy -- python3 scripts/full_pool_reference.py --family cleanup --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/cleanup-run-2.json
+```
+
+The [independent oracle](../fixtures/reference/full-pool-cleanup-oracle.md)
+explains the turn-68 empty draw, actual discard occurrences, simultaneous
+Growth/Surprise expiry with damage removal, and terminal reward expectations.
+Version 7 adds `cleanup_discard` with an ordered `selection` of physical occurrence
+and incarnation pairs. A final `finish` observation acknowledgement must be
+present and exhaust the tape. Its actor identifies the transcript owner, not
+terminal priority. Stops are explicit `prefix`, `terminal` or `concession`;
+concessions never count as natural game completion. Earlier versions/families
+retain their original contracts and assertions.
+
+Every settled cleanup has actual native quantum and XMage step-event provenance.
+Native snapshot-restored probes must match scalar semantic state and RNG; restored
+decision identity is deliberately fresh. Terminal results are read after XMage's
+game loop returns, even without a next priority callback. Its losing-player zone
+removal is retained raw: the LOST-event state before departure (or actual
+pre-concession state) supplies the aligned object ledger, while finalized winner
+and reason come from the completed game. No derived state is inserted into either
+engine. Raw spell announcement/payment staging remains separate from compared
+committed states.
+
+The runner also executes the preserved synthetic pending-trigger cleanup cases
+and #257 simultaneous-loss suite, retaining their own receipts and explicit
+additional-cleanup observations. Those setups are not claimed reachable full
+games. Two directed no-cast empty-library games do not satisfy #277's eight-row
+admission matrix, #24's full audit, dual-reference qualification or M2 completion.
+See [delivery evidence](evidence/played-cleanup/README.md).
