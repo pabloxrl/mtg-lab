@@ -1,0 +1,20 @@
+{
+  "scope": "Source-inspected strict spell choices, actual token creation events and continuous-effect durations. No adapted upstream tests.",
+  "consulted_sources": {
+    "Mage.Sets/src/mage/cards/g/GoblinSurprise.java": "712f29be089cea4ac496fdcae857fe83441dc9364da8dbce527146faa3ccc36e",
+    "Mage.Sets/src/mage/cards/t/ThrillOfPossibility.java": "36d9b3c713411b7269fb84307819c8daf069d34912d7bc345c8ae5060f2d24ed",
+    "Mage.Sets/src/mage/cards/d/DragonFodder.java": "2e0a2c0764a90c96eb4206ba5304097d8a938c84fe8a67ee4566dd7fc45aa061",
+    "Mage.Sets/src/mage/cards/g/GiantGrowth.java": "494e3519451e0ebe1e6a20ff1fef0a4ac6fb7a70af9fad93a8d5c2638bc9f7a7",
+    "Mage.Sets/src/mage/cards/b/BiteDown.java": "35198172c4af59ba6022a1eaa85d91d43b7682f3537aaf0053278b15683b6d7f",
+    "Mage/src/main/java/mage/game/permanent/token/GoblinToken.java": "16e001f88ad007f0445ce679eea218189f6c226eced65a5144fe17dfe7a72131",
+    "Mage/src/main/java/mage/game/permanent/token/TokenImpl.java": "64e2102a28036ddfaaec4914c34355f7174f90df30d71527b0553aef9a14687d",
+    "Mage/src/main/java/mage/abilities/costs/common/DiscardTargetCost.java": "003c775808c1e2c48f7c67ce1fd2f1c24d7fa905bcf61b52609e8e73b82aed01",
+    "Mage/src/main/java/mage/abilities/costs/common/DiscardCardCost.java": "085ef2bd42c1943cba6d91100388647826c8d236f4bacfc79140b806a340d189",
+    "Mage/src/main/java/mage/abilities/effects/common/CreateTokenEffect.java": "3e8f27f61963a5e18ee548f257aebd310e6fd141c1a5798beb9f8c53f838ece3",
+    "Mage/src/main/java/mage/game/events/CreatedTokenEvent.java": "63236d31bbe490df1848edda6328297883b4b08a9ba6f6564bcb4264e80767be",
+    "Mage/src/main/java/mage/abilities/effects/ContinuousEffects.java": "413580efde82ea125689259aee90eb21a0bec8106229a985376a96904a60fd2a",
+    "Mage/src/main/java/mage/abilities/AbilityImpl.java": "dac914825d442d3300f3b18788ba80371c46bde1e32dac706f582d12c830a980",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage/src/main/java/mage/target/TargetImpl.java": "4366d56a414e29c40704e8b734f760d1ec6657d57b0abf8998f51f50d566f915"
+  }
+}

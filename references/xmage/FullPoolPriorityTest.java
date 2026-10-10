@@ -21,20 +21,20 @@ import static org.junit.Assert.*;
 
 /** Continuous normal-reset CR117/305/601/608 client; never resolves the stack directly. */
 public class FullPoolPriorityTest extends FullPoolMulliganTest {
-    private final Map<UUID,Integer> initialCounters=new LinkedHashMap<>();
-    private final Map<UUID,Integer> witnessedCounters=new LinkedHashMap<>(),semanticIncarnations=new LinkedHashMap<>();
-    private final Map<UUID,Zone> witnessedZones=new LinkedHashMap<>();
-    private JsonArray identityTransitions;
-    private final Map<UUID,Integer> castActions=new LinkedHashMap<>();
-    private final Map<UUID,Integer> stackActions=new LinkedHashMap<>();
-    private final Set<Integer> declarations=new HashSet<>();
-    private JsonArray played,usedPlay,stops,selectedCastChecks;
-    private JsonObject rawStackIds,openingResult;
-    private int cursor,pendingAction,pendingOrigin,pendingActor;
-    private UUID pending;
-    private Ability pendingAbility;
-    private final List<UUID> pendingSources=new ArrayList<>();
-    private boolean openingSeen;
+    protected final Map<UUID,Integer> initialCounters=new LinkedHashMap<>();
+    protected final Map<UUID,Integer> witnessedCounters=new LinkedHashMap<>(),semanticIncarnations=new LinkedHashMap<>();
+    protected final Map<UUID,Zone> witnessedZones=new LinkedHashMap<>();
+    protected JsonArray identityTransitions;
+    protected final Map<UUID,Integer> castActions=new LinkedHashMap<>();
+    protected final Map<UUID,Integer> stackActions=new LinkedHashMap<>();
+    protected final Set<Integer> declarations=new HashSet<>();
+    protected JsonArray played,usedPlay,stops,selectedCastChecks;
+    protected JsonObject rawStackIds,openingResult;
+    protected int cursor,pendingAction,pendingOrigin,pendingActor;
+    protected UUID pending;
+    protected Ability pendingAbility;
+    protected final List<UUID> pendingSources=new ArrayList<>();
+    protected boolean openingSeen;
 
     @Override protected void validate(JsonObject doc) {
         need(integer(doc.get("schema_version"),3),"/schema_version");
@@ -74,7 +74,7 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
     @Override protected void raw(Game g,int s,String kind) {
         super.raw(g,s,kind);observeIdentities(g,kind.equals("mulligan_shuffle"));
     }
-    private void observeIdentities(Game g,boolean mulliganReturn) {
+    protected void observeIdentities(Game g,boolean mulliganReturn) {
         for(UUID id:initialCounters.keySet()) {
             Zone before=witnessedZones.get(id),after=g.getState().getZone(id);
             int previous=witnessedCounters.get(id),counter=g.getCard(id).getZoneChangeCounter(g);
@@ -91,16 +91,16 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
             witnessedZones.put(id,after);witnessedCounters.put(id,counter);
         }
     }
-    private int incarnation(UUID id,Game g) {
+    protected int incarnation(UUID id,Game g) {
         need(initialCounters.containsKey(id) && g.getCard(id)!=null,"/unwitnessed incarnation");
         return semanticIncarnations.get(id);
     }
-    private static JsonArray mana(Mana m) {
+    protected static JsonArray mana(Mana m) {
         JsonArray result=new JsonArray();
         for(int n:new int[]{m.getWhite(),m.getBlue(),m.getBlack(),m.getRed(),m.getGreen(),m.getColorless()})result.add(n);
         return result;
     }
-    private JsonObject state(Game g,int actor,String boundary,ManaCost unpaid) {
+    protected JsonObject state(Game g,int actor,String boundary,ManaCost unpaid) {
         observeIdentities(g,false);
         need(!g.hasEnded() && g.getCards().size()==80 && initialCounters.size()==80,"/unbound or terminal state");
         JsonObject point=new JsonObject();point.addProperty("boundary",boundary);point.addProperty("turn",g.getTurnNum());
@@ -148,7 +148,7 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
         }
         return point;
     }
-    private JsonObject next(int actor,Game g) {
+    protected JsonObject next(int actor,Game g) {
         need(cursor<current.getAsJsonArray("play").size(),"/missing choice before named stop");
         JsonObject e=current.getAsJsonArray("play").get(cursor).getAsJsonObject();
         need(integer(e.get("sequence"),cursor),"/play sequence");need(integer(e.get("actor"),actor),"/play actor");
@@ -159,13 +159,13 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
         if(!Arrays.asList("play_land","cast","tap_mana").contains(kind))need(e.get("source").isJsonNull()&&e.get("incarnation").isJsonNull(),"/unexpected source");
         return e;
     }
-    private void accept(JsonObject e) {usedPlay.add(e.deepCopy());cursor++;}
-    private UUID source(JsonObject e,Game g) {
+    protected void accept(JsonObject e) {usedPlay.add(e.deepCopy());cursor++;}
+    protected UUID source(JsonObject e,Game g) {
         need(e.get("source").isJsonPrimitive() && e.get("source").getAsJsonPrimitive().isString(),"/source type");
         UUID id=handles.get(e.get("source").getAsString());need(id!=null,"/source unknown");
         need(integer(e.get("incarnation"),incarnation(id,g)),"/play/"+cursor+"/incarnation expected "+e.get("incarnation")+" observed "+incarnation(id,g)+" raw "+g.getCard(id).getZoneChangeCounter(g)+" initial "+initialCounters.get(id));return id;
     }
-    private void tap(TestPlayer p,JsonObject e,Game g) {
+    protected void tap(TestPlayer p,JsonObject e,Game g) {
         UUID id=source(e,g);Permanent land=g.getPermanent(id);
         need(land!=null && land.isLand(g) && land.getSuperType(g).contains(SuperType.BASIC),"/unsupported mana source");
         List<ActivatedManaAbilityImpl> abilities=land.getAbilities().getActivatedManaAbilities(Zone.BATTLEFIELD);
@@ -174,7 +174,7 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
         if(pending!=null)pendingSources.add(id);
         accept(e);
     }
-    private void failCallback(Game g,IllegalArgumentException error) {
+    protected void failCallback(Game g,IllegalArgumentException error) {
         if(priorityFailure==null)priorityFailure=new IllegalArgumentException(
             "first divergence: /play/"+cursor+" "+error.getMessage().replaceFirst("^first divergence: ",""));
         stopped=true;g.pause();
@@ -195,7 +195,7 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
             accept(e);return true;
         } catch(IllegalArgumentException error){failCallback(g,error);return false;}
     }
-    private void emptyAttackers(TestPlayer p,int s,Game g,boolean forced) {
+    protected void emptyAttackers(TestPlayer p,int s,Game g,boolean forced) {
         need(g.getTurnStepType()==PhaseStep.DECLARE_ATTACKERS && p.getId().equals(g.getActivePlayerId()) && declarations.add(g.getTurnNum()),"/extra or misplaced declaration");
         JsonObject e=next(s,g);need(e.get("kind").getAsString().equals("empty_attackers"),"/missing empty declaration");
         if(forced)for(Permanent permanent:g.getBattlefield().getAllActivePermanents())if(permanent.getControllerId().equals(p.getId()))need(!permanent.canAttack(players[1-s].getId(),g),"/unwitnessed attackers choice");
@@ -244,7 +244,7 @@ public class FullPoolPriorityTest extends FullPoolMulliganTest {
             }
         } catch(IllegalArgumentException error){failCallback(g,error);return false;}
     }
-    private JsonObject result() {
+    protected JsonObject result() {
         JsonObject result=new JsonObject();result.add("points",played);result.add("consumed_play",usedPlay);result.add("opening",openingResult);
         result.add("stops",stops);result.add("raw_stack_ids",rawStackIds);result.add("raw_pre_shuffle_orders",rawPreShuffleOrders);result.add("identity_transitions",identityTransitions);
         result.add("selected_cast_checks",selectedCastChecks);

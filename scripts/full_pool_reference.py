@@ -98,6 +98,8 @@ def native(folder, family='reset'):
         import mulligan_reference as family_module
     elif family == 'priority':
         import priority_reference as family_module
+    elif family == 'spells':
+        import spells_reference as family_module
     else:
         raise ValueError('unsupported family')
     folder = folder.resolve()
@@ -136,10 +138,13 @@ def native(folder, family='reset'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority'], required=True)
+    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority', 'spells'], required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
+    if args.family == 'spells':
+        import spells_reference
+        return spells_reference.run(args)
     if args.family == 'priority':
         import priority_reference
         return priority_reference.run(args)
