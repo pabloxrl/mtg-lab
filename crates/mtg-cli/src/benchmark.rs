@@ -498,6 +498,26 @@ mod tests {
     fn input() -> Value {
         json!({"schema_version":1,"workload":"scalar-windows-v1","warmup_seconds":10,"window_seconds":30,"windows":5,"policies":[mtg_policy::HEURISTIC_VERSION,mtg_policy::VERSION],"master_seed":42,"policy_seed":42,"instrumentation":"counters"})
     }
+    // B020/B021: a new version admits all four modes while v1 stays frozen.
+    #[test]
+    fn four_modes_version_accepts_real_native_configuration() {
+        for mode in ["off", "counters", "sampled_trace", "full_replay"] {
+            let mut v = input();
+            v["schema_version"] = json!(2);
+            v["workload"] = json!("scalar-four-modes-v1");
+            v["instrumentation"] = json!(mode);
+            let c: Config = serde_json::from_value(v).unwrap();
+            assert!(c.validate().is_ok(), "new four-mode contract rejects {mode}");
+            for ordinal in 0..8 {
+                let run = c.run_config_at(ordinal).unwrap();
+                assert_eq!(run.first_episode, ordinal);
+                assert_eq!(run.game.starting_seat, (ordinal % 2) as u8);
+                assert_eq!(run.max_decisions, 20_000);
+                assert_eq!(run.native.unwrap().max_records.get(), 20_000);
+            }
+        }
+    }
+
     #[test]
     fn full_pool_contract_accepts_all_eight_rows_without_shorter_horizon() {
         let mut v = input();
