@@ -1,0 +1,32 @@
+{
+  "case": "shivan-multiple",
+  "boundary": "before/304",
+  "native_graveyard": [
+    [
+      "0/shivan-dragon/0"
+    ],
+    [
+      "1/magnigoth-sentry/0",
+      "1/thornweald-archer/0"
+    ]
+  ],
+  "xmage_graveyard": [
+    [
+      "0/shivan-dragon/0"
+    ],
+    [
+      "1/thornweald-archer/0",
+      "1/magnigoth-sentry/0"
+    ]
+  ],
+  "first_divergence": {
+    "path": "$.graveyard[1][0]",
+    "expected": "1/magnigoth-sentry/0",
+    "actual": "1/thornweald-archer/0"
+  }
+}
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/doc/evidence/combat-prefix/ordered-graveyard-repro.py", line 14, in <module>
+    assert diff is None, 'Same explicit tape must preserve ordered graveyard checkpoints; CR 404.3 owner choice is missing'
+           ^^^^^^^^^^^^
+AssertionError: Same explicit tape must preserve ordered graveyard checkpoints; CR 404.3 owner choice is missing

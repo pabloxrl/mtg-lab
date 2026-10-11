@@ -37,6 +37,7 @@ impl Game {
                     | Work::TriggerBoundary
                     | Work::Turn(_)
                     | Work::CombatLife(_)
+                    | Work::CombatDeaths(_)
                     | Work::FinishCombat
                     | Work::Modify(_)
                     | Work::GrantHaste(_)
@@ -73,6 +74,7 @@ impl Game {
         self.decision = None;
         self.work.clear();
         self.turns.decision = None;
+        self.turns.combat.deaths = None;
         self.turns.trigger_placement.clear();
         self.clear_cast_choices();
         self.turns.activation = None;

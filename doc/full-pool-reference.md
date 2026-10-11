@@ -336,3 +336,48 @@ additional-cleanup observations. Those setups are not claimed reachable full
 games. Two directed no-cast empty-library games do not satisfy #277's eight-row
 admission matrix, #24's full audit, dual-reference qualification or M2 completion.
 See [delivery evidence](evidence/played-cleanup/README.md).
+
+## Version 9: played combat and simultaneous graveyard orders
+
+The `combat` family uses full-deck normal-reset prefixes with explicit attackers,
+blockers, modern damage allocations and event-bound owner orders. It retains
+all earlier families. Shivan flying/reach, Thornweald deathtouch, Pathwarden
+vigilance/trample and legally resolved Cavalry haste have literal independent
+ledgers. Pathwarden and Cavalry sickness controls remain mandatory.
+
+```sh
+python3 -m unittest discover -s tests -p 'test_m2_repair_combat.py'
+python3 scripts/full_pool_reference.py --family combat --cache "$MTG_REFERENCE_CACHE" --output .agent-artifacts/combat-run-1.json
+```
+
+In Symphony, wrap both commands with the existing shared heavy lock because
+they execute Cargo/Maven. The focused module runs the real native client and
+negative/comparator controls. Run the reference command twice for delivery.
+The [combat evidence](evidence/combat-prefix/README.md) records exact results,
+inputs, original failing traces and limitations.
+
+The transcript's `graveyard_order` choice supplies an exact bottom-to-top
+permutation of pre-transition physical occurrences/incarnations for
+`combat-sba/TURN`. Owners with multiple card arrivals choose in APNAP order after
+all damage is marked and before any death moves. Earlier owner choices are
+public; no priority window occurs between those choices and the simultaneous
+zone-change event. Missing/extra/stale/foreign-owner/wrong-event input fails.
+Tokens die in the same batch but are not card-order candidates (CR111.6/404.3).
+Only one normal combat-damage SBA event per turn belongs to this family.
+
+The unchanged pinned XMage lethal SBA path omits this owner-order callback.
+`CombatSbaGame.java` is a separately hashed, test-only rules integration using
+the protected SBA hook and actual pinned `ZonesHandler.moveCards` batch
+transition. It does not edit upstream source or repair observed graveyards.
+Receipts explicitly identify `patched-combat-sba-v1`; they are patched-reference
+agreement, not unmodified-upstream agreement. Original mismatches remain
+archived. Indestructibility, regeneration and destruction/zone replacements
+are excluded and fail explicitly in this integration. Eligible attacker and
+blocker-pair sets are compared; no enumeration of every subset/map or general
+legal-set claim is made. No full-game, cleanup, arbitrary trigger or M2 gate
+acceptance is implied.
+
+Native played-replay envelopes are now version 2 and reject version 1; see
+[replay semantics](replay.md#simultaneous-combat-deaths). Native random and
+heuristic policies submit explicit permutations through the ordinary decision
+interface; strict transcripts never use their defaults.

@@ -6,7 +6,7 @@ use mtg_core::opening::{Config, DeckConfig, Game, OpeningAction, Selection};
 fn advance(g: &mut Game) {
     let d = g.turn_decision().unwrap();
     let selection = match d.kind {
-        TurnKind::TriggerOrder | TurnKind::TriggerTarget => {
+        TurnKind::GraveyardOrder | TurnKind::TriggerOrder | TurnKind::TriggerTarget => {
             panic!("no trigger sources in this script")
         }
         TurnKind::Combat(_) => panic!("unexpected combat choice in this script"),

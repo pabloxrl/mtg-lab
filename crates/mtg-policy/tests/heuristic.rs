@@ -637,3 +637,31 @@ fn activation_mana_rejects_old_policy_versions() {
         Err(Error::UnsupportedVersion)
     ));
 }
+
+#[test]
+fn graveyard_order_default_is_stable_full_permutation() {
+    // Strategy convention, not a rules restriction: heuristic keeps the
+    // advertised candidate order; all legal permutations remain available.
+    let mut o = obs(
+        "graveyard_order",
+        vec![
+            Choice::OrderGraveyard { card: b(0) },
+            Choice::OrderGraveyard { card: b(3) },
+        ],
+    );
+    o.decision.as_mut().unwrap().count = 2;
+    let got = Heuristic::new(HEURISTIC_VERSION, 0)
+        .unwrap()
+        .choose(&o)
+        .unwrap();
+    assert_eq!(got.choices, o.decision.as_ref().unwrap().candidates);
+    o.decision.as_mut().unwrap().candidates.reverse();
+    assert_eq!(
+        Heuristic::new(HEURISTIC_VERSION, 0)
+            .unwrap()
+            .choose(&o)
+            .unwrap()
+            .choices,
+        o.decision.unwrap().candidates
+    );
+}

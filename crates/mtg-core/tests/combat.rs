@@ -10,6 +10,11 @@ fn advance(g: &mut Game) {
             panic!("no trigger sources in this script")
         }
         TurnKind::Combat(_) => panic!("unexpected combat choice in this script"),
+        TurnKind::GraveyardOrder => {
+            let cards = g.graveyard_candidates(d.actor);
+            g.order_graveyard(d.actor, d.id, &cards).unwrap();
+            return;
+        }
         TurnKind::Priority => TurnSelection::Pass(d.candidate(0)),
         TurnKind::Discard { count } => {
             TurnSelection::Discard((0..count).map(|i| d.candidate(i)).collect())

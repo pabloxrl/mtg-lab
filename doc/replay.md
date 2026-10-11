@@ -72,7 +72,7 @@ Run `cargo test -p mtg-core --test replay` inside the managed toolchain, then
 `./scripts/torture.sh`. [Acceptance evidence](evidence/replay/README.md) distinguishes
 independent expected results from self-round-trip consistency.
 
-## Complete played-game replay v1
+## Complete played-game replay v2
 
 `opening::replay::played::{record, verify}` extends the core persistence API to
 complete games using `opening::actions::Record` (action version 1). The opening
@@ -100,7 +100,7 @@ player choice. Every submitted choice is validated through the existing action
 codec and core. A stream must reach a terminal outcome, with no extra choices.
 An unfinished prefix fails rather than masquerading as a completed game.
 
-The separate `mtg-core-played-replay` envelope pins format/version, action version,
+Version 2 of the separate `mtg-core-played-replay` envelope pins format/version, action version,
 engine source fingerprint, complete rules/card manifests, PRNG/shuffle versions,
 canonical configuration hash, full configuration, master seed and episode ID.
 Initial and every post-choice checkpoints include ordered zones with birth and
@@ -135,3 +135,15 @@ response/cleanup/combat/life-loss script, fresh-process verification, bounded-wo
 suffix comparison and corruption controls. #19 retains all original integration
 and GR-010/011/012/020–022 expectations, including cross-engine obligations with
 #24/#38. This component does not complete those integrations or M1 (#22).
+
+### Simultaneous combat deaths
+
+Played replay version 2 records `graveyard_order` decisions with one
+`order_graveyard` action per pre-transition object, bottom-to-top. All damage
+is marked first. Affected owners choose in APNAP order; all deaths then settle
+before priority. Tokens die in the same event but are not card-order candidates
+(CR111.6/404.3). The pending batch and earlier public choices survive snapshots.
+`replay verify` reports `scope: played-v2`. Version 1 played replays are rejected
+explicitly; there is no silent missing-choice
+migration. Semantic action envelopes retain version 1 with an additive tagged
+choice; engine fingerprints reject older incompatible rules/recordings.

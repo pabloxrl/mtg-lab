@@ -1,0 +1,12 @@
+{
+  "contract": "Byte-for-byte export compatibility; not an independent rules oracle.",
+  "before_receipt": "combat-pre-stream-run-1.json",
+  "before_directory": "combat-run-1.privileged-ckbd64yv",
+  "after": "combat-streaming-native.json",
+  "sha256": "c09573390b03593ff5ab7769262a387326e75527ae7cf2e72c808cab09636763",
+  "bytes": 242791871,
+  "cases": 19,
+  "repeated_runs": true,
+  "negative_tapes": 33,
+  "method": "Borrow checkpoint references and serialize the complete borrowed envelope through a 128-KiB buffered writer; no field, case, repeat or negative input removed."
+}

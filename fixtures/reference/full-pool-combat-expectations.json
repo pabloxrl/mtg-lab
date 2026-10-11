@@ -1,0 +1,466 @@
+{
+  "shivan-unblocked": {
+    "life": [
+      20,
+      15
+    ],
+    "marks": {},
+    "dead": [],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [],
+    "amounts": null,
+    "base": "shivan-unblocked"
+  },
+  "shivan-sentry": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 4,
+      "1/magnigoth-sentry/0": 5
+    },
+    "dead": [
+      "1/magnigoth-sentry/0"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/magnigoth-sentry/0"
+    ],
+    "amounts": null,
+    "base": "shivan-sentry"
+  },
+  "shivan-thorn": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 2,
+      "1/thornweald-archer/0": 5
+    },
+    "dead": [
+      "0/shivan-dragon/0",
+      "1/thornweald-archer/0"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/thornweald-archer/0"
+    ],
+    "amounts": null,
+    "base": "shivan-thorn"
+  },
+  "shivan-multiple": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 6,
+      "1/magnigoth-sentry/0": 4,
+      "1/thornweald-archer/0": 1
+    },
+    "dead": [
+      "0/shivan-dragon/0",
+      "1/magnigoth-sentry/0",
+      "1/thornweald-archer/0"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/magnigoth-sentry/0",
+      "1/thornweald-archer/0"
+    ],
+    "amounts": [
+      4,
+      1
+    ],
+    "base": "shivan-multiple"
+  },
+  "shivan-modern-split": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 6,
+      "1/magnigoth-sentry/0": 3,
+      "1/thornweald-archer/0": 2
+    },
+    "dead": [
+      "0/shivan-dragon/0",
+      "1/thornweald-archer/0"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/magnigoth-sentry/0",
+      "1/thornweald-archer/0"
+    ],
+    "amounts": [
+      3,
+      2
+    ],
+    "base": "shivan-modern-split"
+  },
+  "pathwarden-single": {
+    "life": [
+      17,
+      20
+    ],
+    "marks": {
+      "1/tajuru-pathwarden/0": 2,
+      "0/swab-goblin/0": 2
+    },
+    "dead": [
+      "0/swab-goblin/0"
+    ],
+    "attacker": "1/tajuru-pathwarden/0",
+    "blockers": [
+      "0/swab-goblin/0"
+    ],
+    "amounts": [
+      2
+    ],
+    "base": "pathwarden-single"
+  },
+  "pathwarden-multiple": {
+    "life": [
+      19,
+      20
+    ],
+    "marks": {
+      "1/tajuru-pathwarden/0": 4,
+      "0/axgard-cavalry/0": 2,
+      "0/swab-goblin/0": 2
+    },
+    "dead": [
+      "1/tajuru-pathwarden/0",
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "attacker": "1/tajuru-pathwarden/0",
+    "blockers": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "amounts": [
+      2,
+      2
+    ],
+    "base": "pathwarden-multiple"
+  },
+  "pathwarden-haste": {
+    "life": [
+      17,
+      20
+    ],
+    "marks": {
+      "1/tajuru-pathwarden/0": 2,
+      "0/swab-goblin/0": 2
+    },
+    "dead": [
+      "0/swab-goblin/0"
+    ],
+    "attacker": "1/tajuru-pathwarden/0",
+    "blockers": [
+      "0/swab-goblin/0"
+    ],
+    "amounts": [
+      2
+    ],
+    "base": "pathwarden-haste"
+  },
+  "thorn-multiple": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "1/thornweald-archer/0": 4,
+      "0/axgard-cavalry/0": 1,
+      "0/swab-goblin/0": 1
+    },
+    "dead": [
+      "1/thornweald-archer/0",
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "attacker": "1/thornweald-archer/0",
+    "blockers": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "amounts": [
+      1,
+      1
+    ],
+    "base": "thorn-multiple"
+  },
+  "both-owners": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/axgard-cavalry/0": 2,
+      "0/swab-goblin/0": 2,
+      "1/bear-cub/0": 2,
+      "1/thornweald-archer/0": 2
+    },
+    "dead": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0",
+      "1/bear-cub/0",
+      "1/thornweald-archer/0"
+    ],
+    "attacker": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "blockers": [
+      "1/bear-cub/0",
+      "1/thornweald-archer/0"
+    ],
+    "amounts": null,
+    "base": "both-owners"
+  },
+  "shivan-multiple-reverse": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 6,
+      "1/magnigoth-sentry/0": 4,
+      "1/thornweald-archer/0": 1
+    },
+    "dead": [
+      "0/shivan-dragon/0",
+      "1/magnigoth-sentry/0",
+      "1/thornweald-archer/0"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/magnigoth-sentry/0",
+      "1/thornweald-archer/0"
+    ],
+    "amounts": [
+      4,
+      1
+    ],
+    "base": "shivan-multiple"
+  },
+  "shivan-multiple-identities": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 6,
+      "1/magnigoth-sentry/1": 4,
+      "1/thornweald-archer/1": 1
+    },
+    "dead": [
+      "0/shivan-dragon/0",
+      "1/magnigoth-sentry/1",
+      "1/thornweald-archer/1"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/magnigoth-sentry/1",
+      "1/thornweald-archer/1"
+    ],
+    "amounts": [
+      4,
+      1
+    ],
+    "base": "shivan-multiple"
+  },
+  "shivan-multiple-reverse-identities": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/shivan-dragon/0": 6,
+      "1/magnigoth-sentry/1": 4,
+      "1/thornweald-archer/1": 1
+    },
+    "dead": [
+      "0/shivan-dragon/0",
+      "1/magnigoth-sentry/1",
+      "1/thornweald-archer/1"
+    ],
+    "attacker": "0/shivan-dragon/0",
+    "blockers": [
+      "1/magnigoth-sentry/1",
+      "1/thornweald-archer/1"
+    ],
+    "amounts": [
+      4,
+      1
+    ],
+    "base": "shivan-multiple"
+  },
+  "pathwarden-multiple-reverse": {
+    "life": [
+      19,
+      20
+    ],
+    "marks": {
+      "1/tajuru-pathwarden/0": 4,
+      "0/axgard-cavalry/0": 2,
+      "0/swab-goblin/0": 2
+    },
+    "dead": [
+      "1/tajuru-pathwarden/0",
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "attacker": "1/tajuru-pathwarden/0",
+    "blockers": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "amounts": [
+      2,
+      2
+    ],
+    "base": "pathwarden-multiple"
+  },
+  "pathwarden-multiple-identities": {
+    "life": [
+      19,
+      20
+    ],
+    "marks": {
+      "1/tajuru-pathwarden/0": 4,
+      "0/axgard-cavalry/1": 2,
+      "0/swab-goblin/1": 2
+    },
+    "dead": [
+      "1/tajuru-pathwarden/0",
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1"
+    ],
+    "attacker": "1/tajuru-pathwarden/0",
+    "blockers": [
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1"
+    ],
+    "amounts": [
+      2,
+      2
+    ],
+    "base": "pathwarden-multiple"
+  },
+  "pathwarden-multiple-reverse-identities": {
+    "life": [
+      19,
+      20
+    ],
+    "marks": {
+      "1/tajuru-pathwarden/0": 4,
+      "0/axgard-cavalry/1": 2,
+      "0/swab-goblin/1": 2
+    },
+    "dead": [
+      "1/tajuru-pathwarden/0",
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1"
+    ],
+    "attacker": "1/tajuru-pathwarden/0",
+    "blockers": [
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1"
+    ],
+    "amounts": [
+      2,
+      2
+    ],
+    "base": "pathwarden-multiple"
+  },
+  "both-owners-reverse": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/axgard-cavalry/0": 2,
+      "0/swab-goblin/0": 2,
+      "1/bear-cub/0": 2,
+      "1/thornweald-archer/0": 2
+    },
+    "dead": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0",
+      "1/bear-cub/0",
+      "1/thornweald-archer/0"
+    ],
+    "attacker": [
+      "0/axgard-cavalry/0",
+      "0/swab-goblin/0"
+    ],
+    "blockers": [
+      "1/bear-cub/0",
+      "1/thornweald-archer/0"
+    ],
+    "amounts": null,
+    "base": "both-owners"
+  },
+  "both-owners-identities": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/axgard-cavalry/1": 2,
+      "0/swab-goblin/1": 2,
+      "1/bear-cub/0": 2,
+      "1/thornweald-archer/1": 2
+    },
+    "dead": [
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1",
+      "1/bear-cub/0",
+      "1/thornweald-archer/1"
+    ],
+    "attacker": [
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1"
+    ],
+    "blockers": [
+      "1/bear-cub/0",
+      "1/thornweald-archer/1"
+    ],
+    "amounts": null,
+    "base": "both-owners"
+  },
+  "both-owners-reverse-identities": {
+    "life": [
+      20,
+      20
+    ],
+    "marks": {
+      "0/axgard-cavalry/1": 2,
+      "0/swab-goblin/1": 2,
+      "1/bear-cub/0": 2,
+      "1/thornweald-archer/1": 2
+    },
+    "dead": [
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1",
+      "1/bear-cub/0",
+      "1/thornweald-archer/1"
+    ],
+    "attacker": [
+      "0/axgard-cavalry/1",
+      "0/swab-goblin/1"
+    ],
+    "blockers": [
+      "1/bear-cub/0",
+      "1/thornweald-archer/1"
+    ],
+    "amounts": null,
+    "base": "both-owners"
+  }
+}

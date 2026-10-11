@@ -1,0 +1,6 @@
+{
+  "observed_after": "Final-source full torture and first final-source reference run passed; second reference and focused run still active/pending.",
+  "counter_scope": "Cumulative container cgroup counters, not a per-process memory measurement or independently reset experiment.",
+  "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 2\noom_group_kill 0\n",
+  "comparison": "oom_kill remains 2, unchanged from the preserved pre-streaming observation. No memory/resource/CI limit was changed."
+}

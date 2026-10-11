@@ -473,3 +473,28 @@ fn random_deathtouch_expresses_every_legal_two_blocker_split() {
         .trample_lethal = Some(vec![2]);
     assert_eq!(p.choose(&o), Err(Error::InvalidObservation));
 }
+
+#[test]
+fn graveyard_order_random_is_complete_without_replacement() {
+    for seat in [0, 1] {
+        let mut o = observation(seat);
+        let d = o.decision.as_mut().unwrap();
+        d.kind = "graveyard_order";
+        d.count = 2;
+        d.candidates = vec![
+            Choice::OrderGraveyard { card: bf(0) },
+            Choice::OrderGraveyard { card: bf(1) },
+        ];
+        d.legal_mask = vec![true, true];
+        let mut p = policy(seat);
+        for _ in 0..20 {
+            let got = p.choose(&o).unwrap().choices;
+            assert_eq!(got.len(), 2);
+            assert_ne!(got[0], got[1]);
+            assert!(
+                got.iter()
+                    .all(|c| o.decision.as_ref().unwrap().candidates.contains(c))
+            );
+        }
+    }
+}

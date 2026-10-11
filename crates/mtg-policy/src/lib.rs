@@ -221,18 +221,22 @@ fn validate(d: &Decision) -> Result<(), Error> {
             | "cast_discard"
             | "payment"
             | "cleanup_discard"
+            | "graveyard_order"
             | "trigger_order"
             | "trigger_target"
     ) {
         return Err(Error::UnsupportedDecision);
     }
     if d.factored.is_some()
-        || (!matches!(d.kind, "bottom" | "cleanup_discard" | "trigger_order") && d.count != 1)
+        || (!matches!(
+            d.kind,
+            "bottom" | "cleanup_discard" | "graveyard_order" | "trigger_order"
+        ) && d.count != 1)
         || d.legal_mask.iter().filter(|legal| **legal).count() < d.count
     {
         return Err(Error::InvalidObservation);
     }
-    if d.kind == "trigger_order" {
+    if matches!(d.kind, "trigger_order" | "graveyard_order") {
         let legal: Vec<_> = d
             .candidates
             .iter()
@@ -255,6 +259,7 @@ fn validate(d: &Decision) -> Result<(), Error> {
         let supported = match d.kind {
             "keep_or_mulligan" => matches!(c, Choice::Keep | Choice::Mulligan),
             "bottom" => matches!(c, Choice::Bottom { .. }),
+            "graveyard_order" => matches!(c, Choice::OrderGraveyard { .. }),
             "trigger_order" => matches!(c, Choice::OrderTrigger { .. }),
             "trigger_target" => matches!(c, Choice::TargetPlayer { seat: 0..=1 }),
             "cast_mode" => matches!(c, Choice::Mode { mode: 0..=1 } | Choice::CancelPayment),

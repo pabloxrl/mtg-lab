@@ -1,0 +1,13 @@
+Symphony resource lock: acquired heavy
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 13.47s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 4 tests
+test game::combat::tests::simultaneous_graveyard_owner_boundary_before_any_death ... ok
+test game::combat::tests::simultaneous_graveyard_tokens_do_not_create_card_choices ... ok
+test game::combat::tests::simultaneous_graveyard_invalid_choices_are_transactional ... ok
+test game::combat::tests::simultaneous_graveyard_both_orders_both_seats_apnap_and_replay ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 321 filtered out; finished in 0.01s
+
