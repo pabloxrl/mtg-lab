@@ -1,0 +1,21 @@
+FF
+======================================================================
+FAIL: test_native_cleanup (__main__.RequiredAuxiliaryFields.test_native_cleanup)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/auxiliary-fields-red.py", line 9, in test_native_cleanup
+    with self.assertRaises(ValueError):a.check_game(run,case,'native')
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_xmage_predeparture (__main__.RequiredAuxiliaryFields.test_xmage_predeparture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/auxiliary-fields-red.py", line 13, in test_xmage_predeparture
+    with self.assertRaises(ValueError):a.check_game(run,a.reference_case(case)[0],'xmage')
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.206s
+
+FAILED (failures=2)

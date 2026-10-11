@@ -145,7 +145,7 @@ public class FullPoolTriggersTest extends FullPoolPriorityTest {
         for(StackObject o:order) {
             if(o instanceof mage.game.stack.StackAbility) {
                 mage.game.stack.StackAbility stackAbility=(mage.game.stack.StackAbility)o;
-                Ability a=stackAbility.getStackAbility();need(triggerKeys.containsKey(a.getId()),"/unwitnessed stack trigger");
+                Ability a=stackAbility.getStackAbility();if(!triggerKeys.containsKey(a.getId())){JsonObject v=nonTriggerAbility(o,g);stack.add(v);rawStackIds.add(o.getId().toString(),v.deepCopy());continue;}
                 JsonObject v=new JsonObject();v.addProperty("ability","trigger");v.add("key",triggerKeys.get(a.getId()).deepCopy());v.addProperty("controller",seat(a.getControllerId()));
                 JsonArray targets=new JsonArray();for(Target t:a.getTargets())for(UUID id:t.getTargets())targets.add(seat(id));
                 need(targets.size()<=1,"/trigger target cardinality");v.add("target",targets.size()==1?targets.get(0):JsonNull.INSTANCE);
@@ -231,13 +231,20 @@ public class FullPoolTriggersTest extends FullPoolPriorityTest {
             return super.onMana(p,s,ability,unpaid,g);
         }catch(IllegalArgumentException error){failCallback(g,error);return false;}
     }
+    protected boolean triggerPrefixDone(Game g) {
+        return eventOrdinal>0&&g.getState().getZone(handles.get(current.get("stop").getAsString().substring("triggers_settled/".length())))==Zone.GRAVEYARD&&g.getStack().isEmpty()&&pending==null;
+    }
+    protected JsonObject nonTriggerAbility(StackObject object, Game g) {
+        throw new IllegalArgumentException("first divergence: /unwitnessed stack trigger");
+    }
+    protected void beginPriority(){triggerBoundary="settled";placing=null;}
     @Override protected boolean onPriority(TestPlayer p,int s,Game g) {
         try {
             need(!stopped&&priorityFailure==null,"/repeated priority callback");
             if(!openingSeen){firstUpkeep(p,s,g);openingSeen=true;}
             if(!observerInstalled){g.getState().addWatcher(new SpellObserver());observerInstalled=true;}
-            triggerBoundary="settled";placing=null;
-            if(eventOrdinal>0&&g.getState().getZone(handles.get(current.get("stop").getAsString().substring("triggers_settled/".length())))==Zone.GRAVEYARD&&g.getStack().isEmpty()&&pending==null) {
+            beginPriority();
+            if(triggerPrefixDone(g)) {
                 need(cursor==current.getAsJsonArray("play").size(),"/extra choice after named stop");need(placementOrder.isEmpty(),"/unconsumed trigger order");played.add(state(g,s,current.get("stop").getAsString(),null));stopped=true;g.pause();return false;
             }
             if(g.getTurnStepType()==PhaseStep.DECLARE_ATTACKERS&&!declarations.contains(g.getTurnNum()))emptyAttackers(p,s,g,true);

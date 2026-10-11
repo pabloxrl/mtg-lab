@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "distinct_admitted_inputs": 16,
+  "repeat_policy": "Repeated checks of frozen inputs never increase the quota.",
+  "attempt_groups": [
+    {
+      "manifest": "generation-attempts.json",
+      "archive": "generation-attempts.tar.gz",
+      "sha256": "0fbbbf19a43b36d99657fe067b274dddcd49a92275bd26bed28823dad9f70371",
+      "files": 32,
+      "status": "generation-only",
+      "reason": "Includes missing-occurrence standard captures and both actual occurrence-aware origin versions; none is independently an admission receipt."
+    },
+    {
+      "manifest": "diagnostic-native-privileged.json",
+      "archive": "diagnostic-native-privileged.tar.gz",
+      "sha256": "94952a575f869f342892c70e455f03e6e33cbe4270859ec635fd80fb66d8ba60",
+      "files": 50,
+      "status": "unadmitted-diagnostic",
+      "reason": "Directed and initial full native attempts, including the preserved first failed full-game prefix."
+    },
+    {
+      "manifest": "diagnostic-native-negatives.json",
+      "archive": "diagnostic-native-negatives.tar.gz",
+      "sha256": "4b9d60282e219462dad681c23fa79d53bebd5f6e09e5296a6e44a8f5b6e0b253",
+      "files": 66,
+      "status": "unadmitted-diagnostic",
+      "reason": "Actual invalid-tape attempts; malformed-field rejection cursor failure and repair retained."
+    },
+    {
+      "manifest": "diagnostic-xmage.json",
+      "archive": "diagnostic-xmage.tar.gz",
+      "sha256": "e6a8f421398cbdb525ad328770ebafd8bd5f590de112e424ad2a74a190504165",
+      "files": 128,
+      "status": "unadmitted-diagnostic",
+      "reason": "Directed/full/reference negative attempts and cost-order/trigger-boundary failures retained."
+    },
+    {
+      "manifest": "candidate-v1.json",
+      "archive": "candidate-v1.tar.gz",
+      "sha256": "9b8b22006379d77bb6b4376f97e34fd91795dda419478f4a288ec2425528b377",
+      "files": 528,
+      "status": "superseded-candidate",
+      "reason": "Passed its then-current verifier; later nested identity controls exposed incomplete checks."
+    },
+    {
+      "manifest": "candidate-v2-run-1.json",
+      "archive": "candidate-v2-run-1.tar.gz",
+      "sha256": "e92ec00a1f88ebb069b960b44a12bb6d4b92a814bf810101c68969e7d008b1a3",
+      "files": 529,
+      "status": "superseded-candidate",
+      "reason": "Passed its then-current verifier; lacked opening/pre-SBA completeness checks."
+    },
+    {
+      "manifest": "candidate-v2-run-2.json",
+      "archive": "candidate-v2-run-2.tar.gz",
+      "sha256": "363f0406e568fa8090a7a5338c182c6ff711a85f824d07566fbdcf81b8a6ac31",
+      "files": 361,
+      "status": "superseded-candidate",
+      "reason": "Repeat of the same sixteen games; not additional distinct games."
+    },
+    {
+      "manifest": "candidate-v3.json",
+      "archive": "candidate-v3.tar.gz",
+      "sha256": "8265a294f8f1c48c26f4e8a7182aabb423a94575e2d0cbe119cb4fc11a905ef9",
+      "files": 529,
+      "status": "superseded-candidate",
+      "reason": "Passed its then-current verifier; missing auxiliary nested identity fields were subsequently reproduced."
+    },
+    {
+      "manifest": "final-run-1.json",
+      "archive": "final-run-1.tar.gz",
+      "sha256": "747c1310b957bfcad591afd76c6b302c46166b6d57ace65c82df6fc3a571fa29",
+      "files": 529,
+      "status": "verified-candidate",
+      "reason": "Final source-bound reference invocation; delivery still requires separate review, protected merge and exact-main CI."
+    },
+    {
+      "manifest": "final-run-2.json",
+      "archive": "final-run-2.tar.gz",
+      "sha256": "88ce020c0e13d3419b8227baf72a3d0502627f8f8d81f0e237cda758189a2f2a",
+      "files": 362,
+      "status": "verified-candidate",
+      "reason": "Second invocation of the same sixteen games; not additional distinct games."
+    },
+    {
+      "manifest": "diagnostic-logs.json",
+      "archive": "diagnostic-logs.tar.gz",
+      "sha256": "affca286af60509bd4e68550021e870ba838f53704b13f18630a598ec1410f88",
+      "files": 80,
+      "status": "retained-diagnostics",
+      "reason": "Frozen precursor tapes, behavioral reds, first differences, source reconstruction and interrupted/waiting command logs."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/identity-fields-red.py:7: ResourceWarning: unclosed file <_io.TextIOWrapper name='/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/fixtures/reference/full-pool-admission.json' mode='r' encoding='UTF-8'>
+  case=next(c for c in json.load(open(reference.FIXTURE))['cases'] if c['id']=='GR-040-RG-S1-heuristic')
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/identity-fields-red.py:9: ResourceWarning: unclosed file <_io.TextIOWrapper name='.agent-artifacts/admission/native-full-2/GR-040-RG-S1-heuristic.native-1.json' mode='r' encoding='UTF-8'>
+  actual=json.load(open('.agent-artifacts/admission/native-full-2/'+case['id']+'.native-1.json'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+FF/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/identity-fields-red.py:14: ResourceWarning: unclosed file <_io.TextIOWrapper name='.agent-artifacts/admission/native-full-2/GR-040-RG-S1-heuristic.native-1.json' mode='r' encoding='UTF-8'>
+  actual=json.load(open('.agent-artifacts/admission/native-full-2/'+case['id']+'.native-1.json'))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+F
+======================================================================
+FAIL: test_required_creation_and_stack_provenance (__main__.IdentityFields.test_required_creation_and_stack_provenance) (field='birth')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/identity-fields-red.py", line 12, in test_required_creation_and_stack_provenance
+    with self.subTest(field=field),self.assertRaisesRegex(ValueError,'creation'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_required_creation_and_stack_provenance (__main__.IdentityFields.test_required_creation_and_stack_provenance) (field='definition_hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/identity-fields-red.py", line 12, in test_required_creation_and_stack_provenance
+    with self.subTest(field=field),self.assertRaisesRegex(ValueError,'creation'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_required_creation_and_stack_provenance (__main__.IdentityFields.test_required_creation_and_stack_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/.agent-artifacts/admission/identity-fields-red.py", line 17, in test_required_creation_and_stack_provenance
+    with self.assertRaisesRegex(ValueError,'stack'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.359s
+
+FAILED (failures=3)

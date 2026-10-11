@@ -1,0 +1,2443 @@
+{
+  "schema_version": 10,
+  "family": "admission",
+  "cases": {
+    "GR-040-GG-S0-heuristic": {
+      "input_sha256": "2ee037ff1640fa5b19d427df1b7591e3e278d3a8c634ae3cde512883ef8f2c36",
+      "oracle_sha256": "f2f07e1f08e14e5fdcf04577d64c1e65e347e0c2d15e4a9546014e52eb393642",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-GG-S0-heuristic",
+          "path": "green-green-s0.json",
+          "sha256": "f7392a05ab795aeb8301bb2d1fef50ddb56a95dc308971497ba777b71a050e9a",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-GG-S1-heuristic": {
+      "input_sha256": "b1891b376dbfd817941a9f6a796a32ee4661234171c088ca606595e07da04b26",
+      "oracle_sha256": "9f5b9fb62ca3a38245aeeb61518f79a8ac476a2b45f825438897c9d7a83f966e",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-GG-S1-heuristic",
+          "path": "green-green-s1.json",
+          "sha256": "19e9c3c0238f7ccdc72203c4def94e882e219acaf971a1cb9c42cf92d3c6a5cd",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-GR-S0-heuristic": {
+      "input_sha256": "9547e60a53209f7e38887ba3efccd6b494fc612f7f347b0faf84303ceee4c045",
+      "oracle_sha256": "b80e25e2d410543b17c0279558910a6d077952ead24b0fd601fce24373454645",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-GR-S0-heuristic",
+          "path": "green-red-s0.json",
+          "sha256": "5ac90b2a247d1d3618ac985774a070d083379d16dabbcc4dcd9b490ae874839b",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-GR-S1-heuristic": {
+      "input_sha256": "e0eacec7820bb1a73f0de67b3d940fb2521383159895765e0531c461c425bab4",
+      "oracle_sha256": "9ed0dccf80dcf55dd1a3d6e2f614fcc433999a1ad751953d8e4a7922ef1ee438",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-GR-S1-heuristic",
+          "path": "green-red-s1.json",
+          "sha256": "3f078b0818b69cca629dbc7f11501a26a5b4ef05393edba32b813bee7eadb0c9",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-RG-S0-heuristic": {
+      "input_sha256": "89a13ac495b5bfb90ab9253f7bef0317f065b4dd4ecd32f228b92ee0669dbe1c",
+      "oracle_sha256": "ddc2fe969ccc8cac448e20ead3ef79a4c16dc35899a67a5b8e547543f6faef3a",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-RG-S0-heuristic",
+          "path": "red-green-s0.json",
+          "sha256": "fd3bea0d11dbc93d70aaeb877fd80c95d253b931271f18735cab9a08b776bcac",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-RG-S1-heuristic": {
+      "input_sha256": "89b1edcba178b8131f010d75d18735ff4ad065790f64a4913c025243246b040b",
+      "oracle_sha256": "f9547fb9b8a4af28324f733791b620d8a72ddf9657218b8acabccdc6a98963ee",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-RG-S1-heuristic",
+          "path": "red-green-s1.json",
+          "sha256": "d2d713a1e6b9f657552d709046e4ba614703576a0561ef73eb1aa68640a53e04",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-RR-S0-heuristic": {
+      "input_sha256": "a491ef2e9b79a796fe73c3839c28da19f526ce7ae29700bbeeabe4b8d9177a33",
+      "oracle_sha256": "ac73e40ccc255db041ea7cf95061ef38333aca4e90264d436d8335487beb84f4",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-RR-S0-heuristic",
+          "path": "red-red-s0.json",
+          "sha256": "bfa758f033715ff6ceb385034b523b6b3f7e1ebe557bbc8c9a87114261773a95",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-RR-S1-heuristic": {
+      "input_sha256": "bfd3fb3c7bc876b9d7bacae5444e35f93ec5650eca01637520c30fd33fdc9cb6",
+      "oracle_sha256": "61ac5d6b72d86758c4a24d178fbbbe1082075df2a86ee9746629905bdd4b38b3",
+      "provenance": {
+        "kind": "heuristic",
+        "policy": "heuristic-activation-mana-v1",
+        "master": 42,
+        "episode": 7,
+        "author": "crates/mtg-core/src/admission_origin_tests.rs",
+        "raw": {
+          "case": "GR-040-RR-S1-heuristic",
+          "path": "red-red-s1.json",
+          "sha256": "d36657bb97aff4c5a351747c787f3fae801ce80414244a13ce7f221884e114c7",
+          "policy": "heuristic-activation-mana-v1"
+        }
+      }
+    },
+    "GR-040-RG-S0-directed": {
+      "input_sha256": "e7d0954a9f7ddd095e36759b96dd8189523b8639f80cd79ce33690e1f2957d0e",
+      "oracle_sha256": "895a10e8c5690758b7af387ed2dd60f9ea8792c055e6bf4362a2d830f302bfc2",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-RG-S1-directed": {
+      "input_sha256": "f571ff4a741198c23082cad25a3d0833714b047edcfc9dcbd0a5793428c58b8e",
+      "oracle_sha256": "25626e9713bb0820a379b0c0bbfd4727f2de246b90ff6cbe90b57e3e4cbc775f",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-GR-S0-directed": {
+      "input_sha256": "bc8eabe99eb1cd7ed092e071fd0a9d8ef3a1d9ac825cab86b11ff5d2390ba3d3",
+      "oracle_sha256": "63d8cd9490838d225a7b8009fc58d76a8d2c3d15100c2288de67bef93938a9c5",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-GR-S1-directed": {
+      "input_sha256": "84b4fa7a63ebcec1f57514f743b2c402c42d9badb3cc3297282d0c45145603db",
+      "oracle_sha256": "472092158d9ab661dab6e7f3d5496b417d74d4c97299ed92cdef167833450b21",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-RR-S0-directed": {
+      "input_sha256": "4fb29887ef5bb79813a829374a46bc6d0d837997ee73c0bf108aa1203d51cf6f",
+      "oracle_sha256": "035333bb2f7d3dc7ab0acb364555f37f8a21afbf9b4fdc30e508c6111df967e8",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-RR-S1-directed": {
+      "input_sha256": "d603789fbdd4d67b5bdb60c8a9849832ac5587afd3997530826cc5f3d63c4ca2",
+      "oracle_sha256": "4fdd84879300f2f3686f41a3e55d2be58a85cd723056f096a95e99c404715162",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-GG-S0-directed": {
+      "input_sha256": "8845f491bfbeaf14726525b666ed76fc585b40b4fa342fc934c998f038bce8da",
+      "oracle_sha256": "379db6cb28116271f480705bd3f3145c0e083fda81c197d7320390e8fed777ab",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    },
+    "GR-040-GG-S1-directed": {
+      "input_sha256": "e8e0ddb88b3d1fc8dc5a7cbe54460fe6a84e5a610a1d9cfdaeb3d9da14b9ae0b",
+      "oracle_sha256": "0c04e308b997c5730189af21f8fb0f42fbc6eff735e090a6134c19e84d02cb31",
+      "provenance": {
+        "kind": "directed",
+        "author": "fixtures/reference/author_admission.py"
+      }
+    }
+  },
+  "played_cards": {
+    "axgard-cavalry": [
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 71,
+        "source": "1/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 45,
+        "source": "1/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 45,
+        "source": "0/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 468,
+        "source": "0/axgard-cavalry/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 79,
+        "source": "0/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 405,
+        "source": "0/axgard-cavalry/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 39,
+        "source": "0/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 65,
+        "source": "1/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 500,
+        "source": "0/axgard-cavalry/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 39,
+        "source": "1/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 65,
+        "source": "0/axgard-cavalry/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 465,
+        "source": "0/axgard-cavalry/0",
+        "kind": "cast"
+      }
+    ],
+    "bear-cub": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 51,
+        "source": "0/bear-cub/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 367,
+        "source": "0/bear-cub/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 85,
+        "source": "0/bear-cub/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 349,
+        "source": "0/bear-cub/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 45,
+        "source": "0/bear-cub/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 358,
+        "source": "0/bear-cub/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 71,
+        "source": "0/bear-cub/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 351,
+        "source": "0/bear-cub/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 65,
+        "source": "1/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 39,
+        "source": "1/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 39,
+        "source": "0/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 65,
+        "source": "0/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 39,
+        "source": "0/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 65,
+        "source": "1/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 39,
+        "source": "1/bear-cub/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 65,
+        "source": "0/bear-cub/0",
+        "kind": "cast"
+      }
+    ],
+    "bite-down": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 74,
+        "source": "1/bite-down/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 302,
+        "source": "0/bite-down/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 108,
+        "source": "1/bite-down/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 280,
+        "source": "0/bite-down/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 292,
+        "source": "0/bite-down/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 289,
+        "source": "0/bite-down/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 68,
+        "source": "1/bite-down/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 102,
+        "source": "1/bite-down/2",
+        "kind": "cast"
+      }
+    ],
+    "crackling-cyclops": [
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 114,
+        "source": "0/crackling-cyclops/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 400,
+        "source": "0/crackling-cyclops/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 146,
+        "source": "0/crackling-cyclops/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 341,
+        "source": "0/crackling-cyclops/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 96,
+        "source": "0/crackling-cyclops/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 410,
+        "source": "0/crackling-cyclops/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 128,
+        "source": "0/crackling-cyclops/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 370,
+        "source": "0/crackling-cyclops/2",
+        "kind": "cast"
+      }
+    ],
+    "dragon-fodder": [
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 269,
+        "source": "1/dragon-fodder/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 328,
+        "source": "1/dragon-fodder/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 261,
+        "source": "1/dragon-fodder/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 326,
+        "source": "1/dragon-fodder/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 249,
+        "source": "0/dragon-fodder/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 332,
+        "source": "0/dragon-fodder/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 281,
+        "source": "0/dragon-fodder/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 559,
+        "source": "0/dragon-fodder/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 237,
+        "source": "0/dragon-fodder/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 295,
+        "source": "1/dragon-fodder/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 339,
+        "source": "0/dragon-fodder/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 380,
+        "source": "1/dragon-fodder/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 248,
+        "source": "1/dragon-fodder/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 296,
+        "source": "0/dragon-fodder/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 335,
+        "source": "1/dragon-fodder/3",
+        "kind": "cast"
+      }
+    ],
+    "druid-of-the-cowl": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 106,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 146,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 501,
+        "source": "0/druid-of-the-cowl/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 51,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 152,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 451,
+        "source": "0/druid-of-the-cowl/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 97,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 540,
+        "source": "0/druid-of-the-cowl/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 129,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 528,
+        "source": "0/druid-of-the-cowl/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 142,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 45,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 121,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 91,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 91,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 121,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 91,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 117,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 91,
+        "source": "1/druid-of-the-cowl/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 117,
+        "source": "0/druid-of-the-cowl/0",
+        "kind": "cast"
+      }
+    ],
+    "firebrand-archer": [
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 260,
+        "source": "0/firebrand-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 351,
+        "source": "0/firebrand-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 248,
+        "source": "0/firebrand-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 380,
+        "source": "0/firebrand-archer/0",
+        "kind": "cast"
+      }
+    ],
+    "forest": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 2,
+        "source": "0/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 26,
+        "source": "1/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 50,
+        "source": "0/forest/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 87,
+        "source": "1/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 105,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 145,
+        "source": "1/forest/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 179,
+        "source": "0/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 222,
+        "source": "1/forest/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 248,
+        "source": "0/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 337,
+        "source": "1/forest/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 397,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 456,
+        "source": "1/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 552,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 2,
+        "source": "1/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 26,
+        "source": "0/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 50,
+        "source": "1/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 84,
+        "source": "0/forest/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 151,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 177,
+        "source": "1/forest/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 217,
+        "source": "0/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 247,
+        "source": "1/forest/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 293,
+        "source": "0/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 379,
+        "source": "1/forest/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 433,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 481,
+        "source": "1/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 527,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 545,
+        "source": "0/forest/12",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 2,
+        "source": "0/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 44,
+        "source": "0/forest/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 96,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 162,
+        "source": "0/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 234,
+        "source": "0/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 20,
+        "source": "0/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 70,
+        "source": "0/forest/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 128,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 201,
+        "source": "0/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 302,
+        "source": "0/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 20,
+        "source": "1/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 81,
+        "source": "1/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 141,
+        "source": "1/forest/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 217,
+        "source": "1/forest/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 365,
+        "source": "1/forest/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 440,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 2,
+        "source": "1/forest/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 44,
+        "source": "1/forest/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 173,
+        "source": "1/forest/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 241,
+        "source": "1/forest/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 381,
+        "source": "1/forest/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 438,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 535,
+        "source": "1/forest/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 610,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 20,
+        "source": "1/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 64,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 120,
+        "source": "1/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 175,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 2,
+        "source": "1/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 38,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 90,
+        "source": "1/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 146,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 2,
+        "source": "0/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 38,
+        "source": "0/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 90,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 146,
+        "source": "0/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 20,
+        "source": "0/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 64,
+        "source": "0/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 120,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 175,
+        "source": "0/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 2,
+        "source": "0/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 20,
+        "source": "1/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 38,
+        "source": "0/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 64,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 90,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 116,
+        "source": "1/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 142,
+        "source": "0/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 168,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 2,
+        "source": "1/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 20,
+        "source": "0/forest/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 38,
+        "source": "1/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 64,
+        "source": "0/forest/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 90,
+        "source": "1/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 116,
+        "source": "0/forest/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 142,
+        "source": "1/forest/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 168,
+        "source": "0/forest/3",
+        "kind": "play_land"
+      }
+    ],
+    "giant-growth": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 113,
+        "source": "1/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 152,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 190,
+        "source": "0/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 57,
+        "source": "1/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 117,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 185,
+        "source": "0/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 173,
+        "source": "0/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 135,
+        "source": "0/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 99,
+        "source": "1/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 148,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 51,
+        "source": "1/giant-growth/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 111,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 176,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 147,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 147,
+        "source": "0/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 176,
+        "source": "0/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 143,
+        "source": "0/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-directed",
+        "sequence": 169,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 143,
+        "source": "1/giant-growth/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-directed",
+        "sequence": 169,
+        "source": "0/giant-growth/0",
+        "kind": "cast"
+      }
+    ],
+    "goblin-surprise": [
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 201,
+        "source": "1/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 253,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 163,
+        "source": "1/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 240,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 178,
+        "source": "0/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 200,
+        "source": "0/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 158,
+        "source": "0/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 193,
+        "source": "1/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 274,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 151,
+        "source": "1/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 185,
+        "source": "0/goblin-surprise/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 227,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 147,
+        "source": "0/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 173,
+        "source": "0/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 173,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 147,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 151,
+        "source": "0/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 180,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 151,
+        "source": "1/goblin-surprise/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 180,
+        "source": "0/goblin-surprise/0",
+        "kind": "cast"
+      }
+    ],
+    "llanowar-elves": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 3,
+        "source": "0/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 27,
+        "source": "1/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 576,
+        "source": "0/llanowar-elves/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 3,
+        "source": "1/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 27,
+        "source": "0/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 499,
+        "source": "0/llanowar-elves/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 3,
+        "source": "0/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 21,
+        "source": "0/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 21,
+        "source": "1/llanowar-elves/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 3,
+        "source": "1/llanowar-elves/1",
+        "kind": "cast"
+      }
+    ],
+    "magnigoth-sentry": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 180,
+        "source": "0/magnigoth-sentry/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 218,
+        "source": "0/magnigoth-sentry/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 163,
+        "source": "0/magnigoth-sentry/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 202,
+        "source": "0/magnigoth-sentry/0",
+        "kind": "cast"
+      }
+    ],
+    "mountain": [
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 26,
+        "source": "1/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 70,
+        "source": "1/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 144,
+        "source": "1/mountain/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 216,
+        "source": "1/mountain/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 268,
+        "source": "1/mountain/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 327,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 388,
+        "source": "1/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 511,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 2,
+        "source": "1/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 44,
+        "source": "1/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 110,
+        "source": "1/mountain/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 183,
+        "source": "1/mountain/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 260,
+        "source": "1/mountain/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 325,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 381,
+        "source": "1/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 499,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 2,
+        "source": "0/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 44,
+        "source": "0/mountain/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 113,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 194,
+        "source": "0/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 248,
+        "source": "0/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 26,
+        "source": "0/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 78,
+        "source": "0/mountain/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 145,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 218,
+        "source": "0/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 280,
+        "source": "0/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 483,
+        "source": "0/mountain/12",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 2,
+        "source": "0/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 20,
+        "source": "1/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 38,
+        "source": "0/mountain/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 64,
+        "source": "1/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 95,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 137,
+        "source": "1/mountain/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 174,
+        "source": "0/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 213,
+        "source": "1/mountain/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 236,
+        "source": "0/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 294,
+        "source": "1/mountain/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 379,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 455,
+        "source": "1/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 577,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 616,
+        "source": "0/mountain/12",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 2,
+        "source": "1/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 20,
+        "source": "0/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 38,
+        "source": "1/mountain/7",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 64,
+        "source": "0/mountain/13",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 104,
+        "source": "1/mountain/6",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 127,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 171,
+        "source": "1/mountain/11",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 208,
+        "source": "0/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 247,
+        "source": "1/mountain/15",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 295,
+        "source": "0/mountain/8",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 334,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 415,
+        "source": "1/mountain/5",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 550,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 589,
+        "source": "0/mountain/12",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 2,
+        "source": "0/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 38,
+        "source": "0/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 90,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 146,
+        "source": "0/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 20,
+        "source": "0/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 64,
+        "source": "0/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 116,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 172,
+        "source": "0/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 20,
+        "source": "1/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 64,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 116,
+        "source": "1/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 172,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 2,
+        "source": "1/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 38,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 90,
+        "source": "1/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 146,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 2,
+        "source": "0/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 20,
+        "source": "1/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 38,
+        "source": "0/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 64,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 90,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 120,
+        "source": "1/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 150,
+        "source": "0/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 179,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 2,
+        "source": "1/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 20,
+        "source": "0/mountain/0",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 38,
+        "source": "1/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 64,
+        "source": "0/mountain/1",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 90,
+        "source": "1/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 120,
+        "source": "0/mountain/2",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 150,
+        "source": "1/mountain/3",
+        "kind": "play_land"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 179,
+        "source": "0/mountain/3",
+        "kind": "play_land"
+      }
+    ],
+    "shivan-dragon": [
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 389,
+        "source": "1/shivan-dragon/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 382,
+        "source": "1/shivan-dragon/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 456,
+        "source": "1/shivan-dragon/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 416,
+        "source": "1/shivan-dragon/0",
+        "kind": "cast"
+      }
+    ],
+    "swab-goblin": [
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 410,
+        "source": "0/swab-goblin/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 413,
+        "source": "0/swab-goblin/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 484,
+        "source": "0/swab-goblin/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 420,
+        "source": "0/swab-goblin/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 473,
+        "source": "0/swab-goblin/3",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 590,
+        "source": "0/swab-goblin/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 39,
+        "source": "0/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 65,
+        "source": "0/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 65,
+        "source": "1/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 39,
+        "source": "1/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 39,
+        "source": "0/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 65,
+        "source": "1/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 39,
+        "source": "1/swab-goblin/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 65,
+        "source": "0/swab-goblin/0",
+        "kind": "cast"
+      }
+    ],
+    "tajuru-pathwarden": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 420,
+        "source": "0/tajuru-pathwarden/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 397,
+        "source": "0/tajuru-pathwarden/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 433,
+        "source": "0/tajuru-pathwarden/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 421,
+        "source": "0/tajuru-pathwarden/1",
+        "kind": "cast"
+      }
+    ],
+    "thornweald-archer": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 223,
+        "source": "1/thornweald-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 249,
+        "source": "0/thornweald-archer/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 279,
+        "source": "1/thornweald-archer/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 178,
+        "source": "1/thornweald-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 294,
+        "source": "0/thornweald-archer/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 319,
+        "source": "1/thornweald-archer/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 105,
+        "source": "0/thornweald-archer/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 214,
+        "source": "0/thornweald-archer/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 218,
+        "source": "1/thornweald-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 290,
+        "source": "1/thornweald-archer/2",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 174,
+        "source": "1/thornweald-archer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 311,
+        "source": "1/thornweald-archer/2",
+        "kind": "cast"
+      }
+    ],
+    "thrill-of-possibility": [
+      {
+        "case": "GR-040-GR-S0-heuristic",
+        "sequence": 131,
+        "source": "1/thrill-of-possibility/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-heuristic",
+        "sequence": 99,
+        "source": "1/thrill-of-possibility/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 318,
+        "source": "0/thrill-of-possibility/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 269,
+        "source": "0/thrill-of-possibility/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 119,
+        "source": "1/thrill-of-possibility/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-heuristic",
+        "sequence": 323,
+        "source": "0/thrill-of-possibility/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 93,
+        "source": "1/thrill-of-possibility/1",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-heuristic",
+        "sequence": 281,
+        "source": "0/thrill-of-possibility/0",
+        "kind": "cast"
+      }
+    ],
+    "viashino-pyromancer": [
+      {
+        "case": "GR-040-RG-S0-directed",
+        "sequence": 91,
+        "source": "0/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-directed",
+        "sequence": 117,
+        "source": "0/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S0-directed",
+        "sequence": 117,
+        "source": "1/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GR-S1-directed",
+        "sequence": 91,
+        "source": "1/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 91,
+        "source": "0/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S0-directed",
+        "sequence": 121,
+        "source": "1/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 91,
+        "source": "1/viashino-pyromancer/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RR-S1-directed",
+        "sequence": 121,
+        "source": "0/viashino-pyromancer/0",
+        "kind": "cast"
+      }
+    ],
+    "wildheart-invoker": [
+      {
+        "case": "GR-040-GG-S0-heuristic",
+        "sequence": 338,
+        "source": "1/wildheart-invoker/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-GG-S1-heuristic",
+        "sequence": 248,
+        "source": "1/wildheart-invoker/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S0-heuristic",
+        "sequence": 366,
+        "source": "1/wildheart-invoker/0",
+        "kind": "cast"
+      },
+      {
+        "case": "GR-040-RG-S1-heuristic",
+        "sequence": 242,
+        "source": "1/wildheart-invoker/0",
+        "kind": "cast"
+      }
+    ]
+  },
+  "basis": [
+    "GR-040 initial native/XMage subset",
+    "CR103 full normal reset",
+    "CR117 priority",
+    "CR601.2h cost ordering",
+    "CR704.5a life loss",
+    "CR121.4 empty draw",
+    "CR514 cleanup"
+  ],
+  "reference": "Pinned patched XMage: retained CombatSbaGame owner-order patch; not unmodified upstream or Forge qualification.",
+  "legality": "Selected actions must be accepted by both actual engines. Native stale/invalid candidate rejection is mandatory. Complete cross-engine legal-set coverage is not claimed.",
+  "quotas": {
+    "rows": [
+      "RG",
+      "GR",
+      "RR",
+      "GG"
+    ],
+    "starters": [
+      0,
+      1
+    ],
+    "origins": [
+      "heuristic",
+      "directed"
+    ],
+    "games": 16,
+    "repeats_per_engine": 2
+  }
+}

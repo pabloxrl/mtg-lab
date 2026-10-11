@@ -146,10 +146,13 @@ def native(folder, family='reset'):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority', 'spells', 'activations', 'triggers', 'cleanup', 'combat'], required=True)
+    parser.add_argument('--family', choices=['reset', 'mulligan', 'priority', 'spells', 'activations', 'triggers', 'cleanup', 'combat', 'admission'], required=True)
     parser.add_argument('--cache', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
+    if args.family == 'admission':
+        import admission_reference
+        return admission_reference.run(args)
     if args.family == 'combat':
         import played_combat_reference
         return played_combat_reference.run(args)

@@ -1,5 +1,5 @@
 //! Fixed strategy contract in doc/heuristic-policy.md; no game or RNG access.
-use crate::{Error, validate, validate_content};
+use super::{Error, validate, validate_content};
 use mtg_core::game::{
     policy::{Choice, Observation, Submission, VisibleRef, VisibleZone},
     views::VisibleCard,

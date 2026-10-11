@@ -1,0 +1,30 @@
+Symphony resource lock: acquired heavy
+FF.F
+======================================================================
+FAIL: test_departure_identity_blocks_matching_winner (test_m2_repair_admission.AdmissionTests.test_departure_identity_blocks_matching_winner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/tests/test_m2_repair_admission.py", line 55, in test_departure_identity_blocks_matching_winner
+    with self.assertRaisesRegex(ValueError, 'departure'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_forged_effect_blocks_matching_winner (test_m2_repair_admission.AdmissionTests.test_forged_effect_blocks_matching_winner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/tests/test_m2_repair_admission.py", line 47, in test_forged_effect_blocks_matching_winner
+    with self.assertRaisesRegex(ValueError, 'effect'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_payment_field_blocks_matching_winner (test_m2_repair_admission.AdmissionTests.test_missing_payment_field_blocks_matching_winner)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-277/tests/test_m2_repair_admission.py", line 39, in test_missing_payment_field_blocks_matching_winner
+    with self.assertRaisesRegex(ValueError, 'payment'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 51.639s
+
+FAILED (failures=3)

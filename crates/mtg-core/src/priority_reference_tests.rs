@@ -53,6 +53,7 @@ struct PlayedClient {
 }
 impl PlayedClient {
     fn new(g: &Game, tape: &Tape<'_>, case: &Value) -> Result<Self, String> {
+        let admission = case["id"].as_str().is_some_and(|s|s.starts_with("GR-040-"));
         let combat = case["stop"].as_str().is_some_and(|s|s.starts_with("combat/"));
         let cleanup = matches!(case["stop"].as_str(), Some("prefix" | "terminal" | "concession"));
         let triggers = case["stop"].as_str().is_some_and(|s|s.starts_with("triggers_settled/"));
@@ -63,7 +64,9 @@ impl PlayedClient {
         let hash = |v: &Value| format!("{:x}", Sha256::digest(serde_json::to_vec(v).unwrap()));
         let header = trajectory::Header {
             id: trajectory::EpisodeKey {
-                run: if combat {
+                run: if admission {
+                    "27700000-0000-4000-8000-000000000001"
+                } else if combat {
                     "27500000-0000-4000-8000-000000000001"
                 } else if cleanup {
                     "27600000-0000-4000-8000-000000000001"
@@ -90,7 +93,9 @@ impl PlayedClient {
             deck_hashes: [hash(&case["decks"][0]), hash(&case["decks"][1])],
             config_hash: hash(&json!({"starting_seat":case["starter"],"decks":case["decks"]})),
             policies: [
-                if combat {
+                if admission {
+                    "strict-admission-tape-v10"
+                } else if combat {
                     "strict-combat-tape-v9"
                 } else if cleanup {
                     "strict-cleanup-tape-v7"
@@ -104,7 +109,9 @@ impl PlayedClient {
                     "strict-priority-tape-v3"
                 }
                 .into(),
-                if combat {
+                if admission {
+                    "strict-admission-tape-v10"
+                } else if combat {
                     "strict-combat-tape-v9"
                 } else if cleanup {
                     "strict-cleanup-tape-v7"
@@ -122,7 +129,9 @@ impl PlayedClient {
             starting_seat: case["starter"].as_u64().unwrap() as u8,
             limits: trajectory::Limits::default(),
             restricted_replay: Some(
-                if combat {
+                if admission {
+                    "privileged-admission-input-v10"
+                } else if combat {
                     "privileged-combat-input"
                 } else if cleanup {
                     "privileged-cleanup-input"

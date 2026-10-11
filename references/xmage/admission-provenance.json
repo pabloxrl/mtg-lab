@@ -1,0 +1,13 @@
+{
+  "kind": "original",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "note": "API consultation and effect observation provenance only. Inputs are independently authored or frozen native heuristic choices, never reference-AI output. Expectations derive from pinned rules/card text; the retained CombatSbaGame integration means patched-reference agreement.",
+  "consulted_sources": {
+    "Mage.Sets/src/mage/cards/g/GiantGrowth.java": "494e3519451e0ebe1e6a20ff1fef0a4ac6fb7a70af9fad93a8d5c2638bc9f7a7",
+    "Mage.Sets/src/mage/cards/g/GoblinSurprise.java": "712f29be089cea4ac496fdcae857fe83441dc9364da8dbce527146faa3ccc36e",
+    "Mage.Sets/src/mage/cards/w/WildheartInvoker.java": "4188099410f97b6b5f5dfd1991ea5f22ccbce0c50ec796aecb29b4cf33e85f87",
+    "Mage.Sets/src/mage/cards/s/ShivanDragon.java": "145e950190f93febc48e3535ad37a730407cd9ad8d0093e2bc74de70bbe2741a",
+    "Mage.Sets/src/mage/cards/c/CracklingCyclops.java": "a7ff040c0ace6fc8155a8e30e3e8c18be88b2c6830946f3aa1a28043476ee614",
+    "Mage.Sets/src/mage/cards/a/AxgardCavalry.java": "f0f6ad2cc9a5e9d7e98e50b31a980734fc1e766540e9f40d41d1227229a2aad8"
+  }
+}
