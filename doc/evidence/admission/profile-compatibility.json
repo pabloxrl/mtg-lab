@@ -1,0 +1,23 @@
+[
+  {
+    "file": "fixtures/profile/combat.json",
+    "old_engine": "cb6d85cca9872cf26618cdcf52a004fdc921383d904dd1417ac326629a37e265",
+    "new_engine": "18e216f6f23d6acb68254cb11d0bfd6028761b30d636f83f478cc907ff494078",
+    "unchanged_nonheader_sha256": "8ec479f7eed521ffc405f0949045bc84953ab5b67027a94924c1feec530d9455",
+    "basis": "Conservative native fingerprint includes lib.rs test declarations; no rules/card/upstream source pin or independently authored checkpoint changes. Reexecution is mandatory."
+  },
+  {
+    "file": "fixtures/profile/control.json",
+    "old_engine": "cb6d85cca9872cf26618cdcf52a004fdc921383d904dd1417ac326629a37e265",
+    "new_engine": "18e216f6f23d6acb68254cb11d0bfd6028761b30d636f83f478cc907ff494078",
+    "unchanged_nonheader_sha256": "0c8121b9e80cf9194d0eca906c1a9dddf63d2053fa34a3e57d235f3753b90b4f",
+    "basis": "Conservative native fingerprint includes lib.rs test declarations; no rules/card/upstream source pin or independently authored checkpoint changes. Reexecution is mandatory."
+  },
+  {
+    "file": "fixtures/profile/effects.json",
+    "old_engine": "cb6d85cca9872cf26618cdcf52a004fdc921383d904dd1417ac326629a37e265",
+    "new_engine": "18e216f6f23d6acb68254cb11d0bfd6028761b30d636f83f478cc907ff494078",
+    "unchanged_nonheader_sha256": "4742882e14d5ba1342034ea89d84cf44e19587512e521e6d07510c52ef14d05e",
+    "basis": "Conservative native fingerprint includes lib.rs test declarations; no rules/card/upstream source pin or independently authored checkpoint changes. Reexecution is mandatory."
+  }
+]

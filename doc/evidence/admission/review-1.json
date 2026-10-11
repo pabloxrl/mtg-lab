@@ -1,0 +1,18 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Two blocking verification defects reproduced with in-memory mutations of retained artifacts. README scope and task ownership remain appropriately bounded; no unjustified test weakening found. No files changed or network used. Full engine suites were not rerun.",
+  "findings": [
+    {
+      "file": "scripts/admission_observations.py:216",
+      "finding": "XMage effect validation checks only entries present, while semantic comparison drops effects entirely. Using GR-040-RG-S0-heuristic from final-run-1.tar.gz, compare_game still passes after replacing every XMage effects list with [], removing 319 entries across primary and auxiliary observations. An observer that omits active effects therefore receives admission despite the required intermediate-effect contract. Validate expected effect presence and lifecycle, and add an executable deletion regression.",
+      "severity": "blocking"
+    },
+    {
+      "file": "scripts/admission_observations.py:173",
+      "finding": "Trigger identities are checked against tape keys but are not bound to actual trigger provenance. On the retained GR-040-RG-S0-heuristic pair, compare_game passes after deleting XMage trigger_provenance and replacing all eight stack trigger raw_source values with the zero UUID and raw_source_zcc with 999. Semantic projection discards these fields, so missing or incorrectly rebound physical-source evidence is admitted. Require provenance and validate each raw source/incarnation against its witnessed binding, with normal-discovery corruption tests.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "503f49b978be8fd3aa841782413c45d1de895f5b",
+  "head_sha": "10a271c88e68dc36af54af840ae574469fef1bce"
+}

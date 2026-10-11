@@ -1,0 +1,1584 @@
+{
+  "purpose": "Storage-only hardlink deduplication; every historical path and byte preserved, no evidence deleted.",
+  "bytes_saved": 5284384149,
+  "files": [
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "a2189aa5a4bd76338ffe908cdd7306ce34a6fd3994b02723930487f1acba9b5d",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "b2db0d6c8fdfc31ee2a257c8d65ec2f2051a0ddfb5d0f8f5bf0ce21733b0e8df",
+      "size": 8461237
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "d8ac55ed7a2cafccfe2be598b0d7873c51a47deae8744cba65441615c4adfeb7",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "777b666d2be08b3b08d57257e93cae6c9ab16bdac447454736d37778a49eb5c8",
+      "size": 7548461
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "76e41c36bf34637f425e8a902cfa123fb9b51a8aa4796e8b2fafe0935cbebc1d",
+      "size": 10543295
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "684e15d0393ad1b238474e5fc6fb9e21ce84f7d75f22d1d40525abf760007171",
+      "size": 8764390
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "d2e39b43966028f68f62cf58bd1d9ad216bfddf070f67164cad1990bae792a31",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "05223275a9c07fce7ab978c38de8d9b2521a24a5bda3d922c008f7a08b82ccd3",
+      "size": 8375834
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "b2e0c9f553b07f0a723915e99fd63e209c9e184339e39db73ded2ab3ff527b1a",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "5da3ac2d26c7a1f097a192738321b5ff87c4880f777c5cba0b530ed083357302",
+      "size": 7483062
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "dfda62ed2420bdd635c22a94d92740a290dc4682d4945e869e12a9f4dfad95de",
+      "size": 10440425
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "01452b6c00ab1a71eeaf9f2c35fda2c149741fa3bacb79f560925c06ae893672",
+      "size": 8687881
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-activations.privileged-j75ev2st/full-pool-activations-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-cancellations.json",
+      "sha256": "f5b60c60fa8e52bcbe89281e0b104cf9104ef706df9781d5696b60001b379630",
+      "size": 2095819
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-activations.privileged-j75ev2st/full-pool-activations-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-native-negatives.json",
+      "sha256": "3a3a44df9a02dc85b7b0adf2c1a1c4ecfa86f8eb92e3cfe75a1b3d9b7fc43c77",
+      "size": 1277730
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-activations.privileged-j75ev2st/full-pool-activations-xmage-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-cancellations.json",
+      "sha256": "340cb40e571c8268435aae685609fdeeb1615107b5670e8ffd662e95687f3b89",
+      "size": 1831369
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-activations.privileged-j75ev2st/full-pool-activations-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-negatives.json",
+      "sha256": "643015739d5dc9a7c325d7383ad70fe47a396c76a106e6ec8c3f0409923baddf",
+      "size": 1277614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-activations.privileged-j75ev2st/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/native.json",
+      "sha256": "158b1396fde69ae62613b57c56f331ccd5011271febc4547994faa127b934eac",
+      "size": 154916996
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-cleanup.privileged-7jsk8_xh/full-pool-cleanup-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/full-pool-cleanup-negatives.json",
+      "sha256": "5eead4ab02e201570f3f638472545a398adc393bcecac5330bb59dcc2184fb66",
+      "size": 1065211
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-cleanup.privileged-7jsk8_xh/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/native.json",
+      "sha256": "2ea6a558a45469a29efd55ea26b158993b25d39be818c746fae8142aa01889df",
+      "size": 98597829
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-combat.privileged-cdae77tg/full-pool-combat-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat-negatives.json",
+      "sha256": "1396f76088c6bf46d9b399f342512520071e96b792df49d58f1a2ad195fcb60c",
+      "size": 3081608
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-combat.privileged-cdae77tg/full-pool-combat.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat.json",
+      "sha256": "b542a67e6b3c01b418274b59a8004daa4ae92e1d7ef61e31580169fc3a8d96cc",
+      "size": 1388421
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-combat.privileged-cdae77tg/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/native.json",
+      "sha256": "98cc8e95fdc262bbd134c28e5abd88754405579e4933108539046df95066af7d",
+      "size": 242791871
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-combat.privileged-cdae77tg/negative-inputs.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/negative-inputs.json",
+      "sha256": "ea955176f9c9856ed4cad7ca62c520b888637b309b545cb3a4d0987078253b86",
+      "size": 1543979
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-mulligan.privileged-f2760et8/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/native.json",
+      "sha256": "f53c50c1d330c4969aca9208dfe18f92a232c0a294e10a58be4f4c096fecfdf8",
+      "size": 2199227
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-mulligan.privileged-f2760et8/xmage.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/xmage.json",
+      "sha256": "e6c946a600e77b174cd93a2d58b140b83464c8b500481c1fc18d7aa53d525f01",
+      "size": 5678687
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-priority.privileged-anmklxql/native-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native-oracle.json",
+      "sha256": "203a30c1d3e266ee131347208cbd4cc9293014ada47b244500e6ca6b5aebb047",
+      "size": 2846830
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-priority.privileged-anmklxql/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native.json",
+      "sha256": "2eaea4f33ef06cbd6da1fd53e129d9a8d24af73318a104cd5e4b9015cb2842f3",
+      "size": 19328892
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-priority.privileged-anmklxql/xmage-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/xmage-oracle.json",
+      "sha256": "f456503fd73b10b9cde284d540582a0904ed3ec958d577631d653a34876a010a",
+      "size": 2850424
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-spells.privileged-ahp_lvla/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-spells.privileged-b4hzm8sl/native.json",
+      "sha256": "0ac58e1df2a33ddab3a1d55e8242074263eecef3e1bd903ce13cbfb000e1dd44",
+      "size": 21481166
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-triggers.privileged-8zgg3ptt/full-pool-triggers-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-native-negatives.json",
+      "sha256": "25fde2dd2e3f324dfc308bea5bb5ee08d80d9da8284c078d8c97f3c90cee5c9f",
+      "size": 1096393
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-triggers.privileged-8zgg3ptt/full-pool-triggers-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-xmage-negatives.json",
+      "sha256": "af83636272d118880cd78d9e8253e78acee76824d5b45c2118803d94f9169cbc",
+      "size": 1096493
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/compatibility-triggers.privileged-8zgg3ptt/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/native.json",
+      "sha256": "240ff1a607d7572c8db07afea29935ea2270385ce99857a5259ad9d1d258db81",
+      "size": 66483728
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission-native-negatives.json",
+      "sha256": "4820b3d5a240c3252f885b5f3061e100a5a59e83214e96d52246ca312ae4e7bd",
+      "size": 1358341
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission.json",
+      "sha256": "f2b60c4cab33084ceaf97d12bb9164caeb1e600f9c266109da3e61e20b292eb9",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-czxglccb/xmage-input.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/xmage-input.json",
+      "sha256": "45857ba64f0ce52fbc307eaf0b2a2e382f53c60113f6107ff9ec9557e22fc34b",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "d2e39b43966028f68f62cf58bd1d9ad216bfddf070f67164cad1990bae792a31",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "d2e39b43966028f68f62cf58bd1d9ad216bfddf070f67164cad1990bae792a31",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "05223275a9c07fce7ab978c38de8d9b2521a24a5bda3d922c008f7a08b82ccd3",
+      "size": 8375834
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "05223275a9c07fce7ab978c38de8d9b2521a24a5bda3d922c008f7a08b82ccd3",
+      "size": 8375834
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "b2e0c9f553b07f0a723915e99fd63e209c9e184339e39db73ded2ab3ff527b1a",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "b2e0c9f553b07f0a723915e99fd63e209c9e184339e39db73ded2ab3ff527b1a",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "5da3ac2d26c7a1f097a192738321b5ff87c4880f777c5cba0b530ed083357302",
+      "size": 7483062
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "5da3ac2d26c7a1f097a192738321b5ff87c4880f777c5cba0b530ed083357302",
+      "size": 7483062
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-directed.native-1.json",
+      "sha256": "6e0b09bd013d95f29506ae8fdf9da40a2c2767d2380bf9695970c8137561b32b",
+      "size": 19239616
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-directed.native-2.json",
+      "sha256": "999090c3a5e19007a16d6b6ec34ac86c1dc61e708e6f61d3bf30570f09685847",
+      "size": 19239619
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "dfda62ed2420bdd635c22a94d92740a290dc4682d4945e869e12a9f4dfad95de",
+      "size": 10440425
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "dfda62ed2420bdd635c22a94d92740a290dc4682d4945e869e12a9f4dfad95de",
+      "size": 10440425
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-directed.native-1.json",
+      "sha256": "291d6772200220721055c904aead319065e54c7a5a91760c00de43853073f44e",
+      "size": 19235977
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-directed.native-2.json",
+      "sha256": "b13991d7b9139d535d343a7b457e19ff9a44d0afb5163e8679bf28d1654323e9",
+      "size": 19235977
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "01452b6c00ab1a71eeaf9f2c35fda2c149741fa3bacb79f560925c06ae893672",
+      "size": 8687881
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-GR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "01452b6c00ab1a71eeaf9f2c35fda2c149741fa3bacb79f560925c06ae893672",
+      "size": 8687881
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-directed.native-1.json",
+      "sha256": "139e4708836ddfe9c33ad542ead7a4b08aa10d130f1a2746502c366417b081f7",
+      "size": 19235972
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-directed.native-2.json",
+      "sha256": "8c7ee18aed92664f4e70aa596975f0933c9eee476b3877b5aa54a75cd8f7ba07",
+      "size": 19235972
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-heuristic.native-1.json",
+      "sha256": "44848cfeea41b9db79e6330fb86ddf99e08743455953a790e91da2e0d42cf497",
+      "size": 7272507
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-heuristic.native-2.json",
+      "sha256": "7206df981f08e89e311629bb5f26777d35b5b8d95203c8b1056835c4b7b8bc56",
+      "size": 7272507
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-directed.native-1.json",
+      "sha256": "0aa7371e5b2fab681c8ef1f80af7706cb073ad7d584acc8473df0f28a6fab33b",
+      "size": 19239614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-directed.native-2.json",
+      "sha256": "ec3e2108f114ee4e1844be3dea649546455e4354923b7839154e9683dd206ac6",
+      "size": 19239614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-heuristic.native-1.json",
+      "sha256": "7e20f6894b22ce9caafdb92f1be34d67c0b75429178f36d4e25aa32a95a9b17d",
+      "size": 9704051
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-heuristic.native-2.json",
+      "sha256": "e2e4de55a52613c67b1326062d8072e9782a042efb25ad04c1394badd295ef05",
+      "size": 9704051
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-directed.native-1.json",
+      "sha256": "5960abccac9f357e7726c361a6ab3337f2e88128e3db85e1aa1d90c1cd8a3e0e",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-directed.native-2.json",
+      "sha256": "f137ea43cace656383ea03af379cce32507af4b21100dac7587b335f3350a113",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-heuristic.native-1.json",
+      "sha256": "33b1a57c37ea341605df2cfb266a8dff54bcc7f1934e4acde91b0fd498b70662",
+      "size": 13632111
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-heuristic.native-2.json",
+      "sha256": "3c9b4409a77ba60cf9cf395cb85d231472546651112c14bb3bf47c10e240bfce",
+      "size": 13632111
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-directed.native-1.json",
+      "sha256": "75487b966bf8d75d55c7939e4a4e19ab0897a487a755c28dc2fee3990b4ab121",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-directed.native-2.json",
+      "sha256": "ef2cf740cf58dbff5dda6d8f7cfcd72c7abcea637bad368f381b2251a8e3b0e2",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-heuristic.native-1.json",
+      "sha256": "8611c63f8ed1464948271835ff1a1ccd81f69cfc4bfbf479eb97ca8152b691a6",
+      "size": 12858339
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/GR-040-RR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-heuristic.native-2.json",
+      "sha256": "b92fb5434a4d83144011764692acb54a6660998547c4b5696866ef2523f65201",
+      "size": 12858339
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-activations.privileged-g_3punfn/full-pool-activations-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-cancellations.json",
+      "sha256": "f5b60c60fa8e52bcbe89281e0b104cf9104ef706df9781d5696b60001b379630",
+      "size": 2095819
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-activations.privileged-g_3punfn/full-pool-activations-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-native-negatives.json",
+      "sha256": "3a3a44df9a02dc85b7b0adf2c1a1c4ecfa86f8eb92e3cfe75a1b3d9b7fc43c77",
+      "size": 1277730
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-activations.privileged-g_3punfn/full-pool-activations-xmage-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-cancellations.json",
+      "sha256": "340cb40e571c8268435aae685609fdeeb1615107b5670e8ffd662e95687f3b89",
+      "size": 1831369
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-activations.privileged-g_3punfn/full-pool-activations-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-negatives.json",
+      "sha256": "643015739d5dc9a7c325d7383ad70fe47a396c76a106e6ec8c3f0409923baddf",
+      "size": 1277614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-activations.privileged-g_3punfn/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/native.json",
+      "sha256": "158b1396fde69ae62613b57c56f331ccd5011271febc4547994faa127b934eac",
+      "size": 154916996
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-cleanup.privileged-d3zizy32/full-pool-cleanup-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/full-pool-cleanup-negatives.json",
+      "sha256": "5eead4ab02e201570f3f638472545a398adc393bcecac5330bb59dcc2184fb66",
+      "size": 1065211
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-cleanup.privileged-d3zizy32/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/native.json",
+      "sha256": "2ea6a558a45469a29efd55ea26b158993b25d39be818c746fae8142aa01889df",
+      "size": 98597829
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-combat.privileged-7dvowl_d/full-pool-combat-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat-negatives.json",
+      "sha256": "1396f76088c6bf46d9b399f342512520071e96b792df49d58f1a2ad195fcb60c",
+      "size": 3081608
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-combat.privileged-7dvowl_d/full-pool-combat.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat.json",
+      "sha256": "b542a67e6b3c01b418274b59a8004daa4ae92e1d7ef61e31580169fc3a8d96cc",
+      "size": 1388421
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-combat.privileged-7dvowl_d/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/native.json",
+      "sha256": "98cc8e95fdc262bbd134c28e5abd88754405579e4933108539046df95066af7d",
+      "size": 242791871
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-combat.privileged-7dvowl_d/negative-inputs.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/negative-inputs.json",
+      "sha256": "ea955176f9c9856ed4cad7ca62c520b888637b309b545cb3a4d0987078253b86",
+      "size": 1543979
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-mulligan.privileged-418oz9k3/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/native.json",
+      "sha256": "f53c50c1d330c4969aca9208dfe18f92a232c0a294e10a58be4f4c096fecfdf8",
+      "size": 2199227
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-mulligan.privileged-418oz9k3/xmage.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/xmage.json",
+      "sha256": "e6c946a600e77b174cd93a2d58b140b83464c8b500481c1fc18d7aa53d525f01",
+      "size": 5678687
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-priority.privileged-sg3v4v66/native-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native-oracle.json",
+      "sha256": "203a30c1d3e266ee131347208cbd4cc9293014ada47b244500e6ca6b5aebb047",
+      "size": 2846830
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-priority.privileged-sg3v4v66/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native.json",
+      "sha256": "2eaea4f33ef06cbd6da1fd53e129d9a8d24af73318a104cd5e4b9015cb2842f3",
+      "size": 19328892
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-priority.privileged-sg3v4v66/xmage-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/xmage-oracle.json",
+      "sha256": "f456503fd73b10b9cde284d540582a0904ed3ec958d577631d653a34876a010a",
+      "size": 2850424
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-spells.privileged-7amnktuv/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-spells.privileged-b4hzm8sl/native.json",
+      "sha256": "0ac58e1df2a33ddab3a1d55e8242074263eecef3e1bd903ce13cbfb000e1dd44",
+      "size": 21481166
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-triggers.privileged-3m2ul_fu/full-pool-triggers-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-native-negatives.json",
+      "sha256": "25fde2dd2e3f324dfc308bea5bb5ee08d80d9da8284c078d8c97f3c90cee5c9f",
+      "size": 1096393
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-triggers.privileged-3m2ul_fu/full-pool-triggers-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-xmage-negatives.json",
+      "sha256": "af83636272d118880cd78d9e8253e78acee76824d5b45c2118803d94f9169cbc",
+      "size": 1096493
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/compatibility-triggers.privileged-3m2ul_fu/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/native.json",
+      "sha256": "240ff1a607d7572c8db07afea29935ea2270385ce99857a5259ad9d1d258db81",
+      "size": 66483728
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/full-pool-admission-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission-native-negatives.json",
+      "sha256": "4820b3d5a240c3252f885b5f3061e100a5a59e83214e96d52246ca312ae4e7bd",
+      "size": 1358341
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/full-pool-admission-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission-native-negatives.json",
+      "sha256": "4820b3d5a240c3252f885b5f3061e100a5a59e83214e96d52246ca312ae4e7bd",
+      "size": 1358341
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/full-pool-admission.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission.json",
+      "sha256": "f2b60c4cab33084ceaf97d12bb9164caeb1e600f9c266109da3e61e20b292eb9",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/native-negatives.json",
+      "sha256": "3bf8deb12cadae3d63a7e0f2de168a835c0c1f0aca6ee2f652a1186eb743c357",
+      "size": 7002242
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-gz930gbb/xmage-input.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/xmage-input.json",
+      "sha256": "45857ba64f0ce52fbc307eaf0b2a2e382f53c60113f6107ff9ec9557e22fc34b",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "a2189aa5a4bd76338ffe908cdd7306ce34a6fd3994b02723930487f1acba9b5d",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "a2189aa5a4bd76338ffe908cdd7306ce34a6fd3994b02723930487f1acba9b5d",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "b2db0d6c8fdfc31ee2a257c8d65ec2f2051a0ddfb5d0f8f5bf0ce21733b0e8df",
+      "size": 8461237
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "b2db0d6c8fdfc31ee2a257c8d65ec2f2051a0ddfb5d0f8f5bf0ce21733b0e8df",
+      "size": 8461237
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "d8ac55ed7a2cafccfe2be598b0d7873c51a47deae8744cba65441615c4adfeb7",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "d8ac55ed7a2cafccfe2be598b0d7873c51a47deae8744cba65441615c4adfeb7",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "777b666d2be08b3b08d57257e93cae6c9ab16bdac447454736d37778a49eb5c8",
+      "size": 7548461
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "777b666d2be08b3b08d57257e93cae6c9ab16bdac447454736d37778a49eb5c8",
+      "size": 7548461
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-directed.native-1.json",
+      "sha256": "de4e28d8886b8efb83c745d3762f717ff4b9836f9803a3aa19a5451a3d66da52",
+      "size": 19239628
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-directed.native-2.json",
+      "sha256": "d1309bf18bf21f7822f6c26709f13aaf3838501c6cd618f7843949384219bf9b",
+      "size": 19239631
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "76e41c36bf34637f425e8a902cfa123fb9b51a8aa4796e8b2fafe0935cbebc1d",
+      "size": 10543295
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "76e41c36bf34637f425e8a902cfa123fb9b51a8aa4796e8b2fafe0935cbebc1d",
+      "size": 10543295
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-directed.native-1.json",
+      "sha256": "540effa18cabf050c2edaf5ac73ab8827ed67f6d6149d719efd18ffbd35ed76d",
+      "size": 19235989
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-directed.native-2.json",
+      "sha256": "0e4ef0f4265ed4340d136116230fad5cbc3321eea05536a67174f1235a269d50",
+      "size": 19235989
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "684e15d0393ad1b238474e5fc6fb9e21ce84f7d75f22d1d40525abf760007171",
+      "size": 8764390
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-GR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "684e15d0393ad1b238474e5fc6fb9e21ce84f7d75f22d1d40525abf760007171",
+      "size": 8764390
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-directed.native-1.json",
+      "sha256": "10eb2c5df0de3148c2847394b454002fb3a884c555d05e5eb07548285ed04c58",
+      "size": 19235984
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-directed.native-2.json",
+      "sha256": "6055a281af4a50ade591dbb9cd87d44d549b0d294657921e62a296ddfa60bc9d",
+      "size": 19235984
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-heuristic.native-1.json",
+      "sha256": "c3eb93a4e29ff717b232d631b4372529f9c1d91219c4334c83bb5813de0b79a9",
+      "size": 7330864
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-heuristic.native-2.json",
+      "sha256": "11d2daa88dd3612f0de244d1fd011677042347c52e7f72a8fb3f92992e1b4dcc",
+      "size": 7330864
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-directed.native-1.json",
+      "sha256": "5d7309f1f787822419cda21a44312dee5ca21441953e66d10e2bbba3d3a17be3",
+      "size": 19239626
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-directed.native-2.json",
+      "sha256": "280307ba27ed539ce4d61b604c3b8553617abc8a70639e84f630ac949a2cfe8a",
+      "size": 19239626
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-heuristic.native-1.json",
+      "sha256": "9bd98a3b3abc2279483854f488306c499642643ca97597a0016538699fcd9005",
+      "size": 9808907
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-heuristic.native-2.json",
+      "sha256": "a44762f59254101cf5c75138c3b403219b56eb1a0c64d7068400021e2c3978db",
+      "size": 9808907
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-directed.native-1.json",
+      "sha256": "f7d6d1255d9c0b59946071693584ffa5dcfcb887e7ce281c1c6d414532b4736a",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-directed.native-2.json",
+      "sha256": "70028dc76949fca16264c3a102a92924ca9858bf29f0a0c828927dd9258ac3b9",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-heuristic.native-1.json",
+      "sha256": "e3c814ae6ff1b6d9927f8eb4025403a05e82b083a736734716110b3f06f22e82",
+      "size": 13724233
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-heuristic.native-2.json",
+      "sha256": "a21a14267124912afe3463060533be67053e6fdf162bb43c865ed55e19371ac4",
+      "size": 13724233
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-directed.native-1.json",
+      "sha256": "88e7283919bdb25181549a9cb5cee1c3eb14d96939f58f3dec57a28b97f8d748",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-directed.native-2.json",
+      "sha256": "639e48cf98d0f253781c8f717c4ba0c8124131d3b51f63d93ef307ae4c51d0ae",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-heuristic.native-1.json",
+      "sha256": "25812be8500e31d6aa21b7ca0cb87a02b66e05cddb5a4783e63fb284174f4cfa",
+      "size": 12970017
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/GR-040-RR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-heuristic.native-2.json",
+      "sha256": "f4d9b7010cf83e1f37bbedfcbeac3a59973c725d7cec82a899416b665555b3cd",
+      "size": 12970017
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-activations.privileged-fkxqzqc2/full-pool-activations-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-cancellations.json",
+      "sha256": "f5b60c60fa8e52bcbe89281e0b104cf9104ef706df9781d5696b60001b379630",
+      "size": 2095819
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-activations.privileged-fkxqzqc2/full-pool-activations-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-native-negatives.json",
+      "sha256": "3a3a44df9a02dc85b7b0adf2c1a1c4ecfa86f8eb92e3cfe75a1b3d9b7fc43c77",
+      "size": 1277730
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-activations.privileged-fkxqzqc2/full-pool-activations-xmage-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-cancellations.json",
+      "sha256": "340cb40e571c8268435aae685609fdeeb1615107b5670e8ffd662e95687f3b89",
+      "size": 1831369
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-activations.privileged-fkxqzqc2/full-pool-activations-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-negatives.json",
+      "sha256": "643015739d5dc9a7c325d7383ad70fe47a396c76a106e6ec8c3f0409923baddf",
+      "size": 1277614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-activations.privileged-fkxqzqc2/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/native.json",
+      "sha256": "158b1396fde69ae62613b57c56f331ccd5011271febc4547994faa127b934eac",
+      "size": 154916996
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-cleanup.privileged-tpswfjx2/full-pool-cleanup-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/full-pool-cleanup-negatives.json",
+      "sha256": "5eead4ab02e201570f3f638472545a398adc393bcecac5330bb59dcc2184fb66",
+      "size": 1065211
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-cleanup.privileged-tpswfjx2/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/native.json",
+      "sha256": "2ea6a558a45469a29efd55ea26b158993b25d39be818c746fae8142aa01889df",
+      "size": 98597829
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-combat.privileged-p9yy3ybh/full-pool-combat-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat-negatives.json",
+      "sha256": "1396f76088c6bf46d9b399f342512520071e96b792df49d58f1a2ad195fcb60c",
+      "size": 3081608
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-combat.privileged-p9yy3ybh/full-pool-combat.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat.json",
+      "sha256": "b542a67e6b3c01b418274b59a8004daa4ae92e1d7ef61e31580169fc3a8d96cc",
+      "size": 1388421
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-combat.privileged-p9yy3ybh/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/native.json",
+      "sha256": "98cc8e95fdc262bbd134c28e5abd88754405579e4933108539046df95066af7d",
+      "size": 242791871
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-combat.privileged-p9yy3ybh/negative-inputs.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/negative-inputs.json",
+      "sha256": "ea955176f9c9856ed4cad7ca62c520b888637b309b545cb3a4d0987078253b86",
+      "size": 1543979
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-mulligan.privileged-og5smxtb/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/native.json",
+      "sha256": "f53c50c1d330c4969aca9208dfe18f92a232c0a294e10a58be4f4c096fecfdf8",
+      "size": 2199227
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-mulligan.privileged-og5smxtb/xmage.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/xmage.json",
+      "sha256": "e6c946a600e77b174cd93a2d58b140b83464c8b500481c1fc18d7aa53d525f01",
+      "size": 5678687
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-priority.privileged-_em2dgtp/native-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native-oracle.json",
+      "sha256": "203a30c1d3e266ee131347208cbd4cc9293014ada47b244500e6ca6b5aebb047",
+      "size": 2846830
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-priority.privileged-_em2dgtp/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native.json",
+      "sha256": "2eaea4f33ef06cbd6da1fd53e129d9a8d24af73318a104cd5e4b9015cb2842f3",
+      "size": 19328892
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-priority.privileged-_em2dgtp/xmage-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/xmage-oracle.json",
+      "sha256": "f456503fd73b10b9cde284d540582a0904ed3ec958d577631d653a34876a010a",
+      "size": 2850424
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-spells.privileged-m1bjd0xn/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-spells.privileged-b4hzm8sl/native.json",
+      "sha256": "0ac58e1df2a33ddab3a1d55e8242074263eecef3e1bd903ce13cbfb000e1dd44",
+      "size": 21481166
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-triggers.privileged-az6_me81/full-pool-triggers-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-native-negatives.json",
+      "sha256": "25fde2dd2e3f324dfc308bea5bb5ee08d80d9da8284c078d8c97f3c90cee5c9f",
+      "size": 1096393
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-triggers.privileged-az6_me81/full-pool-triggers-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-xmage-negatives.json",
+      "sha256": "af83636272d118880cd78d9e8253e78acee76824d5b45c2118803d94f9169cbc",
+      "size": 1096493
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/compatibility-triggers.privileged-az6_me81/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/native.json",
+      "sha256": "240ff1a607d7572c8db07afea29935ea2270385ce99857a5259ad9d1d258db81",
+      "size": 66483728
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/full-pool-admission-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission-native-negatives.json",
+      "sha256": "d705d757466df22738bf3b4426446c971da9f6c5803e868c9c395a165275b888",
+      "size": 1478659
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/full-pool-admission-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission-xmage-negatives.json",
+      "sha256": "805eb695dec5a6f566d6978205af7170ac464b32f19f00d6bbc8cd459f6dfa47",
+      "size": 1478659
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/full-pool-admission.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission.json",
+      "sha256": "f2b60c4cab33084ceaf97d12bb9164caeb1e600f9c266109da3e61e20b292eb9",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/native-negatives.json",
+      "sha256": "42259df52360fc1d16939a14f84c016f6d46447d13e8d8194020c95a9756ffae",
+      "size": 9740074
+    },
+    {
+      "path": ".agent-artifacts/admission-run-1.privileged-jjm5w9ik/xmage-input.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/xmage-input.json",
+      "sha256": "45857ba64f0ce52fbc307eaf0b2a2e382f53c60113f6107ff9ec9557e22fc34b",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "a2189aa5a4bd76338ffe908cdd7306ce34a6fd3994b02723930487f1acba9b5d",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "a2189aa5a4bd76338ffe908cdd7306ce34a6fd3994b02723930487f1acba9b5d",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "b2db0d6c8fdfc31ee2a257c8d65ec2f2051a0ddfb5d0f8f5bf0ce21733b0e8df",
+      "size": 8461237
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "b2db0d6c8fdfc31ee2a257c8d65ec2f2051a0ddfb5d0f8f5bf0ce21733b0e8df",
+      "size": 8461237
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "d8ac55ed7a2cafccfe2be598b0d7873c51a47deae8744cba65441615c4adfeb7",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "d8ac55ed7a2cafccfe2be598b0d7873c51a47deae8744cba65441615c4adfeb7",
+      "size": 18797322
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "777b666d2be08b3b08d57257e93cae6c9ab16bdac447454736d37778a49eb5c8",
+      "size": 7548461
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "777b666d2be08b3b08d57257e93cae6c9ab16bdac447454736d37778a49eb5c8",
+      "size": 7548461
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-directed.native-1.json",
+      "sha256": "de4e28d8886b8efb83c745d3762f717ff4b9836f9803a3aa19a5451a3d66da52",
+      "size": 19239628
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-directed.native-2.json",
+      "sha256": "d1309bf18bf21f7822f6c26709f13aaf3838501c6cd618f7843949384219bf9b",
+      "size": 19239631
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "76e41c36bf34637f425e8a902cfa123fb9b51a8aa4796e8b2fafe0935cbebc1d",
+      "size": 10543295
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "76e41c36bf34637f425e8a902cfa123fb9b51a8aa4796e8b2fafe0935cbebc1d",
+      "size": 10543295
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-directed.native-1.json",
+      "sha256": "540effa18cabf050c2edaf5ac73ab8827ed67f6d6149d719efd18ffbd35ed76d",
+      "size": 19235989
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-directed.native-2.json",
+      "sha256": "0e4ef0f4265ed4340d136116230fad5cbc3321eea05536a67174f1235a269d50",
+      "size": 19235989
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "684e15d0393ad1b238474e5fc6fb9e21ce84f7d75f22d1d40525abf760007171",
+      "size": 8764390
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-GR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "684e15d0393ad1b238474e5fc6fb9e21ce84f7d75f22d1d40525abf760007171",
+      "size": 8764390
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-directed.native-1.json",
+      "sha256": "10eb2c5df0de3148c2847394b454002fb3a884c555d05e5eb07548285ed04c58",
+      "size": 19235984
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-directed.native-2.json",
+      "sha256": "6055a281af4a50ade591dbb9cd87d44d549b0d294657921e62a296ddfa60bc9d",
+      "size": 19235984
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-heuristic.native-1.json",
+      "sha256": "c3eb93a4e29ff717b232d631b4372529f9c1d91219c4334c83bb5813de0b79a9",
+      "size": 7330864
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S0-heuristic.native-2.json",
+      "sha256": "11d2daa88dd3612f0de244d1fd011677042347c52e7f72a8fb3f92992e1b4dcc",
+      "size": 7330864
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-directed.native-1.json",
+      "sha256": "5d7309f1f787822419cda21a44312dee5ca21441953e66d10e2bbba3d3a17be3",
+      "size": 19239626
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-directed.native-2.json",
+      "sha256": "280307ba27ed539ce4d61b604c3b8553617abc8a70639e84f630ac949a2cfe8a",
+      "size": 19239626
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-heuristic.native-1.json",
+      "sha256": "9bd98a3b3abc2279483854f488306c499642643ca97597a0016538699fcd9005",
+      "size": 9808907
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RG-S1-heuristic.native-2.json",
+      "sha256": "a44762f59254101cf5c75138c3b403219b56eb1a0c64d7068400021e2c3978db",
+      "size": 9808907
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-directed.native-1.json",
+      "sha256": "f7d6d1255d9c0b59946071693584ffa5dcfcb887e7ce281c1c6d414532b4736a",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-directed.native-2.json",
+      "sha256": "70028dc76949fca16264c3a102a92924ca9858bf29f0a0c828927dd9258ac3b9",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-heuristic.native-1.json",
+      "sha256": "e3c814ae6ff1b6d9927f8eb4025403a05e82b083a736734716110b3f06f22e82",
+      "size": 13724233
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S0-heuristic.native-2.json",
+      "sha256": "a21a14267124912afe3463060533be67053e6fdf162bb43c865ed55e19371ac4",
+      "size": 13724233
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-directed.native-1.json",
+      "sha256": "88e7283919bdb25181549a9cb5cee1c3eb14d96939f58f3dec57a28b97f8d748",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-directed.native-2.json",
+      "sha256": "639e48cf98d0f253781c8f717c4ba0c8124131d3b51f63d93ef307ae4c51d0ae",
+      "size": 19681565
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-heuristic.native-1.json",
+      "sha256": "25812be8500e31d6aa21b7ca0cb87a02b66e05cddb5a4783e63fb284174f4cfa",
+      "size": 12970017
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/GR-040-RR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/GR-040-RR-S1-heuristic.native-2.json",
+      "sha256": "f4d9b7010cf83e1f37bbedfcbeac3a59973c725d7cec82a899416b665555b3cd",
+      "size": 12970017
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-activations.privileged-xa7w6wdj/full-pool-activations-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-cancellations.json",
+      "sha256": "f5b60c60fa8e52bcbe89281e0b104cf9104ef706df9781d5696b60001b379630",
+      "size": 2095819
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-activations.privileged-xa7w6wdj/full-pool-activations-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-native-negatives.json",
+      "sha256": "3a3a44df9a02dc85b7b0adf2c1a1c4ecfa86f8eb92e3cfe75a1b3d9b7fc43c77",
+      "size": 1277730
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-activations.privileged-xa7w6wdj/full-pool-activations-xmage-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-cancellations.json",
+      "sha256": "340cb40e571c8268435aae685609fdeeb1615107b5670e8ffd662e95687f3b89",
+      "size": 1831369
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-activations.privileged-xa7w6wdj/full-pool-activations-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-negatives.json",
+      "sha256": "643015739d5dc9a7c325d7383ad70fe47a396c76a106e6ec8c3f0409923baddf",
+      "size": 1277614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-activations.privileged-xa7w6wdj/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/native.json",
+      "sha256": "158b1396fde69ae62613b57c56f331ccd5011271febc4547994faa127b934eac",
+      "size": 154916996
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-cleanup.privileged-e_q2fx90/full-pool-cleanup-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/full-pool-cleanup-negatives.json",
+      "sha256": "5eead4ab02e201570f3f638472545a398adc393bcecac5330bb59dcc2184fb66",
+      "size": 1065211
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-cleanup.privileged-e_q2fx90/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/native.json",
+      "sha256": "2ea6a558a45469a29efd55ea26b158993b25d39be818c746fae8142aa01889df",
+      "size": 98597829
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-combat.privileged-jgi8d9fi/full-pool-combat-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat-negatives.json",
+      "sha256": "1396f76088c6bf46d9b399f342512520071e96b792df49d58f1a2ad195fcb60c",
+      "size": 3081608
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-combat.privileged-jgi8d9fi/full-pool-combat.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat.json",
+      "sha256": "b542a67e6b3c01b418274b59a8004daa4ae92e1d7ef61e31580169fc3a8d96cc",
+      "size": 1388421
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-combat.privileged-jgi8d9fi/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/native.json",
+      "sha256": "98cc8e95fdc262bbd134c28e5abd88754405579e4933108539046df95066af7d",
+      "size": 242791871
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-combat.privileged-jgi8d9fi/negative-inputs.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/negative-inputs.json",
+      "sha256": "ea955176f9c9856ed4cad7ca62c520b888637b309b545cb3a4d0987078253b86",
+      "size": 1543979
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-mulligan.privileged-x0anpo7t/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/native.json",
+      "sha256": "f53c50c1d330c4969aca9208dfe18f92a232c0a294e10a58be4f4c096fecfdf8",
+      "size": 2199227
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-mulligan.privileged-x0anpo7t/xmage.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/xmage.json",
+      "sha256": "e6c946a600e77b174cd93a2d58b140b83464c8b500481c1fc18d7aa53d525f01",
+      "size": 5678687
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-priority.privileged-sfsb_r6g/native-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native-oracle.json",
+      "sha256": "203a30c1d3e266ee131347208cbd4cc9293014ada47b244500e6ca6b5aebb047",
+      "size": 2846830
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-priority.privileged-sfsb_r6g/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native.json",
+      "sha256": "2eaea4f33ef06cbd6da1fd53e129d9a8d24af73318a104cd5e4b9015cb2842f3",
+      "size": 19328892
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-priority.privileged-sfsb_r6g/xmage-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/xmage-oracle.json",
+      "sha256": "f456503fd73b10b9cde284d540582a0904ed3ec958d577631d653a34876a010a",
+      "size": 2850424
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-spells.privileged-3chpsohg/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-spells.privileged-b4hzm8sl/native.json",
+      "sha256": "0ac58e1df2a33ddab3a1d55e8242074263eecef3e1bd903ce13cbfb000e1dd44",
+      "size": 21481166
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-triggers.privileged-raedwawp/full-pool-triggers-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-native-negatives.json",
+      "sha256": "25fde2dd2e3f324dfc308bea5bb5ee08d80d9da8284c078d8c97f3c90cee5c9f",
+      "size": 1096393
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-triggers.privileged-raedwawp/full-pool-triggers-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-xmage-negatives.json",
+      "sha256": "af83636272d118880cd78d9e8253e78acee76824d5b45c2118803d94f9169cbc",
+      "size": 1096493
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/compatibility-triggers.privileged-raedwawp/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/native.json",
+      "sha256": "240ff1a607d7572c8db07afea29935ea2270385ce99857a5259ad9d1d258db81",
+      "size": 66483728
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/full-pool-admission-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission-native-negatives.json",
+      "sha256": "d705d757466df22738bf3b4426446c971da9f6c5803e868c9c395a165275b888",
+      "size": 1478659
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/full-pool-admission-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission-xmage-negatives.json",
+      "sha256": "805eb695dec5a6f566d6978205af7170ac464b32f19f00d6bbc8cd459f6dfa47",
+      "size": 1478659
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/full-pool-admission.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission.json",
+      "sha256": "f2b60c4cab33084ceaf97d12bb9164caeb1e600f9c266109da3e61e20b292eb9",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/native-negatives.json",
+      "sha256": "42259df52360fc1d16939a14f84c016f6d46447d13e8d8194020c95a9756ffae",
+      "size": 9740074
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-0kenv_1u/xmage-input.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/xmage-input.json",
+      "sha256": "45857ba64f0ce52fbc307eaf0b2a2e382f53c60113f6107ff9ec9557e22fc34b",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "d2e39b43966028f68f62cf58bd1d9ad216bfddf070f67164cad1990bae792a31",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-directed.native-1.json",
+      "sha256": "d2e39b43966028f68f62cf58bd1d9ad216bfddf070f67164cad1990bae792a31",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "05223275a9c07fce7ab978c38de8d9b2521a24a5bda3d922c008f7a08b82ccd3",
+      "size": 8375834
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S0-heuristic.native-1.json",
+      "sha256": "05223275a9c07fce7ab978c38de8d9b2521a24a5bda3d922c008f7a08b82ccd3",
+      "size": 8375834
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "b2e0c9f553b07f0a723915e99fd63e209c9e184339e39db73ded2ab3ff527b1a",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-directed.native-1.json",
+      "sha256": "b2e0c9f553b07f0a723915e99fd63e209c9e184339e39db73ded2ab3ff527b1a",
+      "size": 18797310
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "5da3ac2d26c7a1f097a192738321b5ff87c4880f777c5cba0b530ed083357302",
+      "size": 7483062
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GG-S1-heuristic.native-1.json",
+      "sha256": "5da3ac2d26c7a1f097a192738321b5ff87c4880f777c5cba0b530ed083357302",
+      "size": 7483062
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-directed.native-1.json",
+      "sha256": "6e0b09bd013d95f29506ae8fdf9da40a2c2767d2380bf9695970c8137561b32b",
+      "size": 19239616
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-directed.native-2.json",
+      "sha256": "999090c3a5e19007a16d6b6ec34ac86c1dc61e708e6f61d3bf30570f09685847",
+      "size": 19239619
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "dfda62ed2420bdd635c22a94d92740a290dc4682d4945e869e12a9f4dfad95de",
+      "size": 10440425
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S0-heuristic.native-1.json",
+      "sha256": "dfda62ed2420bdd635c22a94d92740a290dc4682d4945e869e12a9f4dfad95de",
+      "size": 10440425
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-directed.native-1.json",
+      "sha256": "291d6772200220721055c904aead319065e54c7a5a91760c00de43853073f44e",
+      "size": 19235977
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-directed.native-2.json",
+      "sha256": "b13991d7b9139d535d343a7b457e19ff9a44d0afb5163e8679bf28d1654323e9",
+      "size": 19235977
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "01452b6c00ab1a71eeaf9f2c35fda2c149741fa3bacb79f560925c06ae893672",
+      "size": 8687881
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-GR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-GR-S1-heuristic.native-1.json",
+      "sha256": "01452b6c00ab1a71eeaf9f2c35fda2c149741fa3bacb79f560925c06ae893672",
+      "size": 8687881
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-directed.native-1.json",
+      "sha256": "139e4708836ddfe9c33ad542ead7a4b08aa10d130f1a2746502c366417b081f7",
+      "size": 19235972
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-directed.native-2.json",
+      "sha256": "8c7ee18aed92664f4e70aa596975f0933c9eee476b3877b5aa54a75cd8f7ba07",
+      "size": 19235972
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-heuristic.native-1.json",
+      "sha256": "44848cfeea41b9db79e6330fb86ddf99e08743455953a790e91da2e0d42cf497",
+      "size": 7272507
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S0-heuristic.native-2.json",
+      "sha256": "7206df981f08e89e311629bb5f26777d35b5b8d95203c8b1056835c4b7b8bc56",
+      "size": 7272507
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-directed.native-1.json",
+      "sha256": "0aa7371e5b2fab681c8ef1f80af7706cb073ad7d584acc8473df0f28a6fab33b",
+      "size": 19239614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-directed.native-2.json",
+      "sha256": "ec3e2108f114ee4e1844be3dea649546455e4354923b7839154e9683dd206ac6",
+      "size": 19239614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-heuristic.native-1.json",
+      "sha256": "7e20f6894b22ce9caafdb92f1be34d67c0b75429178f36d4e25aa32a95a9b17d",
+      "size": 9704051
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RG-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RG-S1-heuristic.native-2.json",
+      "sha256": "e2e4de55a52613c67b1326062d8072e9782a042efb25ad04c1394badd295ef05",
+      "size": 9704051
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S0-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-directed.native-1.json",
+      "sha256": "5960abccac9f357e7726c361a6ab3337f2e88128e3db85e1aa1d90c1cd8a3e0e",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S0-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-directed.native-2.json",
+      "sha256": "f137ea43cace656383ea03af379cce32507af4b21100dac7587b335f3350a113",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S0-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-heuristic.native-1.json",
+      "sha256": "33b1a57c37ea341605df2cfb266a8dff54bcc7f1934e4acde91b0fd498b70662",
+      "size": 13632111
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S0-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S0-heuristic.native-2.json",
+      "sha256": "3c9b4409a77ba60cf9cf395cb85d231472546651112c14bb3bf47c10e240bfce",
+      "size": 13632111
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S1-directed.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-directed.native-1.json",
+      "sha256": "75487b966bf8d75d55c7939e4a4e19ab0897a487a755c28dc2fee3990b4ab121",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S1-directed.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-directed.native-2.json",
+      "sha256": "ef2cf740cf58dbff5dda6d8f7cfcd72c7abcea637bad368f381b2251a8e3b0e2",
+      "size": 19681553
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S1-heuristic.native-1.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-heuristic.native-1.json",
+      "sha256": "8611c63f8ed1464948271835ff1a1ccd81f69cfc4bfbf479eb97ca8152b691a6",
+      "size": 12858339
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/GR-040-RR-S1-heuristic.native-2.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/GR-040-RR-S1-heuristic.native-2.json",
+      "sha256": "b92fb5434a4d83144011764692acb54a6660998547c4b5696866ef2523f65201",
+      "size": 12858339
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-activations.privileged-zik23m1x/full-pool-activations-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-cancellations.json",
+      "sha256": "f5b60c60fa8e52bcbe89281e0b104cf9104ef706df9781d5696b60001b379630",
+      "size": 2095819
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-activations.privileged-zik23m1x/full-pool-activations-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-native-negatives.json",
+      "sha256": "3a3a44df9a02dc85b7b0adf2c1a1c4ecfa86f8eb92e3cfe75a1b3d9b7fc43c77",
+      "size": 1277730
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-activations.privileged-zik23m1x/full-pool-activations-xmage-cancellations.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-cancellations.json",
+      "sha256": "340cb40e571c8268435aae685609fdeeb1615107b5670e8ffd662e95687f3b89",
+      "size": 1831369
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-activations.privileged-zik23m1x/full-pool-activations-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/full-pool-activations-xmage-negatives.json",
+      "sha256": "643015739d5dc9a7c325d7383ad70fe47a396c76a106e6ec8c3f0409923baddf",
+      "size": 1277614
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-activations.privileged-zik23m1x/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-activations.privileged-dt5fbsgi/native.json",
+      "sha256": "158b1396fde69ae62613b57c56f331ccd5011271febc4547994faa127b934eac",
+      "size": 154916996
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-cleanup.privileged-7x4gepax/full-pool-cleanup-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/full-pool-cleanup-negatives.json",
+      "sha256": "5eead4ab02e201570f3f638472545a398adc393bcecac5330bb59dcc2184fb66",
+      "size": 1065211
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-cleanup.privileged-7x4gepax/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-cleanup.privileged-3ra0dh8b/native.json",
+      "sha256": "2ea6a558a45469a29efd55ea26b158993b25d39be818c746fae8142aa01889df",
+      "size": 98597829
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-combat.privileged-yqwa66zg/full-pool-combat-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat-negatives.json",
+      "sha256": "1396f76088c6bf46d9b399f342512520071e96b792df49d58f1a2ad195fcb60c",
+      "size": 3081608
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-combat.privileged-yqwa66zg/full-pool-combat.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/full-pool-combat.json",
+      "sha256": "b542a67e6b3c01b418274b59a8004daa4ae92e1d7ef61e31580169fc3a8d96cc",
+      "size": 1388421
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-combat.privileged-yqwa66zg/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/native.json",
+      "sha256": "98cc8e95fdc262bbd134c28e5abd88754405579e4933108539046df95066af7d",
+      "size": 242791871
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-combat.privileged-yqwa66zg/negative-inputs.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-combat.privileged-1d5gxwgg/negative-inputs.json",
+      "sha256": "ea955176f9c9856ed4cad7ca62c520b888637b309b545cb3a4d0987078253b86",
+      "size": 1543979
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-mulligan.privileged-fwwkqcz8/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/native.json",
+      "sha256": "f53c50c1d330c4969aca9208dfe18f92a232c0a294e10a58be4f4c096fecfdf8",
+      "size": 2199227
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-mulligan.privileged-fwwkqcz8/xmage.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-mulligan.privileged-jkmwk40j/xmage.json",
+      "sha256": "e6c946a600e77b174cd93a2d58b140b83464c8b500481c1fc18d7aa53d525f01",
+      "size": 5678687
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-priority.privileged-cvvh9a2q/native-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native-oracle.json",
+      "sha256": "203a30c1d3e266ee131347208cbd4cc9293014ada47b244500e6ca6b5aebb047",
+      "size": 2846830
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-priority.privileged-cvvh9a2q/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/native.json",
+      "sha256": "2eaea4f33ef06cbd6da1fd53e129d9a8d24af73318a104cd5e4b9015cb2842f3",
+      "size": 19328892
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-priority.privileged-cvvh9a2q/xmage-oracle.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-priority.privileged-onz1bmuq/xmage-oracle.json",
+      "sha256": "f456503fd73b10b9cde284d540582a0904ed3ec958d577631d653a34876a010a",
+      "size": 2850424
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-spells.privileged-li1mwkub/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-spells.privileged-b4hzm8sl/native.json",
+      "sha256": "0ac58e1df2a33ddab3a1d55e8242074263eecef3e1bd903ce13cbfb000e1dd44",
+      "size": 21481166
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-triggers.privileged-9s9118hy/full-pool-triggers-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-native-negatives.json",
+      "sha256": "25fde2dd2e3f324dfc308bea5bb5ee08d80d9da8284c078d8c97f3c90cee5c9f",
+      "size": 1096393
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-triggers.privileged-9s9118hy/full-pool-triggers-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/full-pool-triggers-xmage-negatives.json",
+      "sha256": "af83636272d118880cd78d9e8253e78acee76824d5b45c2118803d94f9169cbc",
+      "size": 1096493
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/compatibility-triggers.privileged-9s9118hy/native.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/compatibility-triggers.privileged-apl40tof/native.json",
+      "sha256": "240ff1a607d7572c8db07afea29935ea2270385ce99857a5259ad9d1d258db81",
+      "size": 66483728
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/full-pool-admission-native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission-native-negatives.json",
+      "sha256": "4820b3d5a240c3252f885b5f3061e100a5a59e83214e96d52246ca312ae4e7bd",
+      "size": 1358341
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/full-pool-admission-xmage-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/full-pool-admission-native-negatives.json",
+      "sha256": "4820b3d5a240c3252f885b5f3061e100a5a59e83214e96d52246ca312ae4e7bd",
+      "size": 1358341
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/full-pool-admission.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/full-pool-admission.json",
+      "sha256": "f2b60c4cab33084ceaf97d12bb9164caeb1e600f9c266109da3e61e20b292eb9",
+      "size": 6635380
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/native-negatives.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-czxglccb/native-negatives.json",
+      "sha256": "3bf8deb12cadae3d63a7e0f2de168a835c0c1f0aca6ee2f652a1186eb743c357",
+      "size": 7002242
+    },
+    {
+      "path": ".agent-artifacts/admission-run-2.privileged-dwn2e5qd/xmage-input.json",
+      "identical_to": ".agent-artifacts/admission-run-1.privileged-4me_rp19/xmage-input.json",
+      "sha256": "45857ba64f0ce52fbc307eaf0b2a2e382f53c60113f6107ff9ec9557e22fc34b",
+      "size": 6635380
+    }
+  ]
+}

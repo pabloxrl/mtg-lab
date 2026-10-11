@@ -72,9 +72,9 @@ impl TriggerClient {
             .targeting
             .as_ref()
             .map(|t| t.decision().actor)
+            .or_else(|| g.turns.activation.as_ref().map(|a| a.actor))
             .or_else(|| g.turns.payment.as_ref().map(|p| p.actor()))
-            .or_else(|| g.turn_decision().map(|d| d.actor))
-            .unwrap();
+            .or_else(|| g.turn_decision().map(|d| d.actor));
         let ordered = |z| {
             g.objects
                 .in_zone(z)
@@ -100,6 +100,16 @@ impl TriggerClient {
             .stack
             .iter()
             .map(|h| {
+                if let Some(a) = g.turns.abilities.iter().find(|a|a.object==*h) {
+                    let source=self.old_sources.iter().find(|(handle,_)|*handle==a.source)
+                        .expect("witnessed activated source").1.clone();
+                    let id=self.client.id(g,*h);
+                    return json!({"source":source["source"],"incarnation":source["incarnation"],
+                        "action":self.client.actions[&id],"object":id,
+                        "raw_birth":g.objects.semantic_identity(*h).unwrap().0,
+                        "ability":if a.power {"power"} else if a.invoker {"invoker"} else {"haste"},
+                        "target":a.target.map(|h|self.reference(g,h))});
+                }
                 if let Some((_, key)) = self.stack_keys.iter().find(|(o,_)| o == h) {
                     let a = g.turns.triggered.iter().find(|a| a.object == *h).unwrap();
                     return json!({"ability":"trigger","key":key,"controller":seat_index(a.declaration.controller),
@@ -136,7 +146,7 @@ impl TriggerClient {
             "boost":m.boost,"power_boost":m.power_boost,"damage":m.damage})
             })
             .collect();
-        json!({"boundary":boundary,"turn":turn,"step":priority_step(step),"active":seat_index(active),"actor":seat_index(actor),
+        json!({"boundary":boundary,"turn":turn,"step":priority_step(step),"active":seat_index(active),"actor":actor.map(seat_index),
             "life":g.life(),"mana":g.mana(),"land_plays":u8::from(g.turns.land_used),
             "hand":[ordered(Zone::Hand(Seat::P0)),ordered(Zone::Hand(Seat::P1))],
             "library":[ordered(Zone::Library(Seat::P0)),ordered(Zone::Library(Seat::P1))],
