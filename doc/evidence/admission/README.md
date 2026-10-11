@@ -1,6 +1,6 @@
 # Initial terminal-game admission evidence
 
-Executable acceptance **PASS** for the initial native/XMage GR-040 subset.
+Executable acceptance **PASS** for the repaired initial native/XMage GR-040 subset.
 [Validation receipt](validation.json) records the commands, counts and hashes.
 The [issue workpad](https://github.com/pabloxrl/mtg-lab/issues/277#issuecomment-6112473318)
 records exact-candidate independent review, protected delivery and exact-main CI
@@ -18,15 +18,15 @@ earlier detailed reference families.
 
 | Check | Result |
 | --- | --- |
-| [Focused real-adapter discovery](focused.log) | 22 tests passed. |
-| [Normal Python discovery](python-discovery.log) | 392 tests passed, including all 22 new regressions. |
-| [Standalone Cargo workspace discovery](cargo-workspace.log) | 762 executions, zero failed/ignored; three new named admission regressions and the reused policy test discovered. |
-| [Full torture after current-main integration](torture.log) | 392 Python tests and 1,524 Rust debug/release executions; zero failed/ignored; docs, program, catalog, formatting and Clippy passed. |
-| [Reference run 1](run-1.json), [run 2](run-2.json) | Each: sixteen games twice per actual engine, 18 invalid tapes per engine, 42 native/43 XMage corruption controls, all eight retained families passed. |
+| [Focused real-adapter discovery](focused.log) | 27 tests passed. |
+| [Normal Python discovery](python-discovery.log) | 397 tests passed, including all 27 new regressions. |
+| [Cargo workspace discovery (torture debug phase)](cargo-workspace.log) | 762 executions, zero failed/ignored; three new named admission regressions and the reused policy test discovered. |
+| [Full torture after current-main integration](torture.log) | 397 Python tests and 1,524 Rust debug/release executions; zero failed/ignored; docs, program, catalog, formatting and Clippy passed. |
+| [Reference run 1](run-1.json), [run 2](run-2.json) | Each: sixteen games twice per actual engine, 18 invalid tapes per engine, 42 native/48 XMage corruption controls, all eight retained families passed. |
 
 Each sixteen-game replay set checks 14,863 action and 75 pre-SBA damage
 checkpoints. Both complete reference invocations have identical hashes for all
-167 source files. Their [first](final-run-1.json) and [second](final-run-2.json)
+168 source files. Their [first](final-run-1.json) and [second](final-run-2.json)
 archive manifests bind every retained input, actual observation, consumed choice,
 chance event, toolchain/dependency record, source snapshot and compatibility
 receipt. The archives are [run 1](final-run-1.tar.gz) and
@@ -64,7 +64,7 @@ from final acceptance. Standard recorder origins lacked pre-shuffle duplicate
 bindings and remain unadmitted; admitted origins use actual creation hooks.
 Their eight manifest provenance hashes match the occurrence-aware generation
 records in the [generation archive](generation-attempts.tar.gz). Candidate-v1,
-v2 and v3 results, first differences, source snapshots and the deliberately
+v2, v3 and review-rejected v4 results, first differences, source snapshots and the deliberately
 interrupted torture pass remain retained. Repeated games never increase the
 sixteen-game quota.
 
@@ -89,3 +89,11 @@ generation, campaign/corpus, >=100-scenario audit or M2 verdict is supplied.
 README impact: the root README adds the bounded admission command/evidence row;
 its M2 status remains incomplete. Both documented admission commands were run.
 Independent review must check README accuracy, retained tests and ownership.
+
+[Independent review 1](review-1.json) and its [resolution](review-resolution.md)
+record the required effect-presence/lifetime and
+trigger-source/counter binding repairs. [Review regression reds](review-regressions-red.log)
+retain three intended assertion failures. Five added ordinary-discovery tests
+cover omitted/expired effects and missing/rebound trigger provenance. Expected
+effect lifetimes come from the pinned card/effect classes and CR514.2; the
+historical XMage payload is only a corruption witness, never a golden oracle.

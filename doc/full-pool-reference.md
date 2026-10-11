@@ -445,3 +445,11 @@ hashed `patched-combat-sba-v1` integration and all original upstream discrepancy
 evidence. It does not qualify Forge, generate existing-reference-AI games,
 complete the scenario audit, or declare M2 complete. Those later owners and
 historical obligations remain unchanged.
+
+Admission also validates the presence and lifetime of XMage effects using a
+ledger derived from resolved stack objects, pinned card implementations and
+CR514.2 cleanup. Trigger provenance must bind each observed ability to its
+witnessed physical occurrence UUID and zone-change counter. Ordinary discovery
+loads a hash-bound historical XMage observation only as a corruption witness
+for these review regressions; it is never an expected-state oracle or a
+replacement for either fresh complete reference invocation.

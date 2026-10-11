@@ -224,3 +224,131 @@ def check_effects(p,engine,prefix):
             classes={'BoostTargetEffect':{'giant-growth','wildheart-invoker'},'BoostControlledEffect':{'goblin-surprise'},'GainAbilityTargetEffect':{'wildheart-invoker','axgard-cavalry'},'BoostSourceEffect':{'shivan-dragon','crackling-cyclops'}}
             name=effect['class'].removeprefix('mage.abilities.effects.common.continuous.')
             require(name in classes and all(s.split('/')[1] in classes[name] for s in effect['sources']),prefix+'/effect class/source')
+
+
+def xmage_trigger_provenance(run,case):
+    """Bind canonical trigger keys to actual construction/trigger witnesses.
+
+    The delivered bridge normalizes a zone-change counter by subtracting the
+    counter witnessed at construction. StackMomentSourceZCC preserves that
+    source incarnation even if the permanent subsequently leaves (CR400.7,
+    603.3 and 113.7a). It is not an arbitrary UUID-shaped diagnostic field.
+    """
+    import uuid
+    def valid_uuid(value):
+        try:return isinstance(value,str) and str(uuid.UUID(value))==value
+        except (ValueError,AttributeError):return False
+    bindings=run.get('raw_occurrence_bindings')
+    require(isinstance(bindings,dict),'/trigger provenance physical bindings')
+    by_occurrence={}
+    for raw,value in bindings.items():
+        require(valid_uuid(raw) and set(value)=={'occurrence','initial_counter'},'/trigger provenance binding fields')
+        initial=value['initial_counter']
+        if value['occurrence'].startswith('token/'):
+            # Tokens were not present at deck construction. Their independent
+            # CREATED_TOKEN callback carries the actual initial counter.
+            births=[c for c in run['points'][-1]['creations'] if c['id']==value['occurrence'] and c['raw_uuid']==raw]
+            require(initial is None and len(births)==1,'/trigger provenance token birth binding')
+            initial=births[0]['raw_counter']
+        require(type(initial) is int and initial>=0,'/trigger provenance initial counter')
+        require(value['occurrence'] not in by_occurrence,'/trigger provenance duplicate binding')
+        by_occurrence[value['occurrence']]=(raw,initial)
+    key_fields=('source','incarnation','ability','event')
+    key=lambda t:tuple(t[f] for f in key_fields)
+    expected={key(k):(k,e['sequence']) for e in case['play'] if e['kind']=='order_triggers' for k in e['order']}
+    traces=run.get('trigger_provenance')
+    require(isinstance(traces,list),'/missing trigger provenance')
+    require(len(traces)==len(expected),'/trigger provenance count')
+    seen={}
+    classes={'archer':'mage.abilities.common.SpellCastControllerTriggeredAbility','cyclops':'mage.abilities.common.SpellCastControllerTriggeredAbility','pyromancer':'mage.abilities.common.EntersBattlefieldTriggeredAbility'}
+    for trace in traces:
+        require(set(trace)==set(key_fields)|{'raw_ability','raw_source','raw_source_zcc','ability_class','observed_choice'},'/trigger provenance fields')
+        k=key(trace);require(k in expected and k not in seen,'/trigger provenance key/event')
+        canonical,ordered=expected[k];source=trace['source']
+        require(source in by_occurrence,'/trigger provenance source binding')
+        raw,initial=by_occurrence[source]
+        require(trace['raw_source']==raw and type(trace['raw_source_zcc']) is int and trace['raw_source_zcc']==initial+trace['incarnation'],'/trigger provenance source incarnation binding')
+        require(valid_uuid(trace['raw_ability']) and trace['ability_class']==classes[trace['ability']],'/trigger provenance ability identity/class')
+        observed=trace['observed_choice']
+        require(type(observed) is int and 0<=observed<=ordered and case['play'][observed]['turn']==case['play'][ordered]['turn'],'/trigger provenance observation chronology')
+        # One targeted trigger is announced before its target callback. Preserve
+        # that actual staging; its stack witness appears by the next checkpoint.
+        nearby=run['points'][observed:min(ordered+2,len(run['points']))]
+        require(any(canonical in [v['key'] for v in p['pending_triggers']]+[v['key'] for v in p['stack'] if v.get('ability')=='trigger'] for p in nearby),'/trigger provenance callback witness')
+        seen[k]=trace
+    witnessed=set();raw_stack=run.get('raw_stack_ids')
+    require(isinstance(raw_stack,dict),'/trigger provenance raw stack index')
+    points=run['points']+run['marked']+run['cleanup_checkpoints']+[run['before_departure']]
+    for point in points:
+        for ability in point['stack']:
+            if ability.get('ability')!='trigger':continue
+            k=key(ability['key']);require(k in seen,'/trigger provenance missing stack key')
+            trace=seen[k]
+            require((ability['raw_uuid'],ability['raw_source'],ability['raw_source_zcc'])==(trace['raw_ability'],trace['raw_source'],trace['raw_source_zcc']),'/trigger provenance stack source binding')
+            require(ability['raw_uuid'] in raw_stack,'/trigger provenance raw stack witness')
+            record=raw_stack[ability['raw_uuid']]
+            require(all(record[f]==ability[f] for f in ('key','raw_uuid','raw_source','raw_source_zcc','source_card')),'/trigger provenance raw stack consistency')
+            witnessed.add(k)
+    require(witnessed==set(expected),'/trigger provenance unobserved stack instance')
+
+
+def xmage_effect_lifecycle(run,case):
+    """Independent presence/lifetime ledger for the pinned temporary effects.
+
+    CR608.2b/611.2c: a legally resolving spell/ability creates the card-defined
+    effects, with fixed recipients. CR514.2 expires them at cleanup. This ledger
+    reads witnessed stack removal, not the effect list it validates. It never
+    creates a game state or supplies a choice to an engine.
+
+    Pinned BoostTarget/Source/ControlledEffect records persist until cleanup,
+    including when their recipients leave. GainAbilityTargetEffect additionally
+    discards itself when its fixed target leaves; ContinuousEffectsList removes
+    discarded records. The consulted source hashes are retained in provenance.
+    """
+    from collections import Counter
+    steps='untap upkeep draw precombat_main begin_combat declare_attackers declare_blockers combat_damage end_combat postcombat_main end_turn cleanup'.split()
+    rank={s:i for i,s in enumerate(steps)}
+    points=run['points'][:-1]+[run['before_departure']]
+    def identity(s):
+        if s.get('ability')=='trigger':return ('trigger',json.dumps(s['key'],sort_keys=True))
+        if 'ability' in s:return ('activation',s['action'])
+        return ('spell',s['source'],s['incarnation'],s['action'])
+    def live(target,p):
+        return target is not None and target['source'] in p['permanents'] and p['incarnations'][target['source']]==target['incarnation']
+    entries=[]
+    for i in range(1,len(points)):
+        before,after=points[i-1],points[i]
+        remaining={identity(s) for s in after['stack']}
+        removed=[s for s in before['stack'] if identity(s) not in remaining]
+        if not removed:continue
+        event=case['play'][i-1]
+        require(event['kind']=='pass' and len(removed)==1 and removed[0]==before['stack'][-1],'/effect resolution witness')
+        s=removed[0];effects=[];target=None
+        if s.get('ability')=='trigger':
+            source=s['key']['source']
+            if s['key']['ability']=='cyclops':effects=['BoostSourceEffect']
+        elif 'ability' in s:
+            source=s['source'];target=s['target']
+            if s['ability']=='power':effects=['BoostSourceEffect']
+            elif live(target,before):
+                effects=['BoostTargetEffect','GainAbilityTargetEffect'] if s['ability']=='invoker' else ['GainAbilityTargetEffect']
+        else:
+            source=s['source'];card=source.split('/')[1]
+            if card=='giant-growth':
+                require(len(s['targets'])==1,'/effect Growth target witness');target=s['targets'][0]['object']
+                if live(target,before):effects=['BoostTargetEffect']
+            elif card=='goblin-surprise' and s['mode']==0:effects=['BoostControlledEffect']
+        for effect in effects:
+            entries.append(dict(kind=effect,source=source,target=target,turn=event['turn'],step=event['step'],ready=i))
+    def check_at(p,selected,path):
+        expected=Counter((e['kind'],e['source']) for e in selected if e['kind']!='GainAbilityTargetEffect' or live(e['target'],p))
+        actual=Counter((effect['class'].removeprefix('mage.abilities.effects.common.continuous.'),source) for effect in p['effects'] for source in effect['sources'])
+        require(actual==expected,path+'/effect presence/lifecycle')
+    for i,p in enumerate(points):
+        check_at(p,[e for e in entries if e['turn']==p['turn'] and e['ready']<=i],f'/checkpoint/{i}')
+    for p in run['marked']:
+        check_at(p,[e for e in entries if e['turn']==p['turn'] and rank[e['step']]<rank['combat_damage']],'/simultaneous damage')
+    for p in run['cleanup_checkpoints']:check_at(p,[],'/cleanup')
+    # The actual LOST callback and completed-game artifact remain distinct.
+    # ContinuousEffectsList deliberately preserves the last effects at game over.
+    require(run['points'][-1]['effects']==run['before_departure']['effects'],'/terminal effect provenance')

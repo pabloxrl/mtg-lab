@@ -68,20 +68,44 @@
       "reason": "Passed its then-current verifier; missing auxiliary nested identity fields were subsequently reproduced."
     },
     {
-      "manifest": "final-run-1.json",
-      "archive": "final-run-1.tar.gz",
+      "manifest": "candidate-v4-run-1.json",
+      "archive": "candidate-v4-run-1.tar.gz",
       "sha256": "747c1310b957bfcad591afd76c6b302c46166b6d57ace65c82df6fc3a571fa29",
       "files": 529,
+      "status": "review-rejected-candidate",
+      "reason": "Independent review exposed omitted effects and unbound trigger provenance; unchanged observations retained for corruption regressions only."
+    },
+    {
+      "manifest": "candidate-v4-run-2.json",
+      "archive": "candidate-v4-run-2.tar.gz",
+      "sha256": "88ce020c0e13d3419b8227baf72a3d0502627f8f8d81f0e237cda758189a2f2a",
+      "files": 362,
+      "status": "review-rejected-candidate",
+      "reason": "Repeat of the rejected candidate; not additional distinct games."
+    },
+    {
+      "manifest": "final-run-1.json",
+      "archive": "final-run-1.tar.gz",
+      "sha256": "86b21021464ae238b3d1537e0ef10dc23a4194fe744766c1f5fe1d0404ec0bbd",
+      "files": 530,
       "status": "verified-candidate",
       "reason": "Final source-bound reference invocation; delivery still requires separate review, protected merge and exact-main CI."
     },
     {
       "manifest": "final-run-2.json",
       "archive": "final-run-2.tar.gz",
-      "sha256": "88ce020c0e13d3419b8227baf72a3d0502627f8f8d81f0e237cda758189a2f2a",
+      "sha256": "e6b119fe5b617dcdd65a360d5c221c7b95377d2289d8b3c2aeea72af84c3c876",
       "files": 362,
       "status": "verified-candidate",
       "reason": "Second invocation of the same sixteen games; not additional distinct games."
+    },
+    {
+      "manifest": "review-repair-diagnostics.json",
+      "archive": "review-repair-diagnostics.tar.gz",
+      "sha256": "c3b89633cfc53f217d0b814b0225213dfa54a600ee65dbce8de12e57cc01615f",
+      "files": 11,
+      "status": "retained-diagnostics",
+      "reason": "Independent review findings, intended assertion failures, first repair probe failure, successful probe and fresh run logs; none adds distinct games."
     },
     {
       "manifest": "diagnostic-logs.json",

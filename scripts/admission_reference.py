@@ -220,6 +220,8 @@ def check_game(run,case,engine):
     else:
         require(run.get('before_departure') is not None and set(run['before_departure'])==FIELDS,'/missing pre-departure state/fields')
         auxiliary(run['before_departure'],run,case,engine,len(case['play'])-1,'/pre-departure')
+        admission_observations.xmage_trigger_provenance(run,case)
+        admission_observations.xmage_effect_lifecycle(run,case)
         bindings=run.get('raw_occurrence_bindings');require(isinstance(bindings,dict),'/physical occurrence provenance')
         originals=[v['occurrence'] for v in bindings.values() if not v['occurrence'].startswith('token/')]
         require(sorted(originals)==sorted(o for d in case['decks'] for o in d['occurrences']),'/physical occurrence provenance')
@@ -347,6 +349,38 @@ def coverage(runs,doc):
     return observed
 
 
+def provenance_controls(run,case):
+    """Independent review reproductions against fresh XMage observations."""
+    controls={}
+    def reject(name,mutate):
+        bad=copy.deepcopy(run);mutate(bad)
+        try:check_game(bad,case,'xmage')
+        except ValueError as error:controls[name]=str(error)
+        else:raise ValueError('first divergence: /accepted provenance corruption '+name)
+    def all_points(r):return r['points']+r['marked']+r['cleanup_checkpoints']+[r['before_departure']]
+    def omit_effects(r):
+        for p in all_points(r):p['effects']=[]
+    def expire(r):
+        before=next(p for p in r['points'] if p['effects'])
+        after=next(p for p in r['points'] if p['turn']>before['turn'] and not p['effects'])
+        after['effects']=copy.deepcopy(before['effects'])
+    def rebind(r,source=False):
+        for trace in r['trigger_provenance']:
+            trace['raw_source_zcc']+=1
+            if source:trace['raw_source']='00000000-0000-0000-0000-000000000000'
+        for p in all_points(r):
+            for ability in p['stack']:
+                if ability.get('ability')=='trigger':
+                    ability['raw_source_zcc']+=1
+                    if source:ability['raw_source']='00000000-0000-0000-0000-000000000000'
+    reject('missing_active_effects',omit_effects)
+    reject('expired_effect_reappears',expire)
+    reject('missing_trigger_provenance',lambda r:r.pop('trigger_provenance'))
+    reject('rebound_trigger_source',lambda r:rebind(r,True))
+    reject('rebound_trigger_counter',rebind)
+    return controls
+
+
 def run(args):
     import shutil
     import xmage
@@ -403,6 +437,7 @@ def run(args):
             counts[name]=len(pairs[0][0]['points'])
             if name==doc['cases'][0]['id']:
                 controls['native']=comparator_controls(pairs[0][0],c,'native');controls['xmage']=comparator_controls(pairs[0][1],reference_case(c)[0],'xmage')
+            if name=='GR-040-RG-S0-heuristic':controls['xmage_provenance']=provenance_controls(pairs[0][1],reference_case(c)[0])
         write('agreement.json',agreement);write('comparator-controls.json',controls)
         played=coverage(lambda name:json.loads((folder/native_index[name][0]).read_text()),doc);write('played-behavior-witnesses.json',played)
         # Retain all existing reviewed families. These are actual engine runs,

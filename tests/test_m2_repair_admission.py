@@ -1,5 +1,7 @@
 """GR-040 real normal-reset games and fail-closed admission controls."""
 import copy
+import hashlib
+import tarfile
 import json
 from pathlib import Path
 import sys
@@ -17,6 +19,13 @@ class AdmissionTests(unittest.TestCase):
         cls.addClassCleanup(cls.folder.cleanup)
         cls.index = reference.native(Path(cls.folder.name))
         cls.doc = json.loads(reference.FIXTURE.read_text())
+        witness = json.loads((reference.ROOT / 'fixtures/reference/full-pool-admission-corruption-witness.json').read_text())
+        archive = reference.ROOT / witness['archive']
+        assert hashlib.sha256(archive.read_bytes()).hexdigest() == witness['archive_sha256']
+        with tarfile.open(archive) as retained:
+            raw = retained.extractfile(witness['member']).read()
+        assert hashlib.sha256(raw).hexdigest() == witness['sha256']
+        cls.xmage_corruption_witness = json.loads(raw)
 
     def actual(self, case):
         return json.loads((Path(self.folder.name) / self.index[case['id']][0]).read_text())
@@ -211,3 +220,52 @@ class AdmissionTests(unittest.TestCase):
         point['creations'][0]['birth'] += 100000
         with self.assertRaisesRegex(ValueError, 'raw history'):
             reference.check_game(actual, case, 'native')
+
+
+    def test_xmage_active_effect_records_cannot_be_omitted(self):
+        case = next(c for c in self.doc['cases'] if c['id'] == 'GR-040-RG-S0-heuristic')
+        bad = copy.deepcopy(self.xmage_corruption_witness)
+        for point in bad['points'] + bad['marked'] + bad['cleanup_checkpoints'] + [bad['before_departure']]:
+            point['effects'] = []
+        with self.assertRaisesRegex(ValueError, 'effect'):
+            reference.compare_game(self.actual(case), bad, case)
+
+    def test_xmage_trigger_provenance_is_required(self):
+        case = next(c for c in self.doc['cases'] if c['id'] == 'GR-040-RG-S0-heuristic')
+        bad = copy.deepcopy(self.xmage_corruption_witness)
+        del bad['trigger_provenance']
+        with self.assertRaisesRegex(ValueError, 'trigger.*provenance'):
+            reference.compare_game(self.actual(case), bad, case)
+
+    def test_xmage_trigger_sources_must_match_physical_bindings(self):
+        case = next(c for c in self.doc['cases'] if c['id'] == 'GR-040-RG-S0-heuristic')
+        bad = copy.deepcopy(self.xmage_corruption_witness)
+        for trace in bad['trigger_provenance']:
+            trace['raw_source'] = '00000000-0000-0000-0000-000000000000'
+            trace['raw_source_zcc'] = 999
+        for point in bad['points'] + bad['marked'] + bad['cleanup_checkpoints'] + [bad['before_departure']]:
+            for ability in point['stack']:
+                if ability.get('ability') == 'trigger':
+                    ability['raw_source'] = '00000000-0000-0000-0000-000000000000'
+                    ability['raw_source_zcc'] = 999
+        with self.assertRaisesRegex(ValueError, 'trigger.*(source|binding|provenance)'):
+            reference.compare_game(self.actual(case), bad, case)
+
+    def test_xmage_expired_effect_cannot_reappear(self):
+        case = next(c for c in self.doc['cases'] if c['id'] == 'GR-040-RG-S0-heuristic')
+        bad = copy.deepcopy(self.xmage_corruption_witness)
+        origin = next(p for p in bad['points'] if p['effects'])
+        later = next(p for p in bad['points'] if p['turn'] > origin['turn'] and not p['effects'])
+        later['effects'] = copy.deepcopy(origin['effects'])
+        with self.assertRaisesRegex(ValueError, 'effect.*lifecycle'):
+            reference.compare_game(self.actual(case), bad, case)
+
+    def test_xmage_trigger_counter_cannot_be_rebound(self):
+        case = next(c for c in self.doc['cases'] if c['id'] == 'GR-040-RG-S0-heuristic')
+        bad = copy.deepcopy(self.xmage_corruption_witness)
+        for trace in bad['trigger_provenance']:trace['raw_source_zcc'] += 1
+        for point in bad['points'] + bad['marked'] + bad['cleanup_checkpoints'] + [bad['before_departure']]:
+            for ability in point['stack']:
+                if ability.get('ability') == 'trigger':ability['raw_source_zcc'] += 1
+        with self.assertRaisesRegex(ValueError, 'trigger.*incarnation binding'):
+            reference.compare_game(self.actual(case), bad, case)

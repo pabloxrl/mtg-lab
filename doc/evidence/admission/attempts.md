@@ -45,3 +45,11 @@ receipt. Repeated executions of the same frozen inputs never increase the
 sixteen-game distinctness quota. Ordinary discovery also verifies these same
 inputs; it does not generate additional candidate games. A failed, truncated,
 unsupported, duplicate or disputed attempt cannot fill an admission row.
+
+Candidate-v4 passed its then-current executable checks but independent review
+found missing effect-presence and trigger-provenance bindings. Both complete
+receipts, source snapshot and observations remain retained. The review JSON and
+three intended assertion failures are preserved separately. Ordinary discovery
+uses one hash-bound historical observation only to reproduce corruptions, never
+as an expected-state oracle. The repaired verifier derives effect lifetime from
+pinned card/effect source and binds triggers to witnessed occurrence counters.
