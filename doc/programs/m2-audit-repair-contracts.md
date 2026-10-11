@@ -231,12 +231,29 @@ Strict played attackers, blockers and modern damage-choice transcripts.
 | Contract | Acceptance |
 | --- | --- |
 | Owned interfaces | XMage selectAttackers/selectBlockers/getMultiAmountWithIndividualConstraints, native combat semantic actions; attack/block/damage checkpoint extension with occurrence and incarnation IDs. |
-| Runnable positive acceptance | Play frozen creatures from full-deck reset then script empty/nonempty attacks, blockers, multiple blockers and explicit damage allocations. Exercise Shivan flying versus Cub/Sentry reach; Pathwarden haste/vigilance/trample and Thornweald deathtouch/reach; no ability activation needed. Compare legal declarations, tapped/sickness, attacker/blocker links, each chosen allocation, simultaneous marked damage then SBA zone changes and source identity. Use literal independently justified power/toughness/lethal allocation ledgers. Every callback consumes explicit data; no obsolete damage assignment order or response window. |
+| Runnable positive acceptance | Play frozen creatures from full-deck reset then script empty/nonempty attacks, blockers, multiple blockers and explicit damage allocations. Exercise Shivan flying versus Cub/Sentry reach; Pathwarden vigilance/trample and Thornweald deathtouch/reach. Pathwarden has no printed haste: explicitly reject its same-turn attack without haste, then legally resolve Axgard Cavalry’s targeted haste activation and verify the same-turn attack becomes legal. Cavalry itself must legally pay its tap cost (no summoning sickness unless independently granted haste). Reuse the delivered #273 activation adapter and observe the chosen target, source tap, stack resolution and granted haste before declaring attackers. Compare legal declarations, tapped/sickness, attacker/blocker links, each chosen allocation, simultaneous marked damage then SBA zone changes and source identity. Use literal independently justified power/toughness/lethal allocation ledgers. Every callback consumes explicit data; no obsolete damage assignment order or response window. |
 | Runnable negative acceptance | Wrong actor, sick attacker, tapped/duplicate/enemy blocker, nonreach block of flyer, excess/negative/nonlethal-before-trample damage, wrong total, stale identity, reordered/missing/extra declaration/allocation or legacy blocker-order callback rejected. Mutated unblocked/blocked status, life, simultaneous damage or library/zone identities detected. |
 | Independent oracle | Pinned modern CR 508-510, 702.2/9/10/17/19/20 and #210 rules-vintage reviewed cases. GR-032. Old upstream combat behavior must be adjudicated, not adopted as oracle. |
-| Prerequisites | #268, #271, #210 |
-| Independent siblings | #272, #273, #278, #279, #280 (subject to their own prerequisites and three-worker cap) |
-| Exclusions | Activated buffs, spell response implementation, trigger ordering, cleanup and complete games; uses existing nontriggering creature-cast path only. |
+| Prerequisites | #268, #271, #210, #273 |
+| Independent siblings | #272, #278, #279, #280 (subject to their own prerequisites and three-worker cap) |
+| Exclusions | Other activated buffs, spell response implementation, trigger ordering, cleanup and complete games. The sole activation exception is Axgard Cavalry granting haste for the paired Pathwarden combat tests, using the already verified #273 adapter; otherwise retain the existing nontriggering creature-cast path. |
+
+Operator-authorized correction (2026-10-11): include CR404.3 simultaneous-graveyard
+ordering and CR704.3/101.4 event timing. Predeclare each owner's exact physical
+occurrence/incarnation order for the specific combat SBA event; consume it once
+in APNAP order before any arrival moves. Preserve pre-existing graveyards and
+simultaneity without a priority window. Cover both opposite orders, swapped
+arrival identities, both seats and simultaneous multi-owner deaths. Reject
+missing/duplicate/extra/foreign-owner/stale-incarnation/wrong-event choices;
+invalid native choices preserve state. Preserve the original Shivan/multiple-blocker
+mismatch and every prior combat/haste/trample control. Reuse native decision,
+policy, snapshot, recording and replay conventions; document default policy
+choice and version affected replay semantics. Strict transcripts never default.
+A minimal reference integration at the real zone transition is authorized if the
+pinned upstream path has no hook. Keep upstream revision unchanged, retain exact
+integration/patch hashes and original mismatch, and label results as patched
+reference agreement. No post-state repair or golden-output adoption. Independent
+review must assess timing, simultaneity, provenance and README accuracy.
 
 Focused acceptance: `python3 -m unittest discover -s tests -p 'test_m2_repair_combat.py'` plus full native normal discovery. The Python module must exercise the delivered real adapter/client, validate nonempty observations and run its negative controls; a parser-only pass cannot satisfy a played-prefix claim. The pinned reference runner family is `combat`, executed twice by the command below.
 

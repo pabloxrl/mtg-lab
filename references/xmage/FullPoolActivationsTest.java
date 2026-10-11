@@ -134,7 +134,7 @@ public class FullPoolActivationsTest extends FullPoolPriorityTest {
             p.getManaPool().unlockManaType(new ManaType[]{ManaType.WHITE,ManaType.BLUE,ManaType.BLACK,ManaType.RED,ManaType.GREEN,ManaType.COLORLESS}[color]);accept(e);return true;
         }catch(IllegalArgumentException error){failCallback(g,error);return false;}
     }
-    private boolean done(Game g){
+    protected boolean done(Game g){
         if(!g.getStack().isEmpty()||pending!=null)return false;
         String name=current.get("id").getAsString();
         if(name.startsWith("shivan")){Permanent p=g.getPermanent(handles.get("0/shivan-dragon/0"));return p!=null&&p.getPower().getValue()==(name.equals("shivan-repeated")?7:6);}

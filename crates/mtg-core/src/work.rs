@@ -19,6 +19,7 @@ pub(super) enum Work {
     CombatLife([i64; 2]),
     TriggerLife([i64; 2]),
     FinishCombat,
+    CombatDeaths([Vec<Handle>; 2]),
     Modify(targets::Modification),
     GrantHaste(Handle),
     GrantTrample(Handle),
@@ -110,6 +111,14 @@ impl Game {
                 }
                 Work::CombatLife(life) | Work::TriggerLife(life) => {
                     self.life = *life;
+                    true
+                }
+                Work::CombatDeaths(dead) => {
+                    self.turns.combat.deaths = Some(combat::GraveyardBatch {
+                        arrivals: std::mem::take(dead),
+                        chosen: [false; 2],
+                    });
+                    self.combat_death_boundary();
                     true
                 }
                 Work::FinishCombat => {

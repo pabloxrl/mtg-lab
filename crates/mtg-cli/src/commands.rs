@@ -98,7 +98,7 @@ fn replay_command(path: &std::ffi::OsStr, inspect: bool, seat: Seat) -> Result<V
             }
             let game = replay::played::verify(&bytes).map_err(replay_error)?;
             Ok(
-                json!({"type":"replay_verification","status":"verified","scope":"played-v1",
+                json!({"type":"replay_verification","status":"verified","scope":format!("played-v{}", replay::played::VERSION),
                 "checkpoint":"terminal","life":game.life(),"outcome":game.outcome()}),
             )
         }

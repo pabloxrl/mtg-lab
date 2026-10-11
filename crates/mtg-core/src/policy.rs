@@ -28,6 +28,9 @@ pub enum Choice {
     TargetPlayer {
         seat: u8,
     },
+    OrderGraveyard {
+        card: VisibleRef,
+    },
     OrderTrigger {
         trigger: usize,
     },
@@ -103,6 +106,9 @@ pub struct Observation {
     pub pending_triggers: Vec<PendingTriggerView>,
     pub stack: Vec<StackSpell>,
     pub combat: Vec<CombatAttack>,
+    /// Public earlier APNAP owner choices for this pending simultaneous event.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub graveyard_orders: Vec<(u8, Vec<VisibleRef>)>,
     pub unsupported_families: [&'static str; 0],
 }
 /// Public source description; departed incarnations retain card/effect identity
@@ -613,6 +619,20 @@ impl Game {
             )
         } else if self
             .turn_decision()
+            .is_some_and(|d| d.kind == turns::TurnKind::GraveyardOrder)
+        {
+            let cards = self.graveyard_candidates(seat);
+            for h in &cards {
+                push(
+                    Choice::OrderGraveyard {
+                        card: self.policy_battlefield_ref(*h).expect("pending arrival"),
+                    },
+                    true,
+                )?;
+            }
+            ("graveyard_order", cards.len())
+        } else if self
+            .turn_decision()
             .is_some_and(|d| d.kind == turns::TurnKind::TriggerTarget)
         {
             push(Choice::TargetPlayer { seat: 0 }, true)?;
@@ -814,6 +834,29 @@ impl Game {
                         .collect(),
                 })
                 .collect(),
+            graveyard_orders: self
+                .turns
+                .combat
+                .deaths
+                .as_ref()
+                .map(|b| {
+                    [Seat::P0, Seat::P1]
+                        .into_iter()
+                        .filter(|s| b.chosen[seat_index(*s)])
+                        .map(|s| {
+                            (
+                                seat_index(s) as u8,
+                                self.graveyard_card_arrivals(s)
+                                    .iter()
+                                    .map(|h| {
+                                        self.policy_battlefield_ref(*h).expect("pending arrival")
+                                    })
+                                    .collect(),
+                            )
+                        })
+                        .collect()
+                })
+                .unwrap_or_default(),
             unsupported_families: [],
         })
     }
@@ -959,6 +1002,23 @@ impl Game {
             scope: self.objects.scope(),
             generation,
         };
+        if d.kind == "graveyard_order" {
+            let order = submission
+                .choices
+                .iter()
+                .map(|c| match c {
+                    Choice::OrderGraveyard { card } => self
+                        .objects
+                        .in_zone(Zone::Battlefield)
+                        .nth(card.row)
+                        .expect("validated arrival"),
+                    _ => unreachable!("validated graveyard choices"),
+                })
+                .collect::<Vec<_>>();
+            self.order_graveyard(actor, id, &order)
+                .map_err(combat_error)?;
+            return Ok(());
+        }
         if d.kind == "trigger_order" {
             let order = submission
                 .choices

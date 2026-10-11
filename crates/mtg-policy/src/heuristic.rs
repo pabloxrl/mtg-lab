@@ -126,6 +126,7 @@ impl Heuristic {
             )),
             Choice::Mode { mode } => plain(if *mode == 1 { 2 } else { 1 }),
             Choice::Pass => plain(0),
+            Choice::OrderGraveyard { .. } => plain(0),
             Choice::OrderTrigger { .. } => plain(0),
             Choice::TargetPlayer { seat } => plain(i64::from(*seat != self.seat)),
             Choice::PlayLand { .. } => plain(40),

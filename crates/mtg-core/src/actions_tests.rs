@@ -248,6 +248,16 @@ fn actions_hand_authored_normal_reset_spell_combat() {
         json!({"kind":"finish_combat"}),
     );
     assert_eq!(g.life(), [20, 20]);
+    let bytes = serde_json::to_vec(&record(
+        Seat::P1,
+        "graveyard_order",
+        json!([
+            {"kind":"order_graveyard","card":permanent(Seat::P1,0,"bear-cub")},
+            {"kind":"order_graveyard","card":permanent(Seat::P1,1,"bear-cub")}
+        ]),
+    ))
+    .unwrap();
+    apply(&mut g, &bytes, 256).unwrap();
     assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P1)).count(), 2);
     assert_eq!(g.creature_state(cub).unwrap().damage, 4);
     until(&mut g, 8, turns::Step::Upkeep);

@@ -1,0 +1,14 @@
+Symphony resource lock: waiting for heavy (0s elapsed)
+Symphony resource lock: acquired heavy after waiting
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/scripts/full_pool_reference.py", line 253, in <module>
+    main()
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/scripts/full_pool_reference.py", line 155, in main
+    return played_combat_reference.run(args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/scripts/played_combat_reference.py", line 200, in run
+    require(diff is None,'/committed/'+name+'/'+str(i)+' '+str(diff));indices.append(i)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/scripts/full_pool_reference.py", line 23, in require
+    raise ValueError('first divergence: ' + path)
+ValueError: first divergence: /committed/shivan-multiple/304 {'path': '$.graveyard[1][0]', 'expected': '1/magnigoth-sentry/0', 'actual': '1/thornweald-archer/0'}

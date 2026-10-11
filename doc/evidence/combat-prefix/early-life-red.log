@@ -1,0 +1,13 @@
+F
+======================================================================
+FAIL: test_mutated_life_before_combat_is_rejected (__main__.EarlyLifeRed.test_mutated_life_before_combat_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/doc/evidence/combat-prefix/early-life-red.py", line 11, in test_mutated_life_before_combat_is_rejected
+    with self.assertRaisesRegex(ValueError,'life'):combat.check_run(r,json.loads(combat.FIXTURE.read_text()),'native')
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.473s
+
+FAILED (failures=1)

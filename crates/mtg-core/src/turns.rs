@@ -19,6 +19,7 @@ pub enum Step {
 pub enum TurnKind {
     Priority,
     TriggerOrder,
+    GraveyardOrder,
     TriggerTarget,
     Combat(super::combat::CombatKind),
     Discard { count: usize },

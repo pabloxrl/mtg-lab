@@ -209,7 +209,7 @@ fn simulate_to_validate_and_replay_preserves_literal_script_and_exact_capture() 
     assert_eq!(
         success(command(&["replay", "verify", &replay])),
         vec![json!({
-        "schema_version":1,"type":"replay_verification","status":"verified","scope":"played-v1",
+        "schema_version":1,"type":"replay_verification","status":"verified","scope":"played-v2",
         "checkpoint":"terminal","life":[20,15],"outcome":{"winner":"P0","losses":[null,"Concession"]}})]
     );
     let replay_value: Value = serde_json::from_slice(&fs::read(&replay).unwrap()).unwrap();

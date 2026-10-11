@@ -11,6 +11,9 @@ use mtg_core::{
 use mtg_recorder::{Backpressure, Writer, collector::Run, from_core_v2, read_v2};
 use std::num::NonZeroUsize;
 fn send(d: &mut Driver, seat: Seat, c: C, q: NonZeroUsize) {
+    send_choices(d, seat, vec![c], q);
+}
+fn send_choices(d: &mut Driver, seat: Seat, choices: Vec<C>, q: NonZeroUsize) {
     let o = d.observe(seat).unwrap();
     let t = o.decision.unwrap();
     d.submit(
@@ -19,10 +22,10 @@ fn send(d: &mut Driver, seat: Seat, c: C, q: NonZeroUsize) {
             schema_version: 1,
             revision: t.revision,
             generation: t.generation,
-            choices: vec![c.clone()],
+            choices: choices.clone(),
         },
     )
-    .unwrap_or_else(|e| panic!("{seat:?} {:?} {} {c:?}: {e:?}", o.view.turn, t.kind));
+    .unwrap_or_else(|e| panic!("{seat:?} {:?} {} {choices:?}: {e:?}", o.view.turn, t.kind));
     for _ in 0..1000 {
         if d.advance(q).unwrap() != Progress::InternalYield {
             return;
@@ -130,6 +133,26 @@ fn trample_normal_reset_two_cubs_capture_replay() {
                     assert_eq!(o.view.life, [20, 19]);
                     checked = true;
                     break;
+                }
+                if dec.kind == "graveyard_order" {
+                    // CR404.3: this scripted owner chooses the two played
+                    // blockers in their battlefield-row order. This is a legal
+                    // fixture choice, not a rules-imposed ordering/default.
+                    assert_eq!(
+                        (t.0, t.2, actor, dec.count),
+                        (11, "combat_damage", Seat::P1, 2)
+                    );
+                    let choices = bf
+                        .iter()
+                        .enumerate()
+                        .filter(|(_, c)| c.card == "bear-cub")
+                        .map(|(row, _)| C::OrderGraveyard {
+                            card: reference(VisibleZone::Battlefield, row),
+                        })
+                        .collect::<Vec<_>>();
+                    assert_eq!(choices.len(), 2);
+                    send_choices(&mut d, actor, choices, q);
+                    continue;
                 }
                 let choice = match dec.kind {
                     "priority" if t.2 == "precombat_main" && t.1 == seat as u8 => {

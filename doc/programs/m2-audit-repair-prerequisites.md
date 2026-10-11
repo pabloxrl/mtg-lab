@@ -43,9 +43,9 @@ re-fetched as completed with acceptance/review/merge and successful exact-main C
 | #270 | Strict London choice/chance chronology through first upkeep | #268; #269 occurrence/reset; #65 handle-based mulligan/bottom rules | #278–#280 |
 | #271 | Played priority, land and creature-cast prefixes | #268; #270 opening; #208 full-pool semantic action/native recording | #278–#280 |
 | #272 | Spell modes/targets/discard costs and token identities | #268; #271 played casts; #209 cost/token/mode reference contracts; #212 target/identity reference contracts | #273, #275 |
-| #273 | Creature mana and activated choices, including in-payment sources | #268; #271 played permanents; #254 delivered payment-stage semantics | #272, #275 |
+| #273 | Creature mana and activated choices, including in-payment sources | #268; #271 played permanents; #254 delivered payment-stage semantics | #272 |
 | #274 | Cast/ETB trigger ordering and pending/stack/source identities | #268; #272 real noncreature spells and Bite source death; #211 trigger reference contract | #273, #275, #276 |
-| #275 | Attack/block and modern damage-choice transcript | #268; #271 nontriggering creature play; #210 keyword/damage reference contract | #272, #273 |
+| #275 | Attack/block and modern damage-choice transcript | #268; #271 nontriggering creature play; #210 keyword/damage reference contract; #273 legal Cavalry haste activation | #272 |
 | #276 | Cleanup/discard and rules-terminal checkpoint execution | #268; #272 temporary spell effects; #257 terminal outcome contract | #273–#275 |
 | #277 | Initial normal-reset terminal-game admission | #268; #273 activation, #274 trigger, #275 combat, #276 terminal adapters (opening/spells inherited) | #281 |
 | #278 | Bounded sampled latency collection and summaries | #268; #214 local metrics; #215 modes/capture semantics; #216 injected boundary timing consumer | #269, #279, #280 |
@@ -115,3 +115,14 @@ and every other issue entry; link contracts instead of pasting them into #7.
 No resource-lock, concurrency, workflow enforcement, CI, sandbox or settings changes.
 Implementation happens exclusively in Symphony with heavy commands serialized and
 reading/editing/lightweight checks allowed in parallel.
+
+### Authorized combat graveyard-order correction (2026-10-11)
+
+The #275 combat deliverable also owns the demonstrated CR404.3/704.3 defect:
+explicit event-bound owner orders for simultaneous graveyard arrivals, preserving
+APNAP choice timing, existing graveyard order and simultaneous deaths. Its
+[contract](m2-audit-repair-contracts.md) requires opposite orders, swapped physical
+identities, multi-owner and invalid-choice controls, native replay/policy support,
+and a minimal clearly identified reference repair if necessary. This is the
+operator-authorized correction of the existing task, not a new registration or
+milestone. The earlier Pathwarden/Cavalry correction and #273 dependency remain.

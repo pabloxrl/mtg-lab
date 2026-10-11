@@ -62,11 +62,13 @@ fn m2_invoker_resolution_retains_both_blocker_step_response_windows() {
     let d = g.turn_decision().unwrap();
     let d = g.select_attackers(d.actor, d.id, &[thorn]).unwrap();
     g.finish_combat(d.actor, d.id).unwrap();
+    g.choose_candidate_order_for_legacy_fixture();
     pass(&mut g);
     pass(&mut g);
     let d = g.turn_decision().unwrap();
     let d = g.select_blockers(d.actor, d.id, &[]).unwrap();
     g.finish_combat(d.actor, d.id).unwrap();
+    g.choose_candidate_order_for_legacy_fixture();
     g.turns.mana[0][4] = 8;
     activate(&mut g, source, thorn);
     pass(&mut g);
@@ -490,6 +492,7 @@ fn invoker_reference_literal_checkpoints() {
                 let d = g.turn_decision().unwrap();
                 let d = g.select_attackers(d.actor, d.id, &[target]).unwrap();
                 g.finish_combat(d.actor, d.id).unwrap();
+                g.choose_candidate_order_for_legacy_fixture();
                 pass(&mut g);
                 pass(&mut g);
                 let d = g.turn_decision().unwrap();
@@ -501,6 +504,7 @@ fn invoker_reference_literal_checkpoints() {
                     )
                     .unwrap();
                 g.finish_combat(d.actor, d.id).unwrap();
+                g.choose_candidate_order_for_legacy_fixture();
                 pass(&mut g);
                 pass(&mut g);
                 let d = g.turn_decision().unwrap();
@@ -513,6 +517,7 @@ fn invoker_reference_literal_checkpoints() {
                     )
                     .unwrap();
                 g.finish_combat(d.actor, d.id).unwrap();
+                g.choose_candidate_order_for_legacy_fixture();
                 assert!(blockers.iter().all(|h| g.objects.get(*h).is_err()));
                 assert_eq!(g.life(), [20, 15]);
             }

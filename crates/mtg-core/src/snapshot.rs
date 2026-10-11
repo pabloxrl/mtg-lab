@@ -156,6 +156,36 @@ impl Game {
         {
             return false;
         }
+        let graveyard_decision = self
+            .turns
+            .decision
+            .filter(|d| d.kind == turns::TurnKind::GraveyardOrder);
+        if graveyard_decision.is_some() != self.turns.combat.deaths.is_some() {
+            return false;
+        }
+        if let Some(batch) = &self.turns.combat.deaths {
+            let Some((_, active, turns::Step::CombatDamage)) = self.turns.position else {
+                return false;
+            };
+            if !self.work.is_empty()
+                || !batch.arrivals.iter().enumerate().all(|(i, hs)| {
+                    hs.iter().enumerate().all(|(j, h)| {
+                        !hs[..j].contains(h)
+                            && self.objects.get(*h).is_ok_and(|o| {
+                                o.zone == Zone::Battlefield && seat_index(o.owner) == i
+                            })
+                    })
+                })
+            {
+                return false;
+            }
+            let next = [active, turns::opponent(active)].into_iter().find(|s| {
+                self.graveyard_card_arrivals(*s).len() > 1 && !batch.chosen[seat_index(*s)]
+            });
+            if next != graveyard_decision.map(|d| d.actor) {
+                return false;
+            }
+        }
         let target_decision = self
             .turns
             .decision
@@ -295,6 +325,17 @@ impl Game {
                         TurnWork::Expire => !self.turns.modifications.is_empty(),
                         TurnWork::Ready { .. } => self.turns.position.is_some(),
                     }
+            }
+            Work::CombatDeaths(dead) => {
+                self.turns.decision.is_none()
+                    && dead.iter().enumerate().all(|(i, hs)| {
+                        hs.iter().enumerate().all(|(j, h)| {
+                            !hs[..j].contains(h)
+                                && self.objects.get(*h).is_ok_and(|o| {
+                                    o.zone == Zone::Battlefield && seat_index(o.owner) == i
+                                })
+                        })
+                    })
             }
             Work::CombatLife(_) | Work::FinishCombat => {
                 self.turns

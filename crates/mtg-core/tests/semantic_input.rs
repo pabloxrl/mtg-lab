@@ -407,6 +407,15 @@ fn records_played_spell_combat_capture_and_owner_modes() {
             g.one(Seat::P0,"combat_damage",json!({"kind":"assign_damage","attacker":permanent(Seat::P0,0,"bear-cub"),"amounts":[[permanent(Seat::P1,0,"bear-cub"),3],[permanent(Seat::P1,1,"bear-cub"),2]]}));
             g.one(Seat::P0, "combat_damage", json!({"kind":"finish_combat"}));
             assert_eq!(g.cub(), [5, 5, 4]);
+            // CR404.3: the recorded owner choice precedes both blocker deaths.
+            g.send(
+                Seat::P1,
+                "graveyard_order",
+                json!([
+                    {"kind":"order_graveyard","card":permanent(Seat::P1,0,"bear-cub")},
+                    {"kind":"order_graveyard","card":permanent(Seat::P1,1,"bear-cub")}
+                ]),
+            );
             let v = g.d.observe(Seat::P0).unwrap().view;
             assert_eq!(v.life, [20, 20]);
             assert_eq!(

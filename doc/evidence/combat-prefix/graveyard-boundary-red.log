@@ -1,0 +1,22 @@
+Symphony resource lock: acquired heavy
+   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-275/crates/mtg-core)
+    Finished `test` profile [optimized + debuginfo] target(s) in 15.10s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 1 test
+
+thread 'game::combat::tests::simultaneous_graveyard_owner_boundary_before_any_death' (430115) panicked at crates/mtg-core/src/combat_tests.rs:1874:5:
+assertion `left == right` failed: CR404.3 owner must choose before simultaneous SBA moves
+  left: None
+ right: Some("graveyard_order")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test game::combat::tests::simultaneous_graveyard_owner_boundary_before_any_death ... FAILED
+
+failures:
+
+failures:
+    game::combat::tests::simultaneous_graveyard_owner_boundary_before_any_death
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 321 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

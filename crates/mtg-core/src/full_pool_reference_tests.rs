@@ -380,3 +380,5 @@ include!("activations_reference_tests.rs");
 
 include!("triggers_reference_tests.rs");
 include!("played_cleanup_reference_tests.rs");
+
+include!("played_combat_reference_tests.rs");

@@ -51,7 +51,7 @@ fn seek(g: &mut Game, turn: u64, step: Step) {
         }
         let d = g.turn_decision().unwrap();
         match d.kind {
-            TurnKind::TriggerOrder | TurnKind::TriggerTarget => {
+            TurnKind::GraveyardOrder | TurnKind::TriggerOrder | TurnKind::TriggerTarget => {
                 panic!("no trigger sources in this script")
             }
             TurnKind::Combat(_) => panic!("unexpected combat choice in this script"),

@@ -182,10 +182,14 @@ public class FullPoolMulliganTest {
                 raw(game,s,"bottom_card");bottomIndex++;
                 if(bottomIndex==selected.size()){consumedChoices.add(e.deepCopy());bottomIndex=0;}return true;
             }
+            // Strict scripted controller in a normal (non-testMode) game.
+            // Never enter the AI retry/default-block path.
+            @Override public boolean isComputer() { return false; }
             @Override public boolean priority(Game game) { return onPriority(this,s,game); }
             @Override public boolean playMana(Ability source,mage.abilities.costs.mana.ManaCost unpaid,String prompt,Game game) { return onMana(this,s,source,unpaid,game); }
             @Override public void selectAttackers(Game game,UUID active) { onAttackers(this,s,game,active); }
-            @Override public void selectBlockers(Ability source,Game game,UUID defending) { throw new IllegalArgumentException("first divergence: /unsupported blockers callback"); }
+            @Override public void selectBlockers(Ability source,Game game,UUID defending) { onBlockers(this,s,source,game,defending); }
+            @Override public List<Integer> getMultiAmountWithIndividualConstraints(Outcome o,List<mage.util.MultiAmountMessage> messages,int min,int max,mage.constants.MultiAmountType type,Game g) { return onCombatAmounts(this,s,o,messages,min,max,type,g); }
             @Override public boolean chooseUse(Outcome outcome,String message,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
             @Override public boolean chooseUse(Outcome outcome,String message,String second,String yes,String no,Ability source,Game game) { throw new IllegalArgumentException("first divergence: /unsupported use callback"); }
             @Override public mage.abilities.TriggeredAbility chooseTriggeredAbility(List<mage.abilities.TriggeredAbility> abilities,Game game) { return onTriggerOrder(this,s,abilities,game); }
@@ -230,6 +234,8 @@ public class FullPoolMulliganTest {
     protected void onAttackers(TestPlayer p,int s,Game game,UUID active) {
         throw new IllegalArgumentException("first divergence: /unsupported attackers callback");
     }
+    protected void onBlockers(TestPlayer p,int s,Ability source,Game g,UUID defending) { throw new IllegalArgumentException("first divergence: /unsupported blockers callback"); }
+    protected List<Integer> onCombatAmounts(TestPlayer p,int s,Outcome o,List<mage.util.MultiAmountMessage> messages,int min,int max,mage.constants.MultiAmountType type,Game g) { throw new IllegalArgumentException("first divergence: /unsupported combat amounts callback"); }
     protected void initialLibrary(int s,Game game) { }
     protected void prepareCase(JsonObject c) { }
     protected Card create(String key,UUID owner) throws Exception {
@@ -248,10 +254,11 @@ public class FullPoolMulliganTest {
     protected void afterGame(Game game) {
         need(stopped && game.isPaused() && observed.size()>0,"/missing first upkeep stop");
     }
+    protected Game createGame() { return new TwoPlayerDuel(MultiplayerAttackOption.LEFT,RangeOfInfluence.ONE,new LondonMulligan(0),40,20,7); }
     protected JsonObject run(JsonObject c) throws Exception {
         current=c;stopped=false;priorityFailure=null;bindings.clear();handles.clear();consumed=new JsonArray();consumedChoices=new JsonArray();rawCallbacks=new JsonArray();rounds=new int[2];bottomIndex=0;rawPreShuffleOrders=new JsonArray();observed=new JsonArray();
         prepareCase(c);
-        Game game=new TwoPlayerDuel(MultiplayerAttackOption.LEFT,RangeOfInfluence.ONE,new LondonMulligan(0),40,20,7);
+        Game game=createGame();
         lastGame=game;
         for(int s=0;s<2;s++) {
             players[s]=player(s);players[s].init(game);Deck deck=new Deck();
