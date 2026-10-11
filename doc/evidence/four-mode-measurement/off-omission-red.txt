@@ -1,0 +1,34 @@
+F
+======================================================================
+FAIL: test_off_resolved_mode_uses_declared_serde_omission (test_m2_repair_measurement.MeasurementArithmetic.test_off_resolved_mode_uses_declared_serde_omission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/scripts/m2_measurement.py", line 41, in validate_campaign
+    return _campaign(reports)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/scripts/m2_measurement.py", line 53, in _campaign
+    require(resolved['native']['instrumentation']==c['instrumentation'], 'resolved mode mismatch')
+            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'instrumentation'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 101, in test_off_resolved_mode_uses_declared_serde_omission
+    summary=self.api().validate_campaign(reports)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/scripts/m2_measurement.py", line 43, in validate_campaign
+    raise ValueError(f'malformed measurement campaign: {error}') from error
+ValueError: malformed measurement campaign: 'instrumentation'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 103, in test_off_resolved_mode_uses_declared_serde_omission
+    self.fail(f'native Config explicitly omits Off; this must remain valid: {error}')
+AssertionError: native Config explicitly omits Off; this must remain valid: malformed measurement campaign: 'instrumentation'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=1)

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<stdin>", line 7, in <module>
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/scripts/priority_reference.py", line 97, in check_run
+    require('/selected cast not playable' in result['rejections'][name], '/intended rejection boundary ' + name)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/scripts/full_pool_reference.py", line 23, in require
+    raise ValueError('first divergence: ' + path)
+ValueError: first divergence: /intended rejection boundary off_turn_creature

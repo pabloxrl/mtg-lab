@@ -1,0 +1,6 @@
+Command: existing shared heavy lock -- python3 -m unittest discover -s tests -p test_m2_repair_combat.py
+Real native priority client executed successfully; new combat assertion failed.
+FAIL: test_played_client_reaches_combat_damage
+AssertionError: 'precombat_main' != 'combat_damage'
+Ran 1 test in 23.680s
+FAILED (failures=1)

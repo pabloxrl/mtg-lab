@@ -1,0 +1,61 @@
+{
+  "archive": "review-repair-diagnostics.tar.gz",
+  "sha256": "c3b89633cfc53f217d0b814b0225213dfa54a600ee65dbce8de12e57cc01615f",
+  "files": [
+    {
+      "path": "admission/evidence-storage-deduplication.json",
+      "bytes": 95679,
+      "sha256": "aaa9ec8baa561d277bc63b50ef23c3e4c925d213d9792f04a6d3e474144e506f"
+    },
+    {
+      "path": "admission/review-1.json",
+      "bytes": 1743,
+      "sha256": "63bbbe99ca77dc93f9e7677c4bcbe355663074b1ecb5ebb32032e2856726b3f9"
+    },
+    {
+      "path": "admission/review-regressions-green.log",
+      "bytes": 166,
+      "sha256": "da3bb29e2134dd637c7728820b10777aafaaf6cbf25a61b21192c5e2c14ec552"
+    },
+    {
+      "path": "admission/review-regressions-red.log",
+      "bytes": 1979,
+      "sha256": "0f24d1eeffeda929a4da6e1b536b9851976b18c665a21cb94aadfc7143088b21"
+    },
+    {
+      "path": "admission/review-repair-probe-1.json",
+      "bytes": 885,
+      "sha256": "cb39cb2d7bff07d1aecce45095c95bf1046137c63ac2e8312b91b6c5e8bce984"
+    },
+    {
+      "path": "admission/review-repair-probe-1.log",
+      "bytes": 924,
+      "sha256": "43c9ef8145e964adcda0a79c403f1eff40db9a575ebfb2a06c849d0041fa9013"
+    },
+    {
+      "path": "admission/review-repair-probe.json",
+      "bytes": 603,
+      "sha256": "6bcbdad30bf6698d3d9b5b319af2df4bc583b0f038a67471bffaf7bab604edb3"
+    },
+    {
+      "path": "admission/review-repair-probe.log",
+      "bytes": 642,
+      "sha256": "aa33198d864385b5597e8f90368fcd28782531023a4427863acfc3e5e7de863e"
+    },
+    {
+      "path": "admission/review-repair-probe.py",
+      "bytes": 836,
+      "sha256": "248a57ab4b3b73eb944c3484c807af1d3c58d179b222c663e77bacefb9985371"
+    },
+    {
+      "path": "admission/review-repaired-run-1.log",
+      "bytes": 505,
+      "sha256": "95e42d2135660a61ad9c3babd29bdb1b092f8d9e2bb0f4bd97f07dd48164d0aa"
+    },
+    {
+      "path": "admission/review-repaired-run-2.log",
+      "bytes": 1027,
+      "sha256": "325c52cdafd8554c88cd45f9d96f462c08a36bccb45ec5319add595abeac75ee"
+    }
+  ]
+}

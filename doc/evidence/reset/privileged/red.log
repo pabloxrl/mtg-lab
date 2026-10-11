@@ -1,0 +1,24 @@
+    Finished `test` profile [optimized + debuginfo] target(s) in 34.60s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 1 test
+test game::full_pool_reference_tests::full_pool_reset_literal_checkpoints ... FAILED
+
+failures:
+
+---- game::full_pool_reference_tests::full_pool_reset_literal_checkpoints stdout ----
+
+thread 'game::full_pool_reference_tests::full_pool_reset_literal_checkpoints' (376902) panicked at crates/mtg-core/src/full_pool_reference_tests.rs:40:9:
+assertion `left == right` failed: creation-bound occurrence positions
+  left: Array [Array [String("0/mountain/7"), String("0/mountain/8"), String("0/mountain/9"), String("0/mountain/10"), String("0/mountain/11"), String("0/mountain/12"), String("0/mountain/13"), String("0/mountain/14"), String("0/mountain/15"), String("0/swab-goblin/0"), String("0/swab-goblin/1"), String("0/swab-goblin/2"), String("0/swab-goblin/3"), String("0/axgard-cavalry/0"), String("0/axgard-cavalry/1"), String("0/crackling-cyclops/0"), String("0/crackling-cyclops/1"), String("0/crackling-cyclops/2"), String("0/firebrand-archer/0"), String("0/firebrand-archer/1"), String("0/firebrand-archer/2"), String("0/dragon-fodder/0"), String("0/dragon-fodder/1"), String("0/dragon-fodder/2"), String("0/dragon-fodder/3"), String("0/goblin-surprise/0"), String("0/goblin-surprise/1"), String("0/viashino-pyromancer/0"), String("0/viashino-pyromancer/1"), String("0/thrill-of-possibility/0"), String("0/thrill-of-possibility/1"), String("0/shivan-dragon/0"), String("0/shivan-dragon/1")], Array [String("1/forest/7"), String("1/forest/8"), String("1/forest/9"), String("1/forest/10"), String("1/forest/11"), String("1/forest/12"), String("1/forest/13"), String("1/forest/14"), String("1/forest/15"), String("1/bear-cub/0"), String("1/bear-cub/1"), String("1/bear-cub/2"), String("1/bear-cub/3"), String("1/llanowar-elves/0"), String("1/llanowar-elves/1"), String("1/llanowar-elves/2"), String("1/druid-of-the-cowl/0"), String("1/druid-of-the-cowl/1"), String("1/magnigoth-sentry/0"), String("1/magnigoth-sentry/1"), String("1/tajuru-pathwarden/0"), String("1/tajuru-pathwarden/1"), String("1/thornweald-archer/0"), String("1/thornweald-archer/1"), String("1/thornweald-archer/2"), String("1/giant-growth/0"), String("1/giant-growth/1"), String("1/giant-growth/2"), String("1/bite-down/0"), String("1/bite-down/1"), String("1/bite-down/2"), String("1/wildheart-invoker/0"), String("1/wildheart-invoker/1")]]
+ right: Array [Array [String("0/mountain/1"), String("0/swab-goblin/1"), String("0/crackling-cyclops/1"), String("0/dragon-fodder/1"), String("0/viashino-pyromancer/1"), String("0/mountain/2"), String("0/swab-goblin/2"), String("0/crackling-cyclops/2"), String("0/dragon-fodder/2"), String("0/thrill-of-possibility/0"), String("0/mountain/3"), String("0/swab-goblin/3"), String("0/firebrand-archer/0"), String("0/dragon-fodder/3"), String("0/thrill-of-possibility/1"), String("0/mountain/4"), String("0/axgard-cavalry/0"), String("0/firebrand-archer/1"), String("0/goblin-surprise/0"), String("0/mountain/5"), String("0/axgard-cavalry/1"), String("0/firebrand-archer/2"), String("0/goblin-surprise/1"), String("0/mountain/6"), String("0/mountain/7"), String("0/mountain/8"), String("0/mountain/9"), String("0/mountain/10"), String("0/mountain/11"), String("0/mountain/12"), String("0/mountain/13"), String("0/mountain/14"), String("0/mountain/15")], Array [String("1/giant-growth/0"), String("1/thornweald-archer/2"), String("1/thornweald-archer/1"), String("1/thornweald-archer/0"), String("1/tajuru-pathwarden/1"), String("1/tajuru-pathwarden/0"), String("1/magnigoth-sentry/1"), String("1/magnigoth-sentry/0"), String("1/druid-of-the-cowl/1"), String("1/druid-of-the-cowl/0"), String("1/llanowar-elves/2"), String("1/llanowar-elves/1"), String("1/llanowar-elves/0"), String("1/bear-cub/3"), String("1/bear-cub/2"), String("1/bear-cub/1"), String("1/bear-cub/0"), String("1/forest/15"), String("1/forest/14"), String("1/forest/13"), String("1/forest/12"), String("1/forest/11"), String("1/forest/10"), String("1/forest/9"), String("1/forest/8"), String("1/forest/7"), String("1/forest/6"), String("1/forest/5"), String("1/forest/4"), String("1/forest/3"), String("1/forest/2"), String("1/forest/1"), String("1/forest/0")]]
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    game::full_pool_reference_tests::full_pool_reset_literal_checkpoints
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 311 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`
+

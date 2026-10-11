@@ -283,6 +283,7 @@ pub(crate) fn w_observation(value: &p::Observation) -> w::Observation {
         stack,
         combat,
         unsupported_families,
+        graveyard_orders,
     } = value;
     w::Observation {
         schema_version: *schema_version,
@@ -299,6 +300,10 @@ pub(crate) fn w_observation(value: &p::Observation) -> w::Observation {
             .collect(),
         stack: stack.iter().map(w_stack_spell).collect(),
         combat: combat.iter().map(w_combat_attack).collect(),
+        graveyard_orders: graveyard_orders
+            .iter()
+            .map(|(s, rs)| (*s, rs.iter().map(w_visible_ref).collect()))
+            .collect(),
         unsupported_families: std::array::from_fn(|i| unsupported_families[i].to_string()),
     }
 }
@@ -575,6 +580,9 @@ fn w_command(value: &p::Choice) -> w::Command {
         },
         p::Choice::Pass => w::Command::Pass,
         p::Choice::TargetPlayer { seat } => w::Command::TargetPlayer { seat: *seat },
+        p::Choice::OrderGraveyard { card } => w::Command::OrderGraveyard {
+            card: w_visible_ref(card),
+        },
         p::Choice::OrderTrigger { trigger } => w::Command::OrderTrigger { trigger: *trigger },
         p::Choice::PlayLand { card } => w::Command::PlayLand {
             card: w_visible_ref(card),

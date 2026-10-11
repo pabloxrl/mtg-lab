@@ -691,6 +691,35 @@ pub fn played_combat(capture_header: Header) -> mtg_core::episode::EpisodeResult
                     vec![C::FinishCombat],
                     A::Committed,
                 );
+                // CR404.3: both blockers are still present until their owner
+                // explicitly orders this simultaneous arrival. The existing
+                // capture-on/off, wrong-actor/stale-input and replay checks in
+                // send() cover this new boundary as well as all prior actions.
+                let pending = s.on.observe(Seat::P1).unwrap();
+                assert_eq!(pending.decision.as_ref().unwrap().kind, "graveyard_order");
+                assert_eq!(pending.decision.as_ref().unwrap().count, 2);
+                assert_eq!(
+                    pending
+                        .view
+                        .public_zones
+                        .iter()
+                        .find(|z| z.zone == "battlefield")
+                        .unwrap()
+                        .cards
+                        .iter()
+                        .filter(|c| c.card == "bear-cub")
+                        .count(),
+                    3
+                );
+                s.send(
+                    Seat::P1,
+                    "graveyard_order",
+                    vec![
+                        C::OrderGraveyard { card: blocker },
+                        C::OrderGraveyard { card: second },
+                    ],
+                    A::Committed,
+                );
                 // Each blocker has one recipient: its two damage is automatic.
                 // CR 510: simultaneous 4 damage leaves the 5/5 alive; both 2/2s die.
                 let o = s.on.observe(Seat::P0).unwrap();

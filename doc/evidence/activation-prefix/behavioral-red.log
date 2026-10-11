@@ -1,0 +1,14 @@
+Symphony resource lock: acquired heavy
+F
+======================================================================
+FAIL: test_real_played_activation_observations (test_m2_repair_activations.ActivationTests.test_real_played_activation_observations)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-273/tests/test_m2_repair_activations.py", line 17, in test_real_played_activation_observations
+    self.assertTrue(any(p.get('activation') is not None for p in points),
+AssertionError: False is not true : played consumer must witness activation payment, not just creature casting
+
+----------------------------------------------------------------------
+Ran 1 test in 22.702s
+
+FAILED (failures=1)

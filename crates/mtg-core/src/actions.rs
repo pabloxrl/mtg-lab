@@ -25,6 +25,9 @@ pub enum Choice {
     TargetPlayer {
         seat: u8,
     },
+    OrderGraveyard {
+        card: ObjectRef,
+    },
     OrderTrigger {
         trigger: usize,
     },
@@ -275,6 +278,9 @@ fn encode_choice(g: &Game, actor: Seat, c: &policy::Choice) -> Result<Choice, Ac
     let map = |r| reference(g, actor, r);
     Ok(match c {
         policy::Choice::TargetPlayer { seat } => Choice::TargetPlayer { seat: *seat },
+        policy::Choice::OrderGraveyard { card } => Choice::OrderGraveyard {
+            card: reference(g, actor, card)?,
+        },
         policy::Choice::OrderTrigger { trigger } => Choice::OrderTrigger { trigger: *trigger },
         policy::Choice::Activate { card } => Choice::Activate { card: map(card)? },
         policy::Choice::FinishActivation => Choice::FinishActivation {},
@@ -318,6 +324,9 @@ fn decode_choice(g: &Game, actor: Seat, c: &Choice) -> Result<policy::Choice, Ac
     let map = |r| resolve(g, actor, r);
     Ok(match c {
         Choice::TargetPlayer { seat } => policy::Choice::TargetPlayer { seat: *seat },
+        Choice::OrderGraveyard { card } => policy::Choice::OrderGraveyard {
+            card: resolve(g, actor, card)?,
+        },
         Choice::OrderTrigger { trigger } => policy::Choice::OrderTrigger { trigger: *trigger },
         Choice::Activate { card } => policy::Choice::Activate { card: map(card)? },
         Choice::FinishActivation {} => policy::Choice::FinishActivation,

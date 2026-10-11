@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-272/doc/evidence/spells-prefix/discard-negative-red.py", line 6, in <module>
+    assert message.endswith('/discard source'), f'self-discard must reject at the discard rule, observed {message}'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: self-discard must reject at the discard rule, observed first divergence: /play/44 /source incarnation

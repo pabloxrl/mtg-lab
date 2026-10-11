@@ -105,6 +105,24 @@ impl Script {
             TurnKind::TriggerOrder | TurnKind::TriggerTarget => {
                 panic!("no trigger sources in this script")
             }
+            TurnKind::GraveyardOrder => {
+                let dec = self
+                    .g
+                    .policy_observe(d.actor, CAP)
+                    .unwrap()
+                    .decision
+                    .unwrap();
+                let sub = policy::Submission {
+                    schema_version: policy::SCHEMA_VERSION,
+                    revision: dec.revision,
+                    generation: dec.generation,
+                    choices: dec.candidates,
+                };
+                let bytes = actions::encode(&self.g, d.actor, &sub, CAP).unwrap();
+                let r = serde_json::from_slice(&bytes).unwrap();
+                actions::apply(&mut self.g, &bytes, CAP).unwrap();
+                self.choices.push(r);
+            }
             TurnKind::Priority => self.pass(),
             TurnKind::Combat(_) => self.one(
                 d.actor,
@@ -369,6 +387,13 @@ fn played_replay_strict_corruption() {
             Err(ReplayError::Incompatible { .. })
         ));
     }
+    // Version 1 lacks the required owner-order boundary at simultaneous deaths.
+    bad = v.clone();
+    bad["version"] = json!(1);
+    assert!(matches!(
+        verify(&bad),
+        Err(ReplayError::Incompatible { .. })
+    ));
     for field in ["version", "action_version"] {
         bad = v.clone();
         bad[field] = json!(999);

@@ -192,3 +192,13 @@ and float-first regressions remain. All 175 rows below are unchanged.
 | `rules-foundations_micro_v1-wildheart-invoker-negative` | #23 | #210 |
 | `rules-foundations_micro_v1-wildheart-invoker-interaction` | #23 | #210 |
 | `rules-foundations_micro_v1-wildheart-invoker-regression` | #23 | #210 |
+
+## Additional audit repair prerequisites
+
+Operations #268 adds the [atomic audit repair graph and clause crosswalk](m2-audit-repair-prerequisites.md)
+and [complete child acceptance contracts](m2-audit-repair-contracts.md). #269–#277
+deliver the missing initial normal-reset reference contracts before #24; #278–#281
+deliver sampled scalar timings, a new four-mode benchmark, fixed-trace profiles
+and measurements before #25. All original tasks, cases, owners, source pins,
+expectations and aggregate acceptance above remain unchanged; ownership is additive.
+#26 retains every M2 ancestor. Registration is not implementation or milestone completion.

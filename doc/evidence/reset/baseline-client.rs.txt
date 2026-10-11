@@ -1,0 +1,52 @@
+//! CR 103 reset prefix, test-only privileged client. Literal oracle is external.
+use super::*;
+use serde_json::{Value, json};
+
+fn fixture() -> Value {
+    serde_json::from_str(include_str!("../../../fixtures/reference/full-pool-reset.json")).unwrap()
+}
+fn run(g: &mut Game, case: &Value) -> Value {
+    let mut config = Config { starting_seat: case["starter"].as_u64().unwrap() as u8, ..Config::default() };
+    for seat in 0..2 {
+        config.seats[seat] = DeckConfig::new(case["decks"][seat]["deck"].as_str().unwrap());
+        config.seats[seat].order = Some(case["chance"][seat]["after"].as_array().unwrap().iter().map(|o| o.as_str().unwrap().split('/').nth(1).unwrap().to_string()).collect());
+    }
+    g.reset(&config, 0, 0).unwrap();
+    let mut hands = vec![];
+    let mut libraries = vec![];
+    let mut objects = serde_json::Map::new();
+    for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+        for (zone, name) in [(Zone::Hand(seat), "hand"), (Zone::Library(seat), "library")] {
+            let mut ids = vec![];
+            for h in g.objects.in_zone(zone) {
+                let (birth, _) = g.objects.semantic_identity(h).unwrap();
+                let id = case["decks"][i]["occurrences"][(birth as usize) % 40].as_str().unwrap().to_string();
+                let copy: usize = id.split('/').nth(2).unwrap().parse().unwrap();
+                objects.insert(id.clone(), json!({"seat":i,"card":g.objects.get(h).unwrap().card.identity().key,"copy":copy,"zone":name}));
+                ids.push(id);
+            }
+            if name == "hand" { ids.sort(); hands.push(ids); } else { libraries.push(ids); }
+        }
+    }
+    json!({"completion":"prefix","boundary":"first_declaration","starting_seat":config.starting_seat,"declaration_seat":seat_index(g.decision().unwrap().actor),"life":g.life(),"hand":hands,"library":libraries,"occurrences":objects,"consumed_chance":case["chance"],"consumed_choices":[]})
+}
+#[test]
+fn full_pool_reset_literal_checkpoints() {
+    let doc = fixture();
+    let expected: Value = serde_json::from_str(include_str!("../../../fixtures/reference/full-pool-reset-expectations.json")).unwrap();
+    let mut g = Game::new().unwrap();
+    for case in doc["cases"].as_array().unwrap() {
+        let actual = run(&mut g, case);
+        assert_eq!(actual["library"], expected[case["id"].as_str().unwrap()]["library"], "creation-bound occurrence positions");
+        assert_eq!(actual, expected[case["id"].as_str().unwrap()]);
+    }
+}
+
+#[test]
+fn full_pool_reset_same_name_copies_cross_hand_boundary() {
+    let doc = fixture();
+    let mut g = Game::new().unwrap();
+    let normal = run(&mut g, &doc["cases"][0]);
+    let swapped = run(&mut g, &doc["cases"][1]);
+    assert_ne!(normal["hand"][0], swapped["hand"][0], "same-name copies must remain distinct at creation");
+}

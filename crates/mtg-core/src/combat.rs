@@ -40,6 +40,7 @@ pub enum CombatError {
     IllegalBlocker,
     IllegalDamage,
     MissingDamage,
+    IllegalGraveyardOrder,
     CapacityExceeded { needed: usize, capacity: usize },
     Turn(TurnError),
 }
@@ -54,7 +55,14 @@ pub(super) struct CombatState {
     pub(super) attacks: Vec<Attack>,
     selected: Vec<Handle>,
     blocks: Vec<(Handle, Handle)>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(super) deaths: Option<GraveyardBatch>,
     pub(super) assignments: Vec<(Handle, Vec<(Handle, u32)>)>,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
+pub(super) struct GraveyardBatch {
+    pub(super) arrivals: [Vec<Handle>; 2],
+    pub(super) chosen: [bool; 2],
 }
 fn vanilla(card: CardId) -> bool {
     super::card_definitions::definition(card).vanilla()
@@ -466,6 +474,110 @@ impl Game {
         }
         Ok(())
     }
+    #[cfg(test)]
+    pub(super) fn choose_candidate_order_for_legacy_fixture(&mut self) {
+        // Existing synthetic ledgers specify damage/deaths, not graveyard
+        // permutations. Their test client now explicitly chooses candidate
+        // order at the new rules boundary, preserving every old assertion.
+        while let Some(d) = self
+            .turn_decision()
+            .filter(|d| d.kind == super::turns::TurnKind::GraveyardOrder)
+        {
+            let cards = self.graveyard_candidates(d.actor);
+            self.order_graveyard(d.actor, d.id, &cards).unwrap();
+        }
+    }
+    /// Candidates are pre-transition incarnations, in bottom-to-top arrival order.
+    /// CR 101.4/404.3: owners choose in APNAP order, before any member moves.
+    pub fn graveyard_candidates(&self, actor: Seat) -> Vec<Handle> {
+        if !self
+            .turn_decision()
+            .is_some_and(|d| d.actor == actor && d.kind == super::turns::TurnKind::GraveyardOrder)
+        {
+            return vec![];
+        }
+        self.graveyard_card_arrivals(actor)
+    }
+    pub(super) fn graveyard_card_arrivals(&self, actor: Seat) -> Vec<Handle> {
+        self.turns.combat.deaths.as_ref().unwrap().arrivals[seat_index(actor)]
+            .iter()
+            .copied()
+            .filter(|h| self.objects.get(*h).unwrap().card.identity().key != "goblin-token")
+            .collect()
+    }
+    pub fn order_graveyard(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        order: &[Handle],
+    ) -> Result<super::turns::TurnProgress, CombatError> {
+        let d = self.turn_decision().ok_or(CombatError::NotReady)?;
+        if actor != d.actor {
+            return Err(CombatError::Invalid(ApplyError::WrongActor));
+        }
+        if id != d.id {
+            return Err(CombatError::Invalid(ApplyError::StaleDecision));
+        }
+        if d.kind != super::turns::TurnKind::GraveyardOrder {
+            return Err(CombatError::NotReady);
+        }
+        let candidates = self.graveyard_candidates(actor);
+        if order.len() != candidates.len()
+            || order
+                .iter()
+                .enumerate()
+                .any(|(i, h)| !candidates.contains(h) || order[..i].contains(h))
+        {
+            return Err(CombatError::IllegalGraveyardOrder);
+        }
+        let generation = self.combat_generation()?;
+        // CR111.6/404.3: tokens move in the same event, but do not enter the
+        // owner's card permutation. Preserve them in the pending batch.
+        let tokens = self.turns.combat.deaths.as_ref().unwrap().arrivals[seat_index(actor)]
+            .iter()
+            .copied()
+            .filter(|h| !candidates.contains(h))
+            .collect::<Vec<_>>();
+        let batch = self.turns.combat.deaths.as_mut().unwrap();
+        batch.arrivals[seat_index(actor)] = order.iter().copied().chain(tokens).collect();
+        batch.chosen[seat_index(actor)] = true;
+        self.generation = generation;
+        self.turns.decision = None;
+        self.combat_death_boundary();
+        self.finish_work();
+        match self.resume(NonZeroUsize::MAX) {
+            Progress::TurnDecision(d) => Ok(super::turns::TurnProgress::Decision(d)),
+            Progress::Terminal(o) => Ok(super::turns::TurnProgress::Terminal(o)),
+            _ => unreachable!("graveyard ordering settles"),
+        }
+    }
+    pub(super) fn combat_death_boundary(&mut self) {
+        let active = self.turns.position.unwrap().1;
+        let batch = self.turns.combat.deaths.as_ref().unwrap();
+        for seat in [active, super::turns::opponent(active)] {
+            let i = seat_index(seat);
+            if self.graveyard_card_arrivals(seat).len() > 1 && !batch.chosen[i] {
+                self.set_turn_decision(seat, super::turns::TurnKind::GraveyardOrder);
+                return;
+            }
+        }
+        let batch = self.turns.combat.deaths.take().unwrap();
+        for seat in [active, super::turns::opponent(active)] {
+            for &handle in &batch.arrivals[seat_index(seat)] {
+                self.work.push_back(Work::SpellMove {
+                    handle,
+                    zone: Zone::Graveyard(seat),
+                    controller: None,
+                });
+            }
+        }
+        self.work.push_back(Work::FinishCombat);
+        self.work.push_back(Work::Priority {
+            actor: active,
+            passed: false,
+            terminal: true,
+        });
+    }
     fn queue_combat_damage(&mut self) -> Result<(), CombatError> {
         use super::targets::Modification;
         let mut changes = self.turns.modifications.clone();
@@ -561,21 +673,7 @@ impl Game {
         for change in changes {
             self.work.push_back(Work::Modify(change));
         }
-        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
-            for &handle in &dead[i] {
-                self.work.push_back(Work::SpellMove {
-                    handle,
-                    zone: Zone::Graveyard(seat),
-                    controller: None,
-                });
-            }
-        }
-        self.work.push_back(Work::FinishCombat);
-        self.work.push_back(Work::Priority {
-            actor: active,
-            passed: false,
-            terminal: true,
-        });
+        self.work.push_back(Work::CombatDeaths(dead));
         Ok(())
     }
 }

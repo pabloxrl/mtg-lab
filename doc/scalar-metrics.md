@@ -1,4 +1,4 @@
-# Scalar counters
+# Scalar counters and sampled latency
 
 The owned Driver supports `metrics::Mode::Off` (default), `Counters`, `SampledTrace` and
 `FullReplay` through
@@ -51,9 +51,10 @@ No mode materializes additional trajectory frames for instrumentation.
 
 Worker/queue/batch/inference and diagnostic-buffer fields in the counters report
 are explicitly `not_applicable` to that path; sampled diagnostics have a separate
-versioned per-episode report. Encoding/policy timing, sampled
-histograms and memory high-water are `not_measured`, not measured zeros. Existing
-benchmark policy timing remains separate. Benchmark workloads, overhead qualification and memory measurements remain the
+versioned per-episode report. The core counters report has no clock and continues to mark its own timing and
+memory fields `not_measured`. Native boundary timings appear separately in the
+`latency` summary below; these do not relabel unmeasured core operations. Existing
+benchmark every-boundary phase totals remain separate. Benchmark workloads, overhead qualification and memory measurements remain the
 registered #216–#217 deliveries; no five-percent overhead or full RFC B021 claim is made here.
 
 The literal traces and injected-clock checks are in
@@ -98,6 +99,64 @@ replay directory and atomic manifest publication. Storage/queue failures remain
 explicit publication failures; they do not change the underlying rules outcome.
 Trajectory capture with instrumentation off retains the same persistence contract.
 
-These modes add no timing histograms, worker implementation or performance claim.
+The Driver trace modes add no clocks or worker implementation. The native client
+adds the sampled latency summary below in all three enabled modes.
 Overhead qualification remains the separately registered benchmark work. See
 [acceptance evidence](evidence/trace-modes/README.md) for current validation status.
+
+## Native sampled latency, schema 1
+
+Native runs in `counters`, `sampled_trace`, and `full_replay` emit a separate
+`latency` object in the existing final JSONL summary. No new command or user
+configuration is needed. Off mode creates neither a sampler nor a performance
+clock; requested capture remains independent. Benchmark clients that explicitly
+request existing every-boundary measurements retain those measurements even in
+off mode. Histograms reuse those reads without adding duplicate clock calls.
+
+Sampling selects per-phase attempt ordinal 0 and then every 64th attempt across
+a run, including resets of subsequent games. Selection uses no game or policy
+randomness. Each of six fixed labels has eight disjoint buckets, inclusive upper
+bounds `[0,10,100,1000,10000,100000,1000000]` nanoseconds and an unbounded tail.
+No per-game, card, seed or private-state label is accepted. Storage is fixed;
+reports are materialized only at the collector boundary.
+
+| Label | Measured boundary |
+| --- | --- |
+| `reset` | Owner reset, including requested in-memory capture initialization. |
+| `transition` | Owner advance and submit; script parsing/submission in script mode. Includes legality checks internal to application, never policy selection or optional JSON encoding. |
+| `legality_and_view` | Finding the acting seat's authorized observation. |
+| `policy` | Native policy initialization and each choose attempt, including errors. |
+| `encoding` | Optional actual observation JSON serialization requested by an existing benchmark client. Ordinary simulation does not request it. |
+| `finalization` | Owner finish, including final observations and in-memory recorder finalization. |
+
+These are boundary costs, not individual rules-operation timings. Replay export
+validation, durable publication, formatting and collector work are outside these
+six spans; existing end-to-end benchmark elapsed time still includes them.
+Policy, encoding and application spans are disjoint. No extrapolated sum of
+sampled durations is presented as total execution time or decision latency.
+
+Each phase reports attempts, selected valid count, skipped count, operation
+errors, clock errors, sampled sum, bucket counts and overflow. Without saturation,
+`attempts = count + skipped + clock_errors`; errors overlap attempted operations
+and do not disappear when the attempt was skipped. Zero duration is a valid sample.
+`p50`, `p95`, `p99` are nearest-rank **inclusive bucket bounds**, not exact times;
+the last upper bound is null (unbounded). Empty or overflowed distributions have
+null quantiles. `not_measured` (for example disabled encoding), `not_applicable`
+(for example policy selection during scripted play, queue/inference on scalar),
+and `unavailable` (clock errors/overflow) are distinct from `measured` zero.
+
+The Rust collector supports validated interval/bucket injection for tests and
+existing internal clients; there is no new CLI option. Reset clears a local
+sampler's counts and schedule. Local merge requires identical configuration and
+valid accounting, rejects malformed summaries before mutation, and sums completed
+independent streams without pretending their schedules were contiguous. The
+existing `PolicyTiming` consumer retains aggregate summaries across calls.
+All numeric histogram additions saturate at `u64::MAX` with an overflow flag;
+clock readings are monotonic-checked and backwards readings return an explicit
+execution error, never a negative or wrapped duration. Such failed runs must not
+be admitted as successful measurements.
+
+[Behavioral oracle and red receipt](evidence/sampled-latency/README.md),
+[real exported-artifact checks](../tests/test_m2_repair_timing.py), and native Rust
+clock/mode/capture tests are in normal discovery. This delivers no overhead
+qualification, new benchmark workload, measurement campaign or M2 gate verdict.

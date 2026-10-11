@@ -1,0 +1,15 @@
+The expectations need one correction before implementation; two essential checks should also be explicit. Missing implementation is not a finding.
+
+- **Blocker — distinguish diagnostic capacity from replay capacity.** [Lines 38–40](/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-279/doc/evidence/four-mode-benchmark/README.md:38) broadly require zero capacities to reject and tiny valid bounds to fail. Delivered sampled tracing permits zero capacity and continues with explicit drops; its tests specifically establish that behavior. B021 also permits diagnostic drops. Require tiny sampled buffers to preserve gameplay and report exact drops; reserve mandatory failure for exhausted complete-replay bounds. A stricter benchmark-only zero-capacity restriction needs explicit justification.
+
+- **Essential missing check — successful canonical publication.** [Lines 33–40](/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-279/doc/evidence/four-mode-benchmark/README.md:33) require semantic equality across capture settings and writer failure, but neither proves requested data was persisted. Require capture with instrumentation `off` to publish a readable, complete canonical artifact; verify failed publication leaves no committed manifest. Otherwise silently ignoring capture could satisfy the positive expectations. This follows B021’s capture-independence requirement and the delivered publisher contract.
+
+- **Essential missing check — production qualification on the new schema.** The introduction names timing minima, but the [expected tests](/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-279/doc/evidence/four-mode-benchmark/README.md:30) should explicitly apply inherited qualification checks to schema 2: reject insufficient warmup/windows, retain zero-completion windows in distributions, exclude concessions/truncations from completed throughput, and prevent interrupted or failed runs from qualifying. Existing schema-1 tests alone cannot establish these properties for the new path.
+
+Recommendations, not blockers:
+
+- Explicitly preserve strict replay verification of intermediate checkpoints, pins, and missing/extra choices; final-state equality alone is weaker than the delivered verifier.
+- Specify separate recording-cost reporting. Including serialization, verification, and publication in the outer denominator is correct, but B021 additionally calls for recording overhead to be distinguishable from instrumentation overhead.
+- Clarify that finishing an attempt before checking the deadline is intentional schema-2 behavior. Delivered benchmarking checks deadlines during execution; retain that older contract’s tests.
+
+The sampling formula, default trace settings, measured overshoot, privacy boundary, and explicitly limited in-memory replay claim otherwise align with the inspected contracts. No files changed, network used, or additional review invoked.

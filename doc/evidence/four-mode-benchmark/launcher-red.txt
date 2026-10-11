@@ -1,0 +1,16 @@
+F
+======================================================================
+FAIL: test_exporter_lock_launcher_uses_checkout_in_toolchain_image (test_m2_repair_modes.FourModeArithmetic.test_exporter_lock_launcher_uses_checkout_in_toolchain_image)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-279/tests/test_m2_repair_modes.py", line 94, in test_exporter_lock_launcher_uses_checkout_in_toolchain_image
+    self.assertEqual(command[1], str(ROOT / 'scripts/symphony/resource_lock.py'))
+AssertionError: '/opt/mtg-lab/scripts/symphony/resource_lock.py' != '/home/agent/.local/share/mtg-lab-symphony/[47 chars]k.py'
+- /opt/mtg-lab/scripts/symphony/resource_lock.py
++ /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-279/scripts/symphony/resource_lock.py
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)

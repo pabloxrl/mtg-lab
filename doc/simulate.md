@@ -308,7 +308,8 @@ command, performance claim, or aggregate M1 completion is introduced.
 
 For native (schema 2) or semantic-script (schema 3) runs, set
 `native.instrumentation` to `"counters"`. Omit it or use `"off"` for the default.
-The final summary then contains a versioned `metrics` object with bounded fields;
+The final summary then contains versioned `metrics` counters and a separate bounded
+`latency` sampled histogram object;
 existing episode output and independently requested capture retain their contracts.
 Unknown instrumentation modes fail configuration validation. See
 [scalar metric definitions and limitations](scalar-metrics.md).

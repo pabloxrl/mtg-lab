@@ -1,0 +1,66 @@
+Symphony resource lock: acquired heavy
+Local documentation links passed.
+RFC 0002 program coverage and dependency gates passed.
+{"capabilities": 80, "designed_slots": 320, "execution_evidence_added": 0, "related_authored_fixtures": 6}
+.........................................................................unavailable pinned reference
+............................E.EEEE.........   Compiling mtg-core v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/crates/mtg-core)
+   Compiling mtg-cli v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/crates/mtg-cli)
+   Compiling mtg-policy v0.1.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/crates/mtg-policy)
+   Compiling mtg-recorder v0.0.0 (/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/crates/mtg-recorder)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.14s
+..........................................................................................................................................................................
+======================================================================
+ERROR: test_all_modes_and_capture_preserve_semantics_and_player_inputs (test_m2_repair_profile.FixedTraceProfile.test_all_modes_and_capture_preserve_semantics_and_player_inputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 115, in test_all_modes_and_capture_preserve_semantics_and_player_inputs
+    validate(report)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 17, in validate
+    raise ValueError('version/status')
+ValueError: version/status
+
+======================================================================
+ERROR: test_real_export_rejects_accounting_tampering (test_m2_repair_profile.FixedTraceProfile.test_real_export_rejects_accounting_tampering)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 153, in test_real_export_rejects_accounting_tampering
+    validate(report)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 17, in validate
+    raise ValueError('version/status')
+ValueError: version/status
+
+======================================================================
+ERROR: test_real_native_traces_validate_and_measure (test_m2_repair_profile.FixedTraceProfile.test_real_native_traces_validate_and_measure) (trace='control')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 97, in test_real_native_traces_validate_and_measure
+    validate(report)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 17, in validate
+    raise ValueError('version/status')
+ValueError: version/status
+
+======================================================================
+ERROR: test_real_native_traces_validate_and_measure (test_m2_repair_profile.FixedTraceProfile.test_real_native_traces_validate_and_measure) (trace='combat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 97, in test_real_native_traces_validate_and_measure
+    validate(report)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 17, in validate
+    raise ValueError('version/status')
+ValueError: version/status
+
+======================================================================
+ERROR: test_real_native_traces_validate_and_measure (test_m2_repair_profile.FixedTraceProfile.test_real_native_traces_validate_and_measure) (trace='effects')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 97, in test_real_native_traces_validate_and_measure
+    validate(report)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-280/tests/test_m2_repair_profile.py", line 17, in validate
+    raise ValueError('version/status')
+ValueError: version/status
+
+----------------------------------------------------------------------
+Ran 284 tests in 160.864s
+
+FAILED (errors=5)
+Regression suite requires nonempty execution with no failures, skips or expected failures.

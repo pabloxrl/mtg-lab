@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Found one reproducible verification defect. README scope and integration ownership are accurate; no tests were removed or skipped. Validation used archived evidence without modifying files or accessing the network.",
+  "findings": [
+    {
+      "file": "scripts/triggers_reference.py:74",
+      "finding": "Pending-trigger validation stops covering ordinary checkpoints after the first ordering event, while semantic() omits pending_triggers and trigger_boundary from both repeat and cross-engine comparisons. Reproduction: in archived native evidence, change archer-cyclops checkpoint 145 (a pass) to trigger_boundary='order' and insert a pending trigger with nonexistent source, incarnation and event. check_run() still passes, and semantic() remains unchanged. This permits incorrect pending-versus-settled observations to receive agreement despite #274 explicitly owning that contract. Validate these fields at every checkpoint, allowing only documented engine staging differences, and add this late-checkpoint mutation to normal discovery.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "0e8b7834d86908c3bd3104ae1822ed433f333c7b",
+  "head_sha": "ae9cc15e7154923ce9e2b099562c968e7bea859b"
+}

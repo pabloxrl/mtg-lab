@@ -1,0 +1,33 @@
+{
+  "kind": "original",
+  "basis": [
+    "CR508",
+    "CR509",
+    "CR510",
+    "CR302.6",
+    "CR602",
+    "CR702.2",
+    "CR702.9",
+    "CR702.10",
+    "CR702.17",
+    "CR702.19",
+    "CR702.20",
+    "CR101.4",
+    "CR404.3",
+    "CR704.3",
+    "CR111.6",
+    "CR704.5d"
+  ],
+  "consulted_sources": {
+    "Mage/src/main/java/mage/game/combat/CombatGroup.java": "a3f6a37d332831855cdc9b7900cc400554331a3a82598438b5c307a7b0e42bc7",
+    "Mage/src/main/java/mage/game/combat/Combat.java": "3c2de1444f0e35216eb8e9bfebd88e02c6693995a41b5ea2a271bf3e585c6250",
+    "Mage/src/main/java/mage/game/turn/CombatDamageStep.java": "1868fc00da0ea2968f927ae31beb964f0e7cfaf7e93db0d78b4b98034afcc884",
+    "Mage/src/main/java/mage/game/permanent/PermanentImpl.java": "5b72e235e1fe716b7337ffe76539d7fd79a5a9de1c54e6f343426126aeec6fe1",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/game/ZonesHandler.java": "959c5d1eb065ab34d00b82ddf69d4254afc2c33c02243dee21dd7f16645749ca",
+    "Mage/src/main/java/mage/game/ZoneChangeInfo.java": "829c9d75b11e73f2d5fd8cbcde532cb7cd6a7db30bac8a20cf42ece39217ed07"
+  },
+  "reference_integration": "Patched reference semantics through the test-only CombatSbaGame subclass of pinned TwoPlayerDuel; unchanged upstream files. Collects combat lethal SBA batch, consumes owner permutations in APNAP order, then invokes pinned ZonesHandler.moveCards before ordinary SBA processing. No post-state repair."
+}

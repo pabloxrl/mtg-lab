@@ -1,0 +1,33 @@
+failures:
+
+---- profile::profile_effects_and_no_effect_control_use_real_engine stdout ----
+
+thread 'profile::profile_effects_and_no_effect_control_use_real_engine' (522950) panicked at crates/mtg-cli/src/profile.rs:581:6:
+called `Result::unwrap()` on an `Err` value: "unvalidated trace or incompatible pin"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- profile::profile_export stdout ----
+
+thread 'profile::profile_export' (522951) panicked at crates/mtg-cli/src/profile.rs:659:9:
+{"error":"unvalidated trace or incompatible pin"}
+
+---- profile::profile_injected_clock_accounts_exact_disjoint_spans stdout ----
+
+thread 'profile::profile_injected_clock_accounts_exact_disjoint_spans' (522952) panicked at crates/mtg-cli/src/profile.rs:602:6:
+called `Result::unwrap()` on an `Err` value: "unvalidated trace or incompatible pin"
+
+---- profile::profile_validated_normal_trace_has_separate_nonempty_costs stdout ----
+
+thread 'profile::profile_validated_normal_trace_has_separate_nonempty_costs' (522955) panicked at crates/mtg-cli/src/profile.rs:507:6:
+independently validated fixed trace must execute before profiling: "unvalidated trace or incompatible pin"
+
+
+failures:
+    profile::profile_effects_and_no_effect_control_use_real_engine
+    profile::profile_export
+    profile::profile_injected_clock_accounts_exact_disjoint_spans
+    profile::profile_validated_normal_trace_has_separate_nonempty_costs
+
+test result: FAILED. 62 passed; 4 failed; 0 ignored; 0 measured; 0 filtered out; finished in 170.00s
+
+error: test failed, to rerun pass `-p mtg-cli --bin mtg`

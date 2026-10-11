@@ -1,0 +1,18 @@
+{
+  "source_url": "https://media.wizards.com/2026/downloads/MagicCompRules%2020260925.txt",
+  "sha256": "8d860e451f20f38865b725b42d82feb714c725373dd8f3b32b8652b3eeb070ca",
+  "lines": [
+    "101.4. If multiple players would make choices and/or take actions at the same time, the active player (the player whose turn it is) makes any choices required, then the next player in turn order (usually the player seated to the active player\u2019s left) makes any choices required, followed by the remaining nonactive players in turn order. Then the actions happen simultaneously. This rule is often referred to as the \u201cActive Player, Nonactive Player (APNAP) order\u201d rule.",
+    "101.4a If an effect has each player choose a card in a hidden zone, such as their hand or library, those cards may remain face down as they\u2019re chosen. However, each player must clearly indicate which face-down card they are choosing.",
+    "101.4b A player knows the choices made by the previous players when making their choice, except as specified in 101.4a.",
+    "101.4c If a player would make more than one choice at the same time, the player makes the choices in the order specified. If no order is specified, the player chooses the order.",
+    "101.4d If a choice made by a nonactive player causes the active player, or a different nonactive player earlier in the turn order, to have to make a choice, APNAP order is restarted for all outstanding choices.",
+    "101.4e If multiple players would make choices or take actions while starting the game, the starting player is considered the active player and each other player is considered a nonactive player.",
+    "404.3. If an effect or rule puts two or more cards into the same graveyard at the same time, the owner of those cards may arrange them in any order.",
+    "704.3. Whenever a player would get priority (see rule 117, \u201cTiming and Priority\u201d), the game checks for any of the listed conditions for state-based actions, then performs all applicable state-based actions simultaneously as a single event. If any state-based actions are performed as a result of a check, the check is repeated; otherwise all triggered abilities that are waiting to be put on the stack are put on the stack, then the check is repeated. Once no more state-based actions have been performed as the result of a check and no triggered abilities are waiting to be put on the stack, the appropriate player gets priority. This process also occurs during the cleanup step (see rule 514), except that if no state-based actions are performed as the result of the step\u2019s first check and no triggered abilities are waiting to be put on the stack, then no player gets priority and the step ends.",
+    "111.6. A token is subject to anything that affects permanents in general or that affects the token\u2019s card type or subtype. A token isn\u2019t a card (even if represented by a card that has a Magic back or that came from a Magic booster pack).",
+    "111.7. A token that\u2019s in a zone other than the battlefield ceases to exist. This is a state-based action; see rule 704. (Note that if a token changes zones, applicable triggered abilities will trigger before the token ceases to exist.)",
+    "704.5d If a token is in a zone other than the battlefield, it ceases to exist.",
+    "104.3a A player can concede the game at any time. A player who concedes leaves the game immediately. That player loses the game."
+  ]
+}

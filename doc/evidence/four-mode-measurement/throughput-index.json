@@ -1,0 +1,442 @@
+{
+  "archive_sha256": "0346835eed5392de88d31b6a3409bb157a409d1fa10de2be1fcc3d232bee4367",
+  "files": {
+    "campaign.json": {
+      "bytes": 15380,
+      "sha256": "e936d8273b7bbc71ac54873583a2b7e5097ac594f152e8783b7c25afd67ecd8d"
+    },
+    "heuristic-activation-mana-v1-0-counters/collection.json": {
+      "bytes": 1630,
+      "sha256": "371f512ef8d85c8042e2b14d11ad131d29aa5752bfe865d5904f2c8d60512862"
+    },
+    "heuristic-activation-mana-v1-0-counters/config.json": {
+      "bytes": 419,
+      "sha256": "bf56b0792236c7b64d94ea452498bfb1b0bcae5afe37cb9f4e4f5f87f6d60b37"
+    },
+    "heuristic-activation-mana-v1-0-counters/raw.json": {
+      "bytes": 15372,
+      "sha256": "9b4ebe89f9448e339c70c9cb9a0be866a9d45fd6de71638ba325b3e4aab8ab80"
+    },
+    "heuristic-activation-mana-v1-0-counters/report.json": {
+      "bytes": 24633,
+      "sha256": "2218cdcd55cc1cb037695b8e979babd825e1aa6be173150bdeae6f63dfecf545"
+    },
+    "heuristic-activation-mana-v1-0-counters/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-counters/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-full_replay/collection.json": {
+      "bytes": 1636,
+      "sha256": "f677a7efbb3895c465700115373a51216a0247e6d29a5edfeac4e6c7286cae76"
+    },
+    "heuristic-activation-mana-v1-0-full_replay/config.json": {
+      "bytes": 422,
+      "sha256": "3bc6f68e90939f33db3007af59e5cb8d70dfcf2172e8e1de00bc08b9220d41e4"
+    },
+    "heuristic-activation-mana-v1-0-full_replay/raw.json": {
+      "bytes": 15241,
+      "sha256": "21022ca12d340577ba1832a0f8fdcd0db4eb803384f7efba412a6d08656b30d6"
+    },
+    "heuristic-activation-mana-v1-0-full_replay/report.json": {
+      "bytes": 24508,
+      "sha256": "0c8fd67761be9cdff863ae98460d871e4f8f950092bee57308a55f9b82e78774"
+    },
+    "heuristic-activation-mana-v1-0-full_replay/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-full_replay/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-off/collection.json": {
+      "bytes": 1620,
+      "sha256": "750b92c03c0ba9913b3bafbd6e248fd085dee21d1feed9732499ffc323f21ba9"
+    },
+    "heuristic-activation-mana-v1-0-off/config.json": {
+      "bytes": 414,
+      "sha256": "93489a802c9bed8de596c7d446cde13cfe383119f72e3e5e7ce870dd7d88c5e6"
+    },
+    "heuristic-activation-mana-v1-0-off/raw.json": {
+      "bytes": 11326,
+      "sha256": "5357c63e498c85a6ec6167c5ff4ac559c75df02a89968298f3afebe9ef899f0d"
+    },
+    "heuristic-activation-mana-v1-0-off/report.json": {
+      "bytes": 18149,
+      "sha256": "9b8f1db1dc1e6e1181ef347455ec07928b77ebad9954b824e62e96b686c435c7"
+    },
+    "heuristic-activation-mana-v1-0-off/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-off/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-sampled_trace/collection.json": {
+      "bytes": 1639,
+      "sha256": "de7ba2dbdd451853fd07a5d5589221e6318bdf8a385a553d1b42c75eaf21c7cd"
+    },
+    "heuristic-activation-mana-v1-0-sampled_trace/config.json": {
+      "bytes": 479,
+      "sha256": "be0d1c750d189f20ce4e8d652a08f1abb8cb72443a1775dd30b79b565d2a4b4a"
+    },
+    "heuristic-activation-mana-v1-0-sampled_trace/raw.json": {
+      "bytes": 15525,
+      "sha256": "1c0bd0ef787dcef48c52305ccd8fd0be390957c107676cd7dffff0a30c379e1f"
+    },
+    "heuristic-activation-mana-v1-0-sampled_trace/report.json": {
+      "bytes": 24900,
+      "sha256": "c87b885c602a16fd9246da4089eb828a3897e390067de46ee2617cb8ed0b6d85"
+    },
+    "heuristic-activation-mana-v1-0-sampled_trace/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-0-sampled_trace/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-counters/collection.json": {
+      "bytes": 1629,
+      "sha256": "5413aa63946b7ec4bf68b35bc7006e0297119b07db53d1ac35d2c731e06f4661"
+    },
+    "heuristic-activation-mana-v1-1-counters/config.json": {
+      "bytes": 418,
+      "sha256": "f402a9126ac600239602a5c30b8c8eeffb6e85cd87106c59d91ba171bbee3417"
+    },
+    "heuristic-activation-mana-v1-1-counters/raw.json": {
+      "bytes": 15664,
+      "sha256": "15012b8e915180ccae4f5f0c9da3a45a7518d1cc7a9f1316403e17b5aa402e13"
+    },
+    "heuristic-activation-mana-v1-1-counters/report.json": {
+      "bytes": 25037,
+      "sha256": "922bfa24e152eb6ea616442283ae540fb09841bc6698985285d93bdb1ea5e4d3"
+    },
+    "heuristic-activation-mana-v1-1-counters/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-counters/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-full_replay/collection.json": {
+      "bytes": 1638,
+      "sha256": "a0de0c83fde46328429367dcf35a06aa22621c3243865c7cd9fbcf1677eb54bc"
+    },
+    "heuristic-activation-mana-v1-1-full_replay/config.json": {
+      "bytes": 421,
+      "sha256": "23a0108e6372d03a8db1829625d9cfac0043645585a9c612fcf6d9b6a0be757c"
+    },
+    "heuristic-activation-mana-v1-1-full_replay/raw.json": {
+      "bytes": 15525,
+      "sha256": "d2406117630d6d4d3ae7798a6fb940af0cda7c1590cc0e77bd16b56a79478c96"
+    },
+    "heuristic-activation-mana-v1-1-full_replay/report.json": {
+      "bytes": 24907,
+      "sha256": "05cd34c476b87f56ab23e1fa59287e9875711a0a8e119a29143c2408761c8d0c"
+    },
+    "heuristic-activation-mana-v1-1-full_replay/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-full_replay/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-off/collection.json": {
+      "bytes": 1619,
+      "sha256": "6ae023d0bc98bb1cb97419a68de368103ec6d034fc94226e893c83c06d403550"
+    },
+    "heuristic-activation-mana-v1-1-off/config.json": {
+      "bytes": 413,
+      "sha256": "14664a8bd5158c77a308372d7cb8da6e7c64f9e765a0119e97e1e1aa9a45eef5"
+    },
+    "heuristic-activation-mana-v1-1-off/raw.json": {
+      "bytes": 11617,
+      "sha256": "425b1a9b5217d4900466a03e2dde28ef35fd2503a6ce99ba625b9ed9a7748c06"
+    },
+    "heuristic-activation-mana-v1-1-off/report.json": {
+      "bytes": 18552,
+      "sha256": "067f7d175f0ede836e412456d5f80c3bca5e385a7f20ec90cb9d046b7c9c2471"
+    },
+    "heuristic-activation-mana-v1-1-off/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-off/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-sampled_trace/collection.json": {
+      "bytes": 1651,
+      "sha256": "d56cad7377b2852fcb4e5eeca0ac5d6501ec72e8b653669246a78deab4e55b49"
+    },
+    "heuristic-activation-mana-v1-1-sampled_trace/config.json": {
+      "bytes": 478,
+      "sha256": "f2a8bcea949677b7f6ab06e0cde1ec963e32c194b341f31d0c4e54c13e3633f4"
+    },
+    "heuristic-activation-mana-v1-1-sampled_trace/raw.json": {
+      "bytes": 15811,
+      "sha256": "2657f8d3baeb20fe69968cbe59cba58c37b70e8998d2469ba4277ca85fca1a72"
+    },
+    "heuristic-activation-mana-v1-1-sampled_trace/report.json": {
+      "bytes": 25311,
+      "sha256": "6c03878708451446cf72ff30523f81a96bf6b376497762c7fc7d7db0ccf59e92"
+    },
+    "heuristic-activation-mana-v1-1-sampled_trace/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "heuristic-activation-mana-v1-1-sampled_trace/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-counters/collection.json": {
+      "bytes": 1647,
+      "sha256": "219ac5d1038bae7db9e4d3b36d6d37b72762b4d598d62d4cc59d943f46ea5c2f"
+    },
+    "legal-random-activation-mana-v1-0-counters/config.json": {
+      "bytes": 425,
+      "sha256": "efa33755b2f42050736fa85baace7b5e870f085554bec533e447bb207660e58f"
+    },
+    "legal-random-activation-mana-v1-0-counters/raw.json": {
+      "bytes": 15297,
+      "sha256": "154006a933f9197bb943515967e0fc72ea883c9ead3f1946cbd28260edf3e584"
+    },
+    "legal-random-activation-mana-v1-0-counters/report.json": {
+      "bytes": 24575,
+      "sha256": "3aff32bf960de1e32da520c2512d3364569fe9d35f03c5cccd47052eeb682ade"
+    },
+    "legal-random-activation-mana-v1-0-counters/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-counters/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-full_replay-extended/collection.json": {
+      "bytes": 1674,
+      "sha256": "563f071c6721be378195d6acef11809c8d10ae170017a9ff40a055623f7d9121"
+    },
+    "legal-random-activation-mana-v1-0-full_replay-extended/config.json": {
+      "bytes": 429,
+      "sha256": "4d4e3aaa9bf7386cb08050600fc11feca720dfc05ad7b91058dce932d52a1902"
+    },
+    "legal-random-activation-mana-v1-0-full_replay-extended/raw.json": {
+      "bytes": 23634,
+      "sha256": "d78871b138f2b419097b1dc100a9f97d2dedd98ca53b45b1cfd69e7e86ee372e"
+    },
+    "legal-random-activation-mana-v1-0-full_replay-extended/report.json": {
+      "bytes": 38254,
+      "sha256": "606d68d8de85c5b8fca7809ee2eb2879f37fe11e4dcd91d1bf89c897555055cf"
+    },
+    "legal-random-activation-mana-v1-0-full_replay-extended/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-full_replay-extended/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-full_replay/collection.json": {
+      "bytes": 1645,
+      "sha256": "8d35a8cf41e960226ad12a83c75f9bbaf69c028a9837ebf9c68e4229dfb5e72f"
+    },
+    "legal-random-activation-mana-v1-0-full_replay/config.json": {
+      "bytes": 428,
+      "sha256": "015ce93bceaeb55777c3f5d9375f56eb1727553d44fc0706d073e53fcd992428"
+    },
+    "legal-random-activation-mana-v1-0-full_replay/raw.json": {
+      "bytes": 15216,
+      "sha256": "90fb19bcaa59149c9caa4796fdf5a3dec731d9299654809ebf99645e4bc6df9b"
+    },
+    "legal-random-activation-mana-v1-0-full_replay/report.json": {
+      "bytes": 24492,
+      "sha256": "0835298bbe6f08c38c26b2e37b1d47d4aaae49c4546999cf2506e2d2ac7b69ba"
+    },
+    "legal-random-activation-mana-v1-0-full_replay/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-full_replay/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-off/collection.json": {
+      "bytes": 1625,
+      "sha256": "f9b072ccfb381991b015f67188a8c1e1fad59b4cb64f9e89f4962c62de4281d1"
+    },
+    "legal-random-activation-mana-v1-0-off/config.json": {
+      "bytes": 420,
+      "sha256": "aed5ce4282f0de15e1599b8d8797fb012ee0b2076443e8893df5bc23d4067850"
+    },
+    "legal-random-activation-mana-v1-0-off/raw.json": {
+      "bytes": 11252,
+      "sha256": "4087fc562cc83944058e44404154e9127ff7d10ea8dc28045600b39e55c9bd0c"
+    },
+    "legal-random-activation-mana-v1-0-off/report.json": {
+      "bytes": 18080,
+      "sha256": "61ce3a07a6088466a8ce4fa21e5fc0c91d39be6e3c4cd998e8aec29cfed737f5"
+    },
+    "legal-random-activation-mana-v1-0-off/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-off/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-sampled_trace/collection.json": {
+      "bytes": 1645,
+      "sha256": "f907bf988df48dd162af67df1cdcd8198d3b9eba788c43146bd0796121273fbe"
+    },
+    "legal-random-activation-mana-v1-0-sampled_trace/config.json": {
+      "bytes": 485,
+      "sha256": "1bcbc3e1d47f76d46872f15c70e6fa5ffa7f4325a52b07368f2edb12e4f736a2"
+    },
+    "legal-random-activation-mana-v1-0-sampled_trace/raw.json": {
+      "bytes": 15445,
+      "sha256": "5462f814f9a0384f669bc7c02b4c59460e1f16dbcb9b745e2ebc2801ee6ea975"
+    },
+    "legal-random-activation-mana-v1-0-sampled_trace/report.json": {
+      "bytes": 24826,
+      "sha256": "45c13950cee25498d0b8733077417ef7c431960b6a1bab1fa1f66da7bc243fff"
+    },
+    "legal-random-activation-mana-v1-0-sampled_trace/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-0-sampled_trace/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-counters/collection.json": {
+      "bytes": 1647,
+      "sha256": "b0ad634258e70b5f6d3d2a72c0df1fc3ca900d3548616abdad1d3dda9d7aee7a"
+    },
+    "legal-random-activation-mana-v1-1-counters/config.json": {
+      "bytes": 424,
+      "sha256": "92e5fd338b7652e3de541cdf6735e39436c9d9a1cc35ca6b991f78af3f06f7eb"
+    },
+    "legal-random-activation-mana-v1-1-counters/raw.json": {
+      "bytes": 15573,
+      "sha256": "49cbafe323c4c2b673104d1ed41b2b2dfd33b85d2808f4211b8f4e8922e680fe"
+    },
+    "legal-random-activation-mana-v1-1-counters/report.json": {
+      "bytes": 24964,
+      "sha256": "5e5f8c880ddad055889eea5ce7ad7d1e87274ced587dc64338dbe74a8d9d601f"
+    },
+    "legal-random-activation-mana-v1-1-counters/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-counters/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-full_replay-extended/collection.json": {
+      "bytes": 1664,
+      "sha256": "bd0e4f1e8ee24d18b8d6ee14686c968181f7f216ce978cd4636ce7861500c807"
+    },
+    "legal-random-activation-mana-v1-1-full_replay-extended/config.json": {
+      "bytes": 428,
+      "sha256": "bc67abf63fd3dfba28ea8ad858a52536d37c151635ff72232ead9c3c42fa935b"
+    },
+    "legal-random-activation-mana-v1-1-full_replay-extended/raw.json": {
+      "bytes": 24058,
+      "sha256": "40714e1a27bb26f002ed69ad7e98e2bb10825174f2688b8448d4e56c10d733cf"
+    },
+    "legal-random-activation-mana-v1-1-full_replay-extended/report.json": {
+      "bytes": 38826,
+      "sha256": "d39a0405da52ae986f76690a3b8e3e8bd56216bee376938d612f4a24f19a837d"
+    },
+    "legal-random-activation-mana-v1-1-full_replay-extended/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-full_replay-extended/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-full_replay/collection.json": {
+      "bytes": 1645,
+      "sha256": "01025dfecd16c9083c91ea76864a81f9e15b2ac7ed83eb184d018459a4eebffc"
+    },
+    "legal-random-activation-mana-v1-1-full_replay/config.json": {
+      "bytes": 427,
+      "sha256": "447f2be86f167b6b8f2597762994ea54f280b7e357a08b96f298d66bddd9d55a"
+    },
+    "legal-random-activation-mana-v1-1-full_replay/raw.json": {
+      "bytes": 15509,
+      "sha256": "b91a52ddf3d106e53387188d0192eb67f15d9679c39b576f31d4e13d7a46393a"
+    },
+    "legal-random-activation-mana-v1-1-full_replay/report.json": {
+      "bytes": 24898,
+      "sha256": "8dc1eaa660ea9d53aa0811f254926f700d4bd630791842c1f1d4125af1ff8115"
+    },
+    "legal-random-activation-mana-v1-1-full_replay/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-full_replay/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-off/collection.json": {
+      "bytes": 1637,
+      "sha256": "90a6422ef6ef55c72b77b9d404c561eb14b4a37458d5d108ce27bcc7cee88217"
+    },
+    "legal-random-activation-mana-v1-1-off/config.json": {
+      "bytes": 419,
+      "sha256": "22f9013a52e082b63160944ab4f896190ae5b5b27cf7cc20ee820a3f8510e1a8"
+    },
+    "legal-random-activation-mana-v1-1-off/raw.json": {
+      "bytes": 11530,
+      "sha256": "426f3bda206f71cd5967a37a36e4d5db8aa152208062df1a4a1740771c439320"
+    },
+    "legal-random-activation-mana-v1-1-off/report.json": {
+      "bytes": 18483,
+      "sha256": "856684f8ea821b37d4adefb5cdc21ef7ad86e806a5861dcc32bcc7dc8e37b1bc"
+    },
+    "legal-random-activation-mana-v1-1-off/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-off/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-sampled_trace/collection.json": {
+      "bytes": 1646,
+      "sha256": "427832bc0cc1912919817ca1065b1276337631f8be2160610b7afb2b04c16bed"
+    },
+    "legal-random-activation-mana-v1-1-sampled_trace/config.json": {
+      "bytes": 484,
+      "sha256": "03ffb0454c60650a33bb8e0370c314dd1aa348f618ed01a34666cf2f865d35fd"
+    },
+    "legal-random-activation-mana-v1-1-sampled_trace/raw.json": {
+      "bytes": 15716,
+      "sha256": "3c031050a6a77461f8c50ae983ae31e17997d7bf2f59a62fcb1b612d3ae10cc3"
+    },
+    "legal-random-activation-mana-v1-1-sampled_trace/report.json": {
+      "bytes": 25211,
+      "sha256": "67bd3d0edddd9985bb6469b6db21620c474c35914de88e5d1b778104a121e870"
+    },
+    "legal-random-activation-mana-v1-1-sampled_trace/stderr.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "legal-random-activation-mana-v1-1-sampled_trace/stdout.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "schema_version": 1
+}

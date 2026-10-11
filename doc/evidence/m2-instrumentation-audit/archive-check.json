@@ -1,0 +1,25 @@
+{
+  "audit_base": "c779b190ed28ff845741c4ce1149f71e55ec675b",
+  "scope": "Read-only archive recomputation; not a new native measurement",
+  "reports": 18,
+  "windows": 100,
+  "totals": {
+    "elapsed_ns": 3091847303512,
+    "attempts": 7204,
+    "started": 7204,
+    "completed": 7204,
+    "failed": 0,
+    "truncated": 0,
+    "unfinished": 0,
+    "concessions": 0,
+    "draws": 0,
+    "decisions": 7181389
+  },
+  "hash_verified_archives": {
+    "throughput.tar.gz": "0346835eed5392de88d31b6a3409bb157a409d1fa10de2be1fcc3d232bee4367",
+    "privileged-diagnostics.tar.gz": "8b04feb31079c64b7384c81a933bca67c0b0ff1794ee1d59592cce1c27130a4a"
+  },
+  "published_summary_reproduced": true,
+  "all_warmups_at_least_10_seconds": true,
+  "all_windows_at_least_30_seconds": true
+}

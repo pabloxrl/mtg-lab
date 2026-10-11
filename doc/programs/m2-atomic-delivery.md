@@ -459,3 +459,13 @@ not usable commands, setup, supported engine behavior, delivered architecture or
 verified M1 verdict. No root README change is needed. The independently reviewed
 README must keep its six-card limitation and M2 pending status; this plan is linked
 from the atomic delivery guide. All new support claims belong to future deliveries.
+
+## Additional audit repair prerequisites
+
+Operations #268 adds the [atomic audit repair graph and clause crosswalk](m2-audit-repair-prerequisites.md)
+and [complete child acceptance contracts](m2-audit-repair-contracts.md). #269–#277
+deliver the missing initial normal-reset reference contracts before #24; #278–#281
+deliver sampled scalar timings, a new four-mode benchmark, fixed-trace profiles
+and measurements before #25. All original tasks, cases, owners, source pins,
+expectations and aggregate acceptance above remain unchanged; ownership is additive.
+#26 retains every M2 ancestor. Registration is not implementation or milestone completion.

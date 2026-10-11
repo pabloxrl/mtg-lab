@@ -1,0 +1,13 @@
+{
+  "authored_at": "2026-10-10T11:47:54.373421+00:00",
+  "status": "authored before new adapter implementation; baseline queued",
+  "sha256": {
+    "tests/test_m2_repair_priority.py": "e0bfde834a4888bdd55ad82fa109a4a3e895f7adef6a9d78c8cdd7d617736ac1",
+    "fixtures/reference/author_priority.py": "911e8e511298d1a23aa3abccf10f74e6a3c7689be04fc4606114264123d7233a",
+    "fixtures/reference/full-pool-priority.json": "a12e33ea21d27b91d3201caadee96d718a2e452429f522bcee57de4e480ecc22",
+    "fixtures/reference/full-pool-priority-final.json": "c8cd4ee2adad893cbd72d0a1e253351ba789c590bb1a3b4a9511dc218b8c3a38",
+    "fixtures/reference/full-pool-priority-native.json": "5b3cc54d3de7986f8c91ee1f2417ae9cb7d61e619c03889f9876d65e36196389",
+    "fixtures/reference/full-pool-priority-negative-inputs.json": "91546bca11aef352595d8ef46840afff1a744b66d39bff5017aff32b7aeba9a1",
+    "fixtures/reference/full-pool-priority-oracle.md": "e338bcf4cc366196f03cf3b11bc539aaa867c360694673d52dbf02f5b74caffe"
+  }
+}

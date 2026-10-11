@@ -54,6 +54,7 @@ fn select_block(g: &mut Game, bs: &[(Handle, Handle)]) {
 fn damage(g: &mut Game) {
     let d = g.turn_decision().unwrap();
     g.finish_combat(d.actor, d.id).unwrap();
+    g.choose_candidate_order_for_legacy_fixture();
 }
 fn unchanged<T: std::fmt::Debug + PartialEq>(
     g: &mut Game,
@@ -673,6 +674,7 @@ fn combat_quantum_finish(g: &mut Game, budget: usize) -> usize {
     assert_eq!(g.resume(q), progress);
     assert_eq!(g.resume(NonZeroUsize::MAX), progress);
     assert_eq!(g.snapshot(), before);
+    g.choose_candidate_order_for_legacy_fixture();
     yields
 }
 fn combat_quantum_setup(active: Seat) -> Game {
@@ -1708,6 +1710,7 @@ fn deathtouch_trample_synthetic_seven_six_both_seats_quantum_and_rejection() {
                 assert!(g.policy_observe(actor, 256).is_err());
                 p = g.resume(q);
             }
+            g.choose_candidate_order_for_legacy_fixture();
             let mut life = [20, 20];
             life[seat_index(defender)] = 15;
             assert_eq!(g.life(), life);
@@ -1851,5 +1854,250 @@ fn deathtouch_reference_literal_checkpoints() {
     }
     if let Ok(path) = std::env::var("MTG_DEATHTOUCH_OUTPUT") {
         std::fs::write(path, serde_json::to_vec_pretty(&results).unwrap()).unwrap();
+    }
+}
+
+// CR 404.3, 704.3: all damage is marked before the owner chooses the
+// relative order of simultaneous arrivals; nobody has died or gets priority.
+#[test]
+fn simultaneous_graveyard_owner_boundary_before_any_death() {
+    let mut g = ready();
+    let a = add(&mut g, Seat::P0, "shivan-dragon");
+    let b = add(&mut g, Seat::P1, "magnigoth-sentry");
+    let c = add(&mut g, Seat::P1, "thornweald-archer");
+    pair(&mut g);
+    select_attack(&mut g, &[a]);
+    pair(&mut g);
+    select_block(&mut g, &[(b, a), (c, a)]);
+    pair(&mut g);
+    let d = g.turn_decision().unwrap();
+    let d = g
+        .assign_combat_damage(d.actor, d.id, a, &[(b, 4), (c, 1)])
+        .unwrap();
+    g.finish_combat(d.actor, d.id).unwrap();
+    let d = g.policy_observe(Seat::P1, 256).unwrap().decision;
+    assert_eq!(
+        d.as_ref().map(|d| d.kind),
+        Some("graveyard_order"),
+        "CR404.3 owner must choose before simultaneous SBA moves"
+    );
+    assert_eq!(g.creature_state(a).unwrap().damage, 6);
+    assert_eq!(g.creature_state(b).unwrap().damage, 4);
+    assert_eq!(g.creature_state(c).unwrap().damage, 1);
+    assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P0)).count(), 0);
+    assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P1)).count(), 0);
+}
+
+fn graveyard_trade(active: Seat) -> (Game, [Handle; 2], [Handle; 2]) {
+    let mut g = ready();
+    g.turns.position = Some((3, active, Step::BeginningCombat));
+    g.set_turn_decision(active, TurnKind::Priority);
+    let other = super::super::turns::opponent(active);
+    let a = [
+        add(&mut g, active, "bear-cub"),
+        add(&mut g, active, "swab-goblin"),
+    ];
+    let b = [
+        add(&mut g, other, "bear-cub"),
+        add(&mut g, other, "swab-goblin"),
+    ];
+    for seat in [active, other] {
+        g.objects
+            .allocate(
+                CardId::from_key("forest").unwrap(),
+                seat,
+                Zone::Graveyard(seat),
+            )
+            .unwrap();
+    }
+    pair(&mut g);
+    select_attack(&mut g, &a);
+    pair(&mut g);
+    select_block(&mut g, &[(b[0], a[0]), (b[1], a[1])]);
+    pair(&mut g);
+    let d = g.turn_decision().unwrap();
+    g.finish_combat(d.actor, d.id).unwrap();
+    (g, a, b)
+}
+#[test]
+fn simultaneous_graveyard_both_orders_both_seats_apnap_and_replay() {
+    for active in [Seat::P0, Seat::P1] {
+        for reverse in [false, true] {
+            let (mut g, a, b) = graveyard_trade(active);
+            let other = super::super::turns::opponent(active);
+            for (seat, hs) in [(active, a), (other, b)] {
+                let d = g.turn_decision().unwrap();
+                assert_eq!(d.actor, seat);
+                assert_eq!(d.kind, TurnKind::GraveyardOrder);
+                // Every creature still exists with its lethal mark after the
+                // first owner's choice. No member moves until both choose.
+                for h in a.into_iter().chain(b) {
+                    assert_eq!(g.creature_state(h).unwrap().damage, 2);
+                }
+                assert_eq!(g.objects.in_zone(Zone::Graveyard(active)).count(), 1);
+                assert_eq!(g.objects.in_zone(Zone::Graveyard(other)).count(), 1);
+                let mut restored = Game::new().unwrap();
+                restored.restore(&g.snapshot()).unwrap();
+                let observation = g.policy_observe(seat, 256).unwrap();
+                assert_eq!(
+                    observation.graveyard_orders.len(),
+                    usize::from(seat != active)
+                );
+                if seat != active {
+                    assert_eq!(observation.graveyard_orders[0].0, seat_index(active) as u8);
+                }
+                let d = observation.decision.unwrap();
+                let mut choices = d.candidates;
+                if reverse {
+                    choices.reverse();
+                }
+                let sub = policy::Submission {
+                    revision: d.revision,
+                    generation: d.generation,
+                    schema_version: policy::SCHEMA_VERSION,
+                    choices,
+                };
+                let bytes = actions::encode(&g, seat, &sub, 256).unwrap();
+                actions::apply(&mut g, &bytes, 256).unwrap();
+                actions::apply(&mut restored, &bytes, 256).unwrap();
+                assert_eq!(
+                    g.policy_observe(seat, 256).unwrap(),
+                    restored.policy_observe(seat, 256).unwrap()
+                );
+                let _ = hs;
+            }
+            assert_eq!(g.turn_decision().unwrap().kind, TurnKind::Priority);
+            for seat in [active, other] {
+                let keys = g
+                    .objects
+                    .in_zone(Zone::Graveyard(seat))
+                    .map(|h| g.objects.get(h).unwrap().card.identity().key)
+                    .collect::<Vec<_>>();
+                assert_eq!(
+                    keys,
+                    if reverse {
+                        vec!["forest", "swab-goblin", "bear-cub"]
+                    } else {
+                        vec!["forest", "bear-cub", "swab-goblin"]
+                    }
+                );
+            }
+        }
+    }
+}
+#[test]
+fn simultaneous_graveyard_invalid_choices_are_transactional() {
+    let (mut g, a, b) = graveyard_trade(Seat::P0);
+    let d = g.turn_decision().unwrap();
+    for invalid in [
+        vec![],
+        vec![a[0]],
+        vec![a[0], a[0]],
+        vec![a[0], b[0]],
+        vec![a[0], a[1], b[0]],
+    ] {
+        unchanged(&mut g, Err(CombatError::IllegalGraveyardOrder), |g| {
+            g.order_graveyard(d.actor, d.id, &invalid)
+        });
+    }
+    unchanged(
+        &mut g,
+        Err(CombatError::Invalid(ApplyError::WrongActor)),
+        |g| g.order_graveyard(Seat::P1, d.id, &a),
+    );
+    let old = d.id;
+    g.order_graveyard(d.actor, d.id, &a).unwrap();
+    unchanged(
+        &mut g,
+        Err(CombatError::Invalid(ApplyError::StaleDecision)),
+        |g| g.order_graveyard(Seat::P1, old, &b),
+    );
+    let d = g.turn_decision().unwrap();
+    g.order_graveyard(d.actor, d.id, &b).unwrap();
+    let d = g.turn_decision().unwrap();
+    unchanged(&mut g, Err(CombatError::NotReady), |g| {
+        g.order_graveyard(d.actor, d.id, &[])
+    });
+}
+// CR111.6: tokens are not cards. CR404.3 orders cards; token deaths still
+// belong to the same simultaneous event and cease under CR704.5d.
+#[test]
+fn simultaneous_graveyard_tokens_do_not_create_card_choices() {
+    for count in 0..=2 {
+        let mut g = ready();
+        let a = add(&mut g, Seat::P0, "tajuru-pathwarden");
+        let token = add(&mut g, Seat::P1, "goblin-token");
+        let cards = (0..count)
+            .map(|_| add(&mut g, Seat::P1, "swab-goblin"))
+            .collect::<Vec<_>>();
+        pair(&mut g);
+        select_attack(&mut g, &[a]);
+        pair(&mut g);
+        let blockers = std::iter::once(token)
+            .chain(cards.iter().copied())
+            .map(|h| (h, a))
+            .collect::<Vec<_>>();
+        select_block(&mut g, &blockers);
+        pair(&mut g);
+        let amounts = std::iter::once((token, 1))
+            .chain(cards.iter().map(|h| (*h, 2)))
+            .collect::<Vec<_>>();
+        let d = g.turn_decision().unwrap();
+        let d = g.assign_combat_damage(d.actor, d.id, a, &amounts).unwrap();
+        g.finish_combat(d.actor, d.id).unwrap();
+        if count < 2 {
+            assert_eq!(
+                g.turn_decision().unwrap().kind,
+                TurnKind::Priority,
+                "CR111.6/404.3 a token is not an additional card to order"
+            );
+        } else {
+            assert_eq!(
+                g.graveyard_candidates(Seat::P1),
+                cards,
+                "only cards are owner-order candidates"
+            );
+            let d = g.turn_decision().unwrap();
+            let order = cards.iter().rev().copied().collect::<Vec<_>>();
+            g.order_graveyard(d.actor, d.id, &order).unwrap();
+        }
+        assert!(g.objects.get(token).is_err());
+        assert_eq!(g.objects.in_zone(Zone::Graveyard(Seat::P1)).count(), count);
+    }
+}
+
+// CR104.3a: concession is legal without priority and ends the game immediately.
+// A pending CR404.3 choice must not survive as an orphaned snapshot boundary.
+#[test]
+fn simultaneous_graveyard_concession_clears_pending_choice_and_restores() {
+    for active in [Seat::P0, Seat::P1] {
+        for first_chosen in [false, true] {
+            for loser in [Seat::P0, Seat::P1] {
+                let (mut g, a, b) = graveyard_trade(active);
+                if first_chosen {
+                    let d = g.turn_decision().unwrap();
+                    g.order_graveyard(active, d.id, &a).unwrap();
+                }
+                assert_eq!(g.turn_decision().unwrap().kind, TurnKind::GraveyardOrder);
+                let outcome = g.concede(loser, g.episode_id().unwrap()).unwrap();
+                assert_eq!(outcome.winner, Some(super::super::turns::opponent(loser)));
+                let mut restored = Game::new().unwrap();
+                assert_eq!(
+                    restored.restore(&g.snapshot()),
+                    Ok(()),
+                    "terminal snapshot must not retain an orphaned owner-choice batch"
+                );
+                assert_eq!(restored.outcome(), Some(outcome));
+                assert!(
+                    g.policy_observe(loser, 256)
+                        .unwrap()
+                        .graveyard_orders
+                        .is_empty()
+                );
+                for h in a.into_iter().chain(b) {
+                    assert_eq!(g.objects.get(h).unwrap().zone, Zone::Battlefield);
+                }
+            }
+        }
     }
 }

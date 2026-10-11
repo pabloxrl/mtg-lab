@@ -2,7 +2,7 @@
 use super::*;
 use std::collections::BTreeMap;
 
-pub const VERSION: u32 = 1;
+pub const VERSION: u32 = 2; // Explicit owner-order decisions at simultaneous combat deaths.
 const FORMAT: &str = "mtg-core-played-replay";
 // The fixed M1 pool has 80 cards and factored choices, not subset enumeration.
 const CAPACITY: usize = 256;

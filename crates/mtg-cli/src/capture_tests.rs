@@ -588,3 +588,88 @@ fn full_replay_write_failure_and_off_trajectory_persistence() {
         }
     }
 }
+
+#[test]
+fn sampled_latency_full_deck_mode_capture_encoding_state_rng_and_records_equal() {
+    use mtg_core::metrics::Mode;
+    for ordinal in 0..8 {
+        let mut baseline = None;
+        let mut captured = None;
+        for mode in [
+            Mode::Off,
+            Mode::Counters,
+            Mode::SampledTrace,
+            Mode::FullReplay,
+        ] {
+            for encode in [false, true] {
+                for capture in [false, true] {
+                    let root = Root::new();
+                    let mut c = root.config(false);
+                    c.max_decisions = 64;
+                    c.first_episode = ordinal;
+                    crate::benchmark::full_pool_row(&mut c, ordinal);
+                    c.native.as_mut().unwrap().instrumentation = mode;
+                    if !capture {
+                        c.capture = None;
+                    }
+                    let mut timing = crate::native::PolicyTiming {
+                        encode,
+                        ..Default::default()
+                    };
+                    let mut results = vec![];
+                    let mut bytes = vec![];
+                    assert_eq!(
+                        crate::native::run_instrumented(
+                            &c,
+                            &mut bytes,
+                            || None,
+                            &mut |_, _| Ok(()),
+                            &mut |r| results.push(r.clone()),
+                            Some(&mut timing)
+                        )
+                        .unwrap(),
+                        0
+                    );
+                    assert_eq!(results.len(), 1);
+                    let r = &results[0];
+                    assert_eq!(r.accepted_decisions(), 64);
+                    let state = (
+                        normalized(r.privileged_snapshot()),
+                        r.privileged_history().to_vec(),
+                    );
+                    match &baseline {
+                        None => baseline = Some(state),
+                        Some(expected) => assert_eq!(
+                            &state, expected,
+                            "row {ordinal}: mode/capture/encoding must preserve full state, RNG and actions"
+                        ),
+                    }
+                    if capture {
+                        let mut records =
+                            serde_json::to_value(r.trajectory().unwrap().decisions()).unwrap();
+                        // Publication run UUIDs are deliberately fresh and unrelated
+                        // to game/policy RNG; compare every semantic record field.
+                        for decision in records.as_array_mut().unwrap() {
+                            decision["episode"]["run"] = json!("same-run");
+                        }
+                        match &captured {
+                            None => captured = Some(records),
+                            Some(expected) => assert_eq!(&records, expected),
+                        }
+                    }
+                    let rows = rows(&bytes);
+                    if mode == Mode::Off {
+                        assert!(rows.last().unwrap().get("latency").is_none());
+                    } else {
+                        let p = &rows.last().unwrap()["latency"]["phases"];
+                        assert_eq!(p["reset"]["count"], 1);
+                        assert_eq!(
+                            p["encoding"]["status"],
+                            if encode { "measured" } else { "not_measured" }
+                        );
+                    }
+                }
+            }
+        }
+    }
+}

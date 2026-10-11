@@ -47,7 +47,7 @@ replay IDs, persist a grant, or authenticate provenance. Successful opening
 verification retains its `scope: "opening-v1"` summary. Played verification emits:
 
 ```json
-{"schema_version":1,"type":"replay_verification","status":"verified","scope":"played-v1","checkpoint":"terminal","life":[20,20],"outcome":{"winner":"P0","losses":[null,"Concession"]}}
+{"schema_version":1,"type":"replay_verification","status":"verified","scope":"played-v2","checkpoint":"terminal","life":[20,20],"outcome":{"winner":"P0","losses":[null,"Concession"]}}
 ```
 
 This example describes a P1 concession with unchanged life; life/outcome reflect

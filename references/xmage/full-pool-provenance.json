@@ -1,0 +1,52 @@
+{
+  "origin": "Original CR 103 occurrence/reset tests; no copied upstream scenario.",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "consulted_sources": [
+    {
+      "path": "Mage/src/main/java/mage/game/GameImpl.java",
+      "sha256": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859"
+    },
+    {
+      "path": "Mage/src/main/java/mage/players/PlayerImpl.java",
+      "sha256": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e"
+    },
+    {
+      "path": "Mage/src/main/java/mage/players/Library.java",
+      "sha256": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c"
+    },
+    {
+      "path": "Mage/src/main/java/mage/players/Players.java",
+      "sha256": "969d04eca0a0b6794142f64f123e8226aa7b368a277851f264d85c8ad55ffb83"
+    },
+    {
+      "path": "Mage/src/main/java/mage/game/mulligan/Mulligan.java",
+      "sha256": "8753cf8165f4a71aedd2e1029c6783bc99e8ba8ef87997dd3ca081ac0c8d32db"
+    },
+    {
+      "path": "Mage/src/main/java/mage/game/mulligan/LondonMulligan.java",
+      "sha256": "abea450526a3ebcfe6d29c9a52656e474f79f8b6e60d9bb74639eb6083c5b80b"
+    },
+    {
+      "path": "Mage.Server.Plugins/Mage.Game.TwoPlayerDuel/src/mage/game/TwoPlayerDuel.java",
+      "sha256": "0d485bb64cd64b666147e7d653aa65014168d6c321d42fee228e7c41fa4512db"
+    },
+    {
+      "path": "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java",
+      "sha256": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb"
+    },
+    {
+      "path": "Mage.Sets/src/mage/sets/Foundations.java",
+      "sha256": "9468a0eb1e8114fab9eb765d3722533576cb374486d801074d133a4ac67ac429"
+    },
+    {
+      "path": "Mage/src/main/java/mage/cards/ExpansionSet.java",
+      "sha256": "ef8a0ca3a1bfd0bbbf04d1165e1e96cb8b2900af42870572ff3b0532344cab5a"
+    },
+    {
+      "path": "Mage/src/main/java/mage/cards/decks/Deck.java",
+      "sha256": "cea1242c8c6baeede1f44caf537d5cb8423f4e820d51c6ba966f4067d1f2abfa"
+    }
+  ],
+  "notice": "UPSTREAM-LICENSE.txt",
+  "scope": "Normal initial shuffle and seven-card draw, bounded stop at first declaration; no mulligan execution, ongoing game or Forge claim."
+}

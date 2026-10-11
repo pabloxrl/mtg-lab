@@ -1,0 +1,46 @@
+Symphony resource lock: waiting for heavy (0s elapsed)
+Symphony resource lock: waiting for heavy (30s elapsed)
+Symphony resource lock: waiting for heavy (60s elapsed)
+Symphony resource lock: waiting for heavy (90s elapsed)
+Symphony resource lock: waiting for heavy (120s elapsed)
+Symphony resource lock: waiting for heavy (150s elapsed)
+Symphony resource lock: waiting for heavy (180s elapsed)
+Symphony resource lock: waiting for heavy (210s elapsed)
+Symphony resource lock: waiting for heavy (240s elapsed)
+Symphony resource lock: waiting for heavy (270s elapsed)
+Symphony resource lock: waiting for heavy (300s elapsed)
+Symphony resource lock: waiting for heavy (330s elapsed)
+Symphony resource lock: waiting for heavy (361s elapsed)
+Symphony resource lock: waiting for heavy (391s elapsed)
+Symphony resource lock: waiting for heavy (421s elapsed)
+Symphony resource lock: waiting for heavy (451s elapsed)
+Symphony resource lock: waiting for heavy (481s elapsed)
+Symphony resource lock: waiting for heavy (511s elapsed)
+Symphony resource lock: waiting for heavy (541s elapsed)
+Symphony resource lock: waiting for heavy (571s elapsed)
+Symphony resource lock: waiting for heavy (601s elapsed)
+Symphony resource lock: waiting for heavy (631s elapsed)
+Symphony resource lock: waiting for heavy (661s elapsed)
+Symphony resource lock: waiting for heavy (691s elapsed)
+Symphony resource lock: waiting for heavy (721s elapsed)
+Symphony resource lock: acquired heavy after waiting
+    Finished `test` profile [optimized + debuginfo] target(s) in 0.01s
+     Running unittests src/lib.rs (target/debug/deps/mtg_core-8a8a04bfce16af5e)
+
+running 1 test
+
+thread 'game::combat::tests::simultaneous_graveyard_tokens_do_not_create_card_choices' (449548) panicked at crates/mtg-core/src/combat_tests.rs:2038:13:
+assertion `left == right` failed: CR111.6/404.3 a token is not an additional card to order
+  left: GraveyardOrder
+ right: Priority
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test game::combat::tests::simultaneous_graveyard_tokens_do_not_create_card_choices ... FAILED
+
+failures:
+
+failures:
+    game::combat::tests::simultaneous_graveyard_tokens_do_not_create_card_choices
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 324 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p mtg-core --lib`

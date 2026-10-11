@@ -1,0 +1,8 @@
+{
+  "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 2\noom_group_kill 0",
+  "memory.max": "7516192768",
+  "memory.peak": "7332216832",
+  "memory.current": "1812119552",
+  "captured_utc": "2026-10-11T11:40:29.830319+00:00",
+  "limitation": "OOM counters are cumulative; the captured native-child SIGKILL is the direct failure evidence."
+}

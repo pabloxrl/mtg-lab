@@ -15,6 +15,62 @@ use mtg_recorder::{
 };
 use std::{collections::BTreeSet, num::NonZeroUsize};
 
+/// Input provenance only: these captured states are NOT independent expected
+/// checkpoints. Admission must author its rules oracle before comparison.
+#[test]
+fn admission_heuristic_origins_are_complete_and_replay_without_a_policy() {
+    for decks in [
+        ["red", "green"],
+        ["green", "red"],
+        ["red", "red"],
+        ["green", "green"],
+    ] {
+        for start in [0, 1] {
+            let run = Run {
+                id: "27700000-1234-4234-8234-123456789abc".into(),
+                config: Config {
+                    starting_seat: start,
+                    seats: decks
+                        .map(|deck| mtg_core::game::DeckConfig {
+                            deck: deck.into(),
+                            order: None,
+                        })
+                        .to_vec(),
+                    ..Config::default()
+                },
+                policies: [HEURISTIC_VERSION.into(), HEURISTIC_VERSION.into()],
+                limits: Limits::default(),
+                first_ordinal: 7,
+                started: 1,
+            };
+            let mut result = play(&run, false, true, NonZeroUsize::MAX, &mut BTreeSet::new());
+            let mut registry = mtg_core::episode::replay::Registry::default();
+            registry
+                .register("27700000-1234-4234-8234-123456789abd", &mut result)
+                .unwrap();
+            let bytes = registry
+                .resolve("27700000-1234-4234-8234-123456789abd", &result, |_, _| true)
+                .unwrap();
+            let replay = mtg_core::game::replay::played::verify(bytes).unwrap();
+            assert!(
+                replay.outcome().is_some(),
+                "a heuristic origin must reach a rules ending"
+            );
+            if let Ok(folder) = std::env::var("MTG_ADMISSION_ORIGINS") {
+                let id = format!("{}-{}-s{start}", decks[0], decks[1]);
+                let folder = std::path::Path::new(&folder);
+                std::fs::create_dir_all(folder).unwrap();
+                std::fs::write(folder.join(format!("{id}.replay.json")), bytes).unwrap();
+                std::fs::write(
+                    folder.join(format!("{id}.policy.json")),
+                    serde_json::to_vec(result.trajectory().unwrap()).unwrap(),
+                )
+                .unwrap();
+            }
+        }
+    }
+}
+
 fn play(
     run: &Run,
     random: bool,

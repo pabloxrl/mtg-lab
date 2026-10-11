@@ -1,0 +1,166 @@
+Symphony resource lock: acquired heavy
+...FFFFFFFFFFFFFFFFFFFF...
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='extra_field')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='extra_pass')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='insufficient_mana')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='insufficient_payment')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='missing_empty_declaration')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='missing_pass')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='off_turn_creature')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='reordered_pass')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='reuse_old_cast_source')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='schema')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='second_land')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='stale_incarnation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='stale_source')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='unscripted_mana')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='unsupported_callback')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='unsupported_stop')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='wrong_actor')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='wrong_color')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='wrong_step')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_late_exhaustion_cannot_satisfy_illegal_action_controls (test_m2_repair_priority.PriorityTests.test_late_exhaustion_cannot_satisfy_illegal_action_controls) (control='wrong_turn')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-271/tests/test_m2_repair_priority.py", line 62, in test_late_exhaustion_cannot_satisfy_illegal_action_controls
+    with self.assertRaises(ValueError):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 7 tests in 15.938s
+
+FAILED (failures=20)

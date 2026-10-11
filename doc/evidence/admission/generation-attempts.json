@@ -1,0 +1,166 @@
+{
+  "archive": "generation-attempts.tar.gz",
+  "sha256": "0fbbbf19a43b36d99657fe067b274dddcd49a92275bd26bed28823dad9f70371",
+  "files": [
+    {
+      "path": "admission/heuristic-origins/green-green-s0.policy.json",
+      "bytes": 4107248,
+      "sha256": "211871738b699f7b1fb60d9c92a98b12027ef03b8e9619d061c3f23ad7987d35"
+    },
+    {
+      "path": "admission/heuristic-origins/green-green-s0.replay.json",
+      "bytes": 9571023,
+      "sha256": "7b3b980047e0b994fd578207222bb759d5d9033fa207c9fea0ebb72a25130c35"
+    },
+    {
+      "path": "admission/heuristic-origins/green-green-s1.policy.json",
+      "bytes": 3689813,
+      "sha256": "43f63c30f326afa847a5f358f0c3affbfde3fac63ac4a606d10bdce8a0f6a816"
+    },
+    {
+      "path": "admission/heuristic-origins/green-green-s1.replay.json",
+      "bytes": 8855751,
+      "sha256": "021587448b324e77051b9cff2d7e7bbce0b9fcdb225d7e21cafc96c443197b70"
+    },
+    {
+      "path": "admission/heuristic-origins/green-red-s0.policy.json",
+      "bytes": 4989159,
+      "sha256": "52534892477d9bbc919277a82be927b389356f64472173bfd92c08eea214087b"
+    },
+    {
+      "path": "admission/heuristic-origins/green-red-s0.replay.json",
+      "bytes": 10358371,
+      "sha256": "eaed9fdbb0f4cfe1a374086f955204f9d34e191063771844dc64b22abd5fc86b"
+    },
+    {
+      "path": "admission/heuristic-origins/green-red-s1.policy.json",
+      "bytes": 4088844,
+      "sha256": "cfa3e06e5da2877fa451417bf508a60984c4e6cea0a204ef853d246f52a142ff"
+    },
+    {
+      "path": "admission/heuristic-origins/green-red-s1.replay.json",
+      "bytes": 8963931,
+      "sha256": "1dd38b702222d64695a648f2fd3c762a6b028914ea9d2dac27da6ba48601ce2e"
+    },
+    {
+      "path": "admission/heuristic-origins/red-green-s0.policy.json",
+      "bytes": 3457831,
+      "sha256": "dc1943ad3bc9757294347ef5c50615e1f6c0ad03947861123165f1b6bb913b6f"
+    },
+    {
+      "path": "admission/heuristic-origins/red-green-s0.replay.json",
+      "bytes": 8109787,
+      "sha256": "c4ed6724f093a7e685efa6297102c3035b47b3b96e8641c81c78e4176eccf672"
+    },
+    {
+      "path": "admission/heuristic-origins/red-green-s1.policy.json",
+      "bytes": 4723943,
+      "sha256": "f10252aee3359a2dfd8b9b47365ce312f99de1cff01a5bca9dc873dc6b9d7b3b"
+    },
+    {
+      "path": "admission/heuristic-origins/red-green-s1.replay.json",
+      "bytes": 10253222,
+      "sha256": "67fda9f8ffd3068caa24c2339cad1cac1ac5729a493c6befd2f5e293294a1ccb"
+    },
+    {
+      "path": "admission/heuristic-origins/red-red-s0.policy.json",
+      "bytes": 6583282,
+      "sha256": "e56ea8fc802fed5ef25149e42a51680b6f369d4e50cbe362a0cceb5f7b9a9edf"
+    },
+    {
+      "path": "admission/heuristic-origins/red-red-s0.replay.json",
+      "bytes": 11757335,
+      "sha256": "9cf4b0be08dec8119df11cd39b371693bfb895ba2ea049295475cba61ad7f334"
+    },
+    {
+      "path": "admission/heuristic-origins/red-red-s1.policy.json",
+      "bytes": 6223474,
+      "sha256": "cb6c539d533987348ab1db4121b2d39f10d69884cd72ba96550c464202ecc8f0"
+    },
+    {
+      "path": "admission/heuristic-origins/red-red-s1.replay.json",
+      "bytes": 11521093,
+      "sha256": "0d7d24129d29ea390cedc024e32def9d796ea63a6c8a3d6b4b1e1daa33f565b4"
+    },
+    {
+      "path": "admission/occurrence-origins/green-green-s0.json",
+      "bytes": 27212600,
+      "sha256": "1077b54098b6bfc1c4ef25b09fbd47f7b09461f6029061a8919908543c0856dc"
+    },
+    {
+      "path": "admission/occurrence-origins/green-green-s1.json",
+      "bytes": 25078923,
+      "sha256": "063fbc8307c3713d91956b30bca9cb5cc165cfedbaed4cb96ce5bd1a5a1a0428"
+    },
+    {
+      "path": "admission/occurrence-origins/green-red-s0.json",
+      "bytes": 31351636,
+      "sha256": "e0a91b13a1c6a7c46848d68c26761a82f2da9b2db0352fca6695a0ffaa9d521a"
+    },
+    {
+      "path": "admission/occurrence-origins/green-red-s1.json",
+      "bytes": 26333864,
+      "sha256": "56a67061c0e8d1131ccf837f7d924f723bb97ab24e726f9d2f99032ecbc7efbf"
+    },
+    {
+      "path": "admission/occurrence-origins/red-green-s0.json",
+      "bytes": 22672318,
+      "sha256": "67d9378b5dc71ff6707bdfc118928739eb47a813bd963bf370d24276880f20ea"
+    },
+    {
+      "path": "admission/occurrence-origins/red-green-s1.json",
+      "bytes": 30266121,
+      "sha256": "c7354aebbe4157ef3e20d3dd433ce76bc798563d29040c1b4fba0f7a32784a52"
+    },
+    {
+      "path": "admission/occurrence-origins/red-red-s0.json",
+      "bytes": 38622774,
+      "sha256": "0427e703c5bedf7e885b4cde71ffeaa6ef52a7adb32e81a4213dfc5c8064481f"
+    },
+    {
+      "path": "admission/occurrence-origins/red-red-s1.json",
+      "bytes": 37094553,
+      "sha256": "b2782037fc60d6b35f49d070e432a0663ca8bd1b79b2e1111e0b5c9e83891ab4"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/green-green-s0.json",
+      "bytes": 60322839,
+      "sha256": "f7392a05ab795aeb8301bb2d1fef50ddb56a95dc308971497ba777b71a050e9a"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/green-green-s1.json",
+      "bytes": 55761544,
+      "sha256": "19e9c3c0238f7ccdc72203c4def94e882e219acaf971a1cb9c42cf92d3c6a5cd"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/green-red-s0.json",
+      "bytes": 66918613,
+      "sha256": "5ac90b2a247d1d3618ac985774a070d083379d16dabbcc4dcd9b490ae874839b"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/green-red-s1.json",
+      "bytes": 57065401,
+      "sha256": "3f078b0818b69cca629dbc7f11501a26a5b4ef05393edba32b813bee7eadb0c9"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/red-green-s0.json",
+      "bytes": 50181792,
+      "sha256": "fd3bea0d11dbc93d70aaeb877fd80c95d253b931271f18735cab9a08b776bcac"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/red-green-s1.json",
+      "bytes": 65551370,
+      "sha256": "d2d713a1e6b9f657552d709046e4ba614703576a0561ef73eb1aa68640a53e04"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/red-red-s0.json",
+      "bytes": 78790426,
+      "sha256": "bfa758f033715ff6ceb385034b523b6b3f7e1ebe557bbc8c9a87114261773a95"
+    },
+    {
+      "path": "admission/occurrence-origins-v2/red-red-s1.json",
+      "bytes": 76550049,
+      "sha256": "d36657bb97aff4c5a351747c787f3fae801ce80414244a13ce7f221884e114c7"
+    }
+  ]
+}

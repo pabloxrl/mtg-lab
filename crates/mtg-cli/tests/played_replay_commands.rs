@@ -211,7 +211,7 @@ fn played_and_opening_verify_with_literal_public_summary() {
     assert_eq!(
         rows,
         vec![json!({"schema_version":1,"type":"replay_verification",
-        "status":"verified","scope":"played-v1","checkpoint":"terminal",
+        "status":"verified","scope":"played-v2","checkpoint":"terminal",
         "life":[20,20],"outcome":{"winner":"P0","losses":[null,"Concession"]}})]
     );
     let output = d.path("summary.jsonl");
@@ -231,9 +231,23 @@ fn played_and_opening_verify_with_literal_public_summary() {
 }
 #[test]
 fn routing_rejects_unsupported_missing_and_duplicate_discriminators() {
+    // The played envelope is now v2; v1 must still fail explicitly, while
+    // 999 is unsupported by both the opening and played formats.
+    let mut legacy: Value = serde_json::from_slice(&played()).unwrap();
+    legacy["version"] = json!(1);
+    rejected(&serde_json::to_vec(&legacy).unwrap(), "Incompatible");
+    let mut unsupported_opening: Value = serde_json::from_slice(&opening()).unwrap();
+    unsupported_opening["version"] = json!(2);
+    rejected(
+        &serde_json::to_vec(&unsupported_opening).unwrap(),
+        "Incompatible",
+    );
     for bytes in [played(), opening()] {
         let original: Value = serde_json::from_slice(&bytes).unwrap();
-        for (field, value) in [("format", json!("PRIVATE_PAYLOAD")), ("version", json!(2))] {
+        for (field, value) in [
+            ("format", json!("PRIVATE_PAYLOAD")),
+            ("version", json!(999)),
+        ] {
             let mut v = original.clone();
             v[field] = value;
             rejected(&serde_json::to_vec(&v).unwrap(), "Incompatible");
@@ -254,6 +268,15 @@ fn routing_rejects_unsupported_missing_and_duplicate_discriminators() {
             "mtg-core-played-replay"
         } else {
             "mtg-core-opening-replay"
+        });
+        // Swapping only the format now creates an incompatible version pair.
+        rejected(&serde_json::to_vec(&v).unwrap(), "Incompatible");
+        // Preserve the original wrong-format-body rejection after routing
+        // through a valid discriminator for the destination format.
+        v["version"] = json!(if v["format"] == "mtg-core-opening-replay" {
+            1
+        } else {
+            2
         });
         rejected(&serde_json::to_vec(&v).unwrap(), "Malformed");
     }

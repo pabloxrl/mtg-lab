@@ -17,3 +17,12 @@ pub mod trajectory;
 
 pub mod episode;
 pub mod metrics;
+
+// Reuse the actual policy in privileged reference-generation tests without a
+// production dependency cycle or a second implementation of its strategy.
+#[cfg(test)]
+extern crate self as mtg_core;
+#[cfg(test)]
+#[path = "../../mtg-policy/src/lib.rs"]
+#[allow(dead_code)]
+mod admission_policy;

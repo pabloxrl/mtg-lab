@@ -1,0 +1,122 @@
+{
+  "missing_pass": {
+    "sequence": 0,
+    "native": "first divergence: /play/0 /native command Policy(WrongActor)",
+    "xmage": "first divergence: /play/0 /play actor",
+    "requirement": "CR117: player 1 cannot pass before the active player yields."
+  },
+  "reordered_pass": {
+    "sequence": 0,
+    "native": "first divergence: /play/0 /native command Policy(WrongActor)",
+    "xmage": "first divergence: /play/0 /play actor",
+    "requirement": "CR117: the reversed first pass has the wrong actor."
+  },
+  "wrong_actor": {
+    "sequence": 0,
+    "native": "first divergence: /play/0 /native command Policy(WrongActor)",
+    "xmage": "first divergence: /play/0 /play actor",
+    "requirement": "CR117: only the priority holder may act."
+  },
+  "extra_pass": {
+    "sequence": 125,
+    "native": "first divergence: /play/125 /extra choice after named stop",
+    "xmage": "first divergence: /play/125 /extra choice after named stop",
+    "requirement": "The named stop consumes exactly 125 choices."
+  },
+  "unsupported_callback": {
+    "sequence": 0,
+    "native": "first divergence: /play/0 /unsupported callback",
+    "xmage": "first divergence: /play/0 /unsupported priority callback",
+    "requirement": "The strict prefix contract does not admit trigger choices."
+  },
+  "wrong_color": {
+    "sequence": 42,
+    "native": "first divergence: /play/42 /native command Policy(InvalidSelection)",
+    "xmage": "first divergence: /play/42 /insufficient or wrong-color payment",
+    "requirement": "CR601.2h: a green unit cannot pay the Goblin red requirement; the witnessed pool has only red."
+  },
+  "insufficient_payment": {
+    "sequence": 43,
+    "native": "first divergence: /play/43 /native command Policy(InvalidSelection)",
+    "xmage": "first divergence: /play/43 /unsupported payment callback",
+    "requirement": "CR601.2h: finish is forbidden while one generic unit remains unpaid."
+  },
+  "stale_source": {
+    "sequence": 41,
+    "native": "first divergence: /play/41 /source unknown 0/swab-goblin/99",
+    "xmage": "first divergence: /play/41 /source unknown",
+    "requirement": "The input occurrence 99 was never allocated in the full deck."
+  },
+  "stale_incarnation": {
+    "sequence": 41,
+    "native": "first divergence: /play/41 /native command InvalidReference",
+    "xmage": "first divergence: /play/41 /play/41/incarnation",
+    "requirement": "CR400.7: source incarnation 99 is not the hand incarnation 1."
+  },
+  "reuse_old_cast_source": {
+    "sequence": 91,
+    "native": "first divergence: /play/91 /native command InvalidReference",
+    "xmage": "first divergence: /play/91 /play/91/incarnation",
+    "requirement": "CR400.7: first-copy battlefield incarnation 3 cannot satisfy its old hand incarnation 1."
+  },
+  "second_land": {
+    "sequence": 3,
+    "native": "first divergence: /play/3 /native command Policy(InvalidSelection)",
+    "xmage": "first divergence: /play/3 /selected land rejected",
+    "requirement": "CR305.2: turn 1 already used its single land play."
+  },
+  "insufficient_mana": {
+    "sequence": 3,
+    "native": "first divergence: /play/3 /native command Policy(InvalidSelection)",
+    "xmage": "first divergence: /play/3 /selected cast not playable at /play/3",
+    "requirement": "Frozen Swab Goblin cost is 1R; one Mountain cannot pay two units."
+  },
+  "off_turn_creature": {
+    "sequence": 46,
+    "native": "first divergence: /play/46 /native command Policy(InvalidSelection)",
+    "xmage": "first divergence: /play/46 /selected cast not playable at /play/46",
+    "requirement": "CR302.1/601: affordable nonflash Llanowar Elves cannot be cast on the opponent turn."
+  },
+  "unscripted_mana": {
+    "sequence": 3,
+    "native": "first divergence: /play/3 /native command Policy(InvalidSelection)",
+    "xmage": "first divergence: /play/3 /unsupported mana source",
+    "requirement": "A land still in hand cannot activate a battlefield mana ability."
+  },
+  "missing_empty_declaration": {
+    "sequence": 7,
+    "native": "first divergence: /play/7 /missing empty declaration",
+    "xmage": "first divergence: /play/7 /missing empty declaration",
+    "requirement": "Strict explicit-pass contract requires the empty attackers declaration before priority."
+  },
+  "wrong_turn": {
+    "sequence": 0,
+    "native": "first divergence: /play/0 /play turn",
+    "xmage": "first divergence: /play/0 /play turn",
+    "requirement": "The opening priority is on turn 1, not turn 2."
+  },
+  "wrong_step": {
+    "sequence": 0,
+    "native": "first divergence: /play/0 /play step",
+    "xmage": "first divergence: /play/0 /play step",
+    "requirement": "The opening priority is upkeep, not draw."
+  },
+  "unsupported_stop": {
+    "sequence": null,
+    "native": "first divergence: /unsupported stop",
+    "xmage": "first divergence: /unsupported stop",
+    "requirement": "Only the two named bounded stops are admitted."
+  },
+  "schema": {
+    "sequence": null,
+    "native": "first divergence: /version/family",
+    "xmage": "first divergence: /schema_version",
+    "requirement": "Played prefixes require the version 3 envelope."
+  },
+  "extra_field": {
+    "sequence": null,
+    "native": "first divergence: /play fields unknown field `automatic`",
+    "xmage": "first divergence: /fields",
+    "requirement": "Strict decoding rejects the unrecognized automatic field before playing."
+  }
+}

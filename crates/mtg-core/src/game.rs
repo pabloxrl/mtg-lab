@@ -232,3 +232,7 @@ mod m2_mutation_tests;
 #[cfg(test)]
 #[path = "m2_combat_tests.rs"]
 mod m2_combat_tests;
+
+#[cfg(test)]
+#[path = "full_pool_reference_tests.rs"]
+mod full_pool_reference_tests;

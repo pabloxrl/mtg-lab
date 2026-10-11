@@ -202,6 +202,16 @@ bounded M2 repairs documented in doc/programs/m2-repair-prerequisites.md, preser
 all original acceptance/gates, and perform its explicit dependency-gated audit
 reactivation after protected registration merge and exact-main CI. This specific
 amendment does not grant feature workers task-registration or scope authority.
+
+Coordinator operation #268 is additionally authorized only to register the thirteen
+bounded M2 audit repairs in doc/programs/m2-audit-repair-prerequisites.md, preserve
+all original tasks/requirements/gates, and, after protected registration merge and
+successful exact-main CI, record dependency-gated resume grants for #24/#25 under
+the shared handoff lock. It may clear ONLY their documented now-owned prerequisite-gap
+blocks, preserving unrelated holds/withdrawals; pending dependencies never permit
+early readiness. This named amendment does not authorize feature workers to register
+tasks, expand scope, or change workflow/CI/resource/concurrency/settings policy.
+
 They preserve original requirements, test expectations and milestone gates;
 feature workers may not register tasks. After such an operations merge, fetch
 current main again before selecting a newly registered successor.

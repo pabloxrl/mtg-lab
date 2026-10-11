@@ -29,15 +29,28 @@ new cards reuse supported mechanics through definitions, without engine changes.
   with private cancellation and recorded replay; see the [payment contract and
   compatibility notes](doc/evidence/activation-mana/README.md).
 - Optional [scalar instrumentation](doc/scalar-metrics.md): off, counters,
-  bounded sampled diagnostics and complete replay export;
+  bounded sampled latency histograms, sampled diagnostics and complete replay export;
   capture remains independent and performance qualification is still pending.
 - [Versioned scalar benchmarks](doc/scalar-benchmark.md) retain repeated windows,
-  separate measured costs and explicit unfinished-game accounting.
+  separate measured costs and explicit unfinished-game accounting. The additive
+  `scalar-four-modes-v1` contract covers all four modes with bounded in-memory
+  replay retention and independently requested durable canonical capture;
+  the [four-mode measurement report](doc/evidence/four-mode-measurement/README.md)
+  retains both native policies, encoded/unencoded windows, variance extensions,
+  fixed-episode semantic checks and separate sampled-latency/profile diagnostics.
+  Benchmark-window latency histograms remain unmeasured.
+  The [scalar instrumentation audit](doc/evidence/m2-instrumentation-audit/README.md)
+  maps the M2 requirements to executable evidence and reports committed-action
+  rates separately from begun/cancelled choices; M2 gate acceptance remains pending.
   [Full-pool collectors](doc/scalar-baseline.md) cover all eight matchup rows,
   off/counters comparisons and normal-play resident-state RSS sweeps;
   the [available-container artifact](doc/evidence/full-pool-baseline/README.md)
   records provisional speed/overhead misses and all four 10,000-state sweeps.
   Shared-container measurements do not qualify the designated performance host.
+- [Fixed-trace profiling](doc/evidence/fixed-trace-profile/README.md) checks frozen
+  rules-derived checkpoints before measuring replay, observations, encoding and
+  allocations. Its diagnostic adapter isolates repeated effect dispatches;
+  it is not a throughput campaign or a new game command.
 - Automated regression tests and scoped comparisons against pinned XMage and
   Forge reference engines.
 
@@ -99,6 +112,8 @@ and [simulation guide](doc/simulate.md).
 | [Testing](doc/testing/README.md) | Test designs, independent reference checks and delivery gates. |
 | [M2 mutation checks](doc/testing/m2-mutations.md) | Twelve named semantic mutants and strict behavioral detection. |
 | [Cost and token reference pack](doc/evidence/m2-cost-reference/README.md) | Bounded native/XMage compositions, exact catalog allocation and reproduction commands; no whole-pool claim. |
+| [Reference prefixes](doc/full-pool-reference.md) | Test-only native/XMage occurrence identities and explicit chance/choice ledgers. Reset stops before declarations; London reaches first upkeep; priority plays lands and vanilla creatures into turn six with explicit mana payments, passes and bounded continuation. The version-4 spells family exercises Growth/Bite responses, Thrill discard/draw, Fodder tokens and both Surprise modes with strict physical choices. Version-5 activations adds explicit creature/land mana, Cavalry haste, Shivan/Invoker target/payment, cancellation and distinct activation identities. Version-6 triggers adds played cast/ETB ordering, repeated-event identities and Pyromancer damage after source death. Version-7 [cleanup evidence](doc/evidence/played-cleanup/README.md) adds explicit cleanup discards, simultaneous stacked-effect/damage expiry, and two directed 40-card empty-library games (both starters), with separate concession and synthetic additional-cleanup/simultaneous-loss checks. Version-9 [combat evidence](doc/evidence/combat-prefix/README.md) adds strict played declarations, modern allocations and explicit owner orders for simultaneous graveyard arrivals. Played replay uses version 2 with explicit legacy-version rejection. Its separately hashed XMage SBA integration is patched-reference evidence; the original upstream ordering mismatch remains preserved. No general game-corpus admission or M2 gate claim. |
+| [Terminal-game admission](doc/evidence/admission/README.md) | Version 10 checks sixteen frozen normal-reset native/XMage games: heuristic-origin and independently authored paths for every matchup/starter row. It requires rules-terminal outcomes, intermediate observations, exact consumption, repeated actual runs and invalid-tape controls. The reference retains the explicit XMage combat patch; no Forge, reference-AI corpus, complete legal-set or M2 gate claim. |
 | [Legacy and decision coverage](doc/evidence/m2-reference-foundation/README.md) | Six damage splits, 64 attacker subsets, privacy/capacity checks and bounded native/XMage reference reproduction. |
 | [Keyword and activation reference pack](doc/evidence/m2-reference-combat/README.md) | Exact assigned combat cases, bounded compositions, checkpoint controls and reproduction commands. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |

@@ -155,6 +155,7 @@ fn m2_combat_reference_literal_checkpoints() {
             let d = g.turn_decision().unwrap();
             let d = g.select_attackers(d.actor, d.id, &[target]).unwrap();
             g.finish_combat(d.actor, d.id).unwrap();
+            g.choose_candidate_order_for_legacy_fixture();
             pair(&mut g);
             let d = g.turn_decision().unwrap();
             let d = g
@@ -165,6 +166,7 @@ fn m2_combat_reference_literal_checkpoints() {
                 )
                 .unwrap();
             g.finish_combat(d.actor, d.id).unwrap();
+            g.choose_candidate_order_for_legacy_fixture();
             if case["departure"].as_bool().unwrap() {
                 g.objects
                     .move_to(blockers[0], Zone::Graveyard(Seat::P1))
@@ -206,6 +208,7 @@ fn m2_combat_reference_literal_checkpoints() {
                 .unwrap()
             };
             g.finish_combat(d.actor, d.id).unwrap();
+            g.choose_candidate_order_for_legacy_fixture();
             points.insert("after-damage".into(), point(&g, target, &blockers));
         }
         g.turns.position = Some((1, Seat::P0, Step::End));

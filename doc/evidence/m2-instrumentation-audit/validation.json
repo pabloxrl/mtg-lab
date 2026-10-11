@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "finished_utc": "2026-10-10T13:37:32.590553+00:00",
+  "tested_base": "c779b190ed28ff845741c4ce1149f71e55ec675b",
+  "changes": "documentation and derived evidence only; no runtime or test changes",
+  "command": "python3 \"$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py\" heavy -- ./scripts/torture.sh",
+  "exit_code": 0,
+  "includes": [
+    "./scripts/verify.sh",
+    "./scripts/verify-phase.sh release"
+  ],
+  "python_tests": 303,
+  "rust_debug_tests": 744,
+  "rust_release_tests": 744,
+  "rust_total_executions": 1488,
+  "rust_failed": 0,
+  "rust_ignored": 0,
+  "fmt": "pass",
+  "clippy": "pass",
+  "log_sha256": "1147bc1c54ce41e1f8571d5d7459caa782b3499007b34ad87966ecde15eee116",
+  "compressed_log_sha256": "0d6f615b7e0300623fb587e9fb4e1f680e19c012699f9cba7907031e9a75f55e",
+  "additional_checks": [
+    "fresh-main manifest/source/ledger/DAG validation",
+    "archived campaign hash verification and full summary reproduction",
+    "direct raw-window accounting",
+    "all 12 committed-action table rows",
+    "documented self-contained reproduction command",
+    "local documentation links and git diff --check"
+  ]
+}

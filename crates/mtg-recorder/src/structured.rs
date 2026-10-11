@@ -31,6 +31,9 @@ pub enum Command {
     TargetPlayer {
         seat: u8,
     },
+    OrderGraveyard {
+        card: VisibleRef,
+    },
     OrderTrigger {
         trigger: usize,
     },
@@ -109,6 +112,8 @@ pub struct Observation {
     pub pending_triggers: Vec<PendingTriggerView>,
     pub stack: Vec<StackSpell>,
     pub combat: Vec<CombatAttack>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub graveyard_orders: Vec<(u8, Vec<VisibleRef>)>,
     pub unsupported_families: [String; 0],
 }
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
@@ -402,9 +407,10 @@ fn command_valid(o: &Observation, c: &Command) -> bool {
         | Command::Discard { card }
         | Command::Cast { card }
         | Command::PlayLand { card } => hand(card),
-        Command::Activate { card } | Command::Target { card } | Command::TapMana { card } => {
-            field(card)
-        }
+        Command::OrderGraveyard { card }
+        | Command::Activate { card }
+        | Command::Target { card }
+        | Command::TapMana { card } => field(card),
         Command::Mode { mode } => *mode <= 1,
         Command::Pay { color } => *color < 6,
         Command::SelectAttackers { cards } => unique(cards) && cards.iter().all(field),
@@ -483,6 +489,23 @@ fn observation_valid(o: &Observation) -> bool {
         {
             return false;
         }
+    }
+    if let Some(d) = o.decision.as_ref().filter(|d| d.kind == "graveyard_order")
+        && (d.count < 2 || d.count != d.candidates.len() || d.legal_mask.iter().any(|m| !m))
+    {
+        return false;
+    }
+    if !unique(
+        &o.graveyard_orders
+            .iter()
+            .map(|(s, _)| s)
+            .collect::<Vec<_>>(),
+    ) || o
+        .graveyard_orders
+        .iter()
+        .any(|(s, rs)| *s > 1 || rs.len() < 2 || !unique(rs) || !rs.iter().all(field))
+    {
+        return false;
     }
     let targeting: Vec<_> = o
         .pending_triggers
@@ -594,13 +617,14 @@ fn observation_valid(o: &Observation) -> bool {
                 "combat_damage",
                 "cleanup_discard",
                 "trigger_order",
+                "graveyard_order",
                 "trigger_target",
             ]
             .contains(&d.kind.as_str())
             || d.count == 0
             || (!matches!(
                 d.kind.as_str(),
-                "bottom" | "cleanup_discard" | "trigger_order"
+                "bottom" | "cleanup_discard" | "trigger_order" | "graveyard_order"
             ) && d.count != 1)
             || d.candidates.is_empty()
             || d.legal_mask.len() != d.candidates.len()
@@ -861,6 +885,7 @@ fn kind_command(kind: &str, command: &Command) -> bool {
             | ("cast_mode", Command::Mode { .. } | Command::CancelPayment)
             | ("cleanup_discard", Command::Discard { .. })
             | ("trigger_order", Command::OrderTrigger { .. })
+            | ("graveyard_order", Command::OrderGraveyard { .. })
             | ("trigger_target", Command::TargetPlayer { seat: 0 | 1 })
             | (
                 "cast_discard",

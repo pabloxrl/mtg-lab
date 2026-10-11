@@ -1,0 +1,11 @@
+Command (existing shared heavy lock): cargo test -p mtg-cli --locked profile_validated_normal_trace_has_separate_nonempty_costs -- --nocapture
+Base: 4068c855d1bcfbe9f1c63dfd5c98a44752e8c95c
+Test compiled successfully before implementation.
+
+running 1 test
+thread 'profile::profile_validated_normal_trace_has_separate_nonempty_costs' panicked at crates/mtg-cli/src/profile.rs:11:10:
+independently validated fixed trace must execute before profiling: "fixed trace profiling not implemented"
+test profile::profile_validated_normal_trace_has_separate_nonempty_costs ... FAILED
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 52 filtered out
+Exit: 101

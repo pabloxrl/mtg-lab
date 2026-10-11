@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Six read-only arithmetic tests passed. No existing tests were removed or weakened; the incomplete-replay expectation correction has independent contract justification and stronger negative coverage. Root README claims remain appropriately limited, and integration ownership is preserved. Native tests and full torture were not run in this read-only review. The required measurement deliverable remains incomplete.",
+  "findings": [
+    {
+      "file": "doc/evidence/four-mode-measurement/README.md:3",
+      "finding": "The candidate explicitly remains work in progress and provides no completed campaign report or durable links to its raw measurements. GH-281's acceptance contract in doc/programs/m2-audit-repair-contracts.md requires executing and publishing the four-mode campaign, throughput/overhead distributions, native latency summaries, and profile evidence. The later statement that collection began does not establish completion. Publish the frozen campaign results, including all extensions and unsuccessful attempts, with reproducible artifact references before integrating this as the GH-281 delivery.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "e1ee7bfc2715a04e0f7e3a29a827466d342565d3",
+  "head_sha": "e51d902925e24e3a104b1d215ad977e01c821fea"
+}

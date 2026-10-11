@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "issue": 277,
+  "base": "503f49b978be8fd3aa841782413c45d1de895f5b",
+  "focused": {
+    "command": "python3 -m unittest discover -s tests -p 'test_m2_repair_admission.py'",
+    "tests": 22,
+    "log": "focused.log",
+    "sha256": "31337575e0249d32f775d634608f2bf1eaa62483eb25bfa194088d68c188ad0c"
+  },
+  "python": {
+    "command": "python3 scripts/run_tests.py",
+    "tests": 392,
+    "new_tests": 22,
+    "execution": "final torture checks phase",
+    "log": "python-discovery.log",
+    "sha256": "bbb17dc8b72356cc453e8e8cb119648872653cd54728e88cb1cda7190242792a"
+  },
+  "cargo": {
+    "command": "cargo test --workspace --locked",
+    "executions": 762,
+    "new_named_tests": 3,
+    "additional_reused_policy_test": 1,
+    "failed": 0,
+    "ignored": 0,
+    "log": "cargo-workspace.log",
+    "sha256": "03c224b47d788ae59469a4040d3ae48f0cee4350bc6c156853e24fd0e5891030"
+  },
+  "torture": {
+    "command": "python3 \"$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py\" heavy -- ./scripts/torture.sh",
+    "python_tests": 392,
+    "rust_debug_release_executions": 1524,
+    "failed": 0,
+    "ignored": 0,
+    "log": "torture.log",
+    "sha256": "c43c685abb1e525c579984d6ab77a8d1b4894c42d32f1c2b1ccba0eb04a8a20d"
+  },
+  "reference": {
+    "command": "python3 \"$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py\" heavy -- python3 scripts/full_pool_reference.py --family admission --cache \"$MTG_REFERENCE_CACHE\" --output .agent-artifacts/admission-run-N.json",
+    "invocations": 2,
+    "distinct_games": 16,
+    "runs_per_engine_per_invocation": 32,
+    "invalid_tapes_per_engine": 18,
+    "comparator_controls": {
+      "native": 42,
+      "xmage": 43
+    },
+    "retained_families": [
+      "reset",
+      "mulligan",
+      "priority",
+      "spells",
+      "activations",
+      "triggers",
+      "cleanup",
+      "combat"
+    ],
+    "receipts": {
+      "run-1.json": "cc905f6fa23bc8b86d4028d90cc07f46f50d412ce8d5567581dd8a18ca03385c",
+      "run-2.json": "ec75ec66c4dd21f07e205a73f7a061533ac2195df12a31416aeea958628e0405"
+    },
+    "source_files": 167,
+    "reference_semantics": "patched-combat-sba-v1"
+  },
+  "final_delivery": "Separate exact-candidate review, protected PR/merge and exact-main CI are recorded in the issue workpad; this receipt records local executable acceptance only.",
+  "workpad": "https://github.com/pabloxrl/mtg-lab/issues/277#issuecomment-6112473318"
+}

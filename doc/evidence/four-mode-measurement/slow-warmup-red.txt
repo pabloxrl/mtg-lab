@@ -1,0 +1,28 @@
+F
+======================================================================
+FAIL: test_slow_warmup_does_not_invent_a_minimum_game_rate (test_m2_repair_measurement.MeasurementArithmetic.test_slow_warmup_does_not_invent_a_minimum_game_rate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 127, in test_slow_warmup_does_not_invent_a_minimum_game_rate
+    summary=self.api().validate_campaign(reports)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/scripts/m2_measurement.py", line 41, in validate_campaign
+    return _campaign(reports)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/scripts/m2_measurement.py", line 63, in _campaign
+    require(all(n>0 for n in w['row_attempts']), 'all eight rows must be observed per interval')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/scripts/scalar_artifact.py", line 14, in require
+    raise ValueError(message)
+ValueError: all eight rows must be observed per interval
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-281/tests/test_m2_repair_measurement.py", line 129, in test_slow_warmup_does_not_invent_a_minimum_game_rate
+    self.fail(f'B020 requires 10s warmup, not eight warmup completions: {error}')
+AssertionError: B020 requires 10s warmup, not eight warmup completions: all eight rows must be observed per interval
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)

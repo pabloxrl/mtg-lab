@@ -153,6 +153,7 @@ pub fn step(g: &mut Game) -> Result<(), String> {
             TurnSelection::Discard((0..count).map(|i| d.candidate(i)).collect())
         }
         TurnKind::Combat(_) => return Err("unexpected combat decision for pass-v1".into()),
+        TurnKind::GraveyardOrder => return Err("unexpected graveyard decision for pass-v1".into()),
     };
     g.apply_turn(
         d.actor,

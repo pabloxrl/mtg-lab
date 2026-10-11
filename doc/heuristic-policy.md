@@ -110,3 +110,11 @@ The heuristic pays available mana before generating more, prefers a required
 color when choosing sources, and finishes paid activations before extra taps.
 The random policy retains every eligible source choice, including surplus mana.
 See the [payment repair and version inventory](evidence/activation-mana/README.md).
+
+GH-275 adds explicit `graveyard_order` decisions for simultaneous combat deaths.
+The heuristic keeps the advertised candidate order (all candidates have equal
+score); legal-random samples a complete permutation without replacement. These
+are policy choices, not engine rules or transcript defaults. The engine requires
+each owner to submit its full permutation, in APNAP order, before any death moves.
+Earlier owners' choices are public in `graveyard_orders`; private hands/libraries
+remain unchanged. The strict reference client always consumes authored choices.
