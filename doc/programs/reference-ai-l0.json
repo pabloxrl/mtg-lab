@@ -13,7 +13,7 @@
     318
   ],
   "rfc": "doc/programs/reference-ai-l0.md",
-  "rfc_sha256": "31e20e45d7d5099efcf21b9f6cd849a9bad264e4722293a03296ff93c73c3ebc",
+  "rfc_sha256": "3fa014d0fb8f47b2a065a8fdc92ba821f6dcce7e231450eacfd83f1b9a89f62d",
   "requirements": [
     {
       "id": "L0-001",
@@ -38,8 +38,8 @@
     },
     {
       "id": "L0-004",
-      "deliverable": "Deliver a prebuilt release native runner that loads a versioned immutable manifest and all local artifacts, validates checksums/completeness, then replays every entry with exact semantic comparisons in a long-lived process. Reuse existing rules engine; no AI, JVM, network, model or reference installation during ordinary L0. Provisional pilot artifacts are separately named until final admission.",
-      "checks": "Run all ten real pilot games twice through the batch command and compare with existing scalar replay. Check complete action/chance consumption, legal progression, physical identities, ordered zones, stack/effects/life, outcomes and required checkpoint boundaries. Missing/corrupt/unavailable entry, extra/unconsumed choice, wrong pin/checkpoint, failed build and incomplete game all fail nonzero with seed/trace/cursor/first-field diff. Digests, if used, must cover identical semantics with collision-resistant hashes, schema pins and localized deep reruns; a diagnostic rerun cannot erase failure.",
+      "deliverable": "Deliver a prebuilt release native runner that loads a versioned immutable manifest and all local artifacts, validates checksums/completeness, then replays every entry with exact semantic comparisons in a long-lived process. Reuse existing rules engine; no AI, JVM, network, model or reference installation during ordinary L0. Provisional pilot artifacts are separately named until final admission. Emit machine-readable native full-corpus timing/resource receipts on every invocation for continuous performance history, separating cold full-path elapsed from compilation and warm throughput.",
+      "checks": "Run all ten real pilot games twice through the batch command and compare with existing scalar replay. Check complete action/chance consumption, legal progression, physical identities, ordered zones, stack/effects/life, outcomes and required checkpoint boundaries. Missing/corrupt/unavailable entry, extra/unconsumed choice, wrong pin/checkpoint, failed build and incomplete game all fail nonzero with seed/trace/cursor/first-field diff. Digests, if used, must cover identical semantics with collision-resistant hashes, schema pins and localized deep reruns; a diagnostic rerun cannot erase failure. Verify every required change-run receipt names the exact corpus/runner hashes, successful/failed counts and complete cold timing boundary; missing timing or incomplete replay cannot claim a full comparable run.",
       "exclusions": "No training batch API, M3 refactor, CI policy replacement or invented speed claim.",
       "owner": 322
     },
@@ -108,8 +108,8 @@
     },
     {
       "id": "L0-014",
-      "deliverable": "Add the full admitted L0 corpus to ordinary full verification/required change gates alongside the entire existing regression foundation. Separately reviewed policy sets a measured cold L0 latency budget and regression thresholds; specify provisional pilot execution until final admission is available. Define affected-rules, admission, dedicated and final deep-reference scheduling.",
-      "checks": "Normal-discovery and actual gate positive/negative runs show all manifest entries execute, absent/corrupt artifacts, failed build or skipped/incomplete replay fail, and deep reruns do not overwrite failing L0 status. Review equivalent-or-stronger scheduling explicitly; preserve full torture and protected merge/review requirements, never delete tests for speed. Document compilation outside timing and cold load/checksum/replay inside it; enforce measured thresholds with hardware/concurrency limits and explicit miss reports.",
+      "deliverable": "Add the full admitted L0 corpus to ordinary full verification/required change gates alongside the entire existing regression foundation. Separately reviewed policy sets a measured cold L0 latency budget and regression thresholds; specify provisional pilot execution until final admission is available. Define affected-rules, admission, dedicated and final deep-reference scheduling. Consume #338/#339 to schedule matched three-engine replay at least nightly when changes landed, on reference/adapter changes, on corpus admission/version changes and on demand, with a fixed versioned cohort and full-corpus release/final comparisons. Record native full-corpus timing on every required change run. Keep costly monitoring out of ordinary native L0.",
+      "checks": "Normal-discovery and actual gate positive/negative runs show all manifest entries execute, absent/corrupt artifacts, failed build or skipped/incomplete replay fail, and deep reruns do not overwrite failing L0 status. Review equivalent-or-stronger scheduling explicitly; preserve full torture and protected merge/review requirements, never delete tests for speed. Document compilation outside timing and cold load/checksum/replay inside it; enforce measured thresholds with hardware/concurrency limits and explicit miss reports. Demonstrate actual scheduled execution, durable browsable history/ratios and reviewed measured noise-aware thresholds. Controlled sustained native/reference slowdowns and missing/stale expected measurements must be visibly flagged in CI/reporting. Match hardware/cohort classes and preserve failed/partial accounting; do not invent budgets, auto-bless regressions or compare AI generation to replay.",
       "exclusions": "Only this named operations child owns CI/L0 wiring; no controller/settings/credential/concurrency changes or optional subset replacement.",
       "owner": 332
     },
@@ -140,6 +140,20 @@
       "checks": "Execute the selected real games with pinned live references and enriched diagnostics; publish coverage mapping, selection hash, cost, holdout origin and exclusions/gaps. Detect an injected deeper invariant defect and retain minimal failure. Demonstrate corpus growth does not silently remove previous deep coverage and a subset cannot satisfy the full L0 gate. Preserve independent >=20 critical cases and all existing native/authored games.",
       "exclusions": "No source AI as oracle, optional subset replacing L0, new quota or automatic baseline updates.",
       "owner": 336
+    },
+    {
+      "id": "L0-019",
+      "deliverable": "Deliver a benchmark harness that replays identical real-game transcript identities, choices and chance tapes in native, pinned XMage and pinned Forge, with a fixed versioned representative cohort for longitudinal comparison and full-corpus runs for releases/final qualification. Match required semantic validation and declare instrumentation/bridge overhead; never compare reference AI generation to native deterministic replay.",
+      "checks": "Run a reproducible actual-game three-engine cohort comparison repeatedly on controlled hardware/resource limits and concurrency. Record cold end-to-end process/JVM startup, artifact integrity/load, replay/comparison; warm batch replay, games/s, actions/s, median/p95 per-game latency, successful games and memory. Separate compilation, AI generation/capture/conversion, warmup and diagnostics. Pin hardware/OS/toolchain/native build/JVM/source/adapter/corpus/cohort hashes, run counts and warmup policy. Retain all failed/unsupported/timeouts; reject a partial or mismatched transcript/checkpoint workload as a complete comparable result. Show variability and XMage/native and Forge/native elapsed ratios with raw timings and exact denominator; cross-hardware or changed-cohort comparisons must be qualified, never silently treated as equivalent.",
+      "exclusions": "No AI/capture changes, L0 Java invocation, automatic baseline acceptance, CI policy or speed claim without measured comparable evidence.",
+      "owner": 338
+    },
+    {
+      "id": "L0-020",
+      "deliverable": "Persist machine-readable native L0 and matched three-engine benchmark receipts and generate a browsable trend report indexed by commits, cohort/corpus versions, engine/adapter pins, absolute timings and ratios. Implement noise-aware regression/staleness detection against explicitly reviewed measured baselines; policy activation and scheduling belong to #332.",
+      "checks": "Ingest actual repeated benchmark runs from #338 and native full-L0 receipts, demonstrate durable history across runs, reproducible report regeneration and matched workload/hardware-class selection. Test sustained native and reference/adapter slowdown detection, missing/stale expected scheduled measurements, incompatible cohort/hardware rejection, explicit failed/partial headline accounting and preserved raw denominators. Use controlled synthetic timing perturbations only to test detection, never as speed measurements. Baseline changes require visible review; no automatic blessing of regressions or correctness assertion removal.",
+      "exclusions": "No new dashboard/controller service, CI/settings changes, invented speed ratios/hard budgets or expensive reference work inside ordinary native L0.",
+      "owner": 339
     }
   ],
   "tasks": [
@@ -305,7 +319,8 @@
       "milestone": "L0",
       "kind": "operations",
       "depends_on": [
-        323
+        323,
+        339
       ],
       "requirements": [
         "L0-014"
@@ -365,6 +380,31 @@
       ]
     },
     {
+      "issue": 338,
+      "key": "matched_benchmark",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        322,
+        330
+      ],
+      "requirements": [
+        "L0-019"
+      ]
+    },
+    {
+      "issue": 339,
+      "key": "performance_history",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        338
+      ],
+      "requirements": [
+        "L0-020"
+      ]
+    },
+    {
       "issue": 337,
       "key": "integrated_gate",
       "milestone": "L0",
@@ -387,7 +427,9 @@
         333,
         334,
         335,
-        336
+        336,
+        338,
+        339
       ],
       "requirements": [
         "L0-001",
@@ -407,7 +449,9 @@
         "L0-015",
         "L0-016",
         "L0-017",
-        "L0-018"
+        "L0-018",
+        "L0-019",
+        "L0-020"
       ]
     }
   ]

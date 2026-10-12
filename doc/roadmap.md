@@ -90,3 +90,12 @@ are part of this plan. Completing E5 qualifies this engine-validation scope only
 The new M3 is distinct from deferred legacy M3 Batch/Python/RL. The separate
 L0 queue now owns E2–E5 acceptance and is the immediate priority, using M2 without
 waiting for M3. No new real or synthetic card definitions are authorized in M3.
+
+The [continuous performance contract](programs/reference-ai-l0.md#continuous-matched-cross-engine-performance-monitoring)
+registers matched same-game native/XMage/Forge benchmarks, durable timing/ratio
+history and reviewed scheduled regression monitoring. Native full-corpus timing
+is recorded on each required L0 run; costly three-engine monitoring runs separately
+nightly when changes land, on adapter/corpus changes and on demand. Fixed cohort
+trends and full-corpus release comparisons retain raw timings, failures, hardware
+and instrumentation limits. This is planned delivery, not measured speed or
+operational monitoring evidence; capture remains first.

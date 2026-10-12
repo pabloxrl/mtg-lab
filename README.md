@@ -31,6 +31,16 @@ frozen pool to external typed definitions and reusable mechanics. It preserves
 the verified M2 boundary; unseen-card admission remains future work. M3 is
 intentionally held and is not a prerequisite for reference capture or L0.
 
+The [continuous performance contract](doc/programs/reference-ai-l0.md#continuous-matched-cross-engine-performance-monitoring)
+registers matched same-game native/XMage/Forge benchmarks, durable timing/ratio
+history and reviewed scheduled regression monitoring. Native full-corpus timing
+is recorded on each required L0 run; costly three-engine monitoring runs separately
+nightly when changes land, on adapter/corpus changes and on demand. Fixed cohort
+trends and full-corpus release comparisons retain raw timings, failures, hardware
+and instrumentation limits. This is planned delivery, not measured speed or
+operational monitoring evidence; capture remains first.
+
+
 | Stage | Verified scope / evidence |
 | --- | --- |
 | M0 | Foundations — [passing audit](doc/evidence/m0-reaudit/README.md). |

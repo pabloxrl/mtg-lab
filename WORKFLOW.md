@@ -218,7 +218,8 @@ shared handoff/resource locks and three-worker limit below; count all repository
 open ready/running claims. The registered guide supplies complete task/common
 contracts and source-specific acceptance, including full admitted native L0 after
 every change and all-three-engine final admission. Operations child #332 alone
-owns separately reviewed CI/L0 scheduling and measured latency policy; existing
+owns separately reviewed CI/L0 scheduling, continuous matched three-engine
+performance monitoring and measured noise-aware latency/regression policy; existing
 full torture/review/protected merge checks remain mandatory. Feature workers
 cannot register tasks or alter gates. Current checkout AGENTS directs workers to
 this guide even when the controller renders an older workflow prompt. No

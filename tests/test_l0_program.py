@@ -76,11 +76,11 @@ class L0RegistryTests(unittest.TestCase):
 
     def test_committed_registry_is_capture_first_with_operations_and_full_gate(self):
         before = copy.deepcopy(self.p)
-        self.assertEqual(len(self.validate()),19)
+        self.assertEqual(len(self.validate()),21)
         self.assertEqual(self.p,before)
         self.assertEqual(self.p['tasks'][0]['issue'],319)
         self.assertEqual(self.p['prerequisites'],[26,277,318])
-        self.assertEqual(self.p['tasks'][-1]['depends_on'],list(range(319,337)))
+        self.assertEqual(self.p['tasks'][-1]['depends_on'],list(range(319,337))+[338,339])
         self.assertEqual(next(t for t in self.p['tasks'] if t['issue']==332)['kind'],'operations')
 
     def test_source_hash_and_authority_are_pinned(self):
@@ -144,3 +144,13 @@ class L0RegistryTests(unittest.TestCase):
         self.assertEqual(select_successor(p,snap),{'successor':324,'already_owned':True})
         objs[0]['labels']=[{'name':'program-paused'}]
         with self.assertRaisesRegex(ValueError,'parent'): select_successor(p,snap)
+
+    def test_continuous_monitoring_has_real_consumers_and_policy_dependency(self):
+        tasks={t['key']:t for t in self.p['tasks']}
+        self.assertIn('matched_benchmark',tasks)
+        self.assertIn('performance_history',tasks)
+        self.assertEqual(tasks['matched_benchmark']['depends_on'],[322,330])
+        self.assertEqual(tasks['performance_history']['depends_on'],[338])
+        self.assertIn(339,tasks['replay_policy']['depends_on'])
+        self.assertTrue({'L0-019','L0-020'} <= set(tasks['integrated_gate']['requirements']))
+        self.assertEqual(tasks['xmage_capture']['depends_on'],[])

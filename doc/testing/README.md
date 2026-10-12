@@ -130,3 +130,12 @@ Your useful status view is: what behavior is implemented, what has actually been
 verified, which games or fixtures disagree, and what agents are doing next.
 You are asked only for an essential product choice or missing access. A failed
 match or an ordinary merge is agent work, not a request for you to intervene.
+
+The [continuous performance contract](../programs/reference-ai-l0.md#continuous-matched-cross-engine-performance-monitoring)
+registers matched same-game native/XMage/Forge benchmarks, durable timing/ratio
+history and reviewed scheduled regression monitoring. Native full-corpus timing
+is recorded on each required L0 run; costly three-engine monitoring runs separately
+nightly when changes land, on adapter/corpus changes and on demand. Fixed cohort
+trends and full-corpus release comparisons retain raw timings, failures, hardware
+and instrumentation limits. This is planned delivery, not measured speed or
+operational monitoring evidence; capture remains first.

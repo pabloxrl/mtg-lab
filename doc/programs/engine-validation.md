@@ -166,3 +166,12 @@ No new cards, RL, broad engine rewrite or general scripting VM is authorized.
 No current stage is complete because this document exists. Keep evidence on the
 parent workpad and capability reference. Completing E5 completes this amended
 engine-validation scope, not the deferred original RFC or a general Magic engine.
+
+The [continuous performance contract](reference-ai-l0.md#continuous-matched-cross-engine-performance-monitoring)
+registers matched same-game native/XMage/Forge benchmarks, durable timing/ratio
+history and reviewed scheduled regression monitoring. Native full-corpus timing
+is recorded on each required L0 run; costly three-engine monitoring runs separately
+nightly when changes land, on adapter/corpus changes and on demand. Fixed cohort
+trends and full-corpus release comparisons retain raw timings, failures, hardware
+and instrumentation limits. This is planned delivery, not measured speed or
+operational monitoring evidence; capture remains first.

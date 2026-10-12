@@ -4,7 +4,7 @@ Status: **Registered delivery contract, not implemented corpus or measured speed
 Operator priority of 2026-10-12, coordinator [#318](https://github.com/pabloxrl/mtg-lab/issues/318),
 tracking parent [#7](https://github.com/pabloxrl/mtg-lab/issues/7), GitHub milestone 8.
 The separate [registry](reference-ai-l0.json) owns namespace `reference-ai-l0`,
-stage `L0`, requirements `L0-001`–`L0-018` and final gate #337.
+stage `L0`, requirements `L0-001`–`L0-020` and final gate #337.
 
 Generate games with the existing XMage and Forge AIs, freeze faithful transcripts,
 and replay the **entire admitted corpus after every change** in native L0. A
@@ -147,6 +147,55 @@ corpus-admission, dedicated-run and final-gate scheduling. Existing torture,
 independent review and protected merge remain mandatory until explicitly reviewed
 equivalent-or-stronger policy is delivered; feature children cannot change CI.
 
+## Continuous matched cross-engine performance monitoring
+
+The additional operator amendment of 2026-10-12 requires ongoing comparison of
+**the same frozen games** in native, XMage and Forge. This is not a one-off timing
+report or a prerequisite delaying first capture. #338 owns a real-game matched
+benchmark harness; #339 owns durable machine-readable history, browsable trends
+and regression/staleness detection; operations #332 owns reviewed scheduling and
+performance policy. #322 emits native full-corpus performance receipts on every
+L0 invocation, and #337 audits operational monitoring as well as final performance.
+
+Use identical transcript identities, choices and chance tapes in all engines,
+with comparable required semantic validation and declared instrumentation. Label
+and measure extra bridge/diagnostic work where possible; never claim pure engine
+speed when those costs differ. Never compare AI generation against native replay
+as a speedup. Keep production native L0 timing distinct from deeper cross-engine
+runs: Java/AI work must not silently enter the fast after-change path.
+
+Record native **full admitted corpus** performance on every required change run.
+Schedule a matched three-engine benchmark at least nightly when changes have
+landed, on reference/adapter changes, on corpus admission/version changes and on
+demand. Freeze a versioned representative cohort for longitudinal comparisons;
+also run full-corpus cross-engine timings for corpus releases/final qualification.
+The cohort supplements, never replaces, the full admitted L0 gate.
+
+For each engine report cold end-to-end process/JVM startup, artifact load/integrity,
+replay and comparison elapsed; warm batch replay; games/second, actions/second,
+median/p95 game latency, total successful games and memory. Separate compilation,
+AI generation/capture/conversion, warmup and diagnostics. Retain failures,
+unsupported games and timeouts explicitly in headline accounting; partial
+completion cannot be a full comparable run or silently disappear from ratios.
+
+Control hardware/resource limits and concurrency. Record hardware/OS/toolchain,
+native build profile, JVM settings, engine/adapter commits, corpus/cohort hashes,
+run counts and warmup policy. Use repeated measurements, publish variability and
+compare matched workload/hardware classes; qualify changed runner generations,
+cohorts or corpus sizes. Publish XMage/native and Forge/native elapsed ratios
+with raw timings and explicit denominator. Different seeds alone never establish
+identical workloads.
+
+Persist immutable machine-readable run history and a browsable report indexed by
+commits, cohort/corpus versions, engine pins, absolute timings and ratios. Establish
+measured baselines and noise-aware thresholds through explicit operations review.
+Flag sustained native or reference/adapter slowdown, and missing/stale expected
+measurements, visibly in CI/reporting. No invented budget/ratio, automatic blessing
+of a regression or weakened correctness assertion. Acceptance includes actual
+three-engine game comparisons, history across runs, tested detection (including
+controlled timing mutations clearly marked synthetic) and demonstrated scheduled
+execution. Registration is not operational monitoring.
+
 ## Requirement ownership and runnable delivery boundaries
 
 The registry contains full deliverables, executable positive/negative acceptance
@@ -155,7 +204,7 @@ These are actual already-delivered M2 contracts and registration, never M3. Each
 row below owns its requirement and the relevant common contract above; #337 audits
 **every row and every common clause**, including cross-feature acceptance. Source
 capture owns faithful raw observations; normalization/pilots own strict replay;
-runner/measurements/policy own after-change L0; admission/campaigns own global
+runner/measurements/policy own after-change L0; benchmark/history/policy own continuous monitoring; admission/campaigns own global
 accounting and all-three qualification; deep suite owns coverage/holdout.
 
 | Issue / requirement | Observable delivery | Direct child prerequisites |
@@ -173,12 +222,14 @@ accounting and all-three qualification; deep suite owns coverage/holdout.
 | #329 / L0-011 | Normalize Forge AI transcripts for all-three replay | #328 |
 | #330 / L0-012 | Qualify ten distinct Forge AI games | #329 |
 | #331 / L0-013 | Measure a 100-attempt Forge campaign | #330, #322 |
-| #332 / L0-014 | Operations: wire complete L0 and reviewed deep scheduling | #323 |
+| #332 / L0-014 | Operations: wire complete L0, deep scheduling and continuous monitoring policy | #323, #339 |
 | #333 / L0-015 | Incremental all-three corpus admission and publication | #321, #330, #322, #332 |
 | #334 / L0-016 | Incrementally admit 500 distinct XMage AI games | #333, #323 |
 | #335 / L0-017 | Incrementally admit 500 distinct Forge AI games | #333, #331 |
 | #336 / L0-018 | Deterministic curated deep replay and live-reference subset | #333 |
-| #337 / all | Integrated corpus correctness/performance gate | Every child #319–#336 |
+| #338 / L0-019 | Matched actual-game native/XMage/Forge benchmark | #322, #330 |
+| #339 / L0-020 | Durable timing history, trends and detection | #338 |
+| #337 / all | Integrated corpus correctness/performance and operational monitoring gate | Every child #319–#336, #338, #339 |
 
 First visible output is #319's real captured game, then #320's strict normalized
 replay. #324 can capture Forge independently after #319; heavy builds/reference
@@ -254,7 +305,8 @@ capture implementation, controller deployment, settings or credential workaround
 Current checkout AGENTS points workers here even with an older rendered prompt.
 
 #337 must publish true-origin counts, successful **full-corpus** cold L0 execution
-and runtime/budget result plus deep-suite/live-reference receipts, requirements,
+and runtime/budget result plus deep-suite/live-reference and demonstrated scheduled
+matched-performance/history/regression-detection receipts, requirements,
 coverage gaps, upstream exceptions, hashes and exact candidate/main evidence.
 Neither registration, raw capture, pilots, syntax checks nor a subset establishes
 large-corpus acceptance. Existing M2 completion and historical evidence stand.

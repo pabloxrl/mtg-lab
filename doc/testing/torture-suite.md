@@ -120,3 +120,12 @@ local timings, exact test-inventory comparison and cache limitations.
 The [designated M2 mutation command](m2-mutations.md) separately rebuilds twelve
 semantic mutants and requires their exact named assertions to fail. Its baseline
 assertions and runner negative controls are part of normal test discovery.
+
+The [continuous performance contract](../programs/reference-ai-l0.md#continuous-matched-cross-engine-performance-monitoring)
+registers matched same-game native/XMage/Forge benchmarks, durable timing/ratio
+history and reviewed scheduled regression monitoring. Native full-corpus timing
+is recorded on each required L0 run; costly three-engine monitoring runs separately
+nightly when changes land, on adapter/corpus changes and on demand. Fixed cohort
+trends and full-corpus release comparisons retain raw timings, failures, hardware
+and instrumentation limits. This is planned delivery, not measured speed or
+operational monitoring evidence; capture remains first.
