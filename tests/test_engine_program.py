@@ -210,3 +210,15 @@ class HandoffTests(unittest.TestCase):
         self.s['current_success'] = 'yes'
         with self.assertRaisesRegex(ValueError,'outcome'):
             self.choose()
+
+    def test_reserved_withdrawal_requires_reconciliation_even_if_running(self):
+        for remaining in ([], ['agent-running']):
+            with self.subTest(remaining=remaining):
+                self.s = snapshot(self.p)
+                self.s['reserved_successor'] = 299
+                self.target(299)['labels'] = [{'name': n} for n in remaining]
+                self.s['events']['299'] = [
+                    {'event':'labeled','label':{'name':'agent-ready'}},
+                    {'event':'unlabeled','label':{'name':'agent-ready'}}]
+                with self.assertRaisesRegex(ValueError,'reconciliation'):
+                    self.choose()

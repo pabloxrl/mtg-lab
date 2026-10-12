@@ -190,19 +190,27 @@ All repository ready/running claims count toward capacity, including other progr
             continue
         if reservation is not None and n != reservation:
             continue
-        if labels(issue) & {'agent-ready', 'agent-running'}:
-            if n == reservation:
-                return {'successor': n, 'already_owned': True}
-            continue
         events = snapshot['events'].get(str(n))
         require(isinstance(events, list), 'missing paginated label events')
-        withdrawn = any(e.get('event') == 'labeled' and e.get('label', {}).get('name') == 'agent-ready'
-                        for e in events)
-        if withdrawn and 'agent-resume-authorized' not in labels(issue):
+        previously_ready = any(e.get('event') == 'labeled'
+                               and e.get('label', {}).get('name') == 'agent-ready' for e in events)
+        ready = 'agent-ready' in labels(issue)
+        withdrawn = previously_ready and not ready
+        grant = 'agent-resume-authorized' in labels(issue)
+        if n == reservation:
+            require(not withdrawn or grant, 'reserved successor withdrawal requires reconciliation')
+            if ready:
+                return {'successor': n, 'already_owned': True}
+            require('agent-running' not in labels(issue) or (withdrawn and grant),
+                    'reserved successor ownership requires reconciliation')
+        elif labels(issue) & {'agent-ready', 'agent-running'}:
+            continue
+        if withdrawn and not grant:
             continue
         if count >= 3:
             return {'successor': None, 'reason': 'capacity'}
         return {'successor': n, 'already_owned': False}
+    require(reservation is None, 'reserved successor dependencies require reconciliation')
     return {'successor': None, 'reason': 'dependencies, controls, ownership or completion'}
 
 
