@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "seed": 319,
+  "status": "failed",
+  "config": {
+    "seed": 319,
+    "starter": 0,
+    "decks": [
+      "red",
+      "green"
+    ],
+    "max_records": 100000,
+    "unsupported_probe": false
+  },
+  "pins": {
+    "references/xmage/RawAiCaptureTest.java": "dd1d53c21b3a215f586d9f8bb609c90b5bfc595079fd08bf2817dceb672a87c6",
+    "scripts/xmage_ai_capture.py": "9ca54f22df63b91834734b95a9c99e354bb652de3ad55456e4ef70094007a9a7",
+    "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "references/xmage/pins.json": "bdc9c00c21a790863fcfe778eab2dbcfb8b267bf35a3fde0d78df54edaa75158",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950"
+  },
+  "reference_variant": "unmodified-upstream-raw",
+  "admitted": false,
+  "terminal_reason": [
+    {
+      "player": "77378d72-af60-4faf-bfb3-8c1745022720",
+      "life_loss": true,
+      "empty_draw": false
+    }
+  ],
+  "error": "recording equivalence: org.mage.test.mtglab.RawAiCaptureTest$Stop: controlled recording-on/off choice/state difference",
+  "records": 3925,
+  "calls": 784,
+  "spells": 15,
+  "attacks": 6,
+  "simulation_records_suppressed": 14304,
+  "command_error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/.agent-artifacts/raw-capture/attempt-004/xmage.log",
+  "elapsed_seconds": 13.597058421000838,
+  "artifacts": {
+    "config.json": "f548fb865b33c7a4895ff9265d4e0d675197da6529397a312f5f77620afdedd5",
+    "equivalence-0.jsonl.gz": "ac73670af3abed54ac6fb4695131f4099be9fbe39d6076c5d0264a6bbdae9d83",
+    "equivalence-1.jsonl.gz": "de96b23817609c390b505e03d83b2fa164a3248de17a45a96a74a317036de058",
+    "result.json": "a5aa99d90dd53c547c5036ff48f1884ee279cb0ba45a75e33556c90661aa2db8",
+    "trace.jsonl.gz": "e3bac3bacea1b4c6f95bbe34a8df7a4a5520ff0f55b26d0f71ad5297f0a70d97",
+    "xmage.log": "ae79aba1b0125b3ad4d2b8dd72486e9198044fdbc1c28ec71345d155c5e9a0ca"
+  }
+}

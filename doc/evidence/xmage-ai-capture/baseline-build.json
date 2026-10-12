@@ -1,0 +1,19 @@
+{
+  "initial_build": "killed (-9) after compilation",
+  "unchanged_retry": "passed",
+  "source_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "logs": [
+    {
+      "name": "baseline-build-killed.log",
+      "sha256": "2513141d065529612f40dd9f9967cf1c7dce93a7e9715430096ff3219f9650bc",
+      "bytes": 76062
+    },
+    {
+      "name": "build.log",
+      "sha256": "5015a847fb1bb8ddbb9be5df197cf3211685c8a53f8852332fbed576565e7208",
+      "bytes": 62341
+    }
+  ],
+  "public_log_payloads": false,
+  "note": "Build diagnostics only; no game or corpus admission."
+}
