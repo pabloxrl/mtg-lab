@@ -214,7 +214,7 @@ accounting and all-three qualification; deep suite owns coverage/holdout.
 | #321 / L0-003 | Qualify ten distinct XMage AI games | #320 |
 | #322 / L0-004 | Release native batch replay and immutable L0 artifacts | #321 |
 | #323 / L0-005 | Measure a 100-attempt XMage campaign and full native replay | #322 |
-| #324 / L0-006 | Forge real-AI raw game capture | #319 |
+| #324 / L0-006 | Forge real-AI raw game capture | None |
 | #325 / L0-007 | Forge ordered opening replay from actual AI tapes | #324, #320 |
 | #326 / L0-008 | Forge priority, casting and payment replay | #325 |
 | #327 / L0-009 | Forge activated and triggered choice replay | #326 |
@@ -232,7 +232,9 @@ accounting and all-three qualification; deep suite owns coverage/holdout.
 | #337 / all | Integrated corpus correctness/performance and operational monitoring gate | Every child #319–#336, #338, #339 |
 
 First visible output is #319's real captured game, then #320's strict normalized
-replay. #324 can capture Forge independently after #319; heavy builds/reference
+replay. #324 is an independent capture root; manifest order prioritizes #319
+without inventing a code prerequisite. Failed/held XMage work does not block
+Forge capture under normal dependency/control checks. Heavy builds/reference
 runs remain serialized. #322 makes provisional pilot games usable immediately;
 #333 promotes all-three-verified games to incremental final L0 versions before
 500/source campaigns finish. Campaign workers serialize manifest publication via

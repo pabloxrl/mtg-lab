@@ -154,3 +154,18 @@ class L0RegistryTests(unittest.TestCase):
         self.assertIn(339,tasks['replay_policy']['depends_on'])
         self.assertTrue({'L0-019','L0-020'} <= set(tasks['integrated_gate']['requirements']))
         self.assertEqual(tasks['xmage_capture']['depends_on'],[])
+
+    def test_forge_capture_has_no_artificial_xmage_prerequisite(self):
+        tasks={t['key']:t for t in self.p['tasks']}
+        self.assertEqual(tasks['forge_capture']['depends_on'],[])
+
+    def test_failed_first_capture_can_hand_off_independent_forge(self):
+        p=self.p
+        objs=[issue(7),issue(26,'closed'),issue(277,'closed'),issue(318,'closed')]
+        objs += [issue(t['issue'],names=['agent-ready'] if t['issue']==319 else []) for t in p['tasks']]
+        for obj in objs: obj['milestone']={'number':8}
+        snap=dict(current=319,current_success=False,issues=objs,open_claims=[],
+                  receipts={str(n):receipt() for n in (26,277,318)},
+                  events={str(t['issue']):[] for t in p['tasks']})
+        self.assertEqual(select_successor(p,snap)['successor'],324)
+        self.assertNotIn('319',snap['receipts'])

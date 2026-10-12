@@ -13,7 +13,7 @@
     318
   ],
   "rfc": "doc/programs/reference-ai-l0.md",
-  "rfc_sha256": "3fa014d0fb8f47b2a065a8fdc92ba821f6dcce7e231450eacfd83f1b9a89f62d",
+  "rfc_sha256": "5cef293c11db9804e304402e827fea0f008e27a162c4156da054c556f5925331",
   "requirements": [
     {
       "id": "L0-001",
@@ -220,9 +220,7 @@
       "key": "forge_capture",
       "milestone": "L0",
       "kind": "implementation",
-      "depends_on": [
-        319
-      ],
+      "depends_on": [],
       "requirements": [
         "L0-006"
       ]
