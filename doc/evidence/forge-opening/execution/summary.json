@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "attempts": [
+    {
+      "name": "starter-1-repeat-1",
+      "status": "opening-agreed",
+      "receipt_sha256": "04c555a5e705f8e39d159a0b7b00fe28325f2f387141a01afe14515bbf7d1fe6"
+    },
+    {
+      "name": "starter-1-repeat-2",
+      "status": "opening-agreed",
+      "receipt_sha256": "b376e6c94837d2ced7490bc765af62735740a9bbe8a4415eed59c52871da74f7"
+    },
+    {
+      "name": "starter-0-repeat-1",
+      "status": "opening-agreed",
+      "receipt_sha256": "2c4133afc9f18cf49cf94f0cf01759a82861406e98525a8d454df362d8ece2ba"
+    },
+    {
+      "name": "starter-0-repeat-2",
+      "status": "opening-agreed",
+      "receipt_sha256": "09733d3435e73d930d54881c2be188028eddb161871471460b2413e7e7ace5a6"
+    },
+    {
+      "name": "negative-missing-chance",
+      "status": "negative-detected",
+      "receipt_sha256": "904e6d842c25ba1402ae9d65e8ad2d6a15ea11538b48b3bf0dbb584a4bcb9515"
+    },
+    {
+      "name": "negative-reordered-chance",
+      "status": "negative-detected",
+      "receipt_sha256": "c66ea042baa94473d1a741892ed18a835f11a8ff5872df066b204cb048b00501"
+    },
+    {
+      "name": "negative-duplicate-occurrence",
+      "status": "negative-detected",
+      "receipt_sha256": "6c3e2903ce2b320e2d3f261681a8730e44be9d88788fa1ec365d6dd6384c529b"
+    },
+    {
+      "name": "negative-unconsumed-choice",
+      "status": "negative-detected",
+      "receipt_sha256": "387fb066afe34fbc043a693578ef78190de760b71842fe75c62b31392180cd48"
+    },
+    {
+      "name": "negative-checkpoint",
+      "status": "negative-detected",
+      "receipt_sha256": "388e4bb35c71e3d23f0923969d6c35d7e31779f01100fb4cc9cdfc344cd085e0"
+    }
+  ]
+}

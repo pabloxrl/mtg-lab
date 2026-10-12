@@ -359,3 +359,50 @@ fn full_pool_mulligan_literal_checkpoints() {
         std::fs::write(p, serde_json::to_string_pretty(&report).unwrap()).unwrap();
     }
 }
+
+// L0-007: real Forge source choices, normal reset; source observations are
+// independent candidates, with CR 103.5 draw/bottom counts checked explicitly.
+#[test]
+fn captured_forge_opening_strict_replay() {
+    let bytes = match std::env::var("MTG_FORGE_OPENING_INPUT") {
+        Ok(path) => std::fs::read_to_string(path).unwrap(),
+        Err(_) => include_str!("../../../fixtures/reference/forge-opening.json").to_owned(),
+    };
+    let fixtures: Value = serde_json::from_str(&bytes).unwrap();
+    let mut reports = vec![];
+    for fixture in fixtures.as_array().unwrap() {
+        assert_eq!(fixture["complete_game"], false);
+        assert!(fixture["remainder"]["records"].as_u64().unwrap() > 0);
+        let doc = fixture["native"].clone();
+        let mut game = Game::new().unwrap();
+        let result = london_consume(&mut game, doc.clone()).unwrap();
+        let run = &result["forge-opening"];
+        assert_eq!(run["points"], fixture["expected"], "source opening checkpoints");
+        assert_eq!(run["consumed_chance"], doc["cases"][0]["chance"]);
+        assert_eq!(run["consumed_choices"], doc["cases"][0]["choices"]);
+        assert_eq!(london_consume(&mut game, doc.clone()).unwrap(), result);
+        assert!(game.outcome().is_none());
+        for mutation in ["missing_chance", "reordered_chance", "duplicate", "extra_choice"] {
+            let mut bad = doc.clone();
+            let case = &mut bad["cases"][0];
+            match mutation {
+                "missing_chance" => { case["chance"].as_array_mut().unwrap().pop(); }
+                "reordered_chance" => { case["chance"].as_array_mut().unwrap().swap(0, 1); }
+                "duplicate" => { case["chance"][0]["after"][1] = case["chance"][0]["after"][0].clone(); }
+                "extra_choice" => {
+                    let mut extra = case["choices"].as_array().unwrap().last().unwrap().clone();
+                    extra["sequence"] = json!(case["choices"].as_array().unwrap().len());
+                    case["choices"].as_array_mut().unwrap().push(extra);
+                }
+                _ => unreachable!(),
+            }
+            let before = game.snapshot();
+            assert!(london_consume(&mut game, bad).is_err(), "{mutation}");
+            assert_eq!(game.snapshot(), before, "rejected replay changed state");
+        }
+        reports.push(json!({"source_sha256": fixture["source_sha256"], "run": run}));
+    }
+    if let Ok(path) = std::env::var("MTG_FORGE_OPENING_OUTPUT") {
+        std::fs::write(path, serde_json::to_vec_pretty(&reports).unwrap()).unwrap();
+    }
+}

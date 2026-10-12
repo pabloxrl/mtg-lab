@@ -33,7 +33,11 @@ normalized or admitted replays; the existing patched-XMage admission remains sep
 The [Forge raw-capture command](doc/evidence/forge-ai-capture/README.md) runs the
 pinned PlayerControllerAi/AiController in both seats through normal red/green
 setup. It records source choices, payments, chance and intermediate states;
-raw capture does not establish Forge replay, a pilot or corpus admission.
+raw capture does not establish Forge replay, a pilot or corpus admission. The
+[opening replay command](doc/evidence/forge-opening/README.md) consumes real source
+prefixes through Forge and native normal deck setup, including both starters,
+actual London mulligans and ordered bottoming. It retains source scheduling
+alignment and an explicit unplayed remainder; no full-game replay is claimed.
 The [bounded normalization command](doc/evidence/xmage-ai-normalize/README.md)
 replays one of those captured games twice in native and patched XMage with
 source checkpoints and corruption controls. Its unsupported seams fail explicitly;
@@ -160,6 +164,7 @@ and [simulation guide](doc/simulate.md).
 | [Terminal-game admission](doc/evidence/admission/README.md) | Version 10 checks sixteen frozen normal-reset native/XMage games: heuristic-origin and independently authored paths for every matchup/starter row. It requires rules-terminal outcomes, intermediate observations, exact consumption, repeated actual runs and invalid-tape controls. The reference retains the explicit XMage combat patch; no Forge, reference-AI corpus, complete legal-set or M2 gate claim. |
 | [XMage real-AI raw capture](doc/evidence/xmage-ai-capture/README.md) | Headless ComputerPlayer7 game capture with live-game choices, chance, identities, semantic observations, configuration and visible failed attempts. Includes controlled recording-on/off comparison and unsupported/truncation checks. Raw source play is not replay admission, corpus qualification or an L0 speed claim. |
 | [Forge real-AI raw capture](doc/evidence/forge-ai-capture/README.md) | Normal frozen red/green setup with PlayerControllerAi/AiController, source-native callbacks, payments, shuffle/mulligan/chance and intermediate observations. The acceptance command compares uninstrumented play and retains actual unsupported/truncated attempts. No normalized Forge replay or source-AI quota is claimed. |
+| [Forge ordered opening replay](doc/evidence/forge-opening/README.md) | Real captured prefixes execute normal forty-card setup in Forge and native with both starters, initial/redraw chance, physical copies, London bottom order and strict negative controls. Source scheduling alignment and prefix remainder remain explicit; no full-game replay or corpus quota claim. |
 | [Legacy and decision coverage](doc/evidence/m2-reference-foundation/README.md) | Six damage splits, 64 attacker subsets, privacy/capacity checks and bounded native/XMage reference reproduction. |
 | [Keyword and activation reference pack](doc/evidence/m2-reference-combat/README.md) | Exact assigned combat cases, bounded compositions, checkpoint controls and reproduction commands. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |
