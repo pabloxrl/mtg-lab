@@ -1,0 +1,31 @@
+{
+  "kind": "original",
+  "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+  "note": "Original observation/delegation bridge, informed by pinned APIs. No upstream test or AI algorithm copied. Source AI outcomes are observations, not rules goldens. Ordinary live-game copy behavior is unchanged; isolated equivalence copies detach the upstream shared action-history cache and restore declared search limits.",
+  "consulted_sources": {
+    "Mage.Server.Plugins/Mage.Player.AI/src/mage/player/ai/ComputerPlayer.java": "ca3f0b8e0e7aacc7475e862a7e967ca68c45be9d38b9bb7ac8ee6d80bbeb35e2",
+    "Mage.Server.Plugins/Mage.Player.AI.MAD/src/mage/player/ai/ComputerPlayer6.java": "a959df8690a8abc01b7eefccbfdba98d6e1b7a6839fab94e84fb2ca136b8d30c",
+    "Mage.Server.Plugins/Mage.Player.AI.MAD/src/mage/player/ai/ComputerPlayer7.java": "640b75e2c472f53aa901ab1709e526204d0c66980f8498ae4bed5a7e450da12b",
+    "Mage/src/main/java/mage/players/Player.java": "ce6e27813f10480113d16c8900f8492474cfd68529b8dd1bdac9b24552a8420a",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+    "Mage/src/main/java/mage/players/Library.java": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c",
+    "Mage/src/main/java/mage/util/RandomUtil.java": "fd2ea5de81baff396ddc547c6fceb3f88daa96f09c2d4499d2fbf96f428263ed",
+    "Mage/src/main/java/mage/target/TargetImpl.java": "4366d56a414e29c40704e8b734f760d1ec6657d57b0abf8998f51f50d566f915",
+    "Mage/src/main/java/mage/abilities/costs/Cost.java": "51faa5510bad018a9529ca34c9a3c7189a2ff5df0bd9e5853e53303d7f54e1b8",
+    "Mage/src/main/java/mage/abilities/costs/mana/ManaCost.java": "f74fa94645e0467ed63fa6f09c2af9c038dc8dad7a15dc81ca169dd6d6f13273",
+    "Mage/src/main/java/mage/players/ManaPool.java": "7a4fe599d203edd8bcd673fad994303fa055ae37c2f9a1986b8cbf9fcbb7d1f4",
+    "Mage/src/main/java/mage/players/ManaPoolItem.java": "08854ce466abd7ddbbfb5efec3e25ee06f86f7b48e0bb229655218d9f9c6d8bc",
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/game/match/MatchPlayer.java": "6ac6889454cf170802c338a4bf53e5c8193a3d9acd1725bfd33f65ace4181299",
+    "Mage/src/main/java/mage/game/events/GameEvent.java": "3df463d33eff295607e700578e547cef896cf183e1dba3c41131a353f53cb7dc",
+    "Mage/src/main/java/mage/game/events/ZoneChangeEvent.java": "eba0b01196de4b4ee1c99ca60b2734755800c5eedbc724f5573216d38b77df1e",
+    "Mage/src/main/java/mage/abilities/effects/ContinuousEffectImpl.java": "fc5f4d8be136383f99f2d09b0ac9f8bb640058097b862f7479afb701439b5f47"
+  },
+  "license_review": {
+    "notice": "references/xmage/UPSTREAM-LICENSE.txt",
+    "notice_sha256": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+    "authors": "ComputerPlayer7/6: ayratn; base player and library: BetaSteward and contributing authors; RandomUtil: IGOUDT. API consultation only; complete upstream MIT notice retained.",
+    "distribution": "Reviewed source IDs, typed choices and semantic fields only. No Oracle text, artwork, serialized source objects or unchecked upstream logs in public evidence. Effect/prompt text labels are hashes. Repository license remains unselected."
+  },
+  "basis": "L0-001 capture contract; CR 103, 104.3, 117, 601, 603, 508-510, 514, 704. No claim that source AI gameplay is rules-correct or admitted."
+}

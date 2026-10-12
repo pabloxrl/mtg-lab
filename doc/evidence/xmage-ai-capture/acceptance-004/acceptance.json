@@ -1,0 +1,30 @@
+{
+  "status": "passed",
+  "attempts": [
+    {
+      "name": "game",
+      "seed": 319,
+      "expected": "complete",
+      "status": "complete",
+      "reason_matched": true,
+      "receipt_sha256": "86e37c67f35bfdfc3cb2f67e53a1e463e9bbf4f89f48983a3413f22e06472f4b"
+    },
+    {
+      "name": "unsupported",
+      "seed": 319,
+      "expected": "unsupported",
+      "status": "unsupported",
+      "reason_matched": true,
+      "receipt_sha256": "2122d70a8c70dae7c413c6b3d823bc8ce898b116185be3103866332c10c79b9d"
+    },
+    {
+      "name": "truncated",
+      "seed": 319,
+      "expected": "truncated",
+      "status": "truncated",
+      "reason_matched": true,
+      "receipt_sha256": "d9ea6c5f1571bd78ac6e741fa07e6f4b221d65a414832e3b359b897d21aa4132"
+    }
+  ],
+  "admitted_games": 0
+}

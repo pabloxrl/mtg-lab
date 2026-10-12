@@ -1,0 +1,21 @@
+.F.F
+======================================================================
+FAIL: test_empty_trace_cannot_certify_gameplay (test_xmage_ai_capture.CaptureTests.test_empty_trace_cannot_certify_gameplay)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/tests/test_xmage_ai_capture.py", line 23, in test_empty_trace_cannot_certify_gameplay
+    with self.assertRaisesRegex(ValueError, 'configuration'):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_outcome_only_is_not_complete_capture (test_xmage_ai_capture.CaptureTests.test_outcome_only_is_not_complete_capture)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/tests/test_xmage_ai_capture.py", line 31, in test_outcome_only_is_not_complete_capture
+    with self.assertRaisesRegex(ValueError, 'configuration'):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.001s
+
+FAILED (failures=2)

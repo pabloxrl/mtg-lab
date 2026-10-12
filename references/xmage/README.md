@@ -1,5 +1,11 @@
 # Pinned XMage headless smoke bridge
 
+For actual ComputerPlayer7 games rather than scripted reference cases, see
+[raw capture and its acceptance evidence](../../doc/evidence/xmage-ai-capture/README.md).
+`RawAiCaptureTest.java` observes normal source play without using TestComputerPlayer.
+It is separate from the retained patched-combat admission consumer and supplies no
+normalization, native replay or source-correctness verdict.
+
 This test-only bridge runs the real XMage `CardTestPlayerBase` harness. The
 original neutral fixture describes a synthetic upkeep position: empty hands,
 battlefields and stack, with two distinct basic lands in each top-first ordered

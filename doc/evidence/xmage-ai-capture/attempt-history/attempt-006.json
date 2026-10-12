@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "seed": 319,
+  "status": "complete",
+  "config": {
+    "seed": 319,
+    "starter": 0,
+    "decks": [
+      "red",
+      "green"
+    ],
+    "max_records": 100000,
+    "unsupported_probe": false
+  },
+  "pins": {
+    "references/xmage/RawAiCaptureTest.java": "a9909b6b455dc00f7b3dfcac420b0229c1cbc32be720e12648ddf607b71e7337",
+    "scripts/xmage_ai_capture.py": "cc41e8f5509bffc24961304ad9b41061086d04f786610da9f4c2a4e4225fea49",
+    "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "references/xmage/pins.json": "bdc9c00c21a790863fcfe778eab2dbcfb8b267bf35a3fde0d78df54edaa75158",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950"
+  },
+  "reference_variant": "unmodified-upstream-raw",
+  "admitted": false,
+  "terminal_reason": [
+    {
+      "player": "8f6bbc2d-75b9-422c-8ff2-4327ed44336b",
+      "life_loss": true,
+      "empty_draw": false
+    }
+  ],
+  "equivalence": {
+    "kind": "same-state-first-main-ComputerPlayer7-priority",
+    "rng_seed": 319,
+    "off_records": 0,
+    "on_records": 10,
+    "equal_return": true,
+    "equal_semantic_state": true,
+    "same_uuid_copy_excluded": true
+  },
+  "records": 3927,
+  "calls": 785,
+  "spells": 15,
+  "attacks": 6,
+  "simulation_records_suppressed": 15420,
+  "validation": {
+    "records": 3927,
+    "played_spells": 15,
+    "attacking_combats": 6,
+    "shuffles": {
+      "8f6bbc2d-75b9-422c-8ff2-4327ed44336b": 2,
+      "f8d0d257-04d2-4d68-bc10-6eb27a9cc0b2": 1
+    },
+    "mulligan_decisions": 3
+  },
+  "elapsed_seconds": 18.768535901006544,
+  "artifacts": {
+    "config.json": "f548fb865b33c7a4895ff9265d4e0d675197da6529397a312f5f77620afdedd5",
+    "equivalence-0.jsonl.gz": "ac73670af3abed54ac6fb4695131f4099be9fbe39d6076c5d0264a6bbdae9d83",
+    "equivalence-1.jsonl.gz": "90ec9e9f056f1ac0539edcbc680cffebe942ad4b35f60c9f0a93ddbb905c73f7",
+    "equivalence-state-0.json": "b9da20d856c33f2e6c196dc0a3833fbb15c3feddebb2563825d80642b4946156",
+    "equivalence-state-1.json": "b9da20d856c33f2e6c196dc0a3833fbb15c3feddebb2563825d80642b4946156",
+    "result.json": "7846433b4adfe3c94be299c9b649f08d3525457804a6b49d7278df8e7ec24b30",
+    "trace.jsonl.gz": "45d6bbc0f1fb30bf7033e72e9e1eb9af84b914ff10251d317414fe249368ac9a",
+    "xmage.log": "08617eb3330ecd3674b095a6641c305f9cf5ed163835e1f2270067e41a5596e4"
+  }
+}

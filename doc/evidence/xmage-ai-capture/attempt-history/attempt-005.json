@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "seed": 319,
+  "status": "failed",
+  "config": {
+    "seed": 319,
+    "starter": 0,
+    "decks": [
+      "red",
+      "green"
+    ],
+    "max_records": 100000,
+    "unsupported_probe": false
+  },
+  "pins": {
+    "references/xmage/RawAiCaptureTest.java": "9ebd2c771cc8c8216fcb0d9077214e46dae76f6961c2c4fe96b2bc5332cf795c",
+    "scripts/xmage_ai_capture.py": "cc41e8f5509bffc24961304ad9b41061086d04f786610da9f4c2a4e4225fea49",
+    "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "references/xmage/pins.json": "bdc9c00c21a790863fcfe778eab2dbcfb8b267bf35a3fde0d78df54edaa75158",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950"
+  },
+  "reference_variant": "unmodified-upstream-raw",
+  "admitted": false,
+  "terminal_reason": [
+    {
+      "player": "e6bf0414-1150-460e-b03e-8902f36091eb",
+      "life_loss": true,
+      "empty_draw": false
+    }
+  ],
+  "error": "recording equivalence: org.mage.test.mtglab.RawAiCaptureTest$Stop: controlled recording-on/off choice/state difference",
+  "records": 3925,
+  "calls": 784,
+  "spells": 15,
+  "attacks": 6,
+  "simulation_records_suppressed": 15532,
+  "command_error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/.agent-artifacts/raw-capture/attempt-005/xmage.log",
+  "elapsed_seconds": 14.129055344004882,
+  "artifacts": {
+    "config.json": "f548fb865b33c7a4895ff9265d4e0d675197da6529397a312f5f77620afdedd5",
+    "equivalence-0.jsonl.gz": "ac73670af3abed54ac6fb4695131f4099be9fbe39d6076c5d0264a6bbdae9d83",
+    "equivalence-1.jsonl.gz": "ac11bfacd0146122bae4652addb04ab5d22a840de11bb4a9a2af4a9f69387493",
+    "equivalence-state-0.json": "fe4b225b043595decc7a9c5cfbbbde207c700410bbc4527a42a2cc09230820b0",
+    "equivalence-state-1.json": "23d2cef023e64c7184a24c4f724417530ec529779032f6f529fefdb3a0967a60",
+    "result.json": "21cc38b9e9faae8f703b1e7dc176cb940e197e222f85a9c8ce1b0b95a5705a9d",
+    "trace.jsonl.gz": "1bd45d2feb82212fcf1d555394c927feaded69e8be21331a7227caf3a57ab113",
+    "xmage.log": "67d3d027642475bfe71587812686b3af1b5da5ae93f27d6dde2b08712a5b9fbb"
+  }
+}

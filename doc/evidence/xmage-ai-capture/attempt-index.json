@@ -1,0 +1,212 @@
+{
+  "attempts": [
+    {
+      "name": "acceptance-001/game",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/acceptance-001--game.json",
+      "receipt_sha256": "185b0835f9dd9a3ff11738fb642f0491e0b1f4699b4e2555c4d567d336597d36",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-001/truncated",
+      "seed": 319,
+      "status": "truncated",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: truncated: record limit",
+      "receipt": "attempt-history/acceptance-001--truncated.json",
+      "receipt_sha256": "03f368afbd8eabaa0d8b581dfcf2daff885f246e2b409d67390ee2026b0f4a7c",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-001/unsupported",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "receipt": "attempt-history/acceptance-001--unsupported.json",
+      "receipt_sha256": "8eaee062a0180cf92b77275adfe42f57d9fa7243da20f90027730d7c16e33ab5",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-002/game",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/acceptance-002--game.json",
+      "receipt_sha256": "105ab4aec1ced02d01626097a7c340305e953c221516e8495d84d68dbbc2e46c",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-002/truncated",
+      "seed": 319,
+      "status": "truncated",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: truncated: record limit",
+      "receipt": "attempt-history/acceptance-002--truncated.json",
+      "receipt_sha256": "a141e3d9187b40c6d0ac5ebaf162a16cb075e979be14ae7391c991c858e332f8",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-002/unsupported",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "receipt": "attempt-history/acceptance-002--unsupported.json",
+      "receipt_sha256": "19314d21ab714e3c4ac70eab201b6e42fd168473a78b75561dd592ee3847a66d",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-003/game",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/acceptance-003--game.json",
+      "receipt_sha256": "403e4ee10e1e012ad228f999fcacec1371b34c77ad804de17c5828995d9344cf",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-003/truncated",
+      "seed": 319,
+      "status": "truncated",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: truncated: record limit",
+      "receipt": "attempt-history/acceptance-003--truncated.json",
+      "receipt_sha256": "5b75003690cde6b3f35339a9b45f0e5685ef6c9c021a9da3c5978cb3536d9ff1",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-003/unsupported",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "receipt": "attempt-history/acceptance-003--unsupported.json",
+      "receipt_sha256": "537ad719ff0ea613ca9c3b40c2f76e13ddabd0fdad583462b702b36a93a334da",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-004/game",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/acceptance-004--game.json",
+      "receipt_sha256": "86e37c67f35bfdfc3cb2f67e53a1e463e9bbf4f89f48983a3413f22e06472f4b",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-004/truncated",
+      "seed": 319,
+      "status": "truncated",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: truncated: record limit",
+      "receipt": "attempt-history/acceptance-004--truncated.json",
+      "receipt_sha256": "d9ea6c5f1571bd78ac6e741fa07e6f4b221d65a414832e3b359b897d21aa4132",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-004/unsupported",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "receipt": "attempt-history/acceptance-004--unsupported.json",
+      "receipt_sha256": "2122d70a8c70dae7c413c6b3d823bc8ce898b116185be3103866332c10c79b9d",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-005/game",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/acceptance-005--game.json",
+      "receipt_sha256": "259a0a58b76191f024981da4305cdccceab3c4f909c4be7dea1c8d38c84d9eb5",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-005/truncated",
+      "seed": 319,
+      "status": "truncated",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: truncated: record limit",
+      "receipt": "attempt-history/acceptance-005--truncated.json",
+      "receipt_sha256": "8b6c58de6b83052befd03d6bae299edc55edfd22d0f0133ea72ccf49e5bf7435",
+      "admitted": false
+    },
+    {
+      "name": "acceptance-005/unsupported",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "receipt": "attempt-history/acceptance-005--unsupported.json",
+      "receipt_sha256": "25472d97a447649030238b99c26f0a42f73bcbac6e1924d0ef337eadf8041506",
+      "admitted": false
+    },
+    {
+      "name": "attempt-001",
+      "seed": 319,
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/.agent-artifacts/raw-capture/attempt-001/xmage.log",
+      "receipt": "attempt-history/attempt-001.json",
+      "receipt_sha256": "cb2cf17109767236cbf0bf8c136aff0dc08038e7a7a36e16c6c2b85984b647be",
+      "admitted": false
+    },
+    {
+      "name": "attempt-002",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/.agent-artifacts/raw-capture/attempt-002/xmage.log",
+      "receipt": "attempt-history/attempt-002.json",
+      "receipt_sha256": "f37712e3c25e627591d839733c45a25984c30a64fce6b99132eee36f3a1635ac",
+      "admitted": false
+    },
+    {
+      "name": "attempt-003",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/attempt-003.json",
+      "receipt_sha256": "13bae0a0698a918441d47d32e4ea81be214e3cbfdd68d5196f05b306f7c24b5b",
+      "admitted": false
+    },
+    {
+      "name": "attempt-004",
+      "seed": 319,
+      "status": "failed",
+      "error": "recording equivalence: org.mage.test.mtglab.RawAiCaptureTest$Stop: controlled recording-on/off choice/state difference",
+      "receipt": "attempt-history/attempt-004.json",
+      "receipt_sha256": "6f70d606e1a96781f7aca6608d15c89353f234bbd10ec00b147b045809e6ea2b",
+      "admitted": false
+    },
+    {
+      "name": "attempt-005",
+      "seed": 319,
+      "status": "failed",
+      "error": "recording equivalence: org.mage.test.mtglab.RawAiCaptureTest$Stop: controlled recording-on/off choice/state difference",
+      "receipt": "attempt-history/attempt-005.json",
+      "receipt_sha256": "0995c6736ca284f61eca4a903b97672149a3958e0af5aa9a0a8530208fcd5cea",
+      "admitted": false
+    },
+    {
+      "name": "attempt-006",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/attempt-006.json",
+      "receipt_sha256": "162d7d9b57b8244f6c95ec307c6636912bf131dc86f6fb16fb4bd4f258be041a",
+      "admitted": false
+    },
+    {
+      "name": "structured-001",
+      "seed": 319,
+      "status": "complete",
+      "error": null,
+      "receipt": "attempt-history/structured-001.json",
+      "receipt_sha256": "10fc32d0f4b0f28bc5aeeac94a3d23276a1cf970742bb042bf03bc74046f33fc",
+      "admitted": false
+    },
+    {
+      "name": "unsupported-001",
+      "seed": 319,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "receipt": "attempt-history/unsupported-001.json",
+      "receipt_sha256": "43066a16515811030f471b7841bb675fceecc469af346971500afae670b0a952",
+      "admitted": false
+    }
+  ],
+  "note": "All development attempts retained; none admitted or counted toward a corpus quota. Original unchecked development payloads/logs stay private; their hashes and results are retained here. Current reviewed raw acceptance traces are published losslessly."
+}
