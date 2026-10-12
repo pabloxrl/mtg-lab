@@ -7,7 +7,9 @@ command-line interface for simulation, replay and validation.
 The project is under active development. The M1 six-card scalar slice has passed
 its acceptance audit. Native random and heuristic policies now handle the frozen
 20-card pool through the existing scalar runner, with [game, replay and trajectory
-checks](doc/evidence/full-pool-policy/README.md). The M2 gate remains incomplete.
+checks](doc/evidence/full-pool-policy/README.md). The [M2 gate report](doc/evidence/m2-gate/README.md)
+records a scoped PASS for complete-pool, reference and scalar-baseline acceptance;
+milestone completion requires its linked review, protected merge and exact-main CI receipts.
 The [frozen-pool mechanics audit](doc/evidence/m2-mechanics-audit/README.md)
 links each card and rules clause to executable and scoped reference evidence;
 its normal-game matrix includes all eight deck/starting-seat rows.
@@ -20,6 +22,13 @@ See [supported functionality and
 limitations](doc/capabilities.md) for precise coverage and verification evidence.
 The planned [data-driven card model](doc/rfcs/0003-data-driven-cards.md) will let
 new cards reuse supported mechanics through definitions, without engine changes.
+
+| Stage | Verified scope / evidence |
+| --- | --- |
+| M0 | Foundations — [passing audit](doc/evidence/m0-reaudit/README.md). |
+| M1 | Six-card scalar slice — [passing audit](doc/evidence/m1-gate/README.md). |
+| M2 / E1 | Complete frozen pool and scalar baseline — [PASS report](doc/evidence/m2-gate/README.md); completion conditional on its linked review, protected merge and exact-main CI receipts. |
+| E1a–E5 | Runtime card catalog and reference-AI corpus — [planned](doc/roadmap.md#delivery-stages). |
 
 ## Features
 
@@ -44,7 +53,8 @@ new cards reuse supported mechanics through definitions, without engine changes.
   Benchmark-window latency histograms remain unmeasured.
   The [scalar instrumentation audit](doc/evidence/m2-instrumentation-audit/README.md)
   maps the M2 requirements to executable evidence and reports committed-action
-  rates separately from begun/cancelled choices; M2 gate acceptance remains pending.
+  rates separately from begun/cancelled choices; the [M2 gate](doc/evidence/m2-gate/README.md)
+  brings together the scoped acceptance evidence.
   [Full-pool collectors](doc/scalar-baseline.md) cover all eight matchup rows,
   off/counters comparisons and normal-play resident-state RSS sweeps;
   the [available-container artifact](doc/evidence/full-pool-baseline/README.md)

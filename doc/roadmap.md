@@ -30,7 +30,7 @@ The [executable torture baseline](testing/torture-suite.md) runs through the
 [Docker quickstart](getting-started.md#quickstart-run-the-checks) and required CI. Agents must retain coded regressions,
 add independently justified tests with each behavior, run the complete suite and
 obtain separate review before merging. Current executable coverage is verification
-tooling, versioned episode RNG, object storage, opening choices, turns, land/mana transitions, supported creature and token casting, creature mana, targeted instants, flying/reach combat, rules endings and reproducible native-policy matches. Most of the 320 game designs and full-pool reference matches remain planned.
+tooling, versioned episode RNG, object storage, opening choices, turns, land/mana transitions, supported creature and token casting, creature mana, targeted instants, flying/reach combat, rules endings and reproducible native-policy matches. The [M2 audit](evidence/m2-coverage-audit/README.md) maps all 175 M2 catalog cases and individually reviews 123 distinct semantic scenarios. [Sixteen terminal native/XMage games](evidence/admission/README.md) cover every ordered matchup/starter row with explicit reference exceptions. These checks do not qualify the planned reference-AI corpus.
 
 Work is delivered as [small tested changes](programs/atomic-delivery.md), with
 independent review, protected integration and exact-main verification. Existing
@@ -60,7 +60,7 @@ and seeds add diversity; they do not establish coverage on their own.
 | --- | --- | --- |
 | Existing M0 | Scope and verifier foundations | Complete; [passing audit](evidence/m0-reaudit/README.md). |
 | Existing M1 | First scalar slice and unattended games | PASS for the six-card slice; [gate audit](evidence/m1-gate/README.md) and linked delivery receipts. |
-| E1 / existing M2 | Complete frozen toy decks and playable games | In progress; existing full-pool gate #26, reference coverage and scalar baseline remain required. |
+| E1 / existing M2 | Complete frozen toy decks and playable games | PASS for full-pool rules, scoped reference checks and scalar baseline in the [gate report](evidence/m2-gate/README.md); completion requires its linked review, protected merge and exact-main CI receipts. |
 | E1a | Scalable data-driven card model | Planned: runtime definitions and reusable mechanics; unchanged-binary tests prove new supported-mechanic cards need no engine or player-code changes. [Design](rfcs/0003-data-driven-cards.md). |
 | E2 | First reference capture/replay pilot | Planned: 10 complete games, all eight matchup rows, repeated mtg-lab replay and intermediate checks. |
 | E3 | Measured generation and replay cost | Planned: 100 attempts with complete accounting; startup, capture, conversion, replay, latency and memory measured separately. |

@@ -1,0 +1,1032 @@
+{
+  "schema_version": 1,
+  "issue": 26,
+  "audit_base": "c212c4e4914eca700875d31cd20df6ef1d32c41d",
+  "checked_at": "2026-10-12T01:49:08.957Z",
+  "manifest_task_count": 143,
+  "dependencies": [
+    {
+      "issue": 80,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/80#issuecomment-5947085966",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/218",
+      "merge_commit": "bfc422b347a8743245fc99f86b691ade7d7dffe3",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 36981137452,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36981137452",
+        "head_sha": "bfc422b347a8743245fc99f86b691ade7d7dffe3",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 131,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/131#issuecomment-5948181798",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/219",
+      "merge_commit": "6e36df0d180ffddd01a5ed93210871d0eab7c54c",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 36989101825,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36989101825",
+        "head_sha": "6e36df0d180ffddd01a5ed93210871d0eab7c54c",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 132,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/132#issuecomment-5949614601",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/220",
+      "merge_commit": "c19f14030e4f737beacf5ca5da67e5d058c2cdff",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 36998216967,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/36998216967",
+        "head_sha": "c19f14030e4f737beacf5ca5da67e5d058c2cdff",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        218
+      ]
+    },
+    {
+      "issue": 133,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/133#issuecomment-5951166146",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/221",
+      "merge_commit": "e77ddddba57220beba5d2c903b6e64b1954116f6",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37008750016,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37008750016",
+        "head_sha": "e77ddddba57220beba5d2c903b6e64b1954116f6",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 194,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/194#issuecomment-5953585165",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/222",
+      "merge_commit": "b11530369076b742d5ee7526aa0ebb780b693c09",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37022817733,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37022817733",
+        "head_sha": "b11530369076b742d5ee7526aa0ebb780b693c09",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 195,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/195#issuecomment-5956168057",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/223",
+      "merge_commit": "766c13d4d71a3840ea6d1ffb2cdd8a6721128daa",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37041439477,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37041439477",
+        "head_sha": "766c13d4d71a3840ea6d1ffb2cdd8a6721128daa",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 196,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/196#issuecomment-5958415300",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/224",
+      "merge_commit": "978aeab49ae0fdbd5c67895698a105592ed2ca13",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37074862484,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37074862484",
+        "head_sha": "978aeab49ae0fdbd5c67895698a105592ed2ca13",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 197,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/197#issuecomment-5963094510",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/225",
+      "merge_commit": "cb967675d8582ded1109c642d03af0ab9408dc79",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37086290735,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37086290735",
+        "head_sha": "cb967675d8582ded1109c642d03af0ab9408dc79",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 198,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/198#issuecomment-5964375215",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/226",
+      "merge_commit": "e33a379a7d25cbce3705eeec2a3b39c8854056b3",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37092551577,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37092551577",
+        "head_sha": "e33a379a7d25cbce3705eeec2a3b39c8854056b3",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 199,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/199#issuecomment-5965196467",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/227",
+      "merge_commit": "d2802e6b434eb2a54e048b727a01c828d417b769",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37098716362,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37098716362",
+        "head_sha": "d2802e6b434eb2a54e048b727a01c828d417b769",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 200,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/200#issuecomment-5965969150",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/228",
+      "merge_commit": "807f2107cdb0830cc77af1c0553f3811f6e3f7eb",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37105089650,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37105089650",
+        "head_sha": "807f2107cdb0830cc77af1c0553f3811f6e3f7eb",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 201,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/201#issuecomment-5966855149",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/229",
+      "merge_commit": "449e75a191908bd850f61a4543726e6e46f345ae",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37113228527,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37113228527",
+        "head_sha": "449e75a191908bd850f61a4543726e6e46f345ae",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 202,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/202#issuecomment-5968348622",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/230",
+      "merge_commit": "a0d246699ebeccc24f55f0e4d568469bd7d3aaf0",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37123791872,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37123791872",
+        "head_sha": "a0d246699ebeccc24f55f0e4d568469bd7d3aaf0",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 203,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/203#issuecomment-5969646495",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/231",
+      "merge_commit": "f78df4709cb917fc47368d025282e10453ddde57",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37131555705,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37131555705",
+        "head_sha": "f78df4709cb917fc47368d025282e10453ddde57",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 204,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/204#issuecomment-5970614237",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/232",
+      "merge_commit": "e21e91091fbdbc6f90dd037e00f1273c0d317b79",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37578080849,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37578080849",
+        "head_sha": "e21e91091fbdbc6f90dd037e00f1273c0d317b79",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 205,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/205#issuecomment-6041554030",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/233",
+      "merge_commit": "fab7a9e75d0b8777c2dab1d5975abed829a449a0",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37806324973,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37806324973",
+        "head_sha": "fab7a9e75d0b8777c2dab1d5975abed829a449a0",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 206,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/206#issuecomment-6065539679",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/234",
+      "merge_commit": "150614cda2ce8a1690a509598a88b501cb4a7984",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37827247289,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37827247289",
+        "head_sha": "150614cda2ce8a1690a509598a88b501cb4a7984",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 207,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/207#issuecomment-6067305597",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/239",
+      "merge_commit": "4422df56e8f84972e5cd6bf46c010a33c736415f",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37881818057,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37881818057",
+        "head_sha": "4422df56e8f84972e5cd6bf46c010a33c736415f",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        235,
+        238
+      ]
+    },
+    {
+      "issue": 208,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/208#issuecomment-6074112807",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/243",
+      "merge_commit": "0f46ba11c1c8902ac7337af3377b132ee361c1ea",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37906128645,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37906128645",
+        "head_sha": "0f46ba11c1c8902ac7337af3377b132ee361c1ea",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 209,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/209#issuecomment-6076400283",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/247",
+      "merge_commit": "7b7affc387d0464995661d15a39f732e7937e543",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37917675455,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37917675455",
+        "head_sha": "7b7affc387d0464995661d15a39f732e7937e543",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 252,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/252#issuecomment-6082407286",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/258",
+      "merge_commit": "3ca995625b32893197000071004efa1835db6eb2",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37945961055,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37945961055",
+        "head_sha": "3ca995625b32893197000071004efa1835db6eb2",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 254,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/254#issuecomment-6083453095",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/260",
+      "merge_commit": "9a4e8812ecf9fc019cb2c76812058840da89a543",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37956881953,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37956881953",
+        "head_sha": "9a4e8812ecf9fc019cb2c76812058840da89a543",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 255,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/255#issuecomment-6083474442",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/261",
+      "merge_commit": "fb8689267ee5d80750998c55e9580074ac12dc8d",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37962359957,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37962359957",
+        "head_sha": "fb8689267ee5d80750998c55e9580074ac12dc8d",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 256,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/256#issuecomment-6083738575",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/263",
+      "merge_commit": "362aad0eeb5c7ab38d4b710de3f63c266ec48a52",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37978846613,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37978846613",
+        "head_sha": "362aad0eeb5c7ab38d4b710de3f63c266ec48a52",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 257,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/257#issuecomment-6084882789",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/262",
+      "merge_commit": "a239699abdd1e4fac8573cfe8624b57ca2c89f03",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37973858080,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37973858080",
+        "head_sha": "a239699abdd1e4fac8573cfe8624b57ca2c89f03",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 210,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/210#issuecomment-6076401142",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/264",
+      "merge_commit": "17aeefe91c9a23bd91854a8e8c3d7960a06b6be4",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37983551530,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37983551530",
+        "head_sha": "17aeefe91c9a23bd91854a8e8c3d7960a06b6be4",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        258
+      ]
+    },
+    {
+      "issue": 211,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/211#issuecomment-6076570380",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/246",
+      "merge_commit": "253a9521077ccea8dd09f9d75ec0f1f3d696438d",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37913917467,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37913917467",
+        "head_sha": "253a9521077ccea8dd09f9d75ec0f1f3d696438d",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 212,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/212#issuecomment-6078764991",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/265",
+      "merge_commit": "b5c062fb24230992671d24d01f81e00e4e56d6f8",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38000848472,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38000848472",
+        "head_sha": "b5c062fb24230992671d24d01f81e00e4e56d6f8",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        258
+      ]
+    },
+    {
+      "issue": 213,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/213#issuecomment-6078859973",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/249",
+      "merge_commit": "ffff9486f821020ef9e093c67839e62d4224fbe9",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37924924294,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37924924294",
+        "head_sha": "ffff9486f821020ef9e093c67839e62d4224fbe9",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 214,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/214#issuecomment-6076402053",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/248",
+      "merge_commit": "1077a249cbe1546bdb5250f928a2c4931a3cb081",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37920865357,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37920865357",
+        "head_sha": "1077a249cbe1546bdb5250f928a2c4931a3cb081",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 215,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/215#issuecomment-6079735470",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/250",
+      "merge_commit": "29ad7f00e4df2bc54d56d8e7a3079be094996ed9",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37928470735,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37928470735",
+        "head_sha": "29ad7f00e4df2bc54d56d8e7a3079be094996ed9",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 216,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/216#issuecomment-6080297251",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/251",
+      "merge_commit": "522b7da8b86cd412c03c709bf88d8540c0385e16",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37933145688,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37933145688",
+        "head_sha": "522b7da8b86cd412c03c709bf88d8540c0385e16",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 217,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/217#issuecomment-6082444182",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/267",
+      "merge_commit": "71776215b7c2372757b37c4113ac1c0a28bb1362",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 37996690481,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/37996690481",
+        "head_sha": "71776215b7c2372757b37c4113ac1c0a28bb1362",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        258
+      ]
+    },
+    {
+      "issue": 23,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/23#issuecomment-6079276519",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/266",
+      "merge_commit": "1df9b65e95b2976ef9eeb3e46b66877580e2e20c",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38004003811,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38004003811",
+        "head_sha": "1df9b65e95b2976ef9eeb3e46b66877580e2e20c",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        243,
+        258
+      ]
+    },
+    {
+      "issue": 268,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/268#issuecomment-6092397740",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/282",
+      "merge_commit": "a44d7bfde8ae78fc3da3a2caf0063b023b5bbaba",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38019983422,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38019983422",
+        "head_sha": "a44d7bfde8ae78fc3da3a2caf0063b023b5bbaba",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 269,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/269#issuecomment-6093324326",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/285",
+      "merge_commit": "52ab5f65e76e16add48be5a4101c4b00977c3440",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38041227789,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38041227789",
+        "head_sha": "52ab5f65e76e16add48be5a4101c4b00977c3440",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 270,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/270#issuecomment-6096229458",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/287",
+      "merge_commit": "94f0e0334f4037d815824bf8832c1d594e00755e",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38046076348,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38046076348",
+        "head_sha": "94f0e0334f4037d815824bf8832c1d594e00755e",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 271,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/271#issuecomment-6096816121",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/290",
+      "merge_commit": "af642fe81596900994a68726520bd88062c600e3",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38062205741,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38062205741",
+        "head_sha": "af642fe81596900994a68726520bd88062c600e3",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 272,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/272#issuecomment-6099051987",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/291",
+      "merge_commit": "60218ef1a75b645b5d98edaa369cd85412626321",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38069485314,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38069485314",
+        "head_sha": "60218ef1a75b645b5d98edaa369cd85412626321",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 273,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/273#issuecomment-6100061488",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/292",
+      "merge_commit": "0e8b7834d86908c3bd3104ae1822ed433f333c7b",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38075900723,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38075900723",
+        "head_sha": "0e8b7834d86908c3bd3104ae1822ed433f333c7b",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 274,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/274#issuecomment-6100953641",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/293",
+      "merge_commit": "9ff1216273338076a9cb147ffd93661c397a4da3",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38084431397,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38084431397",
+        "head_sha": "9ff1216273338076a9cb147ffd93661c397a4da3",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 275,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/275#issuecomment-6102101331",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/295",
+      "merge_commit": "503f49b978be8fd3aa841782413c45d1de895f5b",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38164057549,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38164057549",
+        "head_sha": "503f49b978be8fd3aa841782413c45d1de895f5b",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 276,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/276#issuecomment-6102148373",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/294",
+      "merge_commit": "dac05699500db9f79bfed8cc3d17f01fca5236aa",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38092196596,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38092196596",
+        "head_sha": "dac05699500db9f79bfed8cc3d17f01fca5236aa",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 277,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/277#issuecomment-6112473318",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/296",
+      "merge_commit": "05920066391976cdfda6c856dd03186ba961246f",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38184311640,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38184311640",
+        "head_sha": "05920066391976cdfda6c856dd03186ba961246f",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 278,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/278#issuecomment-6093342402",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/283",
+      "merge_commit": "4068c855d1bcfbe9f1c63dfd5c98a44752e8c95c",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38034577373,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38034577373",
+        "head_sha": "4068c855d1bcfbe9f1c63dfd5c98a44752e8c95c",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 279,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/279#issuecomment-6093346745",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/284",
+      "merge_commit": "3744ffab7ac2571fcb59e4aae2ff744810eee5b5",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38038753842,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38038753842",
+        "head_sha": "3744ffab7ac2571fcb59e4aae2ff744810eee5b5",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 280,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/280#issuecomment-6095243229",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/286",
+      "merge_commit": "e1ee7bfc2715a04e0f7e3a29a827466d342565d3",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38043420315,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38043420315",
+        "head_sha": "e1ee7bfc2715a04e0f7e3a29a827466d342565d3",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 281,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/281#issuecomment-6096505485",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/288",
+      "merge_commit": "c779b190ed28ff845741c4ce1149f71e55ec675b",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38052644546,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38052644546",
+        "head_sha": "c779b190ed28ff845741c4ce1149f71e55ec675b",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": []
+    },
+    {
+      "issue": 24,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/24#issuecomment-6091093721",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/297",
+      "merge_commit": "c212c4e4914eca700875d31cd20df6ef1d32c41d",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38191652618,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38191652618",
+        "head_sha": "c212c4e4914eca700875d31cd20df6ef1d32c41d",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        266,
+        247,
+        264,
+        246,
+        265,
+        249
+      ]
+    },
+    {
+      "issue": 25,
+      "state": "closed",
+      "state_reason": "completed",
+      "workpad": "https://github.com/pabloxrl/mtg-lab/issues/25#issuecomment-6090375546",
+      "pr": "https://github.com/pabloxrl/mtg-lab/pull/289",
+      "merge_commit": "09a86b6c1fa763e5aae92f142099b72e5d837d16",
+      "review_recorded": true,
+      "acceptance_recorded": true,
+      "ci": {
+        "id": 38057652103,
+        "url": "https://github.com/pabloxrl/mtg-lab/actions/runs/38057652103",
+        "head_sha": "09a86b6c1fa763e5aae92f142099b72e5d837d16",
+        "event": "push",
+        "branch": "main",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      "earlier_prs": [
+        267
+      ]
+    }
+  ]
+}

@@ -1,0 +1,552 @@
+[
+  {
+    "issue": 80,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The amendment preserves existing requirements, catalog expectations, tests, and integration gates. README claims remain accurate. Preservation, program, catalog, documentation-link, dependency-consistency, and diff checks passed. Full torture and live GitHub verification were not run under the read-only, no-network review constraints.",
+      "findings": [],
+      "base_sha": "503ab665372122fd7a8c08b7ba8e6ba77ce525c2",
+      "head_sha": "0d4dd71650ddfb031a3339105e11aeec96d02f7c"
+    },
+    "reviewed_and_merged_tree": "91a48c18ce9f69e76a740be434feac437b241e33"
+  },
+  {
+    "issue": 131,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete defects found in the candidate diff. Existing assertions remain intact; README claims and atomic ownership match the scoped refactor. Three focused tests passed using existing binaries, with the documented history digest reproduced. No fresh build or full torture run was performed in this read-only review.",
+      "findings": [],
+      "base_sha": "bfc422b347a8743245fc99f86b691ade7d7dffe3",
+      "head_sha": "a30b4a37afcbd9bb003523ec686c21bed8ac7fa4"
+    },
+    "reviewed_and_merged_tree": "dc6b9490af043d583db86872ae1a37312648aa8d"
+  },
+  {
+    "issue": 132,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The refactor preserves existing behavior, frozen identities, unsupported-card boundaries, and integration ownership. README claims match the change; no existing tests were removed or weakened. The existing core test binary passed 175 tests; one was blocked by the read-only filesystem. The new Python hash test passed. Full torture was not rerun.",
+      "findings": [],
+      "base_sha": "6e36df0d180ffddd01a5ed93210871d0eab7c54c",
+      "head_sha": "12c37f169f3b9246c9cc78c2648e3fb1f1321fa4"
+    },
+    "reviewed_and_merged_tree": "d0f1178990857eee414a183eda68652246f6c342"
+  },
+  {
+    "issue": 133,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Typed conversions preserve fields and validation ownership; existing tests remain unchanged. README claims and atomic integration ownership are consistent. Existing conversion and collector test binaries passed; a fresh build and full torture run were not performed in the read-only sandbox.",
+      "findings": [],
+      "base_sha": "c19f14030e4f737beacf5ca5da67e5d058c2cdff",
+      "head_sha": "80004c7b58fd2bf1ef88c3bea78f3bc216d28d4a"
+    },
+    "reviewed_and_merged_tree": "63f75c645f6e6e577bd4171a63666a46c8c02539"
+  },
+  {
+    "issue": 194,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed the diff, RFC requirements, test changes, README accuracy, and atomic/integration ownership. Targeted tests passed using existing binaries; the Python comparator test also passed. No fresh build, full torture run, or reference-engine rerun was performed under the read-only, offline constraints.",
+      "findings": [],
+      "base_sha": "e77ddddba57220beba5d2c903b6e64b1954116f6",
+      "head_sha": "fc890e324c981084e9ecfd8ac96402a942a30720"
+    },
+    "reviewed_and_merged_tree": "57c00a1b5ba7686bf6b97339cf6bb1fca467c663"
+  },
+  {
+    "issue": 195,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic integration ownership remain appropriately scoped. Updated expectations are independently justified by pinned card definitions, with rejection coverage preserved and no tests removed or skipped. Focused tests passed using existing binaries, and the Python comparator test passed. Full torture and XMage runs were not repeated in this read-only review.",
+      "findings": [],
+      "base_sha": "b11530369076b742d5ee7526aa0ebb780b693c09",
+      "head_sha": "7c7ab1cc143c25b2b61b2ae70f5b05d4aa43ae8d"
+    },
+    "reviewed_and_merged_tree": "82f5f778c0d2ddddca5ca62032b9a9b43bc3c764"
+  },
+  {
+    "issue": 196,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Changes match GH-196\u2019s atomic scope; replacement assertions are justified and strengthened by new coverage. README accurately distinguishes synthetic flying support and pending integration work. Focused tests passed using existing binaries, as did the Python comparator test. Full torture and XMage runs were not repeated under the read-only, offline constraints.",
+      "findings": [],
+      "base_sha": "766c13d4d71a3840ea6d1ffb2cdd8a6721128daa",
+      "head_sha": "ae7497777d8e9aecb6d17d5ec430ab93a947470a"
+    },
+    "reviewed_and_merged_tree": "20628c7cc07ac01d7efcd22b1764cf032fcb5d8f"
+  },
+  {
+    "issue": 197,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed rules behavior, test replacements, README claims, and atomic/integration ownership. Haste tests passed using existing binaries; Python comparator tests passed. Full torture and reference engines were not rerun in this read-only review, and existing binaries were not rebuilt against the candidate.",
+      "findings": [],
+      "base_sha": "978aeab49ae0fdbd5c67895698a105592ed2ca13",
+      "head_sha": "1e95a4c8fbdf81bf6d2d4cae788f5026462cf1f4"
+    },
+    "reviewed_and_merged_tree": "9c6d39f77bd8a66d23fad7f41d21025368086443"
+  },
+  {
+    "issue": 198,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic integration ownership remain appropriately scoped. Updated expectations follow pinned Tajuru requirements, with stronger coverage and no test deletions or skips. Focused tests passed using existing binaries; reference receipt hashes match candidate sources. Full torture and XMage execution were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "cb967675d8582ded1109c642d03af0ab9408dc79",
+      "head_sha": "d79215a14897692c636ed58622fccd357d86f67c"
+    },
+    "reviewed_and_merged_tree": "8419c668f5a6f2184b0288105703597ec4429e14"
+  },
+  {
+    "issue": 199,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims, atomic ownership, and changed test expectations are consistent with scoped Thornweald support. Focused tests and the quickstart passed using existing binaries; Python comparator checks passed. Full torture and XMage execution were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "e33a379a7d25cbce3705eeec2a3b39c8854056b3",
+      "head_sha": "ae23ba89078b9bd982a0d6613554c6dd83518f20"
+    },
+    "reviewed_and_merged_tree": "bf10b8ae8b208189ffa94bd86d0ef90df260db9a"
+  },
+  {
+    "issue": 200,
+    "review": {
+      "verdict": "pass",
+      "summary": "No blocking correctness, security, verification, or integration defects found. Reviewed test changes preserve rejection coverage; README claims and atomic ownership remain appropriately scoped. Focused existing Rust binaries and Python comparator tests passed, and reference receipt hashes match candidate sources. Full torture and XMage execution were not rerun under the read-only constraint.",
+      "findings": [],
+      "base_sha": "d2802e6b434eb2a54e048b727a01c828d417b769",
+      "head_sha": "68b62a1fbaaadfad50a1f77683f88d012532685f"
+    },
+    "reviewed_and_merged_tree": "6b07a6bb7eec40b34906206be3f24fce0af0debc"
+  },
+  {
+    "issue": 201,
+    "review": {
+      "verdict": "pass",
+      "summary": "No blocking defects found. README claims, atomic ownership, and changed test expectations are consistent with the scoped requirements. Reference receipt source hashes match the candidate. Focused checks passed using existing binaries, but those binaries were not verified as candidate builds; the full torture suite was not rerun during this read-only review.",
+      "findings": [],
+      "base_sha": "807f2107cdb0830cc77af1c0553f3811f6e3f7eb",
+      "head_sha": "f00d5865d1aee63c222b0c644847f49adc05f7b3"
+    },
+    "reviewed_and_merged_tree": "f2b6d1f703c8eb4f3bed66014d5dfa5c73ce6cc7"
+  },
+  {
+    "issue": 202,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed requirements, test changes, README accuracy, and atomic/integration ownership. The prior snapshot defect is fixed. Eight focused Rust tests, one Python test, and the native quickstart passed using existing binaries. Reference receipt hashes match candidate sources. Full torture and reference engines were not rerun.",
+      "findings": [],
+      "base_sha": "449e75a191908bd850f61a4543726e6e46f345ae",
+      "head_sha": "4fa73c1732397542f5dd94b2888fd3a39098b3e7"
+    },
+    "reviewed_and_merged_tree": "2fca257ae7d13122c07ea02052768dad3bc5d997"
+  },
+  {
+    "issue": 203,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed rules, privacy, replay/capture, test changes, README accuracy and atomic ownership. Focused existing Rust binaries and Python comparator tests passed; reference receipt hashes match. Full torture and XMage were not rerun under the read-only review constraints.",
+      "findings": [],
+      "base_sha": "a0d246699ebeccc24f55f0e4d568469bd7d3aaf0",
+      "head_sha": "a55103b98f20cfdb8e4cd3c800e20db76dd59099"
+    },
+    "reviewed_and_merged_tree": "6ffefe67a087539862e73c4d0c390dd6f7445c5f"
+  },
+  {
+    "issue": 204,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found in the scoped synthetic trigger-placement delivery. README limitations and integration ownership are accurate; existing tests were not deleted, skipped, or weakened. Available prebuilt trigger and recorder tests passed, but their exact commit provenance was not verified. No fresh build or full torture run was performed under the read-only constraints.",
+      "findings": [],
+      "base_sha": "f78df4709cb917fc47368d025282e10453ddde57",
+      "head_sha": "a493600bdf749043673c3120f12dcbb08839497e"
+    },
+    "reviewed_and_merged_tree": "9bb87ba0ce5f0b79ea14f9084f6122976855cbe2"
+  },
+  {
+    "issue": 205,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed rules behavior, snapshot and recording paths, test changes, README accuracy, and atomic ownership. Test expectation changes are justified by newly supported cards. Ten core tests, one recorder integration test, and the Python comparator test passed using existing Rust binaries. Full torture and live reference execution were not rerun.",
+      "findings": [],
+      "base_sha": "e21e91091fbdbc6f90dd037e00f1273c0d317b79",
+      "head_sha": "3f8d8a5c15b1195053a569bdbeeff1b58d76134e"
+    },
+    "reviewed_and_merged_tree": "7fac05918e915b3d9f9a107e40d644d9469b9427"
+  },
+  {
+    "issue": 206,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Test replacements are justified, README claims match the scoped implementation, and broader integration ownership remains explicit. Focused cached Rust tests and Python comparator tests passed; reference receipt hashes match candidate sources. Full torture and reference-engine execution were not rerun during this read-only review.",
+      "findings": [],
+      "base_sha": "fab7a9e75d0b8777c2dab1d5975abed829a449a0",
+      "head_sha": "04f9fd73c4bf4e4c4376c3db4622bedeadfdc18a"
+    },
+    "reviewed_and_merged_tree": "33e278bf37e813419b031c670fff0a6a6f26ca3d"
+  },
+  {
+    "issue": 207,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete defects found in the documentation-only diff. Verified 57 source/input hashes, upstream pin, retained checkpoints, and negative controls. Documentation links and cleanup comparator tests pass. No tests or expectations were weakened; README accuracy and integration ownership remain intact. Full torture/reference execution was not rerun, and linked CI/workpad claims were not verified offline.",
+      "findings": [],
+      "base_sha": "c8fa16d5fe2a31bdad35bcfbd261f2a284b36529",
+      "head_sha": "c8e4bc00541051722f05b389ac518a393dc73084"
+    },
+    "reviewed_and_merged_tree": "f2a394efa380552400e4b8901863d1316f3fc2ec"
+  },
+  {
+    "issue": 208,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic ownership match the scoped delivery; changed rejection tests retain coverage with justified expectations. Cached policy tests (6) and recorder integration test (1) passed. No fresh build, full torture run, or network verification was performed.",
+      "findings": [],
+      "base_sha": "8aa47edd416a26a43d044ec577a2f24790ad9afe",
+      "head_sha": "c6398ece14610a3a496d73d49378df8516be6b1e"
+    },
+    "reviewed_and_merged_tree": "7512e25d91651fd9e74e286d5e8dc73c5253578d"
+  },
+  {
+    "issue": 209,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The candidate preserves existing tests and expectations, respects GH-209\u2019s bounded scope and integration ownership, and accurately limits README claims. Three read-only Python checks passed; receipt and composition-source hashes matched. Full torture and live XMage runs were not repeated in this read-only review.",
+      "findings": [],
+      "base_sha": "253a9521077ccea8dd09f9d75ec0f1f3d696438d",
+      "head_sha": "afff0b05fbbc106c838eff9eba2709377ae8010a"
+    },
+    "reviewed_and_merged_tree": "e56b54d222bf863830a10bfaed2c1a6f9ceed99e"
+  },
+  {
+    "issue": 252,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Registration preserves existing requirements, tests, case ownership and integration gates; README remains accurate for this planning-only change. Program validation, preservation checks, archive hashes, dependency consistency and commit ancestry passed. Full torture and remote receipts were not verified in this read-only, offline review.",
+      "findings": [],
+      "base_sha": "522b7da8b86cd412c03c709bf88d8540c0385e16",
+      "head_sha": "307ea91654fb726a61598fc3a0fe1a0c406aaf32"
+    },
+    "reviewed_and_merged_tree": "29de1280a418f5c4e2a8c2cfc685371626262bb6"
+  },
+  {
+    "issue": 254,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic ownership match the scoped repair. The corrected insufficient-mana fixture has independent justification and stronger replacement coverage. Fourteen focused tests passed using existing binaries; reference receipts match current core source hashes. Full torture and XMage runs were inspected as recorded evidence, not rerun.",
+      "findings": [],
+      "base_sha": "5aeab2f10e3aa91a88ac1792fd1f50a1fa744419",
+      "head_sha": "f6826f78f84b780675bd675f2650da31ed29571e"
+    },
+    "reviewed_and_merged_tree": "1bc8bb509519c09fb2519d7a25dc1580a5389eff"
+  },
+  {
+    "issue": 255,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Existing cases and expectations are preserved; README claims and GH-210 integration ownership remain appropriately scoped. All three focused Python tests passed. Verified integrated source/artifact hashes and both recorded native/XMage runs against literal expectations. Full torture and XMage were not rerun during this read-only review.",
+      "findings": [],
+      "base_sha": "9a4e8812ecf9fc019cb2c76812058840da89a543",
+      "head_sha": "b2faeb05ecc8233c52e3c48ff873603557a7c2fa"
+    },
+    "reviewed_and_merged_tree": "b86fbe96543ea4d373d4e52297daa82d75d68b25"
+  },
+  {
+    "issue": 256,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Legacy inputs and expectations are unchanged; README claims and integration ownership match the bounded scope. Five Python tests passed. All 1,129 evidence hashes and candidate source fingerprints matched, and four retained engine runs matched canonical expectations. Full torture and XMage execution were not rerun during this read-only review.",
+      "findings": [],
+      "base_sha": "a239699abdd1e4fac8573cfe8624b57ca2c89f03",
+      "head_sha": "faae9a85b7bdf1bab94cb4f2d622f3997c953cf7"
+    },
+    "reviewed_and_merged_tree": "5e54708e60213200df5e6f60cc2a1e5828595472"
+  },
+  {
+    "issue": 257,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Legacy assertions remain intact, README claims match the synthetic scope, and GH-212 retains aggregate ownership. All 10 focused Python tests passed; retained source/artifact hashes, eight result sets, and four fault controls verified. Rust/XMage and full torture were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "fb8689267ee5d80750998c55e9580074ac12dc8d",
+      "head_sha": "c33de9c95f8e4bbac356559f1ba0575e56959ef7"
+    },
+    "reviewed_and_merged_tree": "63e8c5804983c05cfa7c1717b31198ffd9deceb2"
+  },
+  {
+    "issue": 210,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed requirements, all 50 catalog mappings, test additions, README accuracy and integration ownership. Six focused Python tests passed; archived native/XMage observations matched current expectations and source hashes. No existing tests were removed or weakened. Full Rust/XMage execution was not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "362aad0eeb5c7ab38d4b710de3f63c266ec48a52",
+      "head_sha": "861d7f5d10a69c21fccbe47164e259772296aa74"
+    },
+    "reviewed_and_merged_tree": "2128e5f8370e5c6f10944b47bc877bd2b7a31cd3"
+  },
+  {
+    "issue": 211,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Scope, README claims and integration ownership are consistent; no existing tests or expectations were weakened. Two read-only comparator tests passed, and assignment mappings and recorded source/fixture hashes matched. Full torture and XMage execution were not rerun in the read-only environment.",
+      "findings": [],
+      "base_sha": "0f46ba11c1c8902ac7337af3377b132ee361c1ea",
+      "head_sha": "519dac6af58a72d13abb93a8ede740bfc2c84c88"
+    },
+    "reviewed_and_merged_tree": "23d0bb7512b0097ecfb838b271dd74c5e790ddf8"
+  },
+  {
+    "issue": 212,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Tests are additive, README claims remain bounded, and integration ownership is preserved. Both new Python tests passed; archived artifact hashes, source fingerprints, and retained M1 receipts matched. Full torture and reference execution were inspected through committed evidence, not rerun.",
+      "findings": [],
+      "base_sha": "71776215b7c2372757b37c4113ac1c0a28bb1362",
+      "head_sha": "7aeb338fd49d5d94c6805bf85b6a752bc3991cac"
+    },
+    "reviewed_and_merged_tree": "17e3d65095e42da68c718e4b5c1a57950f7ae448"
+  },
+  {
+    "issue": 213,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Changes preserve existing tests, independently justify mutation expectations, accurately document scope, and retain #24/#26 integration ownership. Seven read-only Python checks passed; all 24 retained test logs matched their receipt hashes and classifications. Full Rust/torture execution was not repeated under the read-only constraint.",
+      "findings": [],
+      "base_sha": "1077a249cbe1546bdb5250f928a2c4931a3cb081",
+      "head_sha": "06925241950f117398467bdea1cc2b638ad36e98"
+    },
+    "reviewed_and_merged_tree": "a3ecfea92bebbe12705aeb01db23d21e03e17d98"
+  },
+  {
+    "issue": 214,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete defects found. README claims and atomic ownership match the scope; no existing assertions were weakened. All 10 metrics tests passed using the existing binary. CLI testing was blocked by the read-only filesystem; full-pool testing remained unfinished, and torture was not run.",
+      "findings": [],
+      "base_sha": "7b7affc387d0464995661d15a39f732e7937e543",
+      "head_sha": "5d1bae127120628877bd2d00e6feb486c5e43c49"
+    },
+    "reviewed_and_merged_tree": "af450d3691e786a06a848529281efc3800780e66"
+  },
+  {
+    "issue": 215,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found in the specified diff. Existing tests retain their assertions; added coverage matches #215\u2019s bounded scope. README claims and integration ownership remain appropriately qualified. Review was read-only; tests and full torture were not rerun, and external CI receipts were not verified.",
+      "findings": [],
+      "base_sha": "ffff9486f821020ef9e093c67839e62d4224fbe9",
+      "head_sha": "a7aeac37f5fc150893e2243964dca53f2fa05bbc"
+    },
+    "reviewed_and_merged_tree": "ef2d0affa27da922915f86c2d87da2570f697af6"
+  },
+  {
+    "issue": 216,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic ownership match the scoped benchmark contract; existing tests are not deleted or weakened. Nine read-only benchmark tests passed using the existing test binary. Full torture and the file-writing CLI test were not rerun under the read-only restriction.",
+      "findings": [],
+      "base_sha": "29ad7f00e4df2bc54d56d8e7a3079be094996ed9",
+      "head_sha": "e36730a97d807256739f274a9fe84aeb9ed16e8c"
+    },
+    "reviewed_and_merged_tree": "9aa270b8dccabe28b7d6a4647fbdaf4f57251f93"
+  },
+  {
+    "issue": 217,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Changes preserve existing tests, match #217\u2019s bounded scope, and retain integration ownership. README accurately limits measurement claims. All 15 read-only artifact tests passed; five throughput reports and four resident reports validated. Reviewed retained torture evidence; did not rerun the full suite in this read-only session.",
+      "findings": [],
+      "base_sha": "17aeefe91c9a23bd91854a8e8c3d7960a06b6be4",
+      "head_sha": "df314f32bc7050ae1dad8c70b4778cc4988520d1"
+    },
+    "reviewed_and_merged_tree": "caba7aaf81fd137beefa76ceed922accac3a50cf"
+  },
+  {
+    "issue": 23,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The added matchup coverage preserves existing assertions without deletions, skips, or rebaselined expectations. README claims and integration ownership remain appropriately scoped. Verified all 270 indexed test names and source hashes, reference receipt hashes, and final torture-log integrity. Runtime/test sources match the recorded tested candidate. Tests were not rerun during this read-only review.",
+      "findings": [],
+      "base_sha": "b5c062fb24230992671d24d01f81e00e4e56d6f8",
+      "head_sha": "cc2a24833cedfc1de521985731c322ad80c719d1"
+    },
+    "reviewed_and_merged_tree": "48cadf204b567e301946e8a93d79751d996900bd"
+  },
+  {
+    "issue": 268,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Existing tests, requirement owners, and aggregate audit gates are preserved; README remains accurate for this registration-only change. Program validation, preservation checks against the actual base, documentation checks, and the archive regression test passed. Full torture and live GitHub state were not verified in this read-only, offline review.",
+      "findings": [],
+      "base_sha": "1df9b65e95b2976ef9eeb3e46b66877580e2e20c",
+      "head_sha": "326fd69078a6fae331f5f82b85dd1c19fc65accf"
+    },
+    "reviewed_and_merged_tree": "80b98738a29fdf98183aa17819fb0f07a793400c"
+  },
+  {
+    "issue": 269,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Changes match GH-269\u2019s bounded reset scope; README claims and integration ownership remain accurate. Existing tests are preserved. Independently checked all 16 oracle checkpoints and verified retained artifact and source hashes. Full torture and XMage runs were inspected as recorded evidence, not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "3744ffab7ac2571fcb59e4aae2ff744810eee5b5",
+      "head_sha": "dd6a6f098ee7be443d3cf3d8fe2d25a6da892236"
+    },
+    "reviewed_and_merged_tree": "ce88945164826c8342ed4fcbb842faa21e4ad48e"
+  },
+  {
+    "issue": 270,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The candidate preserves existing tests and expectations, matches the bounded #270 contract, and accurately documents README scope and integration ownership. Independently verified both receipts\u2019 source and artifact hashes, checkpoints, consumed ledgers, and repeat results. Reviewed retained torture evidence; did not rerun Rust/XMage suites in this read-only session.",
+      "findings": [],
+      "base_sha": "e1ee7bfc2715a04e0f7e3a29a827466d342565d3",
+      "head_sha": "8ba1432111ae85e8072a9b7348a88d12ca7a85c0"
+    },
+    "reviewed_and_merged_tree": "69f4847ddf15305de5b856f1cfa109eca684c4d2"
+  },
+  {
+    "issue": 271,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and integration ownership match the bounded scope. Oracle corrections have documented independent justification; existing tests remain intact. Verified all four receipts\u2019 source/artifact hashes, rechecked archived priority results, and reproduced fixtures in memory. Full engine suites were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "09a86b6c1fa763e5aae92f142099b72e5d837d16",
+      "head_sha": "f7fc7c12cde5aaa8b772187d97eb03f9eda26f10"
+    },
+    "reviewed_and_merged_tree": "bd66da654da4928412c9387e9fc51eb79d4bad29"
+  },
+  {
+    "issue": 272,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Existing tests and integration ownership are preserved; README claims match the bounded scope. Both retained spell runs match candidate source hashes and pass artifact-integrity checks, validators, comparator controls, and 468 committed checkpoint comparisons each. Fresh engine/torture execution was not performed during this read-only review.",
+      "findings": [],
+      "base_sha": "af642fe81596900994a68726520bd88062c600e3",
+      "head_sha": "3b9c0ca1a2495666384bcef93fdc17631fa05694"
+    },
+    "reviewed_and_merged_tree": "cd61fd80e82b1a5a77b08773b210af0f92ebff4c"
+  },
+  {
+    "issue": 273,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Changes preserve existing tests, respect #273\u2019s atomic scope and integration ownership, and keep README claims bounded. Both retained runs\u2019 source/artifact hashes verified; their native/XMage reports passed checker validation and all 15 comparator controls per engine. Full engine and torture runs were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "60218ef1a75b645b5d98edaa369cd85412626321",
+      "head_sha": "462c55d441169ceb409fda72a336eb426566e6fe"
+    },
+    "reviewed_and_merged_tree": "e302f4b89123c711ca865955d6e0aa86f1fcc772"
+  },
+  {
+    "issue": 274,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The candidate preserves existing tests, keeps README claims bounded, and retains integration ownership. Both archived native/XMage runs pass the current validator, and their source hashes match. Full engine tests were not rerun under the read-only constraint.",
+      "findings": [],
+      "base_sha": "0e8b7834d86908c3bd3104ae1822ed433f333c7b",
+      "head_sha": "3daef95f5f4404ba44509040bd06d82b9ae8de4c"
+    },
+    "reviewed_and_merged_tree": "a30d46c0ac6ce374740dfec65748ce59af33c86f"
+  },
+  {
+    "issue": 275,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed rules, scope ownership, README accuracy, compatibility changes, and retained test assertions. All 39 combat tests passed using the existing local binary; both reference receipts\u2019 200 source hashes match the candidate. Full torture and XMage runs were not independently rerun.",
+      "findings": [],
+      "base_sha": "dac05699500db9f79bfed8cc3d17f01fca5236aa",
+      "head_sha": "8e5fc3d85b39c6262b686f33ab3f88a84fa0508c"
+    },
+    "reviewed_and_merged_tree": "a9bd7d89055c7201dc159fe763d9685d5e9c2651"
+  },
+  {
+    "issue": 276,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic integration ownership match the bounded delivery; existing tests remain intact. Both retained reference runs passed read-only validator checks, and their source/artifact hashes matched. Full build-based tests were not rerun under the no-write constraint.",
+      "findings": [],
+      "base_sha": "9ff1216273338076a9cb147ffd93661c397a4da3",
+      "head_sha": "fafa7ed2cd77d6b43854ff7d9957f96c8d0b8a1c"
+    },
+    "reviewed_and_merged_tree": "01b49ef2d3d53f5221aa20c4c2f8267e2989dc8d"
+  },
+  {
+    "issue": 277,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Reviewed requirements, test changes, README accuracy, and task ownership. Rechecked all sixteen archived native/XMage pairs with the candidate comparator and verified receipt source hashes and test-log hashes. Fresh engine runs and full torture were not rerun under the read-only constraint.",
+      "findings": [],
+      "base_sha": "503f49b978be8fd3aa841782413c45d1de895f5b",
+      "head_sha": "303224b6e53d2c6f2022ef39d5e48c05f4990da8"
+    },
+    "reviewed_and_merged_tree": "c500e56f52b7b36ad8f1aee03864c7a15fc36b3e"
+  },
+  {
+    "issue": 278,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic ownership match the scoped delivery. The revised equality assertion preserves existing fields, with independent timing coverage for the new latency object. No tests were deleted or skipped. Diff checks passed; executable tests were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "a44d7bfde8ae78fc3da3a2caf0063b023b5bbaba",
+      "head_sha": "e3f193263a245e2ffefb1fe0bb7e4e401bd91fc8"
+    },
+    "reviewed_and_merged_tree": "72e628ced76f0c130708499992863f0239aaaa4a"
+  },
+  {
+    "issue": 279,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic ownership match the implementation; existing tests and expectations remain intact. The independent Python accounting test and diff whitespace check passed. Full native and torture suites were not rerun under the read-only constraint.",
+      "findings": [],
+      "base_sha": "4068c855d1bcfbe9f1c63dfd5c98a44752e8c95c",
+      "head_sha": "87c64c424868e56e65985da44027c873793d6f4b"
+    },
+    "reviewed_and_merged_tree": "e1a1e185b390b3c428948980ff6dd9e541e16c1e"
+  },
+  {
+    "issue": 280,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The diff preserves existing tests and expectations, accurately limits README claims, and respects atomic task and integration ownership. Retained reports passed accounting checks. Native tests and the full torture suite were not rerun in this read-only review.",
+      "findings": [],
+      "base_sha": "52ab5f65e76e16add48be5a4101c4b00977c3440",
+      "head_sha": "5ebb9f107b5ef02c58fb81d9ac85ea94063fbec1"
+    },
+    "reviewed_and_merged_tree": "46f030aad963af59d770cde60605d3c5243f4eb2"
+  },
+  {
+    "issue": 281,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. README claims and atomic ownership remain appropriately scoped; no existing tests were removed or weakened. Verified archive hashes and campaign arithmetic for all 18 runs; seven read-only arithmetic tests passed. Full native/torture execution was not repeated during this read-only review.",
+      "findings": [],
+      "base_sha": "94f0e0334f4037d815824bf8832c1d594e00755e",
+      "head_sha": "f194079393597cc5e285cd636109ab7f5f56945e"
+    },
+    "reviewed_and_merged_tree": "31a9df1a8a85667801b356059a70235a64067b87"
+  },
+  {
+    "issue": 24,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. The documentation-only diff preserves tests, expectations, scope, and integration ownership. README accurately leaves M2 incomplete. Scenario receipt hashes, archived source hashes, admission archive hashes, and the retained torture log checked successfully. No tests were removed or weakened. Full torture and reference engines were not rerun during this read-only review.",
+      "findings": [],
+      "base_sha": "05920066391976cdfda6c856dd03186ba961246f",
+      "head_sha": "3f1664a78646ca319b82b359dc11fe5ef68dcbf1"
+    },
+    "reviewed_and_merged_tree": "432d682203746407e75af2ee9e7170bc0ae34ebb"
+  },
+  {
+    "issue": 25,
+    "review": {
+      "verdict": "pass",
+      "summary": "No concrete blocking defects found. Documentation preserves M2 gate ownership and measurement limitations; no tests were deleted, skipped, or weakened. Independently recomputed all 16 action-rate groups and verified log hashes and reported test counts. Full tests were not rerun; network receipts were not verified.",
+      "findings": [],
+      "base_sha": "c779b190ed28ff845741c4ce1149f71e55ec675b",
+      "head_sha": "74d2d72c12fba6a5a2caef9f8caed75b3ac47c9b"
+    },
+    "reviewed_and_merged_tree": "d852dbeba8635feb4ddedc4cc02d29bfef1d36c3"
+  }
+]

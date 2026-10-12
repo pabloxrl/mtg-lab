@@ -87,8 +87,9 @@ This uses `heuristic-activation-mana-v1` and `legal-random-activation-mana-v1`; 
 reject explicitly. It uses the owned Driver and all twenty frozen cards, including
 Archer/Cyclops/Pyromancer casts, trigger ordering and player targets. The same
 policies support red/green and red mirrors by changing the deck IDs in the config;
-[full-pool evidence](evidence/full-pool-policy/README.md) exercises all three matchups
-and both starting seats. Inspect
+[full-pool evidence](evidence/full-pool-policy/README.md) exercises red/green and
+both mirrors. The [mechanics audit](evidence/m2-mechanics-audit/README.md) checks
+all four ordered matchups and both starting seats. Inspect
 completed/truncated/failed/incomplete counts; explicit work exhaustion leaves an
 incomplete episode. Capture defaults to disabled; schemas 2/3 can opt into
 [bounded canonical publication](simulate.md#canonical-capture-schemas-2-and-3)

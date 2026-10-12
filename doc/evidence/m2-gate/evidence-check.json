@@ -1,0 +1,56 @@
+{
+  "status": "passed",
+  "audit_head": "c212c4e4914eca700875d31cd20df6ef1d32c41d",
+  "selected_scenarios": 123,
+  "families": {
+    "Costs and mana": 26,
+    "Combat": 24,
+    "Target legality": 9,
+    "Continuous changes": 13,
+    "Objects and zones": 10,
+    "Decisions and encoding": 3,
+    "Setup and randomness": 5,
+    "Terminal states": 5,
+    "Triggers": 20,
+    "Priority and stack": 4,
+    "Privacy and PvP": 2,
+    "Replay and batching": 2
+  },
+  "input_hashes": 62,
+  "catalog_mappings": 175,
+  "registry_ids": 80,
+  "native_mappings": 175,
+  "bounded_xmage_mappings": 173,
+  "reference_sources": 427,
+  "reference_archive_files": 1377,
+  "admission_archives": [
+    {
+      "run": 1,
+      "archived_files": 530,
+      "matching_sources": 168,
+      "distinct_games": 16
+    },
+    {
+      "run": 2,
+      "archived_files": 362,
+      "matching_sources": 168,
+      "distinct_games": 16
+    }
+  ],
+  "measurement_windows": 100,
+  "measured_attempts": 7204,
+  "measured_completions": 7204,
+  "measured_decisions": 7181389,
+  "measured_elapsed_ns": 3091847303512,
+  "committed_rate_groups": 16,
+  "inherited_detected_mutants": 12,
+  "resident_classes": 4,
+  "resident_points": 96,
+  "matching_mutation_sources": 427,
+  "limits": "Integrity/accounting check of inherited execution, not new game/reference/mutation execution or semantic review.",
+  "fresh_execution_files": 1821,
+  "fresh_matching_sources": 427,
+  "fresh_commands_passed": 10,
+  "fresh_terminal_games": 16,
+  "fresh_detected_mutants": 12
+}
