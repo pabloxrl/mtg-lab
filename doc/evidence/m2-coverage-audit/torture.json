@@ -1,0 +1,20 @@
+{
+  "command": "./scripts/torture.sh",
+  "lock": "unchanged Symphony heavy lock",
+  "exit_code": 0,
+  "python_tests": 397,
+  "rust_debug_release_executions": {
+    "passed": 1524,
+    "failed": 0,
+    "ignored": 0
+  },
+  "log": "torture.log.gz",
+  "uncompressed_sha256": "989ec1ccf03c3772b79580546826d06bec95658fe358966f4a673f28b338a2bf",
+  "compressed_sha256": "728738851951e95606cfc11369dc9f3d782d58e5f5fab19fcec1245a2de06777",
+  "integrated_main": "05920066391976cdfda6c856dd03186ba961246f",
+  "execution_head": "31e0028c955b2cf564f03598458a6fc14567654a",
+  "scope": "Fresh full suite, including verify and release. Audit documentation was edited while tests ran; production/test inputs remained unchanged. Final document checks are separate.",
+  "selected_scenarios_verified_in_log": 123,
+  "each_selected_native_test_passed_debug_and_release": true,
+  "unique_selected_native_tests": 23
+}
