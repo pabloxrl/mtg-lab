@@ -30,6 +30,10 @@ The [XMage raw-capture command](doc/evidence/xmage-ai-capture/README.md) runs
 ComputerPlayer7 for both frozen decks from normal reset, recording actual choices,
 shuffles, mulligans and intermediate source observations. Its raw games are not
 normalized or admitted replays; the existing patched-XMage admission remains separate.
+The [bounded normalization command](doc/evidence/xmage-ai-normalize/README.md)
+replays one of those captured games twice in native and patched XMage with
+source checkpoints and corruption controls. Its unsupported seams fail explicitly;
+it does not establish the ten-game pilot or all-three-engine admission.
 The planned [new M3](doc/programs/engine-validation-m3.md) migrates the existing
 frozen pool to external typed definitions and reusable mechanics. It preserves
 the verified M2 boundary; unseen-card admission remains future work. M3 is
