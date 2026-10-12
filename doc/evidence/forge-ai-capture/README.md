@@ -107,7 +107,8 @@ same full event-state digest and final state as recorded play:
 The [unsupported callback](acceptance/unsupported/receipt.json) and
 [budget truncation](acceptance/truncated/receipt.json) fail at the intended seams,
 retain their raw traces, and leave the game nonterminal. TestNG must execute exactly
-one named, unskipped source test; stale reports are removed before each invocation.
+one named, unskipped source test; published test summaries retain the original
+report hash and execution counts without runtime prose. Stale reports are removed before each invocation.
 
 The ordinary suite has nineteen raw-evidence checks, three source-diagnostic checks
 and six source-patch guards.
