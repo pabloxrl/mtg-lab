@@ -1,0 +1,3626 @@
+{
+  "scope": "All unchanged M2 catalog mappings retain historical receipts and now link fresh current-source pack receipts. Bounded observations only; counts exclude later Forge/batch/AI corpus and preserve separate raw-upstream exception counters.",
+  "capabilities": [
+    {
+      "capability": "combat/blocked-status",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 2,
+      "xmage_agreed_bounded": 2,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-blocked-status-interaction",
+        "rules-combat-blocked-status-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-blocked-status-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-blocked-status-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Blocker departure is explicitly synthetic; Growth resolves through real rules afterward. Both engines retain blocked status and deal zero to player."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "m2-combat/blocked-growth",
+        "trample/departed"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-blocked-status-interaction",
+            "rules-combat-blocked-status-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "combat/creature-abilities",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-creature-abilities-positive",
+        "rules-combat-creature-abilities-negative",
+        "rules-combat-creature-abilities-interaction",
+        "rules-combat-creature-abilities-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-creature-abilities-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-creature-abilities-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-creature-abilities-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-creature-abilities-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "haste/tapped",
+        "shivan/exact_cub_cast_0",
+        "shivan/exact_cub_cast_1",
+        "shivan/exact_cub_reject_0",
+        "shivan/exact_cub_reject_1",
+        "shivan/haste"
+      ],
+      "unique_reference_scripts": {
+        "planned": 6,
+        "executed": 6,
+        "agreed_bounded": 6,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-creature-abilities-positive",
+            "rules-combat-creature-abilities-negative",
+            "rules-combat-creature-abilities-interaction",
+            "rules-combat-creature-abilities-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "combat/deathtouch-trample",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-deathtouch-trample-positive",
+        "rules-combat-deathtouch-trample-negative",
+        "rules-combat-deathtouch-trample-interaction",
+        "rules-combat-deathtouch-trample-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-deathtouch-trample-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-deathtouch-trample-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Native attempts 0+1 with six overflowing to player and rejects without snapshot mutation. XMage callback minimum lethal sum=2 excludes this allocation; then both execute 1+1 with five to player. No XMage raw illegal-command rollback claim."
+        },
+        {
+          "catalog_id": "rules-combat-deathtouch-trample-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-deathtouch-trample-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Growth resolves on real Thornweald. Native rejects player overflow; XMage has no player damage allocation without trample. Damage/zone/life checkpoints agree; no raw XMage rejection claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "deathtouch/growth-no-trample",
+        "m2-combat/invoker-cubs",
+        "m2-combat/invoker-cubs-reject",
+        "trample/marked"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [
+        "xmage-per-blocker-trample-constraint"
+      ],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-deathtouch-trample-positive",
+            "rules-combat-deathtouch-trample-negative",
+            "rules-combat-deathtouch-trample-interaction",
+            "rules-combat-deathtouch-trample-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "combat/flying-reach",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-flying-reach-positive",
+        "rules-combat-flying-reach-negative",
+        "rules-combat-flying-reach-interaction",
+        "rules-combat-flying-reach-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-flying-reach-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-flying-reach-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-flying-reach-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-flying-reach-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "flying-reach/ground",
+        "shivan/exact_single_cub_illegal_0",
+        "shivan/exact_single_cub_illegal_1",
+        "shivan/sentry",
+        "shivan/thorn"
+      ],
+      "unique_reference_scripts": {
+        "planned": 5,
+        "executed": 5,
+        "agreed_bounded": 5,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-flying-reach-positive",
+            "rules-combat-flying-reach-negative",
+            "rules-combat-flying-reach-interaction",
+            "rules-combat-flying-reach-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "combat/haste-vigilance",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-haste-vigilance-positive",
+        "rules-combat-haste-vigilance-negative",
+        "rules-combat-haste-vigilance-interaction",
+        "rules-combat-haste-vigilance-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-haste-vigilance-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-haste-vigilance-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-haste-vigilance-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-haste-vigilance-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "haste/cleanup",
+        "haste/swab",
+        "trample/next-block",
+        "trample/sick"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-haste-vigilance-positive",
+            "rules-combat-haste-vigilance-negative",
+            "rules-combat-haste-vigilance-interaction",
+            "rules-combat-haste-vigilance-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "combat/multiple-blockers",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-multiple-blockers-positive",
+        "rules-combat-multiple-blockers-negative",
+        "rules-combat-multiple-blockers-interaction",
+        "rules-combat-multiple-blockers-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-multiple-blockers-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-multiple-blockers-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Native explicitly rejects six assigned damage and preserves snapshot. XMage exposes max=5 through its constrained split callback; raw rejected-command rollback is not exported by that API."
+        },
+        {
+          "catalog_id": "rules-combat-multiple-blockers-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-combat-multiple-blockers-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "All six unrestricted splits execute directly at damage with no legacy order-blockers callback. Native decision protocol and strict XMage callback assert the boundary; no independent full priority trace is claimed."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "shivan/excess",
+        "shivan/grown_split",
+        "shivan/split_0",
+        "shivan/split_1",
+        "shivan/split_2",
+        "shivan/split_3",
+        "shivan/split_4",
+        "shivan/split_5"
+      ],
+      "unique_reference_scripts": {
+        "planned": 8,
+        "executed": 8,
+        "agreed_bounded": 8,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [
+        "xmage-simultaneous-graveyard-order",
+        "xmage-per-blocker-trample-constraint"
+      ],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-multiple-blockers-positive",
+            "rules-combat-multiple-blockers-negative",
+            "rules-combat-multiple-blockers-interaction",
+            "rules-combat-multiple-blockers-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "combat/simultaneous-damage",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-combat-simultaneous-damage-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-combat-simultaneous-damage-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "shivan/thorn"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [
+        "xmage-simultaneous-graveyard-order"
+      ],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-combat-simultaneous-damage-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "continuous/cleanup",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-continuous-cleanup-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-continuous-cleanup-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Existing thorn_cleanup combines Dragon, boosted Thornweald and dead Invoker source through cleanup. New composition adds named activation-stack/resolution points on one battlefield; compare base stats and retained printed flying/reach/deathtouch while temporary trample expires."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "invoker/thorn_cleanup",
+        "m2-combat/cleanup-shivan-thorn"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-continuous-cleanup-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "continuous/hand-size-cleanup",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-continuous-hand-size-cleanup-positive",
+        "rules-continuous-hand-size-cleanup-negative",
+        "rules-continuous-hand-size-cleanup-interaction",
+        "rules-continuous-hand-size-cleanup-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-continuous-hand-size-cleanup-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-continuous-hand-size-cleanup-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Native submits wrong discard counts atomically; XMage asserts exact target cardinality."
+        },
+        {
+          "catalog_id": "rules-continuous-hand-size-cleanup-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic pending ETB at cleanup. Native and XMage assert repeated cleanup; JSON compares hand/graveyard/life/stack/stats, not repetition count."
+        },
+        {
+          "catalog_id": "rules-continuous-hand-size-cleanup-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic pending ETB at cleanup. Thrill cost/draw and no redundant discard; repeated cleanup asserted internally in both bridges."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cleanup/rules-continuous-hand-size-cleanup-interaction",
+        "cleanup/rules-continuous-hand-size-cleanup-negative",
+        "cleanup/rules-continuous-hand-size-cleanup-positive",
+        "cleanup/rules-continuous-hand-size-cleanup-regression"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-continuous-hand-size-cleanup-positive",
+            "rules-continuous-hand-size-cleanup-negative",
+            "rules-continuous-hand-size-cleanup-interaction",
+            "rules-continuous-hand-size-cleanup-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "continuous/resolution-power",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 3,
+      "native_executed": 3,
+      "native_passed": 3,
+      "xmage_executed": 3,
+      "xmage_agreed_bounded": 3,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-continuous-resolution-power-positive",
+        "rules-continuous-resolution-power-interaction",
+        "rules-continuous-resolution-power-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-continuous-resolution-power-positive",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-continuous-resolution-power-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-continuous-resolution-power-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "instant-responses/rules-continuous-resolution-power-positive",
+        "m2-trigger-composition/cyclops_bite_survivor",
+        "shivan/bite"
+      ],
+      "unique_reference_scripts": {
+        "planned": 3,
+        "executed": 3,
+        "agreed_bounded": 3,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-continuous-resolution-power-positive",
+            "rules-continuous-resolution-power-interaction",
+            "rules-continuous-resolution-power-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "continuous/stacked-boosts",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-continuous-stacked-boosts-positive",
+        "rules-continuous-stacked-boosts-negative",
+        "rules-continuous-stacked-boosts-interaction",
+        "rules-continuous-stacked-boosts-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-continuous-stacked-boosts-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-continuous-stacked-boosts-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-continuous-stacked-boosts-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-continuous-stacked-boosts-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "invoker/thorn_double",
+        "m2-combat/double-growth",
+        "surprise/stacked"
+      ],
+      "unique_reference_scripts": {
+        "planned": 3,
+        "executed": 3,
+        "agreed_bounded": 3,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-continuous-stacked-boosts-positive",
+            "rules-continuous-stacked-boosts-negative",
+            "rules-continuous-stacked-boosts-interaction",
+            "rules-continuous-stacked-boosts-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "costs/atomic-rejection",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-costs-atomic-rejection-negative"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-costs-atomic-rejection-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "thrill/wrong_color"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-costs-atomic-rejection-negative"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "costs/creature-mana",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-costs-creature-mana-positive",
+        "rules-costs-creature-mana-negative",
+        "rules-costs-creature-mana-interaction",
+        "rules-costs-creature-mana-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-costs-creature-mana-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-creature-mana-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-creature-mana-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-creature-mana-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "XMage observes the opponent-priority boundary; native raw invalid submissions prove rejection/nonmutation. No identical invalid callback protocol is claimed."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "creature-mana/druid-of-the-cowl-floating",
+        "creature-mana/llanowar-elves-opponent",
+        "creature-mana/llanowar-elves-priority",
+        "creature-mana/llanowar-elves-sick"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-costs-creature-mana-positive",
+            "rules-costs-creature-mana-negative",
+            "rules-costs-creature-mana-interaction",
+            "rules-costs-creature-mana-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "costs/discard-cost",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-costs-discard-cost-positive",
+        "rules-costs-discard-cost-negative",
+        "rules-costs-discard-cost-interaction",
+        "rules-costs-discard-cost-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-costs-discard-cost-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-discard-cost-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-discard-cost-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-discard-cost-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "m2-cost-composition/archer-thrill",
+        "thrill/alone",
+        "thrill/empty",
+        "thrill/ordered"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-costs-discard-cost-positive",
+            "rules-costs-discard-cost-negative",
+            "rules-costs-discard-cost-interaction",
+            "rules-costs-discard-cost-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "costs/land-colored-modal",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-costs-land-colored-modal-positive",
+        "rules-costs-land-colored-modal-negative",
+        "rules-costs-land-colored-modal-interaction",
+        "rules-costs-land-colored-modal-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-costs-land-colored-modal-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-land-colored-modal-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-land-colored-modal-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "XMage executes explicit token-mode payment; native malformed mode-count and off-turn land submissions must reject without mutation."
+        },
+        {
+          "catalog_id": "rules-costs-land-colored-modal-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "XMage executes explicit token-mode payment; native malformed mode-count and off-turn land submissions must reject without mutation."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "m2-cost-composition/land-forest-second-mountain",
+        "m2-cost-composition/land-mountain",
+        "surprise/tokens"
+      ],
+      "unique_reference_scripts": {
+        "planned": 3,
+        "executed": 3,
+        "agreed_bounded": 3,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-costs-land-colored-modal-positive",
+            "rules-costs-land-colored-modal-negative",
+            "rules-costs-land-colored-modal-interaction",
+            "rules-costs-land-colored-modal-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "costs/mana-rejection",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 2,
+      "xmage_agreed_bounded": 2,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-costs-mana-rejection-interaction",
+        "rules-costs-mana-rejection-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-costs-mana-rejection-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-mana-rejection-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "creature-mana/llanowar-elves-floating",
+        "shivan/short_cast"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-costs-mana-rejection-regression"
+          ]
+        },
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-costs-mana-rejection-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "costs/summoning-sickness",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-costs-summoning-sickness-positive",
+        "rules-costs-summoning-sickness-negative",
+        "rules-costs-summoning-sickness-interaction",
+        "rules-costs-summoning-sickness-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-costs-summoning-sickness-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-summoning-sickness-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-summoning-sickness-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-costs-summoning-sickness-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "haste/cast",
+        "m2-cost-composition/cavalry-elf",
+        "shivan/sick",
+        "vanilla-combat/cub-unblocked"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-costs-summoning-sickness-regression"
+          ]
+        },
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-costs-summoning-sickness-positive",
+            "rules-costs-summoning-sickness-negative",
+            "rules-costs-summoning-sickness-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "decisions/all-combinations",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 2,
+      "xmage_agreed_bounded": 2,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-decisions-all-combinations-interaction",
+        "rules-decisions-all-combinations-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-decisions-all-combinations-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-decisions-all-combinations-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native independent full mode/physical-payment domain; XMage both modes and literal outcomes, not enumeration of all payment source combinations."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "shivan/split_0",
+        "shivan/split_1",
+        "shivan/split_2",
+        "shivan/split_3",
+        "shivan/split_4",
+        "shivan/split_5",
+        "surprise/boost",
+        "surprise/tokens"
+      ],
+      "unique_reference_scripts": {
+        "planned": 8,
+        "executed": 8,
+        "agreed_bounded": 8,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [
+        "xmage-per-blocker-trample-constraint"
+      ],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-decisions-all-combinations-interaction",
+            "rules-decisions-all-combinations-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "decisions/capacity",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 0,
+      "xmage_agreed_bounded": 0,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 2,
+      "catalog_ids": [
+        "rules-decisions-capacity-interaction",
+        "rules-decisions-capacity-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-decisions-capacity-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native scalar/policy API contract: independent 2^6 subsets; no corresponding reference encoder capacity claim."
+        },
+        {
+          "catalog_id": "rules-decisions-capacity-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native scalar/policy API capacity contract: 79/80/81 distinct tokens; no corresponding XMage capacity claim."
+        }
+      ],
+      "unique_reference_script_keys": [],
+      "unique_reference_scripts": {
+        "planned": 0,
+        "executed": 0,
+        "agreed_bounded": 0,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-decisions-capacity-interaction",
+            "rules-decisions-capacity-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "decisions/masked-rejection",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-decisions-masked-rejection-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-decisions-masked-rejection-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "shivan/exact_single_cub_illegal_0",
+        "shivan/exact_single_cub_illegal_1"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-decisions-masked-rejection-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/axgard-cavalry",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-axgard-cavalry-positive",
+        "rules-foundations_micro_v1-axgard-cavalry-negative",
+        "rules-foundations_micro_v1-axgard-cavalry-interaction",
+        "rules-foundations_micro_v1-axgard-cavalry-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-axgard-cavalry-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-axgard-cavalry-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-axgard-cavalry-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-axgard-cavalry-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "haste/cast",
+        "haste/opposing",
+        "haste/swab",
+        "m2-cost-composition/cavalry-elf"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-axgard-cavalry-positive",
+            "rules-foundations_micro_v1-axgard-cavalry-negative",
+            "rules-foundations_micro_v1-axgard-cavalry-interaction",
+            "rules-foundations_micro_v1-axgard-cavalry-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/bear-cub",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-bear-cub-negative"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-bear-cub-negative",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "shivan/exact_cub_cast_0",
+        "shivan/exact_cub_cast_1"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-bear-cub-negative"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/bite-down",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-bite-down-positive",
+        "rules-foundations_micro_v1-bite-down-negative",
+        "rules-foundations_micro_v1-bite-down-interaction",
+        "rules-foundations_micro_v1-bite-down-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-bite-down-positive",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-bite-down-negative",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-bite-down-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-bite-down-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "instant-responses/rules-foundations_micro_v1-bite-down-negative",
+        "instant-responses/rules-foundations_micro_v1-bite-down-positive",
+        "instant-responses/rules-foundations_micro_v1-bite-down-regression",
+        "shivan/thorn_bite"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-bite-down-positive",
+            "rules-foundations_micro_v1-bite-down-negative",
+            "rules-foundations_micro_v1-bite-down-interaction",
+            "rules-foundations_micro_v1-bite-down-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/crackling-cyclops",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-crackling-cyclops-positive",
+        "rules-foundations_micro_v1-crackling-cyclops-negative",
+        "rules-foundations_micro_v1-crackling-cyclops-interaction",
+        "rules-foundations_micro_v1-crackling-cyclops-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-crackling-cyclops-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-crackling-cyclops-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-crackling-cyclops-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-crackling-cyclops-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/creature",
+        "cast-triggers/cyclops_fodder",
+        "cast-triggers/cyclops_growth",
+        "cast-triggers/thrill_fail"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-crackling-cyclops-positive",
+            "rules-foundations_micro_v1-crackling-cyclops-negative",
+            "rules-foundations_micro_v1-crackling-cyclops-interaction",
+            "rules-foundations_micro_v1-crackling-cyclops-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/dragon-fodder",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-dragon-fodder-positive",
+        "rules-foundations_micro_v1-dragon-fodder-negative",
+        "rules-foundations_micro_v1-dragon-fodder-interaction",
+        "rules-foundations_micro_v1-dragon-fodder-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-dragon-fodder-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-dragon-fodder-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-dragon-fodder-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-dragon-fodder-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/archer_fodder",
+        "token/repeat"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-dragon-fodder-positive",
+            "rules-foundations_micro_v1-dragon-fodder-negative",
+            "rules-foundations_micro_v1-dragon-fodder-interaction",
+            "rules-foundations_micro_v1-dragon-fodder-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/druid-of-the-cowl",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-druid-of-the-cowl-positive",
+        "rules-foundations_micro_v1-druid-of-the-cowl-negative",
+        "rules-foundations_micro_v1-druid-of-the-cowl-interaction",
+        "rules-foundations_micro_v1-druid-of-the-cowl-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-druid-of-the-cowl-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-druid-of-the-cowl-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-druid-of-the-cowl-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-druid-of-the-cowl-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "creature-mana/druid-block",
+        "creature-mana/druid-of-the-cowl-priority",
+        "creature-mana/druid-of-the-cowl-sick",
+        "m2-cost-composition/cavalry-druid-bite"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-druid-of-the-cowl-positive",
+            "rules-foundations_micro_v1-druid-of-the-cowl-negative",
+            "rules-foundations_micro_v1-druid-of-the-cowl-interaction",
+            "rules-foundations_micro_v1-druid-of-the-cowl-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/firebrand-archer",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-firebrand-archer-positive",
+        "rules-foundations_micro_v1-firebrand-archer-negative",
+        "rules-foundations_micro_v1-firebrand-archer-interaction",
+        "rules-foundations_micro_v1-firebrand-archer-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-firebrand-archer-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-firebrand-archer-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-firebrand-archer-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-firebrand-archer-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/archer_fodder",
+        "cast-triggers/dead_source",
+        "cast-triggers/land",
+        "cast-triggers/two_growth"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-firebrand-archer-positive",
+            "rules-foundations_micro_v1-firebrand-archer-negative",
+            "rules-foundations_micro_v1-firebrand-archer-interaction",
+            "rules-foundations_micro_v1-firebrand-archer-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/goblin-surprise",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-goblin-surprise-positive",
+        "rules-foundations_micro_v1-goblin-surprise-negative",
+        "rules-foundations_micro_v1-goblin-surprise-interaction",
+        "rules-foundations_micro_v1-goblin-surprise-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-surprise-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-surprise-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Both-mode submission is native-only rejection/nonmutation; XMage independently executes the explicit single-mode outcomes."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-surprise-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-surprise-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "surprise/block",
+        "surprise/boost",
+        "surprise/later",
+        "surprise/tokens"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-goblin-surprise-positive",
+            "rules-foundations_micro_v1-goblin-surprise-negative",
+            "rules-foundations_micro_v1-goblin-surprise-interaction",
+            "rules-foundations_micro_v1-goblin-surprise-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/goblin-token",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-goblin-token-positive",
+        "rules-foundations_micro_v1-goblin-token-negative",
+        "rules-foundations_micro_v1-goblin-token-interaction",
+        "rules-foundations_micro_v1-goblin-token-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-token-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-token-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-token-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-goblin-token-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "token/combat",
+        "token/growth-block",
+        "token/repeat"
+      ],
+      "unique_reference_scripts": {
+        "planned": 3,
+        "executed": 3,
+        "agreed_bounded": 3,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-goblin-token-positive",
+            "rules-foundations_micro_v1-goblin-token-negative",
+            "rules-foundations_micro_v1-goblin-token-interaction",
+            "rules-foundations_micro_v1-goblin-token-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/llanowar-elves",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-llanowar-elves-positive",
+        "rules-foundations_micro_v1-llanowar-elves-negative",
+        "rules-foundations_micro_v1-llanowar-elves-interaction",
+        "rules-foundations_micro_v1-llanowar-elves-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-llanowar-elves-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-llanowar-elves-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-llanowar-elves-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-llanowar-elves-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "creature-mana/llanowar-elves-attacked",
+        "creature-mana/llanowar-elves-payment",
+        "creature-mana/llanowar-elves-priority",
+        "creature-mana/llanowar-elves-sick"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-llanowar-elves-positive",
+            "rules-foundations_micro_v1-llanowar-elves-negative",
+            "rules-foundations_micro_v1-llanowar-elves-interaction",
+            "rules-foundations_micro_v1-llanowar-elves-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/magnigoth-sentry",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-magnigoth-sentry-positive",
+        "rules-foundations_micro_v1-magnigoth-sentry-negative",
+        "rules-foundations_micro_v1-magnigoth-sentry-interaction",
+        "rules-foundations_micro_v1-magnigoth-sentry-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-magnigoth-sentry-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-magnigoth-sentry-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Real tapped Sentry cannot block; attacker is the prerequisite explicitly synthetic 5/5 flying Cub. This slot specifies Sentry tap legality, not an attacker card identity."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-magnigoth-sentry-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-magnigoth-sentry-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "flying-reach/ground",
+        "flying-reach/tapped",
+        "shivan/exact_single_sentry_0",
+        "shivan/exact_single_sentry_1",
+        "shivan/sentry"
+      ],
+      "unique_reference_scripts": {
+        "planned": 5,
+        "executed": 5,
+        "agreed_bounded": 5,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-magnigoth-sentry-positive",
+            "rules-foundations_micro_v1-magnigoth-sentry-negative",
+            "rules-foundations_micro_v1-magnigoth-sentry-interaction",
+            "rules-foundations_micro_v1-magnigoth-sentry-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/mountain",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-mountain-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-mountain-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/land",
+        "cast-triggers/mana"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-mountain-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/shivan-dragon",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-shivan-dragon-positive",
+        "rules-foundations_micro_v1-shivan-dragon-negative",
+        "rules-foundations_micro_v1-shivan-dragon-interaction",
+        "rules-foundations_micro_v1-shivan-dragon-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-shivan-dragon-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-shivan-dragon-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Native rejects a supplied foreign target and preserves state. XMage exposes a nontargeted ability with an empty target set; no unsupported target callback or raw rejection claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-shivan-dragon-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-shivan-dragon-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "shivan/cleanup",
+        "shivan/double",
+        "shivan/foreign",
+        "shivan/sick",
+        "shivan/thorn"
+      ],
+      "unique_reference_scripts": {
+        "planned": 5,
+        "executed": 5,
+        "agreed_bounded": 5,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-shivan-dragon-positive",
+            "rules-foundations_micro_v1-shivan-dragon-negative",
+            "rules-foundations_micro_v1-shivan-dragon-interaction",
+            "rules-foundations_micro_v1-shivan-dragon-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/swab-goblin",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 2,
+      "xmage_agreed_bounded": 2,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-swab-goblin-negative",
+        "rules-foundations_micro_v1-swab-goblin-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-swab-goblin-negative",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native fresh Swab attack rejection; retained XMage Swab characteristic/combat evidence uses an old creature and does not claim the fresh-attack command."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-swab-goblin-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "surprise/swab",
+        "vanilla-combat/swab-unblocked"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-swab-goblin-negative",
+            "rules-foundations_micro_v1-swab-goblin-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/tajuru-pathwarden",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-tajuru-pathwarden-positive",
+        "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+        "rules-foundations_micro_v1-tajuru-pathwarden-interaction",
+        "rules-foundations_micro_v1-tajuru-pathwarden-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-tajuru-pathwarden-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Native rejects insufficient lethal without mutation. XMage constrained callback requires two damage to undamaged Cub; literal legal recovery checkpoints agree."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-tajuru-pathwarden-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-tajuru-pathwarden-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "trample/departed",
+        "trample/negative",
+        "trample/two",
+        "trample/unblocked"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-tajuru-pathwarden-positive",
+            "rules-foundations_micro_v1-tajuru-pathwarden-negative",
+            "rules-foundations_micro_v1-tajuru-pathwarden-interaction",
+            "rules-foundations_micro_v1-tajuru-pathwarden-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/thornweald-archer",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-thornweald-archer-positive",
+        "rules-foundations_micro_v1-thornweald-archer-negative",
+        "rules-foundations_micro_v1-thornweald-archer-interaction",
+        "rules-foundations_micro_v1-thornweald-archer-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-thornweald-archer-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-thornweald-archer-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Native rejects player overflow; XMage damage choice does not include player without trample. Both observe no player damage; raw rejection is native only."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-thornweald-archer-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-thornweald-archer-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "deathtouch/no-trample",
+        "invoker/thorn_combat",
+        "shivan/thorn",
+        "shivan/thorn_bite"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-thornweald-archer-positive",
+            "rules-foundations_micro_v1-thornweald-archer-negative",
+            "rules-foundations_micro_v1-thornweald-archer-interaction",
+            "rules-foundations_micro_v1-thornweald-archer-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/thrill-of-possibility",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-thrill-of-possibility-positive",
+        "rules-foundations_micro_v1-thrill-of-possibility-negative",
+        "rules-foundations_micro_v1-thrill-of-possibility-interaction",
+        "rules-foundations_micro_v1-thrill-of-possibility-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-thrill-of-possibility-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-thrill-of-possibility-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-thrill-of-possibility-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-thrill-of-possibility-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "m2-cost-composition/archer-thrill",
+        "thrill/alone",
+        "thrill/one",
+        "thrill/ordered"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-thrill-of-possibility-positive",
+            "rules-foundations_micro_v1-thrill-of-possibility-negative",
+            "rules-foundations_micro_v1-thrill-of-possibility-interaction",
+            "rules-foundations_micro_v1-thrill-of-possibility-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/viashino-pyromancer",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-viashino-pyromancer-positive",
+        "rules-foundations_micro_v1-viashino-pyromancer-negative",
+        "rules-foundations_micro_v1-viashino-pyromancer-interaction",
+        "rules-foundations_micro_v1-viashino-pyromancer-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-viashino-pyromancer-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-viashino-pyromancer-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Native raw creature target rejects without mutation; XMage canTarget rejects creature and verifies required player target cardinality."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-viashino-pyromancer-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-viashino-pyromancer-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "etb-triggers/rules-foundations_micro_v1-viashino-pyromancer-interaction",
+        "etb-triggers/rules-foundations_micro_v1-viashino-pyromancer-negative",
+        "etb-triggers/rules-foundations_micro_v1-viashino-pyromancer-positive",
+        "etb-triggers/rules-foundations_micro_v1-viashino-pyromancer-regression"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-viashino-pyromancer-positive",
+            "rules-foundations_micro_v1-viashino-pyromancer-negative",
+            "rules-foundations_micro_v1-viashino-pyromancer-interaction",
+            "rules-foundations_micro_v1-viashino-pyromancer-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "foundations_micro_v1/wildheart-invoker",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-foundations_micro_v1-wildheart-invoker-positive",
+        "rules-foundations_micro_v1-wildheart-invoker-negative",
+        "rules-foundations_micro_v1-wildheart-invoker-interaction",
+        "rules-foundations_micro_v1-wildheart-invoker-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-foundations_micro_v1-wildheart-invoker-positive",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-wildheart-invoker-negative",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-wildheart-invoker-interaction",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        },
+        {
+          "catalog_id": "rules-foundations_micro_v1-wildheart-invoker-regression",
+          "receipt": "doc/evidence/m2-reference-combat/receipt.json",
+          "receipt_sha256": "c78e24d31e4a5c11c3254ec620b4bcc80244668c9576c98c50481bd18dd0c87d",
+          "boundary": "Selected literal native/XMage checkpoints; synthetic initial position. No full-state or full-game equality claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "invoker/mixed",
+        "invoker/opposing",
+        "invoker/seven",
+        "invoker/thorn_cleanup",
+        "invoker/thorn_dead"
+      ],
+      "unique_reference_scripts": {
+        "planned": 5,
+        "executed": 5,
+        "agreed_bounded": 5,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-combat.json",
+          "sha256": "02587080d17788829ec1847596dff7a249c41c390ea30ed053a9ebe570b5a726",
+          "catalog_ids": [
+            "rules-foundations_micro_v1-wildheart-invoker-positive",
+            "rules-foundations_micro_v1-wildheart-invoker-negative",
+            "rules-foundations_micro_v1-wildheart-invoker-interaction",
+            "rules-foundations_micro_v1-wildheart-invoker-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "objects/bookkeeping",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 2,
+      "xmage_agreed_bounded": 2,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-objects-bookkeeping-positive",
+        "rules-objects-bookkeeping-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-objects-bookkeeping-positive",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-objects-bookkeeping-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "instant-responses/rules-objects-bookkeeping-interaction",
+        "instant-responses/rules-objects-bookkeeping-positive"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [
+        "xmage-simultaneous-graveyard-order"
+      ],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-objects-bookkeeping-positive",
+            "rules-objects-bookkeeping-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "objects/dead-source",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-objects-dead-source-positive",
+        "rules-objects-dead-source-negative",
+        "rules-objects-dead-source-interaction",
+        "rules-objects-dead-source-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-objects-dead-source-positive",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-objects-dead-source-negative",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-objects-dead-source-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native actual responding Bite; reference uses explicitly synthetic source departure after real ability commitment and then real haste/attack."
+        },
+        {
+          "catalog_id": "rules-objects-dead-source-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native actual responding Bite; reference uses synthetic source departure after cast-trigger placement."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/dead_source",
+        "etb-triggers/rules-objects-dead-source-positive",
+        "haste/dead_before",
+        "haste/source_dies"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-objects-dead-source-positive",
+            "rules-objects-dead-source-negative",
+            "rules-objects-dead-source-interaction",
+            "rules-objects-dead-source-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "objects/token-create",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-objects-token-create-positive",
+        "rules-objects-token-create-negative",
+        "rules-objects-token-create-interaction",
+        "rules-objects-token-create-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-objects-token-create-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-objects-token-create-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-objects-token-create-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-objects-token-create-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "surprise/end",
+        "token/repeat"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-objects-token-create-positive",
+            "rules-objects-token-create-negative",
+            "rules-objects-token-create-interaction",
+            "rules-objects-token-create-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "objects/token-removal",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-objects-token-removal-positive",
+        "rules-objects-token-removal-negative",
+        "rules-objects-token-removal-interaction",
+        "rules-objects-token-removal-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-objects-token-removal-positive",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-objects-token-removal-negative",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-objects-token-removal-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        },
+        {
+          "catalog_id": "rules-objects-token-removal-regression",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "token/combat",
+        "token/lethal",
+        "token/repeat",
+        "token/stale-growth"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-objects-token-removal-positive",
+            "rules-objects-token-removal-negative",
+            "rules-objects-token-removal-interaction",
+            "rules-objects-token-removal-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "priority/response-window",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 2,
+      "native_executed": 2,
+      "native_passed": 2,
+      "xmage_executed": 2,
+      "xmage_agreed_bounded": 2,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-priority-response-window-negative",
+        "rules-priority-response-window-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-priority-response-window-negative",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native exact pending-cost rejection; reference executes atomic discard/payment and ordered draw, not native private continuations."
+        },
+        {
+          "catalog_id": "rules-priority-response-window-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Native exact both-seat blocker-step priority and Growth response; reference exercises Invoker/Thornweald combat but does not export both priority windows."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "invoker/thorn_combat",
+        "thrill/ordered"
+      ],
+      "unique_reference_scripts": {
+        "planned": 2,
+        "executed": 2,
+        "agreed_bounded": 2,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-priority-response-window-negative",
+            "rules-priority-response-window-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "priority/turn-structure",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-priority-turn-structure-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-priority-turn-structure-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic pending ETB in end step. Both bridges assert next upkeep after exported resolution checkpoint."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "etb-triggers/rules-priority-turn-structure-interaction"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-priority-turn-structure-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "replay/pending-snapshot",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-replay-pending-snapshot-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-replay-pending-snapshot-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Pending private snapshot/restore is a native API assertion; XMage independently checks the same completed discard/draw ledger, not native snapshot bytes."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "thrill/ordered"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-replay-pending-snapshot-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "setup/ordered-draw",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-setup-ordered-draw-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-setup-ordered-draw-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "thrill/ordered"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-setup-ordered-draw-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "targets/required-targets",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-targets-required-targets-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-targets-required-targets-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "etb-triggers/rules-targets-required-targets-interaction"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-targets-required-targets-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "targets/resolution-revalidation",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-targets-resolution-revalidation-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-targets-resolution-revalidation-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "etb-triggers/rules-targets-resolution-revalidation-regression"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-targets-resolution-revalidation-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "targets/zone-change",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-targets-zone-change-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-targets-zone-change-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "deathtouch/source-gone"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-targets-zone-change-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "terminal/empty-draw",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-terminal-empty-draw-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-terminal-empty-draw-interaction",
+          "receipt": "doc/evidence/m2-cost-reference/reference/receipt.json",
+          "receipt_sha256": "b268c20e74764cfc00da0cbd5c922840a8acad8661786738ba99d5af8956ff16",
+          "boundary": "Actual pinned XMage and native selected checkpoints; synthetic reference setup. Normal-reset and raw input rejection are separate native tests."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "thrill/one"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-cost.json",
+          "sha256": "de4c87df2fa1c04011aa9ce12fc3243a7ce934f7dcd755bec7a584e38f1cd69a",
+          "catalog_ids": [
+            "rules-terminal-empty-draw-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "terminal/lethal",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 1,
+      "native_executed": 1,
+      "native_passed": 1,
+      "xmage_executed": 1,
+      "xmage_agreed_bounded": 1,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-terminal-lethal-interaction"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-terminal-lethal-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "m2-trigger-composition/lethal_fodder"
+      ],
+      "unique_reference_scripts": {
+        "planned": 1,
+        "executed": 1,
+        "agreed_bounded": 1,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-terminal-lethal-interaction"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "terminal/simultaneous-loss",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-terminal-simultaneous-loss-positive",
+        "rules-terminal-simultaneous-loss-negative",
+        "rules-terminal-simultaneous-loss-interaction",
+        "rules-terminal-simultaneous-loss-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-terminal-simultaneous-loss-positive",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-terminal-simultaneous-loss-negative",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-terminal-simultaneous-loss-interaction",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        },
+        {
+          "catalog_id": "rules-terminal-simultaneous-loss-regression",
+          "receipt": "doc/evidence/m2-reference-foundation/final-integration/reference-receipt.json",
+          "receipt_sha256": "798c9d04a2af6789972576d71d2cf403589c5674a04b00e61878afb7c101185d",
+          "boundary": "Shared synthetic native/XMage checkpoints; raw rejection nonmutation and policy continuations are native-only."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "terminal-v2/mixed-life-p0-draw-p1-draw_then_life",
+        "terminal-v2/mixed-life-p0-draw-p1-life_then_draw",
+        "terminal-v2/one-life-survivor-p1",
+        "terminal-v2/simultaneous-life",
+        "terminal-v2/simultaneous-life-reverse-life-order"
+      ],
+      "unique_reference_scripts": {
+        "planned": 5,
+        "executed": 5,
+        "agreed_bounded": 5,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-foundation.json",
+          "sha256": "37e0e78fd4a8015ee8670ae2fd96e5365c31da221cf638b3c12949f4fd2e5c2c",
+          "catalog_ids": [
+            "rules-terminal-simultaneous-loss-positive",
+            "rules-terminal-simultaneous-loss-negative",
+            "rules-terminal-simultaneous-loss-interaction",
+            "rules-terminal-simultaneous-loss-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "triggers/apnap",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-triggers-apnap-positive",
+        "rules-triggers-apnap-negative",
+        "rules-triggers-apnap-interaction",
+        "rules-triggers-apnap-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-triggers-apnap-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-apnap-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Combined foreign-controller permutation rejection/nonmutation is native m2_trigger_reference_tests; XMage enforces controller-local ordering and cannot accept this raw native command."
+        },
+        {
+          "catalog_id": "rules-triggers-apnap-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-apnap-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/apnap",
+        "m2-trigger-composition/apnap_dead",
+        "m2-trigger-composition/apnap_p1",
+        "m2-trigger-composition/apnap_single"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-triggers-apnap-positive",
+            "rules-triggers-apnap-negative",
+            "rules-triggers-apnap-interaction",
+            "rules-triggers-apnap-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "triggers/cast-resolution",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-triggers-cast-resolution-positive",
+        "rules-triggers-cast-resolution-negative",
+        "rules-triggers-cast-resolution-interaction",
+        "rules-triggers-cast-resolution-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-triggers-cast-resolution-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-cast-resolution-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-cast-resolution-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-cast-resolution-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/archer_fodder",
+        "cast-triggers/creature",
+        "cast-triggers/dead_target",
+        "cast-triggers/mixed_growth"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-triggers-cast-resolution-positive",
+            "rules-triggers-cast-resolution-negative",
+            "rules-triggers-cast-resolution-interaction",
+            "rules-triggers-cast-resolution-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "triggers/etb-target",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-triggers-etb-target-positive",
+        "rules-triggers-etb-target-negative",
+        "rules-triggers-etb-target-interaction",
+        "rules-triggers-etb-target-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-triggers-etb-target-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-etb-target-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Native raw creature target rejects without mutation; XMage canTarget rejects creature and verifies required player target cardinality."
+        },
+        {
+          "catalog_id": "rules-triggers-etb-target-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-etb-target-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "etb-triggers/rules-triggers-etb-target-interaction",
+        "etb-triggers/rules-triggers-etb-target-negative",
+        "etb-triggers/rules-triggers-etb-target-positive",
+        "etb-triggers/rules-triggers-etb-target-regression"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-triggers-etb-target-positive",
+            "rules-triggers-etb-target-negative",
+            "rules-triggers-etb-target-interaction",
+            "rules-triggers-etb-target-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "triggers/failed-cast",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-triggers-failed-cast-positive",
+        "rules-triggers-failed-cast-negative",
+        "rules-triggers-failed-cast-interaction",
+        "rules-triggers-failed-cast-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-triggers-failed-cast-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-failed-cast-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Native failed transaction is nonmutating; XMage repeatedly rejects Growth through getPlayable without G."
+        },
+        {
+          "catalog_id": "rules-triggers-failed-cast-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Native rejects illegal destination without mutation; XMage canTarget rejects the friendly destination before the legal cast."
+        },
+        {
+          "catalog_id": "rules-triggers-failed-cast-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/bite_reject",
+        "cast-triggers/no_mana",
+        "cast-triggers/thrill_fail",
+        "m2-trigger-composition/growth_cub"
+      ],
+      "unique_reference_scripts": {
+        "planned": 4,
+        "executed": 4,
+        "agreed_bounded": 4,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-triggers-failed-cast-positive",
+            "rules-triggers-failed-cast-negative",
+            "rules-triggers-failed-cast-interaction",
+            "rules-triggers-failed-cast-regression"
+          ]
+        }
+      ]
+    },
+    {
+      "capability": "triggers/ordering",
+      "count_unit": "unchanged M2 catalog mappings, not distinct scenarios",
+      "planned": 4,
+      "native_executed": 4,
+      "native_passed": 4,
+      "xmage_executed": 4,
+      "xmage_agreed_bounded": 4,
+      "xmage_disputed_in_these_receipts": 0,
+      "xmage_unsupported": 0,
+      "catalog_ids": [
+        "rules-triggers-ordering-positive",
+        "rules-triggers-ordering-negative",
+        "rules-triggers-ordering-interaction",
+        "rules-triggers-ordering-regression"
+      ],
+      "evidence": [
+        {
+          "catalog_id": "rules-triggers-ordering-positive",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-ordering-negative",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Incomplete permutation rejection/nonmutation is native trigger_tests::incomplete_trigger_permutation_rejects_without_mutation; XMage consumes controller-local choices, not raw permutations."
+        },
+        {
+          "catalog_id": "rules-triggers-ordering-interaction",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Synthetic starting position; real existing mechanic execution. Literal independent checkpoint ledger; no normal-reset reachability claim."
+        },
+        {
+          "catalog_id": "rules-triggers-ordering-regression",
+          "receipt": "doc/evidence/m2-triggers/reference.json",
+          "receipt_sha256": "f35d4dd5da4763ef3f05c4b7fb7647ffad3242ff6dd76be7b048504705296bf7",
+          "boundary": "Native snapshots before every resolution and all placement yields; XMage independently executes the same chosen order, without native snapshot format."
+        }
+      ],
+      "unique_reference_script_keys": [
+        "cast-triggers/mixed_growth",
+        "cast-triggers/order_012",
+        "cast-triggers/order_021",
+        "cast-triggers/order_102",
+        "cast-triggers/order_120",
+        "cast-triggers/order_201",
+        "cast-triggers/order_210"
+      ],
+      "unique_reference_scripts": {
+        "planned": 7,
+        "executed": 7,
+        "agreed_bounded": 7,
+        "disputed_within_recorded_fields": 0,
+        "unsupported": 0
+      },
+      "unique_script_count_limit": "Deduplicated suite/case keys across catalog mappings and repeats, not a semantic-independence verdict; aliases and setup differences are individually adjudicated only in reviewed-scenarios.json. Native-only mappings remain unsupported above.",
+      "separate_upstream_exception_ids": [],
+      "fresh_execution_receipts": [
+        {
+          "pack": "fresh-trigger.json",
+          "sha256": "a9fe070235ecbbba2231f34018bede74b6500a7ad427df78e0183b16d3796703",
+          "catalog_ids": [
+            "rules-triggers-ordering-positive",
+            "rules-triggers-ordering-negative",
+            "rules-triggers-ordering-interaction",
+            "rules-triggers-ordering-regression"
+          ]
+        }
+      ]
+    }
+  ],
+  "upstream_exception_count_unit": "One separately observed normal-game boundary per exception, not catalog mappings or selected scenario count. These raw-upstream disputes remain distinct from bounded/qualified agreements.",
+  "upstream_exceptions": [
+    {
+      "id": "xmage-simultaneous-graveyard-order",
+      "capabilities": [
+        "combat/multiple-blockers",
+        "combat/simultaneous-damage",
+        "objects/bookkeeping"
+      ],
+      "planned": 1,
+      "executed": 1,
+      "unmodified_upstream_agreed": 0,
+      "unmodified_upstream_disputed": 1,
+      "unsupported": 0,
+      "first_divergence": "shivan-multiple, before/304, $.graveyard[1][0]",
+      "disposition": "Adjudicated CR404.3/704.3/101.4 mismatch; patched-combat-sba-v1 observations agree. The original upstream discrepancy remains retained.",
+      "evidence": "doc/evidence/combat-prefix/README.md",
+      "evidence_sha256": "c74b461bcf4d515930fe591de6cea1fa9f37b6aa4519ef0673cb65a9e15244d9"
+    },
+    {
+      "id": "xmage-per-blocker-trample-constraint",
+      "capabilities": [
+        "combat/deathtouch-trample",
+        "combat/multiple-blockers",
+        "decisions/all-combinations"
+      ],
+      "planned": 1,
+      "executed": 1,
+      "unmodified_upstream_agreed": 0,
+      "unmodified_upstream_disputed": 1,
+      "unsupported": 0,
+      "first_divergence": "Raw dialog permits [1,3] over two undamaged 2/2 blockers while one damage tramples.",
+      "disposition": "Adjudicated CR702.19b constraint gap; adapter enforces witnessed per-blocker lethal values. No upstream raw-rejection claim.",
+      "evidence": "fixtures/reference/full-pool-combat-oracle.md",
+      "evidence_sha256": "4a06062c6e96672cf2ced435c0ec508b01803b5866ad08ddeae8ed4843c67abf"
+    }
+  ]
+}

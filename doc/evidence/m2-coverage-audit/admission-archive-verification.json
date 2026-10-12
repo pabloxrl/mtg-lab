@@ -1,0 +1,24 @@
+[
+  {
+    "archive": "doc/evidence/admission/final-run-1.tar.gz",
+    "archive_sha256": "86b21021464ae238b3d1537e0ef10dc23a4194fe744766c1f5fe1d0404ec0bbd",
+    "verified_files": 530,
+    "receipt": "doc/evidence/admission/run-1.json",
+    "source_files": 168,
+    "source_differences": {},
+    "case_count": 16,
+    "reference_semantics": "patched-combat-sba-v1",
+    "status": "hashes verified; inherited actual execution, not a fresh engine run"
+  },
+  {
+    "archive": "doc/evidence/admission/final-run-2.tar.gz",
+    "archive_sha256": "e6b119fe5b617dcdd65a360d5c221c7b95377d2289d8b3c2aeea72af84c3c876",
+    "verified_files": 362,
+    "receipt": "doc/evidence/admission/run-2.json",
+    "source_files": 168,
+    "source_differences": {},
+    "case_count": 16,
+    "reference_semantics": "patched-combat-sba-v1",
+    "status": "hashes verified; inherited actual execution, not a fresh engine run"
+  }
+]
