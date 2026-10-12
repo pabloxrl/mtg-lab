@@ -1,7 +1,8 @@
 # RFC 0003: Data-driven cards and reusable mechanics
 
 Status: **Architecture design for implementation; not delivered capability.**
-Operator direction, 2026-10-09. This refines the
+Operator-approved as **Engine validation M3: Reusable mechanics and runtime card definitions**,
+2026-10-12 (formerly E1a). This refines the
 [current engine-validation plan](../programs/engine-validation.md).
 [Operations #241](https://github.com/pabloxrl/mtg-lab/issues/241) registers bounded
 implementation work after the existing M2 baseline. No RL work is introduced.
@@ -21,12 +22,21 @@ Do not substitute a per-card Rust handler, callback name or allowlist for this
 contract. A catalog reload may compile data to internal instructions; it must not
 compile native card-specific code or require a new engine binary.
 
-The decisive test freezes an engine binary and its hash, then introduces cards
-whose identities were absent at build time. The unchanged binary loads, casts,
-activates, resolves and replays those cards through normal game interfaces. The
-only changes are card/deck definitions and independently justified test inputs.
-The release's frozen twenty-card pool remains a qualification workload, not a
-hard limit on the engine's representation.
+The M3 gate builds and hashes the binary **before packaging/loading external
+current-pool definitions**, then plays and replays the unchanged twenty cards
+and existing Goblin token through generic interfaces. No new real or synthetic
+card definition, deck expansion or reference-AI corpus is authorized. Existing
+card migration proves that external data drives supported execution; it does
+**not** prove unseen-definition admission. That stronger unknown-at-build-time
+acceptance test is future work requiring explicit scope authorization. Generic
+internal primitive/unit fixtures may test identity, gain/loss and multiple
+ability instances without adding card definitions or claiming game reachability.
+
+Legacy RFC0002 M3 Batch/Python/RL remains deferred. The distinct
+[EV-M3 registry](../programs/engine-validation-m3.json) and
+[task contracts](../programs/engine-validation-m3.md) own this implementation.
+Registration is not M3 completion; every child and the integrated gate require
+verified delivery. E2–E5 remain later roadmap stages.
 
 ## What exists and what must change
 
@@ -91,6 +101,22 @@ scripts, host calls or user-supplied loops are permitted. Finite set iteration a
 explicit choice constructs are enough for the scoped cards. Extending the
 instruction set is reviewed engine work with explicit semantics and tests.
 
+## Semantic boundaries before migration
+
+Event transactions identify simultaneous groups and retain pre/post context.
+Capture event/ability instances before SBA can erase their sources; defer stack
+placement to the normal rules boundary. Definition, face, physical card,
+incarnation and ability instance are distinct identities even though the current
+pool has single-faced cards. Source context and last-known information are owned
+values with explicit binding time, not live pointers to a returned incarnation.
+
+Typed execution frames carry program position, bindings and resumable choices.
+Scheduler yields are neither player decisions nor rules outcomes. A restricted
+language does not prove that games terminate: budgets/truncation cannot fabricate
+wins or draws. Define separate versioned boundaries for effective characteristics
+and layers, replacement/prevention, and permissions/copy behavior. Implement only
+validated current-pool semantics; reserved interfaces are not advertised support.
+
 ## Catalog and runtime identity
 
 A catalog contains:
@@ -124,48 +150,13 @@ catalogs produce explicit errors. No hot replacement of definitions during a gam
 
 ## Definition language
 
-The following is illustrative **proposed v1 JSON**, not an implemented schema or
-copy-paste command. This synthetic card is an admission test, not a new release
-card or a claim about an existing printed card:
-
-```json
-{
-  "schema_version": 1,
-  "card_key": "test:sky-adept",
-  "revision": 1,
-  "characteristics": {
-    "name": "Sky Adept",
-    "mana_cost": {"generic": 2, "colored": {"U": 1}},
-    "colors": ["U"],
-    "types": ["creature"],
-    "subtypes": ["test-creature"],
-    "power": 2,
-    "toughness": 3
-  },
-  "abilities": [
-    {"id": "flight", "kind": "keyword", "keyword": "flying"},
-    {
-      "id": "grow-power",
-      "kind": "activated",
-      "costs": [{"kind": "mana", "generic": 1}],
-      "targets": [],
-      "effects": [{
-        "op": "modify_characteristics",
-        "subject": {"ref": "source_incarnation"},
-        "power_delta": 1,
-        "toughness_delta": 0,
-        "duration": "until_end_of_turn"
-      }]
-    }
-  ]
-}
-```
-
-Changing its name, size or mana cost, giving a different creature flying, or
-combining flying with a supported activated power boost must not require another
-Rust variant. Colors, types and abilities are explicit typed fields: do not infer
-flying from a "power creature" class or an ability from a display name. Printed
-mana cost and a spell's additional casting costs have separate fields.
+The v1 authoring schema is delivered by the compiler task. Use the existing
+Shivan Dragon as a composition: its printed mana cost, red color, Dragon subtype,
+5/5 body, flying keyword and activated red-mana cost plus +1/+0 until end of turn
+are independent typed fields/programs. The engine must not infer flying or the
+activation from its name or a “power creature” class. Printed mana cost and
+additional casting costs remain separate. This example describes existing pinned
+card semantics; it creates no synthetic admission card.
 
 Ability kinds are keyword, activated, triggered and static; instant/sorcery spell
 programs have analogous targets, modes, additional costs and ordered effects.
@@ -295,22 +286,17 @@ vanilla creature, ignored ability, automatic pass or copied expected state.
 
 ## Migration and delivery gates
 
-Complete the existing M2 baseline and keep its evidence. Then register these
-bounded architectural deliveries under #241 before expanding the card pool or
-qualifying the new reference-game corpus. The plan's E1a gate owns their combined
-acceptance; individual implementation tasks must be split further where needed.
-
-| Order | Deliverable | Required evidence |
-| --- | --- | --- |
-| A1 | Strict schema, runtime registry, dynamic identities and data-driven pool/deck loading | Unknown identities load without recompilation; malformed/unsupported definitions fail before game mutation; deterministic digests and capacity checks. |
-| A2 | Characteristics, keywords and generic cost/target/effect execution | Cross-definition flying/reach, buffs, mana, damage, draw and tokens through normal game paths; multiple independent abilities on one card; positive/negative interaction tests. |
-| A3 | Generic event subscriptions, trigger context and continuous effects needed by the pool | Replace named trigger/activation cases; verify cast versus resolution, ETB, target invalidation, source death/incarnation, expiry and relevant keyword combinations. |
-| A4 | Complete protocol/player/recorder/snapshot/reference integration | Every legal ability is representable; no card-name policy dispatch; reload/replay preserves choices and checkpoints; explicit artifact migration/rejection. |
-| A5 / E1a | Admit all frozen cards declaratively and prove data-only expansion | Fixed binary executes independently authored, previously unseen definitions; all existing regressions, reference cases, full toy-deck games and admission negative controls pass. |
+The [M2 gate](../evidence/m2-gate/README.md) and its exact-main completion receipt
+are retained. The [M3 task contracts](../programs/engine-validation-m3.md) split
+identity/events/frames, compiler/registry, characteristics/costs/selectors/effects,
+activations/triggers, player/protocol/persistence/reference migration, packaging,
+measurements and final audit into independently testable deliveries. The baseline
+comes before representation changes so before/after comparisons are reproducible.
+The final integrated gate owns all requirements, not just an aggregate card count.
 
 At each step retain legacy behavior behind an explicit transitional adapter only
 where needed; declare which path is under test. No silent fallback from an unknown
-new definition into old per-card dispatch. A5 removes production dependence on the
+new definition into old per-card dispatch. The packaging/removal task removes production dependence on the
 compiled card allowlist and named card-effect variants for the scoped mechanics.
 New mechanic implementations remain allowed; new **card-specific** execution paths
 are not the extension mechanism.
@@ -326,26 +312,23 @@ required only within the versioned contracts that promise it.
 
 ## Tests that prove the design
 
-- Build once, hash the binary, then add a new catalog and deck/pool data in a
-  separate step. Play unseen identities with changed mana costs, sizes and colors.
-  Tests themselves must not register a special Rust handler or mutate engine state
-  to simulate the ability being tested.
-- At least two new flying definitions with different characteristics use identical
-  blocking rules; include a supported combination with an activated boost and a
-  creature with two independently selectable activated abilities. Add a new
-  triggered-damage definition with different parameters to expose hard-coded
-  target, damage amount or source assumptions.
-- Exercise gained/lost flying and shared effective-characteristic queries in
-  independently specified tests once those operations are admitted. Unsupported
-  definitions requiring unimplemented effect ordering must fail before play.
-- An unseen mana creature produces its declared color/amount through the same
-  cost and mana-ability rules, including payment-window use and no incorrect
-  stack/target bypass. Prove that cards in hand/graveyard cannot activate battlefield
-  abilities or trigger on another cast; own-ETB triggers are captured once, and
-  source removal does not erase an already-created ability.
-- Reordering catalog records, changing display names or adding an unused definition
-  leaves normalized semantic behavior unchanged. Artifact digests change according
-  to the declared contract; incompatible snapshots cannot accidentally deserialize.
+- Build once and hash the binary before packaging/loading the external catalog.
+  Play/replay current definitions and known combinations through normal interfaces;
+  tests must not register Rust handlers or mutate state to simulate tested effects.
+- Existing flying/reach creatures, boosts, mana abilities, damage, draw, token,
+  modal and cast/ETB compositions retain independently justified expectations.
+  The pool has no printed two-activated-ability card. Use an internal two-instance
+  fixture to prove independently selectable ability identities; do not add a card
+  or claim an unsupported grant makes the combination reachable in frozen games.
+- Gained/lost keywords and shared effective-characteristic queries use current-pool
+  semantics and generic internal primitive tests where game reachability is absent.
+  Unsupported ordering/compositions fail explicitly. Define the supported boundary.
+- Current mana creatures produce their declared outputs through the same costs
+  and mana-ability timing. Hand/graveyard abilities cannot act as battlefield
+  subscriptions; own ETB is captured once and source removal retains pending work.
+- Reordering registry records preserves normalized behavior and deterministic
+  choices. Names may be semantic values but never choose implementation code.
+  Hashes follow the canonical contract; incompatible artifacts fail explicitly.
 - Negative controls: unknown opcode, unsupported interaction, bad reference,
   duplicate ability ID, invalid cost/target, over-budget program and missing pinned
   catalog. Never silently narrow legal choices or leak hidden data to a selector.
@@ -371,6 +354,7 @@ an unmeasured performance promise or permission to weaken correctness.
 | General natural-language card-text interpreter | Out of scope: source text is not a reliable executable specification. |
 | Typed declarative programs lowered to Rust-owned instructions | Selected: data-only card admission, shared semantics, deterministic replay and explicit capability rejection. |
 
-This design makes adding a supported-mechanic card a catalog operation. It does
+The architectural contract makes adding a supported-mechanic card a catalog operation;
+M3 validates current-card migration, not future unseen-definition admission. It does
 not make a new mechanic free, infer all future rules interactions, change the
 frozen release decks, promise arbitrary-format support or introduce learning APIs.

@@ -183,6 +183,22 @@ implementation beyond the assigned scope. If work exceeds the issue bounds,
 record a proposed split and block it for coordinator replanning. A feature worker
 must not add program tasks, expand authorization, or change workflow policy.
 
+## New engine-validation M3 handoff
+
+For #241 and tasks in `doc/programs/engine-validation-m3.json`, read and follow
+`doc/programs/engine-validation-m3.md` from freshly fetched main. Validate with
+`python3 scripts/check_engine_program.py --ref origin/main` (initial coordinator
+registration validates the candidate until its protected merge). That distinct
+namespace and milestone 7 authorize only the unchanged-pool reusable-mechanics
+M3. Its complete task contracts/owners replace the legacy ledger for those tasks;
+all bounded handoff steps and controls below still apply. #26 and #241 require
+verified completion evidence before implementation. The coordinator may activate
+only the first eligible child after protected registration merge and exact-main
+CI, then ordinary bounded handoffs continue without another approval. Keep all
+children unready before that point. Count all repository ready/running claims
+against the same capacity; do not broaden legacy authorization or register E2–E5.
+A candidate registry is never dispatch authority. Feature workers cannot add tasks.
+
 ## Bounded RFC program handoff
 
 The committed `doc/programs/rfc-0002.json` is the sole task/dependency allowlist
@@ -228,7 +244,8 @@ requirement ownership; they do not waive any product requirement.
    omit a dependency. Read authorized_milestones from current main. The 2026-10-09 operator amendment in doc/programs/engine-validation.md
    supersedes operations #59: only M0–M2 are authorized in the legacy program.
    M3–M5 and operations #81–#83 remain deferred. After M2, stop legacy handoff;
-   coordinator operations #241 owns registration of the reference-corpus program. This does
+   coordinator operations #241 owns registration and first activation of the separate
+   engine-validation M3 program (not legacy M3 or the later reference-AI corpus). This does
    not satisfy dependencies: each next stage still requires its preceding gate
    and exact-main completion evidence. Successful gates use the same bounded
    handoff to the next eligible registered task, without a new activation request.

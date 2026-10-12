@@ -111,3 +111,12 @@ early readiness. This named amendment does not authorize feature workers to regi
 tasks, expand scope, or change workflow/CI/resource/concurrency/settings policy.
 
 See the [repair graph](m2-audit-repair-prerequisites.md) and [complete contracts](m2-audit-repair-contracts.md).
+
+## New engine-validation M3
+
+The 2026-10-12 operator amendment authorizes coordinator #241 to register and
+launch [EV-M3](engine-validation-m3.md) in its own namespace and milestone 7.
+Legacy RFC0002 M3–M5 and their original ledger remain deferred and unchanged.
+The new task table specifies direct code/contract dependencies, independent
+positive/negative checks and ownership; the integrated gate retains every shared
+regression/reference obligation. No new cards or E2–E5 corpus work is registered.

@@ -1,0 +1,375 @@
+{
+  "schema_version": 1,
+  "program": "engine-validation-m3",
+  "parent_issue": 7,
+  "coordinator_issue": 241,
+  "github_milestone": 7,
+  "authorized_milestones": [
+    "EV-M3"
+  ],
+  "prerequisites": [
+    26,
+    241
+  ],
+  "rfc": "doc/rfcs/0003-data-driven-cards.md",
+  "rfc_sha256": "faadfdc05eee081373852812bcf51cd85766d4dbc4033f2f75ed31f142f4dba2",
+  "requirements": [
+    {
+      "id": "EV3-001",
+      "owner": 299,
+      "deliverable": "Retain exact current-pool game/chance/action inputs, source/binary hashes, tools and capture settings. Run existing independent checkpoints before timing. Record repeated load/startup, legal-choice, dispatch, replay and per-game RSS measurements with raw samples; catalog cost is explicitly unavailable on the old binary. Commit a rerunnable comparison protocol, preserving old artifacts.",
+      "checks": "Reject changed workload hashes, mismatched capture modes and nonterminal attempts from successful-game rates; independently recompute sample accounting. Rules expectations come from retained M2 cases, not new output.",
+      "exclusions": "No engine refactor, new cards, performance target or reference-AI generation."
+    },
+    {
+      "id": "EV3-002",
+      "owner": 300,
+      "deliverable": "Provide checked stable external keys and compact registry-local IDs, single-face current-pool identities, physical-card and incarnation distinctions, and ability-instance identity/source context. Inventory every serialized old CardId/action consumer and publish the migration/version matrix before changing artifacts.",
+      "checks": "Normal-discovery unit tests reject overflow, duplicate identity and stale incarnations; current-card source-return cases distinguish old ability instances from new objects. Independent basis: pinned object/zone/ability rules and M2 identity fixtures.",
+      "exclusions": "No new faces/cards or full copy semantics; legacy wire adapters remain explicit until their owner removes them."
+    },
+    {
+      "id": "EV3-003",
+      "owner": 301,
+      "deliverable": "Route existing cast, ETB and simultaneous zone-transition events through a transaction contract with occurrence identity, pre/post views and owned source/LKI context. Preserve capture before SBA, APNAP placement afterward and atomic group semantics.",
+      "checks": "Use current Pyromancer ETB/source removal and existing simultaneous death/owner-order fixtures; rejected transactions do not mutate state, simultaneous groups do not become sequential triggers. No new look-back trigger support.",
+      "exclusions": "No generic subscriptions yet; no replacement/prevention implementation. Define their extension boundary and explicit unsupported result."
+    },
+    {
+      "id": "EV3-004",
+      "owner": 302,
+      "deliverable": "Implement owned typed program position, bindings and choice continuation state with deterministic quantum suspension. Bind actor, generation and source/ability identity; distinguish scheduler yields, player choices and rules outcomes.",
+      "checks": "Primitive unit fixtures suspend/resume at each supported boundary with identical result; wrong-seat/stale choices preserve state, budgets never manufacture draws/wins and private provisional selections remain hidden. Existing continuation/privacy requirements are the oracle.",
+      "exclusions": "No card definitions added; no general VM, arbitrary loops or host callbacks. Public artifact migration belongs to persistence."
+    },
+    {
+      "id": "EV3-005",
+      "owner": 303,
+      "deliverable": "Version strict JSON and typed characteristics, costs, targets/selectors, events and effect vocabulary. Validate source-clause mappings, reference scope, binding times, active zones, finite bounds and composition capabilities. Canonical semantic hashing and checked compact IDs must be order invariant. Author all twenty existing definitions and the existing Goblin token only.",
+      "checks": "Load existing definitions; reject unknown fields/opcodes, duplicate IDs, unresolved refs, overflow, invalid cost/target types and recognized primitives in unsupported compositions. Reordering catalog entries produces equivalent stable identities/digests. Expectations derive from pinned card clauses and explicit schema rules.",
+      "exclusions": "No native per-card generation or engine dispatch integration; accepted compilation is not game support or full Magic support."
+    },
+    {
+      "id": "EV3-006",
+      "owner": 304,
+      "deliverable": "Add explicit catalog loading before game creation, validate frozen deck/pool references and share one immutable compiled registry across games. Adapt current definition/face lookup to runtime IDs without copying compiled programs per game; no hot reload during a game.",
+      "checks": "Same binary loads packaged existing definitions; missing/incompatible catalogs and invalid deck references fail before game mutation. Multiple games share immutable definitions while mutable states stay isolated; registry reorder preserves semantic lookup.",
+      "exclusions": "No unseen cards, hidden fallback to compiled-card lookup, or claim that remaining effect adapters are migrated."
+    },
+    {
+      "id": "EV3-007",
+      "owner": 305,
+      "deliverable": "Replace PowerCreature/InvokerCreature characteristic bundles with typed current-pool data and shared effective characteristic evaluation for supported boosts, grants, expiry and combat. Define timestamp/set binding and layers extension limits before caching.",
+      "checks": "Existing flying/reach, haste/vigilance/trample/deathtouch and stacked boost/cleanup tests exercise shared queries. Generic internal grant/loss fixtures test ability changes without creating new card definitions; unsupported ordering is rejected.",
+      "exclusions": "No general layers/copy/dependency implementation or unmeasured cache optimization."
+    },
+    {
+      "id": "EV3-008",
+      "owner": 306,
+      "deliverable": "Drive colored/generic mana, tap and discard costs from typed plans. Preserve explicit mana-source/payment choices, private provisional state, cancellation and commit timing, with shared mana-ability eligibility rules.",
+      "checks": "Current Thrill, Cavalry, Elf/Druid and Shivan/Invoker payment fixtures cover valid and invalid payment, sickness/tap legality, cancellation and overflow nonmutation. Test generic internal plan primitives before wiring each current ability.",
+      "exclusions": "No alternative-cost or permission expansion; no costs encoded as resolution effects."
+    },
+    {
+      "id": "EV3-009",
+      "owner": 307,
+      "deliverable": "Implement current object/player target groups, cardinalities, source/controller/opponent/controlled-creature sets and current-power/LKI expressions. Preserve announcement/event/resolution binding, privacy and revalidation.",
+      "checks": "Growth/Bite/Invoker/Pyromancer cases cover wrong zone/controller/type, all-target loss, source departure and returned incarnations. Literal expected sets and CR target rules independently determine results.",
+      "exclusions": "No arbitrary zone permissions, new definitions or broad targeting language beyond validated pool."
+    },
+    {
+      "id": "EV3-010",
+      "owner": 308,
+      "deliverable": "Migrate Growth, Bite, Thrill, Fodder and both Surprise modes to shared ordered damage/draw/token/modifier/keyword instructions. Mana production is a reusable primitive for activation integration. Retain damage source/events, captured sets and partial resolution.",
+      "checks": "Existing rules-derived spell/response/token/cleanup cases pass through real shared execution; primitive resume tests preserve effect order and source context. Wrong target/damage parameter mutations must be detected.",
+      "exclusions": "No card-name opcode, replacement/prevention semantics, synthetic cards or new product effects."
+    },
+    {
+      "id": "EV3-011",
+      "owner": 309,
+      "deliverable": "Migrate current permanent activated abilities and intrinsic basic-land mana to shared cost/target/effect execution. Remove power/invoker activation flags and source-only guessing. Derive mana-ability timing from semantics, not author flags.",
+      "checks": "Current Shivan, Invoker, Cavalry, Elf/Druid and land cases run through generic execution including payment windows. Two distinct selectable ability instances on one source are tested with generic internal unit fixtures, without authoring a synthetic card. The frozen pool has no printed two-activated-ability card: this fixture proves identity/choice representation, not current-card reachability. Independently derive legality and effects from the declared primitive contracts.",
+      "exclusions": "Do not introduce an unsupported grant mechanic to manufacture a two-ability card; generic two-instance fixture is structural evidence only."
+    },
+    {
+      "id": "EV3-012",
+      "owner": 310,
+      "deliverable": "Migrate Archer/Cyclops/Pyromancer to reusable cast/ETB predicates and effect programs. Index relevant subscriptions by active zone/event and update on zone/ability changes; no whole-catalog scan per action. Retain occurrence/source/LKI context and pending abilities after departure.",
+      "checks": "Cast versus resolution, own ETB exactly once, APNAP/order, repeated casts, source death/return and inactive hand/graveyard tests use current cards and independently specified outcomes. Instrumented internal fixtures verify irrelevant catalog entries are not visited without adding card definitions.",
+      "exclusions": "No look-back/replacement implementation or named trigger enum variants as end-state behavior."
+    },
+    {
+      "id": "EV3-013",
+      "owner": 311,
+      "deliverable": "Migrate native random/heuristic policies, semantic actions, observations and script input to source plus stable ability identity and typed legal-choice descriptors. Remove player card allowlists and per-card dispatch; deterministic ordering uses stable semantic identities.",
+      "checks": "Every current-pool decision and internal two-ability choice is representable/selectable; stale/wrong-seat/unknown ability inputs do not mutate state. Private fields stay absent and registry reorder preserves seeded choices. Strategy quality is reported separately.",
+      "exclusions": "No new policy strategy qualification, RL or new card cases."
+    },
+    {
+      "id": "EV3-014",
+      "owner": 312,
+      "deliverable": "Pin schema/semantics/catalog/definition digests in snapshots and records, including owned pending frames and instances. Implement the inventoried compatibility matrix with tested migration where semantics preserve, otherwise explicit rejection and pinned historical runner instructions.",
+      "checks": "Round-trip real current-pool pending costs/targets/triggers and full games; wrong/missing catalog/version, corrupt/truncated records and numeric-ID aliasing reject. Capture on/off and replay preserve independent checkpoints and privacy; old golden artifacts are retained.",
+      "exclusions": "No silent fixture regeneration or broad dataset format expansion."
+    },
+    {
+      "id": "EV3-015",
+      "owner": 313,
+      "deliverable": "Adapt the existing strict native/XMage and scoped Forge bridges to versioned definition/ability identities and choices, retaining independent engine computation and explicit unsupported callbacks. Preserve pinned reference provenance and original exception traces.",
+      "checks": "Rerun affected reference packs plus all sixteen native/patched-XMage normal-reset admissions, each twice with exact choice/chance consumption, intermediate checks and negative tapes; retain all eight rows and card witnesses.",
+      "exclusions": "No AI-generated corpus, reference repin, state overwrites, legal-set completeness claim or erased patched-reference limitations."
+    },
+    {
+      "id": "EV3-016",
+      "owner": 314,
+      "deliverable": "Audit and remove remaining per-card engine/policy dispatch and compiled fixed-pool fallbacks. Build/hash engine before packaging/loading unchanged current-pool definitions; exercise real CLI load/play/replay from external data and publish a source inventory of residual names as presentation/provenance or semantic values only.",
+      "checks": "Existing definitions alone drive the hashed binary through normal games and known combinations. Registry-order and unsupported-composition controls pass; binary hash stays fixed across packaging. Full regression and admission remain mandatory; no unseen-definition admission claim.",
+      "exclusions": "No new real/synthetic cards. Any unavoidable incomplete migration blocks this delivery and the final gate."
+    },
+    {
+      "id": "EV3-017",
+      "owner": 315,
+      "deliverable": "Rerun the baseline protocol on identical frozen workloads with matched capture modes, tools/resources and explicit source/binary/catalog pins. Report catalog parse/compile/shared memory separately from per-game resident memory, choice/dispatch/replay costs and end-to-end throughput with raw samples/distributions.",
+      "checks": "Reject incompatible workload/capture comparisons; independently recompute counts/rates, retain failed/truncated attempts and correct workload checkpoints. Report shared-host noise and any unavailable measurement honestly; no card-count performance claims.",
+      "exclusions": "No optimization work, designated-host qualification or invented speed threshold."
+    }
+  ],
+  "tasks": [
+    {
+      "issue": 299,
+      "key": "baseline",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [],
+      "requirements": [
+        "EV3-001"
+      ]
+    },
+    {
+      "issue": 300,
+      "key": "identities",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        299
+      ],
+      "requirements": [
+        "EV3-002"
+      ]
+    },
+    {
+      "issue": 301,
+      "key": "events",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        300
+      ],
+      "requirements": [
+        "EV3-003"
+      ]
+    },
+    {
+      "issue": 302,
+      "key": "frames",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        300
+      ],
+      "requirements": [
+        "EV3-004"
+      ]
+    },
+    {
+      "issue": 303,
+      "key": "compiler",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        300
+      ],
+      "requirements": [
+        "EV3-005"
+      ]
+    },
+    {
+      "issue": 304,
+      "key": "registry",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        303
+      ],
+      "requirements": [
+        "EV3-006"
+      ]
+    },
+    {
+      "issue": 305,
+      "key": "characteristics",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        304
+      ],
+      "requirements": [
+        "EV3-007"
+      ]
+    },
+    {
+      "issue": 306,
+      "key": "costs",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        304,
+        302
+      ],
+      "requirements": [
+        "EV3-008"
+      ]
+    },
+    {
+      "issue": 307,
+      "key": "selectors",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        304,
+        302
+      ],
+      "requirements": [
+        "EV3-009"
+      ]
+    },
+    {
+      "issue": 308,
+      "key": "effects",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        305,
+        307
+      ],
+      "requirements": [
+        "EV3-010"
+      ]
+    },
+    {
+      "issue": 309,
+      "key": "activations",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        306,
+        308
+      ],
+      "requirements": [
+        "EV3-011"
+      ]
+    },
+    {
+      "issue": 310,
+      "key": "triggers",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        301,
+        308
+      ],
+      "requirements": [
+        "EV3-012"
+      ]
+    },
+    {
+      "issue": 311,
+      "key": "interfaces",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        309,
+        310
+      ],
+      "requirements": [
+        "EV3-013"
+      ]
+    },
+    {
+      "issue": 312,
+      "key": "persistence",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        311
+      ],
+      "requirements": [
+        "EV3-014"
+      ]
+    },
+    {
+      "issue": 313,
+      "key": "references",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        312
+      ],
+      "requirements": [
+        "EV3-015"
+      ]
+    },
+    {
+      "issue": 314,
+      "key": "external_gate_inputs",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        313
+      ],
+      "requirements": [
+        "EV3-016"
+      ]
+    },
+    {
+      "issue": 315,
+      "key": "measurements",
+      "milestone": "EV-M3",
+      "kind": "implementation",
+      "depends_on": [
+        314
+      ],
+      "requirements": [
+        "EV3-017"
+      ]
+    },
+    {
+      "issue": 316,
+      "key": "gate",
+      "milestone": "EV-M3",
+      "kind": "gate",
+      "depends_on": [
+        315
+      ],
+      "requirements": [
+        "EV3-001",
+        "EV3-002",
+        "EV3-003",
+        "EV3-004",
+        "EV3-005",
+        "EV3-006",
+        "EV3-007",
+        "EV3-008",
+        "EV3-009",
+        "EV3-010",
+        "EV3-011",
+        "EV3-012",
+        "EV3-013",
+        "EV3-014",
+        "EV3-015",
+        "EV3-016",
+        "EV3-017"
+      ]
+    }
+  ]
+}
