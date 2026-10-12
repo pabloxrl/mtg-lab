@@ -36,7 +36,8 @@ Work is delivered as [small tested changes](programs/atomic-delivery.md), with
 independent review, protected integration and exact-main verification. Existing
 M2 acceptance stays intact. The legacy program stops after M2; reviewed
 [registration work](https://github.com/pabloxrl/mtg-lab/issues/241) defines the
-reference-corpus task graph before new implementation dispatch.
+new M3 mechanics task graph before implementation dispatch; reference-corpus
+registration remains later work.
 
 ## How games will become tests
 
@@ -61,7 +62,7 @@ and seeds add diversity; they do not establish coverage on their own.
 | Existing M0 | Scope and verifier foundations | Complete; [passing audit](evidence/m0-reaudit/README.md). |
 | Existing M1 | First scalar slice and unattended games | PASS for the six-card slice; [gate audit](evidence/m1-gate/README.md) and linked delivery receipts. |
 | E1 / existing M2 | Complete frozen toy decks and playable games | PASS for full-pool rules, scoped reference checks and scalar baseline in the [gate report](evidence/m2-gate/README.md); completion requires its linked review, protected merge and exact-main CI receipts. |
-| E1a | Scalable data-driven card model | Planned: runtime definitions and reusable mechanics; unchanged-binary tests prove new supported-mechanic cards need no engine or player-code changes. [Design](rfcs/0003-data-driven-cards.md). |
+| Engine validation M3 (formerly E1a) | Reusable mechanics and runtime card definitions | [Registered plan](programs/engine-validation-m3.md): migrate only the current frozen pool with generic choices/replay and matched measurements. No unseen-definition admission or completion claim from registration. |
 | E2 | First reference capture/replay pilot | Planned: 10 complete games, all eight matchup rows, repeated mtg-lab replay and intermediate checks. |
 | E3 | Measured generation and replay cost | Planned: 100 attempts with complete accounting; startup, capture, conversion, replay, latency and memory measured separately. |
 | E4 | Both references and frozen torture corpus | Planned: qualify the second reference through the same 10/100 gates; admit at least 1,000 distinct complete games, at least 500 from each source, balanced over deck/starting-seat rows, replayed in all three engines. |
@@ -78,3 +79,7 @@ The original M3–M5 requirements are preserved in the
 [historical program](programs/rfc-0002.md) and pinned RFC ledger, but are deferred,
 not current release gates or completed work. No new RL concepts or training work
 are part of this plan. Completing E5 qualifies this engine-validation scope only.
+
+The new M3 is distinct from deferred legacy M3 Batch/Python/RL. E2–E5 retain
+their acceptance goals as later roadmap stages, not M3 prerequisites or an
+immediate queue. No new real or synthetic card definitions are authorized in M3.

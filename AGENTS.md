@@ -6,6 +6,11 @@ PR approval. Ask only for essential product decisions or unavailable access.
 - Read `doc/programs/engine-validation.md` first for the current operator scope:
   toy decks and reference-game verification; no new RL work. It supersedes the
   older RFC release sequence. M0–M2 remain authorized; legacy M3–M5 are deferred.
+- For new engine-validation M3 issues and coordinator #241, read
+  `doc/programs/engine-validation-m3.md` and validate its separate registry from
+  freshly fetched main before child work or handoff (#241 validates its candidate
+  during registration). It supplements WORKFLOW even when
+  the running controller renders an older prompt. Legacy M3 stays deferred.
 - Read `doc/rfcs/0001-project-charter.md` for enduring requirements and
   `doc/rfcs/0002-first-mvp.md` for the scoped delivery plan.
 - `WORKFLOW.md` defines unattended GitHub issue delivery. Only open issues with
