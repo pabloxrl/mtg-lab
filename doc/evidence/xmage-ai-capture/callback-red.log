@@ -1,0 +1,19 @@
+F
+======================================================================
+FAIL: test_missing_callback_payloads_are_rejected (test_xmage_ai_capture.CaptureTests.test_missing_callback_payloads_are_rejected)
+----------------------------------------------------------------------
+ValueError: incomplete raw capture: terminal or complete callback stream missing
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/tests/test_xmage_ai_capture.py", line 98, in test_missing_callback_payloads_are_rejected
+    self.reject_prefix(points, 'callback payload')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-319/tests/test_xmage_ai_capture.py", line 106, in reject_prefix
+    with self.assertRaisesRegex(ValueError, reason):
+AssertionError: "callback payload" does not match "incomplete raw capture: terminal or complete callback stream missing"
+
+----------------------------------------------------------------------
+Ran 1 test in 0.042s
+
+FAILED (failures=1)

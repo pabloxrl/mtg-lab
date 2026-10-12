@@ -84,6 +84,54 @@ class CaptureTests(unittest.TestCase):
         del bad['state']['cards'][0]['abilities'][0]['available_modes']
         self.reject_prefix([bad], 'ability choice fields')
 
+    def test_missing_callback_payloads_are_rejected(self):
+        # Source callback signatures require arguments and returned decisions;
+        # the review reproduced acceptance of an entirely erased choice tape.
+        with lzma.open(EVIDENCE, 'rt') as source:
+            points = []
+            for line in source:
+                point = json.loads(line)
+                points.append(point)
+                if point['kind'].startswith('call/'):
+                    point['detail'] = None
+                    break
+        self.reject_prefix(points, 'callback payload')
+
+    def test_callback_results_targets_and_payments_cannot_disappear(self):
+        wanted = {'return/chooseMulligan', 'return/chooseTarget', 'return/playMana'}
+        samples = {}
+        opening = []
+        with lzma.open(EVIDENCE, 'rt') as source:
+            first = json.loads(next(source))
+            for point in map(json.loads, source):
+                if 'return/chooseMulligan' in wanted and point['kind'] != 'return/chooseMulligan':
+                    opening.append(point)
+                if point['kind'] in wanted:
+                    samples[point['kind']] = point
+                    wanted.remove(point['kind'])
+                if not wanted:
+                    break
+        self.assertFalse(wanted)
+        for kind, point in samples.items():
+            before = copy.deepcopy(point)
+            before.update(sequence=1, kind='call/' + kind[7:], detail=point['detail']['arguments'])
+            prefix = [first] + opening if kind == 'return/chooseMulligan' else [first, before]
+            for change in ('erase', 'arguments', 'result', 'nested'):
+                bad = copy.deepcopy(point)
+                bad['sequence'] = len(prefix)
+                if change == 'erase':
+                    bad['detail'] = None
+                elif change in ('arguments', 'result'):
+                    del bad['detail'][change]
+                elif kind == 'return/chooseMulligan':
+                    bad['detail']['result'] = None
+                elif kind == 'return/chooseTarget':
+                    del bad['detail']['arguments'][1]['targets']
+                else:
+                    del bad['detail']['arguments'][1]['payment']
+                with self.subTest(kind=kind, change=change):
+                    self.reject_prefix(prefix + [bad], 'callback payload')
+
     def reject_prefix(self, points, reason):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / 'trace.jsonl.gz'

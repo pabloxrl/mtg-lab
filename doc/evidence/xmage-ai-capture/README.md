@@ -89,15 +89,15 @@ search or random UUID generation reproduces complete games from a seed alone.
 
 ## Evidence and limits
 
-The [final live acceptance](acceptance-004/acceptance.json) passed all three real
-source invocations. Its [game receipt](acceptance-004/game/attempt.json) records
-3,927 source records, 15 played spells, six attacking combats, three shuffle
+The [final live acceptance](acceptance-005/acceptance.json) passed all three real
+source invocations. Its [game receipt](acceptance-005/game/attempt.json) records
+3,923 source records, 15 played spells, six attacking combats, three shuffle
 callbacks and three mulligan decisions, ending in life loss. The source's actual
 opening includes a mulligan and reshuffle. Recording off/on produced equal
 controlled return values and semantic states; recording off emitted zero records.
 The source-game and control classes/configuration are pinned in that receipt.
 
-[All 20 development/acceptance attempts](attempt-index.json), including failed
+[All 23 development/acceptance attempts](attempt-index.json), including failed
 bridges and both negative controls, retain their seeds, outcomes, errors and
 original artifact hashes. None is admitted or counted toward a quota. Earlier
 control failures identified the shared source action-history cache; those failures
@@ -105,11 +105,11 @@ are retained instead of blessing the unequal results. The earlier cold baseline
 build was killed after compilation; its unchanged retry passed before live work.
 Unqualified development payloads and unchecked logs remain private diagnostics,
 not acceptance authority. The [supporting prior source trace](acceptance-002/trace.jsonl.xz)
-remains historical evidence. Ordinary corruption tests use the final real source
+remains historical evidence. Ordinary corruption tests use a retained real source
 trace, not a parser-authored game.
 
 The [integrity manifest](integrity.json) pins published artifacts, including the
-[original final trace](acceptance-004/game/trace.jsonl.xz), negative traces,
+[original final trace](acceptance-005/game/trace.jsonl.xz), negative traces,
 control states and execution-source snapshots. Verify bytes and source accounting:
 
 ```sh
@@ -128,7 +128,11 @@ the life/empty-draw termination distinction. Expected corruption/failure behavio
 comes from the registered L0 capture contract and existing recording contract.
 
 Ordinary discovery covers persistence, overwrite refusal, completeness and
-corruption rejection. The explicit acceptance command executes the actual source
+corruption rejection. The first [independent review](review-001.json) reproduced
+acceptance of erased callback payloads. The repair validates every supported
+callback signature, including arguments, result types and required target/payment
+fields. Retained corruption tests erase payloads, decisions, targets and payments;
+the [behavioral red](callback-red.log) precedes that repair. The explicit acceptance command executes the actual source
 game and negative callbacks. Full locked torture and separate exact-candidate
 review remain required; this document alone establishes neither delivery nor
 milestone completion. Public evidence excludes unchecked upstream log/text payloads.

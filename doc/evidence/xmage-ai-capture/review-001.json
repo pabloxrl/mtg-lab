@@ -1,0 +1,13 @@
+{
+  "verdict": "changes_requested",
+  "summary": "Evidence integrity and current-source checks pass. Scope and README distinguish raw capture from admission, and existing tests are unchanged. One reproducible completeness-validation defect blocks approval. No files were modified or network used.",
+  "findings": [
+    {
+      "file": "scripts/xmage_ai_capture.py:149",
+      "finding": "validate_trace validates callback names and nesting but ignores callback detail payloads. Replacing detail with null on all 1,570 call/return records in the final acceptance trace still passes with identical accounting. Missing mulligan decisions, target selections, payment arguments and returned choices can therefore be certified as complete capture. Checksums preserve whatever was recorded; they cannot detect omissions made during capture. Validate required arguments and result representations for each supported callback and add corruption regressions that remove these fields from the retained real-game trace.",
+      "severity": "blocking"
+    }
+  ],
+  "base_sha": "33ba6e0a54cddc7e165d0d955ff864af2d6ff9f9",
+  "head_sha": "fff8be6a7fd2324a25ed91fef1de646047a969c5"
+}

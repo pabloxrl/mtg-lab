@@ -59,6 +59,7 @@ def validate_trace(path):
         if not ok:
             raise ValueError('incomplete raw capture: ' + message)
     def ability_fields(ability):
+        need(isinstance(ability, dict), 'ability choice fields')
         need({'class', 'id', 'source', 'controller', 'source_zcc', 'type', 'targets', 'modes',
               'available_modes', 'mana_costs', 'mana_to_pay', 'costs'} <= set(ability), 'ability choice fields')
         mode_ids = set()
@@ -75,6 +76,88 @@ def validate_trace(path):
                 need(set(selected) == {'id', 'amount'}, 'target amount')
         for cost in ability['mana_costs'] + ability['mana_to_pay'] + ability['costs']:
             need({'class', 'id', 'paid', 'targets'} <= set(cost), 'cost/payment observations')
+    def payload_value(value, schema):
+        # These are pinned Player callback types, not inferred replay decisions.
+        if schema.endswith('?'):
+            return value is None or payload_value(value, schema[:-1])
+        if schema == 'null':
+            return value is None
+        if schema in ('bool', 'int', 'str'):
+            return type(value) is {'bool': bool, 'int': int, 'str': str}[schema]
+        if schema.endswith('[]'):
+            return isinstance(value, list) and all(payload_value(v, schema[:-2]) for v in value)
+        if schema in ('modes', 'text_map', 'object_map'):
+            item = {'modes': 'mode', 'text_map': 'str', 'object_map': 'card'}[schema]
+            return isinstance(value, list) and all(isinstance(v, dict) and set(v) == {'key', 'value'}
+                and payload_value(v['key'], 'str') and payload_value(v['value'], item) for v in value)
+        if schema == 'map':
+            return isinstance(value, list) and all(isinstance(v, dict) and set(v) == {'key', 'value'} for v in value)
+        if not isinstance(value, dict):
+            return False
+        if schema == 'label':
+            return set(value) == {'text_sha256'} and isinstance(value['text_sha256'], str) and len(value['text_sha256']) == 64
+        if schema == 'ability':
+            ability_fields(value)
+            return True
+        required = {
+            'card': {'id', 'name', 'class'},
+            'target': {'class', 'targets', 'min', 'max', 'not_target', 'zone_change_counters'},
+            'cost': {'class', 'id', 'paid', 'targets', 'mana', 'payment', 'used'},
+            'mode': {'id', 'targets', 'effects'},
+            'message': {'message', 'min', 'max', 'default'},
+            'amount_type': {'title', 'header', 'can_cancel'},
+        }[schema]
+        if not required <= set(value):
+            return False
+        if schema == 'target':
+            return isinstance(value['targets'], list) and all(isinstance(v, dict) and set(v) == {'id', 'amount'} for v in value['targets'])
+        if schema == 'cost':
+            components = {'white', 'blue', 'black', 'red', 'green', 'colorless', 'generic', 'any', 'flag'}
+            return all(isinstance(value[k], dict) and components <= set(value[k]) for k in ('mana', 'payment', 'used'))
+        if schema == 'mode':
+            return payload_value(value['targets'], 'target[]') and isinstance(value['effects'], list) and all(
+                isinstance(e, dict) and {'id', 'class', 'type'} <= set(e) for e in value['effects'])
+        if schema == 'message':
+            return payload_value(value['message'], 'label') and all(type(value[k]) is int for k in ('min', 'max', 'default'))
+        return True
+    def callback_payload(point):
+        method = point['kind'].split('/', 1)[1]
+        returning = point['kind'].startswith('return/')
+        detail = point.get('detail')
+        if returning:
+            need(isinstance(detail, dict) and set(detail) == {'arguments', 'result'}, 'callback payload return fields')
+            args = detail['arguments']
+        else:
+            args = detail
+        need(isinstance(args, list), 'callback payload arguments')
+        signatures = {
+            'priority': [('', 'bool')], 'pass': [('', 'null')],
+            'shuffleLibrary': [('ability?', 'null')],
+            'cast': [('ability bool null', 'bool')],
+            'chooseAbilityForCast': [('card bool', 'ability?')],
+            'chooseLandOrSpellAbility': [('card bool', 'ability?')],
+            'playLand': [('card bool', 'bool')], 'activateAbility': [('ability', 'bool')],
+            'choose': [('str target ability?', 'bool'), ('str target ability? map?', 'bool'),
+                       ('str str[] target ability?', 'bool')],
+            'chooseTarget': [('str target ability?', 'bool'), ('str str[] target ability?', 'bool')],
+            'chooseTargetAmount': [('str target ability?', 'bool')],
+            'chooseMulligan': [('', 'bool')],
+            'chooseUse': [('str label ability?', 'bool'), ('str label label label label ability?', 'bool')],
+            'choosePile': [('str label card[] card[]', 'bool')],
+            'announceX': [('int int label ability? bool', 'int')],
+            'chooseReplacementEffect': [('text_map object_map', 'int')],
+            'chooseTriggeredAbility': [('ability[]', 'ability?')],
+            'chooseMode': [('modes ability?', 'mode?')],
+            'selectAttackers': [('str', 'null')], 'selectBlockers': [('ability? str', 'null')],
+            'getAmount': [('int int label ability?', 'int')],
+            'getMultiAmountWithIndividualConstraints': [('str message[] int int amount_type', 'int[]?')],
+            'playMana': [('ability cost label', 'bool')],
+        }
+        matches = [(spec.split(), result) for spec, result in signatures.get(method, [])
+                   if len(spec.split()) == len(args)]
+        need(any(all(payload_value(v, t) for v, t in zip(args, types))
+                 and (not returning or payload_value(detail['result'], result))
+                 for types, result in matches), 'callback payload signature: ' + method)
     opener = lzma.open if Path(path).suffix == '.xz' else gzip.open
     with opener(path, 'rt') as stream:
         for sequence, line in enumerate(stream):
@@ -142,6 +225,8 @@ def validate_trace(path):
             kind = point['kind']
             if kind.startswith(('call/', 'return/')):
                 need(kind.split('/', 1)[1] in CALLBACKS, 'unsupported callback')
+                need(point['actor'] in players, 'callback actor')
+                callback_payload(point)
             else:
                 need(kind in {'configuration', 'event/before', 'event/after', 'resolution/before',
                               'resolution/after', 'sba/after', 'terminal'}, 'unsupported boundary')
@@ -154,6 +239,7 @@ def validate_trace(path):
                 need(bool(calls), 'return without choice')
                 before = calls.pop()
                 need(before['actor'] == point['actor'] and before['kind'][5:] == kind[7:], 'callback nesting/order')
+                need(len(before['detail']) == len(point['detail']['arguments']), 'callback payload changed signature')
                 if kind == 'return/shuffleLibrary':
                     actor = point['actor']
                     pre = next(p['library'] for p in before['state']['players'] if p['id'] == actor)
