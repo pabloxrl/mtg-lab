@@ -34,7 +34,15 @@ def structure(p,case,engine,index,prefix):
     require(len(p['battlefield'])==len(set(p['battlefield'])) and set(p['permanents'])==set(p['battlefield']),prefix+'/permanent identity')
     require(len(p['mana'])==2 and all(len(row)==6 and all(type(n) is int and n>=0 for n in row) for row in p['mana']),prefix+'/mana')
     for seat in (0,1):
-        order=case['chance'][seat]['after'];remaining=p['library'][seat]
+        # CR103.5: use the final recorded shuffle and London bottom order.
+        # Initial admission games kept seven; real AI captures may mulligan.
+        order=list([e for e in case['chance'] if e['actor']==seat][-1]['after'])
+        for choice in case['choices']:
+            if choice['actor']==seat and choice['kind']=='bottom':
+                for source in choice['selection']:
+                    order.remove(source)
+                order.extend(choice['selection'])
+        remaining=p['library'][seat]
         require(remaining==order[len(order)-len(remaining):],prefix+'/library occurrence order')
     if p['outcome'] is None:
         cards=[source for field in ('hand','library','graveyard') for zone in p[field] for source in zone]

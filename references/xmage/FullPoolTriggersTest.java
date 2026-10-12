@@ -78,7 +78,16 @@ public class FullPoolTriggersTest extends FullPoolPriorityTest {
                 if(z.getFromZone()==Zone.BATTLEFIELD && bindings.containsKey(e.getTargetId())) {
                     UUID id=e.getTargetId();JsonObject d=new JsonObject();d.addProperty("source",bindings.get(id));
                     d.addProperty("from",z.getFromZone().name());d.addProperty("to",z.getToZone().name());d.addProperty("action",cursor-1);
-                    d.addProperty("departing_incarnation",tokenCounters.containsKey(id)?0:semanticIncarnations.get(id));departures.add(d);
+                    // Another event observer may already have witnessed this
+                    // move (notably a terminal SBA snapshot). Bind the old
+                    // incarnation using the witnessed zone, not watcher order.
+                    int departing=0;
+                    if(!tokenCounters.containsKey(id)){
+                        Zone witnessed=witnessedZones.get(id);
+                        need(witnessed==z.getFromZone()||witnessed==z.getToZone(),"/departure zone witness");
+                        departing=semanticIncarnations.get(id)-(witnessed==z.getFromZone()?0:1);
+                    }
+                    d.addProperty("departing_incarnation",departing);departures.add(d);
                 }
             }
         }

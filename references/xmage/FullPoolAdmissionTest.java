@@ -303,6 +303,8 @@ public class FullPoolAdmissionTest extends FullPoolTriggersTest {
             index.add(id,paths);
         }
         JsonObject specs=read(Paths.get(System.getProperty("mtglab.root")).resolve("fixtures/reference/full-pool-admission-xmage-negatives.json"));
+        String extra=System.getProperty("mtglab.extraNegatives");
+        if(extra!=null){JsonObject additions=read(Paths.get(extra));for(String name:additions.keySet()){need(!specs.has(name),"/duplicate negative name");specs.add(name,additions.get(name));}}
         JsonObject negatives=new JsonObject();
         for(String name:specs.keySet()){
             JsonObject spec=specs.getAsJsonObject(name);JsonObject c=spec.getAsJsonObject("case");

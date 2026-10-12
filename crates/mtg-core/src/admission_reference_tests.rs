@@ -1,5 +1,6 @@
 // Version 10 strict test-only full games using the delivered scalar client.
 struct AdmissionClient {
+    extended_observation: bool,
     trigger: TriggerClient,
     activation_action: Option<usize>,
     allocations: Vec<Value>,
@@ -36,6 +37,9 @@ impl AdmissionClient {
         p["combat"]=json!(g.combat().iter().map(|a|json!({"attacker":self.trigger.reference(g,a.creature),"blocked":a.blocked,"blockers":a.blockers.iter().map(|h|self.trigger.reference(g,*h)).collect::<Vec<_>>()})).collect::<Vec<_>>());
         p["allocations"]=json!(self.allocations);
         p["activation"]=g.turns.activation.as_ref().map(|a|json!({"source":self.trigger.reference(g,a.source),"actor":seat_index(a.actor),"target":a.target.map(|h|self.trigger.reference(g,h)),"paid":a.paid,"reserved":a.reserved,"pool":g.activation_pool(a).unwrap(),"sources":a.sources.iter().map(|h|self.trigger.reference(g,*h)).collect::<Vec<_>>(),"ability":if a.power {"power"} else if a.invoker {"invoker"} else {"haste"}})).unwrap_or(Value::Null);
+        if self.extended_observation {
+            p["grants"]=json!(g.turns.haste.iter().map(|h|json!({"object":self.trigger.reference(g,*h),"keyword":"haste"})).chain(g.turns.trample.iter().map(|h|json!({"object":self.trigger.reference(g,*h),"keyword":"trample"}))).collect::<Vec<_>>());
+        }
         p
     }
     fn object(&self,g:&Game,value:&Value)->Result<actions::ObjectRef,String> {
@@ -181,13 +185,17 @@ impl AdmissionClient {
 }
 
 fn admission_consume(case:&Value,pins:&Value,rejected:&mut Value)->Result<Value,String> {
+    admission_consume_observed(case,pins,rejected,false)
+}
+
+fn admission_consume_observed(case:&Value,pins:&Value,rejected:&mut Value,extended_observation:bool)->Result<Value,String> {
     require(case["stop"]=="terminal","/nonterminal quota")?;
     let mut projection=json!({"schema_version":3,"family":"priority","pins":pins,"cases":[case]});
     projection["cases"][0].as_object_mut().unwrap().remove("native_records");projection["cases"][0].as_object_mut().unwrap().remove("native_indices");
     let (opening,reset)=priority_projection(&projection)?;
     let mut g=Game::new().unwrap();
     let (opened,client)=london_continue(&mut g,&reset.cases[0],&opening["cases"][0],|g,tape|{
-        let mut client=AdmissionClient{trigger:TriggerClient{client:PlayedClient::new(g,tape,case)?,creation:0,creations:vec![],departures:vec![],cast_start:None,event:0,witnesses:vec![],pending_keys:vec![],stack_keys:vec![],old_sources:vec![]},activation_action:None,allocations:vec![],cleanups:vec![],marked:vec![]};
+        let mut client=AdmissionClient{extended_observation,trigger:TriggerClient{client:PlayedClient::new(g,tape,case)?,creation:0,creations:vec![],departures:vec![],cast_start:None,event:0,witnesses:vec![],pending_keys:vec![],stack_keys:vec![],old_sources:vec![]},activation_action:None,allocations:vec![],cleanups:vec![],marked:vec![]};
         let result=(||{
             let mut finished=false;
             for v in case["play"].as_array().ok_or("first divergence: /play")? {
@@ -241,5 +249,40 @@ fn full_pool_admission_literal_checkpoints() {
     if let Ok(folder)=std::env::var("MTG_ADMISSION_OUTPUT") {
         std::fs::write(std::path::Path::new(&folder).join("native-index.json"),serde_json::to_vec(&index).unwrap()).unwrap();
         serde_json::to_writer(std::io::BufWriter::new(std::fs::File::create(std::path::Path::new(&folder).join("native-negatives.json")).unwrap()),&negatives).unwrap();
+    }
+}
+
+#[test]
+fn captured_xmage_ai_strict_replay() {
+    let path=std::env::var("MTG_AI_REPLAY_INPUT").unwrap_or_else(|_|concat!(env!("CARGO_MANIFEST_DIR"),"/../../fixtures/reference/xmage-ai-normalized.json").into());
+    let doc:Value=serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
+    for case in doc["cases"].as_array().unwrap() {
+        for repeat in 1..=2 {
+            let mut rejected=Value::Null;
+            let result=admission_consume_observed(case,&doc["pins"],&mut rejected,true);
+            if let Ok(folder)=std::env::var("MTG_AI_REPLAY_OUTPUT") {
+                let output=match &result {Ok(run)=>json!({"run":run}),Err(error)=>json!({"error":error,"run":rejected})};
+                std::fs::write(std::path::Path::new(&folder).join(format!("native-{repeat}.json")),serde_json::to_vec(&output).unwrap()).unwrap();
+            }
+            let report=result.unwrap();
+            assert_eq!(report["consumed_play"],case["play"]);
+            assert_eq!(report["opening"]["consumed_chance"],case["chance"]);
+            assert_eq!(report["opening"]["consumed_choices"],case["choices"]);
+        }
+    }
+    let negative_path=std::env::var("MTG_AI_REPLAY_NEGATIVES").unwrap_or_else(|_|concat!(env!("CARGO_MANIFEST_DIR"),"/../../fixtures/reference/xmage-ai-negative.json").into());
+    let specs:Value=serde_json::from_str(&std::fs::read_to_string(negative_path).unwrap()).unwrap();
+    let mut negatives=json!({});
+    for (name,spec) in specs.as_object().unwrap() {
+        let mut rejected=Value::Null;
+        let error=admission_consume_observed(&spec["case"],&doc["pins"],&mut rejected,true).unwrap_err();
+        if let Some(i)=spec["sequence"].as_u64() {
+            assert!(error.contains(&format!("/play/{i} ")),"{name}: {error}");
+            assert_eq!(rejected["consumed_play"].as_array().unwrap().len(),i as usize,"{name}");
+        }
+        negatives[name]=json!({"error":error,"run":rejected});
+    }
+    if let Ok(folder)=std::env::var("MTG_AI_REPLAY_OUTPUT") {
+        std::fs::write(std::path::Path::new(&folder).join("native-negatives.json"),serde_json::to_vec(&negatives).unwrap()).unwrap();
     }
 }
