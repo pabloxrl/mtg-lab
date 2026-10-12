@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "seed": 0,
+  "attempts": [
+    {
+      "name": "game",
+      "status": "complete",
+      "receipt_sha256": "d6942fb77501b7573bca780970358f4c273b9fb9df86127aa07dd363d1ca9b00"
+    },
+    {
+      "name": "uninstrumented",
+      "status": "complete",
+      "receipt_sha256": "357aa65259bd59287e74a5bda06527a4278500e65d2e16539f20fa3990eb08e7"
+    },
+    {
+      "name": "unsupported",
+      "status": "unsupported",
+      "receipt_sha256": "0be574517aeac83467b40f7b2a1d870073786ed6d18940b411208e2e1b376750"
+    },
+    {
+      "name": "truncated",
+      "status": "truncated",
+      "receipt_sha256": "24e7cb7563502648d9c8ef47617611c33d4f446b52c33b423332e7b735885b6d"
+    }
+  ],
+  "audit_sha256": "c728e2e6a3021edf33cddf3f27687623afc53766839220da52a9bdfb47dc8a4a"
+}

@@ -1,0 +1,786 @@
+{
+  "forge-ai/src/main/java/forge/ai/PlayerControllerAi.java": [
+    {
+      "id": "458dc3ce8a265a2d",
+      "name": "getAbilityToPlay",
+      "signature": "getAbilityToPlay(Card hostCard,List<SpellAbility> abilities,ITriggerEvent triggerEvent)"
+    },
+    {
+      "id": "05b8caee2921c7a7",
+      "name": "sideboard",
+      "signature": "sideboard(Deck deck,GameType gameType,String message)"
+    },
+    {
+      "id": "e17d2a693ee0f267",
+      "name": "assignCombatDamage",
+      "signature": "assignCombatDamage(Card attacker,CardCollectionView blockers,CardCollectionView remaining,int damageDealt,GameEntity defender,boolean overrideOrder)"
+    },
+    {
+      "id": "6f4cae9412e9bd6a",
+      "name": "divideShield",
+      "signature": "divideShield(Card effectSource,Map<GameEntity, Integer> affected,int shieldAmount)"
+    },
+    {
+      "id": "5e66c8ecbbc9450a",
+      "name": "specifyManaCombo",
+      "signature": "specifyManaCombo(SpellAbility sa,ColorSet colorSet,int manaAmount,boolean different)"
+    },
+    {
+      "id": "970a45229d825f96",
+      "name": "announceRequirements",
+      "signature": "announceRequirements(SpellAbility ability,int min,int max,String announce)"
+    },
+    {
+      "id": "02d29cb6812b09b8",
+      "name": "choosePermanentsToSacrifice",
+      "signature": "choosePermanentsToSacrifice(SpellAbility sa,int min,int max,CardCollectionView validTargets,String message)"
+    },
+    {
+      "id": "182a825feca912cf",
+      "name": "choosePermanentsToDestroy",
+      "signature": "choosePermanentsToDestroy(SpellAbility sa,int min,int max,CardCollectionView validTargets,String message)"
+    },
+    {
+      "id": "b47c058bced0c5e4",
+      "name": "chooseCardsForEffect",
+      "signature": "chooseCardsForEffect(CardCollectionView sourceList,SpellAbility sa,String title,int min,int max,boolean isOptional,Map<String, Object> params)"
+    },
+    {
+      "id": "7a0c4c39b4f658a1",
+      "name": "chooseContraptionsToCrank",
+      "signature": "chooseContraptionsToCrank(List<Card> contraptions)"
+    },
+    {
+      "id": "595909aee00a512a",
+      "name": "helpPayForAssistSpell",
+      "signature": "helpPayForAssistSpell(ManaCostBeingPaid cost,SpellAbility sa,int max,int requested)"
+    },
+    {
+      "id": "a37130fb6dd7c73a",
+      "name": "choosePlayerToAssistPayment",
+      "signature": "choosePlayerToAssistPayment(FCollectionView<Player> optionList,SpellAbility sa,String title,int max)"
+    },
+    {
+      "id": "984069d0f2981d8f",
+      "name": "chooseSingleEntityForEffect",
+      "signature": "chooseSingleEntityForEffect(FCollectionView<T> optionList,DelayedReveal delayedReveal,SpellAbility sa,String title,boolean isOptional,Player targetedPlayer,Map<String, Object> params)"
+    },
+    {
+      "id": "0ab23716729eb185",
+      "name": "chooseEntitiesForEffect",
+      "signature": "chooseEntitiesForEffect(FCollectionView<T> optionList,int min,int max,DelayedReveal delayedReveal,SpellAbility sa,String title,Player targetedPlayer,Map<String, Object> params)"
+    },
+    {
+      "id": "5349b86b9a74aabd",
+      "name": "chooseSpellAbilitiesForEffect",
+      "signature": "chooseSpellAbilitiesForEffect(List<SpellAbility> spells,SpellAbility sa,String title,int num,Map<String, Object> params)"
+    },
+    {
+      "id": "195b114cebb8b272",
+      "name": "chooseSingleSpellForEffect",
+      "signature": "chooseSingleSpellForEffect(List<SpellAbility> spells,SpellAbility sa,String title,Map<String, Object> params)"
+    },
+    {
+      "id": "007d8855f364b3eb",
+      "name": "confirmAction",
+      "signature": "confirmAction(SpellAbility sa,PlayerActionConfirmMode mode,String message,List<String> options,Card cardToShow,Map<String, Object> params)"
+    },
+    {
+      "id": "e04c15f698d3f09a",
+      "name": "confirmBidAction",
+      "signature": "confirmBidAction(SpellAbility sa,PlayerActionConfirmMode mode,String string,int bid,Player winner)"
+    },
+    {
+      "id": "58aa76dd1889f150",
+      "name": "confirmStaticApplication",
+      "signature": "confirmStaticApplication(Card hostCard,PlayerActionConfirmMode mode,String message,String logic)"
+    },
+    {
+      "id": "a7db50d0e50722b0",
+      "name": "acceptsDrawOffer",
+      "signature": "acceptsDrawOffer()"
+    },
+    {
+      "id": "7c7888b6f24db35d",
+      "name": "confirmTrigger",
+      "signature": "confirmTrigger(WrappedAbility wrapper)"
+    },
+    {
+      "id": "21af20e985f6c27f",
+      "name": "confirmPayment",
+      "signature": "confirmPayment(CostPart costPart,String prompt,SpellAbility sa)"
+    },
+    {
+      "id": "068fc7f67f0d964e",
+      "name": "confirmReplacementEffect",
+      "signature": "confirmReplacementEffect(ReplacementEffect replacementEffect,SpellAbility effectSA,GameEntity affected,String question)"
+    },
+    {
+      "id": "edd4edbb5013f54b",
+      "name": "exertAttackers",
+      "signature": "exertAttackers(List<Card> attackers)"
+    },
+    {
+      "id": "f7138c2bab266ca8",
+      "name": "enlistAttackers",
+      "signature": "enlistAttackers(List<Card> attackers)"
+    },
+    {
+      "id": "909e88f63c98d5e8",
+      "name": "orderBlockers",
+      "signature": "orderBlockers(Card attacker,CardCollection blockers)"
+    },
+    {
+      "id": "bf67e21eaa1f1877",
+      "name": "orderBlocker",
+      "signature": "orderBlocker(Card attacker,Card blocker,CardCollection oldBlockers)"
+    },
+    {
+      "id": "ea58e9cf0552b8a3",
+      "name": "orderAttackers",
+      "signature": "orderAttackers(Card blocker,CardCollection attackers)"
+    },
+    {
+      "id": "7770fc24409c4b61",
+      "name": "reveal",
+      "signature": "reveal(CardCollectionView cards,ZoneType zone,Player owner,String messagePrefix,boolean addSuffix)"
+    },
+    {
+      "id": "09b5dfca35619220",
+      "name": "reveal",
+      "signature": "reveal(List<CardView> cards,ZoneType zone,PlayerView owner,String messagePrefix,boolean addSuffix)"
+    },
+    {
+      "id": "48ad958c9602c2e3",
+      "name": "arrangeForScry",
+      "signature": "arrangeForScry(CardCollection topN)"
+    },
+    {
+      "id": "9e95bf4c5db69c5f",
+      "name": "arrangeForSurveil",
+      "signature": "arrangeForSurveil(CardCollection topN)"
+    },
+    {
+      "id": "bef7cfb1d388b37a",
+      "name": "willPutCardOnTop",
+      "signature": "willPutCardOnTop(Card c)"
+    },
+    {
+      "id": "3374733fea0cfd3c",
+      "name": "orderMoveToZoneList",
+      "signature": "orderMoveToZoneList(CardCollectionView cards,ZoneType destinationZone,SpellAbility source)"
+    },
+    {
+      "id": "d1ec717efcc28e80",
+      "name": "chooseCardsToDiscardFrom",
+      "signature": "chooseCardsToDiscardFrom(Player p,SpellAbility sa,CardCollection validCards,int min,int max,CardCollectionView visibleToChooser)"
+    },
+    {
+      "id": "06788757bc3f1dea",
+      "name": "playSpellAbilityNoStack",
+      "signature": "playSpellAbilityNoStack(SpellAbility effectSA,boolean canSetupTargets)"
+    },
+    {
+      "id": "fed7325172f9968e",
+      "name": "chooseCardsToDelve",
+      "signature": "chooseCardsToDelve(int genericAmount,CardCollection grave)"
+    },
+    {
+      "id": "9e32cd0983573b52",
+      "name": "chooseCardsToDiscardUnlessType",
+      "signature": "chooseCardsToDiscardUnlessType(int num,CardCollectionView hand,String[] uTypes,SpellAbility sa)"
+    },
+    {
+      "id": "b3b17e52f6b08494",
+      "name": "chooseManaFromPool",
+      "signature": "chooseManaFromPool(List<Mana> manaChoices)"
+    },
+    {
+      "id": "230bde7640487523",
+      "name": "chooseSomeType",
+      "signature": "chooseSomeType(String kindOfType,SpellAbility sa,Collection<String> validTypes,boolean isOptional)"
+    },
+    {
+      "id": "fd0ee46bbf5df037",
+      "name": "vote",
+      "signature": "vote(SpellAbility sa,String prompt,List<Object> options,ListMultimap<Object, Player> votes,Player forPlayer,boolean optional)"
+    },
+    {
+      "id": "45d533dc2c33b3c6",
+      "name": "chooseSector",
+      "signature": "chooseSector(Card assignee,String ai,List<String> sectors)"
+    },
+    {
+      "id": "9d53e387eab8450b",
+      "name": "chooseSprocket",
+      "signature": "chooseSprocket(Card assignee,List<Integer> sprockets)"
+    },
+    {
+      "id": "c56c7da01c2aa1e7",
+      "name": "choosePDRollToIgnore",
+      "signature": "choosePDRollToIgnore(List<PlanarDice> rolls)"
+    },
+    {
+      "id": "e5df54d64decdec6",
+      "name": "chooseRollToIgnore",
+      "signature": "chooseRollToIgnore(List<Integer> rolls)"
+    },
+    {
+      "id": "6113260cc8fd42d6",
+      "name": "chooseDiceToReroll",
+      "signature": "chooseDiceToReroll(List<Integer> rolls)"
+    },
+    {
+      "id": "f808866d1e4466c2",
+      "name": "chooseRollToModify",
+      "signature": "chooseRollToModify(List<Integer> rolls)"
+    },
+    {
+      "id": "fb6792b9fa634c3d",
+      "name": "chooseRollToSwap",
+      "signature": "chooseRollToSwap(List<RollDiceEffect.DieRollResult> rolls)"
+    },
+    {
+      "id": "2b89502cad6500d7",
+      "name": "chooseRollSwapValue",
+      "signature": "chooseRollSwapValue(List<String> swapChoices,Integer currentResult,int power,int toughness)"
+    },
+    {
+      "id": "86e5ac22849d2a22",
+      "name": "mulliganKeepHand",
+      "signature": "mulliganKeepHand(Player firstPlayer,int cardsToReturn)"
+    },
+    {
+      "id": "052c35d72ed6fb1e",
+      "name": "tuckCardsViaMulligan",
+      "signature": "tuckCardsViaMulligan(CardCollectionView hand,int cardsToReturn)"
+    },
+    {
+      "id": "5b7e166628592b7f",
+      "name": "declareAttackers",
+      "signature": "declareAttackers(Player attacker,Combat combat)"
+    },
+    {
+      "id": "a2bb41ac326e0419",
+      "name": "declareBlockers",
+      "signature": "declareBlockers(Player defender,Combat combat)"
+    },
+    {
+      "id": "33e395274279558d",
+      "name": "chooseSpellAbilityToPlay",
+      "signature": "chooseSpellAbilityToPlay()"
+    },
+    {
+      "id": "fa1c1413997c2428",
+      "name": "playChosenSpellAbility",
+      "signature": "playChosenSpellAbility(SpellAbility sa)"
+    },
+    {
+      "id": "9d0c4e42cf848bd0",
+      "name": "chooseCardsToDiscardToMaximumHandSize",
+      "signature": "chooseCardsToDiscardToMaximumHandSize(int numDiscard)"
+    },
+    {
+      "id": "0d6e5ab21a4cefc2",
+      "name": "chooseCardsToRevealFromHand",
+      "signature": "chooseCardsToRevealFromHand(int min,int max,CardCollectionView valid)"
+    },
+    {
+      "id": "165266e573d27d81",
+      "name": "chooseStartingPlayer",
+      "signature": "chooseStartingPlayer(boolean isFirstGame)"
+    },
+    {
+      "id": "f2fbc21e43ebe272",
+      "name": "chooseStartingHand",
+      "signature": "chooseStartingHand(List<PlayerZone> zones)"
+    },
+    {
+      "id": "1e4162c384264e8d",
+      "name": "chooseSaToActivateFromOpeningHand",
+      "signature": "chooseSaToActivateFromOpeningHand(List<SpellAbility> usableFromOpeningHand)"
+    },
+    {
+      "id": "9012a8fa6b9f1af7",
+      "name": "chooseNumber",
+      "signature": "chooseNumber(SpellAbility sa,String title,int min,int max)"
+    },
+    {
+      "id": "5a805eea7841ca92",
+      "name": "chooseNumber",
+      "signature": "chooseNumber(SpellAbility sa,String string,int min,int max,Map<String, Object> params)"
+    },
+    {
+      "id": "d345b7bacca4a3da",
+      "name": "chooseNumber",
+      "signature": "chooseNumber(SpellAbility sa,String title,List<Integer> options,Player relatedPlayer)"
+    },
+    {
+      "id": "1fba5f918d91cb30",
+      "name": "chooseFlipResult",
+      "signature": "chooseFlipResult(SpellAbility sa,Player flipper,boolean call)"
+    },
+    {
+      "id": "dcbf821716ba9d92",
+      "name": "chooseTarget",
+      "signature": "chooseTarget(SpellAbility saSrc,List<Pair<SpellAbilityStackInstance, GameObject>> allTargets)"
+    },
+    {
+      "id": "cca4a9d01df75d3c",
+      "name": "notifyOfValue",
+      "signature": "notifyOfValue(SpellAbility saSource,GameObject realtedTarget,String value)"
+    },
+    {
+      "id": "e53aa0850050afbb",
+      "name": "chooseBinary",
+      "signature": "chooseBinary(SpellAbility sa,String question,BinaryChoiceType kindOfChoice,Boolean defaultVal)"
+    },
+    {
+      "id": "0b3126f281c5d320",
+      "name": "chooseBinary",
+      "signature": "chooseBinary(SpellAbility sa,String question,BinaryChoiceType kindOfChoice,Map<String, Object> params)"
+    },
+    {
+      "id": "93dcf4a87162409a",
+      "name": "chooseModeForAbility",
+      "signature": "chooseModeForAbility(SpellAbility sa,List<AbilitySub> possible,int min,int num,boolean allowRepeat)"
+    },
+    {
+      "id": "4c074c4e15797ce0",
+      "name": "chooseColorAllowColorless",
+      "signature": "chooseColorAllowColorless(String message,Card card,ColorSet colors)"
+    },
+    {
+      "id": "769ca9559df8dc82",
+      "name": "chooseColor",
+      "signature": "chooseColor(String message,SpellAbility sa,ColorSet colors)"
+    },
+    {
+      "id": "5c333753ab0fc7be",
+      "name": "chooseColors",
+      "signature": "chooseColors(String message,SpellAbility sa,int min,int max,ColorSet options)"
+    },
+    {
+      "id": "7a78e787a812df79",
+      "name": "chooseCounterType",
+      "signature": "chooseCounterType(List<CounterType> options,SpellAbility sa,String prompt,Map<String, Object> params)"
+    },
+    {
+      "id": "5787e0bec6ae2a70",
+      "name": "chooseKeywordForPump",
+      "signature": "chooseKeywordForPump(final List<String> options,final SpellAbility sa,final String prompt,final Card tgtCard)"
+    },
+    {
+      "id": "de99eb076e690f51",
+      "name": "chooseSingleReplacementEffect",
+      "signature": "chooseSingleReplacementEffect(List<ReplacementEffect> possibleReplacers)"
+    },
+    {
+      "id": "59badf68f891ea5e",
+      "name": "chooseSingleStaticAbility",
+      "signature": "chooseSingleStaticAbility(List<StaticAbility> possibleStatics)"
+    },
+    {
+      "id": "0f5c838040cae31f",
+      "name": "chooseProtectionType",
+      "signature": "chooseProtectionType(SpellAbility sa,List<String> choices)"
+    },
+    {
+      "id": "2b08bb577fe63b69",
+      "name": "payManaCost",
+      "signature": "payManaCost(ManaCost toPay,CostPartMana costPartMana,SpellAbility sa,String prompt,ManaConversionMatrix matrix,boolean effect)"
+    },
+    {
+      "id": "2758da001efe595f",
+      "name": "payCombatCost",
+      "signature": "payCombatCost(Card c,Cost cost,SpellAbility sa,String prompt)"
+    },
+    {
+      "id": "6b3627841632a5b1",
+      "name": "chooseCardsForCost",
+      "signature": "chooseCardsForCost(CardCollectionView optionList,SpellAbility sa,CostPartWithList cpl,int amount,boolean isOptional,String prompt)"
+    },
+    {
+      "id": "1bacefa96f5bbd00",
+      "name": "applyManaToCost",
+      "signature": "applyManaToCost(ManaCostBeingPaid toPay,SpellAbility ability,String prompt,ManaConversionMatrix matrix,boolean effect)"
+    },
+    {
+      "id": "dfc6fc4e73c903ab",
+      "name": "getCostDecisionMaker",
+      "signature": "getCostDecisionMaker(Player player,SpellAbility ability,boolean effect,String prompt)"
+    },
+    {
+      "id": "81db614e244a596d",
+      "name": "payCostToPreventEffect",
+      "signature": "payCostToPreventEffect(Cost cost,SpellAbility sa,boolean alreadyPaid,FCollectionView<Player> allPayers)"
+    },
+    {
+      "id": "8d978e96a2baad39",
+      "name": "payCostDuringRoll",
+      "signature": "payCostDuringRoll(final Cost cost,final SpellAbility sa)"
+    },
+    {
+      "id": "67398a59450a3bf2",
+      "name": "orderSimultaneousSa",
+      "signature": "orderSimultaneousSa(List<SpellAbility> activePlayerSAs)"
+    },
+    {
+      "id": "078959bd8bac9cad",
+      "name": "orderAndPlaySimultaneousSa",
+      "signature": "orderAndPlaySimultaneousSa(List<SpellAbility> activePlayerSAs)"
+    },
+    {
+      "id": "4cb279ddfc899042",
+      "name": "playTrigger",
+      "signature": "playTrigger(Card host,WrappedAbility wrapperAbility,boolean isMandatory)"
+    },
+    {
+      "id": "92dfbb237648812c",
+      "name": "playSaFromPlayEffect",
+      "signature": "playSaFromPlayEffect(SpellAbility tgtSA)"
+    },
+    {
+      "id": "46161b85aacde514",
+      "name": "chooseTargetsFor",
+      "signature": "chooseTargetsFor(SpellAbility currentAbility)"
+    },
+    {
+      "id": "a0a483b904a765d7",
+      "name": "chooseNewTargetsFor",
+      "signature": "chooseNewTargetsFor(SpellAbility ability,Predicate<GameObject> filter,boolean optional)"
+    },
+    {
+      "id": "10c6a5aa645effe9",
+      "name": "chooseCardsPile",
+      "signature": "chooseCardsPile(SpellAbility sa,CardCollectionView pile1,CardCollectionView pile2,String faceUp)"
+    },
+    {
+      "id": "c07e2eeadc2756a6",
+      "name": "revealAnte",
+      "signature": "revealAnte(String message,Multimap<Player, PaperCard> removedAnteCards)"
+    },
+    {
+      "id": "610060a9c885a471",
+      "name": "revealAISkipCards",
+      "signature": "revealAISkipCards(String message,Map<Player, Map<DeckSection, List<? extends PaperCard>>> deckCards)"
+    },
+    {
+      "id": "00f67f6d3eafa571",
+      "name": "revealUnsupported",
+      "signature": "revealUnsupported(Map<Player, List<PaperCard>> unsupported)"
+    },
+    {
+      "id": "3825ed493a367836",
+      "name": "complainCardsCantPlayWell",
+      "signature": "complainCardsCantPlayWell(Deck myDeck)"
+    },
+    {
+      "id": "a2aebbc4a3f71723",
+      "name": "cheatShuffle",
+      "signature": "cheatShuffle(CardCollectionView list)"
+    },
+    {
+      "id": "e089f7d3c6adf6e3",
+      "name": "chooseCardsYouWonToAddToDeck",
+      "signature": "chooseCardsYouWonToAddToDeck(List<PaperCard> losses)"
+    },
+    {
+      "id": "ef7c5da1a079b271",
+      "name": "chooseCardsForConvokeOrImprovise",
+      "signature": "chooseCardsForConvokeOrImprovise(SpellAbility sa,ManaCost manaCost,CardCollectionView untappedCards,boolean artifacts,boolean creatures,Integer maxReduction)"
+    },
+    {
+      "id": "37ae13606f923991",
+      "name": "chooseCardName",
+      "signature": "chooseCardName(SpellAbility sa,List<ICardFace> faces,String message)"
+    },
+    {
+      "id": "71096ccc75fb4e70",
+      "name": "chooseCardName",
+      "signature": "chooseCardName(SpellAbility sa,Predicate<ICardFace> cpp,String valid,String message)"
+    },
+    {
+      "id": "8f42cefbe130a0e4",
+      "name": "chooseSingleCardForZoneChange",
+      "signature": "chooseSingleCardForZoneChange(ZoneType destination,List<ZoneType> origin,SpellAbility sa,CardCollection fetchList,DelayedReveal delayedReveal,String selectPrompt,boolean isOptional,Player decider)"
+    },
+    {
+      "id": "67b80de0eb995e55",
+      "name": "chooseCardsForZoneChange",
+      "signature": "chooseCardsForZoneChange(ZoneType destination,List<ZoneType> origin,SpellAbility sa,CardCollection fetchList,int min,int max,DelayedReveal delayedReveal,String selectPrompt,Player decider)"
+    },
+    {
+      "id": "9a4dbe061af34095",
+      "name": "resetAtEndOfTurn",
+      "signature": "resetAtEndOfTurn()"
+    },
+    {
+      "id": "8a062b4f0028bbb1",
+      "name": "autoPassCancel",
+      "signature": "autoPassCancel()"
+    },
+    {
+      "id": "0f7f6ec120e7e08a",
+      "name": "awaitNextInput",
+      "signature": "awaitNextInput()"
+    },
+    {
+      "id": "04c50895c9b01f65",
+      "name": "cancelAwaitNextInput",
+      "signature": "cancelAwaitNextInput()"
+    },
+    {
+      "id": "18ba47f92b85b7a3",
+      "name": "chooseSingleCardFace",
+      "signature": "chooseSingleCardFace(SpellAbility sa,List<ICardFace> faces,String message)"
+    },
+    {
+      "id": "2f4363e5bfb5e44b",
+      "name": "chooseSingleCardFace",
+      "signature": "chooseSingleCardFace(SpellAbility sa,String message,Predicate<ICardFace> cpp,String name)"
+    },
+    {
+      "id": "57368f5bf9b5851b",
+      "name": "chooseSingleCardState",
+      "signature": "chooseSingleCardState(SpellAbility sa,List<CardState> states,String message,Map<String, Object> params)"
+    },
+    {
+      "id": "3883b947e649921a",
+      "name": "chooseCardsForSplice",
+      "signature": "chooseCardsForSplice(SpellAbility sa,List<Card> cards)"
+    },
+    {
+      "id": "1963c5e4faf57ae5",
+      "name": "chooseOptionalCosts",
+      "signature": "chooseOptionalCosts(SpellAbility chosen,List<OptionalCostValue> optionalCostValues)"
+    },
+    {
+      "id": "639a5810c2b7d08b",
+      "name": "chooseNumberForKeywordCost",
+      "signature": "chooseNumberForKeywordCost(SpellAbility sa,Cost cost,KeywordInterface keyword,String prompt,int max)"
+    },
+    {
+      "id": "bd3bdbf3cebc259e",
+      "name": "chooseNumberForCostReduction",
+      "signature": "chooseNumberForCostReduction(final SpellAbility sa,final int min,final int max)"
+    },
+    {
+      "id": "0c08e0b11839c829",
+      "name": "orderCosts",
+      "signature": "orderCosts(List<CostPart> costs)"
+    },
+    {
+      "id": "1109394621489d91",
+      "name": "chooseCardsForEffectMultiple",
+      "signature": "chooseCardsForEffectMultiple(Map<String, CardCollection> validMap,SpellAbility sa,String title,boolean isOptional)"
+    }
+  ],
+  "forge-ai/src/main/java/forge/ai/AiCostDecision.java": [
+    {
+      "id": "c6b5bd88ea485aec",
+      "name": "visit",
+      "signature": "visit(CostAddMana cost)"
+    },
+    {
+      "id": "816a3382e696fcda",
+      "name": "visit",
+      "signature": "visit(CostBehold cost)"
+    },
+    {
+      "id": "02c6c7f533946a23",
+      "name": "visit",
+      "signature": "visit(CostBeholdExile cost)"
+    },
+    {
+      "id": "63fb8db736afe81a",
+      "name": "visit",
+      "signature": "visit(CostChooseColor cost)"
+    },
+    {
+      "id": "908b2fc81514efa1",
+      "name": "visit",
+      "signature": "visit(CostChooseCreatureType cost)"
+    },
+    {
+      "id": "7634fb8498419479",
+      "name": "visit",
+      "signature": "visit(CostCollectEvidence cost)"
+    },
+    {
+      "id": "4c5cf8cd9790e89f",
+      "name": "visit",
+      "signature": "visit(CostDiscard cost)"
+    },
+    {
+      "id": "8d32097fbf8e5d8f",
+      "name": "visit",
+      "signature": "visit(CostDamage cost)"
+    },
+    {
+      "id": "dcebf4c78160dc42",
+      "name": "visit",
+      "signature": "visit(CostDraw cost)"
+    },
+    {
+      "id": "7f8e75b5ec9afff5",
+      "name": "visit",
+      "signature": "visit(CostPromiseGift cost)"
+    },
+    {
+      "id": "a8c0759bd4ee3554",
+      "name": "visit",
+      "signature": "visit(CostExile cost)"
+    },
+    {
+      "id": "3e695cf3aab09546",
+      "name": "visit",
+      "signature": "visit(CostExileFromStack cost)"
+    },
+    {
+      "id": "a672b0981d275689",
+      "name": "visit",
+      "signature": "visit(CostExiledMoveToGrave cost)"
+    },
+    {
+      "id": "b54c895f79d4b45a",
+      "name": "visit",
+      "signature": "visit(CostExert cost)"
+    },
+    {
+      "id": "2f20ef288d5125fb",
+      "name": "visit",
+      "signature": "visit(final CostEnlist cost)"
+    },
+    {
+      "id": "763e593656ce26c3",
+      "name": "visit",
+      "signature": "visit(CostFlipCoin cost)"
+    },
+    {
+      "id": "5bbdda71c1208b75",
+      "name": "visit",
+      "signature": "visit(final CostForage cost)"
+    },
+    {
+      "id": "e5e32b91ffea4452",
+      "name": "visit",
+      "signature": "visit(CostRollDice cost)"
+    },
+    {
+      "id": "a20ace05ae98b379",
+      "name": "visit",
+      "signature": "visit(CostGainControl cost)"
+    },
+    {
+      "id": "04e330a67c3bdfef",
+      "name": "visit",
+      "signature": "visit(CostGainLife cost)"
+    },
+    {
+      "id": "0f3a8fa2dde13f05",
+      "name": "visit",
+      "signature": "visit(CostMill cost)"
+    },
+    {
+      "id": "91d218e34da6a72e",
+      "name": "visit",
+      "signature": "visit(CostPartMana cost)"
+    },
+    {
+      "id": "bd94c1937b03fcaa",
+      "name": "visit",
+      "signature": "visit(CostPayLife cost)"
+    },
+    {
+      "id": "ebb8bda500adf064",
+      "name": "visit",
+      "signature": "visit(CostPayEnergy cost)"
+    },
+    {
+      "id": "70c05043977a8cb0",
+      "name": "visit",
+      "signature": "visit(CostPutCardToLib cost)"
+    },
+    {
+      "id": "4a86fb1f190e78f2",
+      "name": "visit",
+      "signature": "visit(CostPutCounter cost)"
+    },
+    {
+      "id": "2a21d076c83d16a7",
+      "name": "visit",
+      "signature": "visit(CostPutCounterYou cost)"
+    },
+    {
+      "id": "9fa2164069746e98",
+      "name": "visit",
+      "signature": "visit(CostTap cost)"
+    },
+    {
+      "id": "d6b64098a080983e",
+      "name": "visit",
+      "signature": "visit(CostTapType cost)"
+    },
+    {
+      "id": "81c5a30ea4459e1f",
+      "name": "visit",
+      "signature": "visit(CostSacrifice cost)"
+    },
+    {
+      "id": "74b2a3b345369593",
+      "name": "visit",
+      "signature": "visit(CostReturn cost)"
+    },
+    {
+      "id": "d2a1ef7e960f8837",
+      "name": "visit",
+      "signature": "visit(CostReveal cost)"
+    },
+    {
+      "id": "021a68f90e53583f",
+      "name": "visit",
+      "signature": "visit(CostRevealChosen cost)"
+    },
+    {
+      "id": "01c41a0431d83fca",
+      "name": "visit",
+      "signature": "visit(CostRemoveAnyCounter cost)"
+    },
+    {
+      "id": "b77ffa1154273679",
+      "name": "visit",
+      "signature": "visit(CostRemoveCounter cost)"
+    },
+    {
+      "id": "fd98cbc468cf9905",
+      "name": "visit",
+      "signature": "visit(CostUntapType cost)"
+    },
+    {
+      "id": "44acad012501a84a",
+      "name": "visit",
+      "signature": "visit(CostUntap cost)"
+    },
+    {
+      "id": "2dd51f0704abddbf",
+      "name": "visit",
+      "signature": "visit(CostPayShards cost)"
+    },
+    {
+      "id": "0df3f80123e04cd0",
+      "name": "visit",
+      "signature": "visit(CostUnattach cost)"
+    },
+    {
+      "id": "a49581c5dc2a0e10",
+      "name": "visit",
+      "signature": "visit(CostBlight cost)"
+    },
+    {
+      "id": "cecdc5f41867e799",
+      "name": "paysRightAfterDecision",
+      "signature": "paysRightAfterDecision()"
+    }
+  ]
+}
