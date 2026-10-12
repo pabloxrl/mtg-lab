@@ -11,6 +11,11 @@ PR approval. Ask only for essential product decisions or unavailable access.
   freshly fetched main before child work or handoff (#241 validates its candidate
   during registration). It supplements WORKFLOW even when
   the running controller renders an older prompt. Legacy M3 stays deferred.
+- For reference-AI/L0 coordinator #318 and its children, read
+  `doc/programs/reference-ai-l0.md` and validate its separate registry from fresh
+  main with `python3 scripts/check_l0_program.py --ref origin/main` (#318 validates
+  its candidate during registration). This supplements older rendered WORKFLOW
+  prompts. Capture/L0 uses verified M2; no M3/E1a prerequisite. Preserve M3 holds.
 - Read `doc/rfcs/0001-project-charter.md` for enduring requirements and
   `doc/rfcs/0002-first-mvp.md` for the scoped delivery plan.
 - `WORKFLOW.md` defines unattended GitHub issue delivery. Only open issues with

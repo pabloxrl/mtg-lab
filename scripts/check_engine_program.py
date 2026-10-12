@@ -18,7 +18,13 @@ RFC = 'doc/rfcs/0003-data-driven-cards.md'
 NAMESPACE = 'engine-validation-m3'
 
 
-def validate(program, source, legacy):
+M3_PROFILE = dict(namespace=NAMESPACE, coordinator=241, milestone=7, stage='EV-M3',
+                  prerequisites=[26, 241], source=RFC, prefix='EV3',
+                  kinds=('implementation', 'gate'))
+
+
+def validate(program, source, legacy, *, profile=None):
+    profile = M3_PROFILE if profile is None else profile
     require(isinstance(program, dict), 'registry must be an object')
     require(set(program) == {'schema_version', 'program', 'parent_issue',
             'coordinator_issue', 'github_milestone', 'authorized_milestones',
@@ -26,18 +32,18 @@ def validate(program, source, legacy):
             'unknown or missing registry fields')
     require(type(program['schema_version']) is int and program['schema_version'] == 1,
             'unsupported registry schema')
-    require(program['program'] == NAMESPACE, 'wrong program namespace')
+    require(program['program'] == profile['namespace'], 'wrong program namespace')
     require(type(program['parent_issue']) is int and program['parent_issue'] == 7,
             'wrong tracking parent')
-    require(type(program['coordinator_issue']) is int and program['coordinator_issue'] == 241,
+    require(type(program['coordinator_issue']) is int and program['coordinator_issue'] == profile['coordinator'],
             'wrong registration authority')
-    require(type(program['github_milestone']) is int and program['github_milestone'] == 7,
+    require(type(program['github_milestone']) is int and program['github_milestone'] == profile['milestone'],
             'wrong GitHub milestone')
-    require(program['authorized_milestones'] == ['EV-M3'], 'unauthorized milestone')
-    require(program['prerequisites'] == [26, 241]
+    require(program['authorized_milestones'] == [profile['stage']], 'unauthorized milestone')
+    require(program['prerequisites'] == profile['prerequisites']
             and all(positive_int(n) for n in program['prerequisites']),
             'missing verified M2/registration prerequisites')
-    require(program['rfc'] == RFC and isinstance(source, bytes)
+    require(program['rfc'] == profile['source'] and isinstance(source, bytes)
             and program['rfc_sha256'] == hashlib.sha256(source).hexdigest(),
             'RFC content pin mismatch')
     require(legacy.get('authorized_milestones') == ['M0', 'M1', 'M2'],
@@ -49,7 +55,7 @@ def validate(program, source, legacy):
     for req in requirements:
         require(isinstance(req, dict) and set(req) == {'id', 'owner', 'deliverable', 'checks', 'exclusions'},
                 'malformed requirement')
-        require(isinstance(req['id'], str) and re.fullmatch(r'EV3-\d{3}', req['id']),
+        require(isinstance(req['id'], str) and re.fullmatch(profile['prefix'] + r'-\d{3}', req['id']),
                 'invalid requirement ID')
         require(req['id'] not in refs, 'duplicate requirement')
         require(positive_int(req['owner']), 'invalid owner')
@@ -63,13 +69,13 @@ def validate(program, source, legacy):
         require(isinstance(task, dict) and set(task) == {
             'issue', 'key', 'milestone', 'kind', 'depends_on', 'requirements'}, 'malformed task')
         issue = task['issue']
-        require(positive_int(issue) and issue not in {7, 26, 241}, 'invalid task/parent issue')
+        require(positive_int(issue) and issue not in {7, *profile['prerequisites']}, 'invalid task/parent issue')
         require(issue not in legacy_ids, 'legacy task cannot enter new namespace')
         require(issue not in by_issue, 'duplicate task')
         require(isinstance(task['key'], str) and re.fullmatch(r'[a-z][a-z_]*', task['key'])
                 and task['key'] not in keys, 'invalid or duplicate task key')
-        require(task['milestone'] == 'EV-M3', 'unauthorized task milestone')
-        require(task['kind'] in ('implementation', 'gate'), 'unknown task kind')
+        require(task['milestone'] == profile['stage'], 'unauthorized task milestone')
+        require(task['kind'] in profile['kinds'], 'unknown task kind')
         deps, owned = task['depends_on'], task['requirements']
         require(isinstance(deps, list) and all(positive_int(n) for n in deps)
                 and len(deps) == len(set(deps)), 'invalid/duplicate dependencies')
@@ -143,9 +149,10 @@ All repository ready/running claims count toward capacity, including other progr
     current = snapshot['current']
     issues = {i['number']: i for i in snapshot['issues']}
     require(len(issues) == len(snapshot['issues']), 'duplicate issue snapshot')
-    expected = {7, 26, 241, current} | {t['issue'] for t in program['tasks']}
+    coordinator = program['coordinator_issue']
+    expected = {program['parent_issue'], current, *program['prerequisites']} | {t['issue'] for t in program['tasks']}
     require(expected <= set(issues), 'incomplete issue snapshot')
-    require(current == 241 or current in {t['issue'] for t in program['tasks']},
+    require(current == coordinator or current in {t['issue'] for t in program['tasks']},
             'current task outside registry')
     require(active(issues[7]), 'parent paused/closed')
     require(active(issues[current]) and 'agent-ready' in labels(issues[current]),
@@ -161,7 +168,7 @@ All repository ready/running claims count toward capacity, including other progr
 
     require(all(complete(n) for n in program['prerequisites'] if n != current),
             'unverified program prerequisite')
-    if current == 241:
+    if current == coordinator:
         require(complete(current), 'unverified registration')
     reservation = snapshot.get('reserved_successor')
     if reservation is not None:

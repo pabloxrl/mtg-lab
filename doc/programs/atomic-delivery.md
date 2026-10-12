@@ -120,3 +120,14 @@ Legacy RFC0002 M3–M5 and their original ledger remain deferred and unchanged.
 The new task table specifies direct code/contract dependencies, independent
 positive/negative checks and ownership; the integrated gate retains every shared
 regression/reference obligation. No new cards or E2–E5 corpus work is registered.
+
+## Reference-AI capture and native L0 priority
+
+Coordinator #318 registers the separate [L0 program](reference-ai-l0.md), namespace
+`reference-ai-l0`, milestone 8. It uses verified M2 interfaces with no EV-M3/E1a
+prerequisite; existing M3 registry/history/drafts and holds stay intact. Raw real-AI
+capture is the first output, then working normalization/pilots, native batch replay,
+measured campaigns, bounded Forge replay consumers, incremental all-three
+admission, 500/source campaigns, deep subset and final integrated gate. #332 is the
+separate reviewed CI/L0 operations boundary. The registry owns complete acceptance
+and direct prerequisites; no parser-only task can certify an actual AI game.

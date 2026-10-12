@@ -1,11 +1,19 @@
 # Current plan: toy decks and independent game verification
 
-Status: **Accepted scope, 2026-10-09; delivery still in progress.** Operator-directed
+Status: **Accepted scope, amended 2026-10-12; delivery still in progress.** Operator-directed
 amendment, tracked in [operations #240](https://github.com/pabloxrl/mtg-lab/issues/240).
 This is the current delivery plan under [parent #7](https://github.com/pabloxrl/mtg-lab/issues/7).
 It supersedes the release scope and sequencing of the earlier
 [RFC 0002 program](rfc-0002.md), not its historical evidence or existing regressions.
 The pinned RFC and lossless requirement ledger remain unchanged as an audit trail.
+
+The 2026-10-12 operator priority, [operations #318](https://github.com/pabloxrl/mtg-lab/issues/318),
+launches the [reference-AI/L0 program](reference-ai-l0.md) using verified M2
+interfaces. Capture and real games come first. EV-M3/E1a is not a prerequisite;
+its authorized registry/history/drafts remain preserved and its children are
+intentionally held. The entire admitted corpus is mandatory fast native L0 after
+every change; a curated subset adds deeper instrumentation/live references.
+Registration is not corpus delivery or a measured speed claim.
 
 ## Goal and boundary
 
@@ -22,11 +30,12 @@ additional independent inputs, not a claim that those AIs are correct or strong.
 
 Out of the current scope: RL concepts, reward/learning API expansion, training,
 self-play learning, learned-policy evaluation, PettingZoo/Gymnasium and trainer
-integrations. Python bindings, native batching, sharded training datasets,
+integrations. Python bindings, training batching, sharded training datasets,
 interactive clients and the old hardware throughput qualification are also
 deferred unless a later explicit scope amendment brings them back. Reuse existing
 recording/replay infrastructure without removing its tests or changing its contracts.
 The current milestone has no training prerequisite and makes no learning claim.
+Native batching specifically for offline L0 replay is authorized by #318.
 
 ## Reusable mechanics, explicit card definitions
 
@@ -43,9 +52,9 @@ keyword rules through [definitions](../../crates/mtg-core/src/card_definitions.r
 while [trigger kinds](../../crates/mtg-core/src/triggers.rs) still include
 card-specific Archer, Cyclops and Pyromancer variants. Do not claim a fully generic
 ability system. The [data-driven card design](../rfcs/0003-data-driven-cards.md) selects a runtime
-catalog, typed declarative abilities and shared rules. Registration #241 must
-split its migration into bounded deliveries under the new EV-M3, before card-pool expansion
-or reference-corpus qualification.
+catalog, typed declarative abilities and shared rules. Registration #241 split its migration into bounded deliveries under EV-M3.
+That architecture remains required before future card-pool expansion, but is
+not a prerequisite for current-pool reference capture or corpus qualification.
 Prove reusable behavior across distinct definitions/characteristics and relevant
 ability combinations, with focused tests as well as the frozen-deck games. Keep
 current tests and serialization/replay compatibility explicit during any refactor;
@@ -56,8 +65,8 @@ new mechanic support still requires its own rules-derived implementation and tes
 | Stage | Deliverable | Exit evidence |
 | --- | --- | --- |
 | E1 — Complete playable toy decks | Finish the existing M2 card/mechanics, native players, reference cases and scalar baseline. | Existing M2 gate #26 passes without reducing its acceptance: all frozen cards and mechanics, all eight matchup rows, normal-reset games with genuine rules endings, invalid-action and privacy checks, required scenario/reference coverage and reproducible measurements. Existing M0/M1 evidence remains valid for its tested scope. |
-| EV-M3 — Reusable mechanics and runtime card definitions (formerly E1a) | Implement [RFC 0003](../rfcs/0003-data-driven-cards.md) through the [distinct registry](engine-validation-m3.json). | Unchanged twenty-card pool and existing token execute from external typed data through a prebuilt hashed binary and generic players/replay. Remove per-card dispatch; preserve full regressions and sixteen-game native/patched-XMage admission; publish matched measurements and compatibility limits. Unseen-definition admission is future work, not proved by migration. |
-| E2 — First reference pilot | Inspect both pinned bridges; select one reference for the first capture adapter. Let its existing AI play and translate complete games into strict mtg-lab replays. | Ten complete distinct games replay twice with all required intermediate checkpoints and outcomes matching or rules-adjudicated. Cover all eight matchup rows; retain every unsuccessful attempt. Demonstrate duplicate-card identity, shuffle/mulligan capture and negative controls before admitting games. Report source fields that cannot be observed; missing required fields block acceptance. |
+| EV-M3 — Intentionally held; reusable mechanics and runtime card definitions (formerly E1a) | Implement [RFC 0003](../rfcs/0003-data-driven-cards.md) through the [distinct registry](engine-validation-m3.json). | Unchanged twenty-card pool and existing token execute from external typed data through a prebuilt hashed binary and generic players/replay. Remove per-card dispatch; preserve full regressions and sixteen-game native/patched-XMage admission; publish matched measurements and compatibility limits. Unseen-definition admission is future work, not proved by migration. |
+| E2 — First reference pilot | [Registered capture-first L0 queue](reference-ai-l0.md); use inspected pinned XMage ComputerPlayer7 first. Let its existing AI play and translate complete games into strict mtg-lab replays. | Ten complete distinct games replay twice with all required intermediate checkpoints and outcomes matching or rules-adjudicated. Cover all eight matchup rows; retain every unsuccessful attempt. Demonstrate duplicate-card identity, shuffle/mulligan capture and negative controls before admitting games. Report source fields that cannot be observed; missing required fields block acceptance. |
 | E3 — Measure generation and replay | Run a declared 100-attempt campaign in the first reference with deterministic seed assignments, both decks and balanced seats. | Report cold startup/build separately from warm generation, capture, conversion and replay; completed/failed/truncated/unsupported counts; median/p95 wall time, decisions, peak memory and artifact size. Project the cost of 1,000 games from observed completion rate and end-to-end throughput. Probe bounded concurrency only after a reliable single-worker baseline. No guessed seconds-per-game target. |
 | E4 — Both references and frozen corpus | Bring the second reference through the same 10-complete-game pilot and 100-attempt measurement gate, then scale capture from both engines. | At least 1,000 complete distinct admitted games overall, at least 500 generated by each engine's existing AI. Balance each source across all eight rows (62 or 63 of each row for an initial 500). Source-specific seeds and actual chance tapes are retained. Both adapters execute strict transcripts; every admitted game is checked in mtg-lab and both references with the required intermediate state fields. |
 | E5 — Engine acceptance | Freeze a versioned corpus and execute the complete torture suite against the exact merged candidate. | Every admitted game deterministically replays; no unexplained divergences, missing required observations or hidden skips. Every scoped card/mechanic has actual exercised evidence, including reusable-mechanic checks across distinct definitions, supplemented by focused tests. Required independent critical scenarios, comparator mutations, minimized defects, artifact integrity and all existing regressions pass; publish commands, hashes, timings, review and exact-main CI receipts. |
@@ -110,11 +119,18 @@ failure tests. Random seeds cannot guarantee rare-case coverage. Retain the
 existing M2 scenario floor, capability assertions and the independently authored
 dual-reference critical suite (at least 20 scenarios); generated volume replaces none.
 
-Plan a small diverse replay subset for rapid local feedback and the entire corpus
-for thorough qualification. This does not change today's required CI checks or
-allow partial runs to count as complete verification. Measure full-corpus replay
-cost first; any future scheduling change needs reviewed operations work, with the
-full corpus mandatory for final acceptance and no reduction of existing gates.
+Replay the entire admitted corpus as mandatory offline native L0 after every
+change, plus the existing regression foundation. Use a prebuilt release runner,
+local immutable artifacts, full required semantic assertions and fail-closed
+manifest/checksum validation. No reference AI/JVM runs in ordinary L0. Optional
+subsets provide feedback only; a deterministic curated deeper subset adds richer
+invariants and live references. [Operations #332](https://github.com/pabloxrl/mtg-lab/issues/332)
+owns reviewed CI wiring/scheduling and measured latency budget/thresholds; existing
+checks stay mandatory until equivalent-or-stronger policy passes review. Measure
+cold process start/load/checksums/validation/full replay/comparison separately from
+builds, warm throughput and reference generation. The initial 1,000-game purpose
+is seconds to low minutes, not an unmeasured speed promise; report/optimize gaps
+without reducing assertions or quotas.
 Keep a separately frozen, independently authored holdout; record when a discovered
 failure is moved into the development regression set.
 
@@ -126,8 +142,9 @@ scripted mtg-lab replay or treat a safety timeout as a benchmark result.
 
 ## Execution and historical commitments
 
-The existing [program manifest](rfc-0002.json) authorizes only M0–M2. In-scope M2
-work continues, including the running full-pool native-player task. Legacy M3–M5
+The existing [program manifest](rfc-0002.json) authorizes only M0–M2. M2/E1 has
+verified completion in the [gate report](../evidence/m2-gate/README.md) and linked
+protected-merge/exact-main receipts. No legacy successor is authorized. Legacy M3–M5
 and planning operations #81–#83 are closed as not planned under the operator's tracker cleanup, not completed. Their
 requirements and original task edges remain in the pinned ledger for history;
 they are not acceptance prerequisites for this new engine-validation milestone.
@@ -137,11 +154,13 @@ The former full-RFC mandate in operations #59 is superseded by this operator dec
 launches only the new **Engine validation M3** under the 2026-10-12 operator
 approval, after verified M2. Its [separate registry](engine-validation-m3.json),
 [contracts and handoff](engine-validation-m3.md), and GitHub milestone 7 cannot
-resume legacy M3. All children remain unready until reviewed protected registration
-merge and exact-main CI. The coordinator then activates only the first eligible
-child under normal locked controls; subsequent bounded handoffs continue without
-another routine approval. Feature workers cannot expand the registry. E2–E5 stay
-later roadmap stages and are neither M3 prerequisites nor a dispatch queue.
+resume legacy M3. Its protected registration and first activation are historical
+delivery, not M3 completion. The 2026-10-12 priority hold now prevents dispatch of
+its children; preserving that control takes precedence over normal successor
+selection. Feature workers cannot expand the registry. The separate [L0 registry](reference-ai-l0.json), registered by #318, now owns
+E2–E5 capture/corpus work. It uses M2 directly, never waits for M3, and launches
+only after its protected registration and exact-main CI. M3's intentional holds
+are preserved; neither L0 registration nor completion automatically resumes it.
 No new cards, RL, broad engine rewrite or general scripting VM is authorized.
 
 No current stage is complete because this document exists. Keep evidence on the

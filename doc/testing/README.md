@@ -1,5 +1,11 @@
 # MVP test strategy
 
+Current priority: [reference-AI capture and full native L0](../programs/reference-ai-l0.md)
+uses verified M2 interfaces without M3/E1a. The entire admitted corpus is the
+mandatory after-change replay set; a curated deep subset adds diagnostics/live
+references. This is registered acceptance, not delivered corpus or speed evidence.
+Existing tests/gates remain mandatory until separately reviewed operations policy.
+
 Status: test designs and delivery obligations, **not implemented game support**.
 The [current engine-validation plan](../programs/engine-validation.md) supersedes
 older generation order, campaign sizes and M3–M5 release commitments. Current
@@ -13,9 +19,9 @@ is unchanged. See the [executable baseline](torture-suite.md) and
 ## The approach
 
 Use **AI-played games as reproducible test inputs**, supported by focused,
-independently justified rules tests. Start with small deterministic legal-random
-and heuristic policies, using exactly the frozen red and green POC decks, their
-mirrors and both starting seats. Use Forge and XMage's existing AIs for the independent game corpus; no model service
+independently justified rules tests. Existing deterministic legal-random and
+heuristic policies remain regressions, using exactly the frozen red and green POC
+decks, their mirrors and both starting seats. Use Forge and XMage's existing AIs for the independent game corpus; no model service
 or learned-policy implementation is required.
 
 Record what happened: opening decks, all random outcomes, every choice, and
@@ -47,7 +53,7 @@ synthetic regression does not replace the original reachable game.
 | --- | --- | --- |
 | [Capability designs](capability-test-plan.json) | 80 capabilities × positive, negative, interaction and regression; explicit setup, actions, expectations and independent basis | Per-case issue and milestone; design #52, implementation M1/M2 and later specialized owners |
 | [Rules design notes](rules.md) | Rules/card coverage, synthetic reachability boundaries and oracle discipline | #17–#24; hardening #37/#38 |
-| [AI games and reference replay](game-replay.md) | Decision/chance transcript, adapter expansion, campaigns, disagreement triage and acceptance | #17/#19/#21/#24/#37/#38 |
+| [AI games and reference replay](game-replay.md) | Decision/chance transcript, adapter expansion, campaigns, disagreement triage and acceptance | Current [L0 registry](../programs/reference-ai-l0.md), #319–#337; historical #17/#19/#21/#24 evidence retained, legacy #37/#38 deferred |
 | [Independent data/RL cases](data-rl.md) | 24 additional ledger-based designs for recording, privacy, durable storage and real learning | #19/#20/#27–#33; qualification #39/#40 |
 | [Contract decisions](contract-decisions.md) | Coordinator defaults for batch errors, zero-action seats, seeds, crash scope and other design ambiguities | Named owner in each decision |
 | [System component tests](systems.md) | State, batching, privacy, trajectories, adapters, CLI, instrumentation and performance | #17–#21, #25, #27–#39 |

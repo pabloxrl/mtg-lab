@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "program": "reference-ai-l0",
+  "parent_issue": 7,
+  "coordinator_issue": 318,
+  "github_milestone": 8,
+  "authorized_milestones": [
+    "L0"
+  ],
+  "prerequisites": [
+    26,
+    277,
+    318
+  ],
+  "rfc": "doc/programs/reference-ai-l0.md",
+  "rfc_sha256": "31e20e45d7d5099efcf21b9f6cd849a9bad264e4722293a03296ff93c73c3ebc",
+  "requirements": [
+    {
+      "id": "L0-001",
+      "deliverable": "Run the pinned ComputerPlayer7 AI for both seats from normal frozen-deck reset to a rules ending. Record immutable source-native choices, chance, physical/incarnation/token identities, semantic observations and configuration. Observe actual committed play, excluding AI search copies; do not use TestComputerPlayer scripted decisions or the pass-only base ComputerPlayer.",
+      "checks": "A headless command captures at least one complete actual AI game with played spells and combat, both frozen decks loaded, original trace and terminal reason. Show AI class/config provenance, recording-on/off choice equivalence under controlled inputs, shuffle/mulligan chronology, and visible unsupported-callback/truncation failures. Confirm no test-mode mulligan suppression and no concession/timeout quota filler. Persist all attempted seeds and failures. Runnable source game, not a parser fixture.",
+      "exclusions": "No normalization campaign, corpus quota or Forge support; raw capture is not admission.",
+      "owner": 319
+    },
+    {
+      "id": "L0-002",
+      "deliverable": "Convert captured real-game choices/chance and checkpoints into existing native/patched-XMage full-game interfaces; extend only the necessary explicit transcript seams. Preserve source tapes and map physical copies, incarnations, tokens, modes, targets, payments, trigger context/order, combat allocations and passes.",
+      "checks": "Replay at least one captured complete game twice in native and patched XMage, consuming exactly all actions and chance and comparing required intermediate fields. Mutate a duplicate-card identity, shuffle, cost/target, trigger order and checkpoint; each must fail at the first relevant cursor/field. Rules-derived expectations and reviewed source agreement justify checkpoints; document every unsupported seam rather than silently defaulting.",
+      "exclusions": "No M3 migration, new cards, final all-three-engine admission or ten-game pilot claim.",
+      "owner": 320
+    },
+    {
+      "id": "L0-003",
+      "deliverable": "Publish a versioned provisional ten-game pilot covering RG/GR/RR/GG and both starting seats. Retain every failed, truncated, unsupported, divergent and duplicate attempt with earliest difference. Deduplicate canonical gameplay/chance content, not seeds, UUIDs or source labels.",
+      "checks": "Ten distinct rules-terminal games, all eight rows, replay twice in native and patched XMage with full intermediate checks; prove duplicates with altered seed/provenance do not count. Pin artifacts/checksums, AI/rules/decks/toolchain/patches and independent adjudications. Report source-specific two-engine limitation; these games enter final quotas only after all-three admission with explicit overlap IDs.",
+      "exclusions": "No Forge qualification or large-corpus acceptance.",
+      "owner": 321
+    },
+    {
+      "id": "L0-004",
+      "deliverable": "Deliver a prebuilt release native runner that loads a versioned immutable manifest and all local artifacts, validates checksums/completeness, then replays every entry with exact semantic comparisons in a long-lived process. Reuse existing rules engine; no AI, JVM, network, model or reference installation during ordinary L0. Provisional pilot artifacts are separately named until final admission.",
+      "checks": "Run all ten real pilot games twice through the batch command and compare with existing scalar replay. Check complete action/chance consumption, legal progression, physical identities, ordered zones, stack/effects/life, outcomes and required checkpoint boundaries. Missing/corrupt/unavailable entry, extra/unconsumed choice, wrong pin/checkpoint, failed build and incomplete game all fail nonzero with seed/trace/cursor/first-field diff. Digests, if used, must cover identical semantics with collision-resistant hashes, schema pins and localized deep reruns; a diagnostic rerun cannot erase failure.",
+      "exclusions": "No training batch API, M3 refactor, CI policy replacement or invented speed claim.",
+      "owner": 322
+    },
+    {
+      "id": "L0-005",
+      "deliverable": "Run a declared 100-attempt first-source campaign with deterministic seed assignments balanced across eight rows. Account for all attempt classes, canonical duplicates, observed completion rate and campaign cost; measure the actual full native replay path over accepted/provisional entries.",
+      "checks": "Publish cold process-start/load/checksum/validation/replay/comparison elapsed separately from compilation, warm throughput, generation, conversion and JVM startup. Report games/actions/checkpoints, p50/p95 per-game time, total elapsed, RSS, artifact bytes, concurrency, pins and hardware. Single-worker baseline precedes measured bounded concurrency. Project 1000-game generation cost from observed attempts, not scripted speed. Propose measured L0 budget/thresholds for policy review and report gap to seconds-to-low-minutes target without reducing assertions or quotas.",
+      "exclusions": "No automatic timing-gate policy, reference quota or host qualification inferred.",
+      "owner": 323
+    },
+    {
+      "id": "L0-006",
+      "deliverable": "Run both seats with pinned PlayerControllerAi/AiController from normal frozen-deck setup, preserving actual live choices/chance and complete immutable raw traces. Use source events and payment/choice hooks, not the existing one-pass mock smoke controller. Source-specific work is independent of XMage normalization.",
+      "checks": "Capture at least one headless complete AI game with spells/combat and full source provenance; demonstrate recording equivalence and strict unsupported callback/truncation accounting. Inspect real shuffle/mulligan, physical identity, choice/payment and terminal hooks. Preserve all failures, raw trace and source patch hashes; no suppressed test-mode decisions or manufactured terminal result.",
+      "exclusions": "No normalized replay, Forge pilot, new cards or source AI substitution.",
+      "owner": 324
+    },
+    {
+      "id": "L0-007",
+      "deliverable": "Build the strict Forge replay controller opening seam: normal 40-card decks, copy/incarnation bindings, both starters, initial and mulligan shuffles, London bottom order and opening checkpoints. Consume prefixes from real captured games, not injected seven-card test states.",
+      "checks": "A working headless Forge command replays source-captured openings and aligns native opening checkpoints. Exercise actual mulligan chronology and both starter seats; reject missing/reordered chance, duplicate occurrence and unconsumed opening choices. Retain prefix endpoint and remainder explicitly; no prefix counts as complete game.",
+      "exclusions": "No full-game claim; retain existing smoke and reference tests.",
+      "owner": 325
+    },
+    {
+      "id": "L0-008",
+      "deliverable": "Extend the real opening consumer through lands, priority/pass windows, spell announcement, modes/targets, ordered costs/mana/discard and resolution checkpoints using source-captured prefixes.",
+      "checks": "Execute real-game prefixes with creature casting, a targeted instant response and additional discard/payment choices; compare independent native/Forge checkpoints and exact cursor consumption. Negative controls alter target incarnation, payment, pass and response ordering and must fail visibly. Declare any remaining later-phase callbacks unsupported.",
+      "exclusions": "No combat/trigger complete-game or pilot certification; no parser-only substitute.",
+      "owner": 326
+    },
+    {
+      "id": "L0-009",
+      "deliverable": "Add explicit existing-pool mana and nonmana activations, cast/ETB triggers, chosen targets, APNAP/order and retained source context to the working Forge prefix consumer.",
+      "checks": "Replay actual game prefixes exercising mana-creature and Shivan/Invoker activation plus cast/ETB trigger choices, including departed-source context where reachable; supplement rare interactions with rules-derived authored cases clearly excluded from AI quotas. Mutate trigger order/source, target and payment; prove strict failure and intermediate agreement against independent expectations.",
+      "exclusions": "No new abilities/cards, combat suite, final admission or AI quota from authored cases.",
+      "owner": 327
+    },
+    {
+      "id": "L0-010",
+      "deliverable": "Complete strict full-game Forge replay through attack/block declarations, exact damage allocations, token/incarnation transitions, simultaneous SBA, cleanup effects/ordered graveyards and rules-terminal outcomes. Compose the delivered opening/priority/ability consumers.",
+      "checks": "Replay at least one complete actual AI game in native, XMage and Forge; require full exact consumption and all intermediate observations. Exercise all supported combat mechanics using actual games plus independently justified rare-case regressions. Mutated allocation, order, expired effect and terminal reason must fail. Missing required support cannot be an upstream exception; genuine rules defects require reviewed visible adjudications and preserved original results.",
+      "exclusions": "No ten-game qualification or quota claim; no widening frozen pool.",
+      "owner": 328
+    },
+    {
+      "id": "L0-011",
+      "deliverable": "Convert immutable Forge source traces to the common strict canonical gameplay/chance/checkpoint contract and execute them in native and both reference adapters; reuse physical identity normalization and source-provenance separation.",
+      "checks": "One complete actual Forge AI game replays twice in all three engines with aligned intermediate checkpoints, exact tape consumption and independently reviewed outcomes/adjudications. Corrupt source copy identity, mode/target, chance, cost and checkpoint; normalization or replay must reject with earliest difference. Cross-source duplicate content receives one identity while retaining both origins.",
+      "exclusions": "No ten-game pilot or blind engine golden generation.",
+      "owner": 329
+    },
+    {
+      "id": "L0-012",
+      "deliverable": "Publish ten distinct complete Forge AI games covering all eight rows, with actual chance/choice tapes, checksummed immutable original traces and full failed-attempt ledger. Reuse canonical content identities and record overlap explicitly.",
+      "checks": "Replay each twice in native and both pinned adapters with required intermediate checkpoints. Detect seed/provenance-only duplicates and reject truncated/conceded/unsupported attempts. Pin source AI, toolchain, card/rules, bridge/patch configuration and reviewed adjudications. Ten repeated replays never count as ten games.",
+      "exclusions": "No 100-attempt throughput or 500-source quota claim.",
+      "owner": 330
+    },
+    {
+      "id": "L0-013",
+      "deliverable": "Run and account for a declared balanced 100-attempt Forge campaign; measure generation, capture, normalization, reference execution and native full-corpus L0 separately with the same measurement fields as the XMage campaign.",
+      "checks": "Retain every attempt and deduplicated completion, all raw timing samples and cold/warm boundaries; report p50/p95, elapsed, actions/checkpoints, memory, bytes, concurrency, pins/hardware and measured projection. Compare serial baseline with bounded resource-limited concurrency without changing assertions or claiming failures as successes.",
+      "exclusions": "No inferred source quota or automatically revised performance threshold.",
+      "owner": 331
+    },
+    {
+      "id": "L0-014",
+      "deliverable": "Add the full admitted L0 corpus to ordinary full verification/required change gates alongside the entire existing regression foundation. Separately reviewed policy sets a measured cold L0 latency budget and regression thresholds; specify provisional pilot execution until final admission is available. Define affected-rules, admission, dedicated and final deep-reference scheduling.",
+      "checks": "Normal-discovery and actual gate positive/negative runs show all manifest entries execute, absent/corrupt artifacts, failed build or skipped/incomplete replay fail, and deep reruns do not overwrite failing L0 status. Review equivalent-or-stronger scheduling explicitly; preserve full torture and protected merge/review requirements, never delete tests for speed. Document compilation outside timing and cold load/checksum/replay inside it; enforce measured thresholds with hardware/concurrency limits and explicit miss reports.",
+      "exclusions": "Only this named operations child owns CI/L0 wiring; no controller/settings/credential/concurrency changes or optional subset replacement.",
+      "owner": 332
+    },
+    {
+      "id": "L0-015",
+      "deliverable": "Deliver an append-only versioned manifest/artifact publisher admitting complete distinct games only after native and both pinned reference adapters execute the final contract. Requalify initial pilots, retain every attempt and exception, and publish usable L0 versions as games arrive. Preserve immutable original tapes, pins and explicit pilot/final overlap.",
+      "checks": "Admit both source pilots under all-three checks, run the entire published L0 offline, and append a further game without rewriting prior identities/artifacts. Missing receipt/file/checksum/checkpoint, duplicate across source/seed/UUID, unsupported callback and nonterminal/concession must fail. Dedup canonical gameplay/chance content globally; deterministic source attribution counts each identity once and retains all generation provenances. Upstream exception must have rules basis, independent review and visible nonagreement; no copied native golden or missing-observability waiver.",
+      "exclusions": "No 1000-game acceptance, automatic baseline update, artifact network retrieval during L0 or source-quota double counting.",
+      "owner": 333
+    },
+    {
+      "id": "L0-016",
+      "deliverable": "Grow source-attributed XMage admissions to at least 500 distinct complete games, with 62/63 per row for the first 500 over RG/GR/RR/GG and both starters. Publish immutable incremental manifests and full offline L0 receipts throughout; every game executes in all three adapters during admission.",
+      "checks": "Publish per-row/source/content-ID counts, all attempt classes and first differences, explicit pilot overlap, review/adjudication provenance and repeated deterministic full L0 results for each published version. Generate extra attempts for failures/duplicates; no quota filler. Report actual cold full replay wall time and budget misses, preserving assertions.",
+      "exclusions": "No Forge quota credit, new cards, source AI replacement or final integrated verdict.",
+      "owner": 334
+    },
+    {
+      "id": "L0-017",
+      "deliverable": "Grow source-attributed Forge admissions to at least 500 distinct complete games with 62/63 per row for the first 500. Preserve global distinctness against XMage identities and incrementally publish the entire admitted manifest with all-three admission receipts.",
+      "checks": "Publish row/source/content-ID counts, explicit pilot overlap and all unsuccessful/duplicate attempts with first differences. Each increment runs full offline native L0 and records cold timing/budget status. Extra generation replaces failures or cross-source duplicates, never hides them; no timeout/concession filler.",
+      "exclusions": "No XMage quota credit, new cards or final integrated acceptance.",
+      "owner": 335
+    },
+    {
+      "id": "L0-018",
+      "deliverable": "Define a versioned deterministic deeper selection by mechanic/interaction/rare-case coverage, both source origins, eight matchup rows and independent holdout provenance. Size follows measured coverage/cost; retain the entire admitted manifest as L0. Add richer internal checks, expensive invariants and live-reference reruns under reviewed scheduling.",
+      "checks": "Execute the selected real games with pinned live references and enriched diagnostics; publish coverage mapping, selection hash, cost, holdout origin and exclusions/gaps. Detect an injected deeper invariant defect and retain minimal failure. Demonstrate corpus growth does not silently remove previous deep coverage and a subset cannot satisfy the full L0 gate. Preserve independent >=20 critical cases and all existing native/authored games.",
+      "exclusions": "No source AI as oracle, optional subset replacing L0, new quota or automatic baseline updates.",
+      "owner": 336
+    }
+  ],
+  "tasks": [
+    {
+      "issue": 319,
+      "key": "xmage_capture",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [],
+      "requirements": [
+        "L0-001"
+      ]
+    },
+    {
+      "issue": 320,
+      "key": "xmage_normalize",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        319
+      ],
+      "requirements": [
+        "L0-002"
+      ]
+    },
+    {
+      "issue": 321,
+      "key": "xmage_pilot",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        320
+      ],
+      "requirements": [
+        "L0-003"
+      ]
+    },
+    {
+      "issue": 322,
+      "key": "native_replay",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        321
+      ],
+      "requirements": [
+        "L0-004"
+      ]
+    },
+    {
+      "issue": 323,
+      "key": "xmage_measure",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        322
+      ],
+      "requirements": [
+        "L0-005"
+      ]
+    },
+    {
+      "issue": 324,
+      "key": "forge_capture",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        319
+      ],
+      "requirements": [
+        "L0-006"
+      ]
+    },
+    {
+      "issue": 325,
+      "key": "forge_opening",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        324,
+        320
+      ],
+      "requirements": [
+        "L0-007"
+      ]
+    },
+    {
+      "issue": 326,
+      "key": "forge_spells",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        325
+      ],
+      "requirements": [
+        "L0-008"
+      ]
+    },
+    {
+      "issue": 327,
+      "key": "forge_abilities",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        326
+      ],
+      "requirements": [
+        "L0-009"
+      ]
+    },
+    {
+      "issue": 328,
+      "key": "forge_combat",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        327
+      ],
+      "requirements": [
+        "L0-010"
+      ]
+    },
+    {
+      "issue": 329,
+      "key": "forge_normalize",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        328
+      ],
+      "requirements": [
+        "L0-011"
+      ]
+    },
+    {
+      "issue": 330,
+      "key": "forge_pilot",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        329
+      ],
+      "requirements": [
+        "L0-012"
+      ]
+    },
+    {
+      "issue": 331,
+      "key": "forge_measure",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        330,
+        322
+      ],
+      "requirements": [
+        "L0-013"
+      ]
+    },
+    {
+      "issue": 332,
+      "key": "replay_policy",
+      "milestone": "L0",
+      "kind": "operations",
+      "depends_on": [
+        323
+      ],
+      "requirements": [
+        "L0-014"
+      ]
+    },
+    {
+      "issue": 333,
+      "key": "admission",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        321,
+        330,
+        322,
+        332
+      ],
+      "requirements": [
+        "L0-015"
+      ]
+    },
+    {
+      "issue": 334,
+      "key": "xmage_campaign",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        333,
+        323
+      ],
+      "requirements": [
+        "L0-016"
+      ]
+    },
+    {
+      "issue": 335,
+      "key": "forge_campaign",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        333,
+        331
+      ],
+      "requirements": [
+        "L0-017"
+      ]
+    },
+    {
+      "issue": 336,
+      "key": "deep_suite",
+      "milestone": "L0",
+      "kind": "implementation",
+      "depends_on": [
+        333
+      ],
+      "requirements": [
+        "L0-018"
+      ]
+    },
+    {
+      "issue": 337,
+      "key": "integrated_gate",
+      "milestone": "L0",
+      "kind": "gate",
+      "depends_on": [
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336
+      ],
+      "requirements": [
+        "L0-001",
+        "L0-002",
+        "L0-003",
+        "L0-004",
+        "L0-005",
+        "L0-006",
+        "L0-007",
+        "L0-008",
+        "L0-009",
+        "L0-010",
+        "L0-011",
+        "L0-012",
+        "L0-013",
+        "L0-014",
+        "L0-015",
+        "L0-016",
+        "L0-017",
+        "L0-018"
+      ]
+    }
+  ]
+}

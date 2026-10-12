@@ -14,7 +14,8 @@ and game outcomes. Unsupported content must be rejected explicitly.
 [RFC 0002](rfcs/0002-first-mvp.md) define the boundary.
 
 The [current engine-validation plan](programs/engine-validation.md) is the accepted
-2026-10-09 scope amendment. Finish the rules engine and playable decks, then use
+2026-10-09 scope amendment, reprioritized 2026-10-12 by #318. Use the verified M2
+interfaces and
 Forge and XMage's existing AIs to generate reproducible game-based tests.
 Training integrations and the original later-stage research interfaces are deferred.
 Existing implementations and their regression tests remain intact. The
@@ -34,10 +35,11 @@ tooling, versioned episode RNG, object storage, opening choices, turns, land/man
 
 Work is delivered as [small tested changes](programs/atomic-delivery.md), with
 independent review, protected integration and exact-main verification. Existing
-M2 acceptance stays intact. The legacy program stops after M2; reviewed
-[registration work](https://github.com/pabloxrl/mtg-lab/issues/241) defines the
-new M3 mechanics task graph before implementation dispatch; reference-corpus
-registration remains later work.
+M2 acceptance stays intact. The legacy program stops after M2. The separate
+[reference-AI/L0 registration](programs/reference-ai-l0.md) starts with genuine
+XMage AI capture and strict replay, then incremental native L0 and Forge support.
+M3/E1a is not a prerequisite; its authorized registry/history/drafts and intentional
+holds remain preserved.
 
 ## How games will become tests
 
@@ -62,8 +64,8 @@ and seeds add diversity; they do not establish coverage on their own.
 | Existing M0 | Scope and verifier foundations | Complete; [passing audit](evidence/m0-reaudit/README.md). |
 | Existing M1 | First scalar slice and unattended games | PASS for the six-card slice; [gate audit](evidence/m1-gate/README.md) and linked delivery receipts. |
 | E1 / existing M2 | Complete frozen toy decks and playable games | PASS for full-pool rules, scoped reference checks and scalar baseline in the [gate report](evidence/m2-gate/README.md); completion requires its linked review, protected merge and exact-main CI receipts. |
-| Engine validation M3 (formerly E1a) | Reusable mechanics and runtime card definitions | [Registered plan](programs/engine-validation-m3.md): migrate only the current frozen pool with generic choices/replay and matched measurements. No unseen-definition admission or completion claim from registration. |
-| E2 | First reference capture/replay pilot | Planned: 10 complete games, all eight matchup rows, repeated mtg-lab replay and intermediate checks. |
+| Engine validation M3 (intentionally held) | Reusable mechanics and runtime card definitions | [Registered plan](programs/engine-validation-m3.md): migrate only the current frozen pool with generic choices/replay and matched measurements. No unseen-definition admission or completion claim from registration. |
+| E2 | First reference capture/replay pilot | [Registered L0 contracts](programs/reference-ai-l0.md), not delivered: 10 complete games, all eight matchup rows, repeated mtg-lab replay and intermediate checks. |
 | E3 | Measured generation and replay cost | Planned: 100 attempts with complete accounting; startup, capture, conversion, replay, latency and memory measured separately. |
 | E4 | Both references and frozen torture corpus | Planned: qualify the second reference through the same 10/100 gates; admit at least 1,000 distinct complete games, at least 500 from each source, balanced over deck/starting-seat rows, replayed in all three engines. |
 | E5 | Engine acceptance | Planned: full corpus, targeted coverage and independent critical cases pass for the exact candidate; no unexplained divergences or hidden skips. |
@@ -72,14 +74,19 @@ See the [detailed plan](programs/engine-validation.md) for admission criteria,
 measurement protocol, error adjudication and execution ownership. Game-generation
 speed is not yet measured; the 100-attempt campaigns establish realistic estimates.
 Generation is occasional; frozen replay avoids repeating AI search during testing.
-A fast local subset may aid development, but does not replace existing mandatory
-checks or full-corpus final acceptance.
+The ENTIRE admitted corpus is mandatory native L0 after every change, alongside
+existing regressions. Prebuilt release replay validates local immutable artifacts
+and required intermediate semantics without JVM/AI/network. Optional subsets do
+not replace L0; a curated deep subset adds expensive invariants/live references.
+#332 owns reviewed CI/deep scheduling and measured cold latency thresholds. The
+1,000-game target is seconds to low minutes, unmeasured until delivered; cold
+load/checksum/replay costs are reported separately from compilation/generation.
 
 The original M3–M5 requirements are preserved in the
 [historical program](programs/rfc-0002.md) and pinned RFC ledger, but are deferred,
 not current release gates or completed work. No new RL concepts or training work
 are part of this plan. Completing E5 qualifies this engine-validation scope only.
 
-The new M3 is distinct from deferred legacy M3 Batch/Python/RL. E2–E5 retain
-their acceptance goals as later roadmap stages, not M3 prerequisites or an
-immediate queue. No new real or synthetic card definitions are authorized in M3.
+The new M3 is distinct from deferred legacy M3 Batch/Python/RL. The separate
+L0 queue now owns E2–E5 acceptance and is the immediate priority, using M2 without
+waiting for M3. No new real or synthetic card definitions are authorized in M3.
