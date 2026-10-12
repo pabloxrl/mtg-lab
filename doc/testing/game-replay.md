@@ -1,5 +1,13 @@
 # Independent plan: AI-generated POC games and cross-engine replay
 
+The 2026-10-12 [reference-AI/L0 contract](../programs/reference-ai-l0.md) controls
+current sequencing and routine verification: use M2 interfaces without M3/E1a;
+capture actual source AI decisions first; every final admission executes in all
+three engines, while the entire admitted corpus replays offline in native after
+every change. Curated deep/live-reference checks supplement L0. Existing sixteen
+native/authored tapes contribute zero reference-AI quota. Registration is not
+corpus or speed completion.
+
 Status: planning only, 2026-09-27. No game execution, build, implementation, or qualification is claimed. Read independently from AGENTS.md, RFC 0001/0002, the frozen card manifest, the program task manifest, neutral-scenario/comparator documentation, and both committed smoke bridge sources/pins. No other planning drafts were consulted.
 
 ## Current scope amendment (2026-10-09)

@@ -59,6 +59,24 @@ integration checks without requiring a foundational task to implement its own
 future dependents. The driver gives desired outcomes; agents retain the tests,
 review and merge changes, and report only essential decisions or missing access.
 
+## Registered reference-AI L0 and deep policy
+
+The [L0 program](../programs/reference-ai-l0.md) makes the entire admitted immutable
+corpus mandatory native replay after every change, plus this existing regression
+foundation. Capture starts from verified M2; no M3 migration is required. Ordinary
+L0 uses a prebuilt release batch runner and local checked artifacts with full
+choice/chance/identity/intermediate semantic assertions, without AI/JVM/network.
+Missing artifacts, failed builds, skipped games or incomplete replay fail the gate;
+deep reruns preserve the original failure. No automatic golden regeneration.
+
+This is registration, not a currently available L0 command or measured speed claim.
+#322 delivers the runner, #323/#331 measure generation and cold full replay, and
+separately reviewed operations #332 wires the required gate, measured latency
+budget/regression thresholds and deep scheduling. Existing checks remain mandatory
+until equivalent-or-stronger reviewed policy lands. No feature task may drop tests
+for speed. A curated coverage/holdout subset (#336) adds internal invariants and
+live references; optional subsets never replace the full admitted L0 corpus.
+
 ## Parallel CI and caches
 
 Operations #237 partitions the existing checks into `checks`, `debug`, `release`
@@ -102,3 +120,12 @@ local timings, exact test-inventory comparison and cache limitations.
 The [designated M2 mutation command](m2-mutations.md) separately rebuilds twelve
 semantic mutants and requires their exact named assertions to fail. Its baseline
 assertions and runner negative controls are part of normal test discovery.
+
+The [continuous performance contract](../programs/reference-ai-l0.md#continuous-matched-cross-engine-performance-monitoring)
+registers matched same-game native/XMage/Forge benchmarks, durable timing/ratio
+history and reviewed scheduled regression monitoring. Native full-corpus timing
+is recorded on each required L0 run; costly three-engine monitoring runs separately
+nightly when changes land, on adapter/corpus changes and on demand. Fixed cohort
+trends and full-corpus release comparisons retain raw timings, failures, hardware
+and instrumentation limits. This is planned delivery, not measured speed or
+operational monitoring evidence; capture remains first.

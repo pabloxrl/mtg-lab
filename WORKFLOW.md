@@ -199,6 +199,32 @@ children unready before that point. Count all repository ready/running claims
 against the same capacity; do not broaden legacy authorization or register E2–E5.
 A candidate registry is never dispatch authority. Feature workers cannot add tasks.
 
+## Reference-AI corpus / L0 handoff
+
+For coordinator #318 and tasks in `doc/programs/reference-ai-l0.json`, read
+`doc/programs/reference-ai-l0.md` from freshly fetched main and validate with
+`python3 scripts/check_l0_program.py --ref origin/main`. Initial registration
+validates the candidate until protected merge; only delivered main authorizes
+children. Namespace `reference-ai-l0`, milestone 8 and stage L0 use verified
+#26/#277 interfaces and #318 registration, with no #241/M3/E1a prerequisite.
+Preserve EV-M3's registry, history/drafts and intentional holds. #318 alone
+registers these bounded children and activates the first eligible concrete capture
+task after protected registration and exact-main CI. Later bounded handoffs
+continue without routine approval, at most one successor per worker. The final
+L0 gate ends this queue and never resumes held M3 or legacy RL work.
+
+Use the same workpads, verified receipts, pause/hold/withdrawal/resume controls,
+shared handoff/resource locks and three-worker limit below; count all repository
+open ready/running claims. The registered guide supplies complete task/common
+contracts and source-specific acceptance, including full admitted native L0 after
+every change and all-three-engine final admission. Operations child #332 alone
+owns separately reviewed CI/L0 scheduling, continuous matched three-engine
+performance monitoring and measured noise-aware latency/regression policy; existing
+full torture/review/protected merge checks remain mandatory. Feature workers
+cannot register tasks or alter gates. Current checkout AGENTS directs workers to
+this guide even when the controller renders an older workflow prompt. No
+controller/settings/credential changes are needed for launch.
+
 ## Bounded RFC program handoff
 
 The committed `doc/programs/rfc-0002.json` is the sole task/dependency allowlist
@@ -245,7 +271,7 @@ requirement ownership; they do not waive any product requirement.
    supersedes operations #59: only M0–M2 are authorized in the legacy program.
    M3–M5 and operations #81–#83 remain deferred. After M2, stop legacy handoff;
    coordinator operations #241 owns registration and first activation of the separate
-   engine-validation M3 program (not legacy M3 or the later reference-AI corpus). This does
+   engine-validation M3 program (not legacy M3; separate coordinator #318 owns the immediate reference-AI/L0 queue). This does
    not satisfy dependencies: each next stage still requires its preceding gate
    and exact-main completion evidence. Successful gates use the same bounded
    handoff to the next eligible registered task, without a new activation request.

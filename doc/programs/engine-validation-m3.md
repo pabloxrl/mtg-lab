@@ -7,6 +7,15 @@ Status: **Registration, not implementation or milestone completion.** Authorized
 Parent [#7](https://github.com/pabloxrl/mtg-lab/issues/7) remains tracking-only.
 The legacy manifest, pinned RFC0002 and requirement ledger are unchanged.
 
+## Priority amendment — 2026-10-12
+
+The [reference-AI/L0 program](reference-ai-l0.md), coordinator #318, is now the
+immediate priority using verified M2 interfaces. It has no M3/E1a prerequisite.
+M3 remains authorized but intentionally held; preserve its registry, issue history,
+drafts and controls. Earlier references below to E2–E5 as later unregistered work
+record this program's original boundary; #318 owns their separate registration.
+Neither L0 delivery nor this note clears holds or grants M3 readiness.
+
 ## Scope and evidence
 
 Implement the [accepted RFC0003](../rfcs/0003-data-driven-cards.md) for the unchanged
