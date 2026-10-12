@@ -150,10 +150,12 @@ def validate_trace(path):
                 need(isinstance(row.get('method_id'), str) and len(row['method_id']) == 16, 'callback signature')
                 need(callbacks.get(row['method_id']) == (row.get('method'), len(row['arguments'])), 'unknown callback signature/name/arguments')
                 methods[row['method']] += 1
-                pending.append(row['call'])
+                pending.append((row['call'], len(row['arguments'])))
             elif kind == 'leave':
-                need(pending and pending.pop() == row.get('call'), 'unmatched callback return')
+                need(pending and pending[-1][0] == row.get('call'), 'unmatched callback return')
+                _, arity = pending.pop()
                 need('result' in row and isinstance(row.get('arguments'), list), 'callback return/after arguments')
+                need(len(row['arguments']) == arity, 'callback return argument arity')
             elif kind == 'shuffle':
                 actor = row.get('actor', {}).get('player_id')
                 need(actor in players, 'shuffle actor')

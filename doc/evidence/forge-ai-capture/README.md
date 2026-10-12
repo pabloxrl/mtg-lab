@@ -110,12 +110,12 @@ retain their raw traces, and leave the game nonterminal. TestNG must execute exa
 one named, unskipped source test; published test summaries retain the original
 report hash and execution counts without runtime prose. Stale reports are removed before each invocation.
 
-The ordinary suite has nineteen raw-evidence checks, three source-diagnostic checks
+The ordinary suite has twenty raw-evidence checks, three source-diagnostic checks
 and six source-patch guards.
 The complete real [game trace](acceptance/game/result.json.jsonl.gz) is checked once
 positively. Corruption cases keep the unchanged prefix through their defect and
 require its specific diagnostic, so a generic missing-footer failure cannot pass.
-They cover unknown schema/callbacks, return pairing, lost chance and record counts,
+They cover unknown schema/callbacks, return pairing/after-call arity, lost chance and record counts,
 wrong physical copies/decks, missing zones/effects/payments/trigger queues/events,
 SBA boundaries and nonnormal/incomplete endings. Parser tests alone do not certify
 source execution; the actual JVM receipts above supply that evidence.

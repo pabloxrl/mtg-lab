@@ -861,7 +861,7 @@
   "pins_sha256": "66be220170efc5dd79d6c91373f966ba51626b7772883211f0c8843e1bde2132",
   "dependencies_sha256": "8b99dc9fe2352bc8d42b5008bc90e0874a768b404491351eb77c0f23e8c38299",
   "card_manifest_sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
-  "runner_sha256": "a30b8630ed9942ac5da1ec9018a9e42a3d7cf0d8d93d78d6ad4642c8373a1e87",
+  "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
   "patch_runner_sha256": "48f25e8b34a3b936ea6a9fd6bcda20cff2833e80f340d01fb00eb2a9a77c93a6",
   "command": [
     "mvn",
@@ -881,17 +881,17 @@
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-324/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
     "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/data/cards/foundations_micro_v1.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/.agent-artifacts/forge-capture/acceptance-4/unsupported/result.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/.agent-artifacts/forge-capture/acceptance-5/unsupported/result.json",
     "-Dmtglab.seed=0",
     "-Dmtglab.record=true",
     "-Dmtglab.maxCalls=10000",
     "-Dmtglab.rejectCallback=chooseSpellAbilityToPlay"
   ],
-  "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/.agent-artifacts/forge-capture/acceptance-4/unsupported/run.log",
-  "elapsed_seconds": 19.000600784998824,
+  "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/.agent-artifacts/forge-capture/acceptance-5/unsupported/run.log",
+  "elapsed_seconds": 22.030496590999974,
   "artifacts": {
     "result.json.jsonl.gz": "cd44afe98fe3f908d326a40d3f1f09453d2f28868f4d704dff4992f0a5bd6905",
     "result.json.started": "80e6cafe985aa88e3366a30be8198734bbd64dd5edfe76860ecabf9329ddd888",
-    "run.log": "f57c05d4024cdd44102e4cb45c17774408aed482e38fd9d26e90a54b3d52ecab"
+    "run.log": "790de78603825cdabf332c945a06a0728872f96da7dcc7f82e2a5f0e797ce9d6"
   }
 }

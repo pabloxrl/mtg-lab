@@ -76,6 +76,10 @@ class ForgeRawCaptureTests(unittest.TestCase):
     def test_missing_callback_return_is_rejected(self):
         self.mutate(lambda r: r.pop('result'), 'callback return', lambda r: r['kind']=='leave')
 
+    def test_erased_after_call_arguments_are_rejected(self):
+        self.mutate(lambda r: r.update(arguments=[]), 'callback return argument arity',
+                    lambda r: r['kind']=='leave' and bool(r['arguments']))
+
     def test_wrong_callback_pairing_is_rejected(self):
         self.mutate(lambda r: r.update(call=999999), 'unmatched callback', lambda r: r['kind']=='leave')
 

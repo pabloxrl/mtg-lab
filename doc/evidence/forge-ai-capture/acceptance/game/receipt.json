@@ -861,7 +861,7 @@
   "pins_sha256": "66be220170efc5dd79d6c91373f966ba51626b7772883211f0c8843e1bde2132",
   "dependencies_sha256": "8b99dc9fe2352bc8d42b5008bc90e0874a768b404491351eb77c0f23e8c38299",
   "card_manifest_sha256": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
-  "runner_sha256": "a30b8630ed9942ac5da1ec9018a9e42a3d7cf0d8d93d78d6ad4642c8373a1e87",
+  "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
   "patch_runner_sha256": "48f25e8b34a3b936ea6a9fd6bcda20cff2833e80f340d01fb00eb2a9a77c93a6",
   "command": [
     "mvn",
@@ -881,7 +881,7 @@
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-324/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
     "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/data/cards/foundations_micro_v1.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/.agent-artifacts/forge-capture/acceptance-4/game/result.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-324/.agent-artifacts/forge-capture/acceptance-5/game/result.json",
     "-Dmtglab.seed=0",
     "-Dmtglab.record=true",
     "-Dmtglab.maxCalls=10000"
@@ -6278,12 +6278,12 @@
       "pending_triggers": []
     }
   },
-  "elapsed_seconds": 29.43935287000204,
+  "elapsed_seconds": 30.88978928999859,
   "artifacts": {
     "result.json": "d950e1c51c4796785a786483037601a77cdb07ac151741c3ab6065ce218d59d6",
     "result.json.jsonl.gz": "f8d28fcd862127d94ef7f9c80ff16effd7df76def44b235df1054dcddbff52db",
     "result.json.started": "80e6cafe985aa88e3366a30be8198734bbd64dd5edfe76860ecabf9329ddd888",
-    "run.log": "943f718acc71b025caecf7311ebc75ac3d23e01688b215b00986252a40e11231",
-    "test-report.xml": "b18dc1da148ebee3e0304d655ade853cec46dfc20c691759cc107d2864f885c1"
+    "run.log": "99392c398ffba1130d15578d8fd73522161f1344c132541e729997740b65b6b7",
+    "test-report.xml": "5d1e0fb842d1a2ba31467c98f9aa1e751d8b72a5d951653875155e7d8b2cd797"
   }
 }
