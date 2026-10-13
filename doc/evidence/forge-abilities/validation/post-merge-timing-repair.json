@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "merged_implementation": "c09268df4438e86486009b2fc3e285a71b356772",
+  "failed_main_ci": "https://github.com/pabloxrl/mtg-lab/actions/runs/38393548983",
+  "attempts": [
+    {
+      "attempt": 1,
+      "python_tests": 514,
+      "python_seconds": 1701.59,
+      "verification_commands": "passed",
+      "overall": "cancelled during post-job cache upload"
+    },
+    {
+      "attempt": 2,
+      "python_tests": 514,
+      "python_seconds": 1704.754,
+      "verification_commands": "passed",
+      "overall": "cancelled during post-job cache processing"
+    }
+  ],
+  "diagnosis": "Both complete test runs passed but left insufficient headroom for cache post-processing within the unchanged job limit. Another identical retry is not a dependable remedy.",
+  "repair": "Reuse three identical fully validated immutable prefixes within their test classes. Every assertion and mutation remains; casting payment mutations retain private input, trigger mutations copy their edited row, and class teardown clears shared setup. No consumer, source, fixture, policy, timeout or cache-workflow change.",
+  "assertions": {
+    "test_forge_casting.py": {
+      "before": 37,
+      "after": 37,
+      "unchanged_assertions": true
+    },
+    "test_forge_abilities.py": {
+      "before": 41,
+      "after": 41,
+      "unchanged_assertions": true
+    }
+  },
+  "focused_tests": {
+    "command": "python3 -m unittest discover -s tests -p 'test_forge_*.py'",
+    "shared_lock": "heavy",
+    "tests": 56,
+    "seconds": 112.948,
+    "result": "passed"
+  },
+  "live_receipts": "Retained 28 successful receipts: consumer and native source hashes are unchanged. These are not claimed as newly executed runs.",
+  "full_torture": {
+    "receipt": "torture.json",
+    "python_tests": 514,
+    "python_seconds": 1176.671,
+    "rust_executions": 1532,
+    "failed": 0,
+    "ignored": 0,
+    "result": "passed"
+  },
+  "diagnostic_retention": {
+    "index": "../attempt-index.json",
+    "files": 814,
+    "interrupted_duplicate_copy": "The new full archive exhausted disk space; its incomplete directory was removed. Interrupted public replay copies were restored from the unchanged committed evidence.",
+    "remedy": "Reuse verified immutable history-v2 archive entries and store new files in history-v3. Delete only redundant final/ working copies after verifying both local SHA-256 and the archived decompressed content SHA-256.",
+    "reclaimed_working_copy_bytes": 2631396570,
+    "all_attempts_retained": true
+  }
+}

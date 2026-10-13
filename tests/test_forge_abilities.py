@@ -24,6 +24,24 @@ def changed_record(converted, index):
 
 
 class ForgeAbilitiesTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls._cast_trigger_prefix = None
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._cast_trigger_prefix = None
+
+    @classmethod
+    def cast_trigger_prefix(cls):
+        # Share complete validation of this immutable tape. Mutation cases use
+        # changed_record to isolate their edited row from the shared prefix.
+        if cls._cast_trigger_prefix is None:
+            path = ROOT / 'doc/evidence/forge-casting/source-rr-2/result.json.jsonl.gz'
+            cls._cast_trigger_prefix = forge_casting.extract(
+                path, empty_combat=True, abilities=True)
+        return cls._cast_trigger_prefix
+
     def test_actual_invoker_payment_target_and_temporary_trample(self):
         path = ROOT / 'doc/evidence/forge-abilities/source-rg-4/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, abilities=True)
@@ -145,8 +163,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
             forge_casting_native.fixture(bad, converted['opening'])
 
     def test_cast_trigger_prefix_retains_placement_and_resolution(self):
-        path = ROOT / 'doc/evidence/forge-casting/source-rr-2/result.json.jsonl.gz'
-        result = forge_casting.extract(path, empty_combat=True, abilities=True)
+        result = self.cast_trigger_prefix()
         self.assertGreater(result['endpoint']['index'], 1990)
         methods = [r.get('method') for r in result['prefix']]
         self.assertIn('orderAndPlaySimultaneousSa', methods)
@@ -158,8 +175,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
                             for c in p['zones']['Battlefield']))
 
     def test_native_choices_retain_cast_trigger_source_and_order(self):
-        path = ROOT / 'doc/evidence/forge-casting/source-rr-2/result.json.jsonl.gz'
-        converted = forge_casting.extract(path, empty_combat=True, abilities=True)
+        converted = self.cast_trigger_prefix()
         fixture = forge_casting_native.fixture(converted, converted['opening'])
         orders = [op['action'] for op in fixture['operations']
                   if op.get('action', {}).get('kind') == 'order_triggers']

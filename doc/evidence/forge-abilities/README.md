@@ -140,7 +140,7 @@ their original uncompressed SHA-256.
 Rust test executions across debug/release, with zero failures or ignored tests,
 plus formatting, Clippy and documentation checks. Its
 [complete log](validation/torture.log.gz) and input hashes identify the tested
-implementation and fixtures after integration of unchanged protected main.
+implementation, tests and fixtures after integration of protected main.
 Generated evidence and final documentation were completed afterward and their
 links checked again before exact-candidate review.
 
@@ -152,7 +152,10 @@ delivery rather than counted as a new attempt. The
 including failed translations/replays and the aborted first torture wrapper
 (which failed to inherit the shared lock descriptor); only the corrected full
 run above is passing evidence. The private archive is a diagnostic aid, never
-acceptance evidence. The [artifact index](artifact-index.json) checksums the
+acceptance evidence. Its latest index reuses checksum-verified immutable history
+files and adds new diagnostics separately. After an interrupted duplicate copy
+filled the disk, redundant working copies were removed only after verifying both
+the archived contents and original hashes; every attempt remains preserved. The [artifact index](artifact-index.json) checksums the
 published bundle. Complete games admitted and AI quota credited are both zero.
 
 The [first candidate's CI timeout and repair](validation/timeout-repair.json)
@@ -165,3 +168,20 @@ remain. The six ability tests measured 85.4 seconds before and 48.2 seconds afte
 under the same local lock with normal GC; these are diagnostic timings, not corpus
 performance qualification. Protected CI, full revalidation and separate review
 of the repaired candidate remain the delivery authority recorded in the workpad.
+
+
+The [post-merge timing repair](validation/post-merge-timing-repair.json) records
+both exact-main attempts on the first merge: every verification command passed,
+but the unchanged job deadline expired during cache post-processing. Related
+Python tests now share three identical fully validated immutable source prefixes
+within their class. All 78 assertions in the changed files remain identical;
+mutation inputs are isolated and teardown clears the shared setup. Consumer
+code, source tapes, native fixtures, CI policy and timeouts are unchanged.
+The 28 live receipts above retain matching implementation/native-source hashes;
+they are retained runs, not newly executed runs for this test-only repair.
+The [previous full torture](validation/pre-post-merge-repair-torture.json) and
+[merged candidate review](validation/review-merged-candidate.json) remain available.
+The full torture linked above is the latest repair's run; its new exact-candidate
+review, protected repair PR and successful exact-main CI are required for delivery
+and recorded in the issue workpad. Root README commands and behavior remain
+accurate, with no new usable capability or milestone-status claim in this repair.

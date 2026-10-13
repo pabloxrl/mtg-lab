@@ -16,6 +16,30 @@ import forge_opening
 
 
 class ForgeCastingPrefixTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Only read-only tests share these fully validated committed sources.
+        # The source-seed-3 payment mutation below deliberately remains private.
+        cls._prefixes = {}
+
+    @classmethod
+    def tearDownClass(cls):
+        cls._prefixes.clear()
+
+    @classmethod
+    def readonly_prefix(cls, name):
+        if name not in cls._prefixes:
+            if name == 'modal':
+                path = ROOT / 'doc/evidence/forge-casting/source-rr-3/result.json.jsonl.gz'
+                cls._prefixes[name] = forge_casting.extract(
+                    path, empty_combat=True, stop_before=2984)
+            elif name == 'opening':
+                path = ROOT / 'doc/evidence/forge-opening/source-seed-1/result.json.jsonl.gz'
+                cls._prefixes[name] = forge_casting.extract(path)
+            else:
+                raise ValueError(name)
+        return cls._prefixes[name]
+
     def test_explicit_stop_at_settled_opening_has_no_gameplay_choices(self):
         path = ROOT / 'doc/evidence/forge-opening/source-seed-1/result.json.jsonl.gz'
         original = forge_opening.extract(path)
@@ -45,8 +69,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         self.assertTrue(any([3, 3] in p['effects'].values() for p in points))
 
     def test_additional_discard_and_spell_created_tokens(self):
-        path = ROOT / 'doc/evidence/forge-casting/source-rr-3/result.json.jsonl.gz'
-        converted = forge_casting.extract(path, empty_combat=True, stop_before=2984)
+        converted = self.readonly_prefix('modal')
         expected = forge_casting_native.fixture(converted, converted['opening'])
         fixtures = json.loads((ROOT / 'fixtures/reference/forge-casting.json').read_text())
         self.assertEqual(fixtures[2], expected)
@@ -64,8 +87,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
             forge_casting_native.fixture(converted, converted['opening'])
 
     def test_modal_source_selects_tokens_before_payment(self):
-        path = ROOT / 'doc/evidence/forge-casting/source-rr-3/result.json.jsonl.gz'
-        converted = forge_casting.extract(path, empty_combat=True, stop_before=2984)
+        converted = self.readonly_prefix('modal')
         expected = forge_casting_native.fixture(converted, converted['opening'])
         actions = [op['action'] for op in expected['operations'] if 'action' in op]
         cast = next(i for i, a in enumerate(actions) if a['kind'] == 'cast' and 'goblin-surprise' in a['source'])
@@ -74,8 +96,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         self.assertEqual(actions[cast + 2]['kind'], 'tap_mana')
 
     def test_source_prefix_reaches_first_unsupported_combat_callback(self):
-        result = forge_casting.extract(
-            ROOT / 'doc/evidence/forge-opening/source-seed-1/result.json.jsonl.gz')
+        result = self.readonly_prefix('opening')
         self.assertEqual(result['endpoint']['method'], 'declareAttackers')
         self.assertEqual(result['endpoint']['index'], 1005)
         self.assertEqual(len(result['prefix']), 1005)
@@ -83,8 +104,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         self.assertGreater(result['remainder']['records'], 0)
 
     def test_creature_cast_and_nested_payment_are_retained(self):
-        result = forge_casting.extract(
-            ROOT / 'doc/evidence/forge-opening/source-seed-1/result.json.jsonl.gz')
+        result = self.readonly_prefix('opening')
         casts = [r for r in result['prefix'] if r.get('method') == 'playChosenSpellAbility']
         self.assertIn('Llanowar Elves', [r['arguments'][0]['host']['name'] for r in casts])
         elf = next(r for r in casts if r['arguments'][0]['host']['name'] == 'Llanowar Elves')
@@ -94,8 +114,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         self.assertTrue(any(r.get('event') == 'GameEventSpellAbilityCast' for r in nested))
 
     def test_native_fixture_is_exactly_derived_from_immutable_source(self):
-        path = ROOT / 'doc/evidence/forge-opening/source-seed-1/result.json.jsonl.gz'
-        converted = forge_casting.extract(path)
+        converted = self.readonly_prefix('opening')
         expected = forge_casting_native.fixture(converted, converted['opening'])
         fixtures = json.loads((ROOT / 'fixtures/reference/forge-casting.json').read_text())
         self.assertEqual(fixtures[0], expected)
