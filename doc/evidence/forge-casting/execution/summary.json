@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "complete_game": false,
+  "positive_runs": 8,
+  "live_negative_runs": 9,
+  "repeat_equality": {
+    "status": "identical",
+    "cases": [
+      "creature",
+      "target",
+      "response",
+      "discard-mode"
+    ],
+    "artifacts": [
+      "forge.json",
+      "native.json"
+    ]
+  },
+  "runs": [
+    {
+      "name": "creature-1",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "creature-1/receipt.json",
+      "source_sha256": "4206991e30fa2f9a260f3e9fc9014e952b083e86379c0aa251f06ce524afc8aa",
+      "negative_control": null,
+      "consumed_records": 1005,
+      "consumed_random": 285,
+      "native_actions": 75,
+      "native_checkpoints": 65,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint"
+      ]
+    },
+    {
+      "name": "creature-2",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "creature-2/receipt.json",
+      "source_sha256": "4206991e30fa2f9a260f3e9fc9014e952b083e86379c0aa251f06ce524afc8aa",
+      "negative_control": null,
+      "consumed_records": 1005,
+      "consumed_random": 285,
+      "native_actions": 75,
+      "native_checkpoints": 65,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint"
+      ]
+    },
+    {
+      "name": "target-1",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "target-1/receipt.json",
+      "source_sha256": "7f87e62f8fbd6d314c1d6ea56ac00380e7f3d61ecba3ed48a34a1e1e265e7101",
+      "negative_control": null,
+      "consumed_records": 1128,
+      "consumed_random": 268,
+      "native_actions": 105,
+      "native_checkpoints": 84,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint",
+        "target-incarnation"
+      ]
+    },
+    {
+      "name": "target-2",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "target-2/receipt.json",
+      "source_sha256": "7f87e62f8fbd6d314c1d6ea56ac00380e7f3d61ecba3ed48a34a1e1e265e7101",
+      "negative_control": null,
+      "consumed_records": 1128,
+      "consumed_random": 268,
+      "native_actions": 105,
+      "native_checkpoints": 84,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint",
+        "target-incarnation"
+      ]
+    },
+    {
+      "name": "response-1",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "response-1/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": null,
+      "consumed_records": 1156,
+      "consumed_random": 165,
+      "native_actions": 113,
+      "native_checkpoints": 89,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint",
+        "target-incarnation",
+        "response-order",
+        "effect-amount"
+      ]
+    },
+    {
+      "name": "response-2",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "response-2/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": null,
+      "consumed_records": 1156,
+      "consumed_random": 165,
+      "native_actions": 113,
+      "native_checkpoints": 89,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint",
+        "target-incarnation",
+        "response-order",
+        "effect-amount"
+      ]
+    },
+    {
+      "name": "discard-mode-1",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "discard-mode-1/receipt.json",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": null,
+      "consumed_records": 2984,
+      "consumed_random": 886,
+      "native_actions": 254,
+      "native_checkpoints": 192,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint",
+        "mode",
+        "discard",
+        "token-power"
+      ]
+    },
+    {
+      "name": "discard-mode-2",
+      "exit_code": 0,
+      "status": "casting-prefix-agreed",
+      "receipt": "discard-mode-2/receipt.json",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": null,
+      "consumed_records": 2984,
+      "consumed_random": 886,
+      "native_actions": 254,
+      "native_checkpoints": 192,
+      "native_negative_controls": [
+        "incarnation",
+        "payment",
+        "pass",
+        "checkpoint",
+        "mode",
+        "discard",
+        "token-power"
+      ]
+    },
+    {
+      "name": "negative-target-incarnation",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-target-incarnation/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "target-incarnation",
+      "rejection": "first divergence: /forge/947/stale occurrence/incarnation"
+    },
+    {
+      "name": "negative-payment",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-payment/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "payment",
+      "rejection": "first divergence: /forge/507/execution arguments"
+    },
+    {
+      "name": "negative-pass-actor",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-pass-actor/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "pass-actor",
+      "rejection": "first divergence: /forge/268/callback actor/method"
+    },
+    {
+      "name": "negative-callback-order",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-callback-order/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "callback-order",
+      "rejection": "first divergence: /forge/282/record kind enter"
+    },
+    {
+      "name": "negative-response-order",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-response-order/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "response-order",
+      "rejection": "first divergence: /forge/1002/callback actor/method"
+    },
+    {
+      "name": "negative-effect-amount",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-effect-amount/receipt.json",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "effect-amount",
+      "rejection": "first divergence: /forge/1049/state/players/1/zones/Battlefield/1/pt_boosts/0/2/0 expected=4 actual=3"
+    },
+    {
+      "name": "negative-token-power",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-token-power/receipt.json",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": "token-power",
+      "rejection": "first divergence: /forge/1564/state/players/0/zones/Battlefield/4/power expected=2 actual=1"
+    },
+    {
+      "name": "negative-mode",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-mode/receipt.json",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": "mode",
+      "rejection": "first divergence: /forge/2581/mode clone selection"
+    },
+    {
+      "name": "negative-discard",
+      "exit_code": 0,
+      "status": "negative-detected",
+      "receipt": "negative-discard/receipt.json",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": "discard",
+      "rejection": "first divergence: /forge/2942/state/players/0/zones/Hand/0/id expected=22 actual=17"
+    }
+  ]
+}

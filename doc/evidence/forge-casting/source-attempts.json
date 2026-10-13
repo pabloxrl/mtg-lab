@@ -1,0 +1,852 @@
+{
+  "schema_version": 1,
+  "admitted_games": 0,
+  "attempts": 56,
+  "status_counts": {
+    "complete": 51,
+    "truncated": 5
+  },
+  "note": "Attempts are not distinct-game quota. Includes a repeated seed-0 record, an uninstrumented control, and a capped seed-11 screen followed by complete recapture. Unused and failed raw bytes are privately retained; selected published tapes alone support this bounded acceptance.",
+  "records": [
+    {
+      "name": "response-gg-11",
+      "status": "complete",
+      "mode": "record",
+      "seed": 11,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "receipt_sha256": "d3d357b034c8bc8f516421f22b7a74874c9cda27f77474e5f36cc88e4602e42d"
+    },
+    {
+      "name": "screen-gg-11",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 11,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "4f4349652bd12029beeaae262eaeffc8f3171c523fbf54aae0ca620c8f16f818",
+      "receipt_sha256": "6c7c617c5e6f44c683aada527b39a32f5af0b074a9a3c8a4db8a848c106cee83"
+    },
+    {
+      "name": "source-gg-0",
+      "status": "complete",
+      "mode": "record",
+      "seed": 0,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "e1f3b61f18f7694280cbc34deaa6bfe73c7fa82974ab37430966d02bd23be5e6",
+      "raw_sha256": "3b28c2ff0963cc203f671c3ac3362fec49670c81f70f112f3b3506f0fc47cef7",
+      "receipt_sha256": "5a2ddd03ef7bad6e9e1a98265e723b903f5657f55ccd2d37734cb5e25f02f18e"
+    },
+    {
+      "name": "source-gg-0-control",
+      "status": "complete",
+      "mode": "uninstrumented-audit",
+      "seed": 0,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": null,
+      "receipt_sha256": "a58dacecbf1948afd650137560137b7c6d796f21668615fda8a3c82c981835f2"
+    },
+    {
+      "name": "source-gg-0-v2",
+      "status": "complete",
+      "mode": "record",
+      "seed": 0,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "3b28c2ff0963cc203f671c3ac3362fec49670c81f70f112f3b3506f0fc47cef7",
+      "receipt_sha256": "d0db4311ae37e68a081dac991a0998b0375d6c08b22240742b61ae3664e36c17"
+    },
+    {
+      "name": "source-gg-1",
+      "status": "complete",
+      "mode": "record",
+      "seed": 1,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "d409916401bf5b13446970ec9fad37cb1e1d8df6680ab2d529b206a3a9791e34",
+      "receipt_sha256": "b4b309ad2c29714014bb61fc21570d6f81d5f7874249a13c7a135a5997233277"
+    },
+    {
+      "name": "source-gg-10",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 10,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "a2bb2fdb269ae0a82fb9e49b427a29bd03c34a01d73e96ff35e4af3589c786c5",
+      "receipt_sha256": "67381a3b74b4d38eac66c7a4027291dc9ae614abb2520a37402c467d661545ac"
+    },
+    {
+      "name": "source-gg-2",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 2,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "f6e9085383709590b0b59054c67c82f332219aeac9c85277541073ef2dcb713f",
+      "receipt_sha256": "7e4af5cc1405245fdeac7be2cca0fd566a742ac66ac74a8010ffd1693410ef56"
+    },
+    {
+      "name": "source-gg-3",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 3,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "66933591f4d5d5eaced1bbcc52f30b1103d7fd8c302b7f6453bab6916bd825cb",
+      "receipt_sha256": "c70e257f5a2460545c938a00d4514f73f672dcd18017985342d675e6d8fafd02"
+    },
+    {
+      "name": "source-gg-4",
+      "status": "complete",
+      "mode": "record",
+      "seed": 4,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "fd7682df27faf8e0c19cbc78ae82bd3243295ba7431469f91120881ac1d40937",
+      "receipt_sha256": "5bcbf300327c16ad06b8d03fba7b38ab7f8e91577ab9ab6e026385835844d60f"
+    },
+    {
+      "name": "source-gg-5",
+      "status": "complete",
+      "mode": "record",
+      "seed": 5,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "0d1056d7e53ee44d8df4cdaffc2e4ac3c4e631bc86dc82f400aeb619c276da22",
+      "receipt_sha256": "257dc1564584410eb8ee9e180ada0ae9fdf7f3c2ab858fa0e8557849a2d081b4"
+    },
+    {
+      "name": "source-gg-6",
+      "status": "complete",
+      "mode": "record",
+      "seed": 6,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "718febf7e239ee544d3c7f892f805dbe8fb9b31d5fca3402aa5afc2482d2ba99",
+      "receipt_sha256": "b04b402fe0a34423d8735e6cfed12dcb7949fb167e0354a98987c8ba2acf93b5"
+    },
+    {
+      "name": "source-gg-7",
+      "status": "complete",
+      "mode": "record",
+      "seed": 7,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "2e870a2ff89edf59906919241640261c7cff1ae98417f97d23e0e6b2846f6054",
+      "receipt_sha256": "bcda3769f660a19ea659ced1e3ff46646679fb9582bffed79eafb538bfff803a"
+    },
+    {
+      "name": "source-gg-8",
+      "status": "complete",
+      "mode": "record",
+      "seed": 8,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "df816c609f054a1dbecac39780b052693427aa718c073154e952fd12320b542e",
+      "receipt_sha256": "95ff780162a64f6ff0f6f5c63d960f76079bbf5eb4c5d882f2576b554bae91da"
+    },
+    {
+      "name": "source-gg-9",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 9,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "715d0f196260f0ad11eaf92f2a792401b52ac440c0e3db1f6e1cf16757051f7b",
+      "receipt_sha256": "66981873971aac0a99920d9de26c05585fb2f0f6e96183f994498b170a0472de"
+    },
+    {
+      "name": "source-rr-1",
+      "status": "complete",
+      "mode": "record",
+      "seed": 1,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "9ec5cbd7b960c1b6451a3c14fd0d3f106d35d7a8082bf7ee0abc49cc2c1ac568",
+      "receipt_sha256": "cd8c969fa1a8bc56667b1d1459ac3688100c5e99fd08af16dc1abdad657ba336"
+    },
+    {
+      "name": "source-rr-10",
+      "status": "complete",
+      "mode": "record",
+      "seed": 10,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "receipt_sha256": "c21f4297f84a89924e687f7435379ea26879a0c5f1f669c736f7926ac447792f"
+    },
+    {
+      "name": "source-rr-2",
+      "status": "complete",
+      "mode": "record",
+      "seed": 2,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "152d75ccb72edcc0593645ad57570e22cdf256a9bd40cfc33292711e2db9b043",
+      "receipt_sha256": "4e9b040c7f5c49815427484476853fed85d5207ae091e1aac7b7c137b0f34b76"
+    },
+    {
+      "name": "source-rr-3",
+      "status": "complete",
+      "mode": "record",
+      "seed": 3,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "receipt_sha256": "2cf7ea3599d85b279ed83429ba3fd7e7bd573091b7b6aee258f630f40db2aab7"
+    },
+    {
+      "name": "source-rr-4",
+      "status": "complete",
+      "mode": "record",
+      "seed": 4,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "efe09d8a762de26bcbed80a613bd11b745bdd71e9f83bbfe1c455cc2891b5df3",
+      "receipt_sha256": "8d06d00682c431e16ccfa13a403a3aafd398b7f356ca871cf960bfc19141f2eb"
+    },
+    {
+      "name": "source-rr-5",
+      "status": "complete",
+      "mode": "record",
+      "seed": 5,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "70f2fcfa76eb96948f5650f848b780454295ecff3b07f1ab33038eeea1ba3431",
+      "receipt_sha256": "c59a3b9484c14a362b43691af338f4f2dddeed313082c95c67d5ae66a81f4713"
+    },
+    {
+      "name": "source-rr-6",
+      "status": "complete",
+      "mode": "record",
+      "seed": 6,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "c1422eba918955af6a01b07d54570bfb5a66c097e3389f62192b00fa42644cbf",
+      "receipt_sha256": "84bd7ab164d613ed069ec3882e79fcfff26192fb4da2d6032e4ac30d73a11416"
+    },
+    {
+      "name": "source-rr-7",
+      "status": "complete",
+      "mode": "record",
+      "seed": 7,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "6123e7ed618b552bb42312b0cb2e8c4980da49d99e50dff1f76a168c142438c0",
+      "receipt_sha256": "7be5dc2a5b44e1c9422d20562f66014885a38fa014dd781f8f86b4f18d0b817e"
+    },
+    {
+      "name": "source-rr-8",
+      "status": "complete",
+      "mode": "record",
+      "seed": 8,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "e0d6d7c0ca685bfd6b476c2e012fae8ca67aa5f753e1af03027fe4a3c1f798c4",
+      "receipt_sha256": "5e2e61eb31052ebd3239df5d781f6fa92b245bb8be89027abcc93a61ddfdc83d"
+    },
+    {
+      "name": "source-rr-9",
+      "status": "complete",
+      "mode": "record",
+      "seed": 9,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "runner_sha256": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+      "raw_sha256": "8ef8b2b4e7d436804397572134830f4f586fa66c511a6d9b1e44b00b82198d20",
+      "receipt_sha256": "1514615e5ca7411c3b6b5ea00510cdfba89ed0128cacb4da2a5c8f804a421532"
+    },
+    {
+      "name": "source-seed-10",
+      "status": "complete",
+      "mode": "record",
+      "seed": 10,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "3b498edda494f6628cd09cd477ea5634062394e48918281a7f780c86b435fb77",
+      "receipt_sha256": "a862ab407b2f6d15edef85a79e2e91ba151e0095631b796c24221f991d2cb50d"
+    },
+    {
+      "name": "source-seed-11",
+      "status": "complete",
+      "mode": "record",
+      "seed": 11,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "b665a309b2d88b385068269c835862753581304e22f373af4fc6581eb8441d31",
+      "receipt_sha256": "8ec44995e3aada794603f496216f4eb5d2cd84787cc4f4a6b91d33ccb1c1f8d3"
+    },
+    {
+      "name": "source-seed-12",
+      "status": "complete",
+      "mode": "record",
+      "seed": 12,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "edf998330fbe355c3cfc8531331bbc72c2fa6622e249319c344d0517c2301715",
+      "receipt_sha256": "aa135176b683f7d9e805a11b6837a7c2a102a5570ee0663c616c7af1a190d6db"
+    },
+    {
+      "name": "source-seed-13",
+      "status": "complete",
+      "mode": "record",
+      "seed": 13,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "da35b94875fa8487b64a98191e8eec1a0ee8877778f7cd14fce03f75f5ff466b",
+      "receipt_sha256": "4070ecfedb51646ecda963ff89be9bc8e3f467d81aaff3bc8ba836c365c001a6"
+    },
+    {
+      "name": "source-seed-14",
+      "status": "complete",
+      "mode": "record",
+      "seed": 14,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "3428aafb370063c6b63cdb7ef3bb0ae74e554ab41d193e10d5a9a408efef990f",
+      "receipt_sha256": "155411b53b5c7ab13e1187f9af4ea3c33ffe2cca1459df4156d92d82682c442d"
+    },
+    {
+      "name": "source-seed-15",
+      "status": "complete",
+      "mode": "record",
+      "seed": 15,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "0ca19f75db51648142efbd2f8938d31726c2325637fa1ede051b92eb756a28fe",
+      "receipt_sha256": "2712e3b461afe69dd6bdfe4d9647a277d6b566673c655db92712ee19b8cc4f80"
+    },
+    {
+      "name": "source-seed-16",
+      "status": "complete",
+      "mode": "record",
+      "seed": 16,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "bfbad5d486b35b0f39c40448aed91ee422071ab412357b69b784bbfc0cbed0ff",
+      "receipt_sha256": "5b6e7947d4d058139cea55c2c0ec95813ffc0f5c9403f7d51a5ee144ecddc6c6"
+    },
+    {
+      "name": "source-seed-17",
+      "status": "complete",
+      "mode": "record",
+      "seed": 17,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "e66846668bfa1ea8ee5a1e94a62eb69c7ddf4d4c75c2f3669a296bc0faabca01",
+      "receipt_sha256": "124bcd4277116a582f98153ae3e210e9afffdaead91027ffca60c58c2fdb94c4"
+    },
+    {
+      "name": "source-seed-18",
+      "status": "complete",
+      "mode": "record",
+      "seed": 18,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "c7581affe4e094f6de4d1b986f8a578ca1b4505e87f5e823234c0bae37226abd",
+      "receipt_sha256": "3886e48712e2ed10bd633f28fbe3482e8b3c283ac24300acbf376cd1d20556df"
+    },
+    {
+      "name": "source-seed-19",
+      "status": "complete",
+      "mode": "record",
+      "seed": 19,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "f7e05327080ea1e65800d98bde14d5edcdf26a40962cd1c866bfb244bd4e79ff",
+      "receipt_sha256": "5df3fe44f0661118561d035accfce004d28f9dc1ddb85171f0175affaab64a4b"
+    },
+    {
+      "name": "source-seed-2",
+      "status": "complete",
+      "mode": "record",
+      "seed": 2,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "15f0c87256a0464b9b0c2a1ce7e209efb647a739949b56145d0fc2e2dff43bb2",
+      "receipt_sha256": "429d5dbca12ba9f635d1c0bd680cba35345ea178cee81f4083c4d528d23b6e41"
+    },
+    {
+      "name": "source-seed-20",
+      "status": "complete",
+      "mode": "record",
+      "seed": 20,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "5ed9fad6d2ba07d39f510072ef03ab4da9b8d0bd40e2962f94ef042e6d6fcd02",
+      "receipt_sha256": "7511a02cc1771b330115a6ad3e8405bd220e3fb2641788cf5c1f5d427f01b9a7"
+    },
+    {
+      "name": "source-seed-21",
+      "status": "complete",
+      "mode": "record",
+      "seed": 21,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "792f4ae034593a5d60f01472dfebc515779b01f6acaa022406e584b2f7f917cc",
+      "receipt_sha256": "0235edbf5fc636c7d3f7426168830fbef45a14f5d1b4326043f71fd237da204c"
+    },
+    {
+      "name": "source-seed-22",
+      "status": "complete",
+      "mode": "record",
+      "seed": 22,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "2a76b95bf8639d4c72c2d38f2177ff2d6ef0955b45538cf9698ffd3c50dcf865",
+      "receipt_sha256": "30b65f325e11444b3d8cc17d88d014b5a56829c7a9f7b1052e1796980e834b04"
+    },
+    {
+      "name": "source-seed-23",
+      "status": "complete",
+      "mode": "record",
+      "seed": 23,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "25198307eb0d5044b6616b18118a257d53051760ea7eaa67d05b7b0bd3707c20",
+      "receipt_sha256": "7388ef636e2a5dc2fb4e441ad5274bb020e69234f5148e278791e92cd5e75036"
+    },
+    {
+      "name": "source-seed-24",
+      "status": "complete",
+      "mode": "record",
+      "seed": 24,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "0a17c5accc53dfc8e65bfd431e09538dc1e324a1bc5b51dc48c94f0439552dd7",
+      "receipt_sha256": "3eebe345477d46e683d8fdb73d702077b5ed19fa40a64059c4960d22b865fc94"
+    },
+    {
+      "name": "source-seed-25",
+      "status": "complete",
+      "mode": "record",
+      "seed": 25,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "0a5ec058a47098fb71812bac3b9687baec3b659355363e8991c40f1c201bd2c2",
+      "receipt_sha256": "9650c6298f65eed68301d080f41a8e0fcd4d466de241cf7c2945c8ade3d15805"
+    },
+    {
+      "name": "source-seed-26",
+      "status": "complete",
+      "mode": "record",
+      "seed": 26,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "1bacac414eb60fa46349e329bb180864c451642b0e861b06bfd9035379e4df1c",
+      "receipt_sha256": "811036a1e18f5a7c0dca1c5cc3bc9b4ebcd782870a21ae79a6d0b021ae3dd517"
+    },
+    {
+      "name": "source-seed-27",
+      "status": "complete",
+      "mode": "record",
+      "seed": 27,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "ac3f7ecb72b25f1110ba4ff381b55f5876993d213783e07e8fd6d1b9583ef8be",
+      "receipt_sha256": "44bc5c88b6cf1e1a976d857f6b1dced5af3e964c0b3ba5904de746ad28308d4d"
+    },
+    {
+      "name": "source-seed-28",
+      "status": "complete",
+      "mode": "record",
+      "seed": 28,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "fd05a49d3f2c4b2ef26784cba82f2158066d9e10380f3d0efccab89c6bcb6cea",
+      "receipt_sha256": "1c5ca1a6c5f949fbb9ee331f8c5b79efd61187585145e043e0dab797ff7edaff"
+    },
+    {
+      "name": "source-seed-29",
+      "status": "complete",
+      "mode": "record",
+      "seed": 29,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "8adc33c8c38d7d62f51704b201defef9cdc97a961a885ed83c07e57f94a1415c",
+      "receipt_sha256": "fe69b1a179f09d199ed32eb3f7719549f96e00ef3d2f9ae40966ccbec8631804"
+    },
+    {
+      "name": "source-seed-3",
+      "status": "complete",
+      "mode": "record",
+      "seed": 3,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "7f87e62f8fbd6d314c1d6ea56ac00380e7f3d61ecba3ed48a34a1e1e265e7101",
+      "receipt_sha256": "6840c5e00774451d1e95aaa198b0c91a436426cd51d2c6fe60dc687b53fb6361"
+    },
+    {
+      "name": "source-seed-30",
+      "status": "complete",
+      "mode": "record",
+      "seed": 30,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "b926f9e4f39724cf3f36df227aec828811826b29aeb57ff7fe2915e1a7b5128b",
+      "receipt_sha256": "9c2e1739112df510f9b1c4c1a8feaa4f0f63afddb3b3304d9d8ad8626d71afd3"
+    },
+    {
+      "name": "source-seed-31",
+      "status": "complete",
+      "mode": "record",
+      "seed": 31,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "c9ebbb91ca75251247aab976591a03c7b908d6cc347e3faeaac15506e28b335a",
+      "receipt_sha256": "afee2f228a73465e31396310bd6c5a8b80a89f1bfa073c6b0e72508f75d25799"
+    },
+    {
+      "name": "source-seed-32",
+      "status": "complete",
+      "mode": "record",
+      "seed": 32,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "b6c8198ec1aaf1cb70e06751a46a068e133421ba561307042a7b6aba66661fce",
+      "receipt_sha256": "43fad8d12b3d78428ac3144ad6baf6da4bb124c6377151f033dcd9e8bd087d88"
+    },
+    {
+      "name": "source-seed-4",
+      "status": "complete",
+      "mode": "record",
+      "seed": 4,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "receipt_sha256": "4a2572626dbf1ee03679e821ad54cabe791481ff8584eb757a41b638f3cc1be9"
+    },
+    {
+      "name": "source-seed-5",
+      "status": "complete",
+      "mode": "record",
+      "seed": 5,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "61995b929a4045c0198ee316fa30f745009672ef312a6f12cc846f6ab38b89ee",
+      "receipt_sha256": "0c5ba7a10824f3add8acfcd4bb9a2748596f959fd40699e89e17394a4fcc0169"
+    },
+    {
+      "name": "source-seed-6",
+      "status": "complete",
+      "mode": "record",
+      "seed": 6,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "b52b654f7cdf55b2fe531a132046a99b16f2e2ed8d7c3b30df006d2f86aa4834",
+      "receipt_sha256": "86ac7175f80702e028c0878eb9fe94bf17aa910251a00d3d7b86d14180568cfd"
+    },
+    {
+      "name": "source-seed-7",
+      "status": "complete",
+      "mode": "record",
+      "seed": 7,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "25ce95b5d3e2e82e49f392de661e861d4fde1915be958f0251500019669db5cd",
+      "receipt_sha256": "fba5bd876e6713fc4961a66417c1805c7c8d96d74cebe492149701cf553709e0"
+    },
+    {
+      "name": "source-seed-8",
+      "status": "complete",
+      "mode": "record",
+      "seed": 8,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "283d1762843c2f663ff377b31ea89b6f69310fc9e2591edf7a9413d6493c5486",
+      "receipt_sha256": "cbd4208d78fd59676d6ce476cb2c3118e7234c00e4a1af16c13da232b89d6023"
+    },
+    {
+      "name": "source-seed-9",
+      "status": "complete",
+      "mode": "record",
+      "seed": 9,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "original-red-green",
+      "runner_sha256": "99320d1472f4446f50616ad8c4931a01a4c39aa2bbab54919f6d390839551c3a",
+      "raw_sha256": "cfa78db332d28576955d24ac113972687b825f7b9f969a548727f778db315b29",
+      "receipt_sha256": "ceb415651611e1aa7df78252a2d75921a5e1b3376e1f6acbe777d87682656d5a"
+    }
+  ]
+}

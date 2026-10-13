@@ -21,6 +21,8 @@ def need(ok, cursor, field):
 
 def extract(path, verify_receipt=True):
     path = Path(path)
+    selected_decks = ['red', 'green']
+    selected_profile = False
     if verify_receipt:
         receipt = json.loads(path.with_name('receipt.json').read_text())
         need(receipt['status']=='complete' and receipt['started_game'], 0, 'source completion')
@@ -30,16 +32,30 @@ def extract(path, verify_receipt=True):
                           ('card_manifest_sha256','data/cards/foundations_micro_v1.json')]:
             need(receipt[key]==xmage.sha(ROOT/file),0,'source pin '+key)
         need(receipt['upstream_commit']=='95dc682bf92460f49cebd7a9578f06ccf60d5569',0,'upstream pin')
-        need(receipt['runner_sha256']==xmage.sha(ROOT/'scripts/forge_ai_capture.py') and
+        selected_profile = receipt.get('source_profile') == 'frozen-deck-selection-v1'
+        need(receipt.get('source_profile') in (None, 'frozen-deck-selection-v1'), 0, 'unknown source profile')
+        runner = 'scripts/forge_casting_capture.py' if selected_profile else 'scripts/forge_ai_capture.py'
+        if selected_profile:
+            selected_decks = receipt['decks']
+            need(len(selected_decks) == 2 and all(d in ('red', 'green') for d in selected_decks), 0, 'selected decks')
+            need(receipt['capture_base_sha256'] == xmage.sha(ROOT/'scripts/forge_ai_capture.py'), 0, 'capture base pin')
+            selected = path.with_name('selected-manifest.json')
+            need(receipt['artifacts'][selected.name] == xmage.sha(selected), 0, 'selected manifest hash')
+            expected = json.loads((ROOT/'data/cards/foundations_micro_v1.json').read_text())
+            original = expected['decks']
+            expected['decks'] = [next(d for d in original if d['id'] == key) for key in selected_decks]
+            need(json.loads(selected.read_text()) == expected, 0, 'unchanged frozen deck selection')
+        need(receipt['runner_sha256']==xmage.sha(ROOT/runner) and
              receipt['patch_runner_sha256']==xmage.sha(ROOT/'scripts/forge_capture_patch.py'),0,'capture implementation pin')
         for target,local in [(capture.RECORDER,'MtgRawCapture.java'),(capture.TEST,'RawAiCaptureTest.java')]:
             need(receipt['patches'][target]['modified']==xmage.sha(ROOT/'references/forge'/local),0,'capture bridge pin')
         need(receipt['mode']=='record' and receipt['rules_version']=='cr-2026-09-25' and
-             receipt['decks']==['red','green'],0,'capture mode/rules/decks')
+             receipt['decks']==selected_decks,0,'capture mode/rules/decks')
     manifest = json.loads((ROOT/'data/cards/foundations_micro_v1.json').read_text())
     names = {c['name']:c['id'] for c in manifest['cards']}
     decks = [dict(deck=d['id'], occurrences=[f'{a}/{c["card_id"]}/{i}'
-             for c in d['cards'] for i in range(c['copies'])]) for a,d in enumerate(manifest['decks'])]
+             for c in d['cards'] for i in range(c['copies'])]) for a,d in enumerate(
+                 next(d for d in manifest['decks'] if d['id'] == key) for key in selected_decks)]
     bindings, prefix, chance, choices, checkpoints = {}, [], [], [], []
     calls, shuffles, rounds, instances = [], {}, [0,0], {}
     paired, starter, endpoint = {}, None, None
@@ -114,7 +130,12 @@ def extract(path, verify_receipt=True):
                             # identifies a zone incarnation of a physical copy.
                             instances.setdefault(str(c['instance']),dict(physical=c['id'],timestamp=c['timestamp']))
     need(endpoint is not None, len(prefix), 'missing opening endpoint')
-    if verify_receipt: capture.validate_trace(path)
+    if verify_receipt:
+        if selected_profile:
+            import forge_casting_capture
+            forge_casting_capture.validate_trace(path, selected_decks)
+        else:
+            capture.validate_trace(path)
     points = [p['state'] for p in checkpoints]
     # Forge redraws/bottoms each player immediately, whereas the native CR103.5
     # interface collects a round's private declarations first. Preserve source
@@ -208,10 +229,17 @@ def run(args):
         need(not cache.is_relative_to(ROOT),0,'cache must be external')
         receipt['toolchain']=capture.verify_toolchain(cache)
         receipt['patches']=install(cache)
+        source_receipt=json.loads(args.trace.with_name('receipt.json').read_text())
+        replay_manifest=ROOT/'data/cards/foundations_micro_v1.json'
+        if source_receipt.get('source_profile') == 'frozen-deck-selection-v1':
+            replay_manifest=output/'selected-manifest.json'
+            replay_manifest.write_bytes(args.trace.with_name('selected-manifest.json').read_bytes())
+        receipt['source_receipt_sha256']=xmage.sha(args.trace.with_name('receipt.json'))
+        receipt['deck_selection']=source_receipt['decks']
         command=xmage.maven(cache)+['-o','-pl','forge-gui-desktop','-am','test',
             '-Dtest=forge.gamesimulationtests.mtglab.OpeningReplayTest','-Dsurefire.failIfNoSpecifiedTests=false',
             '-Dmtglab.assets='+str(cache/forge.SOURCE/'forge-gui')+'/',
-            '-Dmtglab.manifest='+str(ROOT/'data/cards/foundations_micro_v1.json'),
+            '-Dmtglab.manifest='+str(replay_manifest),
             '-Dmtglab.input='+str(output/'opening.json'),'-Dmtglab.output='+str(output/'forge.json')]
         if expected: command.append('-Dmtglab.expectedRejection='+expected)
         env=forge.environment(cache); env['MAVEN_OPTS']='-Xmx3g -Djava.awt.headless=true'
