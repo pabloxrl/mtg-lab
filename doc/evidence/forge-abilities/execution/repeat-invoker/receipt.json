@@ -55,7 +55,7 @@
     }
   },
   "implementation": {
-    "scripts/forge_casting.py": "9fc0ea4e2e71d1718c221e550a7c6c3808027b0a33e2df93d4418cdfcc5eeeb8",
+    "scripts/forge_casting.py": "098a2eea9833ba9568ce6055efafa9886b72db4ae8f4e07ebfdc58dbe704e295",
     "scripts/forge_casting_native.py": "117da8f32799af264771b040559e098495c1e42f59fc3aced3ac1ff17ff0706a",
     "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
     "scripts/forge_opening_patch.py": "ccae5290678af2d269d0d769df18cb48c204c8fe57a516470f39dedc42034dd3",
@@ -162,18 +162,18 @@
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-327/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
     "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/data/cards/foundations_micro_v1.json",
-    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/repeat-invoker/casting.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/repeat-invoker/forge.json",
+    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/repeat-invoker/casting.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/repeat-invoker/forge.json",
     "-Dmtglab.abilities=true"
   ],
-  "elapsed_seconds": 53.05268604099547,
+  "elapsed_seconds": 90.84378868699423,
   "artifacts": {
     "native.json": "007cba61a235fbf31b256e6c060ff2a0121ce61db21a24dcdf49fc0362032ce4",
     "forge.json": "ddaaf342d4e6f4add54d0418562a7255d19c8a37b1aaf9ed2292edff2558e288",
-    "forge.log": "20ae4afbe3d2e67d3247da9ce7ca9fbcb3ad56c356269dca8319d59d75e23511",
+    "forge.log": "fdcdcd726e29d5283d077a367cfaca0d9e93ead22b0c2ca90a5dcb301076a679",
     "native-fixture.json": "dbd0f967155ce4ab9f1438b1012d10203f25ab92e174a178b1606f717f5f50fd",
-    "casting.json": "59af201f11c67804786f35c40655cdb1f0da9cd622e304de9e8aa8bac45f3dc4",
-    "native.log": "4fe463f115dddf2dba35e0b2cc576ca2abf1a116e3141bb4754794ac396720da",
-    "test-report.xml": "1d7711b92e34652836e92336c5b1e686b9b98f4ae70f6ee46a296f50b6d0bb06"
+    "casting.json": "b8e4d1e6b56055c090b9f8f721507610dd6cdcef2ffdc5f619e42485bfefd9ce",
+    "native.log": "48da00d6dd74ece5c907bad1f66c92c9a3545fcfea8845e20c1e910f96a124f7",
+    "test-report.xml": "557f8664ab6820a470e1f0c7548ca01d89608d3cef373f7ab13b022809e834ba"
   }
 }

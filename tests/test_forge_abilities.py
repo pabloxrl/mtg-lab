@@ -14,14 +14,20 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import forge_casting
 import forge_casting_native
-import forge_opening
+
+
+def changed_record(converted, index):
+    """Isolate one mutation without copying every immutable source record."""
+    result = dict(converted, prefix=list(converted['prefix']))
+    result['prefix'][index] = copy.deepcopy(result['prefix'][index])
+    return result
 
 
 class ForgeAbilitiesTests(unittest.TestCase):
     def test_actual_invoker_payment_target_and_temporary_trample(self):
         path = ROOT / 'doc/evidence/forge-abilities/source-rg-4/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, abilities=True)
-        fixture = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        fixture = forge_casting_native.fixture(converted, converted['opening'])
         activation = [op['action'] for op in fixture['operations']
                       if op['source_cursor'] == 8002 and 'action' in op]
         self.assertEqual(activation[0]['kind'], 'activate')
@@ -41,7 +47,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
         self.assertEqual(point['stack'], [])
         frozen = json.loads((ROOT / 'fixtures/reference/forge-abilities.json').read_text())
         self.assertEqual(frozen[3], fixture)
-        bad = copy.deepcopy(converted)
+        bad = changed_record(converted, 8159)
         card = next(c for player in bad['prefix'][8159]['state']['players']
                     for c in player['zones']['Battlefield'] if c['keyword_changes'])
         card['keyword_changes'][0][2]['added'] = ['Flying']
@@ -51,7 +57,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
     def test_actual_etb_target_and_multiple_cast_trigger_order(self):
         path = ROOT / 'doc/evidence/forge-abilities/source-rr-10/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, abilities=True)
-        fixture = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        fixture = forge_casting_native.fixture(converted, converted['opening'])
         actions = [op['action'] for op in fixture['operations'] if 'action' in op]
         targeted = [a for a in actions if a['kind'] == 'target_player']
         self.assertGreaterEqual(len(targeted), 3)
@@ -70,22 +76,27 @@ class ForgeAbilitiesTests(unittest.TestCase):
         # translation test cannot certify its earlier unsupported game prefix.
         path = ROOT / 'doc/evidence/forge-casting/source-rr-3/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, abilities=True)
-        with gzip.open(path, 'rt') as stream:
-            rows = [json.loads(line) for line in stream]
-        calls, paired, roots = [], {}, []
-        for row in rows:
-            if row['kind'] == 'enter':
-                if not calls:
-                    roots.append(row['index'])
-                calls.append(row['index'])
-            elif row['kind'] == 'leave':
-                paired[calls.pop()] = row['index']
         play = 5341
+        rows, calls, paired, roots = [], [], {}, []
+        # extract already validates the entire immutable source. This diagnostic
+        # needs only the rows through its next priority boundary, not later play.
+        with gzip.open(path, 'rt') as stream:
+            for line in stream:
+                row = json.loads(line)
+                rows.append(row)
+                if row['kind'] == 'enter':
+                    if not calls:
+                        roots.append(row['index'])
+                        if play in paired and row['method'] == 'chooseSpellAbilityToPlay':
+                            break
+                    calls.append(row['index'])
+                elif row['kind'] == 'leave':
+                    paired[calls.pop()] = row['index']
         self.assertEqual(rows[play]['arguments'][0]['host']['name'], 'Shivan Dragon')
         before = max(i for i in roots if i < play and rows[i]['method'] == 'chooseSpellAbilityToPlay')
         after = min(i for i in roots if i > paired[play] and rows[i]['method'] == 'chooseSpellAbilityToPlay')
         converted.update(prefix=rows[:after], paired=paired, endpoint=rows[after], checkpoint_sources=[before])
-        fixture = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        fixture = forge_casting_native.fixture(converted, converted['opening'])
         actions = [op['action'] for op in fixture['operations'] if 'action' in op]
         # Shivan's frozen {R}: +1/+0 ability uses the stack (CR 602/605).
         self.assertEqual([a['kind'] for a in actions],
@@ -95,7 +106,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
 
         # Authored diagnostic continuation, not an AI game: CR 113.7a keeps
         # the activation's original source object after that card changes zone.
-        departed = copy.deepcopy(converted)
+        departed = dict(converted, endpoint=copy.deepcopy(converted['endpoint']))
         point = departed['endpoint']['state']
         source_id = rows[play]['arguments'][0]['host']['id']
         for player in point['players']:
@@ -115,7 +126,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
     def test_mana_creature_payment_retains_source_and_color(self):
         path = ROOT / 'doc/evidence/forge-abilities/source-gg-20/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, abilities=True)
-        fixture = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        fixture = forge_casting_native.fixture(converted, converted['opening'])
         actions = [op['action'] for op in fixture['operations'] if 'action' in op]
         taps = [i for i, a in enumerate(actions) if a['kind'] == 'tap_mana'
                 and '/druid-of-the-cowl/' in a['source']]
@@ -125,13 +136,13 @@ class ForgeAbilitiesTests(unittest.TestCase):
         self.assertEqual(actions[taps[0] + 1]['color'], 4)
         frozen = json.loads((ROOT / 'fixtures/reference/forge-abilities.json').read_text())
         self.assertEqual(frozen[1], fixture)
-        bad = copy.deepcopy(converted)
-        cast = next(r for r in bad['prefix'] if r.get('method') == 'playChosenSpellAbility'
+        cast = next(r for r in converted['prefix'] if r.get('method') == 'playChosenSpellAbility'
                     and r['index'] == 1328)
+        bad = changed_record(converted, converted['paired'][cast['index']])
         paid = bad['prefix'][bad['paired'][cast['index']]]['arguments'][0]
         paid['paying_mana'][0]['source_ability'] += 10000
         with self.assertRaisesRegex(ValueError, 'mana source/payment order'):
-            forge_casting_native.fixture(bad, forge_opening.extract(path)['native'])
+            forge_casting_native.fixture(bad, converted['opening'])
 
     def test_cast_trigger_prefix_retains_placement_and_resolution(self):
         path = ROOT / 'doc/evidence/forge-casting/source-rr-2/result.json.jsonl.gz'
@@ -149,7 +160,7 @@ class ForgeAbilitiesTests(unittest.TestCase):
     def test_native_choices_retain_cast_trigger_source_and_order(self):
         path = ROOT / 'doc/evidence/forge-casting/source-rr-2/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, abilities=True)
-        fixture = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        fixture = forge_casting_native.fixture(converted, converted['opening'])
         orders = [op['action'] for op in fixture['operations']
                   if op.get('action', {}).get('kind') == 'order_triggers']
         self.assertEqual(len(orders), 1)
@@ -171,9 +182,10 @@ class ForgeAbilitiesTests(unittest.TestCase):
         # Authored translation case only: source leaves between the cast event
         # and trigger placement. Hand -> stack -> battlefield is incarnation 2;
         # its new graveyard object is 3 (CR 400.7/113.7a).
-        departed = copy.deepcopy(converted)
-        root = next(r for r in departed['prefix']
+        root = next(r for r in converted['prefix']
                     if r.get('method') == 'orderAndPlaySimultaneousSa')
+        departed = changed_record(converted, root['index'])
+        root = departed['prefix'][root['index']]
         host = root['arguments'][0][0]['host']
         initial = departed['prefix'][departed['checkpoint_sources'][-1]]['state']
         self.assertTrue(any(c['id'] == host['id'] for p in initial['players']
@@ -190,7 +202,9 @@ class ForgeAbilitiesTests(unittest.TestCase):
                      if o.get('action', {}).get('kind') == 'order_triggers')
         self.assertEqual(order[0]['incarnation'], 2,
                          'the trigger retains its witnessed battlefield source')
-        bad = copy.deepcopy(converted)
+        order_entry = next(r for r in converted['prefix']
+                           if r.get('method') == 'orderSimultaneousSa')
+        bad = changed_record(converted, converted['paired'][order_entry['index']])
         forge_casting.corrupt(bad, 'trigger-order')
         with self.assertRaisesRegex(ValueError, 'trigger order permutation'):
-            forge_casting_native.fixture(bad, forge_opening.extract(path)['native'])
+            forge_casting_native.fixture(bad, converted['opening'])

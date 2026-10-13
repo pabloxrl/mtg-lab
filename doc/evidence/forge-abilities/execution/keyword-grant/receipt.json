@@ -55,7 +55,7 @@
     }
   },
   "implementation": {
-    "scripts/forge_casting.py": "9fc0ea4e2e71d1718c221e550a7c6c3808027b0a33e2df93d4418cdfcc5eeeb8",
+    "scripts/forge_casting.py": "098a2eea9833ba9568ce6055efafa9886b72db4ae8f4e07ebfdc58dbe704e295",
     "scripts/forge_casting_native.py": "117da8f32799af264771b040559e098495c1e42f59fc3aced3ac1ff17ff0706a",
     "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
     "scripts/forge_opening_patch.py": "ccae5290678af2d269d0d769df18cb48c204c8fe57a516470f39dedc42034dd3",
@@ -162,16 +162,16 @@
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-327/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
     "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/data/cards/foundations_micro_v1.json",
-    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/keyword-grant/casting.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/keyword-grant/forge.json",
+    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/keyword-grant/casting.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/keyword-grant/forge.json",
     "-Dmtglab.abilities=true",
     "-Dmtglab.expectedRejection=/keyword_changes/"
   ],
-  "elapsed_seconds": 45.690487630999996,
+  "elapsed_seconds": 47.97722896101186,
   "artifacts": {
     "forge.json": "c87bdaa55188d8cc23b7db9be1af757ccc41b02651c7b36b676efb6f24099569",
-    "forge.log": "712440ade53fc759bd30a7a2dde447edcb9c8ffadfa8c8f6afa5c32a9f0e467e",
-    "casting.json": "aaddf1c5f9cd18e0a88f191da76c091a5442cb645668e0739912f5374ad7f543",
-    "test-report.xml": "28c8752309ca7ad1624b6d3dbee553b26548a9a0ef40c820a6f6094f0cf02299"
+    "forge.log": "f3f0358c6afb0d03bae996451bd46862c18c5dfffc124976577808defc27e787",
+    "casting.json": "0d0e2be58258e16a9ccc00a3efc316cec9faeedf4581e6158132586a3077c3f2",
+    "test-report.xml": "c58adbf03d5b998bcd62cb2a1174c7be1b0398068d61c02bdd2e808d22d20184"
   }
 }

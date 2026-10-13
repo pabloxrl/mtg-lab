@@ -55,7 +55,7 @@
     }
   },
   "implementation": {
-    "scripts/forge_casting.py": "9fc0ea4e2e71d1718c221e550a7c6c3808027b0a33e2df93d4418cdfcc5eeeb8",
+    "scripts/forge_casting.py": "098a2eea9833ba9568ce6055efafa9886b72db4ae8f4e07ebfdc58dbe704e295",
     "scripts/forge_casting_native.py": "117da8f32799af264771b040559e098495c1e42f59fc3aced3ac1ff17ff0706a",
     "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
     "scripts/forge_opening_patch.py": "ccae5290678af2d269d0d769df18cb48c204c8fe57a516470f39dedc42034dd3",
@@ -161,20 +161,20 @@
     "-Dtest=forge.gamesimulationtests.mtglab.CastingReplayTest",
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-327/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
-    "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/cyclops/selected-manifest.json",
-    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/cyclops/casting.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/cyclops/forge.json",
+    "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/cyclops/selected-manifest.json",
+    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/cyclops/casting.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/cyclops/forge.json",
     "-Dmtglab.abilities=true"
   ],
-  "elapsed_seconds": 42.35983538899745,
+  "elapsed_seconds": 66.71849884500261,
   "artifacts": {
     "selected-manifest.json": "07981107c88ebb1c9f2b3d9180e9dbaf2b970cc0bc43619c1c18ab45dadc2fb3",
     "native.json": "28772ac3f212818b0a1882f1aebcc8b9e35830831916671706446acd8c62db2f",
     "forge.json": "27246ae89adf7519df7c7fd52051a6d0ba1fbf903db739cefb2fa7e34f946449",
-    "forge.log": "b8bfc8a2b0fc090e0f03f79ccb5b6089172e6734e0d6009afa1bbf7113d519ae",
+    "forge.log": "908c25cb66cd64c0d357c5bceb769feffd4eb3bc45c4672e2e3a7e39008db976",
     "native-fixture.json": "95dc94b17b39026ca80cd78f353ded2104db2b15b31caa1e80c71732878525c0",
-    "casting.json": "e8fb301e23fe0bb7f574bf3c578fba7d08af7e9819193aa5c7b0959e733c13b8",
-    "native.log": "4789d91b76751e32cb5326d115b50bbd466eb78a11902890196873a0128cafcf",
-    "test-report.xml": "94c80c1aab0cda320e88ff215e62af5b6ff405efd2154f3d4050f3d16b75806a"
+    "casting.json": "ec8fc42fed317dc2008cddd1bb5c90a32794bcaf2ba4a512c42b6d853313371b",
+    "native.log": "d008d45cdea71ca1ee76a46810b39c78cfcb8bcc40d46bb8c66a3bb0fab40ffb",
+    "test-report.xml": "cd1a51a903365342c3d873c8dad52c769e64f17e58bdd36bff3ac59c443fe56c"
   }
 }

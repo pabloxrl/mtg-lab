@@ -154,3 +154,14 @@ including failed translations/replays and the aborted first torture wrapper
 run above is passing evidence. The private archive is a diagnostic aid, never
 acceptance evidence. The [artifact index](artifact-index.json) checksums the
 published bundle. Complete games admitted and AI quota credited are both zero.
+
+The [first candidate's CI timeout and repair](validation/timeout-repair.json)
+remain explicit: its checks partition exceeded the unchanged thirty-minute
+limit despite passing local torture and [initial review](validation/review-first-candidate.json).
+The consumer now reuses the opening produced by its complete source validation
+instead of validating the identical tape twice. Test mutations copy only the
+changed record; all input observations, assertions, fixtures and negative controls
+remain. The six ability tests measured 85.4 seconds before and 48.2 seconds after
+under the same local lock with normal GC; these are diagnostic timings, not corpus
+performance qualification. Protected CI, full revalidation and separate review
+of the repaired candidate remain the delivery authority recorded in the workpad.

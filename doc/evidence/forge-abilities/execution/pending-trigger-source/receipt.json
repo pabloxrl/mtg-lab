@@ -55,7 +55,7 @@
     }
   },
   "implementation": {
-    "scripts/forge_casting.py": "9fc0ea4e2e71d1718c221e550a7c6c3808027b0a33e2df93d4418cdfcc5eeeb8",
+    "scripts/forge_casting.py": "098a2eea9833ba9568ce6055efafa9886b72db4ae8f4e07ebfdc58dbe704e295",
     "scripts/forge_casting_native.py": "117da8f32799af264771b040559e098495c1e42f59fc3aced3ac1ff17ff0706a",
     "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
     "scripts/forge_opening_patch.py": "ccae5290678af2d269d0d769df18cb48c204c8fe57a516470f39dedc42034dd3",
@@ -162,16 +162,16 @@
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-327/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
     "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/data/cards/foundations_micro_v1.json",
-    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/pending-trigger-source/casting.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/pending-trigger-source/forge.json",
+    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/pending-trigger-source/casting.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/pending-trigger-source/forge.json",
     "-Dmtglab.abilities=true",
     "-Dmtglab.expectedRejection=pending trigger source/definition"
   ],
-  "elapsed_seconds": 38.55724513599853,
+  "elapsed_seconds": 50.06581554899458,
   "artifacts": {
     "forge.json": "16de82a90fb20b7f6f50d6bb4402e80371f32fa8671aefeb218290aa60cc6ea6",
-    "forge.log": "b91296eef727267b636da9eebb4b7efe12bb22513bd899d79b3d8f9fa0252cff",
-    "casting.json": "5eadd394e772d7660701fea0bdf0257bcb82310eb4c22f6c572fd246a9035b07",
-    "test-report.xml": "e64abc2cc7bc7e206de6a437bfab2d2b6d2117b76dcefa75638d83a795336f1b"
+    "forge.log": "236446e02918a85f33cad65ca39a7a80d1a2e1fc696e6b3db4692bb7971d125a",
+    "casting.json": "772db1e90aca722f6d0304ef08f9aa11fe33d202b78250f881e235e6ba3d15ae",
+    "test-report.xml": "755d7084f91862fabfa0406084e9044c1287dabdbfa3613d44f3c7859c331e41"
   }
 }

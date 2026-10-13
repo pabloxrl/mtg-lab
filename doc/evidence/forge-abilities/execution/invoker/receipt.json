@@ -55,7 +55,7 @@
     }
   },
   "implementation": {
-    "scripts/forge_casting.py": "9fc0ea4e2e71d1718c221e550a7c6c3808027b0a33e2df93d4418cdfcc5eeeb8",
+    "scripts/forge_casting.py": "098a2eea9833ba9568ce6055efafa9886b72db4ae8f4e07ebfdc58dbe704e295",
     "scripts/forge_casting_native.py": "117da8f32799af264771b040559e098495c1e42f59fc3aced3ac1ff17ff0706a",
     "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
     "scripts/forge_opening_patch.py": "ccae5290678af2d269d0d769df18cb48c204c8fe57a516470f39dedc42034dd3",
@@ -162,18 +162,18 @@
     "-Dsurefire.failIfNoSpecifiedTests=false",
     "-Dmtglab.assets=/home/agent/.cache/forge-GH-327/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
     "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/data/cards/foundations_micro_v1.json",
-    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/invoker/casting.json",
-    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final/invoker/forge.json",
+    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/invoker/casting.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/invoker/forge.json",
     "-Dmtglab.abilities=true"
   ],
-  "elapsed_seconds": 50.485818134999136,
+  "elapsed_seconds": 95.81770740699722,
   "artifacts": {
     "native.json": "007cba61a235fbf31b256e6c060ff2a0121ce61db21a24dcdf49fc0362032ce4",
     "forge.json": "ddaaf342d4e6f4add54d0418562a7255d19c8a37b1aaf9ed2292edff2558e288",
-    "forge.log": "57ce336a45f3fdbfadb6797ff97b048085d4f3d65604fe2463a5dd233da9e9a7",
+    "forge.log": "aee681cf58a4b9c34a3e2b1fc79e97f51c37595f3b375dc7904849525bccab59",
     "native-fixture.json": "dbd0f967155ce4ab9f1438b1012d10203f25ab92e174a178b1606f717f5f50fd",
-    "casting.json": "59af201f11c67804786f35c40655cdb1f0da9cd622e304de9e8aa8bac45f3dc4",
-    "native.log": "93ef3ecc26dfc12b0958c5025315d653df22d312253326ae09155c247af5007e",
-    "test-report.xml": "46ad6f5e3c3e2f970b4eab1e29cc35457caaf042dc6e1b20499c54c56bf7f49e"
+    "casting.json": "b8e4d1e6b56055c090b9f8f721507610dd6cdcef2ffdc5f619e42485bfefd9ce",
+    "native.log": "2ebdbffe5819d48dff948e99f2f9f5255ee0e643a31c142a1128072bff667260",
+    "test-report.xml": "a94941f4284f2ea0b6266b3dd476d8d0351052993d34163633999c6155279128"
   }
 }

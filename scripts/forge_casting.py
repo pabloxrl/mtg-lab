@@ -69,8 +69,9 @@ def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abi
     result.update(prefix=prefix, paired=paired, endpoint=endpoint,
                   remainder=dict(first_record=endpoint['index'], records=count,
                                  sha256=remainder.hexdigest()))
-    # The opening-only native input cannot certify the extended gameplay prefix.
-    result.pop('native')
+    # Retain the validated opening for translation; it is not an extended replay
+    # result. Revalidating the same complete source here would add no evidence.
+    result['opening'] = result.pop('native')
     result['scope'] = 'casting-prefix'
     if abilities:
         result['scope'] = 'abilities-prefix'
@@ -315,7 +316,7 @@ def run(args):
                 opening.need(actual.get('authored_apnap_departure_cases') == 4 and
                              actual.get('authored_ai_quota') == 0, 0,
                              'four executed authored APNAP/departure cases excluded from AI quotas')
-            native = forge_casting_native.fixture(converted, opening.extract(args.trace)['native'])
+            native = forge_casting_native.fixture(converted, converted['opening'])
             (output / 'native-fixture.json').write_text(json.dumps([native]) + '\n')
             family = 'ABILITIES' if converted['scope'] == 'abilities-prefix' else 'CASTING'
             native_env = dict(os.environ, **{'MTG_FORGE_' + family + '_INPUT': str(output / 'native-fixture.json'),
