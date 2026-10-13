@@ -38,6 +38,11 @@ raw capture does not establish Forge replay, a pilot or corpus admission. The
 prefixes through Forge and native normal deck setup, including both starters,
 actual London mulligans and ordered bottoming. It retains source scheduling
 alignment and an explicit unplayed remainder; no full-game replay is claimed.
+The [casting replay command](doc/evidence/forge-casting/README.md) extends bounded
+source prefixes through creatures, targets, a Giant Growth response to Bite Down,
+token-mode selection and additional discard/mana payment. Both engines compute
+checkpoints independently and reject corrupted choices. Nonempty combat, trigger
+dispatch and later callbacks remain unsupported; these prefixes earn no corpus quota.
 The [bounded normalization command](doc/evidence/xmage-ai-normalize/README.md)
 replays one of those captured games twice in native and patched XMage with
 source checkpoints and corruption controls. Its unsupported seams fail explicitly;
@@ -165,6 +170,7 @@ and [simulation guide](doc/simulate.md).
 | [XMage real-AI raw capture](doc/evidence/xmage-ai-capture/README.md) | Headless ComputerPlayer7 game capture with live-game choices, chance, identities, semantic observations, configuration and visible failed attempts. Includes controlled recording-on/off comparison and unsupported/truncation checks. Raw source play is not replay admission, corpus qualification or an L0 speed claim. |
 | [Forge real-AI raw capture](doc/evidence/forge-ai-capture/README.md) | Normal frozen red/green setup with PlayerControllerAi/AiController, source-native callbacks, payments, shuffle/mulligan/chance and intermediate observations. The acceptance command compares uninstrumented play and retains actual unsupported/truncated attempts. No normalized Forge replay or source-AI quota is claimed. |
 | [Forge ordered opening replay](doc/evidence/forge-opening/README.md) | Real captured prefixes execute normal forty-card setup in Forge and native with both starters, initial/redraw chance, physical copies, London bottom order and strict negative controls. Source scheduling alignment and prefix remainder remain explicit; no full-game replay or corpus quota claim. |
+| [Forge casting replay](doc/evidence/forge-casting/README.md) | Bounded real-source prefixes independently execute lands, priority, creatures, targeted instant response, token mode, ordered mana/discard and resolution checkpoints. Exact consumption and invalid-choice controls retain explicit allocation normalization and unsupported later callbacks; no complete-game or pilot claim. |
 | [Legacy and decision coverage](doc/evidence/m2-reference-foundation/README.md) | Six damage splits, 64 attacker subsets, privacy/capacity checks and bounded native/XMage reference reproduction. |
 | [Keyword and activation reference pack](doc/evidence/m2-reference-combat/README.md) | Exact assigned combat cases, bounded compositions, checkpoint controls and reproduction commands. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |

@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "command": "python3 \"$SYMPHONY_CONTROL_ROOT/scripts/symphony/resource_lock.py\" heavy -- ./scripts/torture.sh",
+  "base_sha": "adf4732a79d46ccb30fc575b82316940283f353a",
+  "python_tests": 508,
+  "rust_test_executions": 1530,
+  "rust_profiles": [
+    "debug",
+    "release"
+  ],
+  "failed": 0,
+  "ignored": 0,
+  "log_sha256": "5968740c3094d0f4451c89e00b3f67d9c1bd3aa5114b54552012cc7b3d4f5b99",
+  "tested_files": {
+    "README.md": "d3ef866bf005dbe4c3796a640d705d20f176d2a94bea3a17168a729257a816c7",
+    "scripts/forge_casting.py": "56099567cf7f918e514075e02709cff255a8faf1e11669c17b90ae4931befdac",
+    "scripts/forge_casting_native.py": "de6c68d8b20b03bc53aeb910956b132641d96689fcff8d01da87858f8be6df3c",
+    "scripts/forge_casting_capture.py": "40fb2801d9772e845d8e1399a7f3b074ff58cea9e73c220060e8c77602d60b96",
+    "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
+    "references/forge/MtgCastingReplay.java": "b0d834b01dbfc56a6923f83f93aa810b621f009328a8b7daae70af90b9d22cac",
+    "references/forge/CastingReplayTest.java": "5c7bc4aaec5700064cc2def755c5e759ce24bc68eaca2aa01f8292036a412a5b",
+    "crates/mtg-core/src/full_pool_reference_tests.rs": "ee17f576c3cbacf616dd9fd5204b21a84c822657fcd3db33c5852ad001517ac1",
+    "crates/mtg-core/src/forge_casting_reference_tests.rs": "71ccfd4bd23b4cf6b6aa0c3eaec3bdad33114fe6bc42456ee8bbc910a20d583e",
+    "fixtures/reference/forge-casting.json": "238971ccb265e028d338276a2c2002203b85fd1843886eee6e9cb57f8c322ee2",
+    "tests/test_forge_casting.py": "c3caaf164a3a05914ef30cc7eea9e73ae503e5e4199f8a9d40cb40cf542fa8fa",
+    "tests/test_forge_casting_capture.py": "1186c2dce0c670930da727e53b36ae03809fbcde57950173b181d49d73a86ac4"
+  },
+  "note": "Final code and fixtures; evidence packaging followed this run. Documentation links are rechecked after publication. Exact-candidate review and protected PR/main CI are recorded in the workpad."
+}

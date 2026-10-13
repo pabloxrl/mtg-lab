@@ -1,0 +1,15 @@
+{
+  "original_sha256": "fdae46a8ccb1525ec96d6a928e625a73756dba0658af2bfb3e951c45c44457a0",
+  "counts": {
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "testcases": [
+    {
+      "name": "castingReplay",
+      "classname": "forge.gamesimulationtests.mtglab.CastingReplayTest"
+    }
+  ]
+}

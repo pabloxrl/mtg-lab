@@ -386,3 +386,5 @@ include!("played_combat_reference_tests.rs");
 include!("admission_origin_tests.rs");
 
 include!("admission_reference_tests.rs");
+
+include!("forge_casting_reference_tests.rs");
