@@ -24,8 +24,11 @@ public final class MtgCastingReplay {
     public interface CastExecutor { boolean play(Player player, SpellAbility ability); }
     public interface CostFactory { CostDecisionMakerBase create(Player player, SpellAbility ability); }
     public static CastExecutor castExecutor;
+    public static CastExecutor triggerStackExecutor;
+    public static CastExecutor triggerResolveExecutor;
     public static CostFactory costFactory;
     private final Map<Integer,Integer> abilityIds=new HashMap<>();
+    private final Map<Integer,Integer> triggerIds=new HashMap<>();
     private final Map<Integer,Integer> cardIds=new HashMap<>();
     private final Map<String,Long> timestamps=new HashMap<>();
     private final Map<String,Long> reverseTimestamps=new HashMap<>();
@@ -36,9 +39,41 @@ public final class MtgCastingReplay {
     private int decisions;
     public static final class Endpoint extends RuntimeException { private Endpoint() { super("casting prefix endpoint"); } }
     private MtgCastingReplay(Game g, JsonObject t) { game=g; tape=t; rows=t.getAsJsonArray("prefix"); }
+    // The raw observer repeats complete states at every event. Share only
+    // exactly equal immutable JSON values; retain every record and field.
+    // Parse one record at a time so the full JSON text is never resident too.
+    private static JsonElement intern(JsonElement value,Map<JsonElement,JsonElement> pool) {
+        if(value.isJsonArray()) {
+            JsonArray array=value.getAsJsonArray();
+            for(int i=0;i<array.size();i++)array.set(i,intern(array.get(i),pool));
+        } else if(value.isJsonObject()) {
+            JsonObject object=value.getAsJsonObject();
+            for(String key:new ArrayList<>(object.keySet()))object.add(key,intern(object.get(key),pool));
+        }
+        JsonElement old=pool.putIfAbsent(value,value);
+        return old==null ? value : old;
+    }
+    private static JsonObject readTape(Path file) throws Exception {
+        Map<JsonElement,JsonElement> pool=new HashMap<>();
+        JsonObject result=new JsonObject();
+        try(com.google.gson.stream.JsonReader reader=new com.google.gson.stream.JsonReader(Files.newBufferedReader(file))) {
+            reader.beginObject();
+            while(reader.hasNext()) {
+                String key=reader.nextName();
+                if(key.equals("prefix")) {
+                    JsonArray records=new JsonArray();reader.beginArray();
+                    while(reader.hasNext())records.add(intern(JsonParser.parseReader(reader),pool));
+                    reader.endArray();result.add(key,records);
+                } else result.add(key,intern(JsonParser.parseReader(reader),pool));
+            }
+            reader.endObject();
+            if(reader.peek()!=com.google.gson.stream.JsonToken.END_DOCUMENT)throw new IllegalArgumentException("extra tape data");
+        }
+        return result;
+    }
     public static void open(Game g, Path file) throws Exception {
         if (active != null) throw new IllegalStateException("replay already open");
-        active=new MtgCastingReplay(g, JsonParser.parseString(Files.readString(file)).getAsJsonObject());
+        active=new MtgCastingReplay(g, readTape(file));
         active.take("start");
     }
     private void require(boolean ok, String field) {
@@ -118,7 +153,10 @@ public final class MtgCastingReplay {
             if(o.has("api") && o.has("id")) {
                 int id=o.get("id").getAsInt(); if(abilityIds.containsKey(id))o.addProperty("id",abilityIds.get(id));
             }
-            if(o.has("pt_boosts"))for(JsonElement cell:o.getAsJsonArray("pt_boosts")) {
+            if(o.has("remembered") && o.has("mode") && o.has("host") && o.has("id")) {
+                int id=o.get("id").getAsInt(); if(triggerIds.containsKey(id))o.addProperty("id",triggerIds.get(id));
+            }
+            for(String field:List.of("pt_boosts","keyword_changes"))if(o.has(field))for(JsonElement cell:o.getAsJsonArray(field)) {
                 JsonArray boost=cell.getAsJsonArray();long stamp=boost.get(0).getAsLong();
                 if(effectTimestamps.containsKey(stamp))boost.set(0,new JsonPrimitive(effectTimestamps.get(stamp)));
             }
@@ -134,7 +172,8 @@ public final class MtgCastingReplay {
         Long reverse=reverseTimestamps.putIfAbsent(expectedKey,actual.get("timestamp").getAsLong());
         require((old==null || old==wanted.get("timestamp").getAsLong()) &&
                 (reverse==null || reverse==actual.get("timestamp").getAsLong()),"incarnation binding");
-        JsonArray expectedBoosts=wanted.getAsJsonArray("pt_boosts"),actualBoosts=actual.getAsJsonArray("pt_boosts");
+        for(String field:List.of("pt_boosts","keyword_changes")) {
+        JsonArray expectedBoosts=wanted.getAsJsonArray(field),actualBoosts=actual.getAsJsonArray(field);
         if(expectedBoosts.size()==actualBoosts.size())for(int i=0;i<actualBoosts.size();i++) {
             long e=expectedBoosts.get(i).getAsJsonArray().get(0).getAsLong();
             long a=actualBoosts.get(i).getAsJsonArray().get(0).getAsLong();
@@ -142,10 +181,36 @@ public final class MtgCastingReplay {
             require((previous==null || previous==e) && (back==null || back==a),"effect identity binding");
         }
     }
+    }
     private void bindStateCards(JsonElement expected,JsonElement actual) {
         if(expected.isJsonObject() && actual.isJsonObject()) {
             JsonObject e=expected.getAsJsonObject(),a=actual.getAsJsonObject();
             if(e.has("timestamp") && a.has("timestamp") && e.has("id") && a.has("id"))bindCardTimestamp(e,a);
+            if(tape.get("scope").getAsString().equals("abilities-prefix") && e.has("api") && a.has("api") &&
+                    !e.get("spell").getAsBoolean() && !a.get("spell").getAsBoolean() &&
+                    !e.get("trigger").getAsBoolean() && !a.get("trigger").getAsBoolean() &&
+                    !e.get("mana_ability").getAsBoolean() && !a.get("mana_ability").getAsBoolean()) {
+                require(e.get("api").equals(a.get("api")) && e.get("actor").equals(a.get("actor")) &&
+                        e.getAsJsonObject("host").get("id").equals(a.getAsJsonObject("host").get("id")),
+                        "activation source/controller");
+                int runtime=a.get("id").getAsInt(),source=e.get("id").getAsInt();
+                require(!abilityIds.containsValue(source) || Objects.equals(abilityIds.get(runtime),source),
+                        "activation identity bijection");
+                Integer old=abilityIds.putIfAbsent(runtime,source);
+                require(old==null || old==source,"changed activation identity");
+            }
+            if(e.has("remembered") && a.has("remembered") && e.has("mode") && a.has("mode") &&
+                    e.has("host") && a.has("host") && e.has("id") && a.has("id")) {
+                int host=a.getAsJsonObject("host").get("id").getAsInt();
+                require(e.get("mode").equals(a.get("mode")) &&
+                        e.getAsJsonObject("host").get("id").getAsInt()==cardIds.getOrDefault(host,host),
+                        "pending trigger source/definition");
+                int runtime=a.get("id").getAsInt(),source=e.get("id").getAsInt();
+                require(!triggerIds.containsValue(source) || Objects.equals(triggerIds.get(runtime),source),
+                        "pending trigger identity bijection");
+                Integer old=triggerIds.putIfAbsent(runtime,source);
+                require(old==null || old==source,"changed pending trigger identity");
+            }
             if(e.has("api") && a.has("api") && e.get("api").getAsString().equals("Charm") && e.get("api").equals(a.get("api")) &&
                     !e.get("sub").isJsonNull() && !a.get("sub").isJsonNull()) {
                 int root=a.get("id").getAsInt();
@@ -158,6 +223,23 @@ public final class MtgCastingReplay {
             for(String key:e.keySet())if(a.has(key))bindStateCards(e.get(key),a.get(key));
         } else if(expected.isJsonArray() && actual.isJsonArray() && expected.getAsJsonArray().size()==actual.getAsJsonArray().size()) {
             for(int i=0;i<expected.getAsJsonArray().size();i++)bindStateCards(expected.getAsJsonArray().get(i),actual.getAsJsonArray().get(i));
+        }
+    }
+    private void bindTriggers(JsonElement expected,JsonElement actual) {
+        if(expected.isJsonArray() && actual.isJsonArray()) {
+            JsonArray e=expected.getAsJsonArray(),a=actual.getAsJsonArray();
+            if(e.size()==a.size())for(int i=0;i<e.size();i++)bindTriggers(e.get(i),a.get(i));
+        } else if(expected.isJsonObject() && actual.isJsonObject()) {
+            JsonObject e=expected.getAsJsonObject(),a=actual.getAsJsonObject();
+            if(e.has("trigger") && a.has("trigger") && e.get("trigger").getAsBoolean() && a.get("trigger").getAsBoolean()) {
+                require(e.get("api").equals(a.get("api")) && e.get("actor").equals(a.get("actor")) &&
+                        e.getAsJsonObject("host").get("id").equals(a.getAsJsonObject("host").get("id")),"trigger source/controller");
+                int runtime=a.get("id").getAsInt(),source=e.get("id").getAsInt();
+                require(!abilityIds.containsValue(source) || Objects.equals(abilityIds.get(runtime),source),"trigger identity bijection");
+                Integer old=abilityIds.putIfAbsent(runtime,source);
+                require(old==null || old==source,"changed trigger identity");
+            }
+            for(String key:e.keySet())if(a.has(key))bindTriggers(e.get(key),a.get(key));
         }
     }
     private void state(JsonObject row) {
@@ -244,6 +326,20 @@ public final class MtgCastingReplay {
         // CharmEffect clones the selected mode while announcing the spell.
         // Bind that clone's allocation ID; mode/effect contents stay compared.
         JsonArray expectedArgs=entry.getAsJsonArray("arguments");
+        if(a.tape.get("scope").getAsString().equals("abilities-prefix"))
+            a.bindTriggers(expectedArgs,inspect(a.game,Arrays.asList(args)));
+        if(method.equals("chooseModeForAbility")) {
+            List<AbilitySub> candidates=(List<AbilitySub>)args[1];
+            JsonArray expectedModes=expectedArgs.get(1).getAsJsonArray();
+            a.require(candidates.size()==expectedModes.size(),"mode candidate count");
+            for(int i=0;i<candidates.size();i++) {
+                AbilitySub candidate=candidates.get(i);
+                JsonObject expectedMode=expectedModes.get(i).getAsJsonObject();
+                a.require(String.valueOf(candidate.getApi()).equals(expectedMode.get("api").getAsString()),"mode candidate definition");
+                Integer old=a.abilityIds.putIfAbsent(candidate.getId(),expectedMode.get("id").getAsInt());
+                a.require(old==null || old==expectedMode.get("id").getAsInt(),"changed mode candidate identity");
+            }
+        }
         for(int i=0;i<args.length;i++)if(args[i] instanceof SpellAbility sa && sa.getApi()==ApiType.Charm && sa.getSubAbility()!=null) {
             JsonObject expected=expectedArgs.get(i).getAsJsonObject();
             a.require(!expected.get("sub").isJsonNull(),"unexpected modal subability");
@@ -252,15 +348,35 @@ public final class MtgCastingReplay {
             Integer old=a.abilityIds.putIfAbsent(sa.getSubAbility().getId(),sub.get("id").getAsInt());
             a.require(old==null || old==sub.get("id").getAsInt(),"changed modal clone identity");
         }
-        a.require(semantic(entry.get("arguments")).equals(a.observed(inspect(p.getGame(),Arrays.asList(args)))),"callback arguments");
+        String argumentDifference=difference(semantic(entry.get("arguments")),a.observed(inspect(p.getGame(),Arrays.asList(args))),"");
+        a.require(argumentDifference==null,"callback arguments"+argumentDifference);
         int end=a.tape.getAsJsonObject("paired").get(entry.get("index").getAsString()).getAsInt();
-        if(method.equals("playChosenSpellAbility") || method.equals("payManaCost")) {
+        if(method.equals("playChosenSpellAbility") || method.equals("payManaCost") ||
+           method.equals("orderAndPlaySimultaneousSa") || method.equals("playSpellAbilityNoStack")) {
             Object answer;
-            if(method.equals("playChosenSpellAbility")) {
+            if(method.equals("orderAndPlaySimultaneousSa")) {
+                a.require(a.tape.get("scope").getAsString().equals("abilities-prefix"),"unsupported triggers");
+                List<SpellAbility> ordered=choose(p,"orderSimultaneousSa",args);
+                for(SpellAbility sa:ordered) {
+                    a.require(sa.isTrigger() && !sa.isCopied(),"unsupported trigger kind");
+                    JsonObject cost=a.rows.get(a.cursor).getAsJsonObject();
+                    a.require(cost.get("kind").getAsString().equals("enter") && cost.get("method").getAsString().equals("cost.visit"),"missing prepared trigger");
+                    JsonObject wanted=cost.getAsJsonArray("arguments").get(1).getAsJsonObject();
+                    a.require(Objects.equals(a.abilityIds.get(sa.getId()),wanted.get("id").getAsInt()),"trigger placement order");
+                    a.configure(p,sa,wanted,true);
+                    a.require(triggerStackExecutor.play(p,sa),"trigger placement");
+                }
+                answer=null;
+            } else if(method.equals("playSpellAbilityNoStack")) {
+                SpellAbility sa=(SpellAbility)args[0];
+                a.require(a.tape.get("scope").getAsString().equals("abilities-prefix") && sa.isTrigger() && Boolean.FALSE.equals(args[1]),"unsupported no-stack effect");
+                a.require(triggerResolveExecutor.play(p,sa),"trigger resolution");
+                answer=null;
+            } else if(method.equals("playChosenSpellAbility")) {
                 SpellAbility sa=(SpellAbility)args[0];
                 a.require(sa.canPlay(),"illegal announced ability");
                 if(sa.isLandAbility()) { sa.resolve(); answer=true; }
-                else { a.require(sa.isSpell(),"unsupported nonmana activation"); answer=castExecutor.play(p,sa); }
+                else { a.require(sa.isSpell() || a.tape.get("scope").getAsString().equals("abilities-prefix"),"unsupported nonmana activation"); answer=castExecutor.play(p,sa); }
             } else { answer=a.pay(p,args,end); }
             a.require(a.cursor==end,"unconsumed executable callback");
             JsonObject leave=a.take("leave");
@@ -284,6 +400,30 @@ public final class MtgCastingReplay {
         a.decisions++;
         Object answer;
         switch(method) {
+            case "orderSimultaneousSa":
+                List<SpellAbility> ordered=new ArrayList<>();
+                List<SpellAbility> availableTriggers=(List<SpellAbility>)args[0];
+                for(JsonElement e:result.getAsJsonArray()) {
+                    JsonObject expected=e.getAsJsonObject();
+                    SpellAbility found=null;
+                    for(SpellAbility sa:availableTriggers)if(Objects.equals(a.abilityIds.get(sa.getId()),expected.get("id").getAsInt()))found=sa;
+                    a.require(found!=null && !ordered.contains(found),"trigger order permutation");
+                    a.require(semantic(expected).equals(a.observed(inspect(a.game,found))),"trigger order/source context");
+                    ordered.add(found);
+                }
+                a.require(ordered.size()==availableTriggers.size(),"incomplete trigger order");
+                // The original AI consumes its candidate-list argument when
+                // sorting multiple triggers. This is choice-container state,
+                // not game state. Reproduce and validate the recorded residue.
+                List<SpellAbility> residue=new ArrayList<>();
+                for(JsonElement e:leave.getAsJsonArray("arguments").get(0).getAsJsonArray()) {
+                    SpellAbility found=null;
+                    for(SpellAbility sa:ordered)if(Objects.equals(a.abilityIds.get(sa.getId()),e.getAsJsonObject().get("id").getAsInt()))found=sa;
+                    a.require(found!=null && !residue.contains(found),"trigger candidate residue");
+                    residue.add(found);
+                }
+                availableTriggers.clear();availableTriggers.addAll(residue);
+                answer=ordered;break;
             case "chooseModeForAbility":
                 a.require(((Number)args[2]).intValue()==1 && ((Number)args[3]).intValue()==1 && Boolean.FALSE.equals(args[4]) &&
                           result.isJsonArray() && result.getAsJsonArray().size()==1,"unsupported mode cardinality");

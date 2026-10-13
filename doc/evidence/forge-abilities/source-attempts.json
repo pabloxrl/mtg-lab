@@ -1,0 +1,702 @@
+{
+  "schema_version": 1,
+  "new_started_attempts": 40,
+  "status_counts": {
+    "complete": 28,
+    "truncated": 12
+  },
+  "admitted_games": 0,
+  "ai_quota": 0,
+  "records": [
+    {
+      "name": "capture-green-green-20",
+      "status": "complete",
+      "mode": "record",
+      "seed": 20,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "38a3d2fcffc6ad5166df3e94f7c2d896ca831437c96640d9a29090e2e4b5268c",
+      "trace_sha256": "6bc9ca6c87f6acd6754175ed1291142dbfdb071e9fd8fda4dbe7d4ee2192e3d3",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-green-green-21",
+      "status": "complete",
+      "mode": "record",
+      "seed": 21,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "083efb91efe77523f9c713669f33874b6579c87d7f62f2c89069e5a63153eef2",
+      "trace_sha256": "64599488cc51b5d2d14d1f8bad63c4bf5c671bcfc13a332e806aaf0be7a3d2b7",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-green-green-22",
+      "status": "complete",
+      "mode": "record",
+      "seed": 22,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "32e8c155d10f2599a6debe6215ae767dc9e46a41fd6d3c5e77c6bb3b6cc3bb7e",
+      "trace_sha256": "90a04554f4ce784a3061ce22802bdbd5f6ac8e5e87ec1814b6230ac637ec9ae4",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-green-green-23",
+      "status": "complete",
+      "mode": "record",
+      "seed": 23,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "d9a00bb4a1959f637bd3c26b6f7269b0c912a929e93df6ed69dd1be13b5d458c",
+      "trace_sha256": "62ae839603c4225665f529c5bb9c7a958d97ad6a2f37de8ee88ac60fc23ef8e0",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-green-green-24",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 24,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "e9f145e66619ce83409a4de2ff1ffcc2b115e832079190f763f8245b7f46035a",
+      "trace_sha256": "b2d3b7a59e40a1b95bf6d862c61836de93a1faf5e85fd9e29699df1c5274ad27",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/capture-green-green-24/run.log",
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-green-green-25",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 25,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "f787d493f9830e73e9b791090faa27c63653390b715c3a6ea7c595183500f6e1",
+      "trace_sha256": "7128fdb614d1eeaccd213279e1ce515964c294128122a86c27ea2b5885ec8b86",
+      "error": "timeout after 300s; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/capture-green-green-25/run.log",
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-red-red-10",
+      "status": "complete",
+      "mode": "record",
+      "seed": 10,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "20e7fac2b7d2f5b03e10dcf6dceb1ede1a2e2cc1803bc68cad43a97de5f65591",
+      "trace_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-red-red-11",
+      "status": "complete",
+      "mode": "record",
+      "seed": 11,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "47740789976d050ed8b5505421f219e5bd1eac7e27097638366905a04aefd514",
+      "trace_sha256": "61eb8bbd5b2eef2c27b3130d5414caa91173b661160b1c3bb49343f9f97ac6e1",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-red-red-12",
+      "status": "complete",
+      "mode": "record",
+      "seed": 12,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "f9a72f66773dfce795a0b57e0322341074b70939172beda314602ef7a20dcf73",
+      "trace_sha256": "c2eb23ae7d29bd58bf73f77e17139e3c93d469c4737942537749719ab34311dc",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-red-red-13",
+      "status": "complete",
+      "mode": "record",
+      "seed": 13,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "638e4658bef975dbe4287f51833d637cbb045957a3c6d27019bfa5b5de6322bf",
+      "trace_sha256": "423ab70c95bcd9b3d0a16c6bf6ea54b155e31f3ece9360b83fc0ea2ad3adec62",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-red-red-14",
+      "status": "complete",
+      "mode": "record",
+      "seed": 14,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "65c52ffa801d6cc1acdfe0193c056c328631dd2944baba2f161e52320ae0b98d",
+      "trace_sha256": "65e98655cbeadd01c359bd7b61d35a0e8cdca5e9cb7ea915d16e4f46904a9ea1",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "capture-red-red-15",
+      "status": "complete",
+      "mode": "record",
+      "seed": 15,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "47987aa6519f61d831ceb0d1d0fc452ed9d308649455927d3ba642d7136e5bab",
+      "trace_sha256": "f32cac4e55b0de8090929c577dc45e0855f98fdb69205b0f032751d48140d02f",
+      "error": null,
+      "max_calls": 10000,
+      "timeout_seconds": 300
+    },
+    {
+      "name": "screen-green-green-30",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 30,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "df2ac97302780c22ab9d89512b3878086fef84aa99c00dcd453d0a0b94bf865a",
+      "trace_sha256": "670fabfe8610c94caa3b97120aeede2844ff2370a451190af0ca7c973dc2d2fd",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-30/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-31",
+      "status": "complete",
+      "mode": "record",
+      "seed": 31,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "67b895813d72ae6fb9dfe183a70149e4520e64e193c32c8b1e3d9d56419d69f3",
+      "trace_sha256": "035ab7c6755c66a81f751b3e0c5746ab85a3145a54c14833b36de0a6e711dd79",
+      "error": null,
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-32",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 32,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "02a2cedcef0cab7cc5e5fd12ef0d5b779594d6f245946f602341569a404cdfa1",
+      "trace_sha256": "b63f455168f0c00710d202d53aeb5e84e013eb0dfcaf29f875e2821d6e6940a8",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-32/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-33",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 33,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "3c8c445eec4840bb7ce89bde97868f477eda08a61b1a91e3b223bc3009262016",
+      "trace_sha256": "9e586aac4d99102d52a22eb9d528bd9148869dd4f6740a6d0d5c36a8083782da",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-33/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-34",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 34,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "2a17449ad1efbc42b8f4494d92b1e0b4410ff494585c6460c8a1c1da923ad03d",
+      "trace_sha256": "8b50630cbe1a7978f739752c33ac96406ff9e768d502425dc81e4de5836cf0bf",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-34/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-35",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 35,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "7db7990ac403861a7c95dec7fc3b7cebe4fb49598074606c6e28438c41b5580b",
+      "trace_sha256": "4a18e0bcbfa3c7d75b44387dbbafe2719671629269cc592e63abcd533df6684d",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-35/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-36",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 36,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "93d9bde99ffb5ce300180638e20deaed6dbc5982af6c5b84a160b823a7359fa4",
+      "trace_sha256": "d7a988420a855ab4edb67b11e173dc0b87cd1595827a43e00d1b4f56099641ab",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-36/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-37",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 37,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "1eb1854caa010311f57ae3e62643d60e6b31fdd6ac341219208bebf53620bbf1",
+      "trace_sha256": "f477a7222e77edf2abf43ca651c93d35ab7be49803be31a10046791d5c89cf11",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-37/run.log",
+      "max_calls": 800,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-38",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 38,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "ccc2edb11f6f4c52ed0891f9a48f6f472cc7abb1c096cafc70938fdda2de8931",
+      "trace_sha256": "a6dc8f8c716c4e4c87035b5d86192bc7d542e7d684ba666270c2c8050d3ae141",
+      "error": "timeout after 120s; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-38/run.log",
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-39",
+      "status": "complete",
+      "mode": "record",
+      "seed": 39,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "61fb8076c694cbcb0c48a0d2a50c041ffd7cbd0567893a8d9b25961015f61a82",
+      "trace_sha256": "d0b3000b309c744162245c36c85e8224c72df7fa1384250422c81b260afc3510",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-40",
+      "status": "complete",
+      "mode": "record",
+      "seed": 40,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "73e5804572ba0adbc1021f6b0ee60c1bfaf05054be334ad2882cc1eb216aecf8",
+      "trace_sha256": "1df1c53437b192341190da543ef1ff8720ce6ead58cde0832d4bc77a5c4b481b",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-41",
+      "status": "complete",
+      "mode": "record",
+      "seed": 41,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "31ae4b8c31bcf31a96cf86dbc1af37e8aacf49edfa54855451c756b0f850291e",
+      "trace_sha256": "23ec517feb53122a3e48b91a72cc22fea2bd26ba5f2f6e504eb01c85cd9601df",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-42",
+      "status": "complete",
+      "mode": "record",
+      "seed": 42,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "90e78d3969d9047aba4a854e0e6998faa2766d2a564362f6df3caa6b57553ee6",
+      "trace_sha256": "afafe4bfc7065ed7b970f740557cbf7b87306ac87fd3d6113383d270af9360c8",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-43",
+      "status": "complete",
+      "mode": "record",
+      "seed": 43,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "de7c4a32a43a235ed83b227fda1bc893112b9f9ab0beca969c84cb6efc1e6f83",
+      "trace_sha256": "12d4b78280479b6146a33e62bfa955f420495f67adee0134b070575d5a80e161",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-44",
+      "status": "complete",
+      "mode": "record",
+      "seed": 44,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "c8f3ecf239133c4527bc8f94b34d1f3be827463ba90632018478e177eac97bba",
+      "trace_sha256": "c8653994a3b3f73ff8aa7de3a26fb24cde132b95874316ddf9025fa4fadd3523",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-45",
+      "status": "complete",
+      "mode": "record",
+      "seed": 45,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "4e8c61a305575fd47238eb9d884c671a97cfef6882700b13903eedbc85708443",
+      "trace_sha256": "8fdcc20bb6f4c7abdd45a0dfa29800150fe0f81c30a752d1d7222f3bfebe9be8",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-46",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 46,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "50724d566136be27bd3120c9f1eadf15965f028b16071f88239fb635dd4250be",
+      "trace_sha256": "746321c98829a3852a890da3f061b59a4a4115f3f110649ed2cf03ef4d5f611a",
+      "error": "timeout after 120s; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-46/run.log",
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-green-green-47",
+      "status": "truncated",
+      "mode": "record",
+      "seed": 47,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "51245291cc973606345de0f4fce41a26e0174c670d4025336f97f681825e809a",
+      "trace_sha256": "a318818f0e933822d60ac0a0dda3dd2c214158faa1c5b69215992a840fe9fa6a",
+      "error": "timeout after 120s; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/screen-green-green-47/run.log",
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-16",
+      "status": "complete",
+      "mode": "record",
+      "seed": 16,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "3ee907c0f667f2c45e79da98f48910330272ecdf47919d77172879c421dea91b",
+      "trace_sha256": "8f5c04eefea872c6ad3155672edbc173c03e5cc294220ed37966e26bd7f84a4a",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-17",
+      "status": "complete",
+      "mode": "record",
+      "seed": 17,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "181f91632df0c2c36b34cca42dc9bce6580f213be57dea4d994be2a7d09fbd14",
+      "trace_sha256": "d99300ff8f7ebab4c5e11cdd77322aef87339b52382ea35ddd5876e2d2093ede",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-18",
+      "status": "complete",
+      "mode": "record",
+      "seed": 18,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "ed398edc4e649660f4c35ce2b4630254e2b74e4e0ad069885816eef38badb488",
+      "trace_sha256": "af827907dd7ffc418a5671120dd20fd9c4e5cd31da1ec80d79d676ad3b1d1a78",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-19",
+      "status": "complete",
+      "mode": "record",
+      "seed": 19,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "a530d899a74c25a19b4bf68238c207ce6bfe6221c2b206734c1e0d8bc9c14f60",
+      "trace_sha256": "a76c9e47f15d0d6b1968b131694ef4dc2872e85f3777973c37ba99096754f4d6",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-20",
+      "status": "complete",
+      "mode": "record",
+      "seed": 20,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "74c152743befb675a1dca99aaa5c2c00ab6d12a8b2514742631f90997ad2c4c1",
+      "trace_sha256": "4604cca078ff5508799f82b615f42a06e9cc7f2489898d619e2876e8585ef817",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-21",
+      "status": "complete",
+      "mode": "record",
+      "seed": 21,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "561eee282dab982c157ff81955959810a415464c58a9161bc954dda825620792",
+      "trace_sha256": "3fa144a49aa0d3cfa2586eeaf267fa7f124fc5f6aa65440060406e655d7c045d",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-22",
+      "status": "complete",
+      "mode": "record",
+      "seed": 22,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "5aa530ad71a6176fb1fc3c0b017ffb8910df12b8d96249db9d0fdaf1548aba35",
+      "trace_sha256": "8c52203ab5b101d5d026d41add884ec4fe54b077d99f96e82707ca4b0cb661b8",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-23",
+      "status": "complete",
+      "mode": "record",
+      "seed": 23,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "7cb82fa4d081c31bc1e3898f0c3c16ff9eaa7fa563fb33a75900671db5e14ac0",
+      "trace_sha256": "66ca6f627d6bb7bddc94785c8ba300524b5f9dda7e9d1b75d56a440ae2a714d4",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-24",
+      "status": "complete",
+      "mode": "record",
+      "seed": 24,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "1ee37e568ae190e1d9dfe71ffdb9ca243b58d9e94d93acabceae1e88d1e9d348",
+      "trace_sha256": "443ae146e4fcaef5628eb86480bbc0a5182c91d3569882da481d5cfa37be6867",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    },
+    {
+      "name": "screen-red-red-25",
+      "status": "complete",
+      "mode": "record",
+      "seed": 25,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "started_game": true,
+      "source_profile": "frozen-deck-selection-v1",
+      "receipt_sha256": "78b91f002a1bb0b640929e0389b6d763f67ab4aeff8a41b70002b97af5d0b83c",
+      "trace_sha256": "0e4c7d444b89d0e68a8539bce95905e6b0965a1801bd1e80cbb90b9e3645d042",
+      "error": null,
+      "max_calls": 3000,
+      "timeout_seconds": 120
+    }
+  ],
+  "note": "All new original-AI attempts, including failed/truncated diagnostic screens. Attempts are not distinct games or a declared 100-attempt campaign. Initial screen extraction had a deck-profile mismatch and was superseded; original bytes remain unchanged. Selected complete captures alone support prefix execution.",
+  "prior_index_inspection": {
+    "origin_issue": 326,
+    "index": "doc/evidence/forge-casting/attempt-index.json",
+    "indexed_raw_tapes": 55,
+    "missing": 0,
+    "checksum_mismatches": 0,
+    "reused_source": "source-seed-4",
+    "new_generation": false
+  }
+}

@@ -41,8 +41,12 @@ alignment and an explicit unplayed remainder; no full-game replay is claimed.
 The [casting replay command](doc/evidence/forge-casting/README.md) extends bounded
 source prefixes through creatures, targets, a Giant Growth response to Bite Down,
 token-mode selection and additional discard/mana payment. Both engines compute
-checkpoints independently and reject corrupted choices. Nonempty combat, trigger
-dispatch and later callbacks remain unsupported; these prefixes earn no corpus quota.
+checkpoints independently and reject corrupted choices. Its default mode retains
+the casting boundary. The optional [ability prefix mode](doc/evidence/forge-abilities/README.md)
+adds mana-creature payments, an actual Invoker target/payment/+5/+5 and trample
+prefix, cast/ETB triggers and explicit ordering. Authored APNAP/departed-source
+cases remain separate from AI evidence. Nonempty combat and later callbacks remain
+unsupported; these prefixes earn no corpus quota.
 The [bounded normalization command](doc/evidence/xmage-ai-normalize/README.md)
 replays one of those captured games twice in native and patched XMage with
 source checkpoints and corruption controls. Its unsupported seams fail explicitly;
@@ -171,6 +175,7 @@ and [simulation guide](doc/simulate.md).
 | [Forge real-AI raw capture](doc/evidence/forge-ai-capture/README.md) | Normal frozen red/green setup with PlayerControllerAi/AiController, source-native callbacks, payments, shuffle/mulligan/chance and intermediate observations. The acceptance command compares uninstrumented play and retains actual unsupported/truncated attempts. No normalized Forge replay or source-AI quota is claimed. |
 | [Forge ordered opening replay](doc/evidence/forge-opening/README.md) | Real captured prefixes execute normal forty-card setup in Forge and native with both starters, initial/redraw chance, physical copies, London bottom order and strict negative controls. Source scheduling alignment and prefix remainder remain explicit; no full-game replay or corpus quota claim. |
 | [Forge casting replay](doc/evidence/forge-casting/README.md) | Bounded real-source prefixes independently execute lands, priority, creatures, targeted instant response, token mode, ordered mana/discard and resolution checkpoints. Exact consumption and invalid-choice controls retain explicit allocation normalization and unsupported later callbacks; no complete-game or pilot claim. |
+| [Forge ability replay](doc/evidence/forge-abilities/README.md) | Four normal-opening source prefixes cover Druid/Llanowar mana, Invoker targeting and temporary trample, Pyromancer ETB choices and simultaneous Archer/Cyclops triggers. Strict controls retain source incarnations and ordering; four authored Forge APNAP/departure cases are excluded from AI quotas. Nonempty combat, full-game replay and admission remain later work. |
 | [Legacy and decision coverage](doc/evidence/m2-reference-foundation/README.md) | Six damage splits, 64 attacker subsets, privacy/capacity checks and bounded native/XMage reference reproduction. |
 | [Keyword and activation reference pack](doc/evidence/m2-reference-combat/README.md) | Exact assigned combat cases, bounded compositions, checkpoint controls and reproduction commands. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |

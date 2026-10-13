@@ -1,0 +1,179 @@
+{
+  "status": "casting-prefix-agreed",
+  "complete_game": false,
+  "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+  "negative_control": null,
+  "toolchain": {
+    "java": "Picked up JAVA_TOOL_OPTIONS: -Djava.awt.headless=true -Duser.home=/home/agent/.cache/forge-GH-327/home\nopenjdk version \"21.0.9\" 2025-10-21 LTS\nOpenJDK Runtime Environment Temurin-21.0.9+10 (build 21.0.9+10-LTS)\nOpenJDK 64-Bit Server VM Temurin-21.0.9+10 (build 21.0.9+10-LTS, mixed mode, sharing)",
+    "maven": "Apache Maven 3.9.11 (3e54c93a704957b63ee3494413a2b544fd3d825b)\nMaven home: /usr/share/maven\nJava version: 21.0.9, vendor: Eclipse Adoptium, runtime: /opt/java/openjdk\nDefault locale: en_US, platform encoding: UTF-8\nOS name: \"linux\", version: \"6.8.0-64-generic\", arch: \"aarch64\", family: \"unix\"",
+    "platform": "Linux-6.8.0-64-generic-aarch64-with-glibc2.39"
+  },
+  "patches": {
+    "forge-ai/src/main/java/forge/ai/AiCostDecision.java": {
+      "original": "165a618bfd0ba99dbb9d5d2e8b9b30024f461317f95f2bb8f33fee414d80293b",
+      "modified": "a0a09e0c2e8a2155986607ef4b95a772b40c5d45bdf3eb55d9689a0b168005d2"
+    },
+    "forge-ai/src/main/java/forge/ai/PlayerControllerAi.java": {
+      "original": "a8c0efea0a55b46416fbaccbcf7aa075f5f2ff13e579fa051f5a3334bb381206",
+      "modified": "fa98678b0f56bc3ac047fa967cfb753a364c759fc47f04a1d55846c69dc15be9"
+    },
+    "forge-game/pom.xml": {
+      "original": "07fc23a4a86af8c846ce81222c71b2b2a54bca4a095e8a30aff884afa87dee88",
+      "modified": "f731f78b6cbacdfb28d8eab0f44749052bcb777dd2bd3aff505ded74a644ac10"
+    },
+    "forge-game/src/main/java/forge/game/Game.java": {
+      "original": "1fb8ec50a79f80f286f6dc5b4b50e8ae4156163eb42c93a4cc4e4c7895d7e21f",
+      "modified": "42f3b48aab031e37477ce4771a8a86cc13ec8ca046888805310d80bde77c8d79"
+    },
+    "forge-game/src/main/java/forge/game/GameAction.java": {
+      "original": "7701bd2b0895348d208c3a31a9aa38fece40234253d0185234bad971f9021adb",
+      "modified": "5d40677062cf18c8ae9451f6de647c06da10eab3f2814b8848bcd4bf2cc423d5"
+    },
+    "forge-game/src/main/java/forge/game/player/Player.java": {
+      "original": "f5353a9f4e69ea21437f336390d558aba0bcd8d4e9ec5fbd29d92edf4d0e7451",
+      "modified": "1c1b71d667c99060bf71e3fcffc356519accecb2fa30e40a9064dd2d48b0b07c"
+    },
+    "forge-game/src/main/java/forge/game/MtgRawCapture.java": {
+      "original": null,
+      "modified": "01c7732933416afe414fc189a1db55bbfc1f0e532248a53f85d126493a69d3a8"
+    },
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/RawAiCaptureTest.java": {
+      "original": null,
+      "modified": "5b3e833bce441c1fbe7c240f5597fe6517d117693276341f086897c947a9ee15"
+    },
+    "forge-game/src/main/java/forge/game/MtgCastingReplay.java": {
+      "original": null,
+      "modified": "9cdea451aee47a5fc9e1ac3efe2766a608154a2de9976e047c145965d0bfeb9a"
+    },
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/CastingReplayTest.java": {
+      "original": null,
+      "modified": "87d2a677668ca91c2837dbc2430b8b0265a47b66cd19cd96134c0e028dfa9cd5"
+    },
+    "forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/AuthoredAbilities.java": {
+      "original": null,
+      "modified": "b187393a13d14cbe7891779f19b673f5819b5ad07f1aba48e3e7ff730e94449c"
+    }
+  },
+  "implementation": {
+    "scripts/forge_casting.py": "098a2eea9833ba9568ce6055efafa9886b72db4ae8f4e07ebfdc58dbe704e295",
+    "scripts/forge_casting_native.py": "117da8f32799af264771b040559e098495c1e42f59fc3aced3ac1ff17ff0706a",
+    "scripts/forge_opening.py": "43f12dc235d0eed7e30fe0be5c5265f02d57eaeca3b9bc5be37a30e49666bde5",
+    "scripts/forge_opening_patch.py": "ccae5290678af2d269d0d769df18cb48c204c8fe57a516470f39dedc42034dd3",
+    "references/forge/MtgCastingReplay.java": "9cdea451aee47a5fc9e1ac3efe2766a608154a2de9976e047c145965d0bfeb9a",
+    "references/forge/CastingReplayTest.java": "87d2a677668ca91c2837dbc2430b8b0265a47b66cd19cd96134c0e028dfa9cd5",
+    "references/forge/AuthoredAbilities.java": "b187393a13d14cbe7891779f19b673f5819b5ad07f1aba48e3e7ff730e94449c"
+  },
+  "native_sources": {
+    "crates/mtg-core/src/actions.rs": "f082b109ce7ddd7c25f021b030113115adf07eab31711bc8865ff75714cedc39",
+    "crates/mtg-core/src/actions_tests.rs": "569bb7b663761833b0046165f924399b537b29321ec78ee16bc728754c75ff46",
+    "crates/mtg-core/src/activation.rs": "6fa51a9216ea04181c546b775214ffda1bb924af2a5d573d95bcad24ef185490",
+    "crates/mtg-core/src/activations_reference_tests.rs": "1653d65489e216d2922efacec68775f683531310a9be302c11acb14a32831539",
+    "crates/mtg-core/src/admission_origin_tests.rs": "64660c18978e80ebdb7551146f0a419342a9497dd557d60f6bff47317457cbae",
+    "crates/mtg-core/src/admission_reference_tests.rs": "30f911fd9d533686f7eb8078de31fa76d72bf97da7c8d454e19ed1348c0f3429",
+    "crates/mtg-core/src/card_definition_tests.rs": "a21396a68a10d2927cbdd10ba9194ba90259f36da657dabe4e75a7dfee29207f",
+    "crates/mtg-core/src/card_definitions.rs": "298fcf1ea00e7bfb0b26bd2c1343e0f6bafd99d638751cfad9300ff628444bad",
+    "crates/mtg-core/src/card_identities.rs": "b9b268839118556e0baf3d5b84367fe3ba8635e2ba8a52ebb57c93c5bb4e6b18",
+    "crates/mtg-core/src/cast_boundary_tests.rs": "94041e47f036700f465e84c4ca57e4afd3614f80db37fb362c68d516aec418e7",
+    "crates/mtg-core/src/cast_state.rs": "e984600db093c9f50250182fcf1815dd158f1bea13a1e3a0d820070952c41f4b",
+    "crates/mtg-core/src/cast_trigger_tests.rs": "87705369ed0b63599b710f7627a3d7cecb2f3628a755bfeaecb994c307b57411",
+    "crates/mtg-core/src/casting.rs": "48eba78168526d1d526260ef9666ac9133051b0a50aa1b8040f9605e730210d1",
+    "crates/mtg-core/src/casting_tests.rs": "b76aab139fad5e3c5e6e373f8cee5fa5d4364fc96ec1ceb1c159ef1826cefbc0",
+    "crates/mtg-core/src/cleanup_trigger_tests.rs": "34aa72cab09415e6bb6995669626c674c3fd2cc92b6510e1713830c010d4a78e",
+    "crates/mtg-core/src/combat.rs": "91a045597419d6b87a5e1efb4f48a6e480a347fd9404c7c25fb32cc4b4727a68",
+    "crates/mtg-core/src/combat_tests.rs": "108d995f2cddf7459eb52e92b8d8618f70bad29d9749374f11eb56cebc1dc9ed",
+    "crates/mtg-core/src/creature_mana_reference_tests.rs": "79bac87ae62e5e21a70aae6a1b69fd06028cc47a34464c5d3472f9126edc0230",
+    "crates/mtg-core/src/cub_sentry_reference.rs": "033bb9c6de991b1fcce3752b1e1e1233334e5f6bf7f57d3e7f58e1085fab06f3",
+    "crates/mtg-core/src/episode.rs": "5427d78891f913cb7e6e6de82a39d7c1b1ad87df88ef92e8ebd80719fb42f8d5",
+    "crates/mtg-core/src/episode_budget_tests.rs": "61fc4aca7f68e25e83fbe90f3b8fa64e14d09aa1f99e7522b71c0ea89827bb5d",
+    "crates/mtg-core/src/episode_capture_tests.rs": "ca0c3294d350a4ae7f29d4c833dfb0ace857b2f1e88cd0e36f61d3883fc1b52b",
+    "crates/mtg-core/src/episode_replay.rs": "a1a888f33a47905651f4593fc38c07796ed23580fdc9972e2998abaa5c46aab5",
+    "crates/mtg-core/src/etb_trigger_tests.rs": "d6f1624ee6634e24031dce74ee13b8de4b59eda6a96322766a021cce6d4cd939",
+    "crates/mtg-core/src/forge_abilities_reference_tests.rs": "6718e93a98262c513d11940f9bb7323ffc467c74f97abd3e01f39e21d4a6cec0",
+    "crates/mtg-core/src/forge_casting_reference_tests.rs": "71ccfd4bd23b4cf6b6aa0c3eaec3bdad33114fe6bc42456ee8bbc910a20d583e",
+    "crates/mtg-core/src/full_pool_reference_tests.rs": "a3183fdb341de764acbb2960b3f3c16c39d37584d3d08e7bf87dc6802846c4d2",
+    "crates/mtg-core/src/game.rs": "05c4a507de2a2fd44ad4112a5f699c5a0bb68140f53253e32a4a91b4b9c76cdc",
+    "crates/mtg-core/src/haste_tests.rs": "366795b03425bb5a2a3bb27e0eab4994335121527389c9d857c03b47e557777e",
+    "crates/mtg-core/src/instant_reference_tests.rs": "940a74085724d4bf7231b077c4c60dedda1d841ec1ac53459fd8f7b65a7f22eb",
+    "crates/mtg-core/src/invoker_tests.rs": "d7450a5c151d0ca8477db620557863a1fd1e1aba7a2f013a536b4fb02cdd7365",
+    "crates/mtg-core/src/lib.rs": "b82b068577d5434546a0ff76520e816184b117c9ba7069c430580358870b3b9f",
+    "crates/mtg-core/src/m2_combat_tests.rs": "c5c076e1a5e0b7e5e911496f8a1835d36bcf0f4ee0baf6033be2880ee9d58e13",
+    "crates/mtg-core/src/m2_cost_reference_tests.rs": "1a613d72939e1cea45b6713a0150841ab83d2f36e9f24fce925059315274912b",
+    "crates/mtg-core/src/m2_decision_tests.rs": "f893c4361434bdd9cc81a94dd0c0f50e775ba9a6f732ad5adc0ae2d729d4b0b8",
+    "crates/mtg-core/src/m2_mutation_tests.rs": "8200fd26f99398cce7837b49c614474d2f576793f5b12125459cbf83ef9c2ef7",
+    "crates/mtg-core/src/m2_trigger_reference_tests.rs": "87778bbefc03ada8f77e786a7a0e925282130e5dd662ca6d2ad92a659a83c6a0",
+    "crates/mtg-core/src/mana.rs": "0a88ecfff656665e10c0e3995fa54fff066084c7c5147a15e22996cdcdb55969",
+    "crates/mtg-core/src/metrics.rs": "fedfa5dfc9bcc5f561ec3b6ba4558c44c5de12834e7d43cc19b29e0961ac09a2",
+    "crates/mtg-core/src/mulligan_reference_tests.rs": "fefa6df249b44fbdd42aab7f26d9036c20a7bb7fc67c6271f2b2458645b47c6d",
+    "crates/mtg-core/src/objects.rs": "b506f48056b72d2775d4b4c7ec4899dd956d132b779b502f9491bf11cd50c9f1",
+    "crates/mtg-core/src/opening.rs": "9f41036b7a2a09e75ea33e8164f60a030fac44b4d35833d84279f01e1f8ffb37",
+    "crates/mtg-core/src/played_cleanup_reference_tests.rs": "d25c36534e28da9173aff77b36e020447c347216867a79f91ed692888a6c43be",
+    "crates/mtg-core/src/played_combat_reference_tests.rs": "d897c4962b6ae9dc9a1ee2b22f5e2431ec7f8834259f742a4d418ca17385dc4e",
+    "crates/mtg-core/src/played_replay.rs": "dde6a1af72202e7925b6cb6eec90997b44cdc8836e074ee36a2a7c0f1a8066ce",
+    "crates/mtg-core/src/policy.rs": "86af5757dfcda9fb37b3f42bfed1439c0f39c4e8bddbe950fcecd3a14afa1b93",
+    "crates/mtg-core/src/policy_combat_tests.rs": "d8d7efb4cc0af9f4eb4c0b4be770214a400d23ad208af3ce2136778bb9c3995c",
+    "crates/mtg-core/src/policy_spell_tests.rs": "8638b1d12770ec9ecddee0df4c0375b23d0a182d60a1770f05a94260d72e3f14",
+    "crates/mtg-core/src/policy_tests.rs": "68dc6ec8c3fbac8e5621d6a771718b46b47b1fcc55ae44f6b257de8191d336cd",
+    "crates/mtg-core/src/priority_reference_tests.rs": "22a451a6a87fc628f65a85c7ec6c66ccc32a4c6e52ac1647c915795565d55965",
+    "crates/mtg-core/src/replay.rs": "f1972e85dfda34d0d9d9dfcfefc2bff25f31911c3494eda2bf631911bcf103dd",
+    "crates/mtg-core/src/rng.rs": "6941d42ae60aeca0690ba26e789aac0648ab6b68d5d622864285138b73b570bc",
+    "crates/mtg-core/src/shivan_tests.rs": "0ba9424ee0f24c7f02e1722f78fa7eb5ed62a67abb36c2e04209f9c852bcb1c4",
+    "crates/mtg-core/src/snapshot.rs": "5550a1aae04f2bc22ebd78c46e3069cef75ecc75e52ad526cd48fed5902a0a33",
+    "crates/mtg-core/src/spells_reference_tests.rs": "e3046b33eee87a4657e4e3c296b8bdc981619346a691d2091a59417df30cfc43",
+    "crates/mtg-core/src/targets.rs": "b657a310c77028daa7e69fb249f8861c07c511e1b2d08381d0ea9e2b34ce61da",
+    "crates/mtg-core/src/targets_tests.rs": "67ae6fada2b2e0ee28926139fb89b9daffc9dfd6d23593f69bec541109627fab",
+    "crates/mtg-core/src/terminal.rs": "fdf5bda56694dcda63047c757038976b4fe4a6b3d0599d4010285f3ae9c1fa6c",
+    "crates/mtg-core/src/terminal_reference_tests.rs": "20a72d8e1cf967ba960b875b31d179d9ffcd2c41f005c217e4fe7e33bc4594d4",
+    "crates/mtg-core/src/terminal_tests.rs": "6b01a7fd6bbc28e9215160417338188a723269878d90bbca49269597bbb0e865",
+    "crates/mtg-core/src/token_tests.rs": "ca599ca31e49e2636a09c971e79955fc730980df51fb539d8b22023fa205cb10",
+    "crates/mtg-core/src/trajectory.rs": "34682ff6f3193c3cae1297c1fb40e9a3f3b7f70837b9c39f30f99349dc735098",
+    "crates/mtg-core/src/trajectory_rules_tests.rs": "163768d38864bf37e4c9bc02a3da83947671e08078bbf01469563325422d38eb",
+    "crates/mtg-core/src/trajectory_tests.rs": "a6f9a2bd6259ad71df327e5b06ec7a4db52904d8bb755b39cd3710780ebb9a61",
+    "crates/mtg-core/src/trajectory_v2_tests.rs": "633298576257a26b16db099767500036b2eb0566cae2b3040126a591fc316f2b",
+    "crates/mtg-core/src/trigger_tests.rs": "a07ee94274de5fcdc5f2e15c1836d97aee4bad709a680375db715887d03db736",
+    "crates/mtg-core/src/triggers.rs": "ca62cab36ecb0afc94122e2e1b9487e1cfdfec4201f6f616ae77d664fef9f8a2",
+    "crates/mtg-core/src/triggers_reference_tests.rs": "a4cf316a1912a9dbb1b41b24092849b8c21c56714c782c0b3cd7171266c13656",
+    "crates/mtg-core/src/turn_quantum_tests.rs": "27ce1fa9d58e1219043d5e511076e3f2a5aa1d9e76ff7b323de4c77744dbf9ef",
+    "crates/mtg-core/src/turns.rs": "ff317cfc5c4ea8f1ef0a433c4e13bff0efd0c1fa4321817439e2532fb9622e66",
+    "crates/mtg-core/src/views.rs": "8f0bb89f4bff40f384f68d9f98e0c26ddc45c1f74fcbb69d16e982b71931c0ef",
+    "crates/mtg-core/src/views_tests.rs": "1b0d1d30ab560d903eebcd1b2295f55a57126789f8655e1e73f64522da9a1c40",
+    "crates/mtg-core/src/work.rs": "69a9c260c25aa83b3f60082a090a883fdfa3d5249795706adce65512d9a29af7",
+    "Cargo.lock": "1bfa4406868d560092b46b46c5c0d9531d84cd07fc2c0185718d6590f97dd7fe"
+  },
+  "source_receipt_sha256": "2cf7ea3599d85b279ed83429ba3fd7e7bd573091b7b6aee258f630f40db2aab7",
+  "deck_selection": [
+    "red",
+    "red"
+  ],
+  "command": [
+    "mvn",
+    "-B",
+    "-ntp",
+    "-s",
+    "/home/agent/.cache/forge-GH-327/settings.xml",
+    "-gs",
+    "/home/agent/.cache/forge-GH-327/settings.xml",
+    "-Dmaven.repo.local=/home/agent/.cache/forge-GH-327/m2",
+    "-o",
+    "-pl",
+    "forge-gui-desktop",
+    "-am",
+    "test",
+    "-Dtest=forge.gamesimulationtests.mtglab.CastingReplayTest",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dmtglab.assets=/home/agent/.cache/forge-GH-327/forge-95dc682bf92460f49cebd7a9578f06ccf60d5569/forge-gui/",
+    "-Dmtglab.manifest=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/casting-token-discard/selected-manifest.json",
+    "-Dmtglab.input=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/casting-token-discard/casting.json",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-327/.agent-artifacts/forge-abilities/final-v2/casting-token-discard/forge.json"
+  ],
+  "elapsed_seconds": 68.96733614099503,
+  "artifacts": {
+    "selected-manifest.json": "07981107c88ebb1c9f2b3d9180e9dbaf2b970cc0bc43619c1c18ab45dadc2fb3",
+    "native.json": "c2440b2a337d134234c928d455d830f18bd0a7d998f7047419177cf3f7f6a269",
+    "forge.json": "97433c07b8838106c3513284a45e7bd0e8d87f222b4fa1d54211478b91b24eb5",
+    "forge.log": "3d161a204a85a87a4800a59ad6f7f5886f63937cf9a64f6cbd24ef139d20fc45",
+    "native-fixture.json": "e68989d70e74312d91efad4ad4a5aa99a809691cd976bd16406adf60cb08e1e6",
+    "casting.json": "ea3962aa21a5f0a1e8465c7dfdeb07e0315ed2df2d7bb2b8e0478edb9b1c93c8",
+    "native.log": "71ca42b5b9dcb343513399f0488021b1ac35430f3e861cf87151afaed7b4f89d",
+    "test-report.xml": "ef01bbe4e47e178bc4a40afe9741588c68fded5962dd2da5f580aa8df3920229"
+  }
+}

@@ -21,6 +21,8 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         original = forge_opening.extract(path)
         endpoint = original['checkpoint_sources'][-1]
         converted = forge_casting.extract(path, stop_before=endpoint)
+        self.assertIn('opening', converted, 'reuse the independently validated opening without rereading the entire source')
+        self.assertEqual(converted['opening'], original['native'])
         expected = forge_casting_native.fixture(converted, original['native'])
         self.assertEqual(expected['actions'], 0)
         self.assertEqual(len(expected['operations']), 1)
@@ -35,7 +37,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         response = converted['prefix'][1004]
         self.assertEqual(response['arguments'][0]['host']['name'], 'Giant Growth')
         self.assertEqual([a['host']['name'] for a in response['state']['stack']], ['Bite Down'])
-        expected = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        expected = forge_casting_native.fixture(converted, converted['opening'])
         fixtures = json.loads((ROOT / 'fixtures/reference/forge-casting.json').read_text())
         self.assertEqual(fixtures[3], expected)
         points = [op['checkpoint'] for op in expected['operations'] if 'checkpoint' in op]
@@ -45,7 +47,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
     def test_additional_discard_and_spell_created_tokens(self):
         path = ROOT / 'doc/evidence/forge-casting/source-rr-3/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, stop_before=2984)
-        expected = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        expected = forge_casting_native.fixture(converted, converted['opening'])
         fixtures = json.loads((ROOT / 'fixtures/reference/forge-casting.json').read_text())
         self.assertEqual(fixtures[2], expected)
         actions = [op['action'] for op in expected['operations'] if 'action' in op]
@@ -59,12 +61,12 @@ class ForgeCastingPrefixTests(unittest.TestCase):
         path = ROOT / 'doc/evidence/forge-casting/source-rr-2/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True)
         with self.assertRaisesRegex(ValueError, 'unsupported pending triggers'):
-            forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+            forge_casting_native.fixture(converted, converted['opening'])
 
     def test_modal_source_selects_tokens_before_payment(self):
         path = ROOT / 'doc/evidence/forge-casting/source-rr-3/result.json.jsonl.gz'
         converted = forge_casting.extract(path, empty_combat=True, stop_before=2984)
-        expected = forge_casting_native.fixture(converted, forge_opening.extract(path)['native'])
+        expected = forge_casting_native.fixture(converted, converted['opening'])
         actions = [op['action'] for op in expected['operations'] if 'action' in op]
         cast = next(i for i, a in enumerate(actions) if a['kind'] == 'cast' and 'goblin-surprise' in a['source'])
         self.assertEqual(actions[cast + 1]['kind'], 'mode')
@@ -93,7 +95,8 @@ class ForgeCastingPrefixTests(unittest.TestCase):
 
     def test_native_fixture_is_exactly_derived_from_immutable_source(self):
         path = ROOT / 'doc/evidence/forge-opening/source-seed-1/result.json.jsonl.gz'
-        expected = forge_casting_native.fixture(forge_casting.extract(path), forge_opening.extract(path)['native'])
+        converted = forge_casting.extract(path)
+        expected = forge_casting_native.fixture(converted, converted['opening'])
         fixtures = json.loads((ROOT / 'fixtures/reference/forge-casting.json').read_text())
         self.assertEqual(fixtures[0], expected)
         self.assertEqual(expected['actions'], 75)
@@ -102,7 +105,7 @@ class ForgeCastingPrefixTests(unittest.TestCase):
     def test_targeted_fixture_preserves_both_bite_down_targets(self):
         path = ROOT / 'doc/evidence/forge-casting/source-seed-3/result.json.jsonl.gz'
         converted = forge_casting.extract(path)
-        opening = forge_opening.extract(path)['native']
+        opening = converted['opening']
         expected = forge_casting_native.fixture(converted, opening)
         fixtures = json.loads((ROOT / 'fixtures/reference/forge-casting.json').read_text())
         self.assertEqual(fixtures[1], expected)

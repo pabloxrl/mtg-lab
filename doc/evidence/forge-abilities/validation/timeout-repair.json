@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "first_candidate": "3c2e83c20df34866bdca26cca78143b3162f711c",
+  "ci_run": "https://github.com/pabloxrl/mtg-lab/actions/runs/38375028486",
+  "ci_conclusion": "cancelled",
+  "reason": "verify-checks exceeded the unchanged 30-minute job limit; debug, release and runtime passed",
+  "repair": "Retain and reuse the independently validated opening; clone only the mutated source record. Complete source validation, every source-derived fixture, full compared prefix, assertion and negative control remain. Shivan diagnostic stops its second read at the already-required boundary after complete source validation. No CI/policy/timeout change.",
+  "before": {
+    "gc_enabled": true,
+    "seconds": 85.39706030501111,
+    "passed": true,
+    "gc_stats": [
+      {
+        "collections": 40347,
+        "collected": 212,
+        "uncollectable": 0
+      },
+      {
+        "collections": 3666,
+        "collected": 0,
+        "uncollectable": 0
+      },
+      {
+        "collections": 95,
+        "collected": 122,
+        "uncollectable": 0
+      }
+    ]
+  },
+  "after": {
+    "gc_enabled": true,
+    "seconds": 48.16829497501021,
+    "passed": true,
+    "gc_stats": [
+      {
+        "collections": 20392,
+        "collected": 212,
+        "uncollectable": 0
+      },
+      {
+        "collections": 1852,
+        "collected": 0,
+        "uncollectable": 0
+      },
+      {
+        "collections": 84,
+        "collected": 59,
+        "uncollectable": 0
+      }
+    ]
+  },
+  "fifteen_casting_ability_tests": {
+    "passed": 15,
+    "seconds": 85.837
+  },
+  "timing_scope": "Local diagnostic runs under the same shared heavy lock with normal cyclic GC, not corpus/native speed qualification or a substitute for required CI. The GC-disabled experiment was slower and discarded.",
+  "red": "The added retained-opening assertion failed before implementation; it and independent opening equality then passed.",
+  "retained_logs": {
+    "ci-checks-timeout.log": "1f06d65a1f0887c94eb1d5768ca7a629f8b4bf2a9c33b760a5e67ab8d6ad8151",
+    "opening-reuse-red.log": "3d31180abeb1a5f5392f4075027cdfcf1fcbe8c57577f5c0f38c501c3dd9f606",
+    "python-performance.log": "998ce51df907293b9352c6cda0242fa59e16fd54868c94d04a2a629d15f99e6e",
+    "python-performance-final.log": "5967a83f906df23327714e00b7776d2eecec9ebdcfd35104493756e229c251e2",
+    "python-performance-repaired.log": "a4f1dd31c0b1830cc8602ba78aff466911749f34d5aad081344c9ccadc623edf"
+  },
+  "assertion_inventory": {
+    "tests/test_forge_casting.py": {
+      "before_assertion_calls": 35,
+      "after_assertion_calls": 37,
+      "original_assertion_ast_preserved": true
+    },
+    "tests/test_forge_abilities.py": {
+      "before_assertion_calls": 41,
+      "after_assertion_calls": 41,
+      "original_assertion_ast_preserved": true
+    }
+  },
+  "unchanged_gameplay_outputs": [
+    {
+      "case": "cyclops",
+      "identical": true,
+      "sha256": {
+        "forge.json": "27246ae89adf7519df7c7fd52051a6d0ba1fbf903db739cefb2fa7e34f946449",
+        "native.json": "28772ac3f212818b0a1882f1aebcc8b9e35830831916671706446acd8c62db2f",
+        "native-fixture.json": "95dc94b17b39026ca80cd78f353ded2104db2b15b31caa1e80c71732878525c0"
+      }
+    },
+    {
+      "case": "mana-druid",
+      "identical": true,
+      "sha256": {
+        "forge.json": "9acaf7d777ee636defef375fa4e72d27a69b8b38b96eff987a9cc1a519105e9d",
+        "native.json": "f2067fccfbcb99517087724710d6bc5fa50e3450e9a4c7872922b160ef42bdd2",
+        "native-fixture.json": "3a35f316f8d2c1e8d7de4911d8f53f0725e6f8f8e9fd14d321a672f149e919d1"
+      }
+    },
+    {
+      "case": "multiple-triggers",
+      "identical": true,
+      "sha256": {
+        "forge.json": "25629f98f66e232a21c6f860ea1ef11bf80f17a043f731a1f1e5c01c18867538",
+        "native.json": "89e3d4ae6dbd9ecba118e4cde1a5fda465b038422eb5dc821c91f95c2d3a7d9e",
+        "native-fixture.json": "3f9d49c6325167fe5ece1ab3c4fa02ed17dc07c17b5c2e43921a077a3b6921cd"
+      }
+    },
+    {
+      "case": "invoker",
+      "identical": true,
+      "sha256": {
+        "forge.json": "ddaaf342d4e6f4add54d0418562a7255d19c8a37b1aaf9ed2292edff2558e288",
+        "native.json": "007cba61a235fbf31b256e6c060ff2a0121ce61db21a24dcdf49fc0362032ce4",
+        "native-fixture.json": "dbd0f967155ce4ab9f1438b1012d10203f25ab92e174a178b1606f717f5f50fd"
+      }
+    }
+  ]
+}
