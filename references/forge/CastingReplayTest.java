@@ -77,6 +77,8 @@ public class CastingReplayTest extends CardMockTestCase {
         }
         Path output=Path.of(System.getProperty("mtglab.output"));
         MtgCastingReplay.castExecutor=(p,sa)->ComputerUtil.handlePlayingSpellAbility(p,sa,null);
+        MtgCastingReplay.triggerStackExecutor=(p,sa)->ComputerUtil.playStack(sa,p,game);
+        MtgCastingReplay.triggerResolveExecutor=(p,sa)->ComputerUtil.playNoStack(p,sa,game,true);
         MtgCastingReplay.costFactory=(p,sa)->new AiCostDecision(p,sa,false,true);
         MtgCastingReplay.open(game,Path.of(System.getProperty("mtglab.input")));
         MyRandom.setRandom(new MtgCastingReplay.RecordedRandom());
@@ -96,5 +98,13 @@ public class CastingReplayTest extends CardMockTestCase {
         assertTrue(reached,"must reach exact casting endpoint");
         assertFalse(game.isGameOver(),"prefix cannot count as complete game");
         MtgCastingReplay.finish(output);
+        if (Boolean.getBoolean("mtglab.abilities")) {
+            MyRandom.setRandom(new java.util.Random(0));
+            AuthoredAbilities.verify();
+            JsonObject result = JsonParser.parseString(Files.readString(output)).getAsJsonObject();
+            result.addProperty("authored_apnap_departure_cases", 4);
+            result.addProperty("authored_ai_quota", 0);
+            Files.writeString(output, result.toString());
+        }
     }
 }

@@ -7,12 +7,14 @@ import forge_opening as opening
 
 STEPS = dict(UPKEEP='upkeep', DRAW='draw', MAIN1='precombat_main',
              COMBAT_BEGIN='begin_combat', COMBAT_DECLARE_ATTACKERS='declare_attackers',
+             COMBAT_DECLARE_BLOCKERS='declare_blockers',
              COMBAT_END='end_combat', MAIN2='postcombat_main', END_OF_TURN='end_turn')
 COLORS = {1: 0, 2: 1, 4: 2, 8: 3, 16: 4, 0: 5}
 
 
 def fixture(converted, opening_native):
-    opening.need(converted['endpoint']['method'] not in
+    abilities = converted.get('scope') == 'abilities-prefix'
+    opening.need(abilities or converted['endpoint']['method'] not in
                  ('orderAndPlaySimultaneousSa', 'orderSimultaneousSa', 'playTrigger'),
                  converted['endpoint']['index'], 'unsupported pending triggers')
     bindings = {int(k): v for k, v in converted['bindings'].items()}
@@ -22,12 +24,23 @@ def fixture(converted, opening_native):
     action_count = 0
     creation_count = 0
     declared = set()
+    trigger_keys = {}
+    activation_keys = {}
+    witnessed_incarnations = {}
+    trigger_event = 0
+    in_trigger_batch = False
 
     def identity(card):
         return bindings[card['id']]
 
     def ref(card):
-        return dict(source=identity(card), incarnation=incarnations[identity(card)])
+        if abilities:
+            key = (card['id'], card['timestamp'])
+            opening.need(key in witnessed_incarnations, card['id'], 'unwitnessed source incarnation')
+            incarnation = witnessed_incarnations[key]
+        else:
+            incarnation = incarnations[identity(card)]
+        return dict(source=identity(card), incarnation=incarnation)
 
     def mode(ability, cursor):
         if ability['api'] != 'Charm':
@@ -44,18 +57,19 @@ def fixture(converted, opening_native):
         value = dict(sequence=action_count, turn=state['turn'], step=STEPS[state['phase']],
                      actor=row['actor']['player_id'], kind=kind, source=None,
                      incarnation=None, color=None, role=None, mode=None)
+        if abilities:
+            value.update(order=None, player=None)
         if card is not None:
             value.update(ref(card))
         value.update(kwargs)
         ops.append(dict(source_cursor=row['index'], action=value))
         action_count += 1
 
-    def point(row):
+    def track(row):
         nonlocal creation_count
         s = row['state']
-        opening.need(not s['pending_triggers'], row['index'], 'unsupported pending triggers')
         cards = [c for p in s['players'] for cs in p['zones'].values() for c in cs]
-        cards += [a['host'] for a in s['stack']]
+        cards += [a['host'] for a in s['stack'] if a['spell']]
         born = {c['id']: c for c in cards if c['id'] not in bindings}
         for ordinal, card in enumerate(sorted(born.values(), key=lambda c: c['id'])):
             opening.need(card['token'] and card['name'] == 'Goblin Token' and card['zone'] == 'Battlefield',
@@ -71,6 +85,14 @@ def fixture(converted, opening_native):
             if name in zones and zones[name] != zone:
                 incarnations[name] += 1
             zones[name] = zone
+            if abilities:
+                witnessed_incarnations[(card['id'], card['timestamp'])] = incarnations[name]
+        return cards
+
+    def point(row):
+        s = row['state']
+        opening.need(not s['pending_triggers'], row['index'], 'unsupported pending triggers')
+        cards = track(row)
         ps = s['players']
         per, effects = {}, {}
         for card in cards:
@@ -88,13 +110,42 @@ def fixture(converted, opening_native):
                 amounts = [sum(cell[2][i] for cell in card['pt_boosts']) for i in (0, 1)]
                 if amounts != [0, 0]:
                     effects[identity(card)] = amounts
-            opening.need(not card['keyword_changes'], row['index'], 'unsupported keyword grant')
+            for change in card['keyword_changes']:
+                grant = change[2]
+                opening.need(abilities and len(change) == 3 and
+                             set(grant) == {'added', 'removed', 'remove_all'} and
+                             grant['added'] and set(grant['added']) <= {'Haste', 'Trample'} and
+                             not grant['removed'] and not grant['remove_all'],
+                             row['index'], 'unsupported keyword grant')
         mana = [[0] * 6 for _ in ps]
         for i, p in enumerate(ps):
             for lot in p['mana']:
                 mana[i][COLORS[lot['color']]] += 1
         stack = []
         for ability in reversed(s['stack']):
+            if abilities and ability['trigger']:
+                opening.need(ability['id'] in trigger_keys, row['index'], 'unwitnessed trigger')
+                targets = ability['targets']
+                opening.need(len(targets) <= 1 and all('player_id' in t['target'] for t in targets),
+                             row['index'], 'unsupported trigger target')
+                stack.append(dict(ability='trigger', key=trigger_keys[ability['id']],
+                                  controller=ability['actor']['player_id'],
+                                  target=targets[0]['target']['player_id'] if targets else None,
+                                  source_card=identity(ability['host']).split('/')[1]))
+                continue
+            if abilities and not ability['spell']:
+                kinds = {'Shivan Dragon': 'power', 'Wildheart Invoker': 'invoker',
+                         'Axgard Cavalry': 'haste'}
+                opening.need(ability['host']['name'] in kinds and not ability['mana_ability'],
+                             row['index'], 'unsupported stack activation')
+                targets = ability['targets']
+                opening.need(len(targets) <= 1, row['index'], 'activation target count')
+                opening.need(ability['id'] in activation_keys, row['index'], 'unwitnessed activation')
+                retained = activation_keys[ability['id']]
+                opening.need(identity(ability['host']) == retained['source'], row['index'],
+                             'activation source identity')
+                stack.append(dict(retained, ability=kinds[ability['host']['name']]))
+                continue
             opening.need(ability['spell'], row['index'], 'unsupported stack ability')
             targets = []
             api = ability['api']
@@ -114,6 +165,23 @@ def fixture(converted, opening_native):
                         stack=stack, effects=effects)
         ops.append(dict(source_cursor=row['index'], checkpoint=expected))
 
+    def payments(row, committed, activation=False):
+        cursor = row['index']
+        sources = committed['paying_mana_abilities']
+        lots = committed['paying_mana']
+        opening.need(len(sources) == len(lots), cursor,
+                     'unsupported floating or multi-unit mana payment')
+        for source, lot in zip(sources, lots, strict=True):
+            opening.need(source['id'] == lot['source_ability'] and
+                         source['host']['id'] == lot['source']['id'] and
+                         source['host']['name'] in (('Forest', 'Mountain', 'Llanowar Elves', 'Druid of the Cowl')
+                                                  if abilities else ('Forest', 'Mountain')) and
+                         not lot['restricted'] and not lot['restrictions'] and
+                         not lot['extra_restrictions'], cursor,
+                         'unsupported mana source/payment order')
+            action(row, 'tap_mana', source['host'])
+            action(row, 'activation_pay' if activation else 'pay', color=COLORS[lot['color']])
+
     cursor = converted['checkpoint_sources'][-1]
     while cursor < len(rows):
         row = rows[cursor]
@@ -124,6 +192,7 @@ def fixture(converted, opening_native):
         end = paired[row['index']]
         leave = rows[end]
         if method == 'chooseSpellAbilityToPlay':
+            in_trigger_batch = False
             state = row['state']
             if state['phase'] == 'COMBAT_DECLARE_ATTACKERS' and state['turn'] not in declared:
                 action(dict(row, actor=state['active']), 'empty_attackers')
@@ -136,6 +205,35 @@ def fixture(converted, opening_native):
             host = ability['host']
             if 'Land' in host['types']:
                 action(row, 'play_land', host)
+            elif abilities and not ability['spell']:
+                committed = leave['arguments'][0]
+                if ability['mana_ability']:
+                    opening.need(host['name'] in ('Llanowar Elves', 'Druid of the Cowl'),
+                                 cursor, 'unsupported standalone mana source')
+                    action(row, 'tap_mana', host)
+                else:
+                    opening.need(host['name'] in ('Shivan Dragon', 'Wildheart Invoker', 'Axgard Cavalry'),
+                                 cursor, 'unsupported activation definition')
+                    action(row, 'activate', host)
+                    before_ids = {a['id'] for a in row['state']['stack']}
+                    added = [a for a in leave['state']['stack'] if a['id'] not in before_ids]
+                    opening.need(len(added) == 1 and not added[0]['spell'] and
+                                 not added[0]['trigger'] and added[0]['host']['id'] == host['id'],
+                                 cursor, 'committed activation stack identity')
+                    # Forge clears the reusable activation's targets after making
+                    # its stack copy. The committed stack entry retains the choice.
+                    targets = added[0]['targets']
+                    opening.need(len(targets) == (0 if host['name'] == 'Shivan Dragon' else 1),
+                                 cursor, 'activation target count')
+                    opening.need([ref(t['target']) for t in targets] ==
+                                 [ref(t['target']) for t in ability['targets']],
+                                 cursor, 'committed activation targets')
+                    for target in targets:
+                        action(row, 'activation_target', target['target'])
+                    activation_keys[added[0]['id']] = dict(
+                        **ref(host), target=ref(targets[0]['target']) if targets else None)
+                    payments(row, committed, activation=True)
+                    action(row, 'finish_activation')
             else:
                 opening.need(ability['spell'], cursor, 'unsupported activation')
                 action(row, 'cast', host)
@@ -165,20 +263,50 @@ def fixture(converted, opening_native):
                     action(row, 'finish_targets')
                 else:
                     opening.need(ability['api'] in ('PermanentCreature', 'Charm', 'Draw', 'Token'), cursor, 'unsupported spell')
-                sources = committed['paying_mana_abilities']
-                lots = committed['paying_mana']
-                opening.need(len(sources) == len(lots), cursor,
-                             'unsupported floating or multi-unit mana payment')
-                for source, lot in zip(sources, lots, strict=True):
-                    opening.need(source['id'] == lot['source_ability'] and
-                                 source['host']['id'] == lot['source']['id'] and
-                                 source['host']['name'] in ('Forest', 'Mountain') and
-                                 not lot['restricted'] and not lot['restrictions'] and
-                                 not lot['extra_restrictions'], cursor,
-                                 'unsupported mana source/payment order')
-                    action(row, 'tap_mana', source['host'])
-                    action(row, 'pay', color=COLORS[lot['color']])
+                payments(row, committed)
                 action(row, 'finish_payment')
+        elif abilities and method == 'orderAndPlaySimultaneousSa':
+            track(row)
+            # CR 603.3b: each controller chooses their own bottom-to-top order.
+            # The real engine determines which APNAP controller acts next.
+            orders = [rows[paired[r['index']]]['result'] for r in rows[cursor:end]
+                      if r.get('method') == 'orderSimultaneousSa']
+            opening.need(len(orders) == 1, cursor, 'one explicit trigger order')
+            requested = orders[0]
+            available = row['arguments'][0]
+            opening.need(sorted(a['id'] for a in requested) == sorted(a['id'] for a in available)
+                         and len({a['id'] for a in requested}) == len(requested),
+                         cursor, 'trigger order permutation')
+            if not in_trigger_batch:
+                event = trigger_event
+                trigger_event += 1
+                in_trigger_batch = True
+            kinds = {'Firebrand Archer': 'archer', 'Crackling Cyclops': 'cyclops',
+                     'Viashino Pyromancer': 'pyromancer'}
+            keys = []
+            for a in requested:
+                opening.need(a['trigger'] and a['host']['name'] in kinds,
+                             cursor, 'unsupported trigger definition')
+                key = dict(**ref(a['host']), ability=kinds[a['host']['name']], event=event)
+                trigger_keys[a['id']] = key
+                keys.append(key)
+            action(row, 'order_triggers', order=keys)
+            preparation = [r['arguments'][1] for r in rows[cursor:end]
+                           if r.get('method') == 'cost.visit' and r['arguments'][1]['trigger']]
+            opening.need(sorted(a['id'] for a in preparation) == sorted(a['id'] for a in requested),
+                         cursor, 'exact prepared trigger choices')
+            prepared = {a['id']: a for a in preparation}
+            for requested_ability in requested:
+                opening.need(requested_ability['id'] in prepared, cursor, 'prepared trigger choice')
+                a = prepared[requested_ability['id']]
+                if a['targets']:
+                    opening.need(len(a['targets']) == 1 and 'player_id' in a['targets'][0]['target'],
+                                 cursor, 'unsupported trigger target')
+                    action(row, 'target_player', player=a['targets'][0]['target']['player_id'])
+        elif abilities and method == 'playSpellAbilityNoStack':
+            # Wrapped trigger resolution is already caused by the recorded
+            # consecutive priority passes; it creates no extra native action.
+            opening.need(row['arguments'][0]['trigger'], cursor, 'unsupported no-stack effect')
         elif method == 'declareAttackers':
             opening.need(not leave['state']['combat'], cursor, 'unsupported nonempty combat')
             action(row, 'empty_attackers')
@@ -187,6 +315,6 @@ def fixture(converted, opening_native):
             opening.need(False, cursor, 'unsupported native callback ' + method)
         cursor = end + 1
     point(converted['endpoint'])
-    return dict(schema_version=1, complete_game=False, source_sha256=converted['source_sha256'],
+    return dict(schema_version=2 if abilities else 1, complete_game=False, source_sha256=converted['source_sha256'],
                 opening=opening_native, operations=ops, actions=action_count,
                 endpoint=converted['endpoint']['index'], remainder=converted['remainder'])

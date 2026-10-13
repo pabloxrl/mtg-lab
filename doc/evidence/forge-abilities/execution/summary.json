@@ -1,0 +1,1042 @@
+{
+  "schema_version": 1,
+  "source_prefixes": 4,
+  "ability_positive_runs": 8,
+  "preserved_casting_positive_runs": 2,
+  "live_negative_controls": 18,
+  "complete_games": 0,
+  "admitted_games": 0,
+  "ai_quota": 0,
+  "repeat_equality": [
+    {
+      "case": "cyclops",
+      "identical": true,
+      "sha256": {
+        "forge.json": "27246ae89adf7519df7c7fd52051a6d0ba1fbf903db739cefb2fa7e34f946449",
+        "native.json": "28772ac3f212818b0a1882f1aebcc8b9e35830831916671706446acd8c62db2f",
+        "native-fixture.json": "95dc94b17b39026ca80cd78f353ded2104db2b15b31caa1e80c71732878525c0",
+        "casting.json": "e8fb301e23fe0bb7f574bf3c578fba7d08af7e9819193aa5c7b0959e733c13b8"
+      }
+    },
+    {
+      "case": "mana-druid",
+      "identical": true,
+      "sha256": {
+        "forge.json": "9acaf7d777ee636defef375fa4e72d27a69b8b38b96eff987a9cc1a519105e9d",
+        "native.json": "f2067fccfbcb99517087724710d6bc5fa50e3450e9a4c7872922b160ef42bdd2",
+        "native-fixture.json": "3a35f316f8d2c1e8d7de4911d8f53f0725e6f8f8e9fd14d321a672f149e919d1",
+        "casting.json": "adc91924527a941e7360666502653e4d743728abf2d1cb319ce8d5dfe75e9387"
+      }
+    },
+    {
+      "case": "multiple-triggers",
+      "identical": true,
+      "sha256": {
+        "forge.json": "25629f98f66e232a21c6f860ea1ef11bf80f17a043f731a1f1e5c01c18867538",
+        "native.json": "89e3d4ae6dbd9ecba118e4cde1a5fda465b038422eb5dc821c91f95c2d3a7d9e",
+        "native-fixture.json": "3f9d49c6325167fe5ece1ab3c4fa02ed17dc07c17b5c2e43921a077a3b6921cd",
+        "casting.json": "9c7ad5f7ca419ce0b42dd58c11f57dd51e595b8537de6b47eb5b11ae1b688f48"
+      }
+    },
+    {
+      "case": "invoker",
+      "identical": true,
+      "sha256": {
+        "forge.json": "ddaaf342d4e6f4add54d0418562a7255d19c8a37b1aaf9ed2292edff2558e288",
+        "native.json": "007cba61a235fbf31b256e6c060ff2a0121ce61db21a24dcdf49fc0362032ce4",
+        "native-fixture.json": "dbd0f967155ce4ab9f1438b1012d10203f25ab92e174a178b1606f717f5f50fd",
+        "casting.json": "59af201f11c67804786f35c40655cdb1f0da9cd622e304de9e8aa8bac45f3dc4"
+      }
+    }
+  ],
+  "runs": [
+    {
+      "name": "activation-payment",
+      "status": "negative-detected",
+      "source_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "negative_control": "activation-payment",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/activation-payment/casting.json.gz",
+          "uncompressed_sha256": "11d3f6354306ab0b93f6564fe9e3a6fa8d78f8ecffec2c3f4ecdd92d3c75cd7d",
+          "sha256": "39413e9747aa5164ec77bfe7b338de7ff6d777e035ca6c4ca103b7c55ff04c8f",
+          "bytes": 5143322
+        },
+        "forge.json": {
+          "path": "execution/activation-payment/forge.json.gz",
+          "uncompressed_sha256": "6106aec59bd8317de7af4b37943d067e962eebe6cdf8888341d4d95178d99fb8",
+          "sha256": "96137a6aad759193a88393918360678ec4bdeae5ce40fb1a28c43fee583a0804",
+          "bytes": 115
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "activation-target",
+      "status": "negative-detected",
+      "source_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "negative_control": "activation-target",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/activation-target/casting.json.gz",
+          "uncompressed_sha256": "db70c68d663249200e4a2c836e929dbc0db13ee4da5d500bc5ae7eb27a4b54a5",
+          "sha256": "5aa8f06dc7d3ee28c392b8233106c08d9894e6d551e5aad4d8888e447d756066",
+          "bytes": 5143320
+        },
+        "forge.json": {
+          "path": "execution/activation-target/forge.json.gz",
+          "uncompressed_sha256": "3de59771b707e1c01afc18846d0a5bd3bfe9d6a5e8a0e4e9e01de48d87bd6e3f",
+          "sha256": "d3fe6c236c6a8965c092730c21324449a78ca7446e59c21bb121e2e9205eff24",
+          "bytes": 120
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-callback-order",
+      "status": "negative-detected",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "callback-order",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-callback-order/casting.json.gz",
+          "uncompressed_sha256": "d426d95366c366ea48d8abbb37f159a2ca34f3a324ff261c2eb6fad390060b52",
+          "sha256": "4d68e23eb42ff956ca4b264f22f5ed271a0f4353ea9b8d6446753070d7169982",
+          "bytes": 1198118
+        },
+        "forge.json": {
+          "path": "execution/casting-callback-order/forge.json.gz",
+          "uncompressed_sha256": "4220b6bc812cfb0fc55fe5f4d82d6a9cfa52383288638d150eb33705c9a13445",
+          "sha256": "5cdcbb071985fe16bf1f239f000103153274f7e0f7d6cf220eb926cc0d658ce3",
+          "bytes": 113
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-discard",
+      "status": "negative-detected",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": "discard",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-discard/casting.json.gz",
+          "uncompressed_sha256": "7695377c1624ac5b596df9f507ab6aa45641f3e62ccb70c81af86de815662acc",
+          "sha256": "e7a37630dd03528854469907d00d49386aa9885efcba8864198345488a16129a",
+          "bytes": 2663461
+        },
+        "forge.json": {
+          "path": "execution/casting-discard/forge.json.gz",
+          "uncompressed_sha256": "3e56c38224ab83fb7ef005fb77d07bc640b43a3009b0da19f6eef61866564256",
+          "sha256": "0f42bdd75e8207046b7c66f5c1679601ea2a2c4fbc942d53162674098991148d",
+          "bytes": 141
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-effect-amount",
+      "status": "negative-detected",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "effect-amount",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-effect-amount/casting.json.gz",
+          "uncompressed_sha256": "714b0236006ce024403c683cbc5dd21614d3bf91e1cf0d128204374f33301b34",
+          "sha256": "43e235d14e3c32dbaf78e96415ea91946d3304ce6d03f894e42afbcf3d32f344",
+          "bytes": 1198122
+        },
+        "forge.json": {
+          "path": "execution/casting-effect-amount/forge.json.gz",
+          "uncompressed_sha256": "6ad35cd44803eaf1947277ea88c342dddb7cb3ebccdf6db520e4db3512dcde33",
+          "sha256": "eb192cb474f3d809a570149cd0bdd5228fedd1db8524cda6692fb47c968cd92a",
+          "bytes": 152
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-mode",
+      "status": "negative-detected",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": "mode",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-mode/casting.json.gz",
+          "uncompressed_sha256": "3bcd1727ef34c7a83ee74870272993f7989cbdbe43b5739086323fa51812c497",
+          "sha256": "43a5ddac78e36298def293707971bd0601ebb9018a155b9fb1488c70bf6b124c",
+          "bytes": 2663453
+        },
+        "forge.json": {
+          "path": "execution/casting-mode/forge.json.gz",
+          "uncompressed_sha256": "8d10a7889dc046d607fc2477ed8d993529840cb44892830e3eff8cee46db5d47",
+          "sha256": "338dd9033127a67795f08fe8a44b09fdee1bfd6bfa13027b6e540d080929b5a1",
+          "bytes": 115
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-pass-actor",
+      "status": "negative-detected",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "pass-actor",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-pass-actor/casting.json.gz",
+          "uncompressed_sha256": "e0556d78c21bbd3a53c76c4a727d8fed6d38bc9e213cb15761ca7323fbbce6b1",
+          "sha256": "93e98095e8bc6fd3bdcd231fcda2c61bafdc466afa5760b2ef69943854db19bf",
+          "bytes": 1198118
+        },
+        "forge.json": {
+          "path": "execution/casting-pass-actor/forge.json.gz",
+          "uncompressed_sha256": "0682c3f0a4fd5cc33b1559efc37f200d98f60478186e2310ee9a6cf2463328af",
+          "sha256": "5113c00e756078207433541f5d7a4722f5dd8cbd23dca069869b36ec68c05fc8",
+          "bytes": 117
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-payment",
+      "status": "negative-detected",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "payment",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-payment/casting.json.gz",
+          "uncompressed_sha256": "7ba0d94926fb3eeb3d7bf0423a0df227b257328c9a35ce2d44f53371e440bed5",
+          "sha256": "66062e8452fbd0b851f5b14fe27a9534f029138003848192762636fa6d10be58",
+          "bytes": 1198118
+        },
+        "forge.json": {
+          "path": "execution/casting-payment/forge.json.gz",
+          "uncompressed_sha256": "1570f1d2db69defdd55a7f30074d930ba8fbcc0c3fd01b64f98fdcaa303c0619",
+          "sha256": "f2ad77a796f64fabfbee2a65b49031154d56c3e4d17b2f0d80608a84dea175c7",
+          "bytes": 114
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-response",
+      "status": "casting-prefix-agreed",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-response/casting.json.gz",
+          "uncompressed_sha256": "c0c3c751bac2ed7058e3fd8bc4687934e50c4af32e0e7ce4800a0055e6150d76",
+          "sha256": "c70905f2d5819fa1c9f88b85dc3391fb695208e9d4bd1169a28490bcb907036d",
+          "bytes": 1198118
+        },
+        "forge.json": {
+          "path": "execution/casting-response/forge.json.gz",
+          "uncompressed_sha256": "2134df2e0c8fd08e8f3c96a91ed3a7746ccdb8594c589677274d75c053746f1c",
+          "sha256": "99f54b7147ad2a0fa8cb0f50c6aa0d18a593536635794352b3f55d6a3846701f",
+          "bytes": 1927
+        },
+        "native-fixture.json": {
+          "path": "execution/casting-response/native-fixture.json.gz",
+          "uncompressed_sha256": "a74ec3053f4f96711d3d5267b22740890f8a8a537390bf27482e89bc8a3ebae4",
+          "sha256": "8d261796caac5de34dbd0f36095014538711273a0728614a1b186f9b836f957e",
+          "bytes": 7441
+        },
+        "native.json": {
+          "path": "execution/casting-response/native.json.gz",
+          "uncompressed_sha256": "64d897d31d4d2bdbf4104094f2777ef49120ad16f962ca138fe4404adfb49d3e",
+          "sha256": "cfef7d3183c1640d2d0b3bda5149b0c68a2fe4117b25ea33051f225b4bb8a37c",
+          "bytes": 9219
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 113,
+      "checkpoints": 89,
+      "endpoint": 1156,
+      "complete_game": false
+    },
+    {
+      "name": "casting-response-order",
+      "status": "negative-detected",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "response-order",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-response-order/casting.json.gz",
+          "uncompressed_sha256": "e431081f8c9e85efc8c517f2d6aa516201f10c4d9dca9d6523452b38361fb8a0",
+          "sha256": "7b97dcc5e7ed42981d32839cae0e0c2ef0deca989713e2116fed39134d950162",
+          "bytes": 1198118
+        },
+        "forge.json": {
+          "path": "execution/casting-response-order/forge.json.gz",
+          "uncompressed_sha256": "84b40e53405464fb55836f63939bc32e10f4c14b52f5c5f580830338ca545003",
+          "sha256": "d579ee430f2ee8af5f2ae7a91dbffe297054c151e05dedda44b144f5b867c97a",
+          "bytes": 116
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-target-incarnation",
+      "status": "negative-detected",
+      "source_sha256": "d10e559335a12f8bcfb6d1eaf5cfb7d982d8db71642e81ae5418953ba5a5015a",
+      "negative_control": "target-incarnation",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-target-incarnation/casting.json.gz",
+          "uncompressed_sha256": "68f0ab482cd5e4c7b878eec9ef137823615fdd99b583dc261ef335d6c9398467",
+          "sha256": "9bc50dfebd172a3f4129e78e87d4c2c537120cef9503cf974a65becac3491599",
+          "bytes": 1198126
+        },
+        "forge.json": {
+          "path": "execution/casting-target-incarnation/forge.json.gz",
+          "uncompressed_sha256": "f83782813ed8768c77d0d1b311c7009b637c63434139f2a6d1854e7ae6505502",
+          "sha256": "09d10d56c9632eceaa2e256e24fbf4b66f4cfdbcc1b4629aef1be3e02d712310",
+          "bytes": 120
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "casting-token-discard",
+      "status": "casting-prefix-agreed",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-token-discard/casting.json.gz",
+          "uncompressed_sha256": "928ecae44f3d852200927687d2060da24de3a4144723e8a7e3bbf149fcac38d3",
+          "sha256": "bc1ce32f5508f7473530baebc01871518e0e8141e2f6c1486a969bcb62c8306b",
+          "bytes": 2663455
+        },
+        "forge.json": {
+          "path": "execution/casting-token-discard/forge.json.gz",
+          "uncompressed_sha256": "97433c07b8838106c3513284a45e7bd0e8d87f222b4fa1d54211478b91b24eb5",
+          "sha256": "75ff5aaa57c1e2684dfa7f5726ee5cd5cabbc33a75116694fd5a1753fa972fa2",
+          "bytes": 1981
+        },
+        "native-fixture.json": {
+          "path": "execution/casting-token-discard/native-fixture.json.gz",
+          "uncompressed_sha256": "e68989d70e74312d91efad4ad4a5aa99a809691cd976bd16406adf60cb08e1e6",
+          "sha256": "169d9f4228ccf424787756f7875b722ca54b9fb55a55ab623998affbc80d2787",
+          "bytes": 16430
+        },
+        "native.json": {
+          "path": "execution/casting-token-discard/native.json.gz",
+          "uncompressed_sha256": "c2440b2a337d134234c928d455d830f18bd0a7d998f7047419177cf3f7f6a269",
+          "sha256": "ff8810d93c326fd4dda69f0ccc0f59fc127a9877c6ef0659813b056c85e715d6",
+          "bytes": 23723
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 254,
+      "checkpoints": 192,
+      "endpoint": 2984,
+      "complete_game": false
+    },
+    {
+      "name": "casting-token-power",
+      "status": "negative-detected",
+      "source_sha256": "1a0dcc7ace4335bf1bbaa52847528504598c393c9936cc7f931b8f8984671dd5",
+      "negative_control": "token-power",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/casting-token-power/casting.json.gz",
+          "uncompressed_sha256": "a62b5bbf0a5b1a4770e24d0ea9ae932d36e331cd6f102e5240e838e6c7b7328d",
+          "sha256": "2c466524e5b4413c94bbed45753d1400ec2139911df68468f6e1eb386de9a712",
+          "bytes": 2663451
+        },
+        "forge.json": {
+          "path": "execution/casting-token-power/forge.json.gz",
+          "uncompressed_sha256": "70881751561554218d2c0e0584d58b340d349f94ff7cb39b13682b45cca729fa",
+          "sha256": "63f60114408e16b84fa0cee57cbb8c84809976b5ab1c3a23e42b050c1feab2a0",
+          "bytes": 145
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "cyclops",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "152d75ccb72edcc0593645ad57570e22cdf256a9bd40cfc33292711e2db9b043",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/cyclops/casting.json.gz",
+          "uncompressed_sha256": "e8fb301e23fe0bb7f574bf3c578fba7d08af7e9819193aa5c7b0959e733c13b8",
+          "sha256": "4b5b207acadca65afa7523b31ab5c58de11c324dc160320a9bda8c3e1ff2caac",
+          "bytes": 2009030
+        },
+        "forge.json": {
+          "path": "execution/cyclops/forge.json.gz",
+          "uncompressed_sha256": "27246ae89adf7519df7c7fd52051a6d0ba1fbf903db739cefb2fa7e34f946449",
+          "sha256": "2f554b2d61844a5cd108a2a8250cdb6f7c86b151ca5c81f73d1fa8dc91983042",
+          "bytes": 1986
+        },
+        "native-fixture.json": {
+          "path": "execution/cyclops/native-fixture.json.gz",
+          "uncompressed_sha256": "95dc94b17b39026ca80cd78f353ded2104db2b15b31caa1e80c71732878525c0",
+          "sha256": "e075a3d61c5042e611c5bd8bd3c67887f15e8a5d6f51050d2c492e4b3497e503",
+          "bytes": 11808
+        },
+        "native.json": {
+          "path": "execution/cyclops/native.json.gz",
+          "uncompressed_sha256": "28772ac3f212818b0a1882f1aebcc8b9e35830831916671706446acd8c62db2f",
+          "sha256": "eda45592c27598c6350043ade522666ec2dc8f38a83f99d0138856f20f0fbc82",
+          "bytes": 9504
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 187,
+      "checkpoints": 145,
+      "endpoint": 2069,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "invoker",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/invoker/casting.json.gz",
+          "uncompressed_sha256": "59af201f11c67804786f35c40655cdb1f0da9cd622e304de9e8aa8bac45f3dc4",
+          "sha256": "c76b7f5d81ec4ba10284857e4bfbceef1326cd50680957e7d7ffb583432a300a",
+          "bytes": 5143319
+        },
+        "forge.json": {
+          "path": "execution/invoker/forge.json.gz",
+          "uncompressed_sha256": "ddaaf342d4e6f4add54d0418562a7255d19c8a37b1aaf9ed2292edff2558e288",
+          "sha256": "9e276de8a7bc8a236d8c33a70b81b4e30e08999545401f4c7855b46cd82cbe7b",
+          "bytes": 2360
+        },
+        "native-fixture.json": {
+          "path": "execution/invoker/native-fixture.json.gz",
+          "uncompressed_sha256": "dbd0f967155ce4ab9f1438b1012d10203f25ab92e174a178b1606f717f5f50fd",
+          "sha256": "28f32f03954e26c8ad4602808a020afb3d7c8f5f35ffb1831cfb1e95d8335411",
+          "bytes": 26212
+        },
+        "native.json": {
+          "path": "execution/invoker/native.json.gz",
+          "uncompressed_sha256": "007cba61a235fbf31b256e6c060ff2a0121ce61db21a24dcdf49fc0362032ce4",
+          "sha256": "a0a019b01033bc3620eccd886d362ce6f2340c8b104da73b532e1f3a0e261fe6",
+          "bytes": 21268
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 402,
+      "checkpoints": 283,
+      "endpoint": 8577,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "keyword-grant",
+      "status": "negative-detected",
+      "source_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "negative_control": "keyword-grant",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/keyword-grant/casting.json.gz",
+          "uncompressed_sha256": "aaddf1c5f9cd18e0a88f191da76c091a5442cb645668e0739912f5374ad7f543",
+          "sha256": "7f84becf3f934c9e9c2dc8db7ba601fd4f9d66eca7a6f35990e1ef5132d23bf9",
+          "bytes": 5143323
+        },
+        "forge.json": {
+          "path": "execution/keyword-grant/forge.json.gz",
+          "uncompressed_sha256": "c87bdaa55188d8cc23b7db9be1af757ccc41b02651c7b36b676efb6f24099569",
+          "sha256": "545c71892454f9b703f6873bf750e7d5ccac327fbe7ee1f04d7d90035bb6bab9",
+          "bytes": 176
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "mana-druid",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "6bc9ca6c87f6acd6754175ed1291142dbfdb071e9fd8fda4dbe7d4ee2192e3d3",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/mana-druid/casting.json.gz",
+          "uncompressed_sha256": "adc91924527a941e7360666502653e4d743728abf2d1cb319ce8d5dfe75e9387",
+          "sha256": "c655b0d9379487f377c9c70f6ace05ceb0b8347ef3acadc4b0cdee5102219629",
+          "bytes": 1549012
+        },
+        "forge.json": {
+          "path": "execution/mana-druid/forge.json.gz",
+          "uncompressed_sha256": "9acaf7d777ee636defef375fa4e72d27a69b8b38b96eff987a9cc1a519105e9d",
+          "sha256": "739c00a4c1563436b65d381eed587e2fcd179d1811d0f9da0a1304ecc65f19c7",
+          "bytes": 1960
+        },
+        "native-fixture.json": {
+          "path": "execution/mana-druid/native-fixture.json.gz",
+          "uncompressed_sha256": "3a35f316f8d2c1e8d7de4911d8f53f0725e6f8f8e9fd14d321a672f149e919d1",
+          "sha256": "9436651e31d880a1dea36336d1d0ab70cd1f4b41d76c0d30d4e8caf2d29675bc",
+          "bytes": 10119
+        },
+        "native.json": {
+          "path": "execution/mana-druid/native.json.gz",
+          "uncompressed_sha256": "f2067fccfbcb99517087724710d6bc5fa50e3450e9a4c7872922b160ef42bdd2",
+          "sha256": "0f750dd23dd161381f5e6d655462ee3d87cc81400026c6ed147c07d038364846",
+          "bytes": 7814
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 163,
+      "checkpoints": 127,
+      "endpoint": 1507,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "multiple-triggers",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/multiple-triggers/casting.json.gz",
+          "uncompressed_sha256": "9c7ad5f7ca419ce0b42dd58c11f57dd51e595b8537de6b47eb5b11ae1b688f48",
+          "sha256": "ddfec7413859aaa16524dcd4ab194fc2b6645bd904a4844b9bc5c8389eca2fde",
+          "bytes": 8721344
+        },
+        "forge.json": {
+          "path": "execution/multiple-triggers/forge.json.gz",
+          "uncompressed_sha256": "25629f98f66e232a21c6f860ea1ef11bf80f17a043f731a1f1e5c01c18867538",
+          "sha256": "030ec4c95bb0da04d7819963e92bd40cd1ec135742a858cd5827b79a1e8a159b",
+          "bytes": 2178
+        },
+        "native-fixture.json": {
+          "path": "execution/multiple-triggers/native-fixture.json.gz",
+          "uncompressed_sha256": "3f9d49c6325167fe5ece1ab3c4fa02ed17dc07c17b5c2e43921a077a3b6921cd",
+          "sha256": "306ec84432ee4a21d67ff2bdb5544c78e014c481b1490abe6ae45f550513c5d1",
+          "bytes": 52992
+        },
+        "native.json": {
+          "path": "execution/multiple-triggers/native.json.gz",
+          "uncompressed_sha256": "89e3d4ae6dbd9ecba118e4cde1a5fda465b038422eb5dc821c91f95c2d3a7d9e",
+          "sha256": "672a075dfb3f526cc03c552e436650ce912b5001bdfac7a7156df99718c51534",
+          "bytes": 43249
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 672,
+      "checkpoints": 511,
+      "endpoint": 7681,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "pending-trigger-source",
+      "status": "negative-detected",
+      "source_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "negative_control": "pending-trigger-source",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/pending-trigger-source/casting.json.gz",
+          "uncompressed_sha256": "5eadd394e772d7660701fea0bdf0257bcb82310eb4c22f6c572fd246a9035b07",
+          "sha256": "873a59df95539e2dcdf73362622444e59884698ac92efa90b80607617c639ac8",
+          "bytes": 5143326
+        },
+        "forge.json": {
+          "path": "execution/pending-trigger-source/forge.json.gz",
+          "uncompressed_sha256": "16de82a90fb20b7f6f50d6bb4402e80371f32fa8671aefeb218290aa60cc6ea6",
+          "sha256": "624760a6f500fcc5dd5032976cb7db8f547b382f12bde20c2fba4a61101e0b79",
+          "bytes": 124
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "repeat-cyclops",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "152d75ccb72edcc0593645ad57570e22cdf256a9bd40cfc33292711e2db9b043",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/repeat-cyclops/casting.json.gz",
+          "uncompressed_sha256": "e8fb301e23fe0bb7f574bf3c578fba7d08af7e9819193aa5c7b0959e733c13b8",
+          "sha256": "4b5b207acadca65afa7523b31ab5c58de11c324dc160320a9bda8c3e1ff2caac",
+          "bytes": 2009030
+        },
+        "forge.json": {
+          "path": "execution/repeat-cyclops/forge.json.gz",
+          "uncompressed_sha256": "27246ae89adf7519df7c7fd52051a6d0ba1fbf903db739cefb2fa7e34f946449",
+          "sha256": "2f554b2d61844a5cd108a2a8250cdb6f7c86b151ca5c81f73d1fa8dc91983042",
+          "bytes": 1986
+        },
+        "native-fixture.json": {
+          "path": "execution/repeat-cyclops/native-fixture.json.gz",
+          "uncompressed_sha256": "95dc94b17b39026ca80cd78f353ded2104db2b15b31caa1e80c71732878525c0",
+          "sha256": "e075a3d61c5042e611c5bd8bd3c67887f15e8a5d6f51050d2c492e4b3497e503",
+          "bytes": 11808
+        },
+        "native.json": {
+          "path": "execution/repeat-cyclops/native.json.gz",
+          "uncompressed_sha256": "28772ac3f212818b0a1882f1aebcc8b9e35830831916671706446acd8c62db2f",
+          "sha256": "eda45592c27598c6350043ade522666ec2dc8f38a83f99d0138856f20f0fbc82",
+          "bytes": 9504
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 187,
+      "checkpoints": 145,
+      "endpoint": 2069,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "repeat-invoker",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "29d32188dc675a3929ce1aaf0af1db33d32d9f2c0eff36810289268bfadb959d",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/repeat-invoker/casting.json.gz",
+          "uncompressed_sha256": "59af201f11c67804786f35c40655cdb1f0da9cd622e304de9e8aa8bac45f3dc4",
+          "sha256": "c76b7f5d81ec4ba10284857e4bfbceef1326cd50680957e7d7ffb583432a300a",
+          "bytes": 5143319
+        },
+        "forge.json": {
+          "path": "execution/repeat-invoker/forge.json.gz",
+          "uncompressed_sha256": "ddaaf342d4e6f4add54d0418562a7255d19c8a37b1aaf9ed2292edff2558e288",
+          "sha256": "9e276de8a7bc8a236d8c33a70b81b4e30e08999545401f4c7855b46cd82cbe7b",
+          "bytes": 2360
+        },
+        "native-fixture.json": {
+          "path": "execution/repeat-invoker/native-fixture.json.gz",
+          "uncompressed_sha256": "dbd0f967155ce4ab9f1438b1012d10203f25ab92e174a178b1606f717f5f50fd",
+          "sha256": "28f32f03954e26c8ad4602808a020afb3d7c8f5f35ffb1831cfb1e95d8335411",
+          "bytes": 26212
+        },
+        "native.json": {
+          "path": "execution/repeat-invoker/native.json.gz",
+          "uncompressed_sha256": "007cba61a235fbf31b256e6c060ff2a0121ce61db21a24dcdf49fc0362032ce4",
+          "sha256": "a0a019b01033bc3620eccd886d362ce6f2340c8b104da73b532e1f3a0e261fe6",
+          "bytes": 21268
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 402,
+      "checkpoints": 283,
+      "endpoint": 8577,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "repeat-mana-druid",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "6bc9ca6c87f6acd6754175ed1291142dbfdb071e9fd8fda4dbe7d4ee2192e3d3",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/repeat-mana-druid/casting.json.gz",
+          "uncompressed_sha256": "adc91924527a941e7360666502653e4d743728abf2d1cb319ce8d5dfe75e9387",
+          "sha256": "c655b0d9379487f377c9c70f6ace05ceb0b8347ef3acadc4b0cdee5102219629",
+          "bytes": 1549012
+        },
+        "forge.json": {
+          "path": "execution/repeat-mana-druid/forge.json.gz",
+          "uncompressed_sha256": "9acaf7d777ee636defef375fa4e72d27a69b8b38b96eff987a9cc1a519105e9d",
+          "sha256": "739c00a4c1563436b65d381eed587e2fcd179d1811d0f9da0a1304ecc65f19c7",
+          "bytes": 1960
+        },
+        "native-fixture.json": {
+          "path": "execution/repeat-mana-druid/native-fixture.json.gz",
+          "uncompressed_sha256": "3a35f316f8d2c1e8d7de4911d8f53f0725e6f8f8e9fd14d321a672f149e919d1",
+          "sha256": "9436651e31d880a1dea36336d1d0ab70cd1f4b41d76c0d30d4e8caf2d29675bc",
+          "bytes": 10119
+        },
+        "native.json": {
+          "path": "execution/repeat-mana-druid/native.json.gz",
+          "uncompressed_sha256": "f2067fccfbcb99517087724710d6bc5fa50e3450e9a4c7872922b160ef42bdd2",
+          "sha256": "0f750dd23dd161381f5e6d655462ee3d87cc81400026c6ed147c07d038364846",
+          "bytes": 7814
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 163,
+      "checkpoints": 127,
+      "endpoint": 1507,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "repeat-multiple-triggers",
+      "status": "abilities-prefix-agreed",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": null,
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/repeat-multiple-triggers/casting.json.gz",
+          "uncompressed_sha256": "9c7ad5f7ca419ce0b42dd58c11f57dd51e595b8537de6b47eb5b11ae1b688f48",
+          "sha256": "ddfec7413859aaa16524dcd4ab194fc2b6645bd904a4844b9bc5c8389eca2fde",
+          "bytes": 8721344
+        },
+        "forge.json": {
+          "path": "execution/repeat-multiple-triggers/forge.json.gz",
+          "uncompressed_sha256": "25629f98f66e232a21c6f860ea1ef11bf80f17a043f731a1f1e5c01c18867538",
+          "sha256": "030ec4c95bb0da04d7819963e92bd40cd1ec135742a858cd5827b79a1e8a159b",
+          "bytes": 2178
+        },
+        "native-fixture.json": {
+          "path": "execution/repeat-multiple-triggers/native-fixture.json.gz",
+          "uncompressed_sha256": "3f9d49c6325167fe5ece1ab3c4fa02ed17dc07c17b5c2e43921a077a3b6921cd",
+          "sha256": "306ec84432ee4a21d67ff2bdb5544c78e014c481b1490abe6ae45f550513c5d1",
+          "bytes": 52992
+        },
+        "native.json": {
+          "path": "execution/repeat-multiple-triggers/native.json.gz",
+          "uncompressed_sha256": "89e3d4ae6dbd9ecba118e4cde1a5fda465b038422eb5dc821c91f95c2d3a7d9e",
+          "sha256": "672a075dfb3f526cc03c552e436650ce912b5001bdfac7a7156df99718c51534",
+          "bytes": 43249
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      },
+      "actions": 672,
+      "checkpoints": 511,
+      "endpoint": 7681,
+      "complete_game": false,
+      "authored_rules_cases": 4,
+      "authored_ai_quota": 0
+    },
+    {
+      "name": "trigger-context",
+      "status": "negative-detected",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": "trigger-context",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/trigger-context/casting.json.gz",
+          "uncompressed_sha256": "e990e6e4785f2b13eabf447c1ea2ffe1cde8624c753e7ae79f6c8a5b5fb71203",
+          "sha256": "d2d7ab2c615b5cc25ebb7e596918407abbaf66735393f51e351723d390798016",
+          "bytes": 2295112
+        },
+        "forge.json": {
+          "path": "execution/trigger-context/forge.json.gz",
+          "uncompressed_sha256": "3656dd6a8b747ef387e9f094adca0aee006ea9c8678737dc108153c8276dbe27",
+          "sha256": "8e7be9dc64895678db428597c735499763a3d5d7c37053fe51309160baaf06ed",
+          "bytes": 131
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "trigger-order",
+      "status": "negative-detected",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": "trigger-order",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/trigger-order/casting.json.gz",
+          "uncompressed_sha256": "0b871284551c20144e8a7a78727e483ba31cbb12ff5f76cdb95464891e546ebf",
+          "sha256": "5d3c4e4c9f2cbf2e35cd85d102550251027859403adf2fbabf11d416c45dccbc",
+          "bytes": 2295177
+        },
+        "forge.json": {
+          "path": "execution/trigger-order/forge.json.gz",
+          "uncompressed_sha256": "c367bc1192b637f48bc0c871a91fd4bd037f6097aaee82d92eeece65881217cf",
+          "sha256": "72faa8e7c7e0ada5fc30656185c9cbd5e6ddc2884b2371e803f9189307b726fb",
+          "bytes": 118
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "trigger-order-reversed",
+      "status": "negative-detected",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": "trigger-order-reversed",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/trigger-order-reversed/casting.json.gz",
+          "uncompressed_sha256": "e4fef8d444984a810549b433fae8679859ad72852b6055b711c10a67dff3b4b6",
+          "sha256": "75891b556e76e31f6aea6956e1945731fab0ddc9afa712e3879018c35b568d63",
+          "bytes": 2295141
+        },
+        "forge.json": {
+          "path": "execution/trigger-order-reversed/forge.json.gz",
+          "uncompressed_sha256": "51e50bbe3fad31a73318b987efa393fd41fb74e048e694ef6331efd46a231ca2",
+          "sha256": "504c56ea52ce5d5f7fa6391d7b6aa776da0aa009d20a7d2dd0af0d58b0635902",
+          "bytes": 118
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "trigger-source",
+      "status": "negative-detected",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": "trigger-source",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/trigger-source/casting.json.gz",
+          "uncompressed_sha256": "d1493898ec47226df32b6d1ca6076a116c85312109be1a0976b9d973c61c5a6e",
+          "sha256": "092631b7b107e0eda1d6ddcaa306ede11ca30c500e74f2182d7a707d9bc02bd0",
+          "bytes": 2295145
+        },
+        "forge.json": {
+          "path": "execution/trigger-source/forge.json.gz",
+          "uncompressed_sha256": "234cff4db48045694bf7ac2c63d98bb30346886f82b04f8078fef769a27a16b6",
+          "sha256": "28fe6e5dc289698274961f3660b147132842d5f2203b554a937b37840582dec1",
+          "bytes": 117
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    },
+    {
+      "name": "trigger-target",
+      "status": "negative-detected",
+      "source_sha256": "13f696c4241dfd8265689de98b3b5bc052c61e415e4d3cae723fec9632895d5d",
+      "negative_control": "trigger-target",
+      "artifacts": {
+        "casting.json": {
+          "path": "execution/trigger-target/casting.json.gz",
+          "uncompressed_sha256": "4e2cba7936de73c7c114a99fc7c4b9bdaa91cd4a401bb568cb6a39c78a2f8ec3",
+          "sha256": "aff6b8c0980e5e2525e67bf8f5cf379c112d7222e816c22e3170229f6147b04b",
+          "bytes": 2295140
+        },
+        "forge.json": {
+          "path": "execution/trigger-target/forge.json.gz",
+          "uncompressed_sha256": "a0f2a459860b0e01058c7c8ad5490f58dd721797e6bed0006e8692fa2199c4a3",
+          "sha256": "4c3480e606277b516b3394cbc8bb7f5b43b6071d8bcf3cda9f0c2dabe21c3cbb",
+          "bytes": 142
+        }
+      },
+      "test": {
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "testcases": [
+          "castingReplay"
+        ]
+      }
+    }
+  ]
+}
