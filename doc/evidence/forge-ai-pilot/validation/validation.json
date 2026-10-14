@@ -1,0 +1,65 @@
+{
+  "manifest_sha256": "56842f623dba45edfeb4b604f3a4a7c7bdb6b260a2e3b200243065492e1662ec",
+  "status": "passed",
+  "commands": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "-m",
+        "unittest",
+        "test_forge_ai_pilot.ForgePilotAccounting",
+        "test_forge_ai_pilot.RepeatedActivationPayment",
+        "test_forge_ai_pilot.RetainedForgePilot.test_changed_artifact_or_path_cannot_reuse_execution_evidence",
+        "test_forge_ai_pilot.RetainedForgePilot.test_a_failed_attempt_cannot_disappear_from_the_published_ledger"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 8.687869382003555,
+      "log": "focused.log",
+      "log_sha256": "3c52991de6a7b283bc445cf92ffafe811fd1468057f24b287ecfe3ce3158deb0"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "scripts/check_forge_pilot.py",
+        "--native"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 142.9343756089802,
+      "log": "native-pilot.log",
+      "log_sha256": "9c435f4e501fdd1480cff499dd28bcb5ccd6611c5e63ae3c02f57a4d0a4050e7"
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "scripts/run_l0.py",
+        "--runner",
+        "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-330/target/release/mtg",
+        "--manifest",
+        "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-330/.agent-artifacts/forge-pilot/final-validation/l0-corpus/manifest.json",
+        "--manifest-sha256",
+        "bd67e4e952d8660d83377d36da931fa933b30edf32d0ed3635c9e90bc38a032d",
+        "--receipt",
+        "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-330/.agent-artifacts/forge-pilot/final-validation/l0.json"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 6.468593269994017,
+      "log": "l0.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "archive": {
+    "files": 1007,
+    "unique_objects": 773,
+    "raw_bytes": 8555263706,
+    "status": "all-original-bytes-verified"
+  },
+  "elapsed_seconds": 181.9289840880083,
+  "source_hashes": {
+    "scripts/forge_ai_pilot.py": "27564e74179fe91dc11307c9b6d58f0e3165f1389598128928e8c2993dea6032",
+    "scripts/check_forge_pilot.py": "f6c0ac12b1296acd8098ed81a602d15018e6d9f3674fd6adbedbf704780705d9",
+    "scripts/forge_casting_native.py": "677c9adb5f73e81ce67e53f6d94d1bd82061b6f3497fddf8986991a114e35b56",
+    "references/forge/MtgCastingReplay.java": "6bc6ff4691f4c4309e7b2da747a07dcae4c25f4e84d8b79ab6b9a856aad9130e",
+    "tests/test_forge_ai_pilot.py": "d849f13198906a18718cd47798fe10e503ca2fb3bdf3380e3c9f474bc9404025"
+  },
+  "l0_receipt_sha256": "3b7a5b03d9cdf92990a95e86c1515918d7170ec0407aa1fbd3629f66242805d4"
+}
