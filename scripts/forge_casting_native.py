@@ -8,12 +8,29 @@ import forge_opening as opening
 STEPS = dict(UPKEEP='upkeep', DRAW='draw', MAIN1='precombat_main',
              COMBAT_BEGIN='begin_combat', COMBAT_DECLARE_ATTACKERS='declare_attackers',
              COMBAT_DECLARE_BLOCKERS='declare_blockers',
+             COMBAT_DAMAGE='combat_damage', CLEANUP='cleanup',
              COMBAT_END='end_combat', MAIN2='postcombat_main', END_OF_TURN='end_turn')
 COLORS = {1: 0, 2: 1, 4: 2, 8: 3, 16: 4, 0: 5}
 
 
+def cleanup_selection(row, selected):
+    """CR 514.1: explicit distinct hand cards, exactly the excess above seven."""
+    state = row['state']
+    actor = row['actor']['player_id']
+    hand = state['players'][actor]['zones']['Hand']
+    count = row['arguments'][0]
+    opening.need(state['phase'] == 'CLEANUP' and state['active']['player_id'] == actor and
+                 count == len(hand)-7 and count > 0, row['index'], 'cleanup discard context/count')
+    keys = [(c['id'], c['timestamp']) for c in selected]
+    available = {(c['id'], c['timestamp']) for c in hand}
+    opening.need(len(keys) == count and len(set(keys)) == count and set(keys) <= available,
+                 row['index'], 'cleanup discard occurrences')
+    return selected
+
+
 def fixture(converted, opening_native):
-    abilities = converted.get('scope') == 'abilities-prefix'
+    full_game = converted.get('scope') == 'full-game'
+    abilities = full_game or converted.get('scope') == 'abilities-prefix'
     opening.need(abilities or converted['endpoint']['method'] not in
                  ('orderAndPlaySimultaneousSa', 'orderSimultaneousSa', 'playTrigger'),
                  converted['endpoint']['index'], 'unsupported pending triggers')
@@ -22,8 +39,12 @@ def fixture(converted, opening_native):
     paired = converted['paired']
     ops, zones, incarnations = [], {}, {v: 0 for v in bindings.values()}
     action_count = 0
+    auxiliary = dict(marked=[], cleanup_checkpoints=[])
+    marked_turns = set()
     creation_count = 0
     declared = set()
+    blocked = set()
+    blocked_creatures = set()
     trigger_keys = {}
     activation_keys = {}
     witnessed_incarnations = {}
@@ -89,9 +110,9 @@ def fixture(converted, opening_native):
                 witnessed_incarnations[(card['id'], card['timestamp'])] = incarnations[name]
         return cards
 
-    def point(row):
+    def point(row, auxiliary_kind=None):
         s = row['state']
-        opening.need(not s['pending_triggers'], row['index'], 'unsupported pending triggers')
+        opening.need(not s['pending_triggers'] or (auxiliary_kind and all(not g['triggers'] for g in s['pending_triggers'])), row['index'], 'unsupported pending triggers')
         cards = track(row)
         ps = s['players']
         per, effects = {}, {}
@@ -156,14 +177,24 @@ def fixture(converted, opening_native):
                 targets.append(dict(role=roles[i], object=ref(target['target'])))
             stack.append(dict(**ref(ability['host']), targets=targets, mode=mode(ability, row['index'])))
         expected = dict(turn=s['turn'], step=STEPS[s['phase']], active=s['active']['player_id'],
-                        actor=row['actor']['player_id'], life=[p['life'] for p in ps], mana=mana,
+                        actor=None if s['terminal'] or auxiliary_kind else row['actor']['player_id'], life=[p['life'] for p in ps], mana=mana,
                         library=[[identity(c) for c in p['zones']['Library']] for p in ps],
                         graveyard=[[identity(c) for c in p['zones']['Graveyard']] for p in ps],
                         hand=[sorted(identity(c) for c in p['zones']['Hand']) for p in ps],
                         exile=sorted(identity(c) for p in ps for c in p['zones']['Exile']),
-                        battlefield=sorted(per), permanents=per, incarnations=dict(incarnations),
+                        battlefield=sorted(per), permanents=per, incarnations={identity(c): incarnations[identity(c)] for c in cards},
                         stack=stack, effects=effects)
-        ops.append(dict(source_cursor=row['index'], checkpoint=expected))
+        if full_game:
+            expected['combat'] = [dict(attacker=ref(g['attacker']), blocked=g['attacker']['id'] in blocked_creatures,
+                blockers=[ref(b) for b in g['blockers']]) for g in (s['combat'] or [])]
+            losses = []
+            for player in ps:
+                outcome = player['outcome']
+                loss = outcome['loss'] if outcome else None
+                opening.need(loss in (None, 'LifeReachedZero', 'Milled'), row['index'], 'unsupported terminal reason')
+                losses.append({'LifeReachedZero': 'Life', 'Milled': 'EmptyDraw'}.get(loss))
+            expected['outcome'] = dict(winner=next((i for i,p in enumerate(ps) if p['outcome'] and p['outcome']['won']), None), losses=losses) if s['terminal'] else None
+        (auxiliary[auxiliary_kind] if auxiliary_kind else ops).append(dict(source_cursor=row['index'], checkpoint=expected))
 
     def payments(row, committed, activation=False):
         cursor = row['index']
@@ -186,6 +217,13 @@ def fixture(converted, opening_native):
     while cursor < len(rows):
         row = rows[cursor]
         if row['kind'] != 'enter':
+            if full_game and row['kind'] == 'boundary':
+                state = row['state']
+                if row['boundary'] == 'sba-before' and state['phase'] == 'COMBAT_DAMAGE' and state['turn'] not in marked_turns:
+                    marked_turns.add(state['turn'])
+                    point(row, 'marked')
+                elif row['boundary'] == 'sba-after' and state['phase'] == 'CLEANUP':
+                    point(row, 'cleanup_checkpoints')
             cursor += 1
             continue
         method = row['method']
@@ -197,6 +235,11 @@ def fixture(converted, opening_native):
             if state['phase'] == 'COMBAT_DECLARE_ATTACKERS' and state['turn'] not in declared:
                 action(dict(row, actor=state['active']), 'empty_attackers')
                 declared.add(state['turn'])
+            if full_game and state['phase'] == 'COMBAT_DECLARE_BLOCKERS' and state['turn'] not in blocked:
+                opening.need(all(not g['blockers'] for g in state['combat']), cursor, 'missing blocker callback')
+                opening.need(any(r.get('event') == 'GameEventBlockersDeclared' and r['state']['turn'] == state['turn'] for r in rows[:cursor]), cursor, 'missing empty blocker declaration event')
+                action(dict(row, actor=dict(player_id=1-state['active']['player_id'])), 'blockers', selection=[])
+                blocked.add(state['turn'])
             point(row)
             if leave['result'] is None:
                 action(row, 'pass')
@@ -308,13 +351,79 @@ def fixture(converted, opening_native):
             # consecutive priority passes; it creates no extra native action.
             opening.need(row['arguments'][0]['trigger'], cursor, 'unsupported no-stack effect')
         elif method == 'declareAttackers':
-            opening.need(not leave['state']['combat'], cursor, 'unsupported nonempty combat')
-            action(row, 'empty_attackers')
+            blocked_creatures.clear()
+            track(row)
+            selected = leave['state']['combat']
+            opening.need(full_game or not selected, cursor, 'unsupported nonempty combat')
+            if selected:
+                action(row, 'attackers', selection=[ref(g['attacker']) for g in selected])
+            else:
+                action(row, 'empty_attackers')
             declared.add(row['state']['turn'])
+        elif full_game and method == 'declareBlockers':
+            blocked.add(row['state']['turn'])
+            blocked_creatures.update(g['attacker']['id'] for g in leave['state']['combat'] if g['blockers'])
+            track(row)
+            action(row, 'blockers', selection=[dict(blocker=ref(b), attacker=ref(g['attacker']))
+                for g in leave['state']['combat'] for b in g['blockers']])
+        elif full_game and method == 'assignCombatDamage':
+            track(row)
+            source, blockers, _, power, defender, _ = row['arguments']
+            allocation = leave['result']
+            opening.need(sum(amount for _,amount in allocation) == power and all(amount >= 0 for _,amount in allocation), cursor, 'exact damage total')
+            opening.need(len({c['id'] if c else None for c,_ in allocation}) == len(allocation), cursor, 'duplicate damage target')
+            opening.need(all(c is None or c['id'] in {b['id'] for b in blockers} for c,_ in allocation), cursor, 'damage target')
+            groups = [g for g in row['state']['combat'] if g['attacker']['id'] == source['id']]
+            if groups and (len(blockers) > 1 or 'Trample' in source['keywords']):
+                # Forge returns a map; current CR 510 has no damage-assignment
+                # order. Bind each amount to its physical recipient and emit
+                # stable slots in the recorded blocker-list order for XMage.
+                by_target = {c['id']: n for c,n in allocation if c}
+                action(row, 'damage', selection=[dict(attacker=ref(source), amounts=[
+                    dict(target=ref(c), amount=by_target.get(c['id'], 0)) for c in blockers])])
+            else:
+                # Single-recipient nontrample assignments are forced by CR 510.1.
+                # Retain and check the recorded allocation, without inventing a
+                # native decision for a forced rules transition.
+                opening.need(len(blockers)==1 and allocation == [[blockers[0], power]], cursor, 'forced combat allocation')
+        elif full_game and method == 'orderMoveToZoneList':
+            track(row)
+            opening.need(row['arguments'][1] == 'Graveyard', cursor, 'unsupported zone order')
+            opening.need(sorted(c['id'] for c in row['arguments'][0]) == sorted(c['id'] for c in leave['result']), cursor, 'graveyard permutation')
+            # CR 111.6/404.3: tokens share the move event but never occupy
+            # positions in the ordered graveyard. The native choice contains
+            # only persistent cards; a singleton has no ordering decision.
+            cards = [c for c in leave['result'] if not c['token']]
+            if len(cards) > 1:
+                action(row, 'graveyard_order', selection=[ref(c) for c in cards], event='combat-sba/' + str(row['state']['turn']))
+        elif full_game and method == 'chooseCardsToDiscardToMaximumHandSize':
+            track(row)
+            selected = cleanup_selection(row, leave['result'])
+            action(row, 'cleanup_discard', selection=[ref(c) for c in selected])
         elif method not in ('resetAtEndOfTurn', 'autoPassCancel'):
             opening.need(False, cursor, 'unsupported native callback ' + method)
         cursor = end + 1
-    point(converted['endpoint'])
-    return dict(schema_version=2 if abilities else 1, complete_game=False, source_sha256=converted['source_sha256'],
-                opening=opening_native, operations=ops, actions=action_count,
-                endpoint=converted['endpoint']['index'], remainder=converted['remainder'])
+    endpoint = converted['endpoint']
+    if full_game:
+        endpoint = dict(endpoint, actor=endpoint['state']['active'])
+        action(endpoint, 'finish')
+    point(endpoint)
+    result = dict(schema_version=3 if full_game else 2 if abilities else 1, complete_game=full_game, source_sha256=converted['source_sha256'],
+                  opening=opening_native, operations=ops, actions=action_count,
+                  endpoint=converted['endpoint']['index'], remainder=converted['remainder'])
+    if full_game:
+        # Absolute semantic incarnations start in the initial library, before
+        # London choices. Count witnessed zone transitions, not source timestamps.
+        initial_zones, initial_incarnations = {}, {}
+        for row in rows[:converted['checkpoint_sources'][-1] + 1]:
+            for player in row.get('state', {}).get('players', []):
+                for cards in player['zones'].values():
+                    for card in cards:
+                        uid = identity(card)
+                        initial_incarnations.setdefault(uid, 0)
+                        if uid in initial_zones and initial_zones[uid] != card['zone']:
+                            initial_incarnations[uid] += 1
+                        initial_zones[uid] = card['zone']
+        result['initial_incarnations'] = initial_incarnations
+        result['auxiliary'] = auxiliary
+    return result

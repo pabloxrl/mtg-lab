@@ -95,14 +95,21 @@ public class CastingReplayTest extends CardMockTestCase {
             return;
         }
         assertNull(System.getProperty("mtglab.expectedRejection"),"malformed tape was accepted");
-        assertTrue(reached,"must reach exact casting endpoint");
-        assertFalse(game.isGameOver(),"prefix cannot count as complete game");
+        boolean full=Boolean.getBoolean("mtglab.fullGame");
+        assertEquals(reached,!full,"exact replay boundary");
+        assertEquals(game.isGameOver(),full,"rules-terminal full game or nonterminal prefix");
         MtgCastingReplay.finish(output);
         if (Boolean.getBoolean("mtglab.abilities")) {
             MyRandom.setRandom(new java.util.Random(0));
             AuthoredAbilities.verify();
             JsonObject result = JsonParser.parseString(Files.readString(output)).getAsJsonObject();
             result.addProperty("authored_apnap_departure_cases", 4);
+            if (full) {
+                AuthoredCleanup.verify();
+                AuthoredCombat.verify();
+                result.addProperty("authored_combat_cases", 1);
+                result.addProperty("authored_cleanup_cases", 1);
+            }
             result.addProperty("authored_ai_quota", 0);
             Files.writeString(output, result.toString());
         }

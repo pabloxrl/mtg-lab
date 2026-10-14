@@ -2,6 +2,7 @@ package forge.game;
 
 import com.google.gson.*;
 import forge.game.card.*;
+import forge.game.combat.*;
 import forge.game.event.Event;
 import forge.game.player.Player;
 import forge.game.zone.ZoneType;
@@ -15,7 +16,7 @@ import forge.card.mana.ManaCost;
 import java.nio.file.*;
 import java.util.*;
 
-/** Test-only strict prefix controller. Forge alone applies the game rules. */
+/** Test-only strict recorded controller. Forge alone applies the game rules. */
 public final class MtgCastingReplay {
     private static MtgCastingReplay active;
     private final Game game;
@@ -34,9 +35,12 @@ public final class MtgCastingReplay {
     private final Map<String,Long> reverseTimestamps=new HashMap<>();
     private final Map<Long,Long> effectTimestamps=new HashMap<>();
     private final Map<Long,Long> reverseEffectTimestamps=new HashMap<>();
+    private boolean fullGame() { return tape.get("scope").getAsString().equals("full-game"); }
+    private boolean abilities() { return fullGame() || tape.get("scope").getAsString().equals("abilities-prefix"); }
     private int cursor;
     private int randoms;
     private int decisions;
+    private IllegalArgumentException firstFailure;
     public static final class Endpoint extends RuntimeException { private Endpoint() { super("casting prefix endpoint"); } }
     private MtgCastingReplay(Game g, JsonObject t) { game=g; tape=t; rows=t.getAsJsonArray("prefix"); }
     // The raw observer repeats complete states at every event. Share only
@@ -77,7 +81,12 @@ public final class MtgCastingReplay {
         active.take("start");
     }
     private void require(boolean ok, String field) {
-        if (!ok) throw new IllegalArgumentException("first divergence: /forge/"+cursor+"/"+field);
+        // Upstream finally blocks may emit more boundaries while unwinding.
+        // Preserve the original semantic mismatch rather than replacing it
+        // with the resulting cursor mismatch during that later observation.
+        if (!ok && firstFailure==null)
+            firstFailure=new IllegalArgumentException("first divergence: /forge/"+cursor+"/"+field);
+        if (firstFailure!=null) throw firstFailure;
     }
     private static JsonElement inspect(Game game, Object value) {
         try {
@@ -242,6 +251,43 @@ public final class MtgCastingReplay {
             for(String key:e.keySet())if(a.has(key))bindTriggers(e.get(key),a.get(key));
         }
     }
+    /** Preserve the source's iteration schedule over identity-hashed combat bands.
+     * Only reorder the independently computed membership; never add a blocker.
+     * This pins callback order, not damage, legality, or a rules observation.
+     */
+    public static CardCollection orderedBlockers(CardCollection computed) {
+        MtgCastingReplay a=active;
+        if(a==null || !a.fullGame() || computed.isEmpty())return computed;
+        int turn=a.game.getPhaseHandler().getTurn();
+        if(a.blockerTurn!=turn) { a.blockerOrder.clear();a.blockerTurn=turn; }
+        if(a.blockerOrder.isEmpty()) {
+            for(int i=a.cursor;i<a.rows.size();i++) {
+                JsonObject row=a.rows.get(i).getAsJsonObject();
+                if(!row.has("state"))continue;
+                JsonObject state=row.getAsJsonObject("state");
+                if(state.get("turn").getAsInt()!=turn)break;
+                for(JsonElement e:state.getAsJsonArray("pending_triggers")) {
+                    JsonObject group=e.getAsJsonObject();
+                    if(!group.get("mode").getAsString().equals("BlockersDeclared"))continue;
+                    for(JsonElement param:group.getAsJsonArray("params")) {
+                        JsonArray pair=param.getAsJsonArray();
+                        if(pair.get(0).getAsString().equals("Blockers"))
+                            for(JsonElement card:pair.get(1).getAsJsonArray())a.blockerOrder.add(card.getAsJsonObject().get("id").getAsInt());
+                    }
+                    break;
+                }
+                if(!a.blockerOrder.isEmpty())break;
+            }
+            a.require(new HashSet<>(a.blockerOrder).size()==a.blockerOrder.size(),"duplicate recorded blocker schedule");
+        }
+        CardCollection ordered=new CardCollection();
+        for(int id:a.blockerOrder)for(Card card:computed)
+            if(a.cardIds.getOrDefault(card.getId(),card.getId())==id)ordered.add(card);
+        a.require(ordered.size()==computed.size(),"recorded blocker schedule membership");
+        return ordered;
+    }
+    private int blockerTurn=-1;
+    private final List<Integer> blockerOrder=new ArrayList<>();
     private void state(JsonObject row) {
         JsonObject raw=MtgRawCapture.audit(game);
         Map<Integer,JsonObject> expectedCards=new HashMap<>();
@@ -314,7 +360,7 @@ public final class MtgCastingReplay {
     public static <T> T choose(Player p,String method,Object[] args) {
         if(active==null)throw new IllegalStateException("choice outside casting replay: "+method);
         MtgCastingReplay a=active;
-        if(a.cursor==a.rows.size()) {
+        if(a.cursor==a.rows.size() && !a.fullGame()) {
             JsonObject endpoint=a.tape.getAsJsonObject("endpoint");
             a.require(method.equals(endpoint.get("method").getAsString()) &&
                 endpoint.getAsJsonObject("actor").get("player_id").getAsInt()==p.getId(),"unconsumed casting choice/endpoint");
@@ -326,7 +372,7 @@ public final class MtgCastingReplay {
         // CharmEffect clones the selected mode while announcing the spell.
         // Bind that clone's allocation ID; mode/effect contents stay compared.
         JsonArray expectedArgs=entry.getAsJsonArray("arguments");
-        if(a.tape.get("scope").getAsString().equals("abilities-prefix"))
+        if(a.abilities())
             a.bindTriggers(expectedArgs,inspect(a.game,Arrays.asList(args)));
         if(method.equals("chooseModeForAbility")) {
             List<AbilitySub> candidates=(List<AbilitySub>)args[1];
@@ -355,7 +401,7 @@ public final class MtgCastingReplay {
            method.equals("orderAndPlaySimultaneousSa") || method.equals("playSpellAbilityNoStack")) {
             Object answer;
             if(method.equals("orderAndPlaySimultaneousSa")) {
-                a.require(a.tape.get("scope").getAsString().equals("abilities-prefix"),"unsupported triggers");
+                a.require(a.abilities(),"unsupported triggers");
                 List<SpellAbility> ordered=choose(p,"orderSimultaneousSa",args);
                 for(SpellAbility sa:ordered) {
                     a.require(sa.isTrigger() && !sa.isCopied(),"unsupported trigger kind");
@@ -369,14 +415,14 @@ public final class MtgCastingReplay {
                 answer=null;
             } else if(method.equals("playSpellAbilityNoStack")) {
                 SpellAbility sa=(SpellAbility)args[0];
-                a.require(a.tape.get("scope").getAsString().equals("abilities-prefix") && sa.isTrigger() && Boolean.FALSE.equals(args[1]),"unsupported no-stack effect");
+                a.require(a.abilities() && sa.isTrigger() && Boolean.FALSE.equals(args[1]),"unsupported no-stack effect");
                 a.require(triggerResolveExecutor.play(p,sa),"trigger resolution");
                 answer=null;
             } else if(method.equals("playChosenSpellAbility")) {
                 SpellAbility sa=(SpellAbility)args[0];
                 a.require(sa.canPlay(),"illegal announced ability");
                 if(sa.isLandAbility()) { sa.resolve(); answer=true; }
-                else { a.require(sa.isSpell() || a.tape.get("scope").getAsString().equals("abilities-prefix"),"unsupported nonmana activation"); answer=castExecutor.play(p,sa); }
+                else { a.require(sa.isSpell() || a.abilities(),"unsupported nonmana activation"); answer=castExecutor.play(p,sa); }
             } else { answer=a.pay(p,args,end); }
             a.require(a.cursor==end,"unconsumed executable callback");
             JsonObject leave=a.take("leave");
@@ -393,6 +439,29 @@ public final class MtgCastingReplay {
             a.require(Set.of("enter","leave","random").contains(kind),"rules event inside AI choice");
             inner=a.take(kind);
             if(kind.equals("random")) a.require(inner.get("draw").getAsInt()==++a.randoms,"internal random order");
+        }
+        if(a.fullGame() && (method.equals("declareAttackers") || method.equals("declareBlockers"))) {
+            JsonArray declared=a.rows.get(end).getAsJsonObject().getAsJsonObject("state").getAsJsonArray("combat");
+            Combat combat=(Combat)args[1];
+            Set<Card> selected=new HashSet<>();
+            for(JsonElement e:declared) {
+                JsonObject group=e.getAsJsonObject();
+                Card attacker=a.card(group.getAsJsonObject("attacker"));
+                if(method.equals("declareAttackers")) {
+                    int defenderId=group.getAsJsonObject("defender").get("player_id").getAsInt();
+                    Player defender=a.game.getPlayers().stream().filter(q->q.getId()==defenderId).findFirst().orElseThrow();
+                    a.require(attacker.getController()==p && selected.add(attacker) && CombatUtil.canAttack(attacker,defender),"illegal attacker");
+                    combat.addAttacker(attacker,defender);
+                } else {
+                    a.require(combat.getAttackers().contains(attacker),"unknown attacking creature");
+                    for(JsonElement b:group.getAsJsonArray("blockers")) {
+                        Card blocker=a.card(b.getAsJsonObject());
+                        a.require(blocker.getController()==p && selected.add(blocker) && CombatUtil.canBlock(attacker,blocker),"illegal blocker");
+                        combat.addBlocker(attacker,blocker);
+                    }
+                }
+            }
+            a.require(method.equals("declareAttackers") ? CombatUtil.validateAttackers(combat) : CombatUtil.validateBlocks(combat,p)==null,"illegal combat declaration");
         }
         JsonObject leave=a.take("leave");
         a.require(leave.get("call").equals(entry.get("call")),"callback return");
@@ -450,9 +519,51 @@ public final class MtgCastingReplay {
                 PaymentDecision decision=new PaymentDecision(pd.get("amount").getAsInt());
                 for(JsonElement e:pd.getAsJsonArray("cards"))decision.cards.add(a.card(e.getAsJsonObject()));
                 answer=decision; break;
-            case "declareAttackers":
-                a.require(result.isJsonNull() && leave.getAsJsonObject("state").getAsJsonArray("combat").isEmpty(),"unsupported nonempty combat");
+            case "declareAttackers": case "declareBlockers":
+                a.require(result.isJsonNull() && (a.fullGame() || leave.getAsJsonObject("state").getAsJsonArray("combat").isEmpty()),"unsupported nonempty combat");
                 answer=null; break;
+            case "assignCombatDamage":
+                a.require(a.fullGame(),"unsupported combat allocation");
+                Map<Card,Integer> allocation=new LinkedHashMap<>();
+                int total=0;
+                for(JsonElement cell:result.getAsJsonArray()) {
+                    JsonArray pair=cell.getAsJsonArray();
+                    a.require(pair.size()==2,"allocation pair");
+                    Card target=pair.get(0).isJsonNull()?null:a.card(pair.get(0).getAsJsonObject());
+                    int amount=pair.get(1).getAsInt();
+                    a.require(amount>=0 && !allocation.containsKey(target) &&
+                        (target==null ? args[4]!=null : ((CardCollectionView)args[1]).contains(target)),"illegal allocation target/amount");
+                    allocation.put(target,amount);total=Math.addExact(total,amount);
+                }
+                a.require(total==((Number)args[3]).intValue(),"allocation total");
+                if(allocation.getOrDefault(null,0)>0) {
+                    Card source=(Card)args[0];
+                    a.require(source.hasKeyword("Trample"),"allocation requires trample");
+                    for(Card blocker:(CardCollectionView)args[1]) {
+                        int lethal=Math.max(0,blocker.getLethalDamage());
+                        if(source.hasKeyword("Deathtouch"))lethal=Math.min(1,lethal);
+                        a.require(allocation.getOrDefault(blocker,0)>=lethal,"allocation before trample lethal");
+                    }
+                }
+                answer=allocation;break;
+            case "orderMoveToZoneList":
+                a.require(a.fullGame() && args[1]==ZoneType.Graveyard,"unsupported zone order");
+                CardCollection orderedCards=new CardCollection();
+                for(JsonElement e:result.getAsJsonArray()) {
+                    Card c=a.card(e.getAsJsonObject());
+                    a.require(((CardCollectionView)args[0]).contains(c) && !orderedCards.contains(c),"zone order permutation");
+                    orderedCards.add(c);
+                }
+                a.require(orderedCards.size()==((CardCollectionView)args[0]).size(),"incomplete zone order");
+                answer=orderedCards;break;
+            case "chooseCardsToDiscardToMaximumHandSize":
+                a.require(a.fullGame(),"unsupported cleanup discard");
+                CardCollection discards=new CardCollection();
+                for(JsonElement e:result.getAsJsonArray()) {
+                    Card c=a.card(e.getAsJsonObject());
+                    a.require(!discards.contains(c),"duplicate cleanup discard");discards.add(c);
+                }
+                answer=cleanupDiscards(p,((Number)args[0]).intValue(),discards);break;
             case "resetAtEndOfTurn": case "autoPassCancel":
                 a.require(result.isJsonNull(),"void gameplay result"); answer=null; break;
             case "mulliganKeepHand": answer=result.getAsBoolean(); break;
@@ -476,6 +587,15 @@ public final class MtgCastingReplay {
             default: throw new IllegalArgumentException("unsupported casting choice: "+method);
         }
         return (T)answer;
+    }
+    public static CardCollection cleanupDiscards(Player player,int count,List<Card> selected) {
+        if(player.getGame().getPhaseHandler().getPhase()!=forge.game.phase.PhaseType.CLEANUP ||
+           player.getGame().getPhaseHandler().getPlayerTurn()!=player ||
+           player.getMaxHandSize()!=7 || count!=player.getCardsIn(ZoneType.Hand).size()-7 || count<=0 ||
+           selected.size()!=count || new HashSet<>(selected).size()!=count ||
+           !selected.stream().allMatch(player.getCardsIn(ZoneType.Hand)::contains))
+            throw new IllegalArgumentException("first divergence: /cleanup discard occurrences/context");
+        return new CardCollection(selected);
     }
     private Card card(JsonObject expected) {
         int id=expected.get("id").getAsInt();
@@ -552,9 +672,14 @@ public final class MtgCastingReplay {
     }
     public static void finish(Path output) throws Exception {
         MtgCastingReplay a=active;
-        a.require(a.cursor==a.rows.size() && !a.game.isGameOver(),"prefix consumption/terminal");
+        if(a.fullGame()) {
+            JsonObject finish=a.take("finish");
+            a.require(finish.get("status").getAsString().equals("complete") && finish.get("first_error").isJsonNull() &&
+                finish.get("random_count").getAsInt()==a.randoms && finish.get("record_count").getAsInt()==a.cursor,"terminal exact consumption");
+        }
+        a.require(a.cursor==a.rows.size() && a.game.isGameOver()==a.fullGame(),"prefix consumption/terminal");
         JsonObject result=new JsonObject();
-        result.addProperty("status","casting-replayed"); result.addProperty("complete_game",false);
+        result.addProperty("status","casting-replayed"); result.addProperty("complete_game",a.fullGame());
         result.addProperty("consumed_records",a.cursor); result.addProperty("consumed_random",a.randoms);
         result.addProperty("controller_choices",a.decisions); result.add("endpoint",a.tape.getAsJsonObject("endpoint").get("index"));
         result.add("remainder",a.tape.get("remainder")); result.add("state",MtgRawCapture.audit(a.game));

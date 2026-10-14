@@ -1,4 +1,4 @@
-"""Strict, nonterminal Forge casting prefixes from immutable source captures."""
+"""Strict Forge prefixes and full-game replays from immutable source captures."""
 import gzip
 import hashlib
 import json
@@ -16,7 +16,9 @@ SUPPORTED = opening.OPENING | {
 }
 
 
-def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abilities=False):
+def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abilities=False, full_game=False):
+    opening.need(not full_game or (abilities and stop_before is None), 0,
+                 'full game requires abilities and no prefix endpoint')
     result = opening.extract(path, verify_receipt=verify_receipt)
     opening.need(stop_before is None or stop_before >= result['checkpoint_sources'][-1],
                  0, 'casting endpoint before settled opening')
@@ -27,6 +29,9 @@ def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abi
     root_lines = []
     supported = SUPPORTED | ({'orderAndPlaySimultaneousSa', 'orderSimultaneousSa',
                               'playTrigger', 'playSpellAbilityNoStack'} if abilities else set())
+    if full_game:
+        supported |= {'declareAttackers', 'declareBlockers', 'assignCombatDamage',
+                      'orderMoveToZoneList', 'chooseCardsToDiscardToMaximumHandSize'}
     with gzip.open(path, 'rt') as stream:
         for index, line in enumerate(stream):
             if endpoint is not None:
@@ -39,6 +44,7 @@ def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abi
                 root_lines.append(line)
             if row['kind'] == 'enter':
                 if index == stop_before or (row['method'] not in supported and not (empty_combat and row['method'] == 'declareAttackers')):
+                    opening.need(not full_game, index, 'unsupported full-game callback: ' + row['method'])
                     opening.need(not calls, index, 'unsupported nested casting callback: ' + row['method'])
                     endpoint = row
                     remainder.update(line.encode())
@@ -50,7 +56,7 @@ def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abi
                 entry = calls.pop()
                 paired[entry['index']] = index
                 if not calls:
-                    unsupported = entry['method'] == 'declareAttackers' and bool(row['state']['combat'])
+                    unsupported = not full_game and entry['method'] == 'declareAttackers' and bool(row['state']['combat'])
                     if not abilities and entry['method'] == 'chooseSpellAbilityToPlay' and row['result']:
                         unsupported |= any(not a['spell'] and 'Land' not in a['host']['types'] for a in row['result'])
                     if unsupported:
@@ -63,6 +69,12 @@ def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abi
                         continue
                     root_lines = []
             prefix.append(row)
+    if full_game:
+        opening.need(not calls and prefix and prefix[-1]['kind'] == 'finish',
+                     len(prefix), 'missing full-game finish')
+        endpoint = prefix[-1]
+        opening.need(endpoint['status'] == 'complete' and endpoint['state']['terminal'],
+                     endpoint['index'], 'nonterminal full game')
     opening.need(endpoint is not None, len(prefix), 'missing bounded casting endpoint')
     if stop_before is not None:
         opening.need(endpoint['index'] == stop_before, len(prefix), 'requested boundary is not a supported root callback')
@@ -75,7 +87,23 @@ def extract(path, verify_receipt=True, empty_combat=False, stop_before=None, abi
     result['scope'] = 'casting-prefix'
     if abilities:
         result['scope'] = 'abilities-prefix'
+    if full_game:
+        result['scope'] = 'full-game'
+        result['complete_game'] = True
+        result['remainder']['first_record'] = len(prefix)
     return result
+
+
+COMBAT_PATH = 'forge-game/src/main/java/forge/game/combat/Combat.java'
+
+
+def combat_iteration(source):
+    start = source.index('    public final CardCollection getAllBlockers() {')
+    end = source.index('\n    }', start)
+    method = source[start:end]
+    opening.need(method.count('return result;') == 1, 0, 'blocker iteration seam')
+    return source[:start] + method.replace(
+        'return result;', 'return forge.game.MtgCastingReplay.orderedBlockers(result);') + source[end:]
 
 
 def install(cache):
@@ -84,6 +112,14 @@ def install(cache):
     import forge_ai_capture as capture
     import forge_opening_patch
     source = cache / forge.SOURCE
+    # Restore only this exact known replay patch before the capture installer's
+    # unchanged whole-source verification. Unexpected source edits still fail.
+    with tarfile.open(cache / 'forge.tar.gz') as archive:
+        original_combat = archive.extractfile(forge.SOURCE + '/' + COMBAT_PATH).read().decode()
+    combat = source / COMBAT_PATH
+    opening.need(combat.read_text() in (original_combat, combat_iteration(original_combat)),
+                 0, 'unpinned combat source')
+    combat.write_text(original_combat)
     hashes, _ = capture.install(cache)
     with tarfile.open(cache / 'forge.tar.gz') as archive:
         original = archive.extractfile(forge.SOURCE + '/' + capture.patch.CONTROLLER).read().decode()
@@ -118,21 +154,61 @@ def install(cache):
     hashes[capture.RECORDER]['modified'] = capture.sha_bytes(recorder.encode())
     for local, target in [('MtgCastingReplay.java', 'forge-game/src/main/java/forge/game/MtgCastingReplay.java'),
                           ('CastingReplayTest.java', 'forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/CastingReplayTest.java'),
-                          ('AuthoredAbilities.java', 'forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/AuthoredAbilities.java')]:
+                          ('AuthoredAbilities.java', 'forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/AuthoredAbilities.java'),
+                          ('AuthoredCleanup.java', 'forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/AuthoredCleanup.java'),
+                          ('AuthoredCombat.java', 'forge-gui-desktop/src/test/java/forge/gamesimulationtests/mtglab/AuthoredCombat.java')]:
         (source / target).write_bytes((opening.ROOT / 'references/forge' / local).read_bytes())
         hashes[target] = dict(original=None, modified=opening.xmage.sha(source / target))
+    modified = combat_iteration(original_combat)
+    combat.write_text(modified)
+    hashes[COMBAT_PATH] = dict(original=capture.sha_bytes(original_combat.encode()), modified=capture.sha_bytes(modified.encode()))
     return hashes
 
 
 NEGATIVES = ('target-incarnation', 'payment', 'pass-actor', 'callback-order',
              'response-order', 'token-power', 'effect-amount', 'mode', 'discard',
              'trigger-source', 'trigger-context', 'trigger-order', 'trigger-order-reversed', 'trigger-target', 'pending-trigger-source',
-             'activation-target', 'activation-payment', 'keyword-grant')
+             'activation-target', 'activation-payment', 'keyword-grant',
+             'combat-allocation', 'graveyard-order', 'expired-effect', 'terminal-reason')
 
 
 def corrupt(converted, fault):
     """Mutate only the validated consumer input; retain original capture bytes."""
     rows = converted['prefix']
+    if fault == 'combat-allocation':
+        entry = next(r for r in rows if r.get('method') == 'assignCombatDamage')
+        rows[converted['paired'][entry['index']]]['result'][0][1] += 1
+        return 'allocation total'
+    if fault == 'graveyard-order':
+        entry = next(r for r in rows if r.get('method') == 'orderMoveToZoneList'
+                     and sum(not c['token'] for c in r['arguments'][0]) >= 2)
+        result = rows[converted['paired'][entry['index']]]['result']
+        indices = [i for i,c in enumerate(result) if not c['token']]
+        i,j = indices[:2]
+        result[i],result[j] = result[j],result[i]
+        # The source records each individual zone-move boundary. Swapping the
+        # ordering first changes which creature remains on the battlefield,
+        # before both creatures have reached the final ordered graveyard.
+        return '/zones/Battlefield/'
+    if fault == 'terminal-reason':
+        for row in rows:
+            if row.get('state', {}).get('terminal'):
+                player = next(p for p in row['state']['players'] if p['outcome'] and p['outcome']['loss'])
+                player['outcome']['loss'] = 'Milled' if player['outcome']['loss'] != 'Milled' else 'LifeReachedZero'
+                return '/outcome/loss'
+        raise ValueError('negative control has no terminal outcome')
+    if fault == 'expired-effect':
+        previous = {}
+        for row in rows:
+            for player in row.get('state', {}).get('players', []):
+                for card in player['zones']['Battlefield']:
+                    key = (card['id'], card['timestamp'])
+                    if key in previous and not card['pt_boosts'] and row['state']['phase'] == 'CLEANUP':
+                        card['pt_boosts'] = previous[key]
+                        return '/pt_boosts/'
+                    if card['pt_boosts']:
+                        previous[key] = card['pt_boosts']
+        raise ValueError('negative control has no expired effect')
     if fault == 'pending-trigger-source':
         for row in rows:
             for group in row.get('state', {}).get('pending_triggers', []):
@@ -264,7 +340,8 @@ def run(args):
     started = time.monotonic()
     try:
         converted = extract(args.trace, empty_combat=args.empty_combat, stop_before=args.stop_before,
-                            abilities=getattr(args, 'abilities', False))
+                            abilities=getattr(args, 'abilities', False),
+                            full_game=getattr(args, 'full_game', False))
         expected = corrupt(converted, args.negative) if args.negative else None
         receipt['negative_control'] = args.negative
         (output / 'casting.json').write_text(json.dumps(converted) + '\n')
@@ -275,7 +352,7 @@ def run(args):
         receipt['implementation'] = {p: opening.xmage.sha(opening.ROOT / p) for p in (
             'scripts/forge_casting.py', 'scripts/forge_casting_native.py', 'scripts/forge_opening.py',
             'scripts/forge_opening_patch.py', 'references/forge/MtgCastingReplay.java', 'references/forge/CastingReplayTest.java',
-            'references/forge/AuthoredAbilities.java')}
+            'references/forge/AuthoredAbilities.java', 'references/forge/AuthoredCleanup.java', 'references/forge/AuthoredCombat.java')}
         receipt['native_sources'] = {str(p.relative_to(opening.ROOT)): opening.xmage.sha(p) for p in sorted((opening.ROOT / 'crates/mtg-core/src').glob('*.rs'))}
         receipt['native_sources']['Cargo.lock'] = opening.xmage.sha(opening.ROOT / 'Cargo.lock')
         source_receipt = json.loads(args.trace.with_name('receipt.json').read_text())
@@ -292,6 +369,8 @@ def run(args):
             '-Dmtglab.input=' + str(output / 'casting.json'), '-Dmtglab.output=' + str(output / 'forge.json')]
         if getattr(args, 'abilities', False):
             command.append('-Dmtglab.abilities=true')
+        if getattr(args, 'full_game', False):
+            command.append('-Dmtglab.fullGame=true')
         if expected:
             command.append('-Dmtglab.expectedRejection=' + expected)
         receipt['command'] = command
@@ -311,29 +390,34 @@ def run(args):
             opening.need(actual['status'] == 'negative-detected' and expected in actual['reason'], 0, 'live negative result')
             receipt['status'] = 'negative-detected'
         else:
-            if converted['scope'] == 'abilities-prefix':
+            if converted['scope'] in ('abilities-prefix', 'full-game'):
                 actual = json.loads((output / 'forge.json').read_text())
                 opening.need(actual.get('authored_apnap_departure_cases') == 4 and
                              actual.get('authored_ai_quota') == 0, 0,
                              'four executed authored APNAP/departure cases excluded from AI quotas')
+                if converted['scope'] == 'full-game':
+                    opening.need(actual.get('authored_cleanup_cases') == 1 and
+                                 actual.get('authored_combat_cases') == 1, 0,
+                                 'executed authored cleanup and combat cases')
             native = forge_casting_native.fixture(converted, converted['opening'])
             (output / 'native-fixture.json').write_text(json.dumps([native]) + '\n')
-            family = 'ABILITIES' if converted['scope'] == 'abilities-prefix' else 'CASTING'
+            family = 'COMBAT' if converted['scope'] == 'full-game' else 'ABILITIES' if converted['scope'] == 'abilities-prefix' else 'CASTING'
             native_env = dict(os.environ, **{'MTG_FORGE_' + family + '_INPUT': str(output / 'native-fixture.json'),
                                             'MTG_FORGE_' + family + '_OUTPUT': str(output / 'native.json')})
             opening.xmage.bounded(['cargo', 'test', '-p', 'mtg-core', '--locked', '--lib', 'captured_forge_' + family.lower() + '_strict_replay'],
                                  opening.ROOT, native_env, output / 'native.log', 300)
             native_result = json.loads((output / 'native.json').read_text())
-            opening.need(len(native_result) == 1 and native_result[0]['gameplay']['complete_game'] is False
+            opening.need(len(native_result) == 1 and native_result[0]['gameplay']['complete_game'] == converted['complete_game']
                          and len(native_result[0]['gameplay']['consumed']) == native['actions'], 0, 'native exact consumption')
-            receipt['status'] = 'abilities-prefix-agreed' if family == 'ABILITIES' else 'casting-prefix-agreed'
+            receipt['status'] = 'full-game-agreed' if family == 'COMBAT' else 'abilities-prefix-agreed' if family == 'ABILITIES' else 'casting-prefix-agreed'
+            receipt['complete_game'] = converted['complete_game']
     except (ValueError, OSError, KeyError, TypeError) as error:
         receipt.update(status='failed', error=str(error))
     receipt['elapsed_seconds'] = time.monotonic() - started
     receipt['artifacts'] = {p.name: opening.xmage.sha(p) for p in output.iterdir() if p.is_file()}
     (output / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps(dict(status=receipt['status'], error=receipt.get('error'), output=str(output))))
-    return 0 if receipt['status'] in ('casting-prefix-agreed', 'abilities-prefix-agreed', 'negative-detected') else 2
+    return 0 if receipt['status'] in ('casting-prefix-agreed', 'abilities-prefix-agreed', 'full-game-agreed', 'negative-detected') else 2
 
 
 if __name__ == '__main__':
@@ -347,4 +431,5 @@ if __name__ == '__main__':
     parser.add_argument('--empty-combat', action='store_true', help='Replay only explicit empty attacker declarations; nonempty combat remains unsupported')
     parser.add_argument('--stop-before', type=int, help='End at this exact source root callback; cannot cross an unsupported callback')
     parser.add_argument('--abilities', action='store_true', help='Include existing-pool activated and triggered choices')
+    parser.add_argument('--full-game', action='store_true', help='Require complete combat, cleanup and terminal replay (requires --abilities)')
     raise SystemExit(run(parser.parse_args()))
