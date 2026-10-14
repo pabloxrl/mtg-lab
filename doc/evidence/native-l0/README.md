@@ -156,3 +156,23 @@ also passes. This run records 4.083s cold and
 4.677s warm. The prior
 [integrated independent review](review-integrated.json) passed; the final candidate
 requires its own review, retained in the PR/workpad rather than inferred from it.
+
+Mandatory PR CI exposed stale compatibility metadata in the three fixed-profile
+fixtures: exposing the existing consumer changes `game.rs` and `opening.rs`, both
+included in the conservative snapshot engine hash. The existing combat profile
+test reproduced the `unvalidated trace or incompatible pin` failure locally.
+Only each fixture's `engine` pin is updated from
+`18e216f6f23d6acb68254cb11d0bfd6028761b30d636f83f478cc907ff494078` to
+`3a9440c1370ff21a1fe3da1fb9e2ef4bb9f80a0e28eba36e60c72047bfa46ba4`.
+All actions, checkpoints and outcomes remain byte-for-byte unchanged, with their
+[independent rules basis](../fixed-trace-profile/README.md). Strict pin rejection
+and all existing negative controls remain enabled. This correction needs fresh
+profile validation, exact-candidate review and complete PR CI before delivery.
+
+After repair, all seven Rust profile tests, four profile integration tests and
+seven batch tests pass. The [new complete receipt](run-profile-repair.json)
+passes 10/10 cold and 10/10 warm with zero failures: 9.235s cold
+and 7.498s warm. Batch tests now resolve the
+actual executable through Cargo JSON, respecting configured target directories.
+The [preceding candidate review](review-before-ci.json) is retained as history;
+the corrected candidate requires fresh review and full CI.

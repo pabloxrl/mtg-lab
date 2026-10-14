@@ -17,11 +17,15 @@ import package_l0
 class BatchReplay(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        subprocess.run(['cargo', 'build', '--locked', '--release', '-p', 'mtg-cli'], cwd=ROOT, check=True)
+        build = subprocess.run(['cargo', 'build', '--locked', '--release', '-p', 'mtg-cli',
+                                '--message-format=json'], cwd=ROOT, check=True,
+                               capture_output=True, text=True)
+        cls.runner = next(Path(row['executable']) for line in build.stdout.splitlines()
+                          if (row := json.loads(line)).get('reason') == 'compiler-artifact'
+                          and row.get('executable') and row['target']['name'] == 'mtg')
         cls.temp = tempfile.TemporaryDirectory()
         cls.addClassCleanup(cls.temp.cleanup)
         cls.manifest = package_l0.package(Path(cls.temp.name) / 'corpus')
-        cls.runner = ROOT / 'target/release/mtg'
 
     def invoke(self, manifest=None):
         path = manifest or self.manifest
