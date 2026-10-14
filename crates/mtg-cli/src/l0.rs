@@ -277,7 +277,7 @@ fn run(args: &[OsString], receipt: &mut Value) -> Result<(), String> {
             Err(error) => {
                 receipt["failed"] = json!(receipt["failed"].as_u64().unwrap() + 1);
                 let at = cursor(&error);
-                receipt["errors"].as_array_mut().unwrap().push(json!({"id":entry.id,"seed":entry.seed,"trace":entry.trace,"cursor":at,"source_cursor":at.and_then(|n|entry.source_cursors.get(n)),"first_field":error}));
+                receipt["errors"].as_array_mut().unwrap().push(json!({"id":entry.id,"seed":entry.seed,"trace":entry.trace,"cursor":at,"cursor_kind":if error.starts_with("/opening/") {"opening_checkpoint"} else {"action"},"source_cursor":if error.starts_with("/opening/") {None} else {at.and_then(|n|entry.source_cursors.get(n))},"first_field":error}));
             }
         }
     }

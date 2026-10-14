@@ -138,3 +138,13 @@ All seven batch/receipt tests pass after repair. The 52 prior source/scalar chec
 remain applicable because this repair changes only the launcher and its tests.
 Both observations remain in history; no speed/regression inference is made from
 these shared-container samples.
+
+After integrating main `cd07def7bb7d42e0c664845f16fc32905cf4c8f1`, all six
+affected Forge tests and all seven batch/receipt tests pass, with strict workspace
+Clippy. The [first integrated receipt](run-integrated-initial.json) and
+[final integrated receipt](run-integrated.json) preserve both change runs. The final
+run passes 10/10 cold and 10/10 warm, zero failures, with
+5.424s cold, 4.573s warm and
+197,788 KiB peak RSS. An additional real opening-library-order mutation
+checks failure localization: opening checkpoint indices are labeled explicitly,
+without incorrectly assigning a later action's source cursor.

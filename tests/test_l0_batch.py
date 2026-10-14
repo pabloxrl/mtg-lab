@@ -67,16 +67,18 @@ class BatchReplay(unittest.TestCase):
 
     def test_actual_checkpoint_mutation_and_unconsumed_choice(self):
         original = json.loads(self.manifest.read_text())
-        for kind in ('life', 'choice', 'chance', 'pin', 'incomplete', 'checksum'):
+        for kind in ('life', 'opening', 'choice', 'chance', 'pin', 'incomplete', 'checksum'):
             changed = copy.deepcopy(original)
             game = changed['games'][0]
-            name = game['expected'] if kind == 'life' else game['input']
+            name = game['expected'] if kind in ('life', 'opening') else game['input']
             path = self.manifest.parent / name
             saved = path.read_bytes()
             try:
                 value = json.loads(saved)
                 if kind == 'life':
                     value['points'][0]['life'][0] += 1
+                elif kind == 'opening':
+                    value['opening']['points'][0]['library'].reverse()
                 elif kind == 'chance':
                     value['cases'][0]['chance'].append(value['cases'][0]['chance'][-1])
                 elif kind == 'checksum':
@@ -102,6 +104,10 @@ class BatchReplay(unittest.TestCase):
                 self.assertEqual(receipt['successful'], 9)
                 self.assertEqual(receipt['errors'][0]['seed'], 32100)
                 self.assertTrue(receipt['errors'][0]['first_field'])
+                if kind == 'opening':
+                    self.assertEqual(receipt['errors'][0]['cursor_kind'], 'opening_checkpoint')
+                    self.assertEqual(receipt['errors'][0]['cursor'], 0)
+                    self.assertIsNone(receipt['errors'][0]['source_cursor'])
             finally:
                 path.write_bytes(saved)
 
