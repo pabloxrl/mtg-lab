@@ -104,14 +104,23 @@ has not been provisioned by this Mac setup.
 2. Add `agent-ready` to start. Only a maintainer should apply that label.
 3. Read the issue's `Agent workpad` comment for progress. `agent-running` indicates
    execution; `agent-blocked` means the issue needs a decision or intervention.
-4. Agents create a branch and PR, run checks and a separate review, and enable
-   squash auto-merge. They close the issue only after the merge commit's CI passes.
+4. Agents run focused local checks and source-specific acceptance, integrate fresh
+   main and obtain a separate exact-candidate review before pushing the PR. Complete
+   mandatory PR CI supplies final-candidate suite evidence for every changed candidate;
+   then agents enable protected squash auto-merge. They close the issue only after the merge commit's CI passes.
    Completion closes the issue and clears execution labels in one REST update;
    clearing `agent-ready` first can stop the worker before it closes the issue.
 
 Remove `agent-ready` to pause. Close as not planned to cancel. Both take effect
 on reconciliation rather than instantly; stop the service for immediate shutdown.
 Canceling does not undo a merged change. Request a revert in a new issue.
+
+Operations #348 removes the redundant blanket full-local-suite prerequisite,
+superseding older issue text/rendered prompts. Full local torture remains useful
+for failures, broad interactions, unavailable CI or acceptance not covered by CI.
+Rerun affected checks after integration changes; reuse unchanged execution evidence.
+All mandatory PR checks, full-corpus and source-specific acceptance, separate review,
+protected merge and successful exact-main CI remain required.
 
 No human PR approval is part of the workflow. Required GitHub checks enforce
 integration. The review step is a workflow requirement with recorded evidence;

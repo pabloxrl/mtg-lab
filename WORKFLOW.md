@@ -143,15 +143,26 @@ when another worker changes main. Do not use an administrative override.
 
 ## Implement, verify, review
 
+Operations #348's approved verification amendment supersedes older issue text and
+rendered prompts demanding an additional full local torture run. Complete mandatory
+PR CI on the current candidate is the final-candidate suite evidence. Before push,
+retain meaningful focused local checks, issue/source-specific acceptance and separate
+exact-candidate review. Full local torture remains useful for diagnosis, broad
+interactions, unavailable CI or acceptance that CI does not exercise; it is not a
+redundant blanket prerequisite. No test assertion, full-corpus obligation, required
+PR check, protected merge or successful exact-main CI is waived.
+
 1. Establish a reproduction or baseline and record concrete acceptance criteria.
    A feature task must deliver one independently testable change; inspect
    `doc/programs/atomic-delivery.md`. Preserve every regression in code, with
    independent expected results and minimized inputs/seeds. Do not substitute
    a fake sibling implementation for a required integration test.
-2. Implement a small coherent change and run `./scripts/torture.sh` plus issue
-   acceptance checks. After three repair/review cycles, diagnose the evidence and
+2. Implement a small coherent change and run meaningful focused local behavior,
+   regression and issue acceptance checks. After three repair/review cycles, diagnose the evidence and
    replan within the authorized scope; the count alone is not a blocker.
-3. Fetch origin/main and integrate it; resolve conflicts and rerun checks.
+3. Fetch origin/main and integrate it; resolve conflicts and rerun affected checks
+   when content changes. Every changed candidate requires passing complete PR CI;
+   reuse unchanged execution evidence instead of repeating full local suites.
 4. Commit the complete candidate and ensure the working tree is clean. Run
    `python3 scripts/symphony/review.py origin/main` for a separate read-only
    Codex review. Read `.agent-artifacts/review.json`, address all blocking findings,
@@ -160,8 +171,9 @@ when another worker changes main. Do not use an administrative override.
 5. Push the reviewed commit only to the issue branch. Open/update a PR to main with a
    concise outcome, `Related to #N` (NEVER `Fixes`/`Closes`), acceptance evidence,
    and the review JSON summary. Do not request human approval.
-6. Wait for required `verify` CI, investigate failures, and repair. Check all PR
-   feedback. Never loosen tests or modify enforcement to get the change through.
+6. Wait for all mandatory PR checks and aggregate `verify` on the exact current
+   candidate; this is the complete final-candidate suite. Investigate failures and
+   repair. Check all PR feedback. Never loosen tests or modify enforcement to get the change through.
 7. Enable squash auto-merge using `gh pr merge --auto --squash --match-head-commit
    <HEAD_SHA> <PR_NUMBER>`. Never use `--admin`. Branch protection remains the
    authority. If main moves and checks are invalidated, sync and revalidate.
@@ -222,7 +234,7 @@ contracts and source-specific acceptance, including full admitted native L0 afte
 every change and all-three-engine final admission. Operations child #332 alone
 owns separately reviewed CI/L0 scheduling, continuous matched three-engine
 performance monitoring and measured noise-aware latency/regression policy; existing
-full torture/review/protected merge checks remain mandatory. Feature workers
+complete PR CI/review/protected merge checks remain mandatory. Feature workers
 cannot register tasks or alter gates. Current checkout AGENTS directs workers to
 this guide even when the controller renders an older workflow prompt. No
 controller/settings/credential changes are needed for launch.

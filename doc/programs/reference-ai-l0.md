@@ -310,9 +310,17 @@ GitHub evidence is genuine. Shared selector changes retain M3 tests and semantic
 ## Delivery and completion claims
 
 All children need behavior tests with independent expectations in normal discovery,
-full locked torture after latest-main integration, independent exact-candidate
-Codex review including README accuracy/no weakened tests, protected merge and
-successful exact-main CI. Persistent managed workspaces, resource/handoff locks,
+meaningful focused local behavior/regression and source-specific acceptance checks,
+fresh-main integration with affected checks rerun when content changes, independent
+exact-candidate Codex review including README accuracy/no weakened tests, complete
+mandatory PR CI on the current candidate, protected merge and successful exact-main
+CI. Operations #348's approved amendment makes that complete PR CI the final-candidate
+suite evidence and supersedes older issue text/rendered prompts requiring an
+additional full local torture run. Full local torture remains useful for diagnosis,
+broad interactions, unavailable CI or acceptance not exercised by CI. Reuse unchanged
+execution evidence; every changed candidate still needs passing complete PR CI.
+No source-specific acceptance, full admitted corpus requirement, test assertion or
+protected check is waived. Persistent managed workspaces, resource/handoff locks,
 three workers and GitHub-only integrations remain unchanged. This registration
 changes documentation and read-only validation/control selection only: no engine,
 capture implementation, controller deployment, settings or credential workaround.
