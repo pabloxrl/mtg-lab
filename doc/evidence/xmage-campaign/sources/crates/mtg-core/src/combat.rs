@@ -1,0 +1,682 @@
+//! Vanilla combat declarations and simultaneous damage. Inspection is privileged.
+use super::turns::{TurnDecision, TurnError};
+use super::*;
+#[derive(serde::Serialize, serde::Deserialize, Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CombatKind {
+    Attackers,
+    Blockers,
+    Damage,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq, Eq)]
+pub struct Attack {
+    pub creature: Handle,
+    pub blocked: bool,
+    pub blockers: Vec<Handle>,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct DamageChoice {
+    pub attacker: Handle,
+    pub power: u32,
+    pub trample_lethal: Option<Vec<u32>>,
+    pub blockers: Vec<Handle>,
+}
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct CombatDecision {
+    pub id: DecisionId,
+    pub actor: Seat,
+    pub kind: CombatKind,
+    pub attackers: Vec<Handle>,
+    pub blockers: Vec<Handle>,
+    pub selected: Vec<Handle>,
+    pub blocks: Vec<(Handle, Handle)>,
+    pub forbidden_blocks: Vec<(Handle, Handle)>,
+    pub damage: Vec<DamageChoice>,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CombatError {
+    Invalid(ApplyError),
+    NotReady,
+    IllegalAttacker,
+    IllegalBlocker,
+    IllegalDamage,
+    MissingDamage,
+    IllegalGraveyardOrder,
+    CapacityExceeded { needed: usize, capacity: usize },
+    Turn(TurnError),
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, Default)]
+pub(super) struct CombatState {
+    // Synthetic keyword fixtures exist only in unit-test builds. A real card
+    // identity (in particular Shivan Dragon) never gains support through this.
+    #[cfg(test)]
+    pub(super) synthetic_flying: Vec<Handle>,
+    #[cfg(test)]
+    pub(super) synthetic_trample: Vec<Handle>,
+    pub(super) attacks: Vec<Attack>,
+    selected: Vec<Handle>,
+    blocks: Vec<(Handle, Handle)>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub(super) deaths: Option<GraveyardBatch>,
+    pub(super) assignments: Vec<(Handle, Vec<(Handle, u32)>)>,
+}
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug)]
+pub(super) struct GraveyardBatch {
+    pub(super) arrivals: [Vec<Handle>; 2],
+    pub(super) chosen: [bool; 2],
+}
+fn vanilla(card: CardId) -> bool {
+    super::card_definitions::definition(card).vanilla()
+}
+impl Game {
+    pub(super) fn has_trample(&self, h: Handle) -> bool {
+        if self.turns.abilities.iter().any(|a| a.object == h)
+            || self.turns.triggered.iter().any(|a| a.object == h)
+        {
+            return false;
+        }
+        if self.turns.trample.contains(&h) && self.haste_target(h) {
+            return true;
+        }
+        #[cfg(test)]
+        if self.turns.combat.synthetic_trample.contains(&h) {
+            return true;
+        }
+        self.objects
+            .get(h)
+            .is_ok_and(|o| super::card_definitions::definition(o.card).trample())
+    }
+    pub(super) fn has_deathtouch(&self, h: Handle) -> bool {
+        self.objects
+            .get(h)
+            .is_ok_and(|o| super::card_definitions::definition(o.card).deathtouch())
+    }
+    // CR 702.2c/702.19b: any positive deathtouch assignment is lethal;
+    // already marked damage still counts, independently of its source.
+    fn lethal_assignment(&self, attacker: Handle, blocker: Handle) -> u32 {
+        let c = self.creature_state(blocker).unwrap();
+        let remaining = c.toughness.saturating_sub(c.damage);
+        if self.has_deathtouch(attacker) {
+            remaining.min(1)
+        } else {
+            remaining
+        }
+    }
+    fn needs_damage_choice(&self, a: &Attack) -> bool {
+        a.blockers.len() > 1 || (!a.blockers.is_empty() && self.has_trample(a.creature))
+    }
+    fn has_flying(&self, h: Handle) -> bool {
+        #[cfg(test)]
+        if self.turns.combat.synthetic_flying.contains(&h) {
+            return true;
+        }
+        self.objects
+            .get(h)
+            .is_ok_and(|o| super::card_definitions::definition(o.card).flying())
+    }
+    fn block_pair_allowed(&self, blocker: Handle, attacker: Handle) -> bool {
+        !self.has_flying(attacker)
+            || self.has_flying(blocker)
+            || self
+                .objects
+                .get(blocker)
+                .is_ok_and(|o| super::card_definitions::definition(o.card).reach())
+    }
+
+    fn combat_live(&self, h: Handle, controller: Seat) -> bool {
+        self.objects.get(h).is_ok_and(|o| {
+            o.zone == Zone::Battlefield && o.controller == controller && vanilla(o.card)
+        })
+    }
+    pub(super) fn supported_combat(&self) -> bool {
+        self.objects.in_zone(Zone::Battlefield).all(|h| {
+            let c = self.objects.get(h).unwrap().card;
+            vanilla(c) || super::mana::basic_color(c).is_some()
+        })
+    }
+    pub(super) fn has_combat_creature(&self, active: Seat) -> bool {
+        self.objects
+            .in_zone(Zone::Battlefield)
+            .any(|h| self.combat_live(h, active))
+    }
+    /// Current committed combat only, excluding departed/changed-controller
+    /// objects. Blocked status is remembered independently of surviving blockers.
+    pub fn combat(&self) -> Vec<Attack> {
+        let Some((_, active, _)) = self.turns.position else {
+            return vec![];
+        };
+        self.turns
+            .combat
+            .attacks
+            .iter()
+            .filter(|a| self.combat_live(a.creature, active))
+            .map(|a| Attack {
+                creature: a.creature,
+                blocked: a.blocked,
+                blockers: a
+                    .blockers
+                    .iter()
+                    .copied()
+                    .filter(|b| self.combat_live(*b, super::turns::opponent(active)))
+                    .collect(),
+            })
+            .collect()
+    }
+    fn combat_guard(
+        &self,
+        actor: Seat,
+        id: DecisionId,
+        kind: CombatKind,
+    ) -> Result<(), CombatError> {
+        let d = self.turn_decision().ok_or(CombatError::NotReady)?;
+        if actor != d.actor {
+            return Err(CombatError::Invalid(ApplyError::WrongActor));
+        }
+        if id != d.id {
+            return Err(CombatError::Invalid(ApplyError::StaleDecision));
+        }
+        if d.kind != super::turns::TurnKind::Combat(kind) {
+            return Err(CombatError::NotReady);
+        }
+        Ok(())
+    }
+    fn combat_generation(&self) -> Result<u64, CombatError> {
+        self.generation
+            .checked_add(1)
+            .ok_or(CombatError::Invalid(ApplyError::DecisionExhausted))
+    }
+    fn combat_update(&mut self, actor: Seat, generation: u64, kind: CombatKind) -> TurnDecision {
+        self.generation = generation;
+        self.set_turn_decision(actor, super::turns::TurnKind::Combat(kind))
+    }
+    pub fn combat_decision(
+        &self,
+        actor: Seat,
+        capacity: usize,
+    ) -> Result<CombatDecision, CombatError> {
+        let d = self.turn_decision().ok_or(CombatError::NotReady)?;
+        let super::turns::TurnKind::Combat(kind) = d.kind else {
+            return Err(CombatError::NotReady);
+        };
+        self.combat_guard(actor, d.id, kind)?;
+        let active = self.turns.position.unwrap().1;
+        let attacks = self.combat();
+        let attackers = if kind == CombatKind::Attackers {
+            self.objects
+                .in_zone(Zone::Battlefield)
+                .filter(|h| {
+                    self.combat_live(*h, active)
+                        && !self.objects.get(*h).unwrap().tapped
+                        && !self.summoning_sick(*h)
+                })
+                .collect()
+        } else {
+            attacks.iter().map(|a| a.creature).collect::<Vec<_>>()
+        };
+        let blockers = if kind == CombatKind::Blockers {
+            self.objects
+                .in_zone(Zone::Battlefield)
+                .filter(|h| self.combat_live(*h, actor) && !self.objects.get(*h).unwrap().tapped)
+                .collect::<Vec<_>>()
+        } else {
+            vec![]
+        };
+        let mut forbidden_blocks = Vec::new();
+        for &b in &blockers {
+            for &a in &attackers {
+                if !self.block_pair_allowed(b, a) {
+                    if forbidden_blocks.len() == capacity {
+                        return Err(CombatError::CapacityExceeded {
+                            needed: capacity.saturating_add(1),
+                            capacity,
+                        });
+                    }
+                    forbidden_blocks.push((b, a));
+                }
+            }
+        }
+        let damage = if kind == CombatKind::Damage {
+            attacks
+                .iter()
+                .filter(|a| self.needs_damage_choice(a))
+                .map(|a| DamageChoice {
+                    attacker: a.creature,
+                    power: self.creature_state(a.creature).unwrap().power,
+                    trample_lethal: self.has_trample(a.creature).then(|| {
+                        a.blockers
+                            .iter()
+                            .map(|b| self.lethal_assignment(a.creature, *b))
+                            .collect()
+                    }),
+                    blockers: a.blockers.clone(),
+                })
+                .collect::<Vec<_>>()
+        } else {
+            vec![]
+        };
+        let needed = attackers
+            .len()
+            .max(blockers.len())
+            .max(damage.iter().map(|d| d.blockers.len()).max().unwrap_or(0));
+        if needed > capacity {
+            return Err(CombatError::CapacityExceeded { needed, capacity });
+        }
+        Ok(CombatDecision {
+            id: d.id,
+            actor,
+            kind,
+            attackers,
+            blockers,
+            selected: self.turns.combat.selected.clone(),
+            blocks: self.turns.combat.blocks.clone(),
+            damage,
+            forbidden_blocks,
+        })
+    }
+    fn validate_attackers(&self, actor: Seat, cards: &[Handle]) -> Result<(), CombatError> {
+        for (i, h) in cards.iter().enumerate() {
+            if cards[..i].contains(h) {
+                return Err(CombatError::Invalid(ApplyError::DuplicateCandidate));
+            }
+            if !self.combat_live(*h, actor)
+                || self.objects.get(*h).unwrap().tapped
+                || self.summoning_sick(*h)
+            {
+                return Err(CombatError::IllegalAttacker);
+            }
+        }
+        Ok(())
+    }
+    /// Replace the provisional subset. No powerset is generated and nothing taps
+    /// until finish. An empty subset is an explicit legal declaration.
+    pub fn select_attackers(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        cards: &[Handle],
+    ) -> Result<TurnDecision, CombatError> {
+        self.combat_guard(actor, id, CombatKind::Attackers)?;
+        self.validate_attackers(actor, cards)?;
+        let generation = self.combat_generation()?;
+        self.turns.combat.selected = cards.to_vec();
+        Ok(self.combat_update(actor, generation, CombatKind::Attackers))
+    }
+    fn validate_blocks(&self, actor: Seat, blocks: &[(Handle, Handle)]) -> Result<(), CombatError> {
+        let attacks = self.combat();
+        for (i, (b, a)) in blocks.iter().enumerate() {
+            if blocks[..i].iter().any(|(other, _)| other == b) {
+                return Err(CombatError::Invalid(ApplyError::DuplicateCandidate));
+            }
+            if !self.combat_live(*b, actor)
+                || self.objects.get(*b).unwrap().tapped
+                || !attacks.iter().any(|x| x.creature == *a)
+                || !self.block_pair_allowed(*b, *a)
+            {
+                return Err(CombatError::IllegalBlocker);
+            }
+        }
+        Ok(())
+    }
+    /// Replace a provisional blocker-to-attacker map, with at most one attacker
+    /// per blocker. Many blockers may choose the same attacker; no ordering.
+    pub fn select_blockers(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        blocks: &[(Handle, Handle)],
+    ) -> Result<TurnDecision, CombatError> {
+        self.combat_guard(actor, id, CombatKind::Blockers)?;
+        self.validate_blocks(actor, blocks)?;
+        let generation = self.combat_generation()?;
+        self.turns.combat.blocks = blocks.to_vec();
+        Ok(self.combat_update(actor, generation, CombatKind::Blockers))
+    }
+    fn validate_damage(
+        &self,
+        attacker: Handle,
+        amounts: &[(Handle, u32)],
+    ) -> Result<(), CombatError> {
+        let attacks = self.combat();
+        let a = attacks
+            .iter()
+            .find(|a| a.creature == attacker)
+            .ok_or(CombatError::IllegalDamage)?;
+        if !self.needs_damage_choice(a) {
+            return Err(CombatError::IllegalDamage);
+        }
+        let mut total = 0u64;
+        for (i, (b, n)) in amounts.iter().enumerate() {
+            if !a.blockers.contains(b) || amounts[..i].iter().any(|(other, _)| other == b) {
+                return Err(CombatError::IllegalDamage);
+            }
+            total = total
+                .checked_add(u64::from(*n))
+                .ok_or(CombatError::IllegalDamage)?;
+        }
+        let power = u64::from(self.creature_state(attacker).unwrap().power);
+        if total > power
+            || (total < power
+                && (!self.has_trample(attacker)
+                    || a.blockers.iter().any(|b| {
+                        let assigned = amounts.iter().find(|(h, _)| h == b).map_or(0, |(_, n)| *n);
+                        assigned < self.lethal_assignment(attacker, *b)
+                    })))
+        {
+            return Err(CombatError::IllegalDamage);
+        }
+        Ok(())
+    }
+    /// Assign damage to blockers, with omitted blockers receiving zero. For
+    /// trample, the unassigned remainder goes to the defender, requiring lethal
+    /// damage on every remaining blocker. Blocker-only splits have no ordering.
+    pub fn assign_combat_damage(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        attacker: Handle,
+        amounts: &[(Handle, u32)],
+    ) -> Result<TurnDecision, CombatError> {
+        self.combat_guard(actor, id, CombatKind::Damage)?;
+        self.validate_damage(attacker, amounts)?;
+        let generation = self.combat_generation()?;
+        self.turns
+            .combat
+            .assignments
+            .retain(|(h, _)| *h != attacker);
+        self.turns
+            .combat
+            .assignments
+            .push((attacker, amounts.to_vec()));
+        Ok(self.combat_update(actor, generation, CombatKind::Damage))
+    }
+    /// Scalar execution drains the same owned continuation as bounded damage.
+    pub fn finish_combat(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+    ) -> Result<super::turns::TurnProgress, CombatError> {
+        let mut progress = self.finish_combat_quantum(actor, id, NonZeroUsize::MAX)?;
+        while progress == Progress::InternalYield {
+            progress = self.resume(NonZeroUsize::MAX);
+        }
+        match progress {
+            Progress::TurnDecision(d) => Ok(super::turns::TurnProgress::Decision(d)),
+            Progress::Terminal(o) => Ok(super::turns::TurnProgress::Terminal(o)),
+            _ => unreachable!("accepted combat completion settles at a turn boundary"),
+        }
+    }
+    /// Validate before accepting. Damage, deaths and final priority/terminal
+    /// settlement use owned work; declarations keep their existing atomic commit.
+    pub fn finish_combat_quantum(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        quantum: NonZeroUsize,
+    ) -> Result<Progress, CombatError> {
+        self.finish_combat_work(actor, id)?;
+        Ok(self.resume(quantum))
+    }
+    fn finish_combat_work(&mut self, actor: Seat, id: DecisionId) -> Result<(), CombatError> {
+        let d = self.turn_decision().ok_or(CombatError::NotReady)?;
+        let super::turns::TurnKind::Combat(kind) = d.kind else {
+            return Err(CombatError::NotReady);
+        };
+        self.combat_guard(actor, id, kind)?;
+        let generation = self.combat_generation()?;
+        match kind {
+            CombatKind::Attackers => {
+                self.validate_attackers(actor, &self.turns.combat.selected)?;
+                let attacks = self
+                    .turns
+                    .combat
+                    .selected
+                    .iter()
+                    .map(|h| Attack {
+                        creature: *h,
+                        blocked: false,
+                        blockers: vec![],
+                    })
+                    .collect();
+                for h in &self.turns.combat.selected {
+                    if !super::card_definitions::definition(self.objects.get(*h).unwrap().card)
+                        .vigilance()
+                    {
+                        self.objects.get_mut(*h).unwrap().tapped = true;
+                    }
+                }
+                self.turns.combat.attacks = attacks;
+                self.turns.combat.selected.clear();
+            }
+            CombatKind::Blockers => {
+                self.validate_blocks(actor, &self.turns.combat.blocks)?;
+                let mut attacks = self.combat();
+                for (b, h) in &self.turns.combat.blocks {
+                    let a = attacks.iter_mut().find(|a| a.creature == *h).unwrap();
+                    a.blocked = true;
+                    a.blockers.push(*b);
+                }
+                self.turns.combat.attacks = attacks;
+                self.turns.combat.blocks.clear();
+            }
+            CombatKind::Damage => {
+                self.queue_combat_damage()?;
+                self.generation = generation;
+                self.turns.decision = None;
+                return Ok(());
+            }
+        }
+        self.generation = generation;
+        self.turns.passed = false;
+        if self.settle_terminal(None).is_none() {
+            self.set_turn_decision(
+                self.turns.position.unwrap().1,
+                super::turns::TurnKind::Priority,
+            );
+        }
+        Ok(())
+    }
+    #[cfg(test)]
+    pub(super) fn choose_candidate_order_for_legacy_fixture(&mut self) {
+        // Existing synthetic ledgers specify damage/deaths, not graveyard
+        // permutations. Their test client now explicitly chooses candidate
+        // order at the new rules boundary, preserving every old assertion.
+        while let Some(d) = self
+            .turn_decision()
+            .filter(|d| d.kind == super::turns::TurnKind::GraveyardOrder)
+        {
+            let cards = self.graveyard_candidates(d.actor);
+            self.order_graveyard(d.actor, d.id, &cards).unwrap();
+        }
+    }
+    /// Candidates are pre-transition incarnations, in bottom-to-top arrival order.
+    /// CR 101.4/404.3: owners choose in APNAP order, before any member moves.
+    pub fn graveyard_candidates(&self, actor: Seat) -> Vec<Handle> {
+        if !self
+            .turn_decision()
+            .is_some_and(|d| d.actor == actor && d.kind == super::turns::TurnKind::GraveyardOrder)
+        {
+            return vec![];
+        }
+        self.graveyard_card_arrivals(actor)
+    }
+    pub(super) fn graveyard_card_arrivals(&self, actor: Seat) -> Vec<Handle> {
+        self.turns.combat.deaths.as_ref().unwrap().arrivals[seat_index(actor)]
+            .iter()
+            .copied()
+            .filter(|h| self.objects.get(*h).unwrap().card.identity().key != "goblin-token")
+            .collect()
+    }
+    pub fn order_graveyard(
+        &mut self,
+        actor: Seat,
+        id: DecisionId,
+        order: &[Handle],
+    ) -> Result<super::turns::TurnProgress, CombatError> {
+        let d = self.turn_decision().ok_or(CombatError::NotReady)?;
+        if actor != d.actor {
+            return Err(CombatError::Invalid(ApplyError::WrongActor));
+        }
+        if id != d.id {
+            return Err(CombatError::Invalid(ApplyError::StaleDecision));
+        }
+        if d.kind != super::turns::TurnKind::GraveyardOrder {
+            return Err(CombatError::NotReady);
+        }
+        let candidates = self.graveyard_candidates(actor);
+        if order.len() != candidates.len()
+            || order
+                .iter()
+                .enumerate()
+                .any(|(i, h)| !candidates.contains(h) || order[..i].contains(h))
+        {
+            return Err(CombatError::IllegalGraveyardOrder);
+        }
+        let generation = self.combat_generation()?;
+        // CR111.6/404.3: tokens move in the same event, but do not enter the
+        // owner's card permutation. Preserve them in the pending batch.
+        let tokens = self.turns.combat.deaths.as_ref().unwrap().arrivals[seat_index(actor)]
+            .iter()
+            .copied()
+            .filter(|h| !candidates.contains(h))
+            .collect::<Vec<_>>();
+        let batch = self.turns.combat.deaths.as_mut().unwrap();
+        batch.arrivals[seat_index(actor)] = order.iter().copied().chain(tokens).collect();
+        batch.chosen[seat_index(actor)] = true;
+        self.generation = generation;
+        self.turns.decision = None;
+        self.combat_death_boundary();
+        self.finish_work();
+        match self.resume(NonZeroUsize::MAX) {
+            Progress::TurnDecision(d) => Ok(super::turns::TurnProgress::Decision(d)),
+            Progress::Terminal(o) => Ok(super::turns::TurnProgress::Terminal(o)),
+            _ => unreachable!("graveyard ordering settles"),
+        }
+    }
+    pub(super) fn combat_death_boundary(&mut self) {
+        let active = self.turns.position.unwrap().1;
+        let batch = self.turns.combat.deaths.as_ref().unwrap();
+        for seat in [active, super::turns::opponent(active)] {
+            let i = seat_index(seat);
+            if self.graveyard_card_arrivals(seat).len() > 1 && !batch.chosen[i] {
+                self.set_turn_decision(seat, super::turns::TurnKind::GraveyardOrder);
+                return;
+            }
+        }
+        let batch = self.turns.combat.deaths.take().unwrap();
+        for seat in [active, super::turns::opponent(active)] {
+            for &handle in &batch.arrivals[seat_index(seat)] {
+                self.work.push_back(Work::SpellMove {
+                    handle,
+                    zone: Zone::Graveyard(seat),
+                    controller: None,
+                });
+            }
+        }
+        self.work.push_back(Work::FinishCombat);
+        self.work.push_back(Work::Priority {
+            actor: active,
+            passed: false,
+            terminal: true,
+        });
+    }
+    fn queue_combat_damage(&mut self) -> Result<(), CombatError> {
+        use super::targets::Modification;
+        let mut changes = self.turns.modifications.clone();
+        let mut life = self.life;
+        let active = self.turns.position.unwrap().1;
+        let defender = seat_index(super::turns::opponent(active));
+        let overflow = CombatError::Turn(TurnError::EffectOverflow);
+        let mut touched = Vec::new();
+        let mut mark = |source: Handle, h: Handle, amount: u32| -> Result<(), CombatError> {
+            // CR 702.2b/704.5h: zero damage is not a deathtouch event.
+            if amount > 0 && self.has_deathtouch(source) && !touched.contains(&h) {
+                touched.push(h);
+            }
+            if let Some(m) = changes.iter_mut().find(|m| m.handle == h) {
+                m.damage = m.damage.checked_add(amount).ok_or(overflow)?;
+            } else {
+                changes.push(Modification {
+                    handle: h,
+                    power_boost: 0,
+                    boost: 0,
+                    damage: amount,
+                });
+            }
+            Ok(())
+        };
+        // Gather every assignment and all damage before any SBA or mutation.
+        for a in self.combat() {
+            let power = self.creature_state(a.creature).unwrap().power;
+            if !a.blocked || (a.blockers.is_empty() && self.has_trample(a.creature)) {
+                life[defender] = life[defender]
+                    .checked_sub(i64::from(power))
+                    .ok_or(overflow)?;
+            } else if self.needs_damage_choice(&a) {
+                let amounts = &self
+                    .turns
+                    .combat
+                    .assignments
+                    .iter()
+                    .find(|(h, _)| *h == a.creature)
+                    .ok_or(CombatError::MissingDamage)?
+                    .1;
+                self.validate_damage(a.creature, amounts)?;
+                let assigned: u32 = amounts.iter().map(|(_, n)| *n).sum();
+                life[defender] = life[defender]
+                    .checked_sub(i64::from(power - assigned))
+                    .ok_or(overflow)?;
+                for (h, n) in amounts {
+                    mark(a.creature, *h, *n)?;
+                }
+            } else if a.blockers.len() == 1 {
+                mark(a.creature, a.blockers[0], power)?;
+            } // blocked with no remaining blocker deals no damage (510.1c).
+            for b in a.blockers {
+                mark(b, a.creature, self.creature_state(b).unwrap().power)?;
+            }
+        }
+        let mut dead = [vec![], vec![]];
+        for m in &changes {
+            if let Ok(o) = self.objects.get(m.handle)
+                && o.zone == Zone::Battlefield
+                && self
+                    .creature_state(m.handle)
+                    .is_some_and(|c| m.damage >= c.toughness || touched.contains(&m.handle))
+            {
+                dead[seat_index(o.owner)].push(m.handle);
+            }
+        }
+        for (i, seat) in [Seat::P0, Seat::P1].into_iter().enumerate() {
+            self.objects
+                .prepare_moves(&dead[i], Zone::Graveyard(seat))
+                .map_err(|e| CombatError::Turn(TurnError::Storage(e)))?;
+        }
+        self.objects
+            .prepare_removals(dead[0].len() + dead[1].len())
+            .map_err(|e| CombatError::Turn(TurnError::Storage(e)))?;
+        // Numeric bounds and every destination are preflighted before any work
+        // is accepted. No command or policy observation is available until the
+        // final Priority item; thus all marks are simultaneous in rules time.
+        let work_count = changes
+            .len()
+            .checked_add(dead[0].len())
+            .and_then(|n| n.checked_add(dead[1].len()))
+            .and_then(|n| n.checked_add(3))
+            .ok_or(overflow)?;
+        self.work
+            .try_reserve(work_count)
+            .map_err(|_| CombatError::Turn(TurnError::Storage(StorageError::CapacityExceeded)))?;
+        self.turns
+            .modifications
+            .try_reserve(changes.len())
+            .map_err(|_| CombatError::Turn(TurnError::Storage(StorageError::CapacityExceeded)))?;
+        self.work.push_back(Work::CombatLife(life));
+        for change in changes {
+            self.work.push_back(Work::Modify(change));
+        }
+        self.work.push_back(Work::CombatDeaths(dead));
+        Ok(())
+    }
+}
+#[cfg(test)]
+#[path = "combat_tests.rs"]
+mod tests;

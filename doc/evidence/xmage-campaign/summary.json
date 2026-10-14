@@ -1,0 +1,1733 @@
+{
+  "attempts": 100,
+  "distinct_complete": 95,
+  "duplicates": 0,
+  "elapsed_seconds": 4135.5222716380085,
+  "identity_unavailable": 5,
+  "phases": [
+    {
+      "attempts": 16,
+      "elapsed_seconds": 995.5971123189956,
+      "workers": 1
+    },
+    {
+      "attempts": 84,
+      "elapsed_seconds": 3139.925159319013,
+      "workers": 2
+    }
+  ],
+  "projected_1000_generation_seconds": 43531.81338566325,
+  "projection_scope": "observed source-complete canonical games, not admitted-game quota",
+  "results": [
+    {
+      "artifact_bytes": 7255300,
+      "attempt": 0,
+      "capture_seconds": 47.794579359993804,
+      "conversion_seconds": 20.847897716012085,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "efd5b284d69b022d3b9bf209be07772661f4fab63e4941018f3ee681972e02d1",
+      "seed": 323000,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 68.64398496499052,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 6933692,
+      "attempt": 1,
+      "capture_seconds": 43.28302029898623,
+      "conversion_seconds": 19.423138150013983,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "dbe1bbd997047abc8382473a1cc6444c0e9abe2ce6f52341ae52a7fb6c94fc74",
+      "seed": 323001,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 62.70764553398476,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 5938171,
+      "attempt": 2,
+      "capture_seconds": 36.24385433399584,
+      "conversion_seconds": 17.013621230988065,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "a16f46c2e7b45cfe6ab23c718b277cea4a788c00c23b25d0ba0724f33ebe8284",
+      "seed": 323002,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 53.259301937010605,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 6331498,
+      "attempt": 3,
+      "capture_seconds": 38.17475021001883,
+      "conversion_seconds": 17.755801466992125,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "28b5136129e5f73e3961f518e30c2c01d8e53ce575714794db7bd9609b77a507",
+      "seed": 323003,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 55.93204262800282,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 12576603,
+      "attempt": 4,
+      "capture_seconds": 62.203200057992944,
+      "conversion_seconds": 28.782997336005792,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "190c8b3fcbed47c6732f404c95e78e1358bc68b757bc2ae7def5f981b5f66f25",
+      "seed": 323004,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 90.98811323998962,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 7272286,
+      "attempt": 5,
+      "capture_seconds": 38.45754938997561,
+      "conversion_seconds": 19.796401476982282,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "d0af860a6f9787354f89dd74c1b1fa909d6b05c53eb67a93e8842009d8b4e58b",
+      "seed": 323005,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 58.25561982797808,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 8771055,
+      "attempt": 6,
+      "capture_seconds": 47.080858566012466,
+      "conversion_seconds": 22.86854637399665,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "963f17ac814781bcb4ea1247672cb25bc63318b625c1b2b7f11d15f1c216bf45",
+      "seed": 323006,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 69.95146968899644,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 5835259,
+      "attempt": 7,
+      "capture_seconds": 30.85295311801019,
+      "conversion_seconds": 14.723044324986404,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "ed9590a41b34d30fcb91c591ccec6cb24b7a4702e122501a68def251a8f30f75",
+      "seed": 323007,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 45.57756425399566,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 5763228,
+      "attempt": 8,
+      "capture_seconds": 28.703710108005907,
+      "conversion_seconds": 13.407543064997299,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "b346cf5006fd00427d350017b3549630f5dc47e5e222d2b90371697e966930bf",
+      "seed": 323008,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 42.11256563500501,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 7526169,
+      "attempt": 9,
+      "capture_seconds": 43.959847382997395,
+      "conversion_seconds": 20.22616913699312,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "28fa826c8b68432d558319aab32d7f3c1273ea8aa2e45de500d7e10fcf069f71",
+      "seed": 323009,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 64.18772162601817,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 11917590,
+      "attempt": 10,
+      "capture_seconds": 55.719784387008986,
+      "conversion_seconds": 27.747293730004458,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "ddda37c20dbe7d7f99f53acc98f740f478d98ef3c178a628f5a7585e85ca75aa",
+      "seed": 323010,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 83.46942395201768,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 7028223,
+      "attempt": 11,
+      "capture_seconds": 40.96096246200614,
+      "conversion_seconds": 18.78678087098524,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "5898621cb5e193a684e05daf897fa6f293509c5e93ffd4cce2c3d466ebb2dca9",
+      "seed": 323011,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 59.74933847002103,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 9235899,
+      "attempt": 12,
+      "capture_seconds": 44.91647968799225,
+      "conversion_seconds": 22.169168651016662,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "7fe984039cd793e6ba3aa2326bbe0a7c7f30fe2d3632071883acea75a6af0108",
+      "seed": 323012,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 67.08716089700465,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 11411067,
+      "attempt": 13,
+      "capture_seconds": 54.826133705006214,
+      "conversion_seconds": 27.00753939599963,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "7e7884841a2b10fb10ad4963573521540c7e276043bbde292d735ea2b4eab1f5",
+      "seed": 323013,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 81.8356962800026,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 4274457,
+      "attempt": 14,
+      "capture_seconds": 22.92841018701438,
+      "conversion_seconds": 10.944745057990076,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "0b87a319bbb599d7d1b92a17a469ce017df0701f0cad229cbe97ea7a76132e61",
+      "seed": 323014,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 33.874376867024694,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 7269906,
+      "attempt": 15,
+      "capture_seconds": 37.57922523500747,
+      "conversion_seconds": 19.15927152801305,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "86b14ae25a62736f0ab4e4d2e7a898eaafa2510d61b05cd6b5da3bb31c2a2f10",
+      "seed": 323015,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 56.73998584001674,
+      "workers": 1
+    },
+    {
+      "artifact_bytes": 7378565,
+      "attempt": 16,
+      "capture_seconds": 55.34984872699715,
+      "conversion_seconds": 27.78163662701263,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "e98a5ee585b6cec2afa98bd9c019ca5fdcf9d15a40d5e5143570f77f4591278d",
+      "seed": 323016,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 83.13382213198929,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5641988,
+      "attempt": 17,
+      "capture_seconds": 44.44347421897692,
+      "conversion_seconds": 18.45500450200052,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "24a11bbdff866c6f575062cbf71762ffd7a24ed4bab8cef43ae45442c0600e43",
+      "seed": 323017,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 62.90029109700117,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7235292,
+      "attempt": 18,
+      "capture_seconds": 53.15479863999644,
+      "conversion_seconds": 22.591097780998098,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "a0d7e745328cb9a447637b68ee92c9afbee0d5fe792bdce5dfec0996a2fa09cb",
+      "seed": 323018,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 75.74769522398128,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7052902,
+      "attempt": 19,
+      "capture_seconds": 46.125759294984164,
+      "conversion_seconds": 22.909286957001314,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "89a3f4b3f890f52fe5720465c7690600673cea0e19e9a28bdc21c299751d0f39",
+      "seed": 323019,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 69.03702352597611,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9851066,
+      "attempt": 20,
+      "capture_seconds": 66.5438130700204,
+      "conversion_seconds": 31.46112726299907,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "f786ac1a9775b8f8d183b22f2d9fb8ee46633e7db8990d85a188477b06b0b34e",
+      "seed": 323020,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 98.00822882101056,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 12375429,
+      "attempt": 21,
+      "capture_seconds": 87.11760101999971,
+      "conversion_seconds": 34.99944153300021,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "aeec5ea35f825888c7d678816d11b9ad1284bdc5263ad1ea661cf25c81b3dc30",
+      "seed": 323021,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 122.12525166201522,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8071330,
+      "attempt": 22,
+      "capture_seconds": 51.902119724982185,
+      "conversion_seconds": 26.086296513996786,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "437102dd7c6ac4ba9b5c1ef290d0e37cbec2b77bbab18546fc401529267ad2fc",
+      "seed": 323022,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 77.99026745298761,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 4671821,
+      "attempt": 23,
+      "capture_seconds": 31.61784555099439,
+      "conversion_seconds": 16.436364975990728,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "86b0c9d607861373383e0be0b574b7474e87762cc1770622effc39a5db56d6b9",
+      "seed": 323023,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 48.056230251997476,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6856631,
+      "attempt": 24,
+      "capture_seconds": 50.69527868801379,
+      "conversion_seconds": 20.41649281399441,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "4616404ff8c3c5809d7f863b0a8bb60cd80e9a24a236d17a10cc4d71cfb67788",
+      "seed": 323024,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 71.11360733601032,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8529324,
+      "attempt": 25,
+      "capture_seconds": 54.63032267498784,
+      "conversion_seconds": 27.13291436000145,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "597944fd6e25de7892a5c1ec1a4f199f15ac939dc5c32642f5e43155149ab3f7",
+      "seed": 323025,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 81.76527502099634,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8089494,
+      "attempt": 26,
+      "capture_seconds": 52.84465415298473,
+      "conversion_seconds": 23.71014044000185,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "f5652865c0d1eae745c24af4aaf25414d347a1847c256d3c9735f0d145b1b14c",
+      "seed": 323026,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 76.557014127,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8998190,
+      "attempt": 27,
+      "capture_seconds": 57.584033222985454,
+      "conversion_seconds": 32.4421564739896,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "6d3a4d5e32cf0a79347d750433922b49d4316802e42d16a5de89672162e25040",
+      "seed": 323027,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 90.02898136799922,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7463579,
+      "attempt": 28,
+      "capture_seconds": 59.60605019700597,
+      "conversion_seconds": 21.201655395998387,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "b74f2148c11a1b7cae0697455c4899ebde24b706499cc1fed99e7f02528f6769",
+      "seed": 323028,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 80.81015173500055,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9185298,
+      "attempt": 29,
+      "capture_seconds": 54.13977967199753,
+      "conversion_seconds": 27.439072599983774,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "bd766214a97cc869347cfcf628946a73d83e5f22a98c3553f1c5bb035b4e6a7c",
+      "seed": 323029,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 81.58111142701819,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8888846,
+      "attempt": 30,
+      "capture_seconds": 54.373288101982325,
+      "conversion_seconds": 26.44286402501166,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "3ed365a4d1180313095f40c62135ccd747d42568f09b6d314fa2f7580ec09338",
+      "seed": 323030,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 80.81796550497529,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6954979,
+      "attempt": 31,
+      "capture_seconds": 44.687684831995284,
+      "conversion_seconds": 25.27418949798448,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "1ce2588ae9f0fa5b4d813e0eb35eb3c909ea39fc329d6275b0819880ede7a4df",
+      "seed": 323031,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 69.96390299301129,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8998587,
+      "attempt": 32,
+      "capture_seconds": 60.45800992002478,
+      "conversion_seconds": 28.422349216009025,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "6f4eddd0938e1ce5a1e0c3fa182668f28c5ede9caabaad07f76b27b9cd8f4858",
+      "seed": 323032,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 88.88272446702467,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9246451,
+      "attempt": 33,
+      "capture_seconds": 59.23116522299824,
+      "conversion_seconds": 30.70422499300912,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "2e56e8f5fcca901e8fdfebdc297a3fcbd7e387833106e895acdf7e5c74780af3",
+      "seed": 323033,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 89.93756591997226,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8034517,
+      "attempt": 34,
+      "capture_seconds": 56.843557134998264,
+      "conversion_seconds": 25.2244477920176,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "625e9ed24cb8a0b402898e0c71bb98dbc28aa4e0856e688720a34ddc9f816a6e",
+      "seed": 323034,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 82.06998821700108,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9996142,
+      "attempt": 35,
+      "capture_seconds": 60.716306028014515,
+      "conversion_seconds": 30.722566231008386,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "3a3ebecc2d65c3fab8621c1573a2cb3609e73cd178cd2189c855a94cf170b3e5",
+      "seed": 323035,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 91.44429812999442,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7825890,
+      "attempt": 36,
+      "capture_seconds": 48.066275171004236,
+      "conversion_seconds": 24.430181723990245,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "b349c2355b7ec86f3cfdedf53f097046ba108e19f31fe5a12dcb1c44e83ca334",
+      "seed": 323036,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 72.49877753900364,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 1891375,
+      "attempt": 37,
+      "capture_seconds": 48.406341066991445,
+      "conversion_seconds": 25.434857970976736,
+      "conversion_status": "unsupported-or-divergent",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "first_difference": "first divergence: /source/4352/effect lifetime",
+      "identity": null,
+      "seed": 323037,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 73.84325395998894,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 4605833,
+      "attempt": 38,
+      "capture_seconds": 36.12856628201553,
+      "conversion_seconds": 17.296744341001613,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "83629a77d402712d4874ee50e57f53eea88da94661bd6d59593917b2d25164d2",
+      "seed": 323038,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 53.42712930199923,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 1822331,
+      "attempt": 39,
+      "capture_seconds": 48.34490775500308,
+      "conversion_seconds": 22.17979953601025,
+      "conversion_status": "unsupported-or-divergent",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "first_difference": "first divergence: /source/4775/departed effect target",
+      "identity": null,
+      "seed": 323039,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 70.52726660601911,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7729637,
+      "attempt": 40,
+      "capture_seconds": 52.98667566498625,
+      "conversion_seconds": 27.53101728000911,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "f090b90b58c5a3e263fc6352a2fba5c5f314746a985ebc59829c0277a87f64ec",
+      "seed": 323040,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 80.52073978999397,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7797489,
+      "attempt": 41,
+      "capture_seconds": 56.44063264701981,
+      "conversion_seconds": 23.716311724012485,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "4326c4aa165d3bd875187388cc71a11049cb8c4c06c60840939c0d8497633510",
+      "seed": 323041,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 80.15880177301005,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8414778,
+      "attempt": 42,
+      "capture_seconds": 56.117056271003094,
+      "conversion_seconds": 28.865021256991895,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "a24212d361eadfc03052262919240518b73e5b69dffa68cdb9c7bfb9f4d7b47b",
+      "seed": 323042,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 84.98397941098665,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8166861,
+      "attempt": 43,
+      "capture_seconds": 57.709032974991715,
+      "conversion_seconds": 25.48570383200422,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "809be889d21e8230a61a6be07d025ad3be9e27fd4d5a417244fd3e1dcb32e2c5",
+      "seed": 323043,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 83.19699247198878,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7219515,
+      "attempt": 44,
+      "capture_seconds": 48.39067853600136,
+      "conversion_seconds": 23.76315500101191,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "3645cd391b0574773477a254ad6bec9614153e6d90052e756e7c3d901bbc4e59",
+      "seed": 323044,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 72.15579412100487,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 3364169,
+      "attempt": 45,
+      "capture_seconds": 26.521470032981597,
+      "conversion_seconds": 13.02534853000543,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "0f885ef302382fccab932a31d1f5cfb5eb8ccaecf431cc4a2c57ed01355c5861",
+      "seed": 323045,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 39.548021752008935,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7970843,
+      "attempt": 46,
+      "capture_seconds": 54.75670495201484,
+      "conversion_seconds": 27.02443841297645,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "063a67e6036b8e7c4788f0846d9e9e78233e9c5a0f03200ec4f976a65b22d711",
+      "seed": 323046,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 81.78288705300656,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 4903571,
+      "attempt": 47,
+      "capture_seconds": 34.492011413007276,
+      "conversion_seconds": 15.602249930001562,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "81c47ce6f21b08b809cbb15d4d912e681c38d49c998386f6d2b5adc4d3f2523c",
+      "seed": 323047,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 50.09611563599901,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6548314,
+      "attempt": 48,
+      "capture_seconds": 43.437000334990444,
+      "conversion_seconds": 18.18822342599742,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "ad977275daee8926fc44e900de2e0108fa118992cda2bae2dcc5085e9fa12b80",
+      "seed": 323048,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 61.62752332800301,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5719839,
+      "attempt": 49,
+      "capture_seconds": 41.6352028909896,
+      "conversion_seconds": 20.663852505997056,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "8f7f0990183d2f8670633d7854fd4be8bc60f3b7221802d49299f8332a9c46d9",
+      "seed": 323049,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 62.30255054999725,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9133843,
+      "attempt": 50,
+      "capture_seconds": 57.48040377299185,
+      "conversion_seconds": 27.352390421001473,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "668c6566322aa36d35b2bcfc2a6dfac5805ed5038993ae564d988237bd83cdb7",
+      "seed": 323050,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 84.83504695497686,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7106209,
+      "attempt": 51,
+      "capture_seconds": 48.178629789996194,
+      "conversion_seconds": 23.723762178007746,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "53108172081a16ed9116e726d0c47d45963c32f68664073e37e3fed5a0426b98",
+      "seed": 323051,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 71.90419390998431,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9715564,
+      "attempt": 52,
+      "capture_seconds": 61.86322096400545,
+      "conversion_seconds": 24.735286134993657,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "45c3c0a8d71dec0a15b4ab82be863565039f0a5252aeeb7b9e52c9a0713392ee",
+      "seed": 323052,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 86.60078784899088,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 11049257,
+      "attempt": 53,
+      "capture_seconds": 66.18946285598213,
+      "conversion_seconds": 34.00322505697841,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "406e435cf4a1adc0703f30595df5620abf3b491c1d3f9180c39696d88bd45298",
+      "seed": 323053,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 100.19525219700881,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7606046,
+      "attempt": 54,
+      "capture_seconds": 51.00517240798217,
+      "conversion_seconds": 22.02012156197452,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "57cefbf69bebfd681f8b6f83b41f59969bafae52e7a213b3ec2d89acb934ea04",
+      "seed": 323054,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 73.02702500298619,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5422836,
+      "attempt": 55,
+      "capture_seconds": 38.07942786498461,
+      "conversion_seconds": 17.80678835598519,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "a09a3e01721be4d90fb367a870f6ed37320ad51eb6da1200fa73480c2bf2a3a2",
+      "seed": 323055,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 55.88825407699915,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8573950,
+      "attempt": 56,
+      "capture_seconds": 57.50717228997382,
+      "conversion_seconds": 26.80358087498462,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "49eca455de6267d24f5b64e600f4962df2be29e9f4646f87d69a8c06c268f26a",
+      "seed": 323056,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 84.31326815398643,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8620146,
+      "attempt": 57,
+      "capture_seconds": 55.98892957699718,
+      "conversion_seconds": 25.924590801994782,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "9e47d2159f02ff199850fac7b7aa966bd4c21c98f140b69194bef135d9ed3bf8",
+      "seed": 323057,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 81.9154780190147,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6924639,
+      "attempt": 58,
+      "capture_seconds": 55.797726964985486,
+      "conversion_seconds": 23.531511881010374,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "f384c8ff2d35432ce84522e6803710551114e7b0eb8868474afa38b181ab3355",
+      "seed": 323058,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 79.3327611599816,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6010234,
+      "attempt": 59,
+      "capture_seconds": 49.632601483986946,
+      "conversion_seconds": 20.74653314400348,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "fe78ff0bada6a7e9b8ae00ccd6c04a04d6a389c0bd1f1adf20afe555b869bf88",
+      "seed": 323059,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 70.38212944898987,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7238657,
+      "attempt": 60,
+      "capture_seconds": 44.17887596398941,
+      "conversion_seconds": 18.774837256991304,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "ec617f14a82da75b18b5607d433786db91582b0d979c458f4942e42a7d8ce5b9",
+      "seed": 323060,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 62.9552677719912,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8635413,
+      "attempt": 61,
+      "capture_seconds": 47.185261801991146,
+      "conversion_seconds": 22.03674753001542,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "c10ee8372f6dfe33ea5c5541126e1a563947de487cf77977453b4e6a460202ef",
+      "seed": 323061,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 69.22393308198662,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 4344329,
+      "attempt": 62,
+      "capture_seconds": 28.843631392985117,
+      "conversion_seconds": 15.515582016989356,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "4bedc0a754d12cd146eccce96bdf494dc945f8f8867197634c249c68b78db84d",
+      "seed": 323062,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 44.36116459700861,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6535446,
+      "attempt": 63,
+      "capture_seconds": 46.157184579002205,
+      "conversion_seconds": 23.543533291987842,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "b1c9266b789ad3ab20a06a49dc21c311a5388a0e0c11989a5504fe634a30b94a",
+      "seed": 323063,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 69.70279161797953,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6975576,
+      "attempt": 64,
+      "capture_seconds": 49.604153120017145,
+      "conversion_seconds": 26.365471727011027,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "536ab42b2956fc5dee8182ff28a31247d2c6decc0b8c44e98719c9e1d38410bd",
+      "seed": 323064,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 75.97181156501756,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8119696,
+      "attempt": 65,
+      "capture_seconds": 56.21613550398615,
+      "conversion_seconds": 25.83417760199518,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "6ee11e6ab6875a6a16fa2c20686c1c8a3204e858c83385fd78f0584d7e013382",
+      "seed": 323065,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 82.05202547999215,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8208266,
+      "attempt": 66,
+      "capture_seconds": 51.57116049400065,
+      "conversion_seconds": 25.708956552000018,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "e16f5b41dee8368dfca2480c1156a07d620eae6c488fc25b4599faebfcea2aa3",
+      "seed": 323066,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 77.28220564001822,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5615947,
+      "attempt": 67,
+      "capture_seconds": 35.4331495060178,
+      "conversion_seconds": 18.31435002098442,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "b00eebc9b788239e17e94762f8344ee5db5b5292b6d00694194fce5cc27eb567",
+      "seed": 323067,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 53.749437749997014,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 2509703,
+      "attempt": 68,
+      "capture_seconds": 62.47463016799884,
+      "conversion_seconds": 27.60106987299514,
+      "conversion_status": "unsupported-or-divergent",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "first_difference": "first divergence: /source/5168/committed ability",
+      "identity": null,
+      "seed": 323068,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 90.07815030799247,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 10719033,
+      "attempt": 69,
+      "capture_seconds": 81.57164160799584,
+      "conversion_seconds": 34.141444660985144,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "5e2e41f41498d0d51e45268c5921b129b3afd5f174f81b16bc21527ba3d28464",
+      "seed": 323069,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 115.71626575000118,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5133152,
+      "attempt": 70,
+      "capture_seconds": 33.592030223982874,
+      "conversion_seconds": 16.997655645012856,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "16f5536941f633d11d6ce88888476622d15e1a1312f2b64fa4d5ecc6b1e59e2f",
+      "seed": 323070,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 50.59118323298753,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5691216,
+      "attempt": 71,
+      "capture_seconds": 38.41044624999631,
+      "conversion_seconds": 16.891472039016662,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "bef3bac6c6f0491416f02e8cc6af5187993a97c145d7236a1c6580b1e36589c8",
+      "seed": 323071,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 55.30349693799508,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5710823,
+      "attempt": 72,
+      "capture_seconds": 41.39485283699469,
+      "conversion_seconds": 20.212901274004253,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "36c2a45984e2bf26627b9fee41d3a19868d6c1ea65173a0ac75f913449c44afc",
+      "seed": 323072,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 61.60946442198474,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7506303,
+      "attempt": 73,
+      "capture_seconds": 49.73876857600408,
+      "conversion_seconds": 23.863612634973833,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "41aa4806331a8504df718b798dbe0673f3bc2491fe9eac650d2682c6ac598aa2",
+      "seed": 323073,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 73.60429762100102,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5982470,
+      "attempt": 74,
+      "capture_seconds": 37.54884585298714,
+      "conversion_seconds": 17.99983869798598,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "b537f0228f56472a0d00b8bfa0928e51d92eebaaa45edfce3d4782de9264bae4",
+      "seed": 323074,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 55.55080794598325,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8400331,
+      "attempt": 75,
+      "capture_seconds": 58.167919375002384,
+      "conversion_seconds": 28.90891708098934,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "42506f24c7f85a28ab1e6dd07b662269c795228a3d02a132942c3f28a361603a",
+      "seed": 323075,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 87.07936150601017,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8429620,
+      "attempt": 76,
+      "capture_seconds": 53.37634439297835,
+      "conversion_seconds": 26.468095879012253,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "27316709b8eb684c6be1e0b226ec997dd14224efec69a32a1d10ee8833ff5115",
+      "seed": 323076,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 79.84792540999479,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9168636,
+      "attempt": 77,
+      "capture_seconds": 55.21623958600685,
+      "conversion_seconds": 28.707357737992425,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "38215c72b86fa0e63df58760d81279e8387677d5d0f935cf669f42a53bc54257",
+      "seed": 323077,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 83.92619594500866,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6207256,
+      "attempt": 78,
+      "capture_seconds": 44.645002114004456,
+      "conversion_seconds": 21.635891676007304,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "3f2bd1a06c6aafb3c220d5e68a81491b79d3bbe46d2676ddca9e5a4f61c426ba",
+      "seed": 323078,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 66.2829518619983,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7406797,
+      "attempt": 79,
+      "capture_seconds": 49.647390853002435,
+      "conversion_seconds": 24.250252611003816,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "b651adb158505760023da14501b7dada9071921a06bfcfe50128ca0c0a0e01f6",
+      "seed": 323079,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 73.8992811049975,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8031248,
+      "attempt": 80,
+      "capture_seconds": 50.601296106004156,
+      "conversion_seconds": 29.89716707597836,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "4af67b2ad7fe10a76b166f07ffc02bbf3e6e09eda19b6ce114e41742094faac3",
+      "seed": 323080,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 80.50088953599334,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 11761388,
+      "attempt": 81,
+      "capture_seconds": 74.44607271900168,
+      "conversion_seconds": 33.184215578017756,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "4a390ed2fd1a8859b31230a7f781c940c4a2cc237e1de7727020bba69cd274ff",
+      "seed": 323081,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 107.63404964801157,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 1287455,
+      "attempt": 82,
+      "capture_seconds": 28.74728090100689,
+      "conversion_seconds": 11.961130217008758,
+      "conversion_status": "unsupported-or-divergent",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "first_difference": "first divergence: /source/2769/effect lifetime",
+      "identity": null,
+      "seed": 323082,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 40.70964237500448,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6209414,
+      "attempt": 83,
+      "capture_seconds": 41.70208445598837,
+      "conversion_seconds": 24.538134014990646,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "43be64ce8030cfc931ec68bad66389a41d8ed1ffee355d8ab7ed591fefd03dad",
+      "seed": 323083,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 66.24186000798363,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 9708027,
+      "attempt": 84,
+      "capture_seconds": 75.42343439097749,
+      "conversion_seconds": 33.65228448601556,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "645fc00cebea953d64a71886e01ba9e5afa5431e02dc5fb28bc14780faa84395",
+      "seed": 323084,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 109.07827829898451,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8274708,
+      "attempt": 85,
+      "capture_seconds": 66.42625798698282,
+      "conversion_seconds": 30.48094566198415,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "799752a514a1fd1906328e9abc3889921d94b652b4f0dc7f15a7d514d0f4010b",
+      "seed": 323085,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 96.90944505800144,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 4302406,
+      "attempt": 86,
+      "capture_seconds": 30.686968986003194,
+      "conversion_seconds": 12.913131420005811,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "c2b3d75ea281eb56da41e9a4fd83cb68d1bd554065d965af9c16b3d6f0c0f99e",
+      "seed": 323086,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 43.601874678977765,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 2187723,
+      "attempt": 87,
+      "capture_seconds": 58.568475512001896,
+      "conversion_seconds": 29.66442021500552,
+      "conversion_status": "unsupported-or-divergent",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "first_difference": "first divergence: /source/6098/departed effect target",
+      "identity": null,
+      "seed": 323087,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 88.23493973800214,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8882051,
+      "attempt": 88,
+      "capture_seconds": 54.07119218699518,
+      "conversion_seconds": 27.530966964986874,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "669f6d216f6597f8e6347b1cc3243807e01b84298bef0201f9b7ca16103939a3",
+      "seed": 323088,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 81.60402945900569,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5744597,
+      "attempt": 89,
+      "capture_seconds": 36.554247079009656,
+      "conversion_seconds": 17.695173195999814,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "fb304db5c98f839ed706a491c573122a4ea00950f34b863d2cc60ac1f471e096",
+      "seed": 323089,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 54.25110253901221,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8758089,
+      "attempt": 90,
+      "capture_seconds": 52.938254937005695,
+      "conversion_seconds": 24.998796600004425,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "f94cc0b17ec462d397eddcad09f9f831e910f448375fe818f890a52a7a3eb9cd",
+      "seed": 323090,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 77.93910426902585,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7424847,
+      "attempt": 91,
+      "capture_seconds": 42.722477174014784,
+      "conversion_seconds": 22.394119250006042,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "be091fbd7111ccf9bccce67ffc2b8cb67fcf1aab75d0a58e515d55c8a573f3bc",
+      "seed": 323091,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 65.11840615500114,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6621922,
+      "attempt": 92,
+      "capture_seconds": 39.63806015701266,
+      "conversion_seconds": 18.499524339014897,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "1ff47f252fa6a33e4dc0b6df344e4ef2fc64816789e415e453c86a35b2ed0d51",
+      "seed": 323092,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 58.13926378401811,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6860832,
+      "attempt": 93,
+      "capture_seconds": 41.078115798009094,
+      "conversion_seconds": 20.30314269498922,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "red"
+      ],
+      "identity": "163f3fa791e58a80e61a378fee9d4149fc83527727eeafba5a9e5a85eed1ac27",
+      "seed": 323093,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 61.383182471996406,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 5286238,
+      "attempt": 94,
+      "capture_seconds": 34.380859863973456,
+      "conversion_seconds": 16.06481630000053,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "153e8ccb5a4fe7db2577e0dbb067acb81acb7f433f1ddcae872bcf30b6b1bb21",
+      "seed": 323094,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 50.44726404498215,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6117306,
+      "attempt": 95,
+      "capture_seconds": 40.625939621008,
+      "conversion_seconds": 20.52905141300289,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "green"
+      ],
+      "identity": "658a340e4f4098d9340ca21e51b09e5e786568a6ac449ab3c101f166f704de20",
+      "seed": 323095,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 61.156941492983606,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 6865222,
+      "attempt": 96,
+      "capture_seconds": 43.328497754002456,
+      "conversion_seconds": 19.92210831999546,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "6849ec64805d33af0a79d41262ac87cd55cf22e191cd44d89193b870133f7319",
+      "seed": 323096,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 63.252422588004265,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 7722283,
+      "attempt": 97,
+      "capture_seconds": 48.75652474802337,
+      "conversion_seconds": 24.99239375599427,
+      "conversion_status": "complete",
+      "decks": [
+        "red",
+        "green"
+      ],
+      "identity": "cff36a45c1fa38e7744c2ef8cf86456474ddb2587c907c0bace6a7efd86d20aa",
+      "seed": 323097,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 73.75072926000576,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 10127863,
+      "attempt": 98,
+      "capture_seconds": 64.7163293370104,
+      "conversion_seconds": 29.995585775002837,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "b54826cd91c4300c7afcd47d437cc096d0df808f181f66421fb4e504484d56e3",
+      "seed": 323098,
+      "starter": 0,
+      "status": "complete",
+      "total_seconds": 94.71481418400072,
+      "workers": 2
+    },
+    {
+      "artifact_bytes": 8983569,
+      "attempt": 99,
+      "capture_seconds": 51.333191693993285,
+      "conversion_seconds": 21.221635611000238,
+      "conversion_status": "complete",
+      "decks": [
+        "green",
+        "red"
+      ],
+      "identity": "dfd34fc0eb16090763845faae898d1c87939992e31fa1988dc4b319c7490cff1",
+      "seed": 323099,
+      "starter": 1,
+      "status": "complete",
+      "total_seconds": 72.55696830499801,
+      "workers": 2
+    }
+  ],
+  "source_classes": {
+    "complete": 100
+  },
+  "source_complete": 100,
+  "source_completion_rate": 1.0
+}

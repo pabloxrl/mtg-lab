@@ -1,0 +1,53 @@
+{
+  "serial": [
+    {
+      "receipt": "serial-0.json",
+      "launcher_inclusive_seconds": 6.380290173983667,
+      "cold": 3.198565001017414,
+      "total": 6.357670219993452
+    },
+    {
+      "receipt": "serial-1.json",
+      "launcher_inclusive_seconds": 6.440039968001656,
+      "cold": 3.198106686992105,
+      "total": 6.41749818000244
+    },
+    {
+      "receipt": "serial-2.json",
+      "launcher_inclusive_seconds": 6.415985228028148,
+      "cold": 3.186642149987165,
+      "total": 6.394280735985376
+    },
+    {
+      "receipt": "serial-3.json",
+      "launcher_inclusive_seconds": 6.553270175005309,
+      "cold": 3.3185521199775394,
+      "total": 6.531105974980164
+    },
+    {
+      "receipt": "serial-4.json",
+      "launcher_inclusive_seconds": 6.391334709012881,
+      "cold": 3.1750491689890623,
+      "total": 6.368613826984074
+    }
+  ],
+  "parallel": [
+    {
+      "receipt": "parallel-0.json",
+      "launcher_inclusive_seconds": 6.529029808996711,
+      "cold": 3.2138666110113263,
+      "total": 6.505725864000851
+    },
+    {
+      "receipt": "parallel-1.json",
+      "launcher_inclusive_seconds": 6.589174577995436,
+      "cold": 3.2396115040173754,
+      "total": 6.5657216680119745
+    }
+  ],
+  "parallel_launcher_makespan_seconds": 6.5899155589868315,
+  "distinct_corpus_games": 10,
+  "final_admitted_games": 0,
+  "repeated_executions": 140,
+  "scope": "each invocation replays all ten provisional games cold and warm"
+}

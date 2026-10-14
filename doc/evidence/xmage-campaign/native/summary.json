@@ -1,0 +1,2893 @@
+{
+  "complete_accounting": true,
+  "exit_code": 1,
+  "final_admissions": 0,
+  "provisional_admissions": 0,
+  "results": [
+    {
+      "attempt": 0,
+      "elapsed_seconds": 3.34072425897466,
+      "identity": "efd5b284d69b022d3b9bf209be07772661f4fab63e4941018f3ee681972e02d1",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 559,
+          "chance": 2,
+          "checkpoints": 390
+        },
+        {
+          "actions": 559,
+          "chance": 2,
+          "checkpoints": 390
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 1,
+      "elapsed_seconds": 2.6105023880081717,
+      "identity": "dbe1bbd997047abc8382473a1cc6444c0e9abe2ce6f52341ae52a7fb6c94fc74",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 552,
+          "chance": 2,
+          "checkpoints": 377
+        },
+        {
+          "actions": 552,
+          "chance": 2,
+          "checkpoints": 377
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 2,
+      "elapsed_seconds": 1.8760004409996327,
+      "identity": "a16f46c2e7b45cfe6ab23c718b277cea4a788c00c23b25d0ba0724f33ebe8284",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 484,
+          "chance": 2,
+          "checkpoints": 334
+        },
+        {
+          "actions": 484,
+          "chance": 2,
+          "checkpoints": 334
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 3,
+      "elapsed_seconds": 2.492420063004829,
+      "identity": "28b5136129e5f73e3961f518e30c2c01d8e53ce575714794db7bd9609b77a507",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 472,
+          "chance": 2,
+          "checkpoints": 331
+        },
+        {
+          "actions": 472,
+          "chance": 2,
+          "checkpoints": 331
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 4,
+      "elapsed_seconds": 3.218420778022846,
+      "identity": "190c8b3fcbed47c6732f404c95e78e1358bc68b757bc2ae7def5f981b5f66f25",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost"
+      ],
+      "repeats": [
+        {
+          "actions": 753,
+          "chance": 3,
+          "checkpoints": 565
+        },
+        {
+          "actions": 753,
+          "chance": 3,
+          "checkpoints": 565
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 5,
+      "elapsed_seconds": 2.9136736399959773,
+      "identity": "d0af860a6f9787354f89dd74c1b1fa909d6b05c53eb67a93e8842009d8b4e58b",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 523,
+          "chance": 2,
+          "checkpoints": 367
+        },
+        {
+          "actions": 523,
+          "chance": 2,
+          "checkpoints": 367
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 6,
+      "elapsed_seconds": 2.7479638299846556,
+      "first_difference": "first divergence: /source/4695/checkpoint/action/542/stack: {'path': '$[0].targets[0].object', 'expected': {'incarnation': 3, 'source': '0/thornweald-archer/0'}, 'actual': None}",
+      "identity": "963f17ac814781bcb4ea1247672cb25bc63318b625c1b2b7f11d15f1c216bf45",
+      "status": "divergent-or-unsupported"
+    },
+    {
+      "attempt": 7,
+      "elapsed_seconds": 1.8008563139883336,
+      "identity": "ed9590a41b34d30fcb91c591ccec6cb24b7a4702e122501a68def251a8f30f75",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 458,
+          "chance": 2,
+          "checkpoints": 328
+        },
+        {
+          "actions": 458,
+          "chance": 2,
+          "checkpoints": 328
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 8,
+      "elapsed_seconds": 1.4496265400084667,
+      "identity": "b346cf5006fd00427d350017b3549630f5dc47e5e222d2b90371697e966930bf",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost"
+      ],
+      "repeats": [
+        {
+          "actions": 393,
+          "chance": 3,
+          "checkpoints": 282
+        },
+        {
+          "actions": 393,
+          "chance": 3,
+          "checkpoints": 282
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 9,
+      "elapsed_seconds": 3.070718127011787,
+      "identity": "28fa826c8b68432d558319aab32d7f3c1273ea8aa2e45de500d7e10fcf069f71",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 604,
+          "chance": 3,
+          "checkpoints": 406
+        },
+        {
+          "actions": 604,
+          "chance": 3,
+          "checkpoints": 406
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 10,
+      "elapsed_seconds": 4.069822827994358,
+      "identity": "ddda37c20dbe7d7f99f53acc98f740f478d98ef3c178a628f5a7585e85ca75aa",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 737,
+          "chance": 4,
+          "checkpoints": 558
+        },
+        {
+          "actions": 737,
+          "chance": 4,
+          "checkpoints": 558
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 11,
+      "elapsed_seconds": 3.1319350020203274,
+      "identity": "5898621cb5e193a684e05daf897fa6f293509c5e93ffd4cce2c3d466ebb2dca9",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 568,
+          "chance": 2,
+          "checkpoints": 385
+        },
+        {
+          "actions": 568,
+          "chance": 2,
+          "checkpoints": 385
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 12,
+      "elapsed_seconds": 3.0449016769998707,
+      "identity": "7fe984039cd793e6ba3aa2326bbe0a7c7f30fe2d3632071883acea75a6af0108",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 621,
+          "chance": 2,
+          "checkpoints": 445
+        },
+        {
+          "actions": 621,
+          "chance": 2,
+          "checkpoints": 445
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 13,
+      "elapsed_seconds": 5.010145796986762,
+      "identity": "7e7884841a2b10fb10ad4963573521540c7e276043bbde292d735ea2b4eab1f5",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 759,
+          "chance": 2,
+          "checkpoints": 559
+        },
+        {
+          "actions": 759,
+          "chance": 2,
+          "checkpoints": 559
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 14,
+      "elapsed_seconds": 1.3117989629972726,
+      "identity": "0b87a319bbb599d7d1b92a17a469ce017df0701f0cad229cbe97ea7a76132e61",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 342,
+          "chance": 5,
+          "checkpoints": 263
+        },
+        {
+          "actions": 342,
+          "chance": 5,
+          "checkpoints": 263
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 15,
+      "elapsed_seconds": 2.6844935760018416,
+      "identity": "86b14ae25a62736f0ab4e4d2e7a898eaafa2510d61b05cd6b5da3bb31c2a2f10",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 546,
+          "chance": 2,
+          "checkpoints": 395
+        },
+        {
+          "actions": 546,
+          "chance": 2,
+          "checkpoints": 395
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 16,
+      "elapsed_seconds": 2.32685502700042,
+      "identity": "e98a5ee585b6cec2afa98bd9c019ca5fdcf9d15a40d5e5143570f77f4591278d",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 555,
+          "chance": 2,
+          "checkpoints": 372
+        },
+        {
+          "actions": 555,
+          "chance": 2,
+          "checkpoints": 372
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 17,
+      "elapsed_seconds": 2.250163488992257,
+      "identity": "24a11bbdff866c6f575062cbf71762ffd7a24ed4bab8cef43ae45442c0600e43",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 439,
+          "chance": 3,
+          "checkpoints": 309
+        },
+        {
+          "actions": 439,
+          "chance": 3,
+          "checkpoints": 309
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 18,
+      "elapsed_seconds": 2.904015876003541,
+      "identity": "a0d7e745328cb9a447637b68ee92c9afbee0d5fe792bdce5dfec0996a2fa09cb",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 546,
+          "chance": 2,
+          "checkpoints": 389
+        },
+        {
+          "actions": 546,
+          "chance": 2,
+          "checkpoints": 389
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 19,
+      "elapsed_seconds": 2.128269114997238,
+      "identity": "89a3f4b3f890f52fe5720465c7690600673cea0e19e9a28bdc21c299751d0f39",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 520,
+          "chance": 2,
+          "checkpoints": 346
+        },
+        {
+          "actions": 520,
+          "chance": 2,
+          "checkpoints": 346
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 20,
+      "elapsed_seconds": 4.001428284012945,
+      "identity": "f786ac1a9775b8f8d183b22f2d9fb8ee46633e7db8990d85a188477b06b0b34e",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 710,
+          "chance": 2,
+          "checkpoints": 497
+        },
+        {
+          "actions": 710,
+          "chance": 2,
+          "checkpoints": 497
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 21,
+      "elapsed_seconds": 4.935559823003132,
+      "identity": "aeec5ea35f825888c7d678816d11b9ad1284bdc5263ad1ea661cf25c81b3dc30",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 715,
+          "chance": 2,
+          "checkpoints": 508
+        },
+        {
+          "actions": 715,
+          "chance": 2,
+          "checkpoints": 508
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 22,
+      "elapsed_seconds": 2.52640058498946,
+      "identity": "437102dd7c6ac4ba9b5c1ef290d0e37cbec2b77bbab18546fc401529267ad2fc",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 619,
+          "chance": 2,
+          "checkpoints": 452
+        },
+        {
+          "actions": 619,
+          "chance": 2,
+          "checkpoints": 452
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 23,
+      "elapsed_seconds": 1.8463336790155154,
+      "identity": "86b0c9d607861373383e0be0b574b7474e87762cc1770622effc39a5db56d6b9",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 375,
+          "chance": 2,
+          "checkpoints": 271
+        },
+        {
+          "actions": 375,
+          "chance": 2,
+          "checkpoints": 271
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 24,
+      "elapsed_seconds": 2.4435292280104477,
+      "identity": "4616404ff8c3c5809d7f863b0a8bb60cd80e9a24a236d17a10cc4d71cfb67788",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 519,
+          "chance": 2,
+          "checkpoints": 362
+        },
+        {
+          "actions": 519,
+          "chance": 2,
+          "checkpoints": 362
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 25,
+      "elapsed_seconds": 3.001075966982171,
+      "identity": "597944fd6e25de7892a5c1ec1a4f199f15ac939dc5c32642f5e43155149ab3f7",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 572,
+          "chance": 2,
+          "checkpoints": 435
+        },
+        {
+          "actions": 572,
+          "chance": 2,
+          "checkpoints": 435
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 26,
+      "elapsed_seconds": 2.816023479012074,
+      "identity": "f5652865c0d1eae745c24af4aaf25414d347a1847c256d3c9735f0d145b1b14c",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 561,
+          "chance": 2,
+          "checkpoints": 413
+        },
+        {
+          "actions": 561,
+          "chance": 2,
+          "checkpoints": 413
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 27,
+      "elapsed_seconds": 3.1141016100009438,
+      "identity": "6d3a4d5e32cf0a79347d750433922b49d4316802e42d16a5de89672162e25040",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 638,
+          "chance": 3,
+          "checkpoints": 437
+        },
+        {
+          "actions": 638,
+          "chance": 3,
+          "checkpoints": 437
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 28,
+      "elapsed_seconds": 2.141662815993186,
+      "identity": "b74f2148c11a1b7cae0697455c4899ebde24b706499cc1fed99e7f02528f6769",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 488,
+          "chance": 4,
+          "checkpoints": 358
+        },
+        {
+          "actions": 488,
+          "chance": 4,
+          "checkpoints": 358
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 29,
+      "elapsed_seconds": 3.001323821983533,
+      "identity": "bd766214a97cc869347cfcf628946a73d83e5f22a98c3553f1c5bb035b4e6a7c",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 607,
+          "chance": 2,
+          "checkpoints": 427
+        },
+        {
+          "actions": 607,
+          "chance": 2,
+          "checkpoints": 427
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 30,
+      "elapsed_seconds": 2.9467085510259494,
+      "identity": "3ed365a4d1180313095f40c62135ccd747d42568f09b6d314fa2f7580ec09338",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 625,
+          "chance": 2,
+          "checkpoints": 480
+        },
+        {
+          "actions": 625,
+          "chance": 2,
+          "checkpoints": 480
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 31,
+      "elapsed_seconds": 2.9935809609887656,
+      "identity": "1ce2588ae9f0fa5b4d813e0eb35eb3c909ea39fc329d6275b0819880ede7a4df",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 566,
+          "chance": 3,
+          "checkpoints": 410
+        },
+        {
+          "actions": 566,
+          "chance": 3,
+          "checkpoints": 410
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 32,
+      "elapsed_seconds": 3.330020182998851,
+      "identity": "6f4eddd0938e1ce5a1e0c3fa182668f28c5ede9caabaad07f76b27b9cd8f4858",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 672,
+          "chance": 2,
+          "checkpoints": 479
+        },
+        {
+          "actions": 672,
+          "chance": 2,
+          "checkpoints": 479
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 33,
+      "elapsed_seconds": 3.79399601300247,
+      "identity": "2e56e8f5fcca901e8fdfebdc297a3fcbd7e387833106e895acdf7e5c74780af3",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 639,
+          "chance": 3,
+          "checkpoints": 474
+        },
+        {
+          "actions": 639,
+          "chance": 3,
+          "checkpoints": 474
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 34,
+      "elapsed_seconds": 3.386626924009761,
+      "identity": "625e9ed24cb8a0b402898e0c71bb98dbc28aa4e0856e688720a34ddc9f816a6e",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 620,
+          "chance": 2,
+          "checkpoints": 425
+        },
+        {
+          "actions": 620,
+          "chance": 2,
+          "checkpoints": 425
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 35,
+      "elapsed_seconds": 3.0784974170092028,
+      "identity": "3a3ebecc2d65c3fab8621c1573a2cb3609e73cd178cd2189c855a94cf170b3e5",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 694,
+          "chance": 2,
+          "checkpoints": 497
+        },
+        {
+          "actions": 694,
+          "chance": 2,
+          "checkpoints": 497
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 36,
+      "elapsed_seconds": 2.872388740972383,
+      "identity": "b349c2355b7ec86f3cfdedf53f097046ba108e19f31fe5a12dcb1c44e83ca334",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 511,
+          "chance": 4,
+          "checkpoints": 368
+        },
+        {
+          "actions": 511,
+          "chance": 4,
+          "checkpoints": 368
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 37,
+      "first_difference": "first divergence: /source/4352/effect lifetime",
+      "status": "not-convertible"
+    },
+    {
+      "attempt": 38,
+      "elapsed_seconds": 1.9235956870252267,
+      "identity": "83629a77d402712d4874ee50e57f53eea88da94661bd6d59593917b2d25164d2",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 408,
+          "chance": 2,
+          "checkpoints": 275
+        },
+        {
+          "actions": 408,
+          "chance": 2,
+          "checkpoints": 275
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 39,
+      "first_difference": "first divergence: /source/4775/departed effect target",
+      "status": "not-convertible"
+    },
+    {
+      "attempt": 40,
+      "elapsed_seconds": 3.0484536580042914,
+      "identity": "f090b90b58c5a3e263fc6352a2fba5c5f314746a985ebc59829c0277a87f64ec",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 579,
+          "chance": 4,
+          "checkpoints": 395
+        },
+        {
+          "actions": 579,
+          "chance": 4,
+          "checkpoints": 395
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 41,
+      "elapsed_seconds": 3.401171906996751,
+      "identity": "4326c4aa165d3bd875187388cc71a11049cb8c4c06c60840939c0d8497633510",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 530,
+          "chance": 2,
+          "checkpoints": 380
+        },
+        {
+          "actions": 530,
+          "chance": 2,
+          "checkpoints": 380
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 42,
+      "elapsed_seconds": 3.5608864440000616,
+      "identity": "a24212d361eadfc03052262919240518b73e5b69dffa68cdb9c7bfb9f4d7b47b",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 659,
+          "chance": 2,
+          "checkpoints": 462
+        },
+        {
+          "actions": 659,
+          "chance": 2,
+          "checkpoints": 462
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 43,
+      "elapsed_seconds": 2.7770349019847345,
+      "identity": "809be889d21e8230a61a6be07d025ad3be9e27fd4d5a417244fd3e1dcb32e2c5",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 631,
+          "chance": 4,
+          "checkpoints": 436
+        },
+        {
+          "actions": 631,
+          "chance": 4,
+          "checkpoints": 436
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 44,
+      "elapsed_seconds": 3.002211296989117,
+      "identity": "3645cd391b0574773477a254ad6bec9614153e6d90052e756e7c3d901bbc4e59",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 544,
+          "chance": 2,
+          "checkpoints": 369
+        },
+        {
+          "actions": 544,
+          "chance": 2,
+          "checkpoints": 369
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 45,
+      "elapsed_seconds": 1.0083507639938034,
+      "identity": "0f885ef302382fccab932a31d1f5cfb5eb8ccaecf431cc4a2c57ed01355c5861",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 270,
+          "chance": 4,
+          "checkpoints": 214
+        },
+        {
+          "actions": 270,
+          "chance": 4,
+          "checkpoints": 214
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 46,
+      "elapsed_seconds": 2.9452869099914096,
+      "identity": "063a67e6036b8e7c4788f0846d9e9e78233e9c5a0f03200ec4f976a65b22d711",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 585,
+          "chance": 2,
+          "checkpoints": 416
+        },
+        {
+          "actions": 585,
+          "chance": 2,
+          "checkpoints": 416
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 47,
+      "elapsed_seconds": 1.9408796740171965,
+      "identity": "81c47ce6f21b08b809cbb15d4d912e681c38d49c998386f6d2b5adc4d3f2523c",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 371,
+          "chance": 2,
+          "checkpoints": 271
+        },
+        {
+          "actions": 371,
+          "chance": 2,
+          "checkpoints": 271
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 48,
+      "elapsed_seconds": 2.0695921550213825,
+      "identity": "ad977275daee8926fc44e900de2e0108fa118992cda2bae2dcc5085e9fa12b80",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 439,
+          "chance": 2,
+          "checkpoints": 331
+        },
+        {
+          "actions": 439,
+          "chance": 2,
+          "checkpoints": 331
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 49,
+      "elapsed_seconds": 1.8860743709956296,
+      "identity": "8f7f0990183d2f8670633d7854fd4be8bc60f3b7221802d49299f8332a9c46d9",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 460,
+          "chance": 2,
+          "checkpoints": 315
+        },
+        {
+          "actions": 460,
+          "chance": 2,
+          "checkpoints": 315
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 50,
+      "elapsed_seconds": 3.4628205109911505,
+      "identity": "668c6566322aa36d35b2bcfc2a6dfac5805ed5038993ae564d988237bd83cdb7",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 613,
+          "chance": 2,
+          "checkpoints": 480
+        },
+        {
+          "actions": 613,
+          "chance": 2,
+          "checkpoints": 480
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 51,
+      "elapsed_seconds": 2.898746014019707,
+      "identity": "53108172081a16ed9116e726d0c47d45963c32f68664073e37e3fed5a0426b98",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 544,
+          "chance": 2,
+          "checkpoints": 381
+        },
+        {
+          "actions": 544,
+          "chance": 2,
+          "checkpoints": 381
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 52,
+      "elapsed_seconds": 2.696895597007824,
+      "identity": "45c3c0a8d71dec0a15b4ab82be863565039f0a5252aeeb7b9e52c9a0713392ee",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 620,
+          "chance": 2,
+          "checkpoints": 435
+        },
+        {
+          "actions": 620,
+          "chance": 2,
+          "checkpoints": 435
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 53,
+      "elapsed_seconds": 3.939031348010758,
+      "identity": "406e435cf4a1adc0703f30595df5620abf3b491c1d3f9180c39696d88bd45298",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 697,
+          "chance": 4,
+          "checkpoints": 504
+        },
+        {
+          "actions": 697,
+          "chance": 4,
+          "checkpoints": 504
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 54,
+      "elapsed_seconds": 2.2101946549955755,
+      "identity": "57cefbf69bebfd681f8b6f83b41f59969bafae52e7a213b3ec2d89acb934ea04",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 556,
+          "chance": 2,
+          "checkpoints": 425
+        },
+        {
+          "actions": 556,
+          "chance": 2,
+          "checkpoints": 425
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 55,
+      "elapsed_seconds": 2.38674096800969,
+      "identity": "a09a3e01721be4d90fb367a870f6ed37320ad51eb6da1200fa73480c2bf2a3a2",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 471,
+          "chance": 2,
+          "checkpoints": 319
+        },
+        {
+          "actions": 471,
+          "chance": 2,
+          "checkpoints": 319
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 56,
+      "elapsed_seconds": 3.5985441130178515,
+      "identity": "49eca455de6267d24f5b64e600f4962df2be29e9f4646f87d69a8c06c268f26a",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 597,
+          "chance": 3,
+          "checkpoints": 446
+        },
+        {
+          "actions": 597,
+          "chance": 3,
+          "checkpoints": 446
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 57,
+      "elapsed_seconds": 3.3194405990070663,
+      "identity": "9e47d2159f02ff199850fac7b7aa966bd4c21c98f140b69194bef135d9ed3bf8",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 614,
+          "chance": 3,
+          "checkpoints": 425
+        },
+        {
+          "actions": 614,
+          "chance": 3,
+          "checkpoints": 425
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 58,
+      "elapsed_seconds": 2.150447455001995,
+      "identity": "f384c8ff2d35432ce84522e6803710551114e7b0eb8868474afa38b181ab3355",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 532,
+          "chance": 2,
+          "checkpoints": 365
+        },
+        {
+          "actions": 532,
+          "chance": 2,
+          "checkpoints": 365
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 59,
+      "elapsed_seconds": 1.9065947799826972,
+      "identity": "fe78ff0bada6a7e9b8ae00ccd6c04a04d6a389c0bd1f1adf20afe555b869bf88",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 451,
+          "chance": 2,
+          "checkpoints": 332
+        },
+        {
+          "actions": 451,
+          "chance": 2,
+          "checkpoints": 332
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 60,
+      "elapsed_seconds": 2.3393857250048313,
+      "identity": "ec617f14a82da75b18b5607d433786db91582b0d979c458f4942e42a7d8ce5b9",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 505,
+          "chance": 4,
+          "checkpoints": 355
+        },
+        {
+          "actions": 505,
+          "chance": 4,
+          "checkpoints": 355
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 61,
+      "elapsed_seconds": 2.7355452019837685,
+      "identity": "c10ee8372f6dfe33ea5c5541126e1a563947de487cf77977453b4e6a460202ef",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 562,
+          "chance": 2,
+          "checkpoints": 397
+        },
+        {
+          "actions": 562,
+          "chance": 2,
+          "checkpoints": 397
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 62,
+      "elapsed_seconds": 1.4109445119975135,
+      "identity": "4bedc0a754d12cd146eccce96bdf494dc945f8f8867197634c249c68b78db84d",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 358,
+          "chance": 2,
+          "checkpoints": 262
+        },
+        {
+          "actions": 358,
+          "chance": 2,
+          "checkpoints": 262
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 63,
+      "elapsed_seconds": 2.0939349030086305,
+      "identity": "b1c9266b789ad3ab20a06a49dc21c311a5388a0e0c11989a5504fe634a30b94a",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 544,
+          "chance": 2,
+          "checkpoints": 395
+        },
+        {
+          "actions": 544,
+          "chance": 2,
+          "checkpoints": 395
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 64,
+      "elapsed_seconds": 2.3178997299983166,
+      "identity": "536ab42b2956fc5dee8182ff28a31247d2c6decc0b8c44e98719c9e1d38410bd",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 537,
+          "chance": 3,
+          "checkpoints": 379
+        },
+        {
+          "actions": 537,
+          "chance": 3,
+          "checkpoints": 379
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 65,
+      "elapsed_seconds": 3.6372308149875607,
+      "identity": "6ee11e6ab6875a6a16fa2c20686c1c8a3204e858c83385fd78f0584d7e013382",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 587,
+          "chance": 2,
+          "checkpoints": 394
+        },
+        {
+          "actions": 587,
+          "chance": 2,
+          "checkpoints": 394
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 66,
+      "elapsed_seconds": 2.513254458026495,
+      "identity": "e16f5b41dee8368dfca2480c1156a07d620eae6c488fc25b4599faebfcea2aa3",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 576,
+          "chance": 2,
+          "checkpoints": 409
+        },
+        {
+          "actions": 576,
+          "chance": 2,
+          "checkpoints": 409
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 67,
+      "elapsed_seconds": 1.5830233190208673,
+      "identity": "b00eebc9b788239e17e94762f8344ee5db5b5292b6d00694194fce5cc27eb567",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 391,
+          "chance": 2,
+          "checkpoints": 282
+        },
+        {
+          "actions": 391,
+          "chance": 2,
+          "checkpoints": 282
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 68,
+      "first_difference": "first divergence: /source/5168/committed ability",
+      "status": "not-convertible"
+    },
+    {
+      "attempt": 69,
+      "elapsed_seconds": 4.310919765004655,
+      "identity": "5e2e41f41498d0d51e45268c5921b129b3afd5f174f81b16bc21527ba3d28464",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 800,
+          "chance": 2,
+          "checkpoints": 577
+        },
+        {
+          "actions": 800,
+          "chance": 2,
+          "checkpoints": 577
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 70,
+      "elapsed_seconds": 2.0055367590102833,
+      "identity": "16f5536941f633d11d6ce88888476622d15e1a1312f2b64fa4d5ecc6b1e59e2f",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 398,
+          "chance": 3,
+          "checkpoints": 281
+        },
+        {
+          "actions": 398,
+          "chance": 3,
+          "checkpoints": 281
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 71,
+      "elapsed_seconds": 2.1137403009925038,
+      "identity": "bef3bac6c6f0491416f02e8cc6af5187993a97c145d7236a1c6580b1e36589c8",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 415,
+          "chance": 2,
+          "checkpoints": 315
+        },
+        {
+          "actions": 415,
+          "chance": 2,
+          "checkpoints": 315
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 72,
+      "elapsed_seconds": 2.161778478999622,
+      "identity": "36c2a45984e2bf26627b9fee41d3a19868d6c1ea65173a0ac75f913449c44afc",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 449,
+          "chance": 2,
+          "checkpoints": 304
+        },
+        {
+          "actions": 449,
+          "chance": 2,
+          "checkpoints": 304
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 73,
+      "elapsed_seconds": 3.0704252239956986,
+      "identity": "41aa4806331a8504df718b798dbe0673f3bc2491fe9eac650d2682c6ac598aa2",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 547,
+          "chance": 2,
+          "checkpoints": 397
+        },
+        {
+          "actions": 547,
+          "chance": 2,
+          "checkpoints": 397
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 74,
+      "elapsed_seconds": 1.865522128995508,
+      "identity": "b537f0228f56472a0d00b8bfa0928e51d92eebaaa45edfce3d4782de9264bae4",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 414,
+          "chance": 2,
+          "checkpoints": 309
+        },
+        {
+          "actions": 414,
+          "chance": 2,
+          "checkpoints": 309
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 75,
+      "elapsed_seconds": 3.407219211978372,
+      "identity": "42506f24c7f85a28ab1e6dd07b662269c795228a3d02a132942c3f28a361603a",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 648,
+          "chance": 4,
+          "checkpoints": 441
+        },
+        {
+          "actions": 648,
+          "chance": 4,
+          "checkpoints": 441
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 76,
+      "elapsed_seconds": 3.18839429502259,
+      "identity": "27316709b8eb684c6be1e0b226ec997dd14224efec69a32a1d10ee8833ff5115",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 591,
+          "chance": 2,
+          "checkpoints": 416
+        },
+        {
+          "actions": 591,
+          "chance": 2,
+          "checkpoints": 416
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 77,
+      "elapsed_seconds": 2.7216864849906415,
+      "identity": "38215c72b86fa0e63df58760d81279e8387677d5d0f935cf669f42a53bc54257",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 587,
+          "chance": 2,
+          "checkpoints": 418
+        },
+        {
+          "actions": 587,
+          "chance": 2,
+          "checkpoints": 418
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 78,
+      "elapsed_seconds": 2.5406441200175323,
+      "identity": "3f2bd1a06c6aafb3c220d5e68a81491b79d3bbe46d2676ddca9e5a4f61c426ba",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 469,
+          "chance": 2,
+          "checkpoints": 332
+        },
+        {
+          "actions": 469,
+          "chance": 2,
+          "checkpoints": 332
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 79,
+      "elapsed_seconds": 2.677903128991602,
+      "first_difference": "first divergence: /source/1301/checkpoint/action/152/stack: {'path': '$[0].targets[0].object', 'expected': {'incarnation': 3, 'source': '0/thornweald-archer/0'}, 'actual': None}",
+      "identity": "b651adb158505760023da14501b7dada9071921a06bfcfe50128ca0c0a0e01f6",
+      "status": "divergent-or-unsupported"
+    },
+    {
+      "attempt": 80,
+      "elapsed_seconds": 2.278805017005652,
+      "identity": "4af67b2ad7fe10a76b166f07ffc02bbf3e6e09eda19b6ce114e41742094faac3",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 549,
+          "chance": 2,
+          "checkpoints": 393
+        },
+        {
+          "actions": 549,
+          "chance": 2,
+          "checkpoints": 393
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 81,
+      "elapsed_seconds": 3.941112244996475,
+      "identity": "4a390ed2fd1a8859b31230a7f781c940c4a2cc237e1de7727020bba69cd274ff",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 759,
+          "chance": 2,
+          "checkpoints": 548
+        },
+        {
+          "actions": 759,
+          "chance": 2,
+          "checkpoints": 548
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 82,
+      "first_difference": "first divergence: /source/2769/effect lifetime",
+      "status": "not-convertible"
+    },
+    {
+      "attempt": 83,
+      "elapsed_seconds": 2.254736854985822,
+      "identity": "43be64ce8030cfc931ec68bad66389a41d8ed1ffee355d8ab7ed591fefd03dad",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 479,
+          "chance": 3,
+          "checkpoints": 341
+        },
+        {
+          "actions": 479,
+          "chance": 3,
+          "checkpoints": 341
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 84,
+      "elapsed_seconds": 3.8446504219900817,
+      "identity": "645fc00cebea953d64a71886e01ba9e5afa5431e02dc5fb28bc14780faa84395",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 694,
+          "chance": 2,
+          "checkpoints": 502
+        },
+        {
+          "actions": 694,
+          "chance": 2,
+          "checkpoints": 502
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 85,
+      "elapsed_seconds": 3.7978273649932817,
+      "identity": "799752a514a1fd1906328e9abc3889921d94b652b4f0dc7f15a7d514d0f4010b",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 595,
+          "chance": 4,
+          "checkpoints": 448
+        },
+        {
+          "actions": 595,
+          "chance": 4,
+          "checkpoints": 448
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 86,
+      "elapsed_seconds": 1.157218941982137,
+      "identity": "c2b3d75ea281eb56da41e9a4fd83cb68d1bd554065d965af9c16b3d6f0c0f99e",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 334,
+          "chance": 3,
+          "checkpoints": 256
+        },
+        {
+          "actions": 334,
+          "chance": 3,
+          "checkpoints": 256
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 87,
+      "first_difference": "first divergence: /source/6098/departed effect target",
+      "status": "not-convertible"
+    },
+    {
+      "attempt": 88,
+      "elapsed_seconds": 3.2485724359867163,
+      "identity": "669f6d216f6597f8e6347b1cc3243807e01b84298bef0201f9b7ca16103939a3",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 683,
+          "chance": 2,
+          "checkpoints": 487
+        },
+        {
+          "actions": 683,
+          "chance": 2,
+          "checkpoints": 487
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 89,
+      "elapsed_seconds": 1.7448254790215287,
+      "identity": "fb304db5c98f839ed706a491c573122a4ea00950f34b863d2cc60ac1f471e096",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 439,
+          "chance": 2,
+          "checkpoints": 320
+        },
+        {
+          "actions": 439,
+          "chance": 2,
+          "checkpoints": 320
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 90,
+      "elapsed_seconds": 2.9644083799794316,
+      "identity": "f94cc0b17ec462d397eddcad09f9f831e910f448375fe818f890a52a7a3eb9cd",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_genuine_trigger_order"
+      ],
+      "repeats": [
+        {
+          "actions": 612,
+          "chance": 2,
+          "checkpoints": 424
+        },
+        {
+          "actions": 612,
+          "chance": 2,
+          "checkpoints": 424
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 91,
+      "elapsed_seconds": 2.7570976450224407,
+      "identity": "be091fbd7111ccf9bccce67ffc2b8cb67fcf1aab75d0a58e515d55c8a573f3bc",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 525,
+          "chance": 2,
+          "checkpoints": 377
+        },
+        {
+          "actions": 525,
+          "chance": 2,
+          "checkpoints": 377
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 92,
+      "elapsed_seconds": 1.757388327998342,
+      "identity": "1ff47f252fa6a33e4dc0b6df344e4ef2fc64816789e415e453c86a35b2ed0d51",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost"
+      ],
+      "repeats": [
+        {
+          "actions": 449,
+          "chance": 3,
+          "checkpoints": 325
+        },
+        {
+          "actions": 449,
+          "chance": 3,
+          "checkpoints": 325
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 93,
+      "elapsed_seconds": 2.2745248340070248,
+      "identity": "163f3fa791e58a80e61a378fee9d4149fc83527727eeafba5a9e5a85eed1ac27",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 480,
+          "chance": 2,
+          "checkpoints": 344
+        },
+        {
+          "actions": 480,
+          "chance": 2,
+          "checkpoints": 344
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 94,
+      "elapsed_seconds": 1.5922824010194745,
+      "identity": "153e8ccb5a4fe7db2577e0dbb067acb81acb7f433f1ddcae872bcf30b6b1bb21",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 423,
+          "chance": 2,
+          "checkpoints": 308
+        },
+        {
+          "actions": 423,
+          "chance": 2,
+          "checkpoints": 308
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 95,
+      "elapsed_seconds": 2.655244368012063,
+      "identity": "658a340e4f4098d9340ca21e51b09e5e786568a6ac449ab3c101f166f704de20",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 510,
+          "chance": 2,
+          "checkpoints": 347
+        },
+        {
+          "actions": 510,
+          "chance": 2,
+          "checkpoints": 347
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 96,
+      "elapsed_seconds": 2.0555169580038637,
+      "identity": "6849ec64805d33af0a79d41262ac87cd55cf22e191cd44d89193b870133f7319",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 483,
+          "chance": 2,
+          "checkpoints": 347
+        },
+        {
+          "actions": 483,
+          "chance": 2,
+          "checkpoints": 347
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 97,
+      "elapsed_seconds": 2.4470737910014577,
+      "identity": "cff36a45c1fa38e7744c2ef8cf86456474ddb2587c907c0bace6a7efd86d20aa",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 568,
+          "chance": 2,
+          "checkpoints": 392
+        },
+        {
+          "actions": 568,
+          "chance": 2,
+          "checkpoints": 392
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 98,
+      "elapsed_seconds": 3.993421628983924,
+      "identity": "b54826cd91c4300c7afcd47d437cc096d0df808f181f66421fb4e504484d56e3",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target",
+        "pilot_graveyard_order"
+      ],
+      "repeats": [
+        {
+          "actions": 775,
+          "chance": 2,
+          "checkpoints": 544
+        },
+        {
+          "actions": 775,
+          "chance": 2,
+          "checkpoints": 544
+        }
+      ],
+      "status": "passed"
+    },
+    {
+      "attempt": 99,
+      "elapsed_seconds": 2.5205228790000547,
+      "identity": "dfd34fc0eb16090763845faae898d1c87939992e31fa1988dc4b319c7490cff1",
+      "negative_controls": [
+        "duplicate_card_identity",
+        "shuffle",
+        "cost",
+        "target",
+        "trigger_order",
+        "pilot_shuffle",
+        "pilot_unexpected_trigger_order",
+        "pilot_duplicate_card_identity",
+        "pilot_cost",
+        "pilot_target"
+      ],
+      "repeats": [
+        {
+          "actions": 615,
+          "chance": 2,
+          "checkpoints": 438
+        },
+        {
+          "actions": 615,
+          "chance": 2,
+          "checkpoints": 438
+        }
+      ],
+      "status": "passed"
+    }
+  ],
+  "scope": "diagnostic native/source checks only; patched reference requalification not performed"
+}

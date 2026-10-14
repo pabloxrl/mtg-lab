@@ -1,0 +1,20 @@
+{
+  "results": [
+    {
+      "name": "unsupported",
+      "exit_code": 1,
+      "status": "unsupported",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: unsupported callback: chooseRingBearer",
+      "elapsed_seconds": 0.3714867400121875
+    },
+    {
+      "name": "truncated",
+      "exit_code": 1,
+      "status": "truncated",
+      "error": "org.mage.test.mtglab.RawAiCaptureTest$Stop: truncated: record limit",
+      "elapsed_seconds": 0.4172564859909471
+    }
+  ],
+  "campaign_attempts": 0,
+  "quota_games": 0
+}
