@@ -35,7 +35,14 @@ class CombatTests(unittest.TestCase):
         self.assertEqual(author_combat.negatives(self.doc),combat.negative_inputs(self.doc))
     def test_comparator_controls(self):
         controls=combat.comparator_controls(self.actual,self.doc,'native')
-        self.assertGreaterEqual(len(controls),12)
+        self.assertEqual(set(controls), {
+            'early-life', 'final-life', 'simultaneous-damage', 'missing-simultaneous',
+            'blocked-status', 'allocation', 'graveyard-order', 'zone-identity',
+            'incarnation', 'library-identity', 'missing-consumption', 'legal-observation',
+            'missing-stack', 'missing-permanents', 'missing-life', 'missing-combat',
+            'missing-allocations'})
+        # Selective copies must leave all shared views usable by the next case.
+        combat.check_run(self.actual,self.doc,'native')
     def test_simultaneous_marks_and_source_incarnations(self):
         for run in self.actual['runs'].values():self.assertEqual(len(run['marked']),1)
     def test_ordered_graveyard_comparator_retains_real_disagreement(self):

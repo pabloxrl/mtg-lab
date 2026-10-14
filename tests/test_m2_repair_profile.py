@@ -55,7 +55,7 @@ class FixedTraceProfile(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Invocation owns the mandatory heavy lock, just as for the other native adapters.
-        result = subprocess.run(['cargo', 'test', '-p', 'mtg-cli', '--locked', '--no-run',
+        result = subprocess.run(['cargo', 'test', '-p', 'mtg-cli', '--bin', 'mtg', '--locked', '--no-run',
                                  '--message-format=json'], cwd=ROOT, capture_output=True, text=True, check=True)
         cls.binary = next(Path(row['executable']) for line in result.stdout.splitlines()
                           if (row := json.loads(line)).get('reason') == 'compiler-artifact'

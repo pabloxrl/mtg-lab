@@ -153,31 +153,36 @@ def semantic(p):
 
 def comparator_controls(r,doc,engine):
     controls={}
-    def probe(name,mutate):
-        bad=copy.deepcopy(r);mutate(bad)
+    def probe(name,case,field,mutate):
+        # Only the mutated field needs ownership. Large recordings, repeats and
+        # other cases remain read-only; every probe starts from pristine input.
+        bad=dict(r,runs=dict(r['runs']))
+        bad['runs'][case]=dict(r['runs'][case])
+        bad['runs'][case][field]=copy.deepcopy(r['runs'][case][field])
+        mutate(bad)
         # Aliases in actual JSON files are not shared. Bind both views so that
         # rejection tests the semantic assertion, not a duplicate-view mismatch.
         bad['checkpoints']={k:v['points'] for k,v in bad['runs'].items()}
         try:check_run(bad,doc,engine)
         except (ValueError,KeyError,TypeError,IndexError) as error:controls[name]=str(error)
         else:raise ValueError('undetected comparator mutation '+name)
-    probe('early-life',lambda b:b['runs']['shivan-unblocked']['points'][0]['life'].__setitem__(0,19))
-    probe('final-life',lambda b:b['runs']['shivan-unblocked']['points'][-1]['life'].__setitem__(1,20))
-    probe('simultaneous-damage',lambda b:b['runs']['shivan-thorn']['marked'][0]['permanents']['0/shivan-dragon/0'].__setitem__('damage',0))
-    probe('missing-simultaneous',lambda b:b['runs']['shivan-thorn'].__setitem__('marked',[]))
+    probe('early-life','shivan-unblocked','points',lambda b:b['runs']['shivan-unblocked']['points'][0]['life'].__setitem__(0,19))
+    probe('final-life','shivan-unblocked','points',lambda b:b['runs']['shivan-unblocked']['points'][-1]['life'].__setitem__(1,20))
+    probe('simultaneous-damage','shivan-thorn','marked',lambda b:b['runs']['shivan-thorn']['marked'][0]['permanents']['0/shivan-dragon/0'].__setitem__('damage',0))
+    probe('missing-simultaneous','shivan-thorn','marked',lambda b:b['runs']['shivan-thorn'].__setitem__('marked',[]))
     def combat(b):
         p=next(p for p in b['runs']['shivan-multiple']['points'] if p['step']=='combat_damage' and p['combat'])
         p['combat'][0]['blocked']=False
-    probe('blocked-status',combat)
-    probe('allocation',lambda b:b['runs']['shivan-multiple']['points'][-1]['allocations'][0]['amounts'][0].__setitem__('amount',3))
-    probe('graveyard-order',lambda b:b['runs']['shivan-multiple']['points'][-1]['graveyard'][1].reverse())
-    probe('zone-identity',lambda b:b['runs']['shivan-thorn']['points'][-1]['graveyard'][0].__setitem__(0,'0/axgard-cavalry/0'))
-    probe('incarnation',lambda b:b['runs']['shivan-thorn']['points'][-1]['incarnations'].__setitem__('0/shivan-dragon/0',3))
-    probe('library-identity',lambda b:b['runs']['shivan-unblocked']['points'][-1]['library'][0].reverse())
-    probe('missing-consumption',lambda b:b['runs']['pathwarden-haste']['consumed_play'].pop())
-    probe('legal-observation',lambda b:b['runs']['pathwarden-haste'].__setitem__('legal_checks',[]))
+    probe('blocked-status','shivan-multiple','points',combat)
+    probe('allocation','shivan-multiple','points',lambda b:b['runs']['shivan-multiple']['points'][-1]['allocations'][0]['amounts'][0].__setitem__('amount',3))
+    probe('graveyard-order','shivan-multiple','points',lambda b:b['runs']['shivan-multiple']['points'][-1]['graveyard'][1].reverse())
+    probe('zone-identity','shivan-thorn','points',lambda b:b['runs']['shivan-thorn']['points'][-1]['graveyard'][0].__setitem__(0,'0/axgard-cavalry/0'))
+    probe('incarnation','shivan-thorn','points',lambda b:b['runs']['shivan-thorn']['points'][-1]['incarnations'].__setitem__('0/shivan-dragon/0',3))
+    probe('library-identity','shivan-unblocked','points',lambda b:b['runs']['shivan-unblocked']['points'][-1]['library'][0].reverse())
+    probe('missing-consumption','pathwarden-haste','consumed_play',lambda b:b['runs']['pathwarden-haste']['consumed_play'].pop())
+    probe('legal-observation','pathwarden-haste','legal_checks',lambda b:b['runs']['pathwarden-haste'].__setitem__('legal_checks',[]))
     for f in ('stack','permanents','life','combat','allocations'):
-        probe('missing-'+f,lambda b,f=f:b['runs']['shivan-unblocked']['points'][0].pop(f))
+        probe('missing-'+f,'shivan-unblocked','points',lambda b,f=f:b['runs']['shivan-unblocked']['points'][0].pop(f))
     return controls
 
 def source_files():

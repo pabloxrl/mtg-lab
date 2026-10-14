@@ -10,6 +10,7 @@ alias SymphonyElixir.Tracker.Issue
 Workflow.set_workflow_file_path(hd(System.argv()))
 {:ok, _} = WorkflowStore.start_link()
 settings = Config.settings!()
+300_000 = settings.hooks.timeout_ms
 3 = settings.agent.max_concurrent_agents
 12 = settings.agent.max_turns
 300_000 = settings.agent.max_retry_backoff_ms

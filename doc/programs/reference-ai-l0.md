@@ -243,6 +243,18 @@ reference tree or Cargo target. A child owns one observable deliverable; if an
 unforeseen prerequisite exceeds it, report concrete evidence for coordinator
 registration rather than silently widening scope or hiding failures.
 
+## XMage pilot consumer scope clarification
+
+Coordinator operations #348 clarifies that #321 / L0-003 owns the minimal
+captured trigger/ETB/order, Goblin Surprise modal and combat-settlement consumer
+repairs exposed by its retained eight-game baseline. These are prerequisites
+within its unchanged ten-game pilot acceptance, not new mechanics or new tasks.
+Preserve original source traces, first differences, independently rules-derived
+regressions and reviewed adjudications. All eight rows and ten distinct complete
+games, replayed twice with required intermediate checks, remain mandatory.
+This clarification does not change #320's historical delivery claim, expand the
+card pool, waive unsupported observations or resume held M3 work.
+
 ## Registry validation and locked bounded handoff
 
 Fetch main and run `python3 scripts/check_l0_program.py --ref origin/main` before

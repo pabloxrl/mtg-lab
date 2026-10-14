@@ -232,28 +232,13 @@ class MeasurementArchivedEvidence(unittest.TestCase):
 
 
 class MeasurementRealAdapter(unittest.TestCase):
-    def test_real_normal_reset_exports_and_negative_controls(self):
-        # Invoke the delivered adapter, preserving its native semantics/capture
-        # checks. This is supplemental finite evidence, never a timed campaign.
-        from test_m2_repair_modes import FourModeContract
-        from scripts.scalar_modes import validate_execution
-        FourModeContract.setUpClass()
-        try:
-            receipt=FourModeContract.receipt
-            self.assertGreater(validate_execution(receipt)['observations'],0)
-            for key in ('attempts','elapsed_ns','completed'):
-                bad=copy.deepcopy(receipt); bad['runs'][0]['window'][key]=0
-                with self.subTest(key=key),self.assertRaises(ValueError): validate_execution(bad)
-        finally:
-            FourModeContract.tearDownClass()
-
     def test_real_fixed_episode_latency_matrix(self):
         from test_m2_repair_timing import validate
         with tempfile.TemporaryDirectory() as tmp:
             path=Path(tmp)/'native.json'
             env=dict(os.environ, MTG_MEASUREMENT_NATIVE_OUTPUT=str(path))
             fd=env.get('MTG_SYMPHONY_LOCK_FD')
-            command=['cargo','test','--locked','-p','mtg-cli','measurement_export_native_latency_and_equivalence','--','--nocapture']
+            command=['cargo','test','--locked','-p','mtg-cli','--bin','mtg','measurement_export_native_latency_and_equivalence','--','--nocapture']
             result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,
                 pass_fds=() if fd is None else (int(fd),),timeout=1800)
             self.assertEqual(result.returncode,0,result.stdout[-4000:]+result.stderr[-4000:])

@@ -12,8 +12,10 @@ polling:
 workspace:
   root: ~/.local/share/mtg-lab-symphony/workspaces
 hooks:
+  timeout_ms: 300000
   after_create: |
-    git clone https://github.com/pabloxrl/mtg-lab.git .
+    set -e
+    timeout --kill-after=10s 270s git clone https://github.com/pabloxrl/mtg-lab.git .
     git config --local user.name "pablo ribalta"
     git config --local user.email "pabloxrl@gmail.com"
   before_run: |

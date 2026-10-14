@@ -396,3 +396,9 @@ record the transfer, remove only migration-owned holds and explicitly apply
 `agent-ready` after normal dependency/program checks. A bare `agent-running`
 label from the external owner is replaced by actual controller ownership; never
 run the external lane and Symphony worker at the same time.
+
+Workspace creation allows 300 seconds for hooks. The fresh clone is bounded by
+GNU `timeout --kill-after=10s 270s`, so its process group is stopped before the
+hook limit even if Git ignores termination. A failed clone fails workspace
+creation; it does not continue as a usable checkout. Deploy workflow changes
+at the coordinator's idle boundary; existing workers keep their workspaces.
