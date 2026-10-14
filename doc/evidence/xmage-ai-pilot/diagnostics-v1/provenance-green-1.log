@@ -1,0 +1,17 @@
+E.
+======================================================================
+ERROR: test_full_trigger_replay_compares_staging_with_bound_provenance (test_xmage_ai_pilot.CapturedTriggerProvenance.test_full_trigger_replay_compares_staging_with_bound_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 120, in test_full_trigger_replay_compares_staging_with_bound_provenance
+    normalize.verify_pair(self.converted,self.native,self.reference)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 593, in verify_pair
+    need(delta is None,c['source'],f'XMage checkpoint/action/{i}: {delta}')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 17, in need
+    raise ValueError(f'first divergence: /source/{cursor}/{field}')
+ValueError: first divergence: /source/1537/XMage checkpoint/action/174: {'path': '$.pending_triggers', 'expected_length': 1, 'actual_length': 0}
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.361s
+
+FAILED (errors=1)

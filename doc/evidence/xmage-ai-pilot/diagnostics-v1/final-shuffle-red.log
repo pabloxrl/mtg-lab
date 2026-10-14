@@ -1,0 +1,22 @@
+E
+======================================================================
+ERROR: test_only_final_round_bottoms_follow_final_shuffle (test_xmage_ai_pilot.CapturedCleanup.test_only_final_round_bottoms_follow_final_shuffle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 95, in test_only_final_round_bottoms_follow_final_shuffle
+    normalize.verify_native(converted,native)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 548, in verify_native
+    admission_observations.check(run,case,'native')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 67, in check
+    structure(p,case,engine,i,prefix)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 46, in structure
+    require(remaining==order[len(order)-len(remaining):],prefix+'/library occurrence order')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 17, in require
+    if not ok:raise ValueError('first divergence: '+path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: first divergence: /checkpoint/0/library occurrence order
+
+----------------------------------------------------------------------
+Ran 1 test in 0.047s
+
+FAILED (errors=1)

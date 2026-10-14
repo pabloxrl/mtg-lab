@@ -1,0 +1,131 @@
+{
+  "status": "historical-diagnostic-runs-not-new-games",
+  "runs": [
+    {
+      "run": "combat-v2/06-green-green-0",
+      "receipt": "combat-v2/06-green-green-0/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "combat-v2/07-green-green-1",
+      "receipt": "combat-v2/07-green-green-1/result.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /source/3256/combat graveyard prefix"
+    },
+    {
+      "run": "native-v3/00-red-green-0",
+      "receipt": "native-v3/00-red-green-0/result.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /play/175 first divergence: /native command Policy(WrongActor)"
+    },
+    {
+      "run": "native-v3/07-green-green-1",
+      "receipt": "native-v3/07-green-green-1/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "native-v4/00-red-green-0",
+      "receipt": "native-v4/00-red-green-0/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "native-v5/01-red-green-1",
+      "receipt": "native-v5/01-red-green-1/result.json.xz",
+      "status": "failed",
+      "earliest_difference": {
+        "field": "active grant refers to departed object",
+        "point_index": 442
+      }
+    },
+    {
+      "run": "native-v5/02-green-red-0",
+      "receipt": "native-v5/02-green-red-0/result.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /source/1958/combat graveyard arrival provenance"
+    },
+    {
+      "run": "native-v5/03-green-red-1",
+      "receipt": "native-v5/03-green-red-1/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "native-v5/04-red-red-0",
+      "receipt": "native-v5/04-red-red-0/result.json.xz",
+      "status": "failed",
+      "earliest_difference": {
+        "field": "active grant refers to departed object",
+        "point_index": 244
+      }
+    },
+    {
+      "run": "native-v5/05-red-red-1",
+      "receipt": "native-v5/05-red-red-1/result.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /source/1757/unsupported standalone choice call/choose"
+    },
+    {
+      "run": "native-v6/01-red-green-1",
+      "receipt": "native-v6/01-red-green-1/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "native-v6/02-green-red-0",
+      "receipt": "native-v6/02-green-red-0/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "native-v6/04-red-red-0",
+      "receipt": "native-v6/04-red-red-0/result.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "native-v6/05-red-red-1",
+      "receipt": "native-v6/05-red-red-1/result.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /bottom cardinality"
+    },
+    {
+      "run": "native-v7/05-red-red-1",
+      "receipt": "native-v7/05-red-red-1/result.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /checkpoint/0/library occurrence order"
+    },
+    {
+      "run": "reference-v1/00-red-green-0",
+      "receipt": "reference-v1/00-red-green-0/receipt.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /trigger provenance source incarnation binding"
+    },
+    {
+      "run": "reference-v1/03-green-red-1",
+      "receipt": "reference-v1/03-green-red-1/receipt.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "reference-v1/06-green-green-0",
+      "receipt": "reference-v1/06-green-green-0/receipt.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "reference-v1/07-green-green-1",
+      "receipt": "reference-v1/07-green-green-1/receipt.json.xz",
+      "status": "passed",
+      "earliest_difference": null
+    },
+    {
+      "run": "qualification-v1/08-red-green-0",
+      "receipt": "qualification-v1/08-red-green-0/receipt.json.xz",
+      "status": "failed",
+      "earliest_difference": "first divergence: /source/2546/checkpoint/action/283/pending_triggers: {'path': '$[0].key.source', 'expected': '0/crackling-cyclops/1', 'actual': '0/firebrand-archer/2'}"
+    }
+  ]
+}

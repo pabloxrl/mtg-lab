@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "purpose": "pilot qualification toolchain; not a performance measurement",
+  "native_profile": "test profile optimized with debuginfo",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-6.8.0-64-generic-aarch64-with-glibc2.39",
+  "machine": "aarch64",
+  "pins": {
+    "rust-toolchain.toml": "c910997cb152c6dc8ed13b1fdf9fa28a4ed30d6776123e27dd6170e5c66067a0",
+    "Cargo.lock": "1bfa4406868d560092b46b46c5c0d9531d84cd07fc2c0185718d6590f97dd7fe",
+    "Cargo.toml": "8460200f30cb9e72c404d0034e5c09e979818130e4e538f310c923052a25e1b6"
+  },
+  "reference_toolchain": "Per-capture attempt.json/toolchain; replay uses the same pinned XMage installation and JDK/Maven dependencies."
+}

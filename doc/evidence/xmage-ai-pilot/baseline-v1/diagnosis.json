@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "base": "8f9a9b66064957287d438cf021466554d73e22a7",
+  "status": "diagnostic-not-qualified",
+  "started": 8,
+  "source_complete": 8,
+  "converted": 2,
+  "native_complete": 0,
+  "admitted": 0,
+  "attempts": [
+    {
+      "attempt": "00-red-green-0",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "rejected",
+      "earliest_difference": "first divergence: /source/1537/unsupported pending trigger context",
+      "seed": 32100,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "starter": 0,
+      "records": 3789,
+      "source_trace_sha256": "663c9ca0cb751d3b9a27195ca2950e9234d1429d9e45905d491bf6208b779934",
+      "receipt_sha256": "dc2480532636403ab49f7ae62793e57f95fb31bfbfc7d8c889496ecd89db6302"
+    },
+    {
+      "attempt": "01-red-green-1",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "rejected",
+      "earliest_difference": "first divergence: /source/3036/unsupported standalone choice call/chooseTarget",
+      "seed": 32101,
+      "decks": [
+        "red",
+        "green"
+      ],
+      "starter": 1,
+      "records": 4077,
+      "source_trace_sha256": "7e85aacbf20c6b3df0e26b5d9385dd487e6ab6f20ae2e0017f0639f0492d5a3b",
+      "receipt_sha256": "2cc40d7d971f12c6eca866e88c69d6d5dcaf932f7720c2092fa8b95df0ea4ac0"
+    },
+    {
+      "attempt": "02-green-red-0",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "rejected",
+      "earliest_difference": "first divergence: /source/3023/unsupported callback call/chooseTriggeredAbility",
+      "seed": 32102,
+      "decks": [
+        "green",
+        "red"
+      ],
+      "starter": 0,
+      "records": 5144,
+      "source_trace_sha256": "1cf0ffd36333887914b170f1104f2bf6f09917308bd234c86d5f496389dac90a",
+      "receipt_sha256": "009c1e4e5bd9ae7bea6e7855fa91285998855be75d093a9a6a49cd0a5cb7d104"
+    },
+    {
+      "attempt": "03-green-red-1",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "rejected",
+      "earliest_difference": "first divergence: /source/951/unsupported mode ['mage.abilities.effects.common.CreateTokenEffect']",
+      "seed": 32103,
+      "decks": [
+        "green",
+        "red"
+      ],
+      "starter": 1,
+      "records": 3788,
+      "source_trace_sha256": "826dc46f214bdf2739986682cbaa994ae09a87ea5a023067d3aaf5186f94ab0b",
+      "receipt_sha256": "6d9fb804a2be9c09431370b41c87990a369a37075011c3c5f213173f2c3f031e"
+    },
+    {
+      "attempt": "04-red-red-0",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "rejected",
+      "earliest_difference": "first divergence: /source/1977/unsupported mode ['mage.abilities.effects.common.continuous.BoostControlledEffect']",
+      "seed": 32104,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "starter": 0,
+      "records": 2931,
+      "source_trace_sha256": "063c94ffc8367008b2db81932c17762a55b7fc52cfbe02a0fa7dd8e72787c275",
+      "receipt_sha256": "adb30123a87edd7383f3e9fde36d4a12f2a81c040f10d5552f0959e801611cf3"
+    },
+    {
+      "attempt": "05-red-red-1",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "rejected",
+      "earliest_difference": "first divergence: /source/849/unsupported mode ['mage.abilities.effects.common.CreateTokenEffect']",
+      "seed": 32105,
+      "decks": [
+        "red",
+        "red"
+      ],
+      "starter": 1,
+      "records": 2536,
+      "source_trace_sha256": "71acdd7b441524238ca5457cd07e3d1c94b066702e3f33d4aff650a1b8e68f19",
+      "receipt_sha256": "c8cbebc5f2a253ed31d3a85c106765fb08174f17ac70f6c52efeae69f54bc984"
+    },
+    {
+      "attempt": "06-green-green-0",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "converted-not-replayed",
+      "seed": 32106,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "starter": 0,
+      "records": 6661,
+      "source_trace_sha256": "3b56d822d63952846abc9f5489a2af0e87c93a71a8fb1fac953a24a89e66c9db",
+      "receipt_sha256": "5a774a4b5df74d2c0637d6c7e190c19fb8c952166bcb122b332506b0b4206f14",
+      "native_error": "first divergence: /play/678 first divergence: /native command Policy(WrongActor)",
+      "native_action": 678,
+      "source_cursor": 6063,
+      "native_sha256": "d2dcab6c63635e9248e7156acff225aec1b9d5bd10a81ddcbaa7ac50721677db"
+    },
+    {
+      "attempt": "07-green-green-1",
+      "status": "complete",
+      "error": null,
+      "admitted": false,
+      "normalization": "converted-not-replayed",
+      "seed": 32107,
+      "decks": [
+        "green",
+        "green"
+      ],
+      "starter": 1,
+      "records": 3258,
+      "source_trace_sha256": "806226b10405936902410d92101840d57bbc3712488c0e789af59cef67490cb7",
+      "receipt_sha256": "7a822de8ab8fc24d23874db1392686f11439ef20cbeac6eb9a5f0a833f06722e",
+      "native_error": "first divergence: /play/301 first divergence: /native command Policy(WrongActor)",
+      "native_action": 301,
+      "source_cursor": 2679,
+      "native_sha256": "4eb4b8891511d525f385075846d48df225b37b8f3c9b4c8ccf62c02be72cf13a"
+    }
+  ]
+}

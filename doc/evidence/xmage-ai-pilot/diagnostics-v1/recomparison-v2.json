@@ -1,0 +1,173 @@
+{
+  "status": "passed",
+  "kind": "current-comparator-on-unchanged-consumer-executions",
+  "sources": {
+    "scripts/xmage_ai_normalize.py": "b309d7d5b04ffb1a2c9fe13e41a473cf4c10efad9c8df02742cda09fc321dc43",
+    "scripts/admission_observations.py": "b71e98fef429cdb624978984c7daf0a7ee36ea6ee359e8c51cb6804e9a50db09"
+  },
+  "results": [
+    {
+      "attempt": "00-red-green-0",
+      "repeat": 1,
+      "checks": {
+        "actions": 436,
+        "chance": 3,
+        "source_checkpoints": 301
+      }
+    },
+    {
+      "attempt": "00-red-green-0",
+      "repeat": 2,
+      "checks": {
+        "actions": 436,
+        "chance": 3,
+        "source_checkpoints": 301
+      }
+    },
+    {
+      "attempt": "01-red-green-1",
+      "repeat": 1,
+      "checks": {
+        "actions": 466,
+        "chance": 2,
+        "source_checkpoints": 333
+      }
+    },
+    {
+      "attempt": "01-red-green-1",
+      "repeat": 2,
+      "checks": {
+        "actions": 466,
+        "chance": 2,
+        "source_checkpoints": 333
+      }
+    },
+    {
+      "attempt": "02-green-red-0",
+      "repeat": 1,
+      "checks": {
+        "actions": 597,
+        "chance": 2,
+        "source_checkpoints": 413
+      }
+    },
+    {
+      "attempt": "02-green-red-0",
+      "repeat": 2,
+      "checks": {
+        "actions": 597,
+        "chance": 2,
+        "source_checkpoints": 413
+      }
+    },
+    {
+      "attempt": "03-green-red-1",
+      "repeat": 1,
+      "checks": {
+        "actions": 440,
+        "chance": 2,
+        "source_checkpoints": 301
+      }
+    },
+    {
+      "attempt": "03-green-red-1",
+      "repeat": 2,
+      "checks": {
+        "actions": 440,
+        "chance": 2,
+        "source_checkpoints": 301
+      }
+    },
+    {
+      "attempt": "04-red-red-0",
+      "repeat": 1,
+      "checks": {
+        "actions": 329,
+        "chance": 2,
+        "source_checkpoints": 242
+      }
+    },
+    {
+      "attempt": "04-red-red-0",
+      "repeat": 2,
+      "checks": {
+        "actions": 329,
+        "chance": 2,
+        "source_checkpoints": 242
+      }
+    },
+    {
+      "attempt": "05-red-red-1",
+      "repeat": 1,
+      "checks": {
+        "actions": 268,
+        "chance": 4,
+        "source_checkpoints": 211
+      }
+    },
+    {
+      "attempt": "05-red-red-1",
+      "repeat": 2,
+      "checks": {
+        "actions": 268,
+        "chance": 4,
+        "source_checkpoints": 211
+      }
+    },
+    {
+      "attempt": "06-green-green-0",
+      "repeat": 1,
+      "checks": {
+        "actions": 749,
+        "chance": 3,
+        "source_checkpoints": 549
+      }
+    },
+    {
+      "attempt": "06-green-green-0",
+      "repeat": 2,
+      "checks": {
+        "actions": 749,
+        "chance": 3,
+        "source_checkpoints": 549
+      }
+    },
+    {
+      "attempt": "07-green-green-1",
+      "repeat": 1,
+      "checks": {
+        "actions": 372,
+        "chance": 2,
+        "source_checkpoints": 260
+      }
+    },
+    {
+      "attempt": "07-green-green-1",
+      "repeat": 2,
+      "checks": {
+        "actions": 372,
+        "chance": 2,
+        "source_checkpoints": 260
+      }
+    },
+    {
+      "attempt": "09-green-red-1",
+      "repeat": 1,
+      "checks": {
+        "actions": 621,
+        "chance": 2,
+        "source_checkpoints": 430
+      }
+    },
+    {
+      "attempt": "09-green-red-1",
+      "repeat": 2,
+      "checks": {
+        "actions": 621,
+        "chance": 2,
+        "source_checkpoints": 430
+      }
+    }
+  ],
+  "elapsed_seconds": 17.960580648010364
+}

@@ -1,0 +1,2126 @@
+{
+  "BoostControlledEffect": {
+    "attempt": "04-red-red-0",
+    "sequence": 2068,
+    "effect": {
+      "id": "addd94b1-2ba3-4902-80d8-730e0b74a79d",
+      "class": "mage.abilities.effects.common.continuous.BoostControlledEffect",
+      "duration": "until end of turn",
+      "abilities": [
+        {
+          "class": "mage.abilities.SpellAbility",
+          "id": "9567c168-28ad-42f3-8753-44d06ee29bb4",
+          "source": "8ea233cc-c985-43c7-b00d-2a6f4bfe0649",
+          "controller": "96cdd194-0f11-4c7d-81e2-76cf17a86a68",
+          "source_zcc": 3,
+          "type": "Spell",
+          "targets": [],
+          "modes": [
+            "0385caa3-db78-4ce8-bf18-bd0f10c462f1"
+          ],
+          "available_modes": [
+            {
+              "key": "0385caa3-db78-4ce8-bf18-bd0f10c462f1",
+              "value": {
+                "id": "0385caa3-db78-4ce8-bf18-bd0f10c462f1",
+                "targets": [],
+                "effects": [
+                  {
+                    "id": "281a2780-7afb-45a8-b5f7-5faa48477753",
+                    "class": "mage.abilities.effects.common.continuous.BoostControlledEffect",
+                    "type": "Continuous Effect"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "f9f592a7-5665-45e1-a748-9fe34b31ec2d",
+              "value": {
+                "id": "f9f592a7-5665-45e1-a748-9fe34b31ec2d",
+                "targets": [],
+                "effects": [
+                  {
+                    "id": "b0dbab01-cdc1-4971-8dbc-fda0596e248e",
+                    "class": "mage.abilities.effects.common.CreateTokenEffect",
+                    "type": "One Shot Effect"
+                  }
+                ]
+              }
+            }
+          ],
+          "mana_costs": [
+            {
+              "class": "mage.abilities.costs.mana.GenericManaCost",
+              "id": "dd7e745c-97e2-4a07-b15f-0b0bdb8b5274",
+              "paid": false,
+              "targets": [],
+              "mana": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 0,
+                "green": 0,
+                "colorless": 0,
+                "generic": 2,
+                "any": 0,
+                "flag": false
+              },
+              "payment": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 0,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              },
+              "used": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 0,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              }
+            },
+            {
+              "class": "mage.abilities.costs.mana.ColoredManaCost",
+              "id": "4e4cd00e-0b3d-4966-b4ea-79e0c85a1a50",
+              "paid": false,
+              "targets": [],
+              "mana": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 1,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              },
+              "payment": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 0,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              },
+              "used": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 0,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              }
+            }
+          ],
+          "mana_to_pay": [
+            {
+              "class": "mage.abilities.costs.mana.GenericManaCost",
+              "id": "dd7e745c-97e2-4a07-b15f-0b0bdb8b5274",
+              "paid": true,
+              "targets": [],
+              "mana": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 0,
+                "green": 0,
+                "colorless": 0,
+                "generic": 2,
+                "any": 0,
+                "flag": false
+              },
+              "payment": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 2,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              },
+              "used": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 2,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              }
+            },
+            {
+              "class": "mage.abilities.costs.mana.ColoredManaCost",
+              "id": "4e4cd00e-0b3d-4966-b4ea-79e0c85a1a50",
+              "paid": true,
+              "targets": [],
+              "mana": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 1,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              },
+              "payment": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 1,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              },
+              "used": {
+                "white": 0,
+                "blue": 0,
+                "black": 0,
+                "red": 1,
+                "green": 0,
+                "colorless": 0,
+                "generic": 0,
+                "any": 0,
+                "flag": false
+              }
+            }
+          ],
+          "costs": []
+        }
+      ],
+      "native_fields": {
+        "class": "mage.abilities.effects.common.continuous.BoostControlledEffect",
+        "node": 0,
+        "mage.abilities.effects.common.continuous.BoostControlledEffect.power": {
+          "class": "mage.abilities.dynamicvalue.common.StaticValue",
+          "node": 1,
+          "mage.abilities.dynamicvalue.common.StaticValue.value": 2
+        },
+        "mage.abilities.effects.common.continuous.BoostControlledEffect.toughness": {
+          "class": "mage.abilities.dynamicvalue.common.StaticValue",
+          "node": 2,
+          "mage.abilities.dynamicvalue.common.StaticValue.value": 0
+        },
+        "mage.abilities.effects.common.continuous.BoostControlledEffect.filter": {
+          "class": "mage.filter.common.FilterCreaturePermanent",
+          "node": 3,
+          "mage.filter.FilterPermanent.extraPredicates": {
+            "node": 4,
+            "items": []
+          },
+          "mage.filter.FilterImpl.predicates": {
+            "node": 5,
+            "items": [
+              {
+                "class": "mage.constants.CardType$CardTypePredicate",
+                "node": 6,
+                "mage.constants.CardType$CardTypePredicate.cardType": "Creature"
+              }
+            ]
+          },
+          "mage.filter.FilterImpl.message": {
+            "text_sha256": "2691c3debca036520490784f59d74be52e06daa2f30adb58ec3b2e7fd3a82c22"
+          },
+          "mage.filter.FilterImpl.lockedFilter": false
+        },
+        "mage.abilities.effects.common.continuous.BoostControlledEffect.excludeSource": false,
+        "mage.abilities.effects.ContinuousEffectImpl.duration": "until end of turn",
+        "mage.abilities.effects.ContinuousEffectImpl.layer": "PTChangingEffects_7",
+        "mage.abilities.effects.ContinuousEffectImpl.sublayer": "ModifyPT_7c",
+        "mage.abilities.effects.ContinuousEffectImpl.order": 17,
+        "mage.abilities.effects.ContinuousEffectImpl.used": false,
+        "mage.abilities.effects.ContinuousEffectImpl.discarded": false,
+        "mage.abilities.effects.ContinuousEffectImpl.affectedObjectsSet": true,
+        "mage.abilities.effects.ContinuousEffectImpl.affectedObjectList": {
+          "node": 7,
+          "items": [
+            {
+              "class": "mage.MageObjectReference",
+              "node": 8,
+              "mage.MageObjectReference.sourceId": "9eae3eba-0bd4-4797-9ede-2ef6ed3a8a30",
+              "mage.MageObjectReference.zoneChangeCounter": 2
+            },
+            {
+              "class": "mage.MageObjectReference",
+              "node": 9,
+              "mage.MageObjectReference.sourceId": "73e86d32-03af-43c8-a282-e163e392d69f",
+              "mage.MageObjectReference.zoneChangeCounter": 2
+            },
+            {
+              "class": "mage.MageObjectReference",
+              "node": 10,
+              "mage.MageObjectReference.sourceId": "38f77178-d7c7-4cb1-93f7-d5d9e9a5e7ae",
+              "mage.MageObjectReference.zoneChangeCounter": 2
+            },
+            {
+              "class": "mage.MageObjectReference",
+              "node": 11,
+              "mage.MageObjectReference.sourceId": "e7f6e27d-a116-46a8-999e-545303b839b9",
+              "mage.MageObjectReference.zoneChangeCounter": 2
+            },
+            {
+              "class": "mage.MageObjectReference",
+              "node": 12,
+              "mage.MageObjectReference.sourceId": "fb4cd698-53fb-46f5-884a-e98303b8d2db",
+              "mage.MageObjectReference.zoneChangeCounter": 4
+            },
+            {
+              "class": "mage.MageObjectReference",
+              "node": 13,
+              "mage.MageObjectReference.sourceId": "bb417d12-de70-49d5-8025-2665597ba9eb",
+              "mage.MageObjectReference.zoneChangeCounter": 4
+            }
+          ]
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.temporary": false,
+        "mage.abilities.effects.ContinuousEffectImpl.dependencyTypes": {
+          "node": 14,
+          "items": []
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.dependendToTypes": {
+          "node": 15,
+          "items": []
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.characterDefining": false,
+        "mage.abilities.effects.ContinuousEffectImpl.startingControllerId": "96cdd194-0f11-4c7d-81e2-76cf17a86a68",
+        "mage.abilities.effects.ContinuousEffectImpl.startingTurnWasActive": true,
+        "mage.abilities.effects.ContinuousEffectImpl.effectStartingOnTurn": 9,
+        "mage.abilities.effects.ContinuousEffectImpl.effectStartingEndStep": 4,
+        "mage.abilities.effects.ContinuousEffectImpl.nextTurnNumber": 2147483647,
+        "mage.abilities.effects.ContinuousEffectImpl.effectStartingStepNum": 87,
+        "mage.abilities.effects.EffectImpl.id": "addd94b1-2ba3-4902-80d8-730e0b74a79d",
+        "mage.abilities.effects.EffectImpl.outcome": "BoostCreature",
+        "mage.abilities.effects.EffectImpl.effectType": "Continuous Effect",
+        "mage.abilities.effects.EffectImpl.targetPointer": {
+          "class": "mage.target.targetpointer.FirstTargetPointer",
+          "node": 16,
+          "mage.target.targetpointer.NthTargetPointer.zoneChangeCounter": {
+            "node": 17,
+            "entries": []
+          },
+          "mage.target.targetpointer.NthTargetPointer.targetIndex": 0,
+          "mage.target.targetpointer.TargetPointerImpl.data": null,
+          "mage.target.targetpointer.TargetPointerImpl.initialized": true,
+          "mage.target.targetpointer.TargetPointerImpl.targetDescription": null
+        },
+        "mage.abilities.effects.EffectImpl.staticText": {
+          "text_sha256": "4f120f3dce486b020ec3f8cf1827dd2a1e5f5efcfac82ebce4ab0504bf8887c8"
+        },
+        "mage.abilities.effects.EffectImpl.values": null,
+        "mage.abilities.effects.EffectImpl.concatPrefix": {
+          "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  },
+  "BoostSourceEffect": {
+    "attempt": "02-green-red-0",
+    "sequence": 3056,
+    "effect": {
+      "id": "f75b0721-16b9-4315-aad0-0fac7d23e157",
+      "class": "mage.abilities.effects.common.continuous.BoostSourceEffect",
+      "duration": "until end of turn",
+      "abilities": [
+        {
+          "class": "mage.abilities.common.SpellCastControllerTriggeredAbility",
+          "id": "a584f87f-9bf4-42dd-a779-c975579524ac",
+          "source": "d228acda-cece-4c62-8855-dee59081807a",
+          "controller": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+          "source_zcc": 4,
+          "type": "Triggered",
+          "targets": [],
+          "modes": [
+            "092d9aec-94d8-4dcf-8f81-c85d594b8402"
+          ],
+          "available_modes": [
+            {
+              "key": "092d9aec-94d8-4dcf-8f81-c85d594b8402",
+              "value": {
+                "id": "092d9aec-94d8-4dcf-8f81-c85d594b8402",
+                "targets": [],
+                "effects": [
+                  {
+                    "id": "bf65c088-757f-4b4d-ad86-32ea5e8ecaa7",
+                    "class": "mage.abilities.effects.common.continuous.BoostSourceEffect",
+                    "type": "Continuous Effect"
+                  }
+                ]
+              }
+            }
+          ],
+          "mana_costs": [],
+          "mana_to_pay": [],
+          "costs": []
+        }
+      ],
+      "native_fields": {
+        "class": "mage.abilities.effects.common.continuous.BoostSourceEffect",
+        "node": 0,
+        "mage.abilities.effects.common.continuous.BoostSourceEffect.power": {
+          "class": "mage.abilities.dynamicvalue.common.StaticValue",
+          "node": 1,
+          "mage.abilities.dynamicvalue.common.StaticValue.value": 3
+        },
+        "mage.abilities.effects.common.continuous.BoostSourceEffect.toughness": {
+          "class": "mage.abilities.dynamicvalue.common.StaticValue",
+          "node": 2,
+          "mage.abilities.dynamicvalue.common.StaticValue.value": 0
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.duration": "until end of turn",
+        "mage.abilities.effects.ContinuousEffectImpl.layer": "PTChangingEffects_7",
+        "mage.abilities.effects.ContinuousEffectImpl.sublayer": "ModifyPT_7c",
+        "mage.abilities.effects.ContinuousEffectImpl.order": 19,
+        "mage.abilities.effects.ContinuousEffectImpl.used": false,
+        "mage.abilities.effects.ContinuousEffectImpl.discarded": false,
+        "mage.abilities.effects.ContinuousEffectImpl.affectedObjectsSet": true,
+        "mage.abilities.effects.ContinuousEffectImpl.affectedObjectList": {
+          "node": 3,
+          "items": [
+            {
+              "class": "mage.MageObjectReference",
+              "node": 4,
+              "mage.MageObjectReference.sourceId": "d228acda-cece-4c62-8855-dee59081807a",
+              "mage.MageObjectReference.zoneChangeCounter": 4
+            }
+          ]
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.temporary": false,
+        "mage.abilities.effects.ContinuousEffectImpl.dependencyTypes": {
+          "node": 5,
+          "items": []
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.dependendToTypes": {
+          "node": 6,
+          "items": []
+        },
+        "mage.abilities.effects.ContinuousEffectImpl.characterDefining": false,
+        "mage.abilities.effects.ContinuousEffectImpl.startingControllerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+        "mage.abilities.effects.ContinuousEffectImpl.startingTurnWasActive": true,
+        "mage.abilities.effects.ContinuousEffectImpl.effectStartingOnTurn": 12,
+        "mage.abilities.effects.ContinuousEffectImpl.effectStartingEndStep": 5,
+        "mage.abilities.effects.ContinuousEffectImpl.nextTurnNumber": 2147483647,
+        "mage.abilities.effects.ContinuousEffectImpl.effectStartingStepNum": 123,
+        "mage.abilities.effects.EffectImpl.id": "f75b0721-16b9-4315-aad0-0fac7d23e157",
+        "mage.abilities.effects.EffectImpl.outcome": "BoostCreature",
+        "mage.abilities.effects.EffectImpl.effectType": "Continuous Effect",
+        "mage.abilities.effects.EffectImpl.targetPointer": {
+          "class": "mage.target.targetpointer.FirstTargetPointer",
+          "node": 7,
+          "mage.target.targetpointer.NthTargetPointer.zoneChangeCounter": {
+            "node": 8,
+            "entries": []
+          },
+          "mage.target.targetpointer.NthTargetPointer.targetIndex": 0,
+          "mage.target.targetpointer.TargetPointerImpl.data": null,
+          "mage.target.targetpointer.TargetPointerImpl.initialized": true,
+          "mage.target.targetpointer.TargetPointerImpl.targetDescription": null
+        },
+        "mage.abilities.effects.EffectImpl.staticText": {
+          "text_sha256": "2c24abfd447e9d969ba00ab0375b0271bc416d548b89c7a43e216e3f74bfd080"
+        },
+        "mage.abilities.effects.EffectImpl.values": {
+          "node": 9,
+          "entries": [
+            {
+              "key": {
+                "text_sha256": "8ab80d4e61df9117ed89460d94772f3fb9b9b52abd12e9412ccbfd7519158667"
+              },
+              "value": {
+                "class": "mage.game.stack.Spell",
+                "node": 10,
+                "mage.game.stack.Spell.spellAbilities": {
+                  "node": 11,
+                  "items": [
+                    {
+                      "class": "mage.abilities.SpellAbility",
+                      "node": 12,
+                      "mage.abilities.SpellAbility.spellAbilityType": "Basic SpellAbility",
+                      "mage.abilities.SpellAbility.spellAbilityCastMode": "Normal",
+                      "mage.abilities.SpellAbility.cardName": {
+                        "text_sha256": "9ee96202b702de716693d17964d78937f47f9789f513c03b19eb28cfb2182eb8"
+                      },
+                      "mage.abilities.ActivatedAbilityImpl.maxActivationsPerTurn": 2147483647,
+                      "mage.abilities.ActivatedAbilityImpl.maxActivationsPerGame": 2147483647,
+                      "mage.abilities.ActivatedAbilityImpl.condition": null,
+                      "mage.abilities.ActivatedAbilityImpl.timing": "INSTANT",
+                      "mage.abilities.ActivatedAbilityImpl.mayActivate": "YOU",
+                      "mage.abilities.AbilityImpl.id": "ec58da51-e95c-4e98-8113-9180ccfd4292",
+                      "mage.abilities.AbilityImpl.originalId": "ec58da51-e95c-4e98-8113-9180ccfd4292",
+                      "mage.abilities.AbilityImpl.abilityType": "Spell",
+                      "mage.abilities.AbilityImpl.controllerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                      "mage.abilities.AbilityImpl.sourceId": "ce5cd7d3-8769-4308-9905-31bb4a8eeec6",
+                      "mage.abilities.AbilityImpl.manaCosts": {
+                        "node": 13,
+                        "items": [
+                          {
+                            "class": "mage.abilities.costs.mana.GenericManaCost",
+                            "node": 14,
+                            "mage.abilities.costs.mana.GenericManaCost.mana": 1,
+                            "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                              "class": "mage.Mana",
+                              "node": 15,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 0,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                              "class": "mage.Mana",
+                              "node": 16,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 0,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                              "class": "mage.Mana",
+                              "node": 17,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 0,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 1,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.options": {
+                              "node": 18,
+                              "items": [
+                                {
+                                  "class": "mage.Mana",
+                                  "node": 19,
+                                  "mage.Mana.white": 0,
+                                  "mage.Mana.blue": 0,
+                                  "mage.Mana.black": 0,
+                                  "mage.Mana.red": 0,
+                                  "mage.Mana.green": 0,
+                                  "mage.Mana.generic": 1,
+                                  "mage.Mana.colorless": 0,
+                                  "mage.Mana.any": 0,
+                                  "mage.Mana.flag": false
+                                }
+                              ]
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                            "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                            "mage.abilities.costs.CostImpl.id": "f62bf6fd-57b4-4afb-b10f-4fe4e59a836c",
+                            "mage.abilities.costs.CostImpl.text": null,
+                            "mage.abilities.costs.CostImpl.paid": false,
+                            "mage.abilities.costs.CostImpl.targets": {
+                              "node": 20,
+                              "items": []
+                            }
+                          },
+                          {
+                            "class": "mage.abilities.costs.mana.ColoredManaCost",
+                            "node": 21,
+                            "mage.abilities.costs.mana.ColoredManaCost.mana": "R",
+                            "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                              "class": "mage.Mana",
+                              "node": 22,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 0,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                              "class": "mage.Mana",
+                              "node": 23,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 0,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                              "class": "mage.Mana",
+                              "node": 24,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 1,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.options": {
+                              "node": 25,
+                              "items": [
+                                {
+                                  "class": "mage.Mana",
+                                  "node": 26,
+                                  "mage.Mana.white": 0,
+                                  "mage.Mana.blue": 0,
+                                  "mage.Mana.black": 0,
+                                  "mage.Mana.red": 1,
+                                  "mage.Mana.green": 0,
+                                  "mage.Mana.generic": 0,
+                                  "mage.Mana.colorless": 0,
+                                  "mage.Mana.any": 0,
+                                  "mage.Mana.flag": false
+                                }
+                              ]
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                            "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                            "mage.abilities.costs.CostImpl.id": "15920959-01d2-41b6-b5ba-2e04b463abfa",
+                            "mage.abilities.costs.CostImpl.text": null,
+                            "mage.abilities.costs.CostImpl.paid": false,
+                            "mage.abilities.costs.CostImpl.targets": {
+                              "node": 27,
+                              "items": []
+                            }
+                          }
+                        ]
+                      },
+                      "mage.abilities.AbilityImpl.manaCostsToPay": {
+                        "node": 28,
+                        "items": [
+                          {
+                            "class": "mage.abilities.costs.mana.GenericManaCost",
+                            "node": 29,
+                            "mage.abilities.costs.mana.GenericManaCost.mana": 1,
+                            "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                              "class": "mage.Mana",
+                              "node": 30,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 1,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                              "class": "mage.Mana",
+                              "node": 31,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 1,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                              "class": "mage.Mana",
+                              "node": 32,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 0,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 1,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.options": {
+                              "node": 33,
+                              "items": [
+                                {
+                                  "class": "mage.Mana",
+                                  "node": 34,
+                                  "mage.Mana.white": 0,
+                                  "mage.Mana.blue": 0,
+                                  "mage.Mana.black": 0,
+                                  "mage.Mana.red": 0,
+                                  "mage.Mana.green": 0,
+                                  "mage.Mana.generic": 1,
+                                  "mage.Mana.colorless": 0,
+                                  "mage.Mana.any": 0,
+                                  "mage.Mana.flag": false
+                                }
+                              ]
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                            "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                            "mage.abilities.costs.CostImpl.id": "f62bf6fd-57b4-4afb-b10f-4fe4e59a836c",
+                            "mage.abilities.costs.CostImpl.text": null,
+                            "mage.abilities.costs.CostImpl.paid": false,
+                            "mage.abilities.costs.CostImpl.targets": {
+                              "node": 35,
+                              "items": []
+                            }
+                          },
+                          {
+                            "class": "mage.abilities.costs.mana.ColoredManaCost",
+                            "node": 36,
+                            "mage.abilities.costs.mana.ColoredManaCost.mana": "R",
+                            "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                              "class": "mage.Mana",
+                              "node": 37,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 1,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                              "class": "mage.Mana",
+                              "node": 38,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 1,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                              "class": "mage.Mana",
+                              "node": 39,
+                              "mage.Mana.white": 0,
+                              "mage.Mana.blue": 0,
+                              "mage.Mana.black": 0,
+                              "mage.Mana.red": 1,
+                              "mage.Mana.green": 0,
+                              "mage.Mana.generic": 0,
+                              "mage.Mana.colorless": 0,
+                              "mage.Mana.any": 0,
+                              "mage.Mana.flag": false
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.options": {
+                              "node": 40,
+                              "items": [
+                                {
+                                  "class": "mage.Mana",
+                                  "node": 41,
+                                  "mage.Mana.white": 0,
+                                  "mage.Mana.blue": 0,
+                                  "mage.Mana.black": 0,
+                                  "mage.Mana.red": 1,
+                                  "mage.Mana.green": 0,
+                                  "mage.Mana.generic": 0,
+                                  "mage.Mana.colorless": 0,
+                                  "mage.Mana.any": 0,
+                                  "mage.Mana.flag": false
+                                }
+                              ]
+                            },
+                            "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                            "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                            "mage.abilities.costs.CostImpl.id": "15920959-01d2-41b6-b5ba-2e04b463abfa",
+                            "mage.abilities.costs.CostImpl.text": null,
+                            "mage.abilities.costs.CostImpl.paid": false,
+                            "mage.abilities.costs.CostImpl.targets": {
+                              "node": 42,
+                              "items": []
+                            }
+                          }
+                        ]
+                      },
+                      "mage.abilities.AbilityImpl.costs": {
+                        "node": 43,
+                        "items": [
+                          {
+                            "class": "mage.abilities.costs.common.DiscardCardCost",
+                            "node": 44,
+                            "mage.abilities.costs.common.DiscardTargetCost.cards": {
+                              "node": 45,
+                              "items": [
+                                {
+                                  "class": "mage.cards.c.CracklingCyclops",
+                                  "node": 46,
+                                  "mage.cards.CardImpl.ownerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                                  "mage.cards.CardImpl.rarity": "Common",
+                                  "mage.cards.CardImpl.meldsWithClazz": null,
+                                  "mage.cards.CardImpl.meldsToClazz": null,
+                                  "mage.cards.CardImpl.meldsToCard": null,
+                                  "mage.cards.CardImpl.secondSideCard": null,
+                                  "mage.cards.CardImpl.nightCard": false,
+                                  "mage.cards.CardImpl.spellAbility": null,
+                                  "mage.cards.CardImpl.flipCard": false,
+                                  "mage.cards.CardImpl.flipCardName": null,
+                                  "mage.cards.CardImpl.morphCard": false,
+                                  "mage.cards.CardImpl.attachments": {
+                                    "node": 47,
+                                    "items": []
+                                  },
+                                  "mage.cards.CardImpl.extraDeckCard": false,
+                                  "mage.MageObjectImpl.objectId": "23f9414f-0525-480b-a162-8526c2938e22",
+                                  "mage.MageObjectImpl.name": {
+                                    "text_sha256": "427fcdfbe6fb201a18cccfb2fa6c320b6251b0136a264cb08d8e124a85a0e889"
+                                  },
+                                  "mage.MageObjectImpl.manaCost": {
+                                    "node": 48,
+                                    "items": [
+                                      {
+                                        "class": "mage.abilities.costs.mana.GenericManaCost",
+                                        "node": 49,
+                                        "mage.abilities.costs.mana.GenericManaCost.mana": 2,
+                                        "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                                          "class": "mage.Mana",
+                                          "node": 50,
+                                          "mage.Mana.white": 0,
+                                          "mage.Mana.blue": 0,
+                                          "mage.Mana.black": 0,
+                                          "mage.Mana.red": 0,
+                                          "mage.Mana.green": 0,
+                                          "mage.Mana.generic": 0,
+                                          "mage.Mana.colorless": 0,
+                                          "mage.Mana.any": 0,
+                                          "mage.Mana.flag": false
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                                          "class": "mage.Mana",
+                                          "node": 51,
+                                          "mage.Mana.white": 0,
+                                          "mage.Mana.blue": 0,
+                                          "mage.Mana.black": 0,
+                                          "mage.Mana.red": 0,
+                                          "mage.Mana.green": 0,
+                                          "mage.Mana.generic": 0,
+                                          "mage.Mana.colorless": 0,
+                                          "mage.Mana.any": 0,
+                                          "mage.Mana.flag": false
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                                          "class": "mage.Mana",
+                                          "node": 52,
+                                          "mage.Mana.white": 0,
+                                          "mage.Mana.blue": 0,
+                                          "mage.Mana.black": 0,
+                                          "mage.Mana.red": 0,
+                                          "mage.Mana.green": 0,
+                                          "mage.Mana.generic": 2,
+                                          "mage.Mana.colorless": 0,
+                                          "mage.Mana.any": 0,
+                                          "mage.Mana.flag": false
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.options": {
+                                          "node": 53,
+                                          "items": [
+                                            {
+                                              "class": "mage.Mana",
+                                              "node": 54,
+                                              "mage.Mana.white": 0,
+                                              "mage.Mana.blue": 0,
+                                              "mage.Mana.black": 0,
+                                              "mage.Mana.red": 0,
+                                              "mage.Mana.green": 0,
+                                              "mage.Mana.generic": 2,
+                                              "mage.Mana.colorless": 0,
+                                              "mage.Mana.any": 0,
+                                              "mage.Mana.flag": false
+                                            }
+                                          ]
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                                        "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                                        "mage.abilities.costs.CostImpl.id": "69188f75-d3fc-41ca-9988-7244aa486d92",
+                                        "mage.abilities.costs.CostImpl.text": null,
+                                        "mage.abilities.costs.CostImpl.paid": false,
+                                        "mage.abilities.costs.CostImpl.targets": {
+                                          "node": 55,
+                                          "items": []
+                                        }
+                                      },
+                                      {
+                                        "class": "mage.abilities.costs.mana.ColoredManaCost",
+                                        "node": 56,
+                                        "mage.abilities.costs.mana.ColoredManaCost.mana": "R",
+                                        "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                                          "class": "mage.Mana",
+                                          "node": 57,
+                                          "mage.Mana.white": 0,
+                                          "mage.Mana.blue": 0,
+                                          "mage.Mana.black": 0,
+                                          "mage.Mana.red": 0,
+                                          "mage.Mana.green": 0,
+                                          "mage.Mana.generic": 0,
+                                          "mage.Mana.colorless": 0,
+                                          "mage.Mana.any": 0,
+                                          "mage.Mana.flag": false
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                                          "class": "mage.Mana",
+                                          "node": 58,
+                                          "mage.Mana.white": 0,
+                                          "mage.Mana.blue": 0,
+                                          "mage.Mana.black": 0,
+                                          "mage.Mana.red": 0,
+                                          "mage.Mana.green": 0,
+                                          "mage.Mana.generic": 0,
+                                          "mage.Mana.colorless": 0,
+                                          "mage.Mana.any": 0,
+                                          "mage.Mana.flag": false
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                                          "class": "mage.Mana",
+                                          "node": 59,
+                                          "mage.Mana.white": 0,
+                                          "mage.Mana.blue": 0,
+                                          "mage.Mana.black": 0,
+                                          "mage.Mana.red": 1,
+                                          "mage.Mana.green": 0,
+                                          "mage.Mana.generic": 0,
+                                          "mage.Mana.colorless": 0,
+                                          "mage.Mana.any": 0,
+                                          "mage.Mana.flag": false
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.options": {
+                                          "node": 60,
+                                          "items": [
+                                            {
+                                              "class": "mage.Mana",
+                                              "node": 61,
+                                              "mage.Mana.white": 0,
+                                              "mage.Mana.blue": 0,
+                                              "mage.Mana.black": 0,
+                                              "mage.Mana.red": 1,
+                                              "mage.Mana.green": 0,
+                                              "mage.Mana.generic": 0,
+                                              "mage.Mana.colorless": 0,
+                                              "mage.Mana.any": 0,
+                                              "mage.Mana.flag": false
+                                            }
+                                          ]
+                                        },
+                                        "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                                        "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                                        "mage.abilities.costs.CostImpl.id": "1fe49870-052d-4b32-b8cf-f935bad390de",
+                                        "mage.abilities.costs.CostImpl.text": null,
+                                        "mage.abilities.costs.CostImpl.paid": false,
+                                        "mage.abilities.costs.CostImpl.targets": {
+                                          "node": 62,
+                                          "items": []
+                                        }
+                                      }
+                                    ]
+                                  },
+                                  "mage.MageObjectImpl.color": {
+                                    "class": "mage.ObjectColor",
+                                    "node": 63,
+                                    "mage.ObjectColor.white": false,
+                                    "mage.ObjectColor.blue": false,
+                                    "mage.ObjectColor.black": false,
+                                    "mage.ObjectColor.red": true,
+                                    "mage.ObjectColor.green": false
+                                  },
+                                  "mage.MageObjectImpl.frameColor": {
+                                    "class": "mage.ObjectColor",
+                                    "node": 64,
+                                    "mage.ObjectColor.white": false,
+                                    "mage.ObjectColor.blue": false,
+                                    "mage.ObjectColor.black": false,
+                                    "mage.ObjectColor.red": false,
+                                    "mage.ObjectColor.green": false
+                                  },
+                                  "mage.MageObjectImpl.frameStyle": "M15_NORMAL",
+                                  "mage.MageObjectImpl.expansionSetCode": {
+                                    "text_sha256": "c5a2f0ff902c0621e72cef57daec2433a18b27fc54a1d38308a1c6e7e77b71d5"
+                                  },
+                                  "mage.MageObjectImpl.cardNumber": {
+                                    "text_sha256": "bbb965ab0c80d6538cf2184babad2a564a010376712012bd07b0af92dcd3097d"
+                                  },
+                                  "mage.MageObjectImpl.usesVariousArt": false,
+                                  "mage.MageObjectImpl.imageFileName": {
+                                    "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                  },
+                                  "mage.MageObjectImpl.imageNumber": 0,
+                                  "mage.MageObjectImpl.supertype": {
+                                    "node": 65,
+                                    "items": []
+                                  },
+                                  "mage.MageObjectImpl.cardType": {
+                                    "node": 66,
+                                    "items": [
+                                      "Creature"
+                                    ]
+                                  },
+                                  "mage.MageObjectImpl.subtype": {
+                                    "node": 67,
+                                    "items": [
+                                      "Cyclops",
+                                      "Wizard"
+                                    ]
+                                  },
+                                  "mage.MageObjectImpl.abilities": {
+                                    "node": 68,
+                                    "items": [
+                                      {
+                                        "class": "mage.abilities.SpellAbility",
+                                        "node": 69,
+                                        "mage.abilities.SpellAbility.spellAbilityType": "Basic SpellAbility",
+                                        "mage.abilities.SpellAbility.spellAbilityCastMode": "Normal",
+                                        "mage.abilities.SpellAbility.cardName": {
+                                          "text_sha256": "427fcdfbe6fb201a18cccfb2fa6c320b6251b0136a264cb08d8e124a85a0e889"
+                                        },
+                                        "mage.abilities.ActivatedAbilityImpl.maxActivationsPerTurn": 2147483647,
+                                        "mage.abilities.ActivatedAbilityImpl.maxActivationsPerGame": 2147483647,
+                                        "mage.abilities.ActivatedAbilityImpl.condition": null,
+                                        "mage.abilities.ActivatedAbilityImpl.timing": "SORCERY",
+                                        "mage.abilities.ActivatedAbilityImpl.mayActivate": "YOU",
+                                        "mage.abilities.AbilityImpl.id": "6914a8a9-af48-4e58-b6e5-88c9c96dcbf9",
+                                        "mage.abilities.AbilityImpl.originalId": "6914a8a9-af48-4e58-b6e5-88c9c96dcbf9",
+                                        "mage.abilities.AbilityImpl.abilityType": "Spell",
+                                        "mage.abilities.AbilityImpl.controllerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                                        "mage.abilities.AbilityImpl.sourceId": "23f9414f-0525-480b-a162-8526c2938e22",
+                                        "mage.abilities.AbilityImpl.manaCosts": {
+                                          "node": 70,
+                                          "items": [
+                                            {
+                                              "reference": 49
+                                            },
+                                            {
+                                              "reference": 56
+                                            }
+                                          ]
+                                        },
+                                        "mage.abilities.AbilityImpl.manaCostsToPay": {
+                                          "node": 71,
+                                          "items": [
+                                            {
+                                              "reference": 49
+                                            },
+                                            {
+                                              "reference": 56
+                                            }
+                                          ]
+                                        },
+                                        "mage.abilities.AbilityImpl.costs": {
+                                          "node": 72,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.modes": {
+                                          "node": 73,
+                                          "entries": [
+                                            {
+                                              "key": "0a82d7a9-141a-4b17-a177-c91fdd832b10",
+                                              "value": {
+                                                "class": "mage.abilities.Mode",
+                                                "node": 74,
+                                                "mage.abilities.Mode.id": "0a82d7a9-141a-4b17-a177-c91fdd832b10",
+                                                "mage.abilities.Mode.targets": {
+                                                  "node": 75,
+                                                  "items": []
+                                                },
+                                                "mage.abilities.Mode.effects": {
+                                                  "node": 76,
+                                                  "items": []
+                                                },
+                                                "mage.abilities.Mode.flavorWord": null,
+                                                "mage.abilities.Mode.cost": null,
+                                                "mage.abilities.Mode.pawPrintValue": 0,
+                                                "mage.abilities.Mode.modeTag": null
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "mage.abilities.AbilityImpl.zone": "HAND",
+                                        "mage.abilities.AbilityImpl.name": {
+                                          "text_sha256": "e81b5af7acb082c367d93dccfda1e8a09cb61398f24ece925dcc4a45c6970f02"
+                                        },
+                                        "mage.abilities.AbilityImpl.abilityWord": null,
+                                        "mage.abilities.AbilityImpl.flavorWord": null,
+                                        "mage.abilities.AbilityImpl.usesStack": true,
+                                        "mage.abilities.AbilityImpl.ruleAtTheTop": false,
+                                        "mage.abilities.AbilityImpl.ruleVisible": true,
+                                        "mage.abilities.AbilityImpl.ruleAdditionalCostsVisible": true,
+                                        "mage.abilities.AbilityImpl.activated": false,
+                                        "mage.abilities.AbilityImpl.worksFaceDown": false,
+                                        "mage.abilities.AbilityImpl.worksPhasedOut": false,
+                                        "mage.abilities.AbilityImpl.sourceObjectZoneChangeCounter": 0,
+                                        "mage.abilities.AbilityImpl.watchers": {
+                                          "node": 77,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.subAbilities": null,
+                                        "mage.abilities.AbilityImpl.canFizzle": true,
+                                        "mage.abilities.AbilityImpl.canBeCopied": true,
+                                        "mage.abilities.AbilityImpl.targetAdjuster": null,
+                                        "mage.abilities.AbilityImpl.costAdjuster": null,
+                                        "mage.abilities.AbilityImpl.hints": {
+                                          "node": 78,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.icons": {
+                                          "node": 79,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.customOutcome": null,
+                                        "mage.abilities.AbilityImpl.identifier": "Default",
+                                        "mage.abilities.AbilityImpl.appendToRule": null,
+                                        "mage.abilities.AbilityImpl.sourcePermanentTransformCount": 0,
+                                        "mage.abilities.AbilityImpl.costsTagMap": null
+                                      },
+                                      {
+                                        "class": "mage.abilities.common.SpellCastControllerTriggeredAbility",
+                                        "node": 80,
+                                        "mage.abilities.common.SpellCastControllerTriggeredAbility.filter": {
+                                          "class": "mage.filter.FilterSpell",
+                                          "node": 81,
+                                          "mage.filter.FilterStackObject.extraPredicates": {
+                                            "node": 82,
+                                            "items": []
+                                          },
+                                          "mage.filter.FilterImpl.predicates": {
+                                            "node": 83,
+                                            "items": [
+                                              {
+                                                "class": "mage.filter.predicate.Predicates$NotPredicate",
+                                                "node": 84,
+                                                "mage.filter.predicate.Predicates$NotPredicate.predicate": {
+                                                  "class": "mage.constants.CardType$CardTypePredicate",
+                                                  "node": 85,
+                                                  "mage.constants.CardType$CardTypePredicate.cardType": "Creature"
+                                                }
+                                              }
+                                            ]
+                                          },
+                                          "mage.filter.FilterImpl.message": {
+                                            "text_sha256": "1aea9f40360b4027b35c209988b3bb987206f52391ea5f8b0038ce615bb7e978"
+                                          },
+                                          "mage.filter.FilterImpl.lockedFilter": true
+                                        },
+                                        "mage.abilities.common.SpellCastControllerTriggeredAbility.setTargetPointer": "NONE",
+                                        "mage.abilities.common.SpellCastControllerTriggeredAbility.fromZone": "ALL",
+                                        "mage.abilities.TriggeredAbilityImpl.optional": false,
+                                        "mage.abilities.TriggeredAbilityImpl.interveningIfCondition": null,
+                                        "mage.abilities.TriggeredAbilityImpl.triggerCondition": null,
+                                        "mage.abilities.TriggeredAbilityImpl.leavesTheBattlefieldTrigger": false,
+                                        "mage.abilities.TriggeredAbilityImpl.triggerLimitEachTurn": 2147483647,
+                                        "mage.abilities.TriggeredAbilityImpl.triggerLimitEachGame": 2147483647,
+                                        "mage.abilities.TriggeredAbilityImpl.doOnlyOnceEachTurn": false,
+                                        "mage.abilities.TriggeredAbilityImpl.replaceRuleText": false,
+                                        "mage.abilities.TriggeredAbilityImpl.triggerEvent": null,
+                                        "mage.abilities.TriggeredAbilityImpl.triggerPhrase": {
+                                          "text_sha256": "fa8e67190c42eb10a860f9a540ef37e098c827a3b53833f1c96262e897530b8e"
+                                        },
+                                        "mage.abilities.AbilityImpl.id": "74c97c49-b3bc-4182-a597-74cb1b58ad4e",
+                                        "mage.abilities.AbilityImpl.originalId": "74c97c49-b3bc-4182-a597-74cb1b58ad4e",
+                                        "mage.abilities.AbilityImpl.abilityType": "Triggered",
+                                        "mage.abilities.AbilityImpl.controllerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                                        "mage.abilities.AbilityImpl.sourceId": "23f9414f-0525-480b-a162-8526c2938e22",
+                                        "mage.abilities.AbilityImpl.manaCosts": {
+                                          "node": 86,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.manaCostsToPay": {
+                                          "node": 87,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.costs": {
+                                          "node": 88,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.modes": {
+                                          "node": 89,
+                                          "entries": [
+                                            {
+                                              "key": "4ef069a8-1d77-4a6c-927f-2e850ea6534d",
+                                              "value": {
+                                                "class": "mage.abilities.Mode",
+                                                "node": 90,
+                                                "mage.abilities.Mode.id": "4ef069a8-1d77-4a6c-927f-2e850ea6534d",
+                                                "mage.abilities.Mode.targets": {
+                                                  "node": 91,
+                                                  "items": []
+                                                },
+                                                "mage.abilities.Mode.effects": {
+                                                  "node": 92,
+                                                  "items": [
+                                                    {
+                                                      "class": "mage.abilities.effects.common.continuous.BoostSourceEffect",
+                                                      "node": 93,
+                                                      "mage.abilities.effects.common.continuous.BoostSourceEffect.power": {
+                                                        "reference": 1
+                                                      },
+                                                      "mage.abilities.effects.common.continuous.BoostSourceEffect.toughness": {
+                                                        "reference": 2
+                                                      },
+                                                      "mage.abilities.effects.ContinuousEffectImpl.duration": "until end of turn",
+                                                      "mage.abilities.effects.ContinuousEffectImpl.layer": "PTChangingEffects_7",
+                                                      "mage.abilities.effects.ContinuousEffectImpl.sublayer": "ModifyPT_7c",
+                                                      "mage.abilities.effects.ContinuousEffectImpl.order": 0,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.used": false,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.discarded": false,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.affectedObjectsSet": null,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.affectedObjectList": {
+                                                        "node": 94,
+                                                        "items": []
+                                                      },
+                                                      "mage.abilities.effects.ContinuousEffectImpl.temporary": false,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.dependencyTypes": {
+                                                        "node": 95,
+                                                        "items": []
+                                                      },
+                                                      "mage.abilities.effects.ContinuousEffectImpl.dependendToTypes": {
+                                                        "node": 96,
+                                                        "items": []
+                                                      },
+                                                      "mage.abilities.effects.ContinuousEffectImpl.characterDefining": false,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.startingControllerId": null,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.startingTurnWasActive": false,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.effectStartingOnTurn": 0,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.effectStartingEndStep": 0,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.nextTurnNumber": 2147483647,
+                                                      "mage.abilities.effects.ContinuousEffectImpl.effectStartingStepNum": 0,
+                                                      "mage.abilities.effects.EffectImpl.id": "d728eb50-924d-48ba-8525-dbeffa9eec2e",
+                                                      "mage.abilities.effects.EffectImpl.outcome": "BoostCreature",
+                                                      "mage.abilities.effects.EffectImpl.effectType": "Continuous Effect",
+                                                      "mage.abilities.effects.EffectImpl.targetPointer": {
+                                                        "class": "mage.target.targetpointer.FirstTargetPointer",
+                                                        "node": 97,
+                                                        "mage.target.targetpointer.NthTargetPointer.zoneChangeCounter": {
+                                                          "node": 98,
+                                                          "entries": []
+                                                        },
+                                                        "mage.target.targetpointer.NthTargetPointer.targetIndex": 0,
+                                                        "mage.target.targetpointer.TargetPointerImpl.data": null,
+                                                        "mage.target.targetpointer.TargetPointerImpl.initialized": false,
+                                                        "mage.target.targetpointer.TargetPointerImpl.targetDescription": null
+                                                      },
+                                                      "mage.abilities.effects.EffectImpl.staticText": {
+                                                        "text_sha256": "2c24abfd447e9d969ba00ab0375b0271bc416d548b89c7a43e216e3f74bfd080"
+                                                      },
+                                                      "mage.abilities.effects.EffectImpl.values": null,
+                                                      "mage.abilities.effects.EffectImpl.concatPrefix": {
+                                                        "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                                      }
+                                                    }
+                                                  ]
+                                                },
+                                                "mage.abilities.Mode.flavorWord": null,
+                                                "mage.abilities.Mode.cost": null,
+                                                "mage.abilities.Mode.pawPrintValue": 0,
+                                                "mage.abilities.Mode.modeTag": null
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "mage.abilities.AbilityImpl.zone": "BATTLEFIELD",
+                                        "mage.abilities.AbilityImpl.name": null,
+                                        "mage.abilities.AbilityImpl.abilityWord": null,
+                                        "mage.abilities.AbilityImpl.flavorWord": null,
+                                        "mage.abilities.AbilityImpl.usesStack": true,
+                                        "mage.abilities.AbilityImpl.ruleAtTheTop": false,
+                                        "mage.abilities.AbilityImpl.ruleVisible": true,
+                                        "mage.abilities.AbilityImpl.ruleAdditionalCostsVisible": true,
+                                        "mage.abilities.AbilityImpl.activated": false,
+                                        "mage.abilities.AbilityImpl.worksFaceDown": false,
+                                        "mage.abilities.AbilityImpl.worksPhasedOut": false,
+                                        "mage.abilities.AbilityImpl.sourceObjectZoneChangeCounter": 0,
+                                        "mage.abilities.AbilityImpl.watchers": {
+                                          "node": 99,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.subAbilities": null,
+                                        "mage.abilities.AbilityImpl.canFizzle": true,
+                                        "mage.abilities.AbilityImpl.canBeCopied": true,
+                                        "mage.abilities.AbilityImpl.targetAdjuster": null,
+                                        "mage.abilities.AbilityImpl.costAdjuster": null,
+                                        "mage.abilities.AbilityImpl.hints": {
+                                          "node": 100,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.icons": {
+                                          "node": 101,
+                                          "items": []
+                                        },
+                                        "mage.abilities.AbilityImpl.customOutcome": null,
+                                        "mage.abilities.AbilityImpl.identifier": "Default",
+                                        "mage.abilities.AbilityImpl.appendToRule": null,
+                                        "mage.abilities.AbilityImpl.sourcePermanentTransformCount": 0,
+                                        "mage.abilities.AbilityImpl.costsTagMap": null
+                                      }
+                                    ]
+                                  },
+                                  "mage.MageObjectImpl.text": null,
+                                  "mage.MageObjectImpl.power": {
+                                    "class": "mage.MageInt",
+                                    "node": 102,
+                                    "mage.MageInt.baseValue": 0,
+                                    "mage.MageInt.modifiedBaseValue": 0,
+                                    "mage.MageInt.boostedValue": 0,
+                                    "mage.MageInt.cardValue": {
+                                      "text_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+                                    }
+                                  },
+                                  "mage.MageObjectImpl.toughness": {
+                                    "class": "mage.MageInt",
+                                    "node": 103,
+                                    "mage.MageInt.baseValue": 4,
+                                    "mage.MageInt.modifiedBaseValue": 4,
+                                    "mage.MageInt.boostedValue": 4,
+                                    "mage.MageInt.cardValue": {
+                                      "text_sha256": "4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+                                    }
+                                  },
+                                  "mage.MageObjectImpl.startingLoyalty": -1,
+                                  "mage.MageObjectImpl.startingDefense": -1,
+                                  "mage.MageObjectImpl.copy": false,
+                                  "mage.MageObjectImpl.copyFrom": null
+                                }
+                              ]
+                            },
+                            "mage.abilities.costs.common.DiscardTargetCost.randomDiscard": false,
+                            "mage.abilities.costs.CostImpl.id": "4666f94e-10a6-406e-a097-cdbfcb9c1ed4",
+                            "mage.abilities.costs.CostImpl.text": {
+                              "text_sha256": "02dd5f02afe7bf17cc63acd11a5afc489a471cf8ceb514d76e84438af4dfadbf"
+                            },
+                            "mage.abilities.costs.CostImpl.paid": true,
+                            "mage.abilities.costs.CostImpl.targets": {
+                              "node": 104,
+                              "items": [
+                                {
+                                  "class": "mage.target.common.TargetCardInHand",
+                                  "node": 105,
+                                  "mage.target.TargetCard.filter": {
+                                    "class": "mage.filter.FilterCard",
+                                    "node": 106,
+                                    "mage.filter.FilterCard.extraPredicates": {
+                                      "node": 107,
+                                      "items": []
+                                    },
+                                    "mage.filter.FilterImpl.predicates": {
+                                      "node": 108,
+                                      "items": []
+                                    },
+                                    "mage.filter.FilterImpl.message": {
+                                      "text_sha256": "da0d4b103341f3e6b5a9e1ee3ee34a2088e6db1b6d67613db33cd3eeefd2744b"
+                                    },
+                                    "mage.filter.FilterImpl.lockedFilter": false
+                                  },
+                                  "mage.target.TargetImpl.targets": {
+                                    "node": 109,
+                                    "entries": [
+                                      {
+                                        "key": "23f9414f-0525-480b-a162-8526c2938e22",
+                                        "value": 0
+                                      }
+                                    ]
+                                  },
+                                  "mage.target.TargetImpl.zoneChangeCounters": {
+                                    "node": 110,
+                                    "entries": [
+                                      {
+                                        "key": "23f9414f-0525-480b-a162-8526c2938e22",
+                                        "value": 2
+                                      }
+                                    ]
+                                  },
+                                  "mage.target.TargetImpl.targetName": {
+                                    "text_sha256": "da0d4b103341f3e6b5a9e1ee3ee34a2088e6db1b6d67613db33cd3eeefd2744b"
+                                  },
+                                  "mage.target.TargetImpl.zone": "HAND",
+                                  "mage.target.TargetImpl.maxNumberOfTargets": 1,
+                                  "mage.target.TargetImpl.minNumberOfTargets": 1,
+                                  "mage.target.TargetImpl.required": true,
+                                  "mage.target.TargetImpl.requiredExplicitlySet": false,
+                                  "mage.target.TargetImpl.chosen": true,
+                                  "mage.target.TargetImpl.isSkipChoice": false,
+                                  "mage.target.TargetImpl.notTarget": true,
+                                  "mage.target.TargetImpl.atRandom": false,
+                                  "mage.target.TargetImpl.targetController": null,
+                                  "mage.target.TargetImpl.abilityController": null,
+                                  "mage.target.TargetImpl.targetTag": 0,
+                                  "mage.target.TargetImpl.chooseHint": {
+                                    "text_sha256": "bf9c99b9fe89f443e8a41499be5bd422faa7c80bf79d0e2237402f1a9c189d2e"
+                                  },
+                                  "mage.target.TargetImpl.shouldReportEvents": true
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "mage.abilities.AbilityImpl.modes": {
+                        "node": 111,
+                        "entries": [
+                          {
+                            "key": "ecfe1417-6cf9-43b3-8337-e11087ce058c",
+                            "value": {
+                              "class": "mage.abilities.Mode",
+                              "node": 112,
+                              "mage.abilities.Mode.id": "ecfe1417-6cf9-43b3-8337-e11087ce058c",
+                              "mage.abilities.Mode.targets": {
+                                "node": 113,
+                                "items": []
+                              },
+                              "mage.abilities.Mode.effects": {
+                                "node": 114,
+                                "items": [
+                                  {
+                                    "class": "mage.abilities.effects.common.DrawCardSourceControllerEffect",
+                                    "node": 115,
+                                    "mage.abilities.effects.common.DrawCardSourceControllerEffect.amount": {
+                                      "class": "mage.abilities.dynamicvalue.common.StaticValue",
+                                      "node": 116,
+                                      "mage.abilities.dynamicvalue.common.StaticValue.value": 2
+                                    },
+                                    "mage.abilities.effects.EffectImpl.id": "0a4f958a-7f1c-43e8-bc53-df193ee3f857",
+                                    "mage.abilities.effects.EffectImpl.outcome": "DrawCard",
+                                    "mage.abilities.effects.EffectImpl.effectType": "One Shot Effect",
+                                    "mage.abilities.effects.EffectImpl.targetPointer": {
+                                      "class": "mage.target.targetpointer.FirstTargetPointer",
+                                      "node": 117,
+                                      "mage.target.targetpointer.NthTargetPointer.zoneChangeCounter": {
+                                        "node": 118,
+                                        "entries": []
+                                      },
+                                      "mage.target.targetpointer.NthTargetPointer.targetIndex": 0,
+                                      "mage.target.targetpointer.TargetPointerImpl.data": null,
+                                      "mage.target.targetpointer.TargetPointerImpl.initialized": true,
+                                      "mage.target.targetpointer.TargetPointerImpl.targetDescription": null
+                                    },
+                                    "mage.abilities.effects.EffectImpl.staticText": {
+                                      "text_sha256": "96469cc7e8ef922acd1337ae6312dbe780b6d748f23ffd308d4e7531d798d5bf"
+                                    },
+                                    "mage.abilities.effects.EffectImpl.values": null,
+                                    "mage.abilities.effects.EffectImpl.concatPrefix": {
+                                      "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                    }
+                                  }
+                                ]
+                              },
+                              "mage.abilities.Mode.flavorWord": null,
+                              "mage.abilities.Mode.cost": null,
+                              "mage.abilities.Mode.pawPrintValue": 0,
+                              "mage.abilities.Mode.modeTag": null
+                            }
+                          }
+                        ]
+                      },
+                      "mage.abilities.AbilityImpl.zone": "HAND",
+                      "mage.abilities.AbilityImpl.name": {
+                        "text_sha256": "ee9d90e81217f06423edc9657d8cfc1800798ca4904569bd5a9421ac2ce28da1"
+                      },
+                      "mage.abilities.AbilityImpl.abilityWord": null,
+                      "mage.abilities.AbilityImpl.flavorWord": null,
+                      "mage.abilities.AbilityImpl.usesStack": true,
+                      "mage.abilities.AbilityImpl.ruleAtTheTop": false,
+                      "mage.abilities.AbilityImpl.ruleVisible": true,
+                      "mage.abilities.AbilityImpl.ruleAdditionalCostsVisible": true,
+                      "mage.abilities.AbilityImpl.activated": true,
+                      "mage.abilities.AbilityImpl.worksFaceDown": false,
+                      "mage.abilities.AbilityImpl.worksPhasedOut": false,
+                      "mage.abilities.AbilityImpl.sourceObjectZoneChangeCounter": 3,
+                      "mage.abilities.AbilityImpl.watchers": {
+                        "node": 119,
+                        "items": []
+                      },
+                      "mage.abilities.AbilityImpl.subAbilities": null,
+                      "mage.abilities.AbilityImpl.canFizzle": true,
+                      "mage.abilities.AbilityImpl.canBeCopied": true,
+                      "mage.abilities.AbilityImpl.targetAdjuster": null,
+                      "mage.abilities.AbilityImpl.costAdjuster": null,
+                      "mage.abilities.AbilityImpl.hints": {
+                        "node": 120,
+                        "items": []
+                      },
+                      "mage.abilities.AbilityImpl.icons": {
+                        "node": 121,
+                        "items": []
+                      },
+                      "mage.abilities.AbilityImpl.customOutcome": null,
+                      "mage.abilities.AbilityImpl.identifier": "Default",
+                      "mage.abilities.AbilityImpl.appendToRule": null,
+                      "mage.abilities.AbilityImpl.sourcePermanentTransformCount": 0,
+                      "mage.abilities.AbilityImpl.costsTagMap": null
+                    }
+                  ]
+                },
+                "mage.game.stack.Spell.card": {
+                  "class": "mage.cards.t.ThrillOfPossibility",
+                  "node": 122,
+                  "mage.cards.CardImpl.ownerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                  "mage.cards.CardImpl.rarity": "Common",
+                  "mage.cards.CardImpl.meldsWithClazz": null,
+                  "mage.cards.CardImpl.meldsToClazz": null,
+                  "mage.cards.CardImpl.meldsToCard": null,
+                  "mage.cards.CardImpl.secondSideCard": null,
+                  "mage.cards.CardImpl.nightCard": false,
+                  "mage.cards.CardImpl.spellAbility": {
+                    "class": "mage.abilities.SpellAbility",
+                    "node": 123,
+                    "mage.abilities.SpellAbility.spellAbilityType": "Basic SpellAbility",
+                    "mage.abilities.SpellAbility.spellAbilityCastMode": "Normal",
+                    "mage.abilities.SpellAbility.cardName": {
+                      "text_sha256": "9ee96202b702de716693d17964d78937f47f9789f513c03b19eb28cfb2182eb8"
+                    },
+                    "mage.abilities.ActivatedAbilityImpl.maxActivationsPerTurn": 2147483647,
+                    "mage.abilities.ActivatedAbilityImpl.maxActivationsPerGame": 2147483647,
+                    "mage.abilities.ActivatedAbilityImpl.condition": null,
+                    "mage.abilities.ActivatedAbilityImpl.timing": "INSTANT",
+                    "mage.abilities.ActivatedAbilityImpl.mayActivate": "YOU",
+                    "mage.abilities.AbilityImpl.id": "ec58da51-e95c-4e98-8113-9180ccfd4292",
+                    "mage.abilities.AbilityImpl.originalId": "ec58da51-e95c-4e98-8113-9180ccfd4292",
+                    "mage.abilities.AbilityImpl.abilityType": "Spell",
+                    "mage.abilities.AbilityImpl.controllerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                    "mage.abilities.AbilityImpl.sourceId": "ce5cd7d3-8769-4308-9905-31bb4a8eeec6",
+                    "mage.abilities.AbilityImpl.manaCosts": {
+                      "node": 124,
+                      "items": [
+                        {
+                          "class": "mage.abilities.costs.mana.GenericManaCost",
+                          "node": 125,
+                          "mage.abilities.costs.mana.GenericManaCost.mana": 1,
+                          "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                            "class": "mage.Mana",
+                            "node": 126,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 0,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 0,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                            "class": "mage.Mana",
+                            "node": 127,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 0,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 0,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                            "class": "mage.Mana",
+                            "node": 128,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 0,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 1,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.options": {
+                            "node": 129,
+                            "items": [
+                              {
+                                "class": "mage.Mana",
+                                "node": 130,
+                                "mage.Mana.white": 0,
+                                "mage.Mana.blue": 0,
+                                "mage.Mana.black": 0,
+                                "mage.Mana.red": 0,
+                                "mage.Mana.green": 0,
+                                "mage.Mana.generic": 1,
+                                "mage.Mana.colorless": 0,
+                                "mage.Mana.any": 0,
+                                "mage.Mana.flag": false
+                              }
+                            ]
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                          "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                          "mage.abilities.costs.CostImpl.id": "f62bf6fd-57b4-4afb-b10f-4fe4e59a836c",
+                          "mage.abilities.costs.CostImpl.text": null,
+                          "mage.abilities.costs.CostImpl.paid": false,
+                          "mage.abilities.costs.CostImpl.targets": {
+                            "node": 131,
+                            "items": []
+                          }
+                        },
+                        {
+                          "class": "mage.abilities.costs.mana.ColoredManaCost",
+                          "node": 132,
+                          "mage.abilities.costs.mana.ColoredManaCost.mana": "R",
+                          "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                            "class": "mage.Mana",
+                            "node": 133,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 0,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 0,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                            "class": "mage.Mana",
+                            "node": 134,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 0,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 0,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                            "class": "mage.Mana",
+                            "node": 135,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 1,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 0,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.options": {
+                            "node": 136,
+                            "items": [
+                              {
+                                "class": "mage.Mana",
+                                "node": 137,
+                                "mage.Mana.white": 0,
+                                "mage.Mana.blue": 0,
+                                "mage.Mana.black": 0,
+                                "mage.Mana.red": 1,
+                                "mage.Mana.green": 0,
+                                "mage.Mana.generic": 0,
+                                "mage.Mana.colorless": 0,
+                                "mage.Mana.any": 0,
+                                "mage.Mana.flag": false
+                              }
+                            ]
+                          },
+                          "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                          "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                          "mage.abilities.costs.CostImpl.id": "15920959-01d2-41b6-b5ba-2e04b463abfa",
+                          "mage.abilities.costs.CostImpl.text": null,
+                          "mage.abilities.costs.CostImpl.paid": false,
+                          "mage.abilities.costs.CostImpl.targets": {
+                            "node": 138,
+                            "items": []
+                          }
+                        }
+                      ]
+                    },
+                    "mage.abilities.AbilityImpl.manaCostsToPay": {
+                      "node": 139,
+                      "items": [
+                        {
+                          "reference": 125
+                        },
+                        {
+                          "reference": 132
+                        }
+                      ]
+                    },
+                    "mage.abilities.AbilityImpl.costs": {
+                      "node": 140,
+                      "items": [
+                        {
+                          "class": "mage.abilities.costs.common.DiscardCardCost",
+                          "node": 141,
+                          "mage.abilities.costs.common.DiscardTargetCost.cards": {
+                            "node": 142,
+                            "items": []
+                          },
+                          "mage.abilities.costs.common.DiscardTargetCost.randomDiscard": false,
+                          "mage.abilities.costs.CostImpl.id": "4666f94e-10a6-406e-a097-cdbfcb9c1ed4",
+                          "mage.abilities.costs.CostImpl.text": {
+                            "text_sha256": "02dd5f02afe7bf17cc63acd11a5afc489a471cf8ceb514d76e84438af4dfadbf"
+                          },
+                          "mage.abilities.costs.CostImpl.paid": false,
+                          "mage.abilities.costs.CostImpl.targets": {
+                            "node": 143,
+                            "items": [
+                              {
+                                "class": "mage.target.common.TargetCardInHand",
+                                "node": 144,
+                                "mage.target.TargetCard.filter": {
+                                  "class": "mage.filter.FilterCard",
+                                  "node": 145,
+                                  "mage.filter.FilterCard.extraPredicates": {
+                                    "node": 146,
+                                    "items": []
+                                  },
+                                  "mage.filter.FilterImpl.predicates": {
+                                    "node": 147,
+                                    "items": []
+                                  },
+                                  "mage.filter.FilterImpl.message": {
+                                    "text_sha256": "da0d4b103341f3e6b5a9e1ee3ee34a2088e6db1b6d67613db33cd3eeefd2744b"
+                                  },
+                                  "mage.filter.FilterImpl.lockedFilter": false
+                                },
+                                "mage.target.TargetImpl.targets": {
+                                  "node": 148,
+                                  "entries": []
+                                },
+                                "mage.target.TargetImpl.zoneChangeCounters": {
+                                  "node": 149,
+                                  "entries": []
+                                },
+                                "mage.target.TargetImpl.targetName": {
+                                  "text_sha256": "da0d4b103341f3e6b5a9e1ee3ee34a2088e6db1b6d67613db33cd3eeefd2744b"
+                                },
+                                "mage.target.TargetImpl.zone": "HAND",
+                                "mage.target.TargetImpl.maxNumberOfTargets": 1,
+                                "mage.target.TargetImpl.minNumberOfTargets": 1,
+                                "mage.target.TargetImpl.required": true,
+                                "mage.target.TargetImpl.requiredExplicitlySet": false,
+                                "mage.target.TargetImpl.chosen": false,
+                                "mage.target.TargetImpl.isSkipChoice": false,
+                                "mage.target.TargetImpl.notTarget": true,
+                                "mage.target.TargetImpl.atRandom": false,
+                                "mage.target.TargetImpl.targetController": null,
+                                "mage.target.TargetImpl.abilityController": null,
+                                "mage.target.TargetImpl.targetTag": 0,
+                                "mage.target.TargetImpl.chooseHint": {
+                                  "text_sha256": "bf9c99b9fe89f443e8a41499be5bd422faa7c80bf79d0e2237402f1a9c189d2e"
+                                },
+                                "mage.target.TargetImpl.shouldReportEvents": true
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "mage.abilities.AbilityImpl.modes": {
+                      "node": 150,
+                      "entries": [
+                        {
+                          "key": "ecfe1417-6cf9-43b3-8337-e11087ce058c",
+                          "value": {
+                            "class": "mage.abilities.Mode",
+                            "node": 151,
+                            "mage.abilities.Mode.id": "ecfe1417-6cf9-43b3-8337-e11087ce058c",
+                            "mage.abilities.Mode.targets": {
+                              "node": 152,
+                              "items": []
+                            },
+                            "mage.abilities.Mode.effects": {
+                              "node": 153,
+                              "items": [
+                                {
+                                  "class": "mage.abilities.effects.common.DrawCardSourceControllerEffect",
+                                  "node": 154,
+                                  "mage.abilities.effects.common.DrawCardSourceControllerEffect.amount": {
+                                    "reference": 116
+                                  },
+                                  "mage.abilities.effects.EffectImpl.id": "0a4f958a-7f1c-43e8-bc53-df193ee3f857",
+                                  "mage.abilities.effects.EffectImpl.outcome": "DrawCard",
+                                  "mage.abilities.effects.EffectImpl.effectType": "One Shot Effect",
+                                  "mage.abilities.effects.EffectImpl.targetPointer": {
+                                    "class": "mage.target.targetpointer.FirstTargetPointer",
+                                    "node": 155,
+                                    "mage.target.targetpointer.NthTargetPointer.zoneChangeCounter": {
+                                      "node": 156,
+                                      "entries": []
+                                    },
+                                    "mage.target.targetpointer.NthTargetPointer.targetIndex": 0,
+                                    "mage.target.targetpointer.TargetPointerImpl.data": null,
+                                    "mage.target.targetpointer.TargetPointerImpl.initialized": true,
+                                    "mage.target.targetpointer.TargetPointerImpl.targetDescription": null
+                                  },
+                                  "mage.abilities.effects.EffectImpl.staticText": {
+                                    "text_sha256": "96469cc7e8ef922acd1337ae6312dbe780b6d748f23ffd308d4e7531d798d5bf"
+                                  },
+                                  "mage.abilities.effects.EffectImpl.values": null,
+                                  "mage.abilities.effects.EffectImpl.concatPrefix": {
+                                    "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                                  }
+                                }
+                              ]
+                            },
+                            "mage.abilities.Mode.flavorWord": null,
+                            "mage.abilities.Mode.cost": null,
+                            "mage.abilities.Mode.pawPrintValue": 0,
+                            "mage.abilities.Mode.modeTag": null
+                          }
+                        }
+                      ]
+                    },
+                    "mage.abilities.AbilityImpl.zone": "HAND",
+                    "mage.abilities.AbilityImpl.name": {
+                      "text_sha256": "ee9d90e81217f06423edc9657d8cfc1800798ca4904569bd5a9421ac2ce28da1"
+                    },
+                    "mage.abilities.AbilityImpl.abilityWord": null,
+                    "mage.abilities.AbilityImpl.flavorWord": null,
+                    "mage.abilities.AbilityImpl.usesStack": true,
+                    "mage.abilities.AbilityImpl.ruleAtTheTop": false,
+                    "mage.abilities.AbilityImpl.ruleVisible": true,
+                    "mage.abilities.AbilityImpl.ruleAdditionalCostsVisible": true,
+                    "mage.abilities.AbilityImpl.activated": false,
+                    "mage.abilities.AbilityImpl.worksFaceDown": false,
+                    "mage.abilities.AbilityImpl.worksPhasedOut": false,
+                    "mage.abilities.AbilityImpl.sourceObjectZoneChangeCounter": 0,
+                    "mage.abilities.AbilityImpl.watchers": {
+                      "node": 157,
+                      "items": []
+                    },
+                    "mage.abilities.AbilityImpl.subAbilities": null,
+                    "mage.abilities.AbilityImpl.canFizzle": true,
+                    "mage.abilities.AbilityImpl.canBeCopied": true,
+                    "mage.abilities.AbilityImpl.targetAdjuster": null,
+                    "mage.abilities.AbilityImpl.costAdjuster": null,
+                    "mage.abilities.AbilityImpl.hints": {
+                      "node": 158,
+                      "items": []
+                    },
+                    "mage.abilities.AbilityImpl.icons": {
+                      "node": 159,
+                      "items": []
+                    },
+                    "mage.abilities.AbilityImpl.customOutcome": null,
+                    "mage.abilities.AbilityImpl.identifier": "Default",
+                    "mage.abilities.AbilityImpl.appendToRule": null,
+                    "mage.abilities.AbilityImpl.sourcePermanentTransformCount": 0,
+                    "mage.abilities.AbilityImpl.costsTagMap": null
+                  },
+                  "mage.cards.CardImpl.flipCard": false,
+                  "mage.cards.CardImpl.flipCardName": null,
+                  "mage.cards.CardImpl.morphCard": false,
+                  "mage.cards.CardImpl.attachments": {
+                    "node": 160,
+                    "items": []
+                  },
+                  "mage.cards.CardImpl.extraDeckCard": false,
+                  "mage.MageObjectImpl.objectId": "ce5cd7d3-8769-4308-9905-31bb4a8eeec6",
+                  "mage.MageObjectImpl.name": {
+                    "text_sha256": "9ee96202b702de716693d17964d78937f47f9789f513c03b19eb28cfb2182eb8"
+                  },
+                  "mage.MageObjectImpl.manaCost": {
+                    "node": 161,
+                    "items": [
+                      {
+                        "reference": 125
+                      },
+                      {
+                        "reference": 132
+                      }
+                    ]
+                  },
+                  "mage.MageObjectImpl.color": {
+                    "class": "mage.ObjectColor",
+                    "node": 162,
+                    "mage.ObjectColor.white": false,
+                    "mage.ObjectColor.blue": false,
+                    "mage.ObjectColor.black": false,
+                    "mage.ObjectColor.red": true,
+                    "mage.ObjectColor.green": false
+                  },
+                  "mage.MageObjectImpl.frameColor": {
+                    "class": "mage.ObjectColor",
+                    "node": 163,
+                    "mage.ObjectColor.white": false,
+                    "mage.ObjectColor.blue": false,
+                    "mage.ObjectColor.black": false,
+                    "mage.ObjectColor.red": false,
+                    "mage.ObjectColor.green": false
+                  },
+                  "mage.MageObjectImpl.frameStyle": "M15_NORMAL",
+                  "mage.MageObjectImpl.expansionSetCode": {
+                    "text_sha256": "c5a2f0ff902c0621e72cef57daec2433a18b27fc54a1d38308a1c6e7e77b71d5"
+                  },
+                  "mage.MageObjectImpl.cardNumber": {
+                    "text_sha256": "d29d53701d3c859e29e1b90028eec1ca8e2f29439198b6e036c60951fb458aa1"
+                  },
+                  "mage.MageObjectImpl.usesVariousArt": false,
+                  "mage.MageObjectImpl.imageFileName": {
+                    "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  },
+                  "mage.MageObjectImpl.imageNumber": 0,
+                  "mage.MageObjectImpl.supertype": {
+                    "node": 164,
+                    "items": []
+                  },
+                  "mage.MageObjectImpl.cardType": {
+                    "node": 165,
+                    "items": [
+                      "Instant"
+                    ]
+                  },
+                  "mage.MageObjectImpl.subtype": {
+                    "node": 166,
+                    "items": []
+                  },
+                  "mage.MageObjectImpl.abilities": {
+                    "node": 167,
+                    "items": [
+                      {
+                        "reference": 123
+                      }
+                    ]
+                  },
+                  "mage.MageObjectImpl.text": null,
+                  "mage.MageObjectImpl.power": {
+                    "class": "mage.MageInt",
+                    "node": 168,
+                    "mage.MageInt.baseValue": 0,
+                    "mage.MageInt.modifiedBaseValue": 0,
+                    "mage.MageInt.boostedValue": 0,
+                    "mage.MageInt.cardValue": {
+                      "text_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+                    }
+                  },
+                  "mage.MageObjectImpl.toughness": {
+                    "class": "mage.MageInt",
+                    "node": 169,
+                    "mage.MageInt.baseValue": 0,
+                    "mage.MageInt.modifiedBaseValue": 0,
+                    "mage.MageInt.boostedValue": 0,
+                    "mage.MageInt.cardValue": {
+                      "text_sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+                    }
+                  },
+                  "mage.MageObjectImpl.startingLoyalty": -1,
+                  "mage.MageObjectImpl.startingDefense": -1,
+                  "mage.MageObjectImpl.copy": false,
+                  "mage.MageObjectImpl.copyFrom": null
+                },
+                "mage.game.stack.Spell.manaCost": {
+                  "node": 170,
+                  "items": [
+                    {
+                      "class": "mage.abilities.costs.mana.GenericManaCost",
+                      "node": 171,
+                      "mage.abilities.costs.mana.GenericManaCost.mana": 1,
+                      "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                        "class": "mage.Mana",
+                        "node": 172,
+                        "mage.Mana.white": 0,
+                        "mage.Mana.blue": 0,
+                        "mage.Mana.black": 0,
+                        "mage.Mana.red": 0,
+                        "mage.Mana.green": 0,
+                        "mage.Mana.generic": 0,
+                        "mage.Mana.colorless": 0,
+                        "mage.Mana.any": 0,
+                        "mage.Mana.flag": false
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                        "class": "mage.Mana",
+                        "node": 173,
+                        "mage.Mana.white": 0,
+                        "mage.Mana.blue": 0,
+                        "mage.Mana.black": 0,
+                        "mage.Mana.red": 0,
+                        "mage.Mana.green": 0,
+                        "mage.Mana.generic": 0,
+                        "mage.Mana.colorless": 0,
+                        "mage.Mana.any": 0,
+                        "mage.Mana.flag": false
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                        "class": "mage.Mana",
+                        "node": 174,
+                        "mage.Mana.white": 0,
+                        "mage.Mana.blue": 0,
+                        "mage.Mana.black": 0,
+                        "mage.Mana.red": 0,
+                        "mage.Mana.green": 0,
+                        "mage.Mana.generic": 1,
+                        "mage.Mana.colorless": 0,
+                        "mage.Mana.any": 0,
+                        "mage.Mana.flag": false
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.options": {
+                        "node": 175,
+                        "items": [
+                          {
+                            "class": "mage.Mana",
+                            "node": 176,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 0,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 1,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          }
+                        ]
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                      "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                      "mage.abilities.costs.CostImpl.id": "f62bf6fd-57b4-4afb-b10f-4fe4e59a836c",
+                      "mage.abilities.costs.CostImpl.text": null,
+                      "mage.abilities.costs.CostImpl.paid": false,
+                      "mage.abilities.costs.CostImpl.targets": {
+                        "node": 177,
+                        "items": []
+                      }
+                    },
+                    {
+                      "class": "mage.abilities.costs.mana.ColoredManaCost",
+                      "node": 178,
+                      "mage.abilities.costs.mana.ColoredManaCost.mana": "R",
+                      "mage.abilities.costs.mana.ManaCostImpl.payment": {
+                        "class": "mage.Mana",
+                        "node": 179,
+                        "mage.Mana.white": 0,
+                        "mage.Mana.blue": 0,
+                        "mage.Mana.black": 0,
+                        "mage.Mana.red": 0,
+                        "mage.Mana.green": 0,
+                        "mage.Mana.generic": 0,
+                        "mage.Mana.colorless": 0,
+                        "mage.Mana.any": 0,
+                        "mage.Mana.flag": false
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.usedManaToPay": {
+                        "class": "mage.Mana",
+                        "node": 180,
+                        "mage.Mana.white": 0,
+                        "mage.Mana.blue": 0,
+                        "mage.Mana.black": 0,
+                        "mage.Mana.red": 0,
+                        "mage.Mana.green": 0,
+                        "mage.Mana.generic": 0,
+                        "mage.Mana.colorless": 0,
+                        "mage.Mana.any": 0,
+                        "mage.Mana.flag": false
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.cost": {
+                        "class": "mage.Mana",
+                        "node": 181,
+                        "mage.Mana.white": 0,
+                        "mage.Mana.blue": 0,
+                        "mage.Mana.black": 0,
+                        "mage.Mana.red": 1,
+                        "mage.Mana.green": 0,
+                        "mage.Mana.generic": 0,
+                        "mage.Mana.colorless": 0,
+                        "mage.Mana.any": 0,
+                        "mage.Mana.flag": false
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.options": {
+                        "node": 182,
+                        "items": [
+                          {
+                            "class": "mage.Mana",
+                            "node": 183,
+                            "mage.Mana.white": 0,
+                            "mage.Mana.blue": 0,
+                            "mage.Mana.black": 0,
+                            "mage.Mana.red": 1,
+                            "mage.Mana.green": 0,
+                            "mage.Mana.generic": 0,
+                            "mage.Mana.colorless": 0,
+                            "mage.Mana.any": 0,
+                            "mage.Mana.flag": false
+                          }
+                        ]
+                      },
+                      "mage.abilities.costs.mana.ManaCostImpl.sourceFilter": null,
+                      "mage.abilities.costs.mana.ManaCostImpl.phyrexian": false,
+                      "mage.abilities.costs.CostImpl.id": "15920959-01d2-41b6-b5ba-2e04b463abfa",
+                      "mage.abilities.costs.CostImpl.text": null,
+                      "mage.abilities.costs.CostImpl.paid": false,
+                      "mage.abilities.costs.CostImpl.targets": {
+                        "node": 184,
+                        "items": []
+                      }
+                    }
+                  ]
+                },
+                "mage.game.stack.Spell.color": {
+                  "class": "mage.ObjectColor",
+                  "node": 185,
+                  "mage.ObjectColor.white": false,
+                  "mage.ObjectColor.blue": false,
+                  "mage.ObjectColor.black": false,
+                  "mage.ObjectColor.red": true,
+                  "mage.ObjectColor.green": false
+                },
+                "mage.game.stack.Spell.frameColor": {
+                  "class": "mage.ObjectColor",
+                  "node": 186,
+                  "mage.ObjectColor.white": false,
+                  "mage.ObjectColor.blue": false,
+                  "mage.ObjectColor.black": false,
+                  "mage.ObjectColor.red": false,
+                  "mage.ObjectColor.green": false
+                },
+                "mage.game.stack.Spell.frameStyle": "M15_NORMAL",
+                "mage.game.stack.Spell.ability": {
+                  "reference": 12
+                },
+                "mage.game.stack.Spell.fromZone": "HAND",
+                "mage.game.stack.Spell.id": "ec58da51-e95c-4e98-8113-9180ccfd4292",
+                "mage.game.stack.Spell.zoneChangeCounter": 3,
+                "mage.game.stack.Spell.controllerId": "b49a1250-4cfc-4ce8-a3a8-0682e2b21364",
+                "mage.game.stack.Spell.copy": false,
+                "mage.game.stack.Spell.copyFrom": null,
+                "mage.game.stack.Spell.faceDown": false,
+                "mage.game.stack.Spell.countered": false,
+                "mage.game.stack.Spell.resolving": false,
+                "mage.game.stack.Spell.commandedByPlayerId": null,
+                "mage.game.stack.Spell.commandedByInfo": null,
+                "mage.game.stack.Spell.prototyped": false,
+                "mage.game.stack.Spell.startingLoyalty": -1,
+                "mage.game.stack.Spell.startingDefense": -1,
+                "mage.game.stack.Spell.currentActivatingManaAbilitiesStep": "NORMAL",
+                "mage.game.stack.StackObjectImpl.targetChanged": false
+              }
+            }
+          ]
+        },
+        "mage.abilities.effects.EffectImpl.concatPrefix": {
+          "text_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    }
+  }
+}

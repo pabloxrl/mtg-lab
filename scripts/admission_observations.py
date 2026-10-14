@@ -37,8 +37,9 @@ def structure(p,case,engine,index,prefix):
         # CR103.5: use the final recorded shuffle and London bottom order.
         # Initial admission games kept seven; real AI captures may mulligan.
         order=list([e for e in case['chance'] if e['actor']==seat][-1]['after'])
+        last_round=max(e['round'] for e in case['choices'] if e['actor']==seat)
         for choice in case['choices']:
-            if choice['actor']==seat and choice['kind']=='bottom':
+            if choice['actor']==seat and choice['kind']=='bottom' and choice['round']==last_round:
                 for source in choice['selection']:
                     order.remove(source)
                 order.extend(choice['selection'])
@@ -275,7 +276,27 @@ def xmage_trigger_provenance(run,case):
         canonical,ordered=expected[k];source=trace['source']
         require(source in by_occurrence,'/trigger provenance source binding')
         raw,initial=by_occurrence[source]
-        require(trace['raw_source']==raw and type(trace['raw_source_zcc']) is int and trace['raw_source_zcc']==initial+trace['incarnation'],'/trigger provenance source incarnation binding')
+        # LondonMulligan directly returns cards to the library without a raw
+        # ZCC increment. Bind through the observed semantic transition chain;
+        # a constant construction-counter offset is valid only without returns.
+        transitions=[t for t in run['identity_transitions'] if t['source']==source]
+        counter=initial;zone='LIBRARY';incarnation=0;bound_counter=None
+        for transition in transitions:
+            require(transition['incarnation']==incarnation+1 and transition['from']==zone
+                    and transition['to']!=zone and transition['raw_before']==counter,
+                    '/trigger provenance transition chain')
+            direct=transition['direct_mulligan_return']
+            require(type(direct) is bool and (not direct or (zone=='HAND' and transition['to']=='LIBRARY')),
+                    '/trigger provenance mulligan transition')
+            require(transition['raw_after']==counter+(0 if direct else 1),
+                    '/trigger provenance transition counter')
+            incarnation+=1;counter=transition['raw_after'];zone=transition['to']
+            if incarnation==trace['incarnation']:
+                require(zone=='BATTLEFIELD','/trigger provenance battlefield source')
+                bound_counter=counter
+        require(trace['raw_source']==raw and type(trace['raw_source_zcc']) is int
+                and bound_counter is not None and trace['raw_source_zcc']==bound_counter,
+                '/trigger provenance source incarnation binding')
         require(valid_uuid(trace['raw_ability']) and trace['ability_class']==classes[trace['ability']],'/trigger provenance ability identity/class')
         observed=trace['observed_choice']
         require(type(observed) is int and 0<=observed<=ordered and case['play'][observed]['turn']==case['play'][ordered]['turn'],'/trigger provenance observation chronology')
