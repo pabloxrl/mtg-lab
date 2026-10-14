@@ -24,7 +24,7 @@ The immediate priority is the [reference-AI/L0 program](doc/programs/reference-a
 capture real games first, then replay the entire incrementally admitted corpus
 after every change using a prebuilt native runner. A curated deep subset adds
 costly diagnostics/live references. This is a registered plan, not a delivered
-1,000-game corpus or measured speed claim. The [native L0 runner](doc/evidence/native-l0/README.md)
+1,000-game corpus or full-sized speed claim. The [native L0 runner](doc/evidence/native-l0/README.md)
 packages and replays the ten provisional games offline with exact checks and
 separate cold/warm receipts. Existing sixteen
 native/authored games remain regressions and do not count toward AI quotas.
@@ -89,7 +89,7 @@ operational monitoring evidence; capture remains first.
 | M1 | Six-card scalar slice — [passing audit](doc/evidence/m1-gate/README.md). |
 | M2 / E1 | Complete frozen pool and scalar baseline — [PASS report](doc/evidence/m2-gate/README.md); completion conditional on its linked review, protected merge and exact-main CI receipts. |
 | Engine validation M3 (formerly E1a) | Reusable mechanics and external current-pool definitions — [registered plan](doc/programs/engine-validation-m3.md), not implemented or verified by registration. |
-| E2–E5 / L0 | Immediate reference-AI corpus priority — [registered capture/replay contracts](doc/programs/reference-ai-l0.md), no M3 prerequisite; corpus and latency remain unverified. |
+| E2–E5 / L0 | Immediate reference-AI corpus priority — [registered capture/replay contracts](doc/programs/reference-ai-l0.md), no M3 prerequisite; full-sized corpus and latency remain unverified. |
 
 ## Features
 
@@ -190,6 +190,7 @@ and [simulation guide](doc/simulate.md).
 | [Terminal-game admission](doc/evidence/admission/README.md) | Version 10 checks sixteen frozen normal-reset native/XMage games: heuristic-origin and independently authored paths for every matchup/starter row. It requires rules-terminal outcomes, intermediate observations, exact consumption, repeated actual runs and invalid-tape controls. The reference retains the explicit XMage combat patch; no Forge, reference-AI corpus, complete legal-set or M2 gate claim. |
 | [XMage real-AI raw capture](doc/evidence/xmage-ai-capture/README.md) | Headless ComputerPlayer7 game capture with live-game choices, chance, identities, semantic observations, configuration and visible failed attempts. Includes controlled recording-on/off comparison and unsupported/truncation checks. Raw source play is not replay admission, corpus qualification or an L0 speed claim. |
 | [Provisional XMage pilot](doc/evidence/xmage-ai-pilot/README.md) | Ten distinct complete AI games, all eight matchup/starting-seat rows, twice-native/twice-patched-XMage replay, intermediate checks, retained failures and canonical duplicate controls. No Forge/final corpus quota or L0 performance claim. |
+| [100-attempt XMage campaign](doc/evidence/xmage-campaign/README.md) | Measured 100 source completions, 95 conversions and 93 diagnostic native agreements; retained failures, no new admissions. Full ten-game provisional L0 cold median 3.198s on the recorded shared container; 1,000-game performance remains unverified. |
 | [Forge real-AI raw capture](doc/evidence/forge-ai-capture/README.md) | Normal frozen red/green setup with PlayerControllerAi/AiController, source-native callbacks, payments, shuffle/mulligan/chance and intermediate observations. The acceptance command compares uninstrumented play and retains actual unsupported/truncated attempts. No normalized Forge replay or source-AI quota is claimed. |
 | [Forge ordered opening replay](doc/evidence/forge-opening/README.md) | Real captured prefixes execute normal forty-card setup in Forge and native with both starters, initial/redraw chance, physical copies, London bottom order and strict negative controls. Source scheduling alignment and prefix remainder remain explicit; no full-game replay or corpus quota claim. |
 | [Forge casting replay](doc/evidence/forge-casting/README.md) | Bounded real-source prefixes independently execute lands, priority, creatures, targeted instant response, token mode, ordered mana/discard and resolution checkpoints. Exact consumption and invalid-choice controls retain explicit allocation normalization and unsupported later callbacks; no complete-game or pilot claim. |

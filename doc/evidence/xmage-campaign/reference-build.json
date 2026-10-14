@@ -1,0 +1,12 @@
+{
+  "command": [
+    "python3",
+    "scripts/xmage.py",
+    "build",
+    "--cache",
+    "/home/agent/.cache/xmage-GH-323"
+  ],
+  "elapsed_seconds": 221.5556345100049,
+  "peak_rss_kib": 4587548,
+  "exit_code": 0
+}

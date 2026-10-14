@@ -1,0 +1,25 @@
+// Frozen identity projection of data/cards/foundations_micro_v1.json.
+// Content hashes pin all metadata; effects are not implemented here.
+static IDENTITIES: &[CardIdentity] = &[
+    CardIdentity { key: "axgard-cavalry", content_sha256: "4c9a5018be66b1f4a15e25a9522688855667a6794fe0d626e86bea3f8fcca11d" },
+    CardIdentity { key: "bear-cub", content_sha256: "7406cd42db9af41fe5c7a86f3ad5313d06ac49e14d7abd4a81f77c69772a9756" },
+    CardIdentity { key: "bite-down", content_sha256: "eeccee4b979a40f056b4ea5a84050e9156fd779657d0d0169ada944425dbc3ce" },
+    CardIdentity { key: "crackling-cyclops", content_sha256: "9f95ddce8f42ade3ddf4bbd44fddfbe8bb8ad416c13a69ca2bbed1e2ac52a22f" },
+    CardIdentity { key: "dragon-fodder", content_sha256: "508c17acb651c68aba204ac159ee803e3ee40f167dc90ff01fb0035cfe1fba20" },
+    CardIdentity { key: "druid-of-the-cowl", content_sha256: "695e903f06f6b03258b0190fa4ee3cc630c1fa055e8dd2919225c49fcbf02c4d" },
+    CardIdentity { key: "firebrand-archer", content_sha256: "374a35957b74f2d1bf0e9402f6cdb9e742ee28c69f60ab5cb74eb5e5b58c4804" },
+    CardIdentity { key: "forest", content_sha256: "fd52bc5c0a843b0ce75e7c905fe05345bc60c1f20f7551d8c145a1cc847647c8" },
+    CardIdentity { key: "giant-growth", content_sha256: "d754e3c9c6a4149b5188a2ef4678d62246dd10b95436fe7549d6f8f2b83c7375" },
+    CardIdentity { key: "goblin-surprise", content_sha256: "2694008e8ce51386c866631c53c10056655c2d20c4869d3ae9e2787a3d704b10" },
+    CardIdentity { key: "goblin-token", content_sha256: "0daf6c4fb921129e58c304e10fa4330dff138db2b37983efbf05a250f2c66559" },
+    CardIdentity { key: "llanowar-elves", content_sha256: "64ee63bc8b7251feeda56ff7305aaed17848f7c25a7efe5af356871ef4f3b852" },
+    CardIdentity { key: "magnigoth-sentry", content_sha256: "87762a7f68e7a20a8f9d1b9d474a4d16a982a38abb28f733e042f89e48d1ff9a" },
+    CardIdentity { key: "mountain", content_sha256: "b558c00a7722b58d067026f0b0f483789c25399545450e4b47b10f5a56124b2b" },
+    CardIdentity { key: "shivan-dragon", content_sha256: "26383fb53aea3a1fe80f2852ce21e1e8c065f5e39f8b9344eb03610c5c957608" },
+    CardIdentity { key: "swab-goblin", content_sha256: "5a14bf60ba88f7d125943e32f9dc37076fb689757ad35e42e03868e75aefa912" },
+    CardIdentity { key: "tajuru-pathwarden", content_sha256: "c0763ac465569fdc180ede4e67c6e2a06157345d5bc223d2825483100f685d15" },
+    CardIdentity { key: "thornweald-archer", content_sha256: "cbd0250668f457468208b5ba6d0cefbd09903f651d486e6a8bb8d0342bf4eba8" },
+    CardIdentity { key: "thrill-of-possibility", content_sha256: "f1f2136d52ddb4dae5467fcc3739567aafa1b0d38040269dbd328851142af7ae" },
+    CardIdentity { key: "viashino-pyromancer", content_sha256: "36c97e900d26afc977dafebd4c6c40d31827af3b9612da45f76228af7b95780d" },
+    CardIdentity { key: "wildheart-invoker", content_sha256: "3fbf95cf047bf136134a5883a491f07ddfe5c32ccb38fcccf96c4e36dca9a588" },
+];

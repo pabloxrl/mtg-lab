@@ -1,0 +1,13 @@
+{
+  "command": [
+    "cargo",
+    "build",
+    "--locked",
+    "--release",
+    "-p",
+    "mtg-cli"
+  ],
+  "elapsed_seconds": 25.406936228013365,
+  "peak_rss_kib": 649264,
+  "exit_code": 0
+}
