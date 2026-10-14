@@ -45,8 +45,13 @@ checkpoints independently and reject corrupted choices. Its default mode retains
 the casting boundary. The optional [ability prefix mode](doc/evidence/forge-abilities/README.md)
 adds mana-creature payments, an actual Invoker target/payment/+5/+5 and trample
 prefix, cast/ETB triggers and explicit ordering. Authored APNAP/departed-source
-cases remain separate from AI evidence. Nonempty combat and later callbacks remain
-unsupported; these prefixes earn no corpus quota.
+cases remain separate from AI evidence. The explicit
+[full-game mode](doc/evidence/forge-combat/README.md) extends replay through combat,
+simultaneous deaths, ordered graveyards, cleanup and life-loss termination. One
+unchanged actual Forge AI game executes in native, XMage and Forge with exact
+choices and intermediate observations; authored cases cover rare flying/reach,
+haste and cleanup-discard choices. Prefixes and this bounded game earn no corpus
+quota or pilot qualification.
 The original [normalization report](doc/evidence/xmage-ai-normalize/README.md)
 records one captured game replayed twice with source checkpoints and corruption
 controls. The [provisional XMage pilot](doc/evidence/xmage-ai-pilot/README.md)
@@ -182,7 +187,8 @@ and [simulation guide](doc/simulate.md).
 | [Forge real-AI raw capture](doc/evidence/forge-ai-capture/README.md) | Normal frozen red/green setup with PlayerControllerAi/AiController, source-native callbacks, payments, shuffle/mulligan/chance and intermediate observations. The acceptance command compares uninstrumented play and retains actual unsupported/truncated attempts. No normalized Forge replay or source-AI quota is claimed. |
 | [Forge ordered opening replay](doc/evidence/forge-opening/README.md) | Real captured prefixes execute normal forty-card setup in Forge and native with both starters, initial/redraw chance, physical copies, London bottom order and strict negative controls. Source scheduling alignment and prefix remainder remain explicit; no full-game replay or corpus quota claim. |
 | [Forge casting replay](doc/evidence/forge-casting/README.md) | Bounded real-source prefixes independently execute lands, priority, creatures, targeted instant response, token mode, ordered mana/discard and resolution checkpoints. Exact consumption and invalid-choice controls retain explicit allocation normalization and unsupported later callbacks; no complete-game or pilot claim. |
-| [Forge ability replay](doc/evidence/forge-abilities/README.md) | Four normal-opening source prefixes cover Druid/Llanowar mana, Invoker targeting and temporary trample, Pyromancer ETB choices and simultaneous Archer/Cyclops triggers. Strict controls retain source incarnations and ordering; four authored Forge APNAP/departure cases are excluded from AI quotas. Nonempty combat, full-game replay and admission remain later work. |
+| [Forge ability replay](doc/evidence/forge-abilities/README.md) | Four normal-opening source prefixes cover Druid/Llanowar mana, Invoker targeting and temporary trample, Pyromancer ETB choices and simultaneous Archer/Cyclops triggers. Strict controls retain source incarnations and ordering; four authored Forge APNAP/departure cases are excluded from AI quotas. Prefix modes retain their bounded endpoints. |
+| [Forge full-game replay](doc/evidence/forge-combat/README.md) | One unchanged actual-AI game executes in native, XMage and Forge through combat, token/SBA transitions, ordered graveyards, all cleanups and rules-terminal life loss. Exact allocations, intermediate observations and corruption controls remain mandatory; rare authored cases earn no AI quota. No pilot, corpus admission or milestone completion claim. |
 | [Legacy and decision coverage](doc/evidence/m2-reference-foundation/README.md) | Six damage splits, 64 attacker subsets, privacy/capacity checks and bounded native/XMage reference reproduction. |
 | [Keyword and activation reference pack](doc/evidence/m2-reference-combat/README.md) | Exact assigned combat cases, bounded compositions, checkpoint controls and reproduction commands. |
 | [Documentation index](doc/README.md) | Technical contracts, RFCs and operating guides. |
