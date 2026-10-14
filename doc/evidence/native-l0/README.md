@@ -148,3 +148,11 @@ run passes 10/10 cold and 10/10 warm, zero failures, with
 197,788 KiB peak RSS. An additional real opening-library-order mutation
 checks failure localization: opening checkpoint indices are labeled explicitly,
 without incorrectly assigning a later action's source cursor.
+
+The [final diagnostic-check receipt](run-final.json) passes all ten games cold and
+warm after preserving consumed-action cursors for extra-suffix and missing-terminal
+errors. All seven tests pass with exact cursor assertions; strict workspace Clippy
+also passes. This run records 4.083s cold and
+4.677s warm. The prior
+[integrated independent review](review-integrated.json) passed; the final candidate
+requires its own review, retained in the PR/workpad rather than inferred from it.

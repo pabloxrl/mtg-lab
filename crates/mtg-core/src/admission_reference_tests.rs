@@ -301,5 +301,13 @@ pub(super) fn replay_admission(doc: &Value) -> Result<Value, String> {
     let cases = doc["cases"].as_array().ok_or("/cases")?;
     require(cases.len() == 1, "/cases/count")?;
     let mut rejected = Value::Null;
-    admission_consume_mode(&cases[0], &doc["pins"], &mut rejected, true, true)
+    admission_consume_mode(&cases[0], &doc["pins"], &mut rejected, true, true).map_err(|error| {
+        // Ledger-boundary errors occur outside apply(), but still have an exact
+        // consumed-action cursor. Preserve it instead of losing the diagnostic.
+        match rejected["consumed_play"].as_array() {
+            Some(consumed) if !error.contains("/play/") =>
+                format!("first divergence: /play/{} {error}", consumed.len()),
+            _ => error,
+        }
+    })
 }

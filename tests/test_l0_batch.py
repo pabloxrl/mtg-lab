@@ -104,6 +104,9 @@ class BatchReplay(unittest.TestCase):
                 self.assertEqual(receipt['successful'], 9)
                 self.assertEqual(receipt['errors'][0]['seed'], 32100)
                 self.assertTrue(receipt['errors'][0]['first_field'])
+                if kind in ('choice', 'incomplete'):
+                    wanted = len(value['cases'][0]['play']) - (1 if kind == 'choice' else 0)
+                    self.assertEqual(receipt['errors'][0]['cursor'], wanted)
                 if kind == 'opening':
                     self.assertEqual(receipt['errors'][0]['cursor_kind'], 'opening_checkpoint')
                     self.assertEqual(receipt['errors'][0]['cursor'], 0)
