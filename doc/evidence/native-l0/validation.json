@@ -1,0 +1,33 @@
+{
+  "base": "a21b248d6ee2a8be69026a84b0f15b3dbabf6ec6",
+  "tests": {
+    "batch_and_receipt": 7,
+    "existing_xmage": 52,
+    "native_comparator": 1,
+    "affected_forge": 6,
+    "profile_rust": 7,
+    "profile_integration": 4
+  },
+  "result": "passed",
+  "strict_workspace_clippy": "passed",
+  "formatting": "passed",
+  "documentation_links": "passed",
+  "logs": {
+    ".agent-artifacts/l0/validation-v3.log": "7a2a37e7df3ba433957c2f175e15e7f8931aba9a43534faeaa77461cac98de36",
+    ".agent-artifacts/l0/final-validation.log": "27e6535c48a468f28a2469702c975764c1b02e12f02f8014f3db5543930c3729",
+    ".agent-artifacts/l0/review-validation.log": "df6f7e0e1ebd0bf630bd0bacaca005f95a909d15149a786caa1d85e6eb8ed021",
+    ".agent-artifacts/l0/integrated-validation.log": "ee90798b4ba40926490f87e69a73689dc5e1eb4fe5eac89409902f5ceef2c272",
+    ".agent-artifacts/l0/location-validation.log": "26ae9daa2016745bc533a9686c98ec9677eb513da98d5a31dfba2efe478b8515",
+    ".agent-artifacts/l0/cursor-validation.log": "d771ee5e30c15d4567cb69138a36cd291230e9d3d9d414a5a7043bee76cbb811",
+    ".agent-artifacts/l0/profile-repair.log": "5bcf1ba89ea561958a9c7a3352d6464d31e7816d85ddfb26847d52ffb4d9e5cc"
+  },
+  "complete_run_sha256": "88be9d01798b61404947c248f89b212d13adb7d7da30499b14afe9abfcfb97ab",
+  "scope": "focused local acceptance; mandatory PR and exact-main CI remain separate delivery gates",
+  "review_repair": "deadline and concurrent stream draining; original core/scalar validation reused unchanged",
+  "repaired_run_sha256": "18a770ed2d7b7d9aae9e03eb083b6324e8818f011d7b329db6955273ed87d8b0",
+  "integrated_main": "cd07def7bb7d42e0c664845f16fc32905cf4c8f1",
+  "integrated_run_sha256": "3840b92ce4b4f10df98907e3a738a6e2e2dae1c4430f1533d0513aaefef6cb00",
+  "final_run_sha256": "51b878eb6696acc0e7bd1a494fb7a736eb132147183b05e177084584a53bec9a",
+  "profile_repair_run_sha256": "aad7948275e684aaeab4deea04b535691c073135d01c41d4af036f6b97c9ef44",
+  "profile_repair": "Only conservative engine pins changed; all original actions/checkpoints/outcomes and negative controls retained. Batch tests locate the executable using Cargo JSON for configured target directories."
+}

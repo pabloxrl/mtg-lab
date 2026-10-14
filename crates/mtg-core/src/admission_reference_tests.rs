@@ -192,6 +192,10 @@ fn admission_consume(case:&Value,pins:&Value,rejected:&mut Value)->Result<Value,
 }
 
 fn admission_consume_observed(case:&Value,pins:&Value,rejected:&mut Value,extended_observation:bool)->Result<Value,String> {
+    admission_consume_mode(case,pins,rejected,extended_observation,false)
+}
+
+fn admission_consume_mode(case:&Value,pins:&Value,rejected:&mut Value,extended_observation:bool,replay_only:bool)->Result<Value,String> {
     require(case["stop"]=="terminal","/nonterminal quota")?;
     let mut projection=json!({"schema_version":3,"family":"priority","pins":pins,"cases":[case]});
     projection["cases"][0].as_object_mut().unwrap().remove("native_records");projection["cases"][0].as_object_mut().unwrap().remove("native_indices");
@@ -199,6 +203,7 @@ fn admission_consume_observed(case:&Value,pins:&Value,rejected:&mut Value,extend
     let mut g=Game::new().unwrap();
     let (opened,client)=london_continue(&mut g,&reset.cases[0],&opening["cases"][0],|g,tape|{
         let mut client=AdmissionClient{extended_observation,trigger:TriggerClient{client:PlayedClient::new(g,tape,case)?,creation:0,creations:vec![],departures:vec![],cast_start:None,event:0,witnesses:vec![],pending_keys:vec![],stack_keys:vec![],old_sources:vec![]},activation_action:None,allocations:vec![],cleanups:vec![],marked:vec![]};
+        client.trigger.client.replay_only=replay_only;
         let result=(||{
             let mut finished=false;
             for v in case["play"].as_array().ok_or("first divergence: /play")? {
@@ -288,4 +293,21 @@ fn captured_xmage_ai_strict_replay() {
     if let Ok(folder)=std::env::var("MTG_AI_REPLAY_OUTPUT") {
         std::fs::write(std::path::Path::new(&folder).join("native-negatives.json"),serde_json::to_vec(&negatives).unwrap()).unwrap();
     }
+}
+
+// The release runner and scalar regression use the very same consumer.
+pub(super) fn replay_admission(doc: &Value) -> Result<Value, String> {
+    require(doc["schema_version"] == 10 && doc["family"] == "admission", "/schema/family")?;
+    let cases = doc["cases"].as_array().ok_or("/cases")?;
+    require(cases.len() == 1, "/cases/count")?;
+    let mut rejected = Value::Null;
+    admission_consume_mode(&cases[0], &doc["pins"], &mut rejected, true, true).map_err(|error| {
+        // Ledger-boundary errors occur outside apply(), but still have an exact
+        // consumed-action cursor. Preserve it instead of losing the diagnostic.
+        match rejected["consumed_play"].as_array() {
+            Some(consumed) if !error.contains("/play/") =>
+                format!("first divergence: /play/{} {error}", consumed.len()),
+            _ => error,
+        }
+    })
 }

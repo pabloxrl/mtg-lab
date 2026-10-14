@@ -27,6 +27,7 @@ struct TriggerClient {
     stack_keys: Vec<(Handle, Value)>,
     old_sources: Vec<(Handle, Value)>,
 }
+#[allow(unreachable_patterns)] // Test builds additionally support synthetic trigger kinds.
 impl TriggerClient {
     fn object(&self, g: &Game, e: &TriggerChoice) -> Result<actions::ObjectRef, String> {
         let h = self.client.handle(
