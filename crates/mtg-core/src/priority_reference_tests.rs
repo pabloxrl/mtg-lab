@@ -37,6 +37,7 @@ fn priority_step(step: turns::Step) -> &'static str {
 }
 #[derive(Clone)]
 struct PlayedClient {
+    replay_only: bool,
     births: BTreeMap<u64, String>,
     actions: BTreeMap<String, usize>,
     cursor: usize,
@@ -148,6 +149,7 @@ impl PlayedClient {
         let frame =
             v2::Frame::capture(g, 256).map_err(|e| format!("first divergence: /capture {e:?}"))?;
         Ok(Self {
+            replay_only: false,
             births: tape.births.clone(),
             actions: BTreeMap::new(),
             cursor: 0,
@@ -252,6 +254,11 @@ impl PlayedClient {
             choices,
         };
         let bytes = serde_json::to_vec(&record).unwrap();
+        if self.replay_only {
+            actions::apply(g, &bytes, 256).map_err(|e|format!("first divergence: /native command {e:?}"))?;
+            self.records.push(serde_json::to_value(record).unwrap());
+            return Ok(());
+        }
         let before_state = format!("{g:?}");
         let decoded = actions::decode(g, &bytes, 256);
         require(

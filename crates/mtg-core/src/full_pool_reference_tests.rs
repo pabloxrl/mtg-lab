@@ -383,6 +383,7 @@ include!("played_cleanup_reference_tests.rs");
 
 include!("played_combat_reference_tests.rs");
 
+#[cfg(test)]
 include!("admission_origin_tests.rs");
 
 include!("admission_reference_tests.rs");

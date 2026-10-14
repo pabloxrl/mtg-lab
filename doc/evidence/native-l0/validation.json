@@ -1,0 +1,18 @@
+{
+  "base": "a21b248d6ee2a8be69026a84b0f15b3dbabf6ec6",
+  "tests": {
+    "batch_and_receipt": 5,
+    "existing_xmage": 52,
+    "native_comparator": 1
+  },
+  "result": "passed",
+  "strict_workspace_clippy": "passed",
+  "formatting": "passed",
+  "documentation_links": "passed",
+  "logs": {
+    ".agent-artifacts/l0/validation-v3.log": "7a2a37e7df3ba433957c2f175e15e7f8931aba9a43534faeaa77461cac98de36",
+    ".agent-artifacts/l0/final-validation.log": "27e6535c48a468f28a2469702c975764c1b02e12f02f8014f3db5543930c3729"
+  },
+  "complete_run_sha256": "88be9d01798b61404947c248f89b212d13adb7d7da30499b14afe9abfcfb97ab",
+  "scope": "focused local acceptance; mandatory PR and exact-main CI remain separate delivery gates"
+}
