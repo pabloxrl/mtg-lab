@@ -1,0 +1,59 @@
+{
+  "scope": "Focused local checks; mandatory current-candidate PR CI remains required",
+  "core": {
+    "tests": 334,
+    "failed": 0,
+    "ignored": 0,
+    "seconds": 200.01,
+    "receipt": "combat-core.json"
+  },
+  "python": [
+    {
+      "pattern": "test_forge_combat.py",
+      "tests": 6,
+      "seconds": 33.919
+    },
+    {
+      "pattern": "test_forge_abilities.py",
+      "tests": 6,
+      "seconds": 137.032
+    },
+    {
+      "pattern": "test_forge_casting.py",
+      "tests": 9,
+      "seconds": 111.67
+    },
+    {
+      "pattern": "test_forge_opening.py",
+      "tests": 6,
+      "seconds": 62.595
+    },
+    {
+      "pattern": "test_m2_repair_admission.py",
+      "tests": 27,
+      "seconds": 190.066,
+      "shared_lock": "heavy"
+    }
+  ],
+  "format": "cargo fmt --all -- --check passed",
+  "docs": "python3 scripts/check_docs.py passed",
+  "registry": "python3 scripts/check_l0_program.py --ref origin/main passed",
+  "base": "00c1986500ea162d8777fd65e68fdd23c697757d",
+  "note": "Timings include shared-container contention and are not latency qualification.",
+  "python_total": 54,
+  "python_inputs": {
+    "scripts/admission_observations.py": "9a4aea3c973e9872f49381960d11292ee13ea45233c62f8345159c2431c85aee",
+    "scripts/forge_casting.py": "07a948fde65e35af535d266422b59a18f9cee5f75e8540572d1a591230315649",
+    "scripts/forge_casting_native.py": "915690fd6159e64d8ed0ae1e7c6431a2a4dbc7001be46f498de5f7b82da8adfa",
+    "tests/test_forge.py": "2b253eb54607432cbcb44255d28971773fccecf23c6e89ac1897c88a38c2d195",
+    "tests/test_forge_abilities.py": "1d8a9983422697a47dc41a48de9631639a27ddeba4001065b852711e261a7e45",
+    "tests/test_forge_ai_capture.py": "565ada9fe9e11837e87afc83e36aea772cc99fccdc4e0d6d59f18ee96f3a63ea",
+    "tests/test_forge_capture_patch.py": "e6e4e76550c11b61ac51f12057368accd7b69bee6ba26717982f3ec5e2eb32dc",
+    "tests/test_forge_casting.py": "a8d132aa148f52cf28d6a88784b9e50ddd4edd5fead1e71a8e243eb99170a5ee",
+    "tests/test_forge_casting_capture.py": "1186c2dce0c670930da727e53b36ae03809fbcde57950173b181d49d73a86ac4",
+    "tests/test_forge_combat.py": "d0a3323743f43b86501847a64e3964df11c2666ea4f8ce0c69223bfc04a426cc",
+    "tests/test_forge_opening.py": "c8dbe0534f125e6fc70dbc54e54365d01714ed895092de7fd7acafc43ccef64b",
+    "tests/test_forge_opening_alignment.py": "d5c11a5f8b9d12d44c46d38a260935b30351f715903c5faf60999d7683e9bbfd",
+    "tests/test_m2_repair_admission.py": "850d3a06588242c8a16a81447f32ada7b920442f7e9a60490f5c77e9be1d6634"
+  }
+}

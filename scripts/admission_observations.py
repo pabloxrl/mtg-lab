@@ -36,9 +36,13 @@ def structure(p,case,engine,index,prefix):
     for seat in (0,1):
         # CR103.5: use the final recorded shuffle and London bottom order.
         # Initial admission games kept seven; real AI captures may mulligan.
-        order=list([e for e in case['chance'] if e['actor']==seat][-1]['after'])
+        shuffles=[e for e in case['chance'] if e['actor']==seat]
+        order=list(shuffles[-1]['after'])
+        final_round=sum(e['kind']=='mulligan_shuffle' for e in shuffles)
         for choice in case['choices']:
-            if choice['actor']==seat and choice['kind']=='bottom':
+            # A later mulligan reshuffles the earlier bottomed cards too.
+            # Earlier rounds cannot reorder the final shuffle's suffix.
+            if choice['actor']==seat and choice['kind']=='bottom' and choice['round']==final_round:
                 for source in choice['selection']:
                     order.remove(source)
                 order.extend(choice['selection'])

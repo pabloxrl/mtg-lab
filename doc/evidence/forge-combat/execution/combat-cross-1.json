@@ -1,0 +1,33 @@
+{
+  "status": "failed",
+  "admitted_games": 0,
+  "command": [
+    "mvn",
+    "-B",
+    "-ntp",
+    "-s",
+    "/home/agent/.cache/xmage-GH-328/settings.xml",
+    "-gs",
+    "/home/agent/.cache/xmage-GH-328/settings.xml",
+    "-Dmaven.repo.local=/home/agent/.cache/xmage-GH-328/m2",
+    "-o",
+    "-pl",
+    "Mage.Tests",
+    "-am",
+    "test",
+    "-Dtest=org.mage.test.mtglab.FullPoolAdmissionTest",
+    "-Dsurefire.failIfNoSpecifiedTests=false",
+    "-Dmtglab.fixture=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-cross-1/xmage-input.json",
+    "-Dmtglab.root=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328",
+    "-Dmtglab.output=/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-cross-1/xmage-index.json",
+    "-DargLine=-Djava.awt.headless=true"
+  ],
+  "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-cross-1/xmage.log",
+  "artifacts": {
+    "xmage-input.json": "3190a81b8fa5060c1c2b9a8c26ab877f38d7ca6bcd3d823fecdf20df729d3257",
+    "native.json": "c30a49541c75b1aec75944781e9927a33cc596578f75ba5da4280b8fc8c4773e",
+    "xmage.log": "cf4ea319ae6fe6bde1bf052ed76861286d0fdf01c6e785c35f89bb1f81c420ea",
+    "xmage-index.json.failure.json": "27bb8a8ce9e8be85ab6d83f3996d004a20f6b7c59bfe7b4b6c1a6024aa7ce8d3",
+    "native.log": "7318c483ca526f64b61108629f87279700e98cc04cfe9a39531135937a064031"
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "source": "doc/evidence/forge-ai-capture/acceptance/game/result.json.jsonl.gz",
+  "new_ai_captures": 0,
+  "admitted_games": 0,
+  "runs": [
+    {
+      "attempt": "combat-cross-1",
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-cross-1/xmage.log",
+      "receipt": "execution/combat-cross-1.json"
+    },
+    {
+      "attempt": "combat-cross-2",
+      "status": "failed",
+      "error": "command exited 101; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-cross-2/native.log",
+      "receipt": "execution/combat-cross-2.json"
+    },
+    {
+      "attempt": "combat-cross-3",
+      "status": "failed",
+      "error": "first divergence: /checkpoint/0/library occurrence order",
+      "receipt": "execution/combat-cross-3.json"
+    },
+    {
+      "attempt": "combat-cross-final",
+      "status": "native-xmage-agreed",
+      "error": null,
+      "receipt": "execution/combat-cross-final.json"
+    },
+    {
+      "attempt": "combat-live-1",
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-live-1/forge.log",
+      "receipt": "execution/combat-live-1.json"
+    },
+    {
+      "attempt": "combat-live-2",
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-live-2/forge.log",
+      "receipt": "execution/combat-live-2.json"
+    },
+    {
+      "attempt": "combat-live-3",
+      "status": "failed",
+      "error": "command exited 101; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-live-3/native.log",
+      "receipt": "execution/combat-live-3.json"
+    },
+    {
+      "attempt": "combat-live-4",
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-live-4/forge.log",
+      "receipt": "execution/combat-live-4.json"
+    },
+    {
+      "attempt": "combat-live-5",
+      "status": "full-game-agreed",
+      "error": null,
+      "receipt": "execution/combat-live-5.json"
+    },
+    {
+      "attempt": "combat-live-final",
+      "status": "full-game-agreed",
+      "error": null,
+      "receipt": "execution/combat-live-final.json"
+    },
+    {
+      "attempt": "combat-negative-combat-allocation",
+      "status": "negative-detected",
+      "error": null,
+      "receipt": "execution/combat-negative-combat-allocation.json"
+    },
+    {
+      "attempt": "combat-negative-expired-effect",
+      "status": "negative-detected",
+      "error": null,
+      "receipt": "execution/combat-negative-expired-effect.json"
+    },
+    {
+      "attempt": "combat-negative-graveyard-order",
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-negative-graveyard-order/forge.log",
+      "receipt": "execution/combat-negative-graveyard-order.json"
+    },
+    {
+      "attempt": "combat-negative-graveyard-order-2",
+      "status": "failed",
+      "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-negative-graveyard-order-2/forge.log",
+      "receipt": "execution/combat-negative-graveyard-order-2.json"
+    },
+    {
+      "attempt": "combat-negative-graveyard-order-3",
+      "status": "negative-detected",
+      "error": null,
+      "receipt": "execution/combat-negative-graveyard-order-3.json"
+    },
+    {
+      "attempt": "combat-negative-terminal-reason",
+      "status": "negative-detected",
+      "error": null,
+      "receipt": "execution/combat-negative-terminal-reason.json"
+    }
+  ]
+}
