@@ -1,0 +1,70 @@
+{
+  "status": "passed",
+  "kind": "unchanged real engine execution revalidated with added source opening assertions",
+  "execution_receipt_sha256": "12dfe9b12f90a4fc855e7fb0e8d04e92782f0f4f845487dbaec3a4d8b65ed78e",
+  "implementation_sha256": "ef967d5bf16fa53b552b6f93b620d6dbc0364260bdc627a8fd58099928b2347a",
+  "fixture_sha256": "df7495c5951b7daa82994aa02102e26910da1586c79253e49a9f2bff3e37cb0f",
+  "identity": "10ca8f0c5dc2a743bf3a5d27b2aca131222ea2bd572ba76c807bcd56528e1e95",
+  "comparisons": [
+    {
+      "opening": 8,
+      "actions": 818,
+      "checkpoints": 610,
+      "marked": 13,
+      "cleanups": 28
+    },
+    {
+      "opening": 8,
+      "actions": 818,
+      "checkpoints": 610,
+      "marked": 13,
+      "cleanups": 28
+    },
+    {
+      "opening": 8,
+      "actions": 818,
+      "checkpoints": 610,
+      "marked": 13,
+      "cleanups": 28
+    },
+    {
+      "opening": 8,
+      "actions": 818,
+      "checkpoints": 610,
+      "marked": 13,
+      "cleanups": 28
+    }
+  ],
+  "negative_controls": {
+    "duplicate-occurrence": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/44/duplicate occurrence",
+      "complete_game": false
+    },
+    "mode": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/5303/mode clone selection",
+      "complete_game": false
+    },
+    "target-incarnation": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/1458/stale occurrence/incarnation",
+      "complete_game": false
+    },
+    "missing-chance": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/3/record kind random",
+      "complete_game": false
+    },
+    "payment": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/772/execution arguments",
+      "complete_game": false
+    },
+    "checkpoint": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/2/state/players/0/life expected=19 actual=20",
+      "complete_game": false
+    }
+  }
+}

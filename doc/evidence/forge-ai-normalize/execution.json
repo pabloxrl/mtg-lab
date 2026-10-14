@@ -1,0 +1,156 @@
+{
+  "status": "all-three-agreed",
+  "admitted_games": 0,
+  "repeats": [
+    {
+      "forge_records": 13676,
+      "forge_random": 7022,
+      "comparisons": [
+        {
+          "actions": 818,
+          "checkpoints": 610,
+          "marked": 13,
+          "cleanups": 28
+        },
+        {
+          "actions": 818,
+          "checkpoints": 610,
+          "marked": 13,
+          "cleanups": 28
+        }
+      ]
+    },
+    {
+      "forge_records": 13676,
+      "forge_random": 7022,
+      "comparisons": [
+        {
+          "actions": 818,
+          "checkpoints": 610,
+          "marked": 13,
+          "cleanups": 28
+        },
+        {
+          "actions": 818,
+          "checkpoints": 610,
+          "marked": 13,
+          "cleanups": 28
+        }
+      ]
+    }
+  ],
+  "implementation": {
+    "scripts/forge_ai_normalize.py": "6163d573c2afbcdb1512150b111dd3d83524e2e28dc73b0c06c419b1b7496916",
+    "scripts/xmage_ai_pilot.py": "bcb0894ab0ebde0b14913af69f843db389506eaf2173d4ed49b7eb0ce80afc12"
+  },
+  "identity": "10ca8f0c5dc2a743bf3a5d27b2aca131222ea2bd572ba76c807bcd56528e1e95",
+  "source_sha256": "f8d28fcd862127d94ef7f9c80ff16effd7df76def44b235df1054dcddbff52db",
+  "negative_controls": {
+    "duplicate-occurrence": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/44/duplicate occurrence",
+      "complete_game": false
+    },
+    "mode": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/5303/mode clone selection",
+      "complete_game": false
+    },
+    "target-incarnation": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/1458/stale occurrence/incarnation",
+      "complete_game": false
+    },
+    "missing-chance": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/3/record kind random",
+      "complete_game": false
+    },
+    "payment": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/772/execution arguments",
+      "complete_game": false
+    },
+    "checkpoint": {
+      "status": "negative-detected",
+      "reason": "first divergence: /forge/2/state/players/0/life expected=19 actual=20",
+      "complete_game": false
+    }
+  },
+  "elapsed_seconds": 1123.2387027530058,
+  "artifacts": {
+    "canonical-game.json": "b3b31a5bb2ed269d285890fc21f596ee87d1da58f5a573905d37803a5f9f8ffc",
+    "cross-1/forge-actual-combat.xmage-1.json": "5e98c286ea04a80bcbd9beb4b647ba46bb207990abbfb1f117f68fca1c999bae",
+    "cross-1/forge-actual-combat.xmage-2.json": "18c20c4c8751a2a8780aa2ae1f930bf432a86758d4ea9dafe8fa4559e283cecf",
+    "cross-1/native.json": "8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c",
+    "cross-1/native.log": "73f52b8abb37c5f4c9e58a6af133bde0f2b68adc893f840362ad9081ae799045",
+    "cross-1/receipt.json": "1574ca78400e482218d47432a4fcb3542638755b1f9ffc4ccbfd16599d57821f",
+    "cross-1/test-report.xml": "bec15a916869399b90026b1fc1f99bc70b25677de3b641b378163af5cc5f2c9c",
+    "cross-1/xmage-index.json": "fc6c44cee659fae1df0481197d7f7d50033ee977233799b4f732adaf9773b18b",
+    "cross-1/xmage-index.json.failure.json": "b197acf70d84e88d2d799dd34d82e23ff61504063d5091fc9a915da9ee51b9c3",
+    "cross-1/xmage-input.json": "dbefe9eb4fc99add82d5e914151219fa6c4ef26760212686b8fbd345c995d5ae",
+    "cross-1/xmage-negatives.json": "5468e240f4129acd03902f24146bdbb47798a3782173428c137c9efe9cd00e91",
+    "cross-1/xmage.log": "25fbb7d83ee400b3e29751d9958f1902075d5a093546fa48c2663bd746ed8788",
+    "cross-2/forge-actual-combat.xmage-1.json": "0d87985a6dc4f8be54ad29a2348683463aa3e3308dcfaf5ac8722db9fe3f5068",
+    "cross-2/forge-actual-combat.xmage-2.json": "53356027bb20abfcd196c63f7319bf87a4d24c672d69da040180a8a61e51445f",
+    "cross-2/native.json": "8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c",
+    "cross-2/native.log": "93acd706db011a13d9b4fec7d471e71e496a7bd255a208f3a1cfe539c9791b9a",
+    "cross-2/receipt.json": "625e51c86512cc28ab908a0430bce6c91274166e82607f2f30d43dfdd81cf3c0",
+    "cross-2/test-report.xml": "8d2fe0e445fcfeb5153f68eb3bfcdcdfd198655c33937471176272175fa97b6f",
+    "cross-2/xmage-index.json": "fc6c44cee659fae1df0481197d7f7d50033ee977233799b4f732adaf9773b18b",
+    "cross-2/xmage-index.json.failure.json": "7cb4dac092fcb8676712ec8c727dffdca6f80e1f85eb7459b2e896f35af4e7d8",
+    "cross-2/xmage-input.json": "dbefe9eb4fc99add82d5e914151219fa6c4ef26760212686b8fbd345c995d5ae",
+    "cross-2/xmage-negatives.json": "f510301dcc16cbcd3e8d16d8d87a8fc7afe78fd19284af4c7b04efcb34189467",
+    "cross-2/xmage.log": "dd46c956e6c08807f8f7b60dcfc4e611765ad8fa9549e459c357c209d0a7a0a6",
+    "forge-1/casting.json": "0d287276d3f333a783e0abfe1790e9e9ad5d85a02cc62a53e0d9690801d8e480",
+    "forge-1/forge.json": "158f2a83a705f231cb88699bac26a87cc63c9bb5966062c9f76664ee078a07c7",
+    "forge-1/forge.log": "7a62f0712a133e8eeebf417cedb3ccb3c163a3e630904cfb19445cff0c4c54bb",
+    "forge-1/native-fixture.json": "8f62fd26e771344527639eb618ab80913acb0dd56c9e9b7cff8836e5a9ecb365",
+    "forge-1/native.json": "8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c",
+    "forge-1/native.log": "0260d87bc7e52d76477888dafc1505a0c869aebe1bf0ed4dfa8bc4877425c2df",
+    "forge-1/receipt.json": "3aa55236177d4917cfdfa48e16c6a59c6a073981ea2de4a804fb3e4978db0b12",
+    "forge-1/test-report.xml": "44265c08b168cefc3395b92bf7b32e3d4eb4701a4886d31913d0cc960834c509",
+    "forge-2/casting.json": "0d287276d3f333a783e0abfe1790e9e9ad5d85a02cc62a53e0d9690801d8e480",
+    "forge-2/forge.json": "158f2a83a705f231cb88699bac26a87cc63c9bb5966062c9f76664ee078a07c7",
+    "forge-2/forge.log": "4ca68b183628c75eb1195b2eee87e48c367291a1ff215e0b61f22fdd09f330bb",
+    "forge-2/native-fixture.json": "8f62fd26e771344527639eb618ab80913acb0dd56c9e9b7cff8836e5a9ecb365",
+    "forge-2/native.json": "8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c",
+    "forge-2/native.log": "d9f1a33f3bd7ef6d255b673ca2fe5a565d5caf00e2434f01dafcc0cddaf1a7ff",
+    "forge-2/receipt.json": "584bb3851290f2e4b498547cb90520ace1e8af1137bfeb6f4eecc4862d9aa297",
+    "forge-2/test-report.xml": "eae2cb99b4ce4da5378c4344142b4e2abdbbd6a83458c662188b140c88a3ba03",
+    "identity-index.json": "dbdeb3b24d2b36bf1702bdb7c22a5b92c3dfbe81b3ba14bb5178af76731439c2",
+    "native-fixture.json": "e9b7916e7999894f3ee47509f918d1abea4e31150e317d189c787aecc2e1ed30",
+    "negative-checkpoint/casting.json": "6f73407b16cec9363c8874cbc4daecd9dd791dca9340a7b1fcede0d2d92cdd46",
+    "negative-checkpoint/forge.json": "06a9387e8d6c194e4b19d94641db7767ab81b19678f627fb3b649bf44fa8e915",
+    "negative-checkpoint/forge.log": "21ff30e7b7ec17ecf371712c64c012908a60ddaf02c2830141082a129f7c5652",
+    "negative-checkpoint/receipt.json": "19669aa9ce2f9e2ed768fe8cb78a885f7cba53d8670efe4136b4e2b0ef04357f",
+    "negative-checkpoint/test-report.xml": "7219b6d89768ad2a675591d9b036af0f34a831f18d7b993d79a9c3617f58d079",
+    "negative-duplicate-occurrence/casting.json": "aa0c35dd8f89001797537e0de7311bf027bc188211c00133672bbf45c43d4c6e",
+    "negative-duplicate-occurrence/forge.json": "7ee94b5db1b65d304bd03916bfb57a769202c58cf805be41f6b3b9703f6e9563",
+    "negative-duplicate-occurrence/forge.log": "f5ee82af2f744a3a6d58231fd0e01ff7973893eb490ce2c564eca5abe0f2f209",
+    "negative-duplicate-occurrence/receipt.json": "9e05c82d0626b0d6ffc576c3e527bac203687010dd71a835bc93da66de01dc7b",
+    "negative-duplicate-occurrence/test-report.xml": "331d87e055d1fed4fd080f4a7d1ba7afb9fcf6080cc6dc7b9a3f9a599fbbe317",
+    "negative-missing-chance/casting.json": "aa8d79de6c268bc8db9f47452537e2b613d92e7c1abac77c13e921d703f207b3",
+    "negative-missing-chance/forge.json": "2b25c444299fdee04a586d2c0384b0180b395f1e2974515313b344829b7ba3ca",
+    "negative-missing-chance/forge.log": "13d0e7601b7de07c8ac9b9dbbdb476583c48770461e911c7db60600bb41cfb0b",
+    "negative-missing-chance/receipt.json": "a7af7175589be47b90b14a615ab86834b14cd3cf96812a3e5f60fb47e3a477f9",
+    "negative-missing-chance/test-report.xml": "219c86efdd396ecb82bf20dcc14e0dc3d7c1ded635d2cc133677e486231f67bc",
+    "negative-mode/casting.json": "8660b30c1ef3c15aa27c794e95b751704e1f8fa28df671beb12187d23ebf3c59",
+    "negative-mode/forge.json": "7cc40bd5fc662d211fcf1553ca64e253306d336832127199c05cdbc8b7f5a6b4",
+    "negative-mode/forge.log": "faf958873eaa992f55c23b285676b7380e26709e90fb94098650babe4ff3965e",
+    "negative-mode/receipt.json": "e20c148eed7a77754ea8974c8d07a67144a627f2bf6cf4d2a5c36fc880a247dd",
+    "negative-mode/test-report.xml": "c6fde7318f8a7d489a5cf17b8dba062fd2f7f7bd91bec095cd8e392bcb385fc1",
+    "negative-payment/casting.json": "5e026b37735f710d154436a216e3d87bd8d7c751c719dc079e46ffe859582626",
+    "negative-payment/forge.json": "645ea77560b6059c7b19647baab12f856d879dfe67bbf490ad3a7f1d7db8bed0",
+    "negative-payment/forge.log": "a3d12d610e1b1910472b5cf9b861a87b7358aec34e0f5df807994467c67f259d",
+    "negative-payment/receipt.json": "e09a5d2ae21a0d4f32589f884c9fc10ba8d8118cf8e7b36d6ccdfd5c0a33679e",
+    "negative-payment/test-report.xml": "64d942c8b7a429c67ed8f5211fb28123b86a7e24c1c87fbb649ce0066c7b5bc8",
+    "negative-target-incarnation/casting.json": "14022cad78812c4db0527898044a140a86e9a048ac4488be5b9ffb6476d56ab9",
+    "negative-target-incarnation/forge.json": "b60a0161a44929a010c17c8dc9811e2b3a9209ce157a99520d140ac90fad23d3",
+    "negative-target-incarnation/forge.log": "ca004c6ca569a3f8d5889c4dd88485bc3375b88767002c36eec3dd0d16b97e37",
+    "negative-target-incarnation/receipt.json": "e462121a967ce090046e10c9c2d18056f02a1e8945f9133219b010ce6f3ef791",
+    "negative-target-incarnation/test-report.xml": "81fb54922b7d391ef2404d6845885cb07b8a0282fb594915950ff96a5eafe88d",
+    "normalized.json": "961f96ba15ddb76ac5b2bbed38d2cbd43effa6f555647831b128a856bd3ef30f",
+    "transcript.json": "fabe630ad4a91a20af7c9e28073c7645012d1b4941698dc2b3a3452faeb05717"
+  }
+}

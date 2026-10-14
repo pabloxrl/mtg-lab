@@ -1,0 +1,16 @@
+....E
+======================================================================
+ERROR: test_source_opening_faults_remain_available_in_complete_consumer (test_forge_ai_normalize.ForgeNormalizationTests.test_source_opening_faults_remain_available_in_complete_consumer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-329/tests/test_forge_ai_normalize.py", line 81, in test_source_opening_faults_remain_available_in_complete_consumer
+    self.assertEqual(forge_casting.corrupt(dict(prefix=rows), fault), wanted)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-329/scripts/forge_casting.py", line 327, in corrupt
+    raise ValueError('unknown negative control')
+ValueError: unknown negative control
+
+----------------------------------------------------------------------
+Ran 5 tests in 22.327s
+
+FAILED (errors=1)

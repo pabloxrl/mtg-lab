@@ -53,7 +53,11 @@ simultaneous deaths, ordered graveyards, cleanup and life-loss termination. One
 unchanged actual Forge AI game executes in native, XMage and Forge with exact
 choices and intermediate observations; authored cases cover rare flying/reach,
 haste and cleanup-discard choices. Prefixes and this bounded game earn no corpus
-quota or pilot qualification.
+quota or pilot qualification. The [Forge normalization command](doc/evidence/forge-ai-normalize/README.md)
+binds this source to the shared canonical gameplay/chance identity, retains
+source checkpoints and provenance separately, and runs repeated three-engine
+replay with copy, mode/target, chance, payment and checkpoint corruption controls.
+This bounded command does not publish an admitted corpus.
 The original [normalization report](doc/evidence/xmage-ai-normalize/README.md)
 records one captured game replayed twice with source checkpoints and corruption
 controls. The [provisional XMage pilot](doc/evidence/xmage-ai-pilot/README.md)

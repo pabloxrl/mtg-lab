@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "normalization_tests": 8,
+  "normalization_status": "passed",
+  "actual_execution": "all-three-agreed",
+  "opening_revalidation": "passed",
+  "source_capture": "unchanged Forge seed-zero actual AI game; no new captures",
+  "full_candidate_suite": "mandatory exact-candidate PR CI recorded in PR/workpad",
+  "independent_review": "exact-candidate review recorded in PR/workpad",
+  "integration": "passed against main fb493a1a112840ed8dd6df9be23d290ec299d096",
+  "existing_python_forge_regressions": 27,
+  "existing_python_status": "passed",
+  "native_forge_replay_tests": 4,
+  "native_forge_status": "passed",
+  "provisional_native_games": 10,
+  "provisional_native_repeats_per_game": 2,
+  "provisional_native_status": "passed",
+  "integrated_l0_tests": 7,
+  "integrated_full_corpus": "complete cold/warm native L0 passed; exact receipt in attempt-index"
+}
