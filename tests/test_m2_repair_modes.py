@@ -18,7 +18,7 @@ class FourModeContract(unittest.TestCase):
         cls.directory = tempfile.TemporaryDirectory()
         output = Path(cls.directory.name) / 'native.json'
         env = dict(os.environ, MTG_FOUR_MODE_TEST_OUTPUT=str(output))
-        command = ['cargo', 'test', '--locked', '-p', 'mtg-cli',
+        command = ['cargo', 'test', '--locked', '-p', 'mtg-cli', '--bin', 'mtg',
                    'four_modes_export_native_contract', '--', '--nocapture']
         fd = env.get('MTG_SYMPHONY_LOCK_FD')
         if fd is None:
@@ -46,6 +46,16 @@ class FourModeContract(unittest.TestCase):
         result = self.validate(self.receipt)
         self.assertEqual(result['runs'], 64)
         self.assertGreater(result['observations'], 0)
+
+    def test_real_normal_reset_exports_and_negative_controls(self):
+        # GH-281 receipt assertions share this class's fresh native export.
+        # Supplemental finite evidence, never a timed campaign.
+        self.assertGreater(self.validate(self.receipt)['observations'], 0)
+        for key in ('attempts', 'elapsed_ns', 'completed'):
+            bad = copy.deepcopy(self.receipt)
+            bad['runs'][0]['window'][key] = 0
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.validate(bad)
 
     def test_missing_mode_row_version_or_observations_rejected(self):
         for change in ('mode', 'row', 'version', 'observations'):

@@ -17,7 +17,9 @@ HOLDER = '''
 import os, pathlib, sys, time
 fd = int(os.environ['MTG_SYMPHONY_LOCK_FD'])
 assert os.get_inheritable(fd)
-pathlib.Path(sys.argv[1]).write_text(str(os.getpid()))
+ready = pathlib.Path(sys.argv[1])
+ready.with_suffix('.tmp').write_text(str(os.getpid()))
+ready.with_suffix('.tmp').replace(ready)
 while not pathlib.Path(sys.argv[2]).exists():
     time.sleep(0.02)
 '''
@@ -153,7 +155,9 @@ class ResourceLockTests(unittest.TestCase):
 import os, pathlib, sys, time
 child = os.fork()
 if child:
-    pathlib.Path(sys.argv[1]).write_text(str(os.getpgrp()))
+    ready = pathlib.Path(sys.argv[1])
+    ready.with_suffix('.tmp').write_text(str(os.getpgrp()))
+    ready.with_suffix('.tmp').replace(ready)
     raise SystemExit(0)
 while not pathlib.Path(sys.argv[2]).exists():
     time.sleep(0.02)

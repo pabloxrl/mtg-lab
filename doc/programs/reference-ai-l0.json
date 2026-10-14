@@ -13,7 +13,7 @@
     318
   ],
   "rfc": "doc/programs/reference-ai-l0.md",
-  "rfc_sha256": "5cef293c11db9804e304402e827fea0f008e27a162c4156da054c556f5925331",
+  "rfc_sha256": "b16b037f29b451eb95edca73e5464eca8f6e2ce17acb5e7b01b9cf5bb45725c3",
   "requirements": [
     {
       "id": "L0-001",
@@ -31,7 +31,7 @@
     },
     {
       "id": "L0-003",
-      "deliverable": "Publish a versioned provisional ten-game pilot covering RG/GR/RR/GG and both starting seats. Retain every failed, truncated, unsupported, divergent and duplicate attempt with earliest difference. Deduplicate canonical gameplay/chance content, not seeds, UUIDs or source labels.",
+      "deliverable": "Publish a versioned provisional ten-game pilot covering RG/GR/RR/GG and both starting seats. Retain every failed, truncated, unsupported, divergent and duplicate attempt with earliest difference. Deduplicate canonical gameplay/chance content, not seeds, UUIDs or source labels. Own the minimal captured trigger/ETB/order, Goblin Surprise modal and combat-settlement consumer repairs exposed by the retained eight-game baseline, within unchanged ten-game pilot acceptance (coordinator clarification #348). Preserve original source traces and independent rules adjudication; no new mechanics or change to #320's historical delivery claim.",
       "checks": "Ten distinct rules-terminal games, all eight rows, replay twice in native and patched XMage with full intermediate checks; prove duplicates with altered seed/provenance do not count. Pin artifacts/checksums, AI/rules/decks/toolchain/patches and independent adjudications. Report source-specific two-engine limitation; these games enter final quotas only after all-three admission with explicit overlap IDs.",
       "exclusions": "No Forge qualification or large-corpus acceptance.",
       "owner": 321

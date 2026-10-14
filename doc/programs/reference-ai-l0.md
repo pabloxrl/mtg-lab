@@ -243,6 +243,18 @@ reference tree or Cargo target. A child owns one observable deliverable; if an
 unforeseen prerequisite exceeds it, report concrete evidence for coordinator
 registration rather than silently widening scope or hiding failures.
 
+## XMage pilot consumer scope clarification
+
+Coordinator operations #348 clarifies that #321 / L0-003 owns the minimal
+captured trigger/ETB/order, Goblin Surprise modal and combat-settlement consumer
+repairs exposed by its retained eight-game baseline. These are prerequisites
+within its unchanged ten-game pilot acceptance, not new mechanics or new tasks.
+Preserve original source traces, first differences, independently rules-derived
+regressions and reviewed adjudications. All eight rows and ten distinct complete
+games, replayed twice with required intermediate checks, remain mandatory.
+This clarification does not change #320's historical delivery claim, expand the
+card pool, waive unsupported observations or resume held M3 work.
+
 ## Registry validation and locked bounded handoff
 
 Fetch main and run `python3 scripts/check_l0_program.py --ref origin/main` before
@@ -298,9 +310,17 @@ GitHub evidence is genuine. Shared selector changes retain M3 tests and semantic
 ## Delivery and completion claims
 
 All children need behavior tests with independent expectations in normal discovery,
-full locked torture after latest-main integration, independent exact-candidate
-Codex review including README accuracy/no weakened tests, protected merge and
-successful exact-main CI. Persistent managed workspaces, resource/handoff locks,
+meaningful focused local behavior/regression and source-specific acceptance checks,
+fresh-main integration with affected checks rerun when content changes, independent
+exact-candidate Codex review including README accuracy/no weakened tests, complete
+mandatory PR CI on the current candidate, protected merge and successful exact-main
+CI. Operations #348's approved amendment makes that complete PR CI the final-candidate
+suite evidence and supersedes older issue text/rendered prompts requiring an
+additional full local torture run. Full local torture remains useful for diagnosis,
+broad interactions, unavailable CI or acceptance not exercised by CI. Reuse unchanged
+execution evidence; every changed candidate still needs passing complete PR CI.
+No source-specific acceptance, full admitted corpus requirement, test assertion or
+protected check is waived. Persistent managed workspaces, resource/handoff locks,
 three workers and GitHub-only integrations remain unchanged. This registration
 changes documentation and read-only validation/control selection only: no engine,
 capture implementation, controller deployment, settings or credential workaround.
