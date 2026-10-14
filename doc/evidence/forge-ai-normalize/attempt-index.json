@@ -3,6 +3,142 @@
   "scope": "All retained normalization execution and revalidation attempts. No new source captures or corpus admissions.",
   "files": [
     {
+      "path": "normalize-integrated/check-0.log",
+      "bytes": 107,
+      "sha256": "77cf6eff921d28291013caaf2cb0448f283dea28d03041e40703417a92d0cb30",
+      "storage": "objects/77cf6eff921d28291013caaf2cb0448f283dea28d03041e40703417a92d0cb30.gz",
+      "stored_sha256": "c2011464e789df88b7f35702c0b036ea57e71d9420ca20537064ddb39bbec137",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/check-1.log",
+      "bytes": 704,
+      "sha256": "ccafaccee91be86240c334fda4d4ce18e83c281fa19f4e7d75947d4f8f821c52",
+      "storage": "objects/ccafaccee91be86240c334fda4d4ce18e83c281fa19f4e7d75947d4f8f821c52.gz",
+      "stored_sha256": "d0a06da7c9d81df445a6ada3f2cebfe4486053839630c1d1473a44875ce42124",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/check-2.log",
+      "bytes": 107,
+      "sha256": "b35be85cb1c10eecc433282d63e104b841e6ed28a4163c41bfa31559036b9f21",
+      "storage": "objects/b35be85cb1c10eecc433282d63e104b841e6ed28a4163c41bfa31559036b9f21.gz",
+      "stored_sha256": "e10b01eab4df6f819f7f39de06003237c1754197734cb476b43c46b888e8e836",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/forge-actual-combat.xmage-1.json",
+      "bytes": 14557803,
+      "sha256": "49f2e74e653fe86ecfee7776d0792b9cf7c3fc3e2b2f6b6f94be2baef69cd563",
+      "storage": "objects/49f2e74e653fe86ecfee7776d0792b9cf7c3fc3e2b2f6b6f94be2baef69cd563.gz",
+      "stored_sha256": "412254a96f220738e8777c42eb096eea4c78483ff473318e622676ec0238cdce",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/forge-actual-combat.xmage-2.json",
+      "bytes": 14557803,
+      "sha256": "b3bab2018b46ade3e5902c273de212ba25c5ad977f3a7f181aae36d5ff80564d",
+      "storage": "objects/b3bab2018b46ade3e5902c273de212ba25c5ad977f3a7f181aae36d5ff80564d.gz",
+      "stored_sha256": "c50e7a902aef29c5646774b4ed93c6b33a7f2166718797d889f3f817e77288a7",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/native.json",
+      "bytes": 19370832,
+      "sha256": "5aea295cade3fc2c20bbffffdbc7b28288bc1a0c95527a445e3c0ebde5882d13",
+      "storage": "objects/5aea295cade3fc2c20bbffffdbc7b28288bc1a0c95527a445e3c0ebde5882d13.gz",
+      "stored_sha256": "65c0c7054af901ba108aa725713b66d4ec9cd80ed575a71eb7e9cdc6044d5c42",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/native.log",
+      "bytes": 347,
+      "sha256": "955443dae609faf8b5a788a40f5dac04ae0ca3aaefe5718aa11954e3a6db8eb3",
+      "storage": "objects/955443dae609faf8b5a788a40f5dac04ae0ca3aaefe5718aa11954e3a6db8eb3.gz",
+      "stored_sha256": "4a73a131027c45fd73995e23213cff4d45ee75ce381a5b5b892c043cfa37d469",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/receipt.json",
+      "bytes": 12194,
+      "sha256": "6c8118ddff401e74fe6c9ee40c10bde4d888944b3d733bcf21ebcb54b2d45234",
+      "storage": "objects/6c8118ddff401e74fe6c9ee40c10bde4d888944b3d733bcf21ebcb54b2d45234.gz",
+      "stored_sha256": "4cf08d813c38beead1e2246d88b4ffa8b903bda7a97f5bd391459d47102b192d",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/test-report.xml",
+      "bytes": 32550,
+      "sha256": "543f5ffce57b5ce290d765a6f8672dece7d41923b7c024194f4419cf3885523e",
+      "storage": "objects/543f5ffce57b5ce290d765a6f8672dece7d41923b7c024194f4419cf3885523e.gz",
+      "stored_sha256": "4b257bd8c5d79e58422daad7436ad8551f7cef3c08fe8a4fa0d8e56391ab2578",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/xmage-index.json",
+      "bytes": 113,
+      "sha256": "fc6c44cee659fae1df0481197d7f7d50033ee977233799b4f732adaf9773b18b",
+      "storage": "objects/fc6c44cee659fae1df0481197d7f7d50033ee977233799b4f732adaf9773b18b.gz",
+      "stored_sha256": "a5a004c14864e1309a4c9b6e4bd6d49ff17a1d406aa085e8e5fa30b1808ca02f",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/xmage-index.json.failure.json",
+      "bytes": 35878,
+      "sha256": "0e93195d0fd6566e651f6161f3991c99e3b47d3d989246bb1dfbe83566cb824d",
+      "storage": "objects/0e93195d0fd6566e651f6161f3991c99e3b47d3d989246bb1dfbe83566cb824d.gz",
+      "stored_sha256": "f50e48eb7900ae54a68ac857fc979982ae5383b254cb6fa651d9a4426cc26288",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/xmage-input.json",
+      "bytes": 175671,
+      "sha256": "dbefe9eb4fc99add82d5e914151219fa6c4ef26760212686b8fbd345c995d5ae",
+      "storage": "objects/dbefe9eb4fc99add82d5e914151219fa6c4ef26760212686b8fbd345c995d5ae.gz",
+      "stored_sha256": "1bf022ab5d4c0dd4beaf30eff47ebde8c2cf204213a75d1cdda15b7e2a7a5f8c",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/xmage-negatives.json",
+      "bytes": 11415431,
+      "sha256": "01c87d8230cdf701fbf9fde042a53ec773dfe9c2b4d05305d0c86365598ce871",
+      "storage": "objects/01c87d8230cdf701fbf9fde042a53ec773dfe9c2b4d05305d0c86365598ce871.gz",
+      "stored_sha256": "3eb42530c3a9e60929d239bb02b33d31f8351c14417e5eb32daba029874fdfdc",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/cross/xmage.log",
+      "bytes": 62227,
+      "sha256": "2800e29daf49550b57658493773dd2575dcbd85f51ccaf9ffc4a3d8a7fcf7d6f",
+      "storage": "objects/2800e29daf49550b57658493773dd2575dcbd85f51ccaf9ffc4a3d8a7fcf7d6f.gz",
+      "stored_sha256": "8aec6665db3f7f7bd7f944fcadd63103cfed74148f331c984742186c4505cf1f",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/l0-receipt.json",
+      "bytes": 11561,
+      "sha256": "65b392fd0bec6e187b25fb281564ad48bc1a40da6e29797e8e73d268868126c3",
+      "storage": "objects/65b392fd0bec6e187b25fb281564ad48bc1a40da6e29797e8e73d268868126c3.gz",
+      "stored_sha256": "7a94a8b19f4bc956391149ab541400076feb919d5c6a4603a42c08c456d6a31c",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/native-fixture.json",
+      "bytes": 5212609,
+      "sha256": "a58a51a06b3f1024257e178d65bd96850c3786adff93fe5a280daa5fce68d9c6",
+      "storage": "objects/a58a51a06b3f1024257e178d65bd96850c3786adff93fe5a280daa5fce68d9c6.gz",
+      "stored_sha256": "0d93e7479edb47aa80810fafd4fa0df98cb427f74d9a8746ad283883cba3f7e6",
+      "encoding": "gzip"
+    },
+    {
+      "path": "normalize-integrated/receipt.json",
+      "bytes": 460,
+      "sha256": "bb4a57de16e6396c9487c70f02df5bbd6c22d4978f0916fef2993d3c48e96eff",
+      "storage": "objects/bb4a57de16e6396c9487c70f02df5bbd6c22d4978f0916fef2993d3c48e96eff.gz",
+      "stored_sha256": "408c0459595beeb23e139f3e19f5532ea0d3fc6da76c567c1198277e2845f435",
+      "encoding": "gzip"
+    },
+    {
       "path": "normalize-live-1/canonical-game.json",
       "bytes": 276088,
       "sha256": "b3b31a5bb2ed269d285890fc21f596ee87d1da58f5a573905d37803a5f9f8ffc",

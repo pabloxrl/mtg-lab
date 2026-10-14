@@ -115,3 +115,14 @@ original path, byte count and SHA-256, plus the gzip object's storage path and
 compressed SHA-256. Decompress the named object and verify both hashes to recover
 the exact original. Equal files share storage only; original attempt paths and
 verdicts remain distinct. No new AI capture, admission or quota is inferred.
+
+After integrating the independently delivered native L0 runner from main
+`fb493a1a112840ed8dd6df9be23d290ec299d096`, the
+[integration receipt](integration.json) records another successful eight-test
+normalization run, four native Forge regressions and seven batch-runner tests.
+Fresh native and two XMage executions agree on the complete Forge-derived game,
+including all eight opening observations. The complete ten-game provisional
+corpus also passes cold/warm offline native L0 execution. Exact logs, executable
+hashes and receipts are retained under `normalize-integrated/` in the attempt
+index. The unchanged Forge consumer's original two executions and six live
+corruption controls remain the source-specific evidence.
