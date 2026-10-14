@@ -1,0 +1,17 @@
+E
+======================================================================
+ERROR: test_pending_collection_order_is_not_the_chosen_stack_order (test_xmage_ai_pilot.CapturedPendingSet.test_pending_collection_order_is_not_the_chosen_stack_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 162, in test_pending_collection_order_is_not_the_chosen_stack_order
+    normalize.verify_native(converted,native)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 575, in verify_native
+    need(delta is None,c['source'],f"checkpoint/action/{c['action']}/{key}: {delta}")
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 17, in need
+    raise ValueError(f'first divergence: /source/{cursor}/{field}')
+ValueError: first divergence: /source/2546/checkpoint/action/283/pending_triggers: {'path': '$[0].key.source', 'expected': '0/crackling-cyclops/1', 'actual': '0/firebrand-archer/2'}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.509s
+
+FAILED (errors=1)

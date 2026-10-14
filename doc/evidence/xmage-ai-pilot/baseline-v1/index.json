@@ -1,0 +1,64 @@
+[
+  {
+    "attempt": "00-red-green-0",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "rejected",
+    "earliest_difference": "first divergence: /source/1537/unsupported pending trigger context"
+  },
+  {
+    "attempt": "01-red-green-1",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "rejected",
+    "earliest_difference": "first divergence: /source/3036/unsupported standalone choice call/chooseTarget"
+  },
+  {
+    "attempt": "02-green-red-0",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "rejected",
+    "earliest_difference": "first divergence: /source/3023/unsupported callback call/chooseTriggeredAbility"
+  },
+  {
+    "attempt": "03-green-red-1",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "rejected",
+    "earliest_difference": "first divergence: /source/951/unsupported mode ['mage.abilities.effects.common.CreateTokenEffect']"
+  },
+  {
+    "attempt": "04-red-red-0",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "rejected",
+    "earliest_difference": "first divergence: /source/1977/unsupported mode ['mage.abilities.effects.common.continuous.BoostControlledEffect']"
+  },
+  {
+    "attempt": "05-red-red-1",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "rejected",
+    "earliest_difference": "first divergence: /source/849/unsupported mode ['mage.abilities.effects.common.CreateTokenEffect']"
+  },
+  {
+    "attempt": "06-green-green-0",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "converted-not-replayed"
+  },
+  {
+    "attempt": "07-green-green-1",
+    "status": "complete",
+    "error": null,
+    "admitted": false,
+    "normalization": "converted-not-replayed"
+  }
+]

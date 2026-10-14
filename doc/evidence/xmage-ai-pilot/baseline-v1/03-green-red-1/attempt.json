@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "seed": 32103,
+  "status": "complete",
+  "config": {
+    "seed": 32103,
+    "starter": 1,
+    "decks": [
+      "green",
+      "red"
+    ],
+    "max_records": 100000,
+    "timeout_seconds": 600,
+    "unsupported_probe": false
+  },
+  "pins": {
+    "references/xmage/RawAiCaptureTest.java": "e1935f8a73e6cd6307418171a150a5fbc204b8a2f6aa8d91ab5a3a4eb6114c2c",
+    "scripts/xmage_ai_capture.py": "415a8058a1b7f510374f8aba435ce9b3d2a4ed68d32913873d2b4e1f302f24a4",
+    "scripts/xmage.py": "5e36ca47d66bd9914e35d2000ba280f1560f2b599d91c35f0f068c09d1455cd8",
+    "data/cards/foundations_micro_v1.json": "567dc050f6c3ad382fc58b634670b8d695ed395a1e31ee50c13c0dde2f27e235",
+    "data/rules/cr-2026-09-25.json": "7de07b0849e977d0b43934b988891bdf2231fceaddb40378c1d1ca162237f533",
+    "references/xmage/pins.json": "bdc9c00c21a790863fcfe778eab2dbcfb8b267bf35a3fde0d78df54edaa75158",
+    "references/xmage/dependencies.json": "7a8a3e6dc63498cda35202a87b719807ddd3ac9cc9d9bf802a767f0fdeea4950",
+    "references/xmage/raw-capture-provenance.json": "fb4ce8cbd3259128b64aa91a69783f64f4d47136544e477df6dcd41c329bbf36"
+  },
+  "upstream_sources": {
+    "Mage.Server.Plugins/Mage.Player.AI/src/mage/player/ai/ComputerPlayer.java": "ca3f0b8e0e7aacc7475e862a7e967ca68c45be9d38b9bb7ac8ee6d80bbeb35e2",
+    "Mage.Server.Plugins/Mage.Player.AI.MAD/src/mage/player/ai/ComputerPlayer6.java": "a959df8690a8abc01b7eefccbfdba98d6e1b7a6839fab94e84fb2ca136b8d30c",
+    "Mage.Server.Plugins/Mage.Player.AI.MAD/src/mage/player/ai/ComputerPlayer7.java": "640b75e2c472f53aa901ab1709e526204d0c66980f8498ae4bed5a7e450da12b",
+    "Mage/src/main/java/mage/util/RandomUtil.java": "fd2ea5de81baff396ddc547c6fceb3f88daa96f09c2d4499d2fbf96f428263ed",
+    "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+    "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e"
+  },
+  "toolchain": {
+    "bridge_version": 1,
+    "upstream_commit": "000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+    "card_data_revision": "Mage.Sets at the upstream commit; no external card database",
+    "platform": "linux-arm64",
+    "jdk": "Eclipse Temurin 21.0.9+10-LTS",
+    "maven": "3.9.11",
+    "patches": [],
+    "archives": {
+      "xmage.tar.gz": {
+        "url": "https://codeload.github.com/magefree/mage/tar.gz/000d8a7abc0ac31cc24af08691423e0c24dc59e7",
+        "sha256": "8a4a67c2937f476988c16357fcdbfc2dc8d0b508482e5450722f6515b9d033f6"
+      }
+    },
+    "consulted_sources": {
+      "LICENSE.txt": "bf696b246e52a279557d991916f7288c3dd296b9998f593c9d133c6906554ba3",
+      "Mage.Tests/src/test/java/org/mage/test/serverside/base/CardTestPlayerBase.java": "7aa7a03ab7123e53d1662e05c24b0a637a4a3871c96ede79b7749c1c63034d4d",
+      "Mage.Tests/src/test/java/org/mage/test/serverside/base/MageTestPlayerBase.java": "1fd303806aceb84267cfb2b0bd20309da1d4d22dadaca2f6f04e9e397e3dc809",
+      "Mage.Tests/src/test/java/org/mage/test/serverside/base/impl/CardTestPlayerAPIImpl.java": "56ddc5e323bf6945536b1ef752488382c486e0a556f63a6e28fddd09eb4e020f",
+      "Mage.Tests/src/test/java/org/mage/test/player/TestPlayer.java": "fd1abbeebb88f271df9ad4f64863730b9b642c645b36fb5fdc10311a94155fdb",
+      "Mage.Tests/src/test/java/org/mage/test/player/TestComputerPlayer.java": "9386e731ad7dfbf29a85962b8030f1812adf8615af17171dd926bec502e4a10a",
+      "Mage/src/main/java/mage/game/GameImpl.java": "8e857ec87d80136f2a3004e7fcd633f3d1e0ef898b58ca2162951b9922408859",
+      "Mage/src/main/java/mage/players/Library.java": "50283fdb3c3c29eb6c8182951e74bdd8a31bcdc887e23028f2e1c1d524052f2c",
+      "Mage/src/main/java/mage/game/stack/Spell.java": "7613dc12a6650f28f30cddca34bc409021108489792961eb4a7a7bcf9e747099",
+      "Mage/src/main/java/mage/target/TargetImpl.java": "4366d56a414e29c40704e8b734f760d1ec6657d57b0abf8998f51f50d566f915",
+      "Mage/src/main/java/mage/abilities/AbilityImpl.java": "dac914825d442d3300f3b18788ba80371c46bde1e32dac706f582d12c830a980",
+      "Mage/src/main/java/mage/game/events/GameEvent.java": "3df463d33eff295607e700578e547cef896cf183e1dba3c41131a353f53cb7dc",
+      "Mage/src/main/java/mage/game/combat/Combat.java": "3c2de1444f0e35216eb8e9bfebd88e02c6693995a41b5ea2a271bf3e585c6250",
+      "Mage/src/main/java/mage/game/combat/CombatGroup.java": "a3f6a37d332831855cdc9b7900cc400554331a3a82598438b5c307a7b0e42bc7",
+      "Mage/src/main/java/mage/game/permanent/PermanentImpl.java": "5b72e235e1fe716b7337ffe76539d7fd79a5a9de1c54e6f343426126aeec6fe1",
+      "Mage/src/main/java/mage/players/PlayerImpl.java": "ffa7c6bbed3c712648652fb93bc29013ba655da2344e2c7231b04436e0ae790e",
+      "Mage/src/main/java/mage/game/turn/CleanupStep.java": "7b518f89e5e5f8eb07129c06eae074068068324927694c10d19f1746eec45b09",
+      "Mage/src/main/java/mage/cards/CardsImpl.java": "e3a32dd4f367a6429bd83cb8c1a1890e314b5dfbbedf8d61f4251797646dc1e0",
+      "Mage/src/main/java/mage/target/common/TargetDiscard.java": "f165d4061cca290e354f611246bf39c1157977742d5d9ae93fca883b22118668"
+    },
+    "toolchain_base_image": "maven:3.9.11-eclipse-temurin-21-noble@sha256:6fdc855a6ed81d288ca7ca37ac6ff5e9308b612485c0801d70b25a858c83d237",
+    "jdk_runtime": "21.0.9+10"
+  },
+  "jvm_limits": {
+    "maven": "-Xmx2g",
+    "game": "-Xmx3g"
+  },
+  "reference_variant": "unmodified-upstream-raw",
+  "admitted": false,
+  "terminal_reason": [
+    {
+      "player": "894349a2-b7f8-4c91-b3a0-4d8233310b56",
+      "life_loss": true,
+      "empty_draw": false
+    }
+  ],
+  "equivalence": {
+    "kind": "same-state-first-main-ComputerPlayer7-priority",
+    "rng_seed": 319,
+    "off_records": 0,
+    "on_records": 10,
+    "equal_return": true,
+    "equal_semantic_state": true,
+    "same_uuid_copy_excluded": true,
+    "off_observer_probe": true
+  },
+  "records": 3788,
+  "calls": 763,
+  "spells": 14,
+  "attacks": 6,
+  "simulation_records_suppressed": 38980,
+  "validation": {
+    "records": 3788,
+    "played_spells": 14,
+    "attacking_combats": 6,
+    "shuffles": {
+      "426d07cd-46e3-44ab-ad19-02c7921bd6b5": 1,
+      "894349a2-b7f8-4c91-b3a0-4d8233310b56": 1
+    },
+    "mulligan_decisions": 2
+  },
+  "trace_content": [
+    {
+      "path": "equivalence-0.jsonl.xz",
+      "jsonl_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "jsonl_bytes": 0
+    },
+    {
+      "path": "equivalence-1.jsonl.xz",
+      "jsonl_sha256": "8e0650bf62cece6fb7fd37ffb3a6c01c66426488119d249bf0a8f4f8b95053e2",
+      "jsonl_bytes": 1979676
+    },
+    {
+      "path": "trace.jsonl.xz",
+      "jsonl_sha256": "f1bf88c0cfd200fd51423696e4cfaded40edab2ee8704fe465a8b2768a787f95",
+      "jsonl_bytes": 857858487
+    }
+  ],
+  "elapsed_seconds": 34.1858046319976,
+  "artifacts": {
+    "config.json": "65c3a9e84eaa1da0352be3fa9150ff4b6aa643799d9549da0e6e0153f9233e2a",
+    "equivalence-0.jsonl.xz": "0040f94d11d0039505328a90b2ff48968db873e9e7967307631bf40ef5679275",
+    "equivalence-1.jsonl.xz": "0508128f2c0bb52fe5e7fb8ab48665bfe3afb668e0e443e9eae20290c65cfdd6",
+    "equivalence-state-0.json": "be32cd8bfa0fb81bf5190d57344119279c32d673f5e9b6b3dee3ef0e6c6e4105",
+    "equivalence-state-1.json": "be32cd8bfa0fb81bf5190d57344119279c32d673f5e9b6b3dee3ef0e6c6e4105",
+    "result.json": "7f579215aec65e037b093b34068077ac2bda4abf9dc54f75f12ecc9233d42cee",
+    "sources/RawAiCaptureTest.java": "e1935f8a73e6cd6307418171a150a5fbc204b8a2f6aa8d91ab5a3a4eb6114c2c",
+    "sources/xmage_ai_capture.py": "415a8058a1b7f510374f8aba435ce9b3d2a4ed68d32913873d2b4e1f302f24a4",
+    "trace.jsonl.xz": "826dc46f214bdf2739986682cbaa994ae09a87ea5a023067d3aaf5186f94ab0b",
+    "xmage.log": "6becf8f7467c17fd4b4140e29e3195f5ec1bd8fc6087f215925531e6b362fc7c"
+  }
+}

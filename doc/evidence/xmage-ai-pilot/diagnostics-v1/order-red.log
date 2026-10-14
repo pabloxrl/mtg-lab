@@ -1,0 +1,26 @@
+E
+======================================================================
+ERROR: test_explicit_cyclops_archer_order_and_boost (test_xmage_ai_pilot.CapturedTriggerPlacement.test_explicit_cyclops_archer_order_and_boost)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 45, in test_explicit_cyclops_archer_order_and_boost
+    converted = normalize.normalize(ROOT / 'doc/evidence/xmage-ai-pilot/'
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 392, in normalize
+    emit(r, 'pass')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 245, in emit
+    checkpoints.append(dict(action=len(play), source=r['sequence'], state=observe(r,e['actor'])))
+                                                                          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 184, in observe
+    targets=[dict(object=target_ref(t,r),role=role) for t,role in zip(a['targets'],roles)])
+                         ^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 128, in target_ref
+    need(current is not None and uid in counters, r['sequence'], 'target incarnation provenance')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 17, in need
+    raise ValueError(f'first divergence: /source/{cursor}/{field}')
+ValueError: first divergence: /source/1941/target incarnation provenance
+
+----------------------------------------------------------------------
+Ran 1 test in 39.955s
+
+FAILED (errors=1)

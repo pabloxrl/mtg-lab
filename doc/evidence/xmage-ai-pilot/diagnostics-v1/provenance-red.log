@@ -1,0 +1,33 @@
+EE
+======================================================================
+ERROR: test_full_trigger_replay_compares_staging_with_bound_provenance (test_xmage_ai_pilot.CapturedTriggerProvenance.test_full_trigger_replay_compares_staging_with_bound_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 120, in test_full_trigger_replay_compares_staging_with_bound_provenance
+    normalize.verify_pair(self.converted,self.native,self.reference)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 588, in verify_pair
+    admission_observations.xmage_trigger_provenance(reference,projected)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 278, in xmage_trigger_provenance
+    require(trace['raw_source']==raw and type(trace['raw_source_zcc']) is int and trace['raw_source_zcc']==initial+trace['incarnation'],'/trigger provenance source incarnation binding')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 17, in require
+    if not ok:raise ValueError('first divergence: '+path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: first divergence: /trigger provenance source incarnation binding
+
+======================================================================
+ERROR: test_mulligan_return_binds_trigger_to_witnessed_counter (test_xmage_ai_pilot.CapturedTriggerProvenance.test_mulligan_return_binds_trigger_to_witnessed_counter)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 113, in test_mulligan_return_binds_trigger_to_witnessed_counter
+    admission_observations.xmage_trigger_provenance(self.reference,case)
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 278, in xmage_trigger_provenance
+    require(trace['raw_source']==raw and type(trace['raw_source_zcc']) is int and trace['raw_source_zcc']==initial+trace['incarnation'],'/trigger provenance source incarnation binding')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/admission_observations.py", line 17, in require
+    if not ok:raise ValueError('first divergence: '+path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: first divergence: /trigger provenance source incarnation binding
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.336s
+
+FAILED (errors=2)

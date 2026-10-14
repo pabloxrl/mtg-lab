@@ -38,7 +38,10 @@ impl AdmissionClient {
         p["allocations"]=json!(self.allocations);
         p["activation"]=g.turns.activation.as_ref().map(|a|json!({"source":self.trigger.reference(g,a.source),"actor":seat_index(a.actor),"target":a.target.map(|h|self.trigger.reference(g,h)),"paid":a.paid,"reserved":a.reserved,"pool":g.activation_pool(a).unwrap(),"sources":a.sources.iter().map(|h|self.trigger.reference(g,*h)).collect::<Vec<_>>(),"ability":if a.power {"power"} else if a.invoker {"invoker"} else {"haste"}})).unwrap_or(Value::Null);
         if self.extended_observation {
-            p["grants"]=json!(g.turns.haste.iter().map(|h|json!({"object":self.trigger.reference(g,*h),"keyword":"haste"})).chain(g.turns.trample.iter().map(|h|json!({"object":self.trigger.reference(g,*h),"keyword":"trample"}))).collect::<Vec<_>>());
+            // CR400.7/611.2c: an old handle retained until cleanup is not an
+            // active grant on a departed creature (nor on its new incarnation).
+            let live = |h: &&Handle| g.objects.get(**h).is_ok_and(|o| o.zone == Zone::Battlefield);
+            p["grants"]=json!(g.turns.haste.iter().filter(live).map(|h|json!({"object":self.trigger.reference(g,*h),"keyword":"haste"})).chain(g.turns.trample.iter().filter(live).map(|h|json!({"object":self.trigger.reference(g,*h),"keyword":"trample"}))).collect::<Vec<_>>());
         }
         p
     }

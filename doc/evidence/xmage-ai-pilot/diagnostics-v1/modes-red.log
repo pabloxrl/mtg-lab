@@ -1,0 +1,26 @@
+E
+======================================================================
+ERROR: test_surprise_boost_mode_preserves_affected_objects (test_xmage_ai_pilot.CapturedModes.test_surprise_boost_mode_preserves_affected_objects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 58, in test_surprise_boost_mode_preserves_affected_objects
+    converted = normalize.normalize(ROOT / 'doc/evidence/xmage-ai-pilot/'
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 392, in normalize
+    emit(r, 'pass')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 245, in emit
+    checkpoints.append(dict(action=len(play), source=r['sequence'], state=observe(r,e['actor'])))
+                                                                          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 189, in observe
+    target=target_ref(a['targets'][0],r) if a['targets'] else None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 128, in target_ref
+    need(current is not None and uid in counters, r['sequence'], 'target incarnation provenance')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 17, in need
+    raise ValueError(f'first divergence: /source/{cursor}/{field}')
+ValueError: first divergence: /source/2040/target incarnation provenance
+
+----------------------------------------------------------------------
+Ran 1 test in 25.478s
+
+FAILED (errors=1)

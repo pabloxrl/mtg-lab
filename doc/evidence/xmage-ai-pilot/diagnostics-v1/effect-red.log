@@ -1,0 +1,23 @@
+E
+======================================================================
+ERROR: test_surprise_boost_mode_preserves_affected_objects (test_xmage_ai_pilot.CapturedModes.test_surprise_boost_mode_preserves_affected_objects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 58, in test_surprise_boost_mode_preserves_affected_objects
+    converted = normalize.normalize(ROOT / 'doc/evidence/xmage-ai-pilot/'
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 411, in normalize
+    emit(r, 'pass')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 251, in emit
+    checkpoints.append(dict(action=len(play), source=r['sequence'], state=observe(r,e['actor'])))
+                                                                          ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 220, in observe
+    need(len(counters)==1, r['sequence'], 'effect target identity')
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 17, in need
+    raise ValueError(f'first divergence: /source/{cursor}/{field}')
+ValueError: first divergence: /source/2055/effect target identity
+
+----------------------------------------------------------------------
+Ran 1 test in 14.274s
+
+FAILED (errors=1)

@@ -91,7 +91,7 @@ def normalize(path):
         if k.startswith('call/'):
             need(k[5:] in {'priority','pass','activateAbility','playMana','cast','playLand',
                           'selectAttackers','selectBlockers','getMultiAmountWithIndividualConstraints',
-                          'shuffleLibrary','chooseMulligan','choose','chooseTarget'},
+                          'shuffleLibrary','chooseMulligan','choose','chooseTarget','chooseTriggeredAbility'},
                  r['sequence'], 'unsupported callback '+k)
             calls.append(r)
         elif k.startswith('return/'):
@@ -110,6 +110,9 @@ def normalize(path):
             if p['token']:
                 r['incarnations'][p['id']] = 0
     play, mappings, chance, choices = [], [], [], []
+    import xmage_ai_triggers
+    trigger_groups = xmage_ai_triggers.index(rows,physical,seats,need)
+    placed_groups = set()
     rounds = [0, 0]
     action_sources = {}
 
@@ -122,10 +125,23 @@ def normalize(path):
         uid = target['targets'][0]['id']
         counters = {x['key']:x['value'] for x in target['zone_change_counters']}
         current = next((c for c in r['state']['cards']+r['state']['permanents'] if c['id']==uid), None)
+        # XMage omits its card zone-counter binding for tokens. A witnessed
+        # unique token UUID has one battlefield incarnation; CR111.8 prevents
+        # it from leaving and returning. Do not extend this to physical cards.
+        if current is not None and current.get('token') and uid not in counters:
+            need(physical[uid].startswith('token/'),r['sequence'],'token target birth')
+            return ref(uid,r)
         need(current is not None and uid in counters, r['sequence'], 'target incarnation provenance')
         result = ref(uid,r)
         result['incarnation'] += counters[uid] - current['zcc']
         return result
+
+    def mode(a, r):
+        effects = [e['class'] for m in a['available_modes'] if m['key'] in a['modes'] for e in m['value']['effects']]
+        modes = [['mage.abilities.effects.common.continuous.BoostControlledEffect'],
+                 ['mage.abilities.effects.common.CreateTokenEffect']]
+        need(len(a['modes'])==1 and effects in modes,r['sequence'],'unsupported mode '+str(effects))
+        return modes.index(effects)
 
     def observe(r, actor):
         s=r['state']
@@ -156,13 +172,21 @@ def normalize(path):
         for item in reversed(s['stack']):
             a = item['ability']
             uid = a['source']
+            if a['type']=='Triggered':
+                need(a['id'] in r['trigger_keys'],r['sequence'],'stack trigger occurrence')
+                targets=[t['id'] for group in a['targets'] for t in group['targets']]
+                need(len(targets)<=1 and all(t in seats for t in targets),r['sequence'],'trigger player target')
+                checkpoint['stack'].append(dict(ability='trigger',key=r['trigger_keys'][a['id']],
+                    controller=seats[a['controller']],target=seats[targets[0]] if targets else None,
+                    source_card=physical[uid].split('/')[1]))
+                continue
             need(uid in action_sources, r['sequence'], 'stack source action')
             action = action_sources[uid]
             key = physical[uid].split('/')[1]
             if a['type']=='Spell':
                 roles = {'giant-growth':['growth_target'], 'bite-down':['bite_source','bite_destination']}.get(key, [])
                 need(len(roles)==len(a['targets']), r['sequence'], 'stack target roles')
-                v = dict(**ref(uid,r),action=action,mode=None,
+                v = dict(**ref(uid,r),action=action,mode=mode(a,r) if key=='goblin-surprise' else None,
                          targets=[dict(object=target_ref(t,r),role=role) for t,role in zip(a['targets'],roles)])
             else:
                 need(a['type']=='Activated' and key in ('wildheart-invoker','shivan-dragon','axgard-cavalry'), r['sequence'], 'unsupported stack ability')
@@ -170,8 +194,8 @@ def normalize(path):
                          ability={'wildheart-invoker':'invoker','shivan-dragon':'power','axgard-cavalry':'haste'}[key],
                          target=target_ref(a['targets'][0],r) if a['targets'] else None)
             checkpoint['stack'].append(v)
-        need(not s['pending_triggers'], r['sequence'], 'unsupported pending trigger context')
-        checkpoint['pending_triggers'] = []
+        checkpoint['pending_triggers'] = [dict(key=r['trigger_keys'][a['id']],controller=seats[a['controller']])
+                                          for a in s['pending_triggers']]
         checkpoint['exile'] = [physical[uid] for uid in s['exile']]
         checkpoint['combat'] = [dict(attacker=ref(uid,r),blocked=g['blocked'],
                                     blockers=[ref(b,r) for b in g['blockers']])
@@ -190,15 +214,37 @@ def normalize(path):
         for effect in s['effects']:
             native_fields = effect['native_fields']
             need(effect['duration']=='until end of turn' and not native_fields[prefix+'ContinuousEffectImpl.discarded'], r['sequence'], 'effect lifetime')
+            cls = effect['class']
+            if cls in (prefix+'common.continuous.BoostControlledEffect',prefix+'common.continuous.BoostSourceEffect'):
+                need(native_fields[prefix+'ContinuousEffectImpl.affectedObjectsSet'],r['sequence'],'effect affected set')
+                power=native_fields[cls+'.power'];toughness=native_fields[cls+'.toughness']
+                if toughness=={'reference':power.get('node')}:
+                    toughness=power
+                need(power.get('class')==toughness.get('class')=='mage.abilities.dynamicvalue.common.StaticValue',r['sequence'],'unsupported dynamic boost')
+                p,t=power['mage.abilities.dynamicvalue.common.StaticValue.value'],toughness['mage.abilities.dynamicvalue.common.StaticValue.value']
+                for obj in native_fields[prefix+'ContinuousEffectImpl.affectedObjectList']['items']:
+                    need(obj['class']=='mage.MageObjectReference',r['sequence'],'effect affected identity')
+                    uid=obj['mage.MageObjectReference.sourceId'];zcc=obj['mage.MageObjectReference.zoneChangeCounter']
+                    # CR611.2c binds the set at resolution; a later incarnation
+                    # or newly entered creature never acquires this effect.
+                    if not any(v['id']==uid and v['zcc']==zcc for v in s['permanents']):
+                        continue
+                    modification(uid)['boost']+=t
+                    modification(uid)['power_boost']+=p-t
+                continue
             pointer = native_fields[prefix+'EffectImpl.targetPointer']
             need(pointer['class']=='mage.target.targetpointer.FirstTargetPointer', r['sequence'], 'unsupported effect pointer')
             counters = pointer['mage.target.targetpointer.NthTargetPointer.zoneChangeCounter']['entries']
-            need(len(counters)==1, r['sequence'], 'effect target identity')
-            uid = counters[0]['key']
+            token_targets={target['id'] for a in effect['abilities'] for group in a['targets'] for target in group['targets']}
+            if not counters:
+                need(len(token_targets)==1 and all(physical.get(uid,'').startswith('token/') for uid in token_targets),r['sequence'],'effect token target identity')
+                uid=next(iter(token_targets))
+            else:
+                need(len(counters)==1, r['sequence'], 'effect target identity')
+                uid = counters[0]['key']
             target = dict(targets=[dict(id=uid,amount=0)],zone_change_counters=counters)
             bound = target_ref(target,r)
             need(bound==ref(uid,r), r['sequence'], 'departed effect target')
-            cls = effect['class']
             if cls==prefix+'common.continuous.BoostTargetEffect':
                 power = native_fields[cls+'.power']; toughness = native_fields[cls+'.toughness']
                 if toughness=={'reference':power.get('node')}:
@@ -217,13 +263,13 @@ def normalize(path):
         checkpoint['grants'] = sorted(grants,key=lambda g:(g['object']['source'],g['keyword']))
         return checkpoint
 
-    def emit(r, kind, actor=None, **fields):
+    def emit(r, kind, actor=None, compare=True, **fields):
         s = r['state']
         e = dict(sequence=len(play), turn=s['turn'], step=s['step'].lower().replace(' ', '_'),
                  actor=seats[r['actor']] if actor is None else actor, kind=kind,
                  source=None, incarnation=None, color=None, role=None, mode=None, order=None, player=None)
         e.update(fields)
-        if kind in ('pass','cast','play_land','activate'):
+        if compare and kind in ('pass','cast','play_land','activate'):
             checkpoints.append(dict(action=len(play), source=r['sequence'], state=observe(r,e['actor'])))
         if kind in ('cast','activate'):
             action_sources[next(uid for uid,name in physical.items() if name==fields['source'])] = len(play)
@@ -258,12 +304,29 @@ def normalize(path):
         elif k == 'return/chooseTarget' and r['state']['step'] is None:
             opening(r, 'bottom', [physical[t['id']] for t in r['detail']['arguments'][1]['targets']])
     source_opening_choices = json.loads(json.dumps(choices))
+    # The capture reports one callback per London bottom card; the existing
+    # replay contract consumes the same ordered selection as one transaction.
+    grouped=[];group_points=[];opening_partials=[]
+    need(len(choices)==len(opening_checkpoints),0,'opening choice/checkpoint alignment')
+    for choice,point in zip(choices,opening_checkpoints):
+        if (choice['kind']=='bottom' and grouped and grouped[-1]['kind']=='bottom'
+                and (choice['actor'],choice['round'])==(grouped[-1]['actor'],grouped[-1]['round'])):
+            opening_partials.append(dict(**point,opening_index=len(grouped)-1,
+                                         selection_prefix=list(grouped[-1]['selection'])))
+            grouped[-1]['selection'].extend(choice['selection'])
+        else:
+            grouped.append(json.loads(json.dumps(choice)));grouped[-1]['sequence']=len(grouped)-1
+            group_points.append(point)
+    choices=grouped;opening_checkpoints=group_points
 
     checkpoints = []
     auxiliary = dict(marked=[],cleanup_checkpoints=[],terminal=[])
     loss_departures = []
     skip_until = -1
     declarations = set()
+    combat_marks = None
+    graveyard_exceptions = []
+    deferred_pass = None
     for r in rows:
         i, k, s = r['sequence'], r['kind'], r['state']
         if k=='event/before' and r['detail']['type']=='LOST':
@@ -273,16 +336,83 @@ def normalize(path):
                 for field in ('hand','library','graveyard')}))
         if k=='event/before' and r['detail']['type']=='COMBAT_DAMAGE_STEP_PRIORITY':
             auxiliary['marked'].append(dict(source=i,state=observe(r,None)))
+            combat_marks = r
+        if k == 'sba/after' and combat_marks is not None:
+            # CR404.3/704.3: the native and explicitly patched reference
+            # suspend for owner order. Unmodified XMage instead supplies an
+            # automatic order, witnessed in its immutable destination zone.
+            # Preserve that known exception; never call it an AI choice.
+            before = combat_marks['state']
+            for owner in (seats[s['active']], 1-seats[s['active']]):
+                old = before['players'][owner]['graveyard']
+                for departure in loss_departures:
+                    if departure['actor']==owner and combat_marks['sequence'] < departure['source'] <= i:
+                        old = [uid for uid in old if physical[uid] not in departure['zones']['graveyard']]
+                new = s['players'][owner]['graveyard']
+                need(new[:len(old)] == old, i, 'combat graveyard prefix')
+                arrivals = new[len(old):]
+                permanents = {p['id']:p for p in before['permanents']}
+                need(all(uid in permanents and seats[permanents[uid]['owner']]==owner for uid in arrivals),
+                     i, 'combat graveyard arrival provenance')
+                # CR111.6: tokens are not cards in the owner's permutation.
+                arrivals = [uid for uid in arrivals if not permanents[uid]['token']]
+                if len(arrivals) > 1:
+                    selection = [ref(uid,combat_marks) for uid in arrivals]
+                    emit(r,'graveyard_order',actor=owner,selection=selection,
+                         event=f"combat-sba/{s['turn']}")
+                    graveyard_exceptions.append(dict(source=i,marked_source=combat_marks['sequence'],
+                        actor=owner,selection=selection,kind='upstream-automatic-graveyard-order'))
+            combat_marks = None
+        if k == 'call/priority':
+            # A damage step without deaths has no sba/after callback. Its
+            # observation must not leak into a later spell's SBA transaction.
+            combat_marks = None
         if k=='event/after' and r['detail']['type']=='CLEANUP_STEP_POST':
             auxiliary['cleanup_checkpoints'].append(dict(source=i,state=observe(r,None)))
         if k=='terminal':
             auxiliary['terminal'].append(dict(source=i,state=observe(r,None)))
         if s['step'] is None or i <= skip_until:
             continue
+        if k=='event/after' and r['detail']['type']=='TRIGGERED_ABILITY' and deferred_pass is not None:
+            uid=r['detail']['target']
+            group=trigger_groups[r['trigger_keys'][uid]['event']]
+            if uid==group['placements'][-1]:
+                emit(deferred_pass,'pass',compare=False)
+                deferred_pass=None
+        if k in ('call/chooseTriggeredAbility','call/chooseTarget') or (k=='event/before' and r['detail']['type']=='TRIGGERED_ABILITY'):
+            if k=='call/chooseTriggeredAbility':
+                ability=r['detail'][0][0]
+            elif k=='call/chooseTarget':
+                ability=r['detail'][2]
+            else:
+                ability=None
+            uid=r['detail']['target'] if ability is None else ability['id']
+            if uid in r['trigger_keys']:
+                group=trigger_groups[r['trigger_keys'][uid]['event']]
+                if group['event'] not in placed_groups:
+                    if deferred_pass is not None:
+                        checkpoints.append(dict(action=len(play),source=deferred_pass['sequence'],
+                            state=observe(deferred_pass,seats[deferred_pass['actor']])))
+                    emit(r,'order_triggers',actor=seats[ability['controller']] if ability else seats[r['actor']],order=group['order'])
+                    placed_groups.add(group['event'])
+                if k=='call/chooseTarget':
+                    end=paired[i];target=end['detail']['arguments'][1]['targets']
+                    need(end['detail']['result'] is True and len(target)==1 and target[0]['id'] in seats,i,'trigger target choice')
+                    emit(r,'target_player',player=seats[target[0]['id']])
+                    skip_until=end['sequence']
+                if k.startswith('call/'):
+                    continue
         if k == 'call/playLand':
             end = paired[i]
             need(end['detail']['result'] is True, i, 'failed land choice')
             emit(r, 'play_land', **ref(r['detail'][0]['id'], r))
+        elif k=='call/choose' and s['step']=='Cleanup':
+            end=paired[i]
+            target=end['detail']['arguments'][1]
+            need(r['detail'][0]=='Discard' and target['class']=='mage.target.common.TargetDiscard'
+                 and end['detail']['result'] is True,i,'cleanup discard callback')
+            emit(r,'cleanup_discard',selection=[ref(t['id'],r) for t in target['targets']])
+            skip_until=end['sequence']
         elif k == 'call/cast' or (k == 'call/activateAbility' and r['detail'][0]['type']=='Activated' and r['detail'][0]['source'] is not None):
             end = paired[i]
             need(end['detail']['result'] is True, i, 'failed transaction')
@@ -295,8 +425,7 @@ def normalize(path):
             committed = stacked[0]
             key = physical[uid].split('/')[1]
             if key == 'goblin-surprise':
-                effects = [e['class'] for m in committed['available_modes'] if m['key'] in committed['modes'] for e in m['value']['effects']]
-                need(False, i, 'unsupported mode '+str(effects))
+                emit(r,'mode',mode=mode(committed,r))
             for n, target in enumerate(committed['targets']):
                 need(len(target['targets'])==1, i, 'target cardinality')
                 target_id = target['targets'][0]['id']
@@ -320,6 +449,13 @@ def normalize(path):
             emit(r, 'finish_activation' if activation else 'finish_payment')
             skip_until = end['sequence']
         elif k == 'call/pass':
+            if s['pending_triggers']:
+                # Preserve the actual pass, but CR117.5 places triggers before
+                # handing priority to the opponent. The pre-placement source
+                # checkpoint is compared at native's trigger-order boundary.
+                need(deferred_pass is None,i,'overlapping pending-trigger pass')
+                deferred_pass=r
+                continue
             emit(r, 'pass')
         elif k == 'event/after' and r['detail']['type']=='DECLARE_ATTACKERS_STEP':
             need(s['turn'] not in declarations, i, 'duplicate attackers')
@@ -353,6 +489,7 @@ def normalize(path):
             else:
                 need(k in wrappers,i,'unsupported standalone choice '+k)
     case=dict(id='L0-XMage-captured',starter=config['starter'],decks=decks,chance=chance,choices=choices,play=play,stop='terminal')
+    need(deferred_pass is None,len(rows),'unconsumed pending-trigger pass')
     pins=json.loads((ROOT/'fixtures/reference/full-pool-admission.json').read_text())['pins']
     terminal=rows[-1]
     need(terminal['kind']=='terminal',terminal['sequence'],'missing terminal')
@@ -363,7 +500,7 @@ def normalize(path):
     need(len(winners)==1,terminal['sequence'],'unsupported draw')
     provenance=dict(source='XMage ComputerPlayer7',normalization_version=1,
                     trace_sha256=xmage.sha(path),receipt_sha256=xmage.sha(path.with_name('attempt.json')))
-    return dict(transcript=dict(schema_version=10,family='admission',pins=pins,cases=[case],provenance=provenance),auxiliary=auxiliary, source_checkpoints=checkpoints, source_cursors=mappings, source_opening_choices=source_opening_choices,opening_checkpoints=opening_checkpoints,outcome=dict(winner=winners[0],losses=losses),loss_departures=loss_departures,source_receipt=receipt)
+    return dict(transcript=dict(schema_version=10,family='admission',pins=pins,cases=[case],provenance=provenance),auxiliary=auxiliary, source_checkpoints=checkpoints, source_cursors=mappings, source_opening_choices=source_opening_choices,opening_checkpoints=opening_checkpoints,opening_partials=opening_partials,outcome=dict(winner=winners[0],losses=losses),loss_departures=loss_departures,source_receipt=receipt,graveyard_exceptions=graveyard_exceptions)
 
 
 def native_checkpoint(point):
@@ -372,11 +509,27 @@ def native_checkpoint(point):
     result['hand_membership'] = [sorted(h) for h in point['hand']]
     result['battlefield_membership'] = sorted(point['battlefield'])
     result['incarnations'] = {k:v for k,v in point['incarnations'].items() if not k.startswith('ability/')}
-    result['stack'] = [{k:v for k,v in item.items() if k!='raw_birth'} for item in point['stack']]
+    result['stack'] = [{k:v for k,v in item.items() if k not in ('raw_birth','raw_source_handle')} for item in point['stack']]
     # Zero-valued damage bookkeeping has no rules effect (CR120.6/514.2).
     result['effects'] = sorted((m for m in point['effects'] if any(m[k] for k in ('boost','power_boost','damage'))),key=lambda m:m['object']['source'])
     result['grants'] = sorted(point['grants'],key=lambda g:(g['object']['source'],g['keyword']))
     return result
+
+
+def verify_trigger_sets(run, case, engine):
+    """The existing admission staging contract, also for mulligan games."""
+    canonical=lambda values:sorted(values,key=lambda value:json.dumps(value,sort_keys=True))
+    for i,(point,event) in enumerate(zip(run['points'],case['play'])):
+        expected=[]
+        if event['kind']=='order_triggers' and (engine=='native' or len(event['order'])>1):
+            expected=[dict(key=key,controller=event['actor']) for key in event['order']]
+        elif event['kind']=='target_player' and engine=='native':
+            need(i>0 and case['play'][i-1]['kind']=='order_triggers',i,'target before trigger order')
+            expected=[dict(key=key,controller=event['actor']) for key in case['play'][i-1]['order']]
+        elif engine=='xmage' and event['kind']=='finish_payment' and i+1<len(case['play']) and case['play'][i+1]['kind']=='order_triggers':
+            following=case['play'][i+1]
+            expected=[dict(key=key,controller=following['actor']) for key in following['order']]
+        need(canonical(point['pending_triggers'])==canonical(expected),i,engine+' pending source/event set')
 
 
 def verify_native(converted, run):
@@ -393,16 +546,39 @@ def verify_native(converted, run):
         for field in sorted(required-set(p)):
             need(False,converted['source_cursors'][i],f'checkpoint/action/{i}/{field} missing')
     admission_observations.check(run,case,'native')
+    verify_trigger_sets(run,case,'native')
     need(len(run['opening']['points'])==len(converted['opening_checkpoints'])+2,0,'opening checkpoint count')
     need(run['points'][-1]['outcome']==converted['outcome'],converted['source_cursors'][-1],'outcome')
     for c,p in zip(converted['opening_checkpoints'],run['opening']['points']):
         delta=difference(c['state'],p)
         need(delta is None,c['source'],f'opening checkpoint: {delta}')
+    for partial in converted.get('opening_partials',[]):
+        # CR103.5: replay consumes the exact ordered group; verify every raw
+        # per-card staging observation against that transaction's actual start.
+        # This comparator projection never changes either engine's state.
+        import copy
+        index=partial['opening_index'];prefix=partial['selection_prefix']
+        choice=case['choices'][index]
+        need(choice['kind']=='bottom' and prefix==choice['selection'][:len(prefix)]
+             and 0<len(prefix)<len(choice['selection']),partial['source'],'partial bottom chronology')
+        projected=copy.deepcopy(run['opening']['points'][index])
+        for source in prefix:
+            need(source in projected['hand'],partial['source'],'partial bottom occurrence')
+            projected['hand'].remove(source);projected['library'].append(source)
+        delta=difference(partial['state'],projected)
+        need(delta is None,partial['source'],f'partial opening checkpoint: {delta}')
     for c in converted['source_checkpoints']:
         actual = native_checkpoint(run['points'][c['action']])
         for key,value in c['state'].items():
             need(key in actual,c['source'],f'checkpoint/action/{c["action"]}/{key} missing')
-            delta = difference(value,actual[key])
+            observed=actual[key]
+            if key=='pending_triggers':
+                # CR603.3b: waiting triggers are a collection; only the
+                # subsequently chosen placement/stack order is consequential.
+                # Preserve multiplicity, controllers and full occurrence keys.
+                canonical=lambda values:sorted(values,key=lambda v:json.dumps(v,sort_keys=True))
+                value,observed=canonical(value),canonical(observed)
+            delta = difference(value,observed)
             need(delta is None,c['source'],f"checkpoint/action/{c['action']}/{key}: {delta}")
     for kind,expected in converted['auxiliary'].items():
         actual=run[kind] if kind!='terminal' else [run['points'][-1]]
@@ -463,10 +639,18 @@ def verify_pair(converted,native,reference):
     admission_observations.check(reference,projected,'xmage')
     admission_observations.xmage_effect_lifecycle(reference,projected)
     admission_observations.xmage_trigger_provenance(reference,projected)
+    verify_trigger_sets(reference,projected,'xmage')
     aligned=dict(zip(indices,reference['points']))
     for c in converted['source_checkpoints']:
         i=c['action']
-        delta=difference(admission.semantic(native['points'][i]),admission.semantic(aligned[i]))
+        left,right=native['points'][i],aligned[i]
+        a,b=admission.semantic(left),admission.semantic(right)
+        if left['trigger_boundary']=='order' and len(left['pending_triggers'])==1:
+            # Pinned XMage skips a choose-order callback for a singleton. Both
+            # exact staging sets and the actual stack provenance are checked
+            # above, so compare the remaining shared boundary semantics.
+            a.pop('pending_triggers');b.pop('pending_triggers')
+        delta=difference(a,b)
         need(delta is None,c['source'],f'XMage checkpoint/action/{i}: {delta}')
     for kind in ('marked','cleanup_checkpoints'):
         need(len(native[kind])==len(reference[kind]),0,'XMage '+kind+' count')
@@ -507,6 +691,7 @@ def main():
     import admission_reference as admission
     import xmage
     import time
+    import xmage_ai_pilot
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source',type=Path,default=ROOT/'doc/evidence/xmage-ai-capture/acceptance-005/game/trace.jsonl.xz')
     parser.add_argument('--output',type=Path,required=True)
@@ -516,7 +701,7 @@ def main():
     os.chmod(folder,0o700)
     def write(name,value):(folder/name).write_text(json.dumps(value,indent=2)+'\n')
     started=time.monotonic()
-    paths=[Path(__file__),ROOT/'scripts/admission_observations.py',ROOT/'scripts/admission_reference.py',
+    paths=[Path(__file__),ROOT/'scripts/xmage_ai_triggers.py',ROOT/'scripts/xmage_ai_pilot.py',ROOT/'scripts/admission_observations.py',ROOT/'scripts/admission_reference.py',
            ROOT/'references/xmage/FullPoolAdmissionTest.java',ROOT/'references/xmage/FullPoolTriggersTest.java',
            ROOT/'references/xmage/FullPoolMulliganTest.java',ROOT/'references/xmage/FullPoolPriorityTest.java',
            ROOT/'references/xmage/CombatSbaGame.java',ROOT/'crates/mtg-core/src/admission_reference_tests.rs']
@@ -530,13 +715,17 @@ def main():
     try:
         converted=normalize(args.source)
         case=converted['transcript']['cases'][0]
-        canonical=dict(normalization_version=1,**{k:case[k] for k in ('starter','decks','chance','choices','play')})
-        receipt['game_identity_sha256']=hashlib.sha256(json.dumps(canonical,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        canonical=json.loads(xmage_ai_pilot.canonical_game(converted['transcript']))
+        receipt['game_identity_sha256']=xmage_ai_pilot.identity(converted['transcript'])
         write('canonical-game.json',canonical)
         # Freeze source-derived inputs before either consumer executes.
         write('converted.json',converted)
         write('input.json',converted['transcript'])
-        negatives=negative_inputs(converted);write('negatives.json',negatives)
+        # Preserve the original independently justified five controls exactly;
+        # add controls bound to this source's actual decision cursors.
+        negatives=json.loads((ROOT/'fixtures/reference/xmage-ai-negative.json').read_text())
+        negatives.update(xmage_ai_pilot.source_negative_inputs(converted))
+        write('negatives.json',negatives)
         os.environ['MTG_AI_REPLAY_INPUT']=str(folder/'input.json')
         os.environ['MTG_AI_REPLAY_NEGATIVES']=str(folder/'negatives.json')
         native=run_native(folder)
