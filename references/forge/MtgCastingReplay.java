@@ -195,7 +195,7 @@ public final class MtgCastingReplay {
         if(expected.isJsonObject() && actual.isJsonObject()) {
             JsonObject e=expected.getAsJsonObject(),a=actual.getAsJsonObject();
             if(e.has("timestamp") && a.has("timestamp") && e.has("id") && a.has("id"))bindCardTimestamp(e,a);
-            if(tape.get("scope").getAsString().equals("abilities-prefix") && e.has("api") && a.has("api") &&
+            if(abilities() && e.has("api") && a.has("api") &&
                     !e.get("spell").getAsBoolean() && !a.get("spell").getAsBoolean() &&
                     !e.get("trigger").getAsBoolean() && !a.get("trigger").getAsBoolean() &&
                     !e.get("mana_ability").getAsBoolean() && !a.get("mana_ability").getAsBoolean()) {

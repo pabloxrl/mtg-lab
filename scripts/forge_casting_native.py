@@ -200,6 +200,15 @@ def fixture(converted, opening_native):
         cursor = row['index']
         sources = committed['paying_mana_abilities']
         lots = committed['paying_mana']
+        # Pinned Forge's reusable activation retains paidAbilities across uses,
+        # while clearManaPaid resets the spent lots. ManaPool appends this
+        # payment's abilities. Preserve and verify that observed history, then
+        # translate only the newly appended sources (CR602.2b/601.2h).
+        previous = row['arguments'][0]['paying_mana_abilities']
+        key = lambda source: (source['id'], source['host']['id'])
+        opening.need([key(s) for s in sources[:len(previous)]] == [key(s) for s in previous],
+                     cursor, 'mana payment history changed')
+        sources = sources[len(previous):]
         opening.need(len(sources) == len(lots), cursor,
                      'unsupported floating or multi-unit mana payment')
         for source, lot in zip(sources, lots, strict=True):
