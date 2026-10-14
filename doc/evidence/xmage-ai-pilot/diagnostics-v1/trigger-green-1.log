@@ -1,0 +1,18 @@
+E
+======================================================================
+ERROR: test_archer_cast_trigger_is_placed_before_priority (test_xmage_ai_pilot.CapturedTriggerPlacement.test_archer_cast_trigger_is_placed_before_priority)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 33, in test_archer_cast_trigger_is_placed_before_priority
+    converted = normalize.normalize(ROOT / 'doc/evidence/xmage-ai-pilot/'
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 355, in normalize
+    need(False, i, 'unsupported mode '+str(effects))
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/scripts/xmage_ai_normalize.py", line 17, in need
+    raise ValueError(f'first divergence: /source/{cursor}/{field}')
+ValueError: first divergence: /source/2123/unsupported mode ['mage.abilities.effects.common.CreateTokenEffect']
+
+----------------------------------------------------------------------
+Ran 1 test in 20.346s
+
+FAILED (errors=1)

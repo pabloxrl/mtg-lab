@@ -52,10 +52,16 @@ unchanged actual Forge AI game executes in native, XMage and Forge with exact
 choices and intermediate observations; authored cases cover rare flying/reach,
 haste and cleanup-discard choices. Prefixes and this bounded game earn no corpus
 quota or pilot qualification.
-The [bounded normalization command](doc/evidence/xmage-ai-normalize/README.md)
-replays one of those captured games twice in native and patched XMage with
-source checkpoints and corruption controls. Its unsupported seams fail explicitly;
-it does not establish the ten-game pilot or all-three-engine admission.
+The original [normalization report](doc/evidence/xmage-ai-normalize/README.md)
+records one captured game replayed twice with source checkpoints and corruption
+controls. The [provisional XMage pilot](doc/evidence/xmage-ai-pilot/README.md)
+extends this to ten distinct complete ComputerPlayer7 games across all eight
+matchup/starting-seat rows, replayed twice in native and patched XMage. Its
+versioned artifacts retain failed attempts, canonical duplicate controls and
+explicit upstream exceptions. `python3 scripts/check_xmage_pilot.py` validates
+the retained evidence; the report also gives full native and live-reference
+commands. These games have no final quota until all-three-engine admission with
+explicit overlap IDs; this does not complete L0 or establish a speed claim.
 The planned [new M3](doc/programs/engine-validation-m3.md) migrates the existing
 frozen pool to external typed definitions and reusable mechanics. It preserves
 the verified M2 boundary; unseen-card admission remains future work. M3 is
@@ -177,6 +183,7 @@ and [simulation guide](doc/simulate.md).
 | [Reference prefixes](doc/full-pool-reference.md) | Test-only native/XMage occurrence identities and explicit chance/choice ledgers. Reset stops before declarations; London reaches first upkeep; priority plays lands and vanilla creatures into turn six with explicit mana payments, passes and bounded continuation. The version-4 spells family exercises Growth/Bite responses, Thrill discard/draw, Fodder tokens and both Surprise modes with strict physical choices. Version-5 activations adds explicit creature/land mana, Cavalry haste, Shivan/Invoker target/payment, cancellation and distinct activation identities. Version-6 triggers adds played cast/ETB ordering, repeated-event identities and Pyromancer damage after source death. Version-7 [cleanup evidence](doc/evidence/played-cleanup/README.md) adds explicit cleanup discards, simultaneous stacked-effect/damage expiry, and two directed 40-card empty-library games (both starters), with separate concession and synthetic additional-cleanup/simultaneous-loss checks. Version-9 [combat evidence](doc/evidence/combat-prefix/README.md) adds strict played declarations, modern allocations and explicit owner orders for simultaneous graveyard arrivals. Played replay uses version 2 with explicit legacy-version rejection. Its separately hashed XMage SBA integration is patched-reference evidence; the original upstream ordering mismatch remains preserved. No general game-corpus admission or M2 gate claim. |
 | [Terminal-game admission](doc/evidence/admission/README.md) | Version 10 checks sixteen frozen normal-reset native/XMage games: heuristic-origin and independently authored paths for every matchup/starter row. It requires rules-terminal outcomes, intermediate observations, exact consumption, repeated actual runs and invalid-tape controls. The reference retains the explicit XMage combat patch; no Forge, reference-AI corpus, complete legal-set or M2 gate claim. |
 | [XMage real-AI raw capture](doc/evidence/xmage-ai-capture/README.md) | Headless ComputerPlayer7 game capture with live-game choices, chance, identities, semantic observations, configuration and visible failed attempts. Includes controlled recording-on/off comparison and unsupported/truncation checks. Raw source play is not replay admission, corpus qualification or an L0 speed claim. |
+| [Provisional XMage pilot](doc/evidence/xmage-ai-pilot/README.md) | Ten distinct complete AI games, all eight matchup/starting-seat rows, twice-native/twice-patched-XMage replay, intermediate checks, retained failures and canonical duplicate controls. No Forge/final corpus quota or L0 performance claim. |
 | [Forge real-AI raw capture](doc/evidence/forge-ai-capture/README.md) | Normal frozen red/green setup with PlayerControllerAi/AiController, source-native callbacks, payments, shuffle/mulligan/chance and intermediate observations. The acceptance command compares uninstrumented play and retains actual unsupported/truncated attempts. No normalized Forge replay or source-AI quota is claimed. |
 | [Forge ordered opening replay](doc/evidence/forge-opening/README.md) | Real captured prefixes execute normal forty-card setup in Forge and native with both starters, initial/redraw chance, physical copies, London bottom order and strict negative controls. Source scheduling alignment and prefix remainder remain explicit; no full-game replay or corpus quota claim. |
 | [Forge casting replay](doc/evidence/forge-casting/README.md) | Bounded real-source prefixes independently execute lands, priority, creatures, targeted instant response, token mode, ordered mana/discard and resolution checkpoints. Exact consumption and invalid-choice controls retain explicit allocation normalization and unsupported later callbacks; no complete-game or pilot claim. |

@@ -11,6 +11,14 @@
       "encoding": "gzip"
     },
     {
+      "path": "combat-core-integrated.log",
+      "bytes": 30774,
+      "sha256": "aadbca9cb626388ccb80c0e7402c199705ab24f08b19b5442aa41da325411a20",
+      "storage": "objects/aadbca9cb626388ccb80c0e7402c199705ab24f08b19b5442aa41da325411a20.gz",
+      "stored_sha256": "4ee88671fa6e95e2c56834dd6cf8d99304758b2058295dea2e2c120aca14ee67",
+      "encoding": "gzip"
+    },
+    {
       "path": "combat-core.json",
       "bytes": 8694,
       "sha256": "58c1572d4d51d45f3c9068c8c9d2c260e2f4f4d906c28140aaacdc183e036908",
@@ -272,6 +280,94 @@
       "sha256": "cf06076b73d73c18ec364d28c823e442a80c2c1f6cee8a5a4b1eef3eef52adfc",
       "storage": "objects/cf06076b73d73c18ec364d28c823e442a80c2c1f6cee8a5a4b1eef3eef52adfc.gz",
       "stored_sha256": "6b6aeb67da7376564b175f04cef1e8c9bd97906cb5ccc569849672902d30fc7c",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/forge-actual-combat.xmage-1.json",
+      "bytes": 14557803,
+      "sha256": "248f5d6e13e5f00958d5f4e7a5855f440e3c74d7425ab7249680ee206cbfdef3",
+      "storage": "objects/248f5d6e13e5f00958d5f4e7a5855f440e3c74d7425ab7249680ee206cbfdef3.gz",
+      "stored_sha256": "f24268d83f746ce8b9ac65859a4321afe8d176ba10411f59401c2530369c2676",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/forge-actual-combat.xmage-2.json",
+      "bytes": 14557803,
+      "sha256": "1042a86a44e4a415a94fc6fa672f88921e74f7ac55596848e7a21bec3ca3034b",
+      "storage": "objects/1042a86a44e4a415a94fc6fa672f88921e74f7ac55596848e7a21bec3ca3034b.gz",
+      "stored_sha256": "d415a22c16934eeda7843d3aa9c43e006b2359e2cc68eee71cd9f0547e8f2091",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/native.json",
+      "bytes": 19370832,
+      "sha256": "8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c",
+      "storage": "objects/8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c.gz",
+      "stored_sha256": "117d76b5b70aa3868965d63914a088d226bb88bbf96589129c70ffa915ac6aa2",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/native.log",
+      "bytes": 455,
+      "sha256": "28f5385b4dd321e2bba910eea2f6007eddd722139ee62e441e5ad01cf919339b",
+      "storage": "objects/28f5385b4dd321e2bba910eea2f6007eddd722139ee62e441e5ad01cf919339b.gz",
+      "stored_sha256": "d26f9dab650640e9ca8f6b41d5c55d7d77d49fa35d40ff1f5556d17a5035e1b6",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/receipt.json",
+      "bytes": 12188,
+      "sha256": "b1dcce8aa64838870772d19bc5f4b56ef106e707ee7c78959cd5d873aa41225b",
+      "storage": "objects/b1dcce8aa64838870772d19bc5f4b56ef106e707ee7c78959cd5d873aa41225b.gz",
+      "stored_sha256": "63df54f2266f616fea26943b3850ec9ff98897dc68ac4adb54e7126b11885396",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/test-report.xml",
+      "bytes": 32542,
+      "sha256": "4f6ba8a92d1c6bbe335ab52dc369496d92f2bde876df73c907b0b4b000e013d9",
+      "storage": "objects/4f6ba8a92d1c6bbe335ab52dc369496d92f2bde876df73c907b0b4b000e013d9.gz",
+      "stored_sha256": "5251d138f1813d9dab70b5f8151243e21a8df452e811e61b676cfe1b38bb814c",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/xmage-index.json",
+      "bytes": 113,
+      "sha256": "fc6c44cee659fae1df0481197d7f7d50033ee977233799b4f732adaf9773b18b",
+      "storage": "objects/fc6c44cee659fae1df0481197d7f7d50033ee977233799b4f732adaf9773b18b.gz",
+      "stored_sha256": "8d29de7467265361f6564c1484fd402a90230de7af9e92e89707321e9df862a3",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/xmage-index.json.failure.json",
+      "bytes": 35878,
+      "sha256": "4c8cf1f32331ca508bf439edaae33e74bb6abfd9498f97db83831472d57a30ac",
+      "storage": "objects/4c8cf1f32331ca508bf439edaae33e74bb6abfd9498f97db83831472d57a30ac.gz",
+      "stored_sha256": "d2e12dfbc0e9a1d01eda8257b011652d30820bbd76a6aa702049afd83d8a3ca4",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/xmage-input.json",
+      "bytes": 175671,
+      "sha256": "dbefe9eb4fc99add82d5e914151219fa6c4ef26760212686b8fbd345c995d5ae",
+      "storage": "objects/dbefe9eb4fc99add82d5e914151219fa6c4ef26760212686b8fbd345c995d5ae.gz",
+      "stored_sha256": "c5be83a92c8fb9e5805568043ff36e170806e8fb053c75686ee63388b9f72193",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/xmage-negatives.json",
+      "bytes": 11415431,
+      "sha256": "8b417267e6e2a2d3bdd214156c31a60d6350f712a120fe5119efe48e3e60e5f9",
+      "storage": "objects/8b417267e6e2a2d3bdd214156c31a60d6350f712a120fe5119efe48e3e60e5f9.gz",
+      "stored_sha256": "414fb74e2c1bdec62a97bb51931677ed8436a2e765ef723c4461dc1ee2e12c45",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-cross-integrated/xmage.log",
+      "bytes": 62226,
+      "sha256": "4b50f5ac2dbe70e9762ee1da842ad3f8ed665e18b972aa15718bec18e3b14606",
+      "storage": "objects/4b50f5ac2dbe70e9762ee1da842ad3f8ed665e18b972aa15718bec18e3b14606.gz",
+      "stored_sha256": "539cfa24c0ed22e604c284cb73fac1135e6a134dacc4ac2225211a7be8a00f80",
       "encoding": "gzip"
     },
     {
@@ -539,6 +635,70 @@
       "encoding": "gzip"
     },
     {
+      "path": "combat-live-integrated/casting.json",
+      "bytes": 288834180,
+      "sha256": "0d287276d3f333a783e0abfe1790e9e9ad5d85a02cc62a53e0d9690801d8e480",
+      "storage": "objects/0d287276d3f333a783e0abfe1790e9e9ad5d85a02cc62a53e0d9690801d8e480.gz",
+      "stored_sha256": "fdcf8f64f39aa0ac7fdd5108a1368b3576ec2d870a34753703f721b827f0e685",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/forge.json",
+      "bytes": 34125,
+      "sha256": "158f2a83a705f231cb88699bac26a87cc63c9bb5966062c9f76664ee078a07c7",
+      "storage": "objects/158f2a83a705f231cb88699bac26a87cc63c9bb5966062c9f76664ee078a07c7.gz",
+      "stored_sha256": "5a3ad6435c83ce4f079d9fbb23bb3936accb711abb0153b68255478bd3fdff00",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/forge.log",
+      "bytes": 20301,
+      "sha256": "a012d8f296fa29ee4d196cce8dc141905b2c6fdf47a0c18c2b12e6466ac80fd4",
+      "storage": "objects/a012d8f296fa29ee4d196cce8dc141905b2c6fdf47a0c18c2b12e6466ac80fd4.gz",
+      "stored_sha256": "fcc3f91bd4326df57f9fc23455fe17c35328a653d7cb84fae5ca55f7f3530926",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/native-fixture.json",
+      "bytes": 5212610,
+      "sha256": "8f62fd26e771344527639eb618ab80913acb0dd56c9e9b7cff8836e5a9ecb365",
+      "storage": "objects/8f62fd26e771344527639eb618ab80913acb0dd56c9e9b7cff8836e5a9ecb365.gz",
+      "stored_sha256": "38e49b15878eb9cd44e0f36176d0560c8ae09a9b7830de3e8034495c9ea95853",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/native.json",
+      "bytes": 19370832,
+      "sha256": "8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c",
+      "storage": "objects/8e3d07fcf614fb557f3a1702f007e85d8de6005ba1f90dfdb8f7685cfa049a8c.gz",
+      "stored_sha256": "117d76b5b70aa3868965d63914a088d226bb88bbf96589129c70ffa915ac6aa2",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/native.log",
+      "bytes": 347,
+      "sha256": "fff9fb44117ab8e18a4485fdc7c1f928bc4fdac5e4d04c9892bc7d6f9a28b15e",
+      "storage": "objects/fff9fb44117ab8e18a4485fdc7c1f928bc4fdac5e4d04c9892bc7d6f9a28b15e.gz",
+      "stored_sha256": "01c79851b5b724c1b121e5178e983af7c2e0357903e72e3de5a8119e0a10ef48",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/receipt.json",
+      "bytes": 15250,
+      "sha256": "ca534d16091206f0fac3456bc121746861c3b32470bc86f3c152ebec183e1b3e",
+      "storage": "objects/ca534d16091206f0fac3456bc121746861c3b32470bc86f3c152ebec183e1b3e.gz",
+      "stored_sha256": "b82e45d8f7f65a98e8bfe9ebbe68ec82590861d1b739872e739a3755a43092fd",
+      "encoding": "gzip"
+    },
+    {
+      "path": "combat-live-integrated/test-report.xml",
+      "bytes": 30215,
+      "sha256": "ee8184485bb74a050106eba46495bdbba83b74ed8d00bd5202e55ffeef9c3320",
+      "storage": "objects/ee8184485bb74a050106eba46495bdbba83b74ed8d00bd5202e55ffeef9c3320.gz",
+      "stored_sha256": "ec2cce5235985b10de96e0c54d5def3ae64771119fdbfebc04dac787fac6c402",
+      "encoding": "gzip"
+    },
+    {
       "path": "combat-native-draft.json",
       "bytes": 5212609,
       "sha256": "a58a51a06b3f1024257e178d65bd96850c3786adff93fe5a280daa5fce68d9c6",
@@ -763,11 +923,19 @@
       "encoding": "gzip"
     },
     {
+      "path": "combat-pilot-integrated.log",
+      "bytes": 125,
+      "sha256": "616d39ef3a2f075cda41220f1a978bc06104888640ea74ed2e76e4e3ab5f965c",
+      "storage": "objects/616d39ef3a2f075cda41220f1a978bc06104888640ea74ed2e76e4e3ab5f965c.gz",
+      "stored_sha256": "f7819556f16fb8994d25155b47d91cf4681ba560646138f50baae48f2865dd0a",
+      "encoding": "gzip"
+    },
+    {
       "path": "combat-validation.json",
-      "bytes": 2502,
-      "sha256": "939b690369b42fa41479337c78c3b83afc08bbccbea4774740a70c7ed83af484",
-      "storage": "objects/939b690369b42fa41479337c78c3b83afc08bbccbea4774740a70c7ed83af484.gz",
-      "stored_sha256": "0bdc9f0eb11232dca174814eeab26243f9ed8a119800d20694b85024ba0b824a",
+      "bytes": 12057,
+      "sha256": "a04aa51e6882be6371408aa2a779b1b2802c6d05975e17436e6419b3f82b9679",
+      "storage": "objects/a04aa51e6882be6371408aa2a779b1b2802c6d05975e17436e6419b3f82b9679.gz",
+      "stored_sha256": "aad8c028c544c7739436650bab1fbd24d3f93973f79b987f2a40704b6eb71496",
       "encoding": "gzip"
     }
   ]

@@ -29,6 +29,12 @@
       "receipt": "execution/combat-cross-final.json"
     },
     {
+      "attempt": "combat-cross-integrated",
+      "status": "native-xmage-agreed",
+      "error": null,
+      "receipt": "execution/combat-cross-integrated.json"
+    },
+    {
       "attempt": "combat-live-1",
       "status": "failed",
       "error": "command exited 1; log: /home/agent/.local/share/mtg-lab-symphony/workspaces/GH-328/.agent-artifacts/combat-live-1/forge.log",
@@ -63,6 +69,12 @@
       "status": "full-game-agreed",
       "error": null,
       "receipt": "execution/combat-live-final.json"
+    },
+    {
+      "attempt": "combat-live-integrated",
+      "status": "full-game-agreed",
+      "error": null,
+      "receipt": "execution/combat-live-integrated.json"
     },
     {
       "attempt": "combat-negative-combat-allocation",

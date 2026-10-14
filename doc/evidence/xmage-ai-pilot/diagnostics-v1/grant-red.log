@@ -1,0 +1,17 @@
+Symphony resource lock: waiting for heavy (0s elapsed)
+Symphony resource lock: waiting for heavy (30s elapsed)
+Symphony resource lock: waiting for heavy (60s elapsed)
+Symphony resource lock: acquired heavy after waiting
+F
+======================================================================
+FAIL: test_departed_pyromancer_has_no_active_haste_grant (test_xmage_ai_pilot.CapturedGrantLifetime.test_departed_pyromancer_has_no_active_haste_grant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-321/tests/test_xmage_ai_pilot.py", line 83, in test_departed_pyromancer_has_no_active_haste_grant
+    self.assertTrue(all(grant['object'] is not None
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 1 test in 2.511s
+
+FAILED (failures=1)

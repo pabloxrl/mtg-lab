@@ -48,6 +48,8 @@ public final class AuthoredCleanup {
                                 assertEquals(first.getCardsIn(ZoneType.Graveyard).size(), 2);
                                 for (Card card : discarded)
                                     assertTrue(first.getCardsIn(ZoneType.Graveyard).contains(card));
+                                assertEquals(new ArrayList<>(first.getCardsIn(ZoneType.Graveyard)), discarded,
+                                    "CR 404.3: chosen discard order reaches the ordered graveyard");
                                 throw new Done();
                             }
                             return null;
@@ -65,7 +67,9 @@ public final class AuthoredCleanup {
                             expectThrows(IllegalArgumentException.class,
                                 () -> MtgCastingReplay.cleanupDiscards(player,count,
                                     Arrays.asList(one,player.getCardsIn(ZoneType.Library).get(0))));
-                            discarded.add(one); discarded.add(two);
+                            // Reverse hand order deliberately: physical copies must not
+                            // be sorted back into their original hand positions.
+                            discarded.add(two); discarded.add(one);
                             return MtgCastingReplay.cleanupDiscards(player,count,discarded);
                         }
                         default: throw new AssertionError("unscripted cleanup choice: " + call.getMethod().getName());

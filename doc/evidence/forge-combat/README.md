@@ -50,7 +50,7 @@ frozen card text/CR, never from native output.
 | Trample/deathtouch/vigilance | CR 702.19/702.2/702.20. Actual Pathwarden/Thornweald combats retain each allocation, simultaneous marks, deaths and tapping. Trample to a player requires lethal on each blocker. |
 | Flying/reach/haste gaps | CR 702.9/702.17/702.10. An explicitly synthetic Forge case rejects Bear Cub blocking Shivan, permits each printed reach creature, rejects a newly entered Pathwarden attacking, then pays Cavalry's tap cost and resolves its printed targeted haste activation before accepting the attack. |
 | Simultaneous SBA and tokens | CR 704/111.6/404.3. All observed simultaneous damage and ordered persistent deaths are compared. Tokens participate in the move event and disappear; they occupy no persistent graveyard position. |
-| Cleanup | CR 514.2. All 28 source cleanups have zero marked damage and expired temporary boosts. A synthetic nine-card hand separately exercises CR 514.1: exactly two distinct current hand cards are discarded and seven remain next turn; duplicate, short and out-of-hand selections fail. |
+| Cleanup | CR 514.2. All 28 source cleanups have zero marked damage and expired temporary boosts. A synthetic nine-card hand separately exercises CR 514.1/404.3: exactly two distinct current hand cards are discarded in the chosen order (reversing hand order), and seven remain next turn; duplicate, short and out-of-hand selections fail. |
 | Terminal reason | CR 704.5a. Red's recorded life is nonpositive and its loss is life loss, not an empty draw, concession or timeout. |
 
 The existing native/XMage modern multiple-blocker, haste, flying/reach, cleanup,
@@ -97,18 +97,30 @@ the final round. A new behavioral regression first reproduced the rejection and
 also requires a reversed final bottom order to fail. No existing observation or
 regression was removed; this requirement correction is included in independent
 review.
+The concurrent protected pilot delivery in PR #350 supplied an equivalent
+final-round correction. Integration retains its observer implementation unchanged
+and keeps this Forge-source regression as additional independent coverage.
 
 ## Executed acceptance and retained attempts
 
-The [final Forge/native receipt](execution/combat-live-final.json) reports
+The [final Forge/native receipt](execution/combat-live-integrated.json) reports
 `full-game-agreed`, including the four retained APNAP cases and the new authored
-combat and cleanup cases. The [final native/XMage receipt](execution/combat-cross-final.json)
+combat and cleanup cases. The [final native/XMage receipt](execution/combat-cross-integrated.json)
 reports `native-xmage-agreed` for both reference executions at all 610 priority,
 13 damage and 28 cleanup checkpoints. Native executes the fixture twice and
 rejects all four mutations in normal discovery. The
 [execution summary](execution/summary.json) keeps positive and negative results
 distinct; the passing live graveyard-order control is attempt 3, while its first
 two diagnostic-expectation failures remain failed attempts.
+
+The [post-integration receipt](execution/combat-cross-integrated.json) repeats
+native/XMage execution after incorporating protected main `a21b248d6ee2a8be69026a84b0f15b3dbabf6ec6`.
+Its updated native observer and trigger-provenance checks pass. The
+[integrated Forge/native run](execution/combat-live-integrated.json) also checks
+the stronger authored cleanup-order assertion while retaining exact source replay.
+The six Forge tests and all 24 newly delivered pilot tests also pass, including
+fresh twice-native replay of the ten provisional games. Their ownership and
+provisional status remain with the pilot delivery.
 
 Local validation includes all 334 core tests (including the sixteen admission
 games and retained Forge prefixes), and 27 Python opening/casting/ability/combat
