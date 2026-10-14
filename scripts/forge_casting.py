@@ -165,7 +165,7 @@ def install(cache):
     return hashes
 
 
-NEGATIVES = ('target-incarnation', 'payment', 'pass-actor', 'callback-order',
+NEGATIVES = ('duplicate-occurrence', 'missing-chance', 'checkpoint', 'target-incarnation', 'payment', 'pass-actor', 'callback-order',
              'response-order', 'token-power', 'effect-amount', 'mode', 'discard',
              'trigger-source', 'trigger-context', 'trigger-order', 'trigger-order-reversed', 'trigger-target', 'pending-trigger-source',
              'activation-target', 'activation-payment', 'keyword-grant',
@@ -174,6 +174,8 @@ NEGATIVES = ('target-incarnation', 'payment', 'pass-actor', 'callback-order',
 
 def corrupt(converted, fault):
     """Mutate only the validated consumer input; retain original capture bytes."""
+    if fault in ('duplicate-occurrence', 'missing-chance', 'checkpoint'):
+        return opening.corrupt(converted, fault)
     rows = converted['prefix']
     if fault == 'combat-allocation':
         entry = next(r for r in rows if r.get('method') == 'assignCombatDamage')

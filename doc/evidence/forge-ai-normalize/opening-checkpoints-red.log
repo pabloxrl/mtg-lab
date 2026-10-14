@@ -1,0 +1,13 @@
+.....F.
+======================================================================
+FAIL: test_normalized_artifact_retains_every_opening_checkpoint (test_forge_ai_normalize.ForgeNormalizationTests.test_normalized_artifact_retains_every_opening_checkpoint)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/agent/.local/share/mtg-lab-symphony/workspaces/GH-329/tests/test_forge_ai_normalize.py", line 36, in test_normalized_artifact_retains_every_opening_checkpoint
+    self.assertTrue('opening_checkpoints' in self.game,
+AssertionError: False is not true : full normalization must retain intermediate London checkpoints
+
+----------------------------------------------------------------------
+Ran 7 tests in 59.872s
+
+FAILED (failures=1)
