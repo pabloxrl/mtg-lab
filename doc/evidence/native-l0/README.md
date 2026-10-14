@@ -31,7 +31,12 @@ python3 scripts/run_l0.py --runner target/release/mtg \
   --receipt .agent-artifacts/l0-run-1.json
 ```
 
-Receipt paths must be new. This runs every game once cold and again warm in the
+Receipt paths must be new. The launcher enforces a 600-second deadline covering
+both passes; `--timeout-seconds` sets a finite positive alternative. It drains
+stdout and stderr concurrently and kills/reaps the owned process group on expiry,
+retaining a failed receipt. Diagnostic stderr is capped at 1 MiB with explicit byte
+counts/truncation; oversized stdout receipts fail instead of certifying a run.
+This runs every game once cold and again warm in the
 **same native process**. The cold clock starts before launching the binary and
 ends upon receiving its first complete corpus receipt, including executable hash,
 manifest/artifact loading, integrity, native execution and exact comparison. The
@@ -97,7 +102,7 @@ pins, manifest inventory and availability; each must fail. Native unit coverage
 also mutates ordered identities, incarnation and missing effect fields. The original
 pilot/source comparator and scalar replay regressions remain normal discovery.
 
-Local acceptance on 2026-10-14: all five batch/receipt tests and 52 existing XMage
+Local acceptance on 2026-10-14: all seven batch/receipt tests and 52 existing XMage
 capture/normalization/pilot tests passed, including fresh twice-scalar execution of
 the complete pilot. Strict workspace Clippy, formatting and documentation checks
 passed. No existing tests were removed or weakened.
@@ -116,3 +121,20 @@ CI are delivery gates. Their immutable receipts and final verdict are recorded i
 [the issue workpad](https://github.com/pabloxrl/mtg-lab/issues/322#issuecomment-6172013179)
 and its linked PR. Local acceptance alone does not claim protected delivery or
 complete the broader L0 milestone.
+
+
+The [initial independent review](review-initial.json) found an unbounded launcher
+wait and stderr-pipe deadlock. [Behavioral reproductions](review-red.json) ran the
+original launcher against explicitly synthetic stalled/stderr-flood transport
+probes: both required the outer harness to kill the process group and left empty
+receipts. The deadline/concurrent-drain repair has ordinary-discovery regressions;
+these transport probes never count as gameplay acceptance. The original native
+receipt remains historical evidence; repaired-launcher evidence is recorded below.
+
+The [repaired-launcher receipt](run-v2.json) again passes 10/10 cold and 10/10
+warm, zero failures: 6.085 seconds cold, 4.721 seconds warm, 197,912 KiB peak RSS.
+It additionally pins the launcher SHA-256 and records the 600-second deadline.
+All seven batch/receipt tests pass after repair. The 52 prior source/scalar checks
+remain applicable because this repair changes only the launcher and its tests.
+Both observations remain in history; no speed/regression inference is made from
+these shared-container samples.

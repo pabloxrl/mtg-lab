@@ -1,0 +1,14 @@
+[
+  {
+    "probe": "stalled",
+    "outer_harness_timeout_seconds": 0.5,
+    "receipt_bytes": 0,
+    "result": "intended behavioral failure; process group killed by reproduction harness"
+  },
+  {
+    "probe": "stderr-flood",
+    "outer_harness_timeout_seconds": 0.5,
+    "receipt_bytes": 0,
+    "result": "intended behavioral failure; process group killed by reproduction harness"
+  }
+]

@@ -1,0 +1,300 @@
+{
+  "cold_boundary": "before runner launch through first full-corpus completion receipt (before warm pass)",
+  "cold_elapsed_seconds": 6.085038683988387,
+  "compilation_seconds": null,
+  "corpus_sha256": "bd67e4e952d8660d83377d36da931fa933b30edf32d0ed3635c9e90bc38a032d",
+  "errors": [],
+  "exit_code": 0,
+  "failed": 0,
+  "full_comparable_run": true,
+  "hardware": {
+    "machine": "aarch64",
+    "platform": "Linux-6.8.0-64-generic-aarch64-with-glibc2.39",
+    "processor": "aarch64"
+  },
+  "kind": "native-l0-full-path",
+  "launcher_sha256": "057b0514acc99a669244f36c5cac7bb1f6d13864f50c16736de6459b2a56582c",
+  "native": {
+    "actions": 4886,
+    "artifact_bytes": 111210783,
+    "build_profile": "release",
+    "checkpoints": 4886,
+    "cold_boundary": "in-process only; use scripts/run_l0.py for complete process boundary",
+    "compilation_seconds": null,
+    "complete": true,
+    "concurrency": 1,
+    "corpus_sha256": "bd67e4e952d8660d83377d36da931fa933b30edf32d0ed3635c9e90bc38a032d",
+    "corpus_version": "xmage-pilot-l0-v1",
+    "errors": [],
+    "expected": 10,
+    "failed": 0,
+    "full_comparable_run": false,
+    "games": [
+      {
+        "elapsed_seconds": 0.388581666,
+        "id": "771369974b8b3086aa3641ae086b5e6c7f16b7971427b643bae9f91f3452bc3d",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.40027766,
+        "id": "6e37accc1de3df2aa2271031b08b03e0f37c82c49634b6f73b9f667e8e52917a",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.666495378,
+        "id": "4bbad1e7f3c334bbb198745ce5a0b73440017edf30e00396114b0584d54aa5a1",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.481913905,
+        "id": "d74920c1132ab5fa1b4715d04dc8e24acb15d6ffed789fdfa7f1ed6f4358d5c2",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.435875807,
+        "id": "87fdb81fedcc6905626fe18f5c2554a32ee524a8d6f560e4dc111cb9ea79898d",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.27525106,
+        "id": "dfabc153ac29d54e470fd74521fc46412f17a7b1cde1488d149e2ec21066ad8e",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.882179004,
+        "id": "32098d8f907e827552728af8989266f329ce824bbc95ea7df80ed29cff316784",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.682090031,
+        "id": "6a05e35b4cc3b00d0343bc984c19d273b6e693797d6cfdc60f9b9eadbe40452b",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.902127315,
+        "id": "9f35aa2484fd58a35ab5eb2c0986f21f809d1717788b12ea315c2f029acbfc97",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.568938308,
+        "id": "f096238a0e41b505834ffeb0eab4eaeb5f03c0d9decaaaae07445a41c5ca1005",
+        "passed": true
+      }
+    ],
+    "hardware": {
+      "arch": "aarch64",
+      "available_parallelism": 4,
+      "os": "linux"
+    },
+    "in_process_seconds": 6.084065213,
+    "instrumentation": "exact semantic reports including cleanup and damage quantum checks; excludes recorder and invalid-action diagnostic probes",
+    "kind": "native-l0",
+    "loaded_games_per_second": 1.9611184237033412,
+    "loaded_replay_comparison_seconds": 5.099131128,
+    "p50_game_seconds": 0.481913905,
+    "p95_game_seconds": 0.902127315,
+    "peak_rss_kib": 197824,
+    "runner_sha256": "db3b49be89387d4006eb5e2dc9aa344f9fe2f727741849188e00d55e634c1227",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01); binary: rustc; commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985; commit-date: 2026-09-01; host: aarch64-unknown-linux-gnu; release: 1.98.1; LLVM version: 22.1.8;",
+    "schema_version": 1,
+    "source_sha256": "4fa00b0bbaaeb16595db08c149a6bf6f5f548540cfea439b3b9279bda89f5a9e",
+    "status": "provisional-native-patched-xmage",
+    "successful": 10,
+    "target": "aarch64-unknown-linux-gnu",
+    "unattempted": 0,
+    "warm": {
+      "actions": 4886,
+      "artifact_bytes": 111210783,
+      "boundary": "second full corpus load, integrity, replay and comparison in the same process; no discarded warmup",
+      "build_profile": "release",
+      "checkpoints": 4886,
+      "cold_boundary": "in-process only; use scripts/run_l0.py for complete process boundary",
+      "compilation_seconds": null,
+      "complete": true,
+      "concurrency": 1,
+      "corpus_sha256": "bd67e4e952d8660d83377d36da931fa933b30edf32d0ed3635c9e90bc38a032d",
+      "corpus_version": "xmage-pilot-l0-v1",
+      "elapsed_seconds": 4.720980202,
+      "errors": [],
+      "expected": 10,
+      "failed": 0,
+      "full_comparable_run": false,
+      "games": [
+        {
+          "elapsed_seconds": 0.361263315,
+          "id": "771369974b8b3086aa3641ae086b5e6c7f16b7971427b643bae9f91f3452bc3d",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.350207773,
+          "id": "6e37accc1de3df2aa2271031b08b03e0f37c82c49634b6f73b9f667e8e52917a",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.471376384,
+          "id": "4bbad1e7f3c334bbb198745ce5a0b73440017edf30e00396114b0584d54aa5a1",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.394914973,
+          "id": "d74920c1132ab5fa1b4715d04dc8e24acb15d6ffed789fdfa7f1ed6f4358d5c2",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.264287666,
+          "id": "87fdb81fedcc6905626fe18f5c2554a32ee524a8d6f560e4dc111cb9ea79898d",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.210375449,
+          "id": "dfabc153ac29d54e470fd74521fc46412f17a7b1cde1488d149e2ec21066ad8e",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.751144309,
+          "id": "32098d8f907e827552728af8989266f329ce824bbc95ea7df80ed29cff316784",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.24935245,
+          "id": "6a05e35b4cc3b00d0343bc984c19d273b6e693797d6cfdc60f9b9eadbe40452b",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.706693884,
+          "id": "9f35aa2484fd58a35ab5eb2c0986f21f809d1717788b12ea315c2f029acbfc97",
+          "passed": true
+        },
+        {
+          "elapsed_seconds": 0.549967101,
+          "id": "f096238a0e41b505834ffeb0eab4eaeb5f03c0d9decaaaae07445a41c5ca1005",
+          "passed": true
+        }
+      ],
+      "games_per_second": 2.1182041805139518,
+      "hardware": {
+        "arch": "aarch64",
+        "available_parallelism": 4,
+        "os": "linux"
+      },
+      "instrumentation": "exact semantic reports including cleanup and damage quantum checks; excludes recorder and invalid-action diagnostic probes",
+      "kind": "native-l0",
+      "loaded_games_per_second": 2.598898570672578,
+      "loaded_replay_comparison_seconds": 3.84778387,
+      "p50_game_seconds": 0.361263315,
+      "p95_game_seconds": 0.751144309,
+      "runner_sha256": "db3b49be89387d4006eb5e2dc9aa344f9fe2f727741849188e00d55e634c1227",
+      "rustc": "rustc 1.98.1 (48a229cea 2026-09-01); binary: rustc; commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985; commit-date: 2026-09-01; host: aarch64-unknown-linux-gnu; release: 1.98.1; LLVM version: 22.1.8;",
+      "schema_version": 1,
+      "source_sha256": "4fa00b0bbaaeb16595db08c149a6bf6f5f548540cfea439b3b9279bda89f5a9e",
+      "status": "provisional-native-patched-xmage",
+      "successful": 10,
+      "target": "aarch64-unknown-linux-gnu",
+      "unattempted": 0,
+      "warmup_policy": "none; loaded replay throughput excludes artifact load and parsing, not engine warmup"
+    },
+    "warmup_policy": "none; loaded replay throughput excludes artifact load and parsing, not engine warmup"
+  },
+  "peak_rss_kib": 197912,
+  "resource_scope": "child process high water; Linux KiB; launcher invokes one runner",
+  "runner_exit_code": 0,
+  "runner_sha256": "db3b49be89387d4006eb5e2dc9aa344f9fe2f727741849188e00d55e634c1227",
+  "schema_version": 1,
+  "stderr": "",
+  "stderr_bytes": 0,
+  "stderr_truncated": false,
+  "successful": 10,
+  "timeout_seconds": 600.0,
+  "total_invocation_seconds": 10.817462200997397,
+  "warm_throughput": {
+    "actions": 4886,
+    "artifact_bytes": 111210783,
+    "boundary": "second full corpus load, integrity, replay and comparison in the same process; no discarded warmup",
+    "build_profile": "release",
+    "checkpoints": 4886,
+    "cold_boundary": "in-process only; use scripts/run_l0.py for complete process boundary",
+    "compilation_seconds": null,
+    "complete": true,
+    "concurrency": 1,
+    "corpus_sha256": "bd67e4e952d8660d83377d36da931fa933b30edf32d0ed3635c9e90bc38a032d",
+    "corpus_version": "xmage-pilot-l0-v1",
+    "elapsed_seconds": 4.720980202,
+    "errors": [],
+    "expected": 10,
+    "failed": 0,
+    "full_comparable_run": false,
+    "games": [
+      {
+        "elapsed_seconds": 0.361263315,
+        "id": "771369974b8b3086aa3641ae086b5e6c7f16b7971427b643bae9f91f3452bc3d",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.350207773,
+        "id": "6e37accc1de3df2aa2271031b08b03e0f37c82c49634b6f73b9f667e8e52917a",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.471376384,
+        "id": "4bbad1e7f3c334bbb198745ce5a0b73440017edf30e00396114b0584d54aa5a1",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.394914973,
+        "id": "d74920c1132ab5fa1b4715d04dc8e24acb15d6ffed789fdfa7f1ed6f4358d5c2",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.264287666,
+        "id": "87fdb81fedcc6905626fe18f5c2554a32ee524a8d6f560e4dc111cb9ea79898d",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.210375449,
+        "id": "dfabc153ac29d54e470fd74521fc46412f17a7b1cde1488d149e2ec21066ad8e",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.751144309,
+        "id": "32098d8f907e827552728af8989266f329ce824bbc95ea7df80ed29cff316784",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.24935245,
+        "id": "6a05e35b4cc3b00d0343bc984c19d273b6e693797d6cfdc60f9b9eadbe40452b",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.706693884,
+        "id": "9f35aa2484fd58a35ab5eb2c0986f21f809d1717788b12ea315c2f029acbfc97",
+        "passed": true
+      },
+      {
+        "elapsed_seconds": 0.549967101,
+        "id": "f096238a0e41b505834ffeb0eab4eaeb5f03c0d9decaaaae07445a41c5ca1005",
+        "passed": true
+      }
+    ],
+    "games_per_second": 2.1182041805139518,
+    "hardware": {
+      "arch": "aarch64",
+      "available_parallelism": 4,
+      "os": "linux"
+    },
+    "instrumentation": "exact semantic reports including cleanup and damage quantum checks; excludes recorder and invalid-action diagnostic probes",
+    "kind": "native-l0",
+    "loaded_games_per_second": 2.598898570672578,
+    "loaded_replay_comparison_seconds": 3.84778387,
+    "p50_game_seconds": 0.361263315,
+    "p95_game_seconds": 0.751144309,
+    "runner_sha256": "db3b49be89387d4006eb5e2dc9aa344f9fe2f727741849188e00d55e634c1227",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01); binary: rustc; commit-hash: 48a229ceaefd4985c50990b14116b6d856af0985; commit-date: 2026-09-01; host: aarch64-unknown-linux-gnu; release: 1.98.1; LLVM version: 22.1.8;",
+    "schema_version": 1,
+    "source_sha256": "4fa00b0bbaaeb16595db08c149a6bf6f5f548540cfea439b3b9279bda89f5a9e",
+    "status": "provisional-native-patched-xmage",
+    "successful": 10,
+    "target": "aarch64-unknown-linux-gnu",
+    "unattempted": 0,
+    "warmup_policy": "none; loaded replay throughput excludes artifact load and parsing, not engine warmup"
+  }
+}

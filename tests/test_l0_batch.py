@@ -134,3 +134,32 @@ class ReceiptBoundary(unittest.TestCase):
             altered=copy.deepcopy(native);edit(altered)
             self.assertFalse(run_l0.comparable(altered, 1.0, 'a'*64))
         self.assertFalse(run_l0.comparable(native, float('nan'), 'a'*64))
+
+    def launcher_probe(self, body, timeout):
+        """Transport fault probes cannot serve as game replay acceptance."""
+        import run_l0
+        with tempfile.TemporaryDirectory() as folder:
+            runner = Path(folder) / 'probe'
+            runner.write_text('#!' + sys.executable + '\n' + body)
+            runner.chmod(0o700)
+            output = Path(folder) / 'receipt.json'
+            code = run_l0.run(runner, Path(folder) / 'unused', '0'*64, output, timeout)
+            return code, json.loads(output.read_text())
+
+    def test_stalled_child_is_reaped_and_failure_receipt_is_written(self):
+        code, receipt = self.launcher_probe('import time\ntime.sleep(60)\n', 0.1)
+        self.assertEqual(code, 1)
+        self.assertFalse(receipt['full_comparable_run'])
+        self.assertIn('deadline', receipt['errors'][0])
+        self.assertLess(receipt['total_invocation_seconds'], 5)
+        self.assertLess(receipt['runner_exit_code'], 0)
+
+    def test_stderr_flood_is_drained_without_waiting_for_cold_marker(self):
+        code, receipt = self.launcher_probe(
+            'import os\nos.write(2, b"x" * (2 * 1024 * 1024))\nprint("invalid receipt")\n', 5)
+        self.assertEqual(code, 1)
+        self.assertFalse(receipt['full_comparable_run'])
+        self.assertEqual(receipt['stderr_bytes'], 2 * 1024 * 1024)
+        self.assertTrue(receipt['stderr_truncated'])
+        self.assertNotIn('deadline', receipt['errors'][0])
+        self.assertEqual(receipt['runner_exit_code'], 0)

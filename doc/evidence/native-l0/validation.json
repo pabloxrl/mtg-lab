@@ -1,7 +1,7 @@
 {
   "base": "a21b248d6ee2a8be69026a84b0f15b3dbabf6ec6",
   "tests": {
-    "batch_and_receipt": 5,
+    "batch_and_receipt": 7,
     "existing_xmage": 52,
     "native_comparator": 1
   },
@@ -11,8 +11,11 @@
   "documentation_links": "passed",
   "logs": {
     ".agent-artifacts/l0/validation-v3.log": "7a2a37e7df3ba433957c2f175e15e7f8931aba9a43534faeaa77461cac98de36",
-    ".agent-artifacts/l0/final-validation.log": "27e6535c48a468f28a2469702c975764c1b02e12f02f8014f3db5543930c3729"
+    ".agent-artifacts/l0/final-validation.log": "27e6535c48a468f28a2469702c975764c1b02e12f02f8014f3db5543930c3729",
+    ".agent-artifacts/l0/review-validation.log": "df6f7e0e1ebd0bf630bd0bacaca005f95a909d15149a786caa1d85e6eb8ed021"
   },
   "complete_run_sha256": "88be9d01798b61404947c248f89b212d13adb7d7da30499b14afe9abfcfb97ab",
-  "scope": "focused local acceptance; mandatory PR and exact-main CI remain separate delivery gates"
+  "scope": "focused local acceptance; mandatory PR and exact-main CI remain separate delivery gates",
+  "review_repair": "deadline and concurrent stream draining; original core/scalar validation reused unchanged",
+  "repaired_run_sha256": "18a770ed2d7b7d9aae9e03eb083b6324e8818f011d7b329db6955273ed87d8b0"
 }
