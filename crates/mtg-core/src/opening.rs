@@ -839,14 +839,12 @@ impl Game {
     }
 }
 
-/// Privileged test-only normal-reset instrumentation. No player input uses this.
-#[cfg(test)]
+/// Privileged offline-replay normal-reset instrumentation. No player input uses this.
 pub(super) trait ResetChance {
     fn created(&mut self, objects: &ObjectStore, seat: Seat, index: usize, handle: Handle);
     fn shuffle(&mut self, objects: &mut ObjectStore, seat: Seat);
 }
 
-#[cfg(test)]
 impl Game {
     /// Occurrence-aware reset version 1: bind at creation, supply chance only,
     /// then use the same opening draw and declaration routines as normal reset.

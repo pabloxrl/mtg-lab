@@ -1,6 +1,7 @@
 mod benchmark;
 mod capture;
 mod commands;
+mod l0;
 mod latency;
 mod native;
 #[cfg(test)]
@@ -27,6 +28,9 @@ fn execute() -> Result<i32, (i32, String)> {
             .map_err(|e| (3, e.to_string()))?;
     }
     let args: Vec<_> = std::env::args_os().skip(1).collect();
+    if args.first().is_some_and(|a| a == "l0") {
+        return Ok(l0::execute(&args));
+    }
     if args.first().is_none_or(|a| a != "simulate") {
         return commands::execute(&args, &signal);
     }

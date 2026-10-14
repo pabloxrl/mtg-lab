@@ -233,6 +233,11 @@ mod m2_mutation_tests;
 #[path = "m2_combat_tests.rs"]
 mod m2_combat_tests;
 
-#[cfg(test)]
 #[path = "full_pool_reference_tests.rs"]
+#[allow(dead_code)]
 mod full_pool_reference_tests;
+
+/// Privileged offline replay; never a player observation interface.
+pub fn replay_admission(document: &serde_json::Value) -> Result<serde_json::Value, String> {
+    full_pool_reference_tests::replay_admission(document)
+}

@@ -24,7 +24,9 @@ The immediate priority is the [reference-AI/L0 program](doc/programs/reference-a
 capture real games first, then replay the entire incrementally admitted corpus
 after every change using a prebuilt native runner. A curated deep subset adds
 costly diagnostics/live references. This is a registered plan, not a delivered
-1,000-game corpus, available L0 command or measured speed claim. Existing sixteen
+1,000-game corpus or measured speed claim. The [native L0 runner](doc/evidence/native-l0/README.md)
+packages and replays the ten provisional games offline with exact checks and
+separate cold/warm receipts. Existing sixteen
 native/authored games remain regressions and do not count toward AI quotas.
 The [XMage raw-capture command](doc/evidence/xmage-ai-capture/README.md) runs
 ComputerPlayer7 for both frozen decks from normal reset, recording actual choices,
